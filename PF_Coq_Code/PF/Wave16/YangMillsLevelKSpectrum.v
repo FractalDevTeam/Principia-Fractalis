@@ -256,47 +256,75 @@ Proof. lra. Qed.
 
     Coq parity for `fractalYMLevel2_structural_certificate`
     (Lean Wave 15). *)
-Theorem fractalYMLevel2_structural_certificate :
+(** REPAIRED 2026-10-06. Was `Admitted.`, which registered this conjunction
+    as an axiom over opaque Parameters. The two named Props are now explicit
+    hypotheses -- making a hidden assumption visible rather than asserting it --
+    and the arithmetic conjunct is proved. *)
+Theorem levelK_frobenius_bound_at (k : nat) :
+  levelK_frobenius_lower k <= 4.
+Proof.
+  unfold levelK_frobenius_lower.
+  exact (levelK_frobenius_lower_from_trace_YM k).
+Qed.
+
+Theorem fractalYMLevel2_structural_certificate
+    (h_trace : fractalYMLevel2TraceEqTwo)
+    (h_frob  : fractalYMLevel2FrobeniusSqLeFour) :
   fractalYMLevel2TraceEqTwo /\
   fractalYMLevel2FrobeniusSqLeFour /\
   1 <= 4.
 Proof.
-Admitted.
+  split; [ exact h_trace | split; [ exact h_frob | lra ] ].
+Qed.
 
 (** ★ Level-3 structural certificate ★
 
     Coq parity for `fractalYMLevel3_structural_certificate`
     (Lean Wave 16). *)
-Theorem fractalYMLevel3_structural_certificate :
+Theorem fractalYMLevel3_structural_certificate
+    (h_trace : fractalYMLevel3TraceEqTwo)
+    (h_frob  : fractalYMLevel3FrobeniusSqLeFour) :
   fractalYMLevel3TraceEqTwo /\
   fractalYMLevel3FrobeniusSqLeFour /\
   levelK_frobenius_lower 3 <= 4.
 Proof.
-Admitted.
+  split; [ exact h_trace
+         | split; [ exact h_frob | exact (levelK_frobenius_bound_at 3) ] ].
+Qed.
 
 (** ★ Level-4 structural certificate ★
 
     Coq parity for `fractalYMLevel4_structural_certificate`
     (Lean Wave 17). *)
-Theorem fractalYMLevel4_structural_certificate :
+Theorem fractalYMLevel4_structural_certificate
+    (h_trace  : fractalYMLevel4TraceEqTwo)
+    (h_frob   : fractalYMLevel4FrobeniusSqLeFour)
+    (h_brack  : fractalYMLevel4EigenvalueBracket) :
   fractalYMLevel4TraceEqTwo /\
   fractalYMLevel4FrobeniusSqLeFour /\
   fractalYMLevel4EigenvalueBracket /\
   levelK_frobenius_lower 4 <= 4.
 Proof.
-Admitted.
+  split; [ exact h_trace | split; [ exact h_frob
+         | split; [ exact h_brack | exact (levelK_frobenius_bound_at 4) ] ] ].
+Qed.
 
 (** ★ Level-5 structural certificate ★
 
     Coq parity for `fractalYMLevel5_structural_certificate`
     (Lean Wave 18). *)
-Theorem fractalYMLevel5_structural_certificate :
+Theorem fractalYMLevel5_structural_certificate
+    (h_trace  : fractalYMLevel5TraceEqTwo)
+    (h_frob   : fractalYMLevel5FrobeniusSqLeFour)
+    (h_brack  : fractalYMLevel5EigenvalueBracket) :
   fractalYMLevel5TraceEqTwo /\
   fractalYMLevel5FrobeniusSqLeFour /\
   fractalYMLevel5EigenvalueBracket /\
   levelK_frobenius_lower 5 <= 4.
 Proof.
-Admitted.
+  split; [ exact h_trace | split; [ exact h_frob
+         | split; [ exact h_brack | exact (levelK_frobenius_bound_at 5) ] ] ].
+Qed.
 
 (* ============================================================ *)
 (* Section 7: Unified capstone — Levels 1-5                     *)
@@ -313,7 +341,15 @@ Admitted.
     construction is deferred to a future MatrixEntry-style Coq port.
     The CONTINUUM LIMIT (k -> infinity) is the genuine open
     Perelman-template content (Y1)-(Y4). *)
-Theorem fractalYM_levels_1_to_5_unified :
+(** REPAIRED 2026-10-06. Was closed by four `admit`s and `Admitted.`, which
+    asserted the entire fifteen-conjunct bundle as an axiom. The four opaque
+    level-2..5 trace Props are now explicit hypotheses; the other ELEVEN
+    conjuncts are genuinely proved from named theorems in this file. *)
+Theorem fractalYM_levels_1_to_5_unified
+    (h2 : fractalYMLevel2TraceEqTwo)
+    (h3 : fractalYMLevel3TraceEqTwo)
+    (h4 : fractalYMLevel4TraceEqTwo)
+    (h5 : fractalYMLevel5TraceEqTwo) :
   (* (a) Level 1 EXACT spectrum. *)
   lambdaPlusLevel1_YM + lambdaMinusLevel1_YM = 2 /\
   lambdaPlusLevel1_YM - lambdaMinusLevel1_YM = 1 /\
@@ -332,11 +368,11 @@ Theorem fractalYM_levels_1_to_5_unified :
 Proof.
   split; [exact fractalYMLevel1Trace |].
   split; [exact fractalYMLevel1Gap |].
-  (* Level 2-5 trace-invariance Props are Admitted-via-Parameter *)
-  split; [admit |].
-  split; [admit |].
-  split; [admit |].
-  split; [admit |].
+  (* Level 2-5 trace-invariance Props: now named hypotheses, not axioms. *)
+  split; [exact h2 |].
+  split; [exact h3 |].
+  split; [exact h4 |].
+  split; [exact h5 |].
   split; [exact levelK_spectral_gap_decay_rate |].
   split; [exact levelK_frobenius_lower_pos |].
   split; [exact trace_doubling_refuted_at_level_1 |].
@@ -344,7 +380,7 @@ Proof.
   split; [exact trace_doubling_refuted_level_3 |].
   split; [exact trace_doubling_refuted_level_4 |].
   exact trace_doubling_refuted_level_5.
-Admitted.
+Qed.
 
 (* ============================================================ *)
 (* Section 8: Honest scope                                      *)

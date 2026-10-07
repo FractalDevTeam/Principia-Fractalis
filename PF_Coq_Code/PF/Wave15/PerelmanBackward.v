@@ -180,11 +180,40 @@ Proof. exact I. Qed.
     This requires the closed-form tsum value `α · 3`; pending Coq
     port of the geometric tsum infrastructure. Recorded as a
     framework-conditional theorem. *)
+(** REPAIRED 2026-10-06 -- PROVED, no hypothesis added, statement unchanged.
+
+    `W_alpha` is a concrete Fixpoint summing `W_alpha_level alpha n =
+    alpha * cascade_ratio ^ n` over `n < N`, and `cascade_ratio =
+    Z_cascade / S_cascade = 2/3`. So this is the geometric partial-sum
+    bound, and it follows from the exact invariant below. The earlier
+    docstring said the closed-form tsum infrastructure was needed; it is
+    not -- the finite partial sum suffices. *)
+Lemma cascade_ratio_val : cascade_ratio = 2/3.
+Proof. unfold cascade_ratio, Z_cascade, S_cascade. lra. Qed.
+
+(** Exact geometric-series invariant: the partial sum plus the remaining
+    tail mass is the total `3 * alpha`. *)
+Lemma W_alpha_invariant (alpha : R) (N : nat) :
+  W_alpha alpha N + 3 * alpha * cascade_ratio ^ N = 3 * alpha.
+Proof.
+  induction N as [| k IH].
+  - simpl. lra.
+  - rewrite W_alpha_succ. unfold W_alpha_level.
+    change (cascade_ratio ^ S k) with (cascade_ratio * cascade_ratio ^ k).
+    rewrite cascade_ratio_val in *.
+    nra.
+Qed.
+
 Theorem W_alpha_bounded :
   forall (alpha : R), 0 <= alpha ->
     forall N : nat, W_alpha alpha N <= alpha * 3.
 Proof.
-Admitted.
+  intros alpha Halpha N.
+  pose proof (W_alpha_invariant alpha N) as Hinv.
+  assert (Hpow : 0 <= cascade_ratio ^ N).
+  { apply pow_le. exact cascade_ratio_nonneg. }
+  nra.
+Qed.
 
 (** ★ W_alpha convergence to `α · 3`. Pending Coq Tendsto/tsum
     infrastructure. Parity-tracked stub. *)
