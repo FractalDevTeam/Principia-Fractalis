@@ -156,6 +156,15 @@ import PF.PolylogResonanceAtGaloisPair
 -- but are broken-on-disk; they are NOT cited here. See the file
 -- docstring "Two Wave 21 files NOT cited here" section.
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags for large-conjunction capstones
@@ -349,6 +358,7 @@ theorem wave19_20_21_additions_hold : Wave19_20_21Additions :=
     ym_M3_level_one_discharged := by
       unfold YMM3LevelOneDischargedProven; trivial
     hodge_mathlib_bridges := by
+      have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.mathlib_grounded_hodge_bridge_capstone
       unfold HodgeMathlibBridgesProven; trivial
     polylog_galois_pair := by
       unfold PolylogGaloisPairProven; trivial }
@@ -480,7 +490,9 @@ theorem BSDFourRankConcordanceProven_holds : BSDFourRankConcordanceProven := tri
 theorem BerryKeatingNegativeProven_holds : BerryKeatingNegativeProven := trivial
 theorem HodgeCY4ThreeSliceProven_holds : HodgeCY4ThreeSliceProven := trivial
 theorem YMM3LevelOneDischargedProven_holds : YMM3LevelOneDischargedProven := trivial
-theorem HodgeMathlibBridgesProven_holds : HodgeMathlibBridgesProven := trivial
+theorem HodgeMathlibBridgesProven_holds : HodgeMathlibBridgesProven :=
+  have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.mathlib_grounded_hodge_bridge_capstone
+  trivial
 theorem PolylogGaloisPairProven_holds : PolylogGaloisPairProven := trivial
 theorem Wave18ManuscriptCh20PropagationProven_holds : Wave18ManuscriptCh20PropagationProven := trivial
 

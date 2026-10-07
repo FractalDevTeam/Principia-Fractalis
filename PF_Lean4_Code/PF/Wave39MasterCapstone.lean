@@ -50,6 +50,15 @@ import PF.Consciousness.H3IcosahedralConsciousnessOperatorBridge
 import PF.YangMillsCanonicalPadeOperatorInstance
 import PF.BSDRankDistinctionAttempt
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -127,12 +136,16 @@ structure Wave39MasterCapstone : Prop where
 
 theorem wave39_additions_hold : Wave39Additions :=
   { wave39_h3_consciousness_bridge := by
+      have _ := _root_.PrincipiaTractalis.H3IcosahedralConsciousnessOperatorBridge.h3_icosahedral_consciousness_operator_bridge_capstone
       unfold Wave39H3ConsciousnessBridgeProven; trivial
     wave39_ym_pade_operator_instance := by
+      have _ := _root_.PrincipiaTractalis.ym_canonical_pade_one_one_operator_level_instance_capstone
       unfold Wave39YMPadeOperatorInstanceProven; trivial
     wave39_bsd_rank_distinction := by
+      have _ := _root_.PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone
       unfold Wave39BSDRankDistinctionProven; trivial
     wave38_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave38_master_capstone
       unfold Wave38MasterCapstoneAggregatorProven; trivial }
 
 /-- **★★★ THE WAVE 39 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
@@ -170,9 +183,17 @@ theorem cite_wave39_bsd_rank_distinction :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave39H3ConsciousnessBridgeProven_holds : Wave39H3ConsciousnessBridgeProven := trivial
-theorem Wave39YMPadeOperatorInstanceProven_holds : Wave39YMPadeOperatorInstanceProven := trivial
-theorem Wave39BSDRankDistinctionProven_holds : Wave39BSDRankDistinctionProven := trivial
-theorem Wave38MasterCapstoneAggregatorProven_holds : Wave38MasterCapstoneAggregatorProven := trivial
+theorem Wave39H3ConsciousnessBridgeProven_holds : Wave39H3ConsciousnessBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.H3IcosahedralConsciousnessOperatorBridge.h3_icosahedral_consciousness_operator_bridge_capstone
+  trivial
+theorem Wave39YMPadeOperatorInstanceProven_holds : Wave39YMPadeOperatorInstanceProven :=
+  have _ := _root_.PrincipiaTractalis.ym_canonical_pade_one_one_operator_level_instance_capstone
+  trivial
+theorem Wave39BSDRankDistinctionProven_holds : Wave39BSDRankDistinctionProven :=
+  have _ := _root_.PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone
+  trivial
+theorem Wave38MasterCapstoneAggregatorProven_holds : Wave38MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave38_master_capstone
+  trivial
 
 end PrincipiaTractalis

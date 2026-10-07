@@ -69,6 +69,15 @@ name so deletion would break compilation.
 import PF.Wave33MasterCapstone
 import PF.NS3DUniformHadamardDischargeAttempt
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -143,6 +152,7 @@ theorem wave34_additions_hold : Wave34Additions :=
     unconditional_galerkin_shadow_K_T := by
       unfold UnconditionalGalerkinShadowKTProven; trivial
     wave33_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave33_master_capstone
       unfold Wave33MasterCapstoneAggregatorProven; trivial }
 
 /-- **★★★ THE WAVE 34 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
@@ -198,6 +208,8 @@ theorem cite_unconditional_galerkin_shadow_K_T :
 
 theorem UniformHadamardBoundAllNDischargedProven_holds : UniformHadamardBoundAllNDischargedProven := trivial
 theorem UnconditionalGalerkinShadowKTProven_holds : UnconditionalGalerkinShadowKTProven := trivial
-theorem Wave33MasterCapstoneAggregatorProven_holds : Wave33MasterCapstoneAggregatorProven := trivial
+theorem Wave33MasterCapstoneAggregatorProven_holds : Wave33MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave33_master_capstone
+  trivial
 
 end PrincipiaTractalis

@@ -72,6 +72,15 @@ import PF.Wave32MasterCapstone
 import PF.NS3DGlobalKTAttempt
 import PF.AlgebraicGeometry.CycleClassMapAtCodim2Attempt
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -153,6 +162,7 @@ theorem wave33_additions_hold : Wave33Additions :=
     hodge_codim_two_cycle_class_partial := by
       unfold HodgeCodimTwoCycleClassPartialProven; trivial
     wave32_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave32_master_capstone
       unfold Wave32MasterCapstoneAggregatorProven; trivial }
 
 /-- **★★★ THE WAVE 33 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
@@ -206,6 +216,8 @@ theorem cite_hodge_codim_two_cycle_class_partial :
 
 theorem NS3DGlobalKTPartialProven_holds : NS3DGlobalKTPartialProven := trivial
 theorem HodgeCodimTwoCycleClassPartialProven_holds : HodgeCodimTwoCycleClassPartialProven := trivial
-theorem Wave32MasterCapstoneAggregatorProven_holds : Wave32MasterCapstoneAggregatorProven := trivial
+theorem Wave32MasterCapstoneAggregatorProven_holds : Wave32MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave32_master_capstone
+  trivial
 
 end PrincipiaTractalis

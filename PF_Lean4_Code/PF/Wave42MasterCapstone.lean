@@ -41,6 +41,15 @@ import PF.Wave41MasterCapstone
 import PF.GaloisOrbitMillenniumDiscriminator
 import PF.StieltjesHodgeCodim2SpectralBridge
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -104,10 +113,13 @@ structure Wave42MasterCapstone : Prop where
 
 theorem wave42_additions_hold : Wave42Additions :=
   { wave42_galois_orbit_millennium_discriminator := by
+      have _ := _root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_orbit_millennium_discriminator_capstone
       unfold Wave42GaloisOrbitMillenniumDiscriminatorProven; trivial
     wave42_stieltjes_hodge_codim_2_spectral_bridge := by
+      have _ := _root_.PrincipiaTractalis.stieltjes_hodge_codim_2_spectral_bridge_capstone
       unfold Wave42StieltjesHodgeCodim2SpectralBridgeProven; trivial
     wave41_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave41_master_capstone
       unfold Wave41MasterCapstoneAggregatorProven; trivial }
 
 /-- **★★★ THE WAVE 42 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
@@ -142,8 +154,14 @@ theorem cite_wave42_stieltjes_hodge_codim_2_spectral_bridge :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave42GaloisOrbitMillenniumDiscriminatorProven_holds : Wave42GaloisOrbitMillenniumDiscriminatorProven := trivial
-theorem Wave42StieltjesHodgeCodim2SpectralBridgeProven_holds : Wave42StieltjesHodgeCodim2SpectralBridgeProven := trivial
-theorem Wave41MasterCapstoneAggregatorProven_holds : Wave41MasterCapstoneAggregatorProven := trivial
+theorem Wave42GaloisOrbitMillenniumDiscriminatorProven_holds : Wave42GaloisOrbitMillenniumDiscriminatorProven :=
+  have _ := _root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_orbit_millennium_discriminator_capstone
+  trivial
+theorem Wave42StieltjesHodgeCodim2SpectralBridgeProven_holds : Wave42StieltjesHodgeCodim2SpectralBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.stieltjes_hodge_codim_2_spectral_bridge_capstone
+  trivial
+theorem Wave41MasterCapstoneAggregatorProven_holds : Wave41MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave41_master_capstone
+  trivial
 
 end PrincipiaTractalis

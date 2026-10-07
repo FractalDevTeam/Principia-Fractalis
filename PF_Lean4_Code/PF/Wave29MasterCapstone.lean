@@ -94,6 +94,15 @@ import PF.YangMillsCanonicalPartialFractionKernel
 import PF.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge
 import PF.CrossMillenniumMoreInvariants
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -217,10 +226,13 @@ theorem wave29_additions_hold : Wave29Additions :=
     ym_canonical_partial_fraction_narrow_out := by
       unfold YMCanonicalPartialFractionNarrowedOutProven; trivial
     hodge_mathlib_abelian_3fold_bridge := by
+      have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.mathlib_abelian_3fold_hodge_bridge_capstone
       unfold HodgeMathlibAbelian3FoldBridgeProven; trivial
     cross_millennium_more_invariants := by
+      have _ := _root_.PrincipiaTractalis.CrossMillenniumMoreInvariants.cross_millennium_more_invariants_capstone
       unfold CrossMillenniumMoreInvariantsProven; trivial
     wave28_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave28_master_capstone
       unfold Wave28MasterCapstoneAggregatorProven; trivial }
 
 /-- **★★★ THE WAVE 29 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
@@ -290,8 +302,14 @@ theorem cite_cross_millennium_more_invariants :
 
 theorem YMCanonicalPadeOneOneRealisesProven_holds : YMCanonicalPadeOneOneRealisesProven := trivial
 theorem YMCanonicalPartialFractionNarrowedOutProven_holds : YMCanonicalPartialFractionNarrowedOutProven := trivial
-theorem HodgeMathlibAbelian3FoldBridgeProven_holds : HodgeMathlibAbelian3FoldBridgeProven := trivial
-theorem CrossMillenniumMoreInvariantsProven_holds : CrossMillenniumMoreInvariantsProven := trivial
-theorem Wave28MasterCapstoneAggregatorProven_holds : Wave28MasterCapstoneAggregatorProven := trivial
+theorem HodgeMathlibAbelian3FoldBridgeProven_holds : HodgeMathlibAbelian3FoldBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.mathlib_abelian_3fold_hodge_bridge_capstone
+  trivial
+theorem CrossMillenniumMoreInvariantsProven_holds : CrossMillenniumMoreInvariantsProven :=
+  have _ := _root_.PrincipiaTractalis.CrossMillenniumMoreInvariants.cross_millennium_more_invariants_capstone
+  trivial
+theorem Wave28MasterCapstoneAggregatorProven_holds : Wave28MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave28_master_capstone
+  trivial
 
 end PrincipiaTractalis

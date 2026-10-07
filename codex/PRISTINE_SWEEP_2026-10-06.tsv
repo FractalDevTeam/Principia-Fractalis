@@ -1451,3 +1451,6 @@ PF.YangMillsQuadraticKernelMechanism	PRISTINE		15.7
 PF.YangMillsSpectralConcentrationAttempt	PRISTINE		15.6
 PF.YangMillsUniformConcentrationViaKernelStructure	PRISTINE		21.9
 PF.YangMillsUniformGapViaRepulsion	PRISTINE		13.5
+PF.Analytic.HPPositiveUnconditional	PRISTINE		17.1
+PF.Analytic.PositiveCompleteOracleRefutation	PRISTINE		57.0
+PF.ScreenedKernelAndFieldScale	PRISTINE		11.2

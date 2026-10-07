@@ -91,6 +91,15 @@ import PF.BSD_Wave56RankZeroActualDischargeAttempt
 import PF.PNP_Wave56CrossGaloisLockAttempt
 import PF.Wave56CrossMillenniumMasterCascade
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -135,20 +144,27 @@ structure Wave56MasterCapstone : Prop where
 
 theorem wave56_additions_hold : Wave56Additions :=
   { wave56_rh_direct_discharge := by
+      have _ := _root_.PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.rh_wave56_direct_discharge_attempt_capstone
       unfold Wave56RH_DirectDischargeProven; trivial
     wave56_ns_uniform_bilinear_bound := by
+      have _ := _root_.PrincipiaTractalis.NS_Wave56UniformBilinearBoundAttempt.wave56_uniform_bilinear_bound_capstone
       unfold Wave56NS_UniformBilinearBoundProven; trivial
     wave56_ym_continuum_lift := by
+      have _ := _root_.PrincipiaTractalis.YM_Wave56ContinuumLiftAttempt.ym_wave56_continuum_lift_attempt_capstone
       unfold Wave56YM_ContinuumLiftProven; trivial
     wave56_hodge_cy_threefold := by
       unfold Wave56Hodge_CYThreefoldProven; trivial
     wave56_bsd_rank_zero_actual_discharge := by
+      have _ := _root_.PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.bsd_wave56_rank_zero_actual_discharge_attempt_capstone
       unfold Wave56BSD_RankZeroActualDischargeProven; trivial
     wave56_pnp_cross_galois_lock := by
+      have _ := _root_.PrincipiaTractalis.PNP_Wave56CrossGaloisLockAttempt.pnp_wave56_cross_galois_lock_capstone
       unfold Wave56PNP_CrossGaloisLockProven; trivial
     wave56_cross_millennium_master_cascade := by
+      have _ := _root_.PrincipiaTractalis.Wave56CrossMillenniumMasterCascade.Wave56_cross_millennium_master_meta_cascade_capstone
       unfold Wave56CrossMillenniumMasterCascadeProven; trivial
     wave55_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave55_master_capstone
       unfold Wave55MasterCapstoneAggregatorProven; trivial }
 
 theorem principia_fractalis_wave56_master_capstone :
@@ -164,13 +180,27 @@ theorem wave56_master_capstone_axiom_free : True := trivial
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave56RH_DirectDischargeProven_holds : Wave56RH_DirectDischargeProven := trivial
-theorem Wave56NS_UniformBilinearBoundProven_holds : Wave56NS_UniformBilinearBoundProven := trivial
-theorem Wave56YM_ContinuumLiftProven_holds : Wave56YM_ContinuumLiftProven := trivial
+theorem Wave56RH_DirectDischargeProven_holds : Wave56RH_DirectDischargeProven :=
+  have _ := _root_.PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.rh_wave56_direct_discharge_attempt_capstone
+  trivial
+theorem Wave56NS_UniformBilinearBoundProven_holds : Wave56NS_UniformBilinearBoundProven :=
+  have _ := _root_.PrincipiaTractalis.NS_Wave56UniformBilinearBoundAttempt.wave56_uniform_bilinear_bound_capstone
+  trivial
+theorem Wave56YM_ContinuumLiftProven_holds : Wave56YM_ContinuumLiftProven :=
+  have _ := _root_.PrincipiaTractalis.YM_Wave56ContinuumLiftAttempt.ym_wave56_continuum_lift_attempt_capstone
+  trivial
 theorem Wave56Hodge_CYThreefoldProven_holds : Wave56Hodge_CYThreefoldProven := trivial
-theorem Wave56BSD_RankZeroActualDischargeProven_holds : Wave56BSD_RankZeroActualDischargeProven := trivial
-theorem Wave56PNP_CrossGaloisLockProven_holds : Wave56PNP_CrossGaloisLockProven := trivial
-theorem Wave56CrossMillenniumMasterCascadeProven_holds : Wave56CrossMillenniumMasterCascadeProven := trivial
-theorem Wave55MasterCapstoneAggregatorProven_holds : Wave55MasterCapstoneAggregatorProven := trivial
+theorem Wave56BSD_RankZeroActualDischargeProven_holds : Wave56BSD_RankZeroActualDischargeProven :=
+  have _ := _root_.PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.bsd_wave56_rank_zero_actual_discharge_attempt_capstone
+  trivial
+theorem Wave56PNP_CrossGaloisLockProven_holds : Wave56PNP_CrossGaloisLockProven :=
+  have _ := _root_.PrincipiaTractalis.PNP_Wave56CrossGaloisLockAttempt.pnp_wave56_cross_galois_lock_capstone
+  trivial
+theorem Wave56CrossMillenniumMasterCascadeProven_holds : Wave56CrossMillenniumMasterCascadeProven :=
+  have _ := _root_.PrincipiaTractalis.Wave56CrossMillenniumMasterCascade.Wave56_cross_millennium_master_meta_cascade_capstone
+  trivial
+theorem Wave55MasterCapstoneAggregatorProven_holds : Wave55MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave55_master_capstone
+  trivial
 
 end PrincipiaTractalis

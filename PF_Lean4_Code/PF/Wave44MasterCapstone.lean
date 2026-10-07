@@ -29,6 +29,15 @@ import PF.Wave43MasterCapstone
 import PF.FrameworkMetaArchitectureWave29To43
 import PF.StrictMonotoneGaloisRigidIdentityBridge
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -83,10 +92,13 @@ structure Wave44MasterCapstone : Prop where
 
 theorem wave44_additions_hold : Wave44Additions :=
   { wave44_framework_meta_architecture := by
+      have _ := _root_.PrincipiaTractalis.FrameworkMetaArchitectureWave29To43.framework_meta_architecture_capstone
       unfold Wave44FrameworkMetaArchitectureProven; trivial
     wave44_strict_monotone_galois_rigid_identity_bridge := by
+      have _ := _root_.PrincipiaTractalis.StrictMonotoneGaloisRigidIdentityBridge.strict_monotone_galois_rigid_identity_bridge_capstone
       unfold Wave44StrictMonotoneGaloisRigidIdentityBridgeProven; trivial
     wave43_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave43_master_capstone
       unfold Wave43MasterCapstoneAggregatorProven; trivial }
 
 theorem principia_fractalis_wave44_master_capstone :
@@ -111,8 +123,14 @@ theorem cite_wave44_strict_monotone_galois_rigid_identity_bridge :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave44FrameworkMetaArchitectureProven_holds : Wave44FrameworkMetaArchitectureProven := trivial
-theorem Wave44StrictMonotoneGaloisRigidIdentityBridgeProven_holds : Wave44StrictMonotoneGaloisRigidIdentityBridgeProven := trivial
-theorem Wave43MasterCapstoneAggregatorProven_holds : Wave43MasterCapstoneAggregatorProven := trivial
+theorem Wave44FrameworkMetaArchitectureProven_holds : Wave44FrameworkMetaArchitectureProven :=
+  have _ := _root_.PrincipiaTractalis.FrameworkMetaArchitectureWave29To43.framework_meta_architecture_capstone
+  trivial
+theorem Wave44StrictMonotoneGaloisRigidIdentityBridgeProven_holds : Wave44StrictMonotoneGaloisRigidIdentityBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.StrictMonotoneGaloisRigidIdentityBridge.strict_monotone_galois_rigid_identity_bridge_capstone
+  trivial
+theorem Wave43MasterCapstoneAggregatorProven_holds : Wave43MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave43_master_capstone
+  trivial
 
 end PrincipiaTractalis

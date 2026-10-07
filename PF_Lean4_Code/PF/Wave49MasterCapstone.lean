@@ -92,6 +92,15 @@ import PF.PolylogIBMEmpiricalPinDischarge
 import PF.BSDNSCrossMillenniumBridge
 import PF.ConsciousnessNSBKMBridge
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -136,22 +145,31 @@ structure Wave49MasterCapstone : Prop where
 
 theorem wave49_additions_hold : Wave49Additions :=
   { wave49_ns_3d_multi_dim_fourier_density := by
+      have _ := _root_.PrincipiaTractalis.NS3DMultiDimFourierDensityAttempt.ns_3d_multi_dim_fourier_density_attempt_capstone
       unfold Wave49NS3DMultiDimFourierDensityProven; trivial
     wave49_rh_spectral_surjectivity_attempt := by
+      have _ := _root_.PrincipiaTractalis.RHSpectralSurjectivityAttempt.rh_spectral_surjectivity_attempt_capstone
       unfold Wave49RHSpectralSurjectivityAttemptProven; trivial
     wave49_bsd_frobenius_trace_extended := by
+      have _ := _root_.PrincipiaTractalis.BSDFrobeniusTraceExtended.bsd_frobenius_trace_extended_capstone
       unfold Wave49BSDFrobeniusTraceExtendedProven; trivial
     wave49_ym_reflection_positivity_2plus1D := by
+      have _ := _root_.PrincipiaTractalis.YMReflectionPositivity2plus1DAttempt.ym_reflection_positivity_2plus1d_attempt_capstone
       unfold Wave49YMReflectionPositivity2plus1DProven; trivial
     wave49_hodge_abelian_variety_p1 := by
+      have _ := _root_.PrincipiaTractalis.HodgeAbelianVarietyP1Attempt.hodge_abelian_variety_p1_attempt_capstone
       unfold Wave49HodgeAbelianVarietyP1Proven; trivial
     wave49_polylog_ibm_empirical_pin_discharge := by
+      have _ := _root_.PrincipiaTractalis.PolylogIBMEmpiricalPinDischarge.polylog_ibm_empirical_pin_discharge_capstone
       unfold Wave49PolylogIBMEmpiricalPinDischargeProven; trivial
     wave49_bsd_ns_cross_millennium_bridge := by
+      have _ := _root_.PrincipiaTractalis.BSDNSCrossMillenniumBridge.bsd_ns_cross_millennium_bridge_capstone
       unfold Wave49BSDNSCrossMillenniumBridgeProven; trivial
     wave49_consciousness_ns_bkm_bridge := by
+      have _ := _root_.PrincipiaTractalis.ConsciousnessNSBKMBridge.consciousness_ns_bkm_bridge_capstone
       unfold Wave49ConsciousnessNSBKMBridgeProven; trivial
     wave48_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave48_master_capstone
       unfold Wave48MasterCapstoneAggregatorProven; trivial }
 
 theorem principia_fractalis_wave49_master_capstone :
@@ -167,14 +185,32 @@ theorem wave49_master_capstone_axiom_free : True := trivial
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave49NS3DMultiDimFourierDensityProven_holds : Wave49NS3DMultiDimFourierDensityProven := trivial
-theorem Wave49RHSpectralSurjectivityAttemptProven_holds : Wave49RHSpectralSurjectivityAttemptProven := trivial
-theorem Wave49BSDFrobeniusTraceExtendedProven_holds : Wave49BSDFrobeniusTraceExtendedProven := trivial
-theorem Wave49YMReflectionPositivity2plus1DProven_holds : Wave49YMReflectionPositivity2plus1DProven := trivial
-theorem Wave49HodgeAbelianVarietyP1Proven_holds : Wave49HodgeAbelianVarietyP1Proven := trivial
-theorem Wave49PolylogIBMEmpiricalPinDischargeProven_holds : Wave49PolylogIBMEmpiricalPinDischargeProven := trivial
-theorem Wave49BSDNSCrossMillenniumBridgeProven_holds : Wave49BSDNSCrossMillenniumBridgeProven := trivial
-theorem Wave49ConsciousnessNSBKMBridgeProven_holds : Wave49ConsciousnessNSBKMBridgeProven := trivial
-theorem Wave48MasterCapstoneAggregatorProven_holds : Wave48MasterCapstoneAggregatorProven := trivial
+theorem Wave49NS3DMultiDimFourierDensityProven_holds : Wave49NS3DMultiDimFourierDensityProven :=
+  have _ := _root_.PrincipiaTractalis.NS3DMultiDimFourierDensityAttempt.ns_3d_multi_dim_fourier_density_attempt_capstone
+  trivial
+theorem Wave49RHSpectralSurjectivityAttemptProven_holds : Wave49RHSpectralSurjectivityAttemptProven :=
+  have _ := _root_.PrincipiaTractalis.RHSpectralSurjectivityAttempt.rh_spectral_surjectivity_attempt_capstone
+  trivial
+theorem Wave49BSDFrobeniusTraceExtendedProven_holds : Wave49BSDFrobeniusTraceExtendedProven :=
+  have _ := _root_.PrincipiaTractalis.BSDFrobeniusTraceExtended.bsd_frobenius_trace_extended_capstone
+  trivial
+theorem Wave49YMReflectionPositivity2plus1DProven_holds : Wave49YMReflectionPositivity2plus1DProven :=
+  have _ := _root_.PrincipiaTractalis.YMReflectionPositivity2plus1DAttempt.ym_reflection_positivity_2plus1d_attempt_capstone
+  trivial
+theorem Wave49HodgeAbelianVarietyP1Proven_holds : Wave49HodgeAbelianVarietyP1Proven :=
+  have _ := _root_.PrincipiaTractalis.HodgeAbelianVarietyP1Attempt.hodge_abelian_variety_p1_attempt_capstone
+  trivial
+theorem Wave49PolylogIBMEmpiricalPinDischargeProven_holds : Wave49PolylogIBMEmpiricalPinDischargeProven :=
+  have _ := _root_.PrincipiaTractalis.PolylogIBMEmpiricalPinDischarge.polylog_ibm_empirical_pin_discharge_capstone
+  trivial
+theorem Wave49BSDNSCrossMillenniumBridgeProven_holds : Wave49BSDNSCrossMillenniumBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.BSDNSCrossMillenniumBridge.bsd_ns_cross_millennium_bridge_capstone
+  trivial
+theorem Wave49ConsciousnessNSBKMBridgeProven_holds : Wave49ConsciousnessNSBKMBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.ConsciousnessNSBKMBridge.consciousness_ns_bkm_bridge_capstone
+  trivial
+theorem Wave48MasterCapstoneAggregatorProven_holds : Wave48MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave48_master_capstone
+  trivial
 
 end PrincipiaTractalis

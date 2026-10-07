@@ -83,6 +83,15 @@ import PF.YangMillsCanonicalQuantumPropagatorKernel
 import PF.AlgebraicGeometry.MathlibSurfaceHodgeBridge
 import PF.NS3DOffDiagonalAtNFourFive
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -190,10 +199,12 @@ theorem wave28_additions_hold : Wave28Additions :=
     ym_canonical_quantum_propagator_narrow_out := by
       unfold YMCanonicalQuantumPropagatorNarrowedOutProven; trivial
     hodge_mathlib_surface_bridge := by
+      have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.mathlib_surface_hodge_bridge_capstone
       unfold HodgeMathlibSurfaceBridgeProven; trivial
     ns_off_diagonal_at_n_four_five := by
       unfold NS3DOffDiagonalAtNFourFiveProven; trivial
     wave27_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave27_master_capstone
       unfold Wave27MasterCapstoneAggregatorProven; trivial }
 
 /-- **★★★ THE WAVE 28 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
@@ -262,8 +273,12 @@ theorem cite_ns_off_diagonal_at_n_four_five :
 
 theorem YMCanonicalResolventNarrowedOutProven_holds : YMCanonicalResolventNarrowedOutProven := trivial
 theorem YMCanonicalQuantumPropagatorNarrowedOutProven_holds : YMCanonicalQuantumPropagatorNarrowedOutProven := trivial
-theorem HodgeMathlibSurfaceBridgeProven_holds : HodgeMathlibSurfaceBridgeProven := trivial
+theorem HodgeMathlibSurfaceBridgeProven_holds : HodgeMathlibSurfaceBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.mathlib_surface_hodge_bridge_capstone
+  trivial
 theorem NS3DOffDiagonalAtNFourFiveProven_holds : NS3DOffDiagonalAtNFourFiveProven := trivial
-theorem Wave27MasterCapstoneAggregatorProven_holds : Wave27MasterCapstoneAggregatorProven := trivial
+theorem Wave27MasterCapstoneAggregatorProven_holds : Wave27MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave27_master_capstone
+  trivial
 
 end PrincipiaTractalis

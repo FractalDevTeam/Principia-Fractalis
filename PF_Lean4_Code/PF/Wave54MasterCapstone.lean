@@ -96,6 +96,15 @@ import PF.GalerkinPDEConcreteInstanceAttempt
 import PF.YMMassGapPropagationToyAttempt
 import PF.HodgeCodim2CmAbelian6FoldAttempt
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -137,16 +146,22 @@ structure Wave54MasterCapstone : Prop where
 
 theorem wave54_additions_hold : Wave54Additions :=
   { wave54_t3_sym_concentrated_spectral_measure := by
+      have _ := _root_.PrincipiaTractalis.T3SymConcentratedSpectralMeasureAttempt.t3_sym_concentrated_spectral_measure_attempt_capstone
       unfold Wave54T3SymConcentratedSpectralMeasureProven; trivial
     wave54_strong_form_div_free_sin_mode := by
+      have _ := _root_.PrincipiaTractalis.StrongFormDivFreeSinModeWitness.strong_form_div_free_sinmode_witness_capstone
       unfold Wave54StrongFormDivFreeSinModeWitnessProven; trivial
     wave54_galerkin_pde_concrete_instance := by
+      have _ := _root_.PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.galerkin_pde_concrete_instance_attempt_capstone
       unfold Wave54GalerkinPDEConcreteInstanceProven; trivial
     wave54_ym_mass_gap_propagation_toy := by
+      have _ := _root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.ym_mass_gap_propagation_toy_attempt_capstone
       unfold Wave54YMMassGapPropagationToyProven; trivial
     wave54_hodge_codim_2_cm_abelian_6fold := by
+      have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.hodge_codim_2_cmAbelian6Fold_first_principles_capstone
       unfold Wave54HodgeCodim2CmAbelian6FoldProven; trivial
     wave53_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave53_master_capstone
       unfold Wave53MasterCapstoneAggregatorProven; trivial }
 
 theorem principia_fractalis_wave54_master_capstone :
@@ -162,11 +177,23 @@ theorem wave54_master_capstone_axiom_free : True := trivial
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave54T3SymConcentratedSpectralMeasureProven_holds : Wave54T3SymConcentratedSpectralMeasureProven := trivial
-theorem Wave54StrongFormDivFreeSinModeWitnessProven_holds : Wave54StrongFormDivFreeSinModeWitnessProven := trivial
-theorem Wave54GalerkinPDEConcreteInstanceProven_holds : Wave54GalerkinPDEConcreteInstanceProven := trivial
-theorem Wave54YMMassGapPropagationToyProven_holds : Wave54YMMassGapPropagationToyProven := trivial
-theorem Wave54HodgeCodim2CmAbelian6FoldProven_holds : Wave54HodgeCodim2CmAbelian6FoldProven := trivial
-theorem Wave53MasterCapstoneAggregatorProven_holds : Wave53MasterCapstoneAggregatorProven := trivial
+theorem Wave54T3SymConcentratedSpectralMeasureProven_holds : Wave54T3SymConcentratedSpectralMeasureProven :=
+  have _ := _root_.PrincipiaTractalis.T3SymConcentratedSpectralMeasureAttempt.t3_sym_concentrated_spectral_measure_attempt_capstone
+  trivial
+theorem Wave54StrongFormDivFreeSinModeWitnessProven_holds : Wave54StrongFormDivFreeSinModeWitnessProven :=
+  have _ := _root_.PrincipiaTractalis.StrongFormDivFreeSinModeWitness.strong_form_div_free_sinmode_witness_capstone
+  trivial
+theorem Wave54GalerkinPDEConcreteInstanceProven_holds : Wave54GalerkinPDEConcreteInstanceProven :=
+  have _ := _root_.PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.galerkin_pde_concrete_instance_attempt_capstone
+  trivial
+theorem Wave54YMMassGapPropagationToyProven_holds : Wave54YMMassGapPropagationToyProven :=
+  have _ := _root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.ym_mass_gap_propagation_toy_attempt_capstone
+  trivial
+theorem Wave54HodgeCodim2CmAbelian6FoldProven_holds : Wave54HodgeCodim2CmAbelian6FoldProven :=
+  have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.hodge_codim_2_cmAbelian6Fold_first_principles_capstone
+  trivial
+theorem Wave53MasterCapstoneAggregatorProven_holds : Wave53MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave53_master_capstone
+  trivial
 
 end PrincipiaTractalis

@@ -35,6 +35,15 @@ import PF.Wave40MasterCapstone
 import PF.CrossQuadraticFieldBridge
 import PF.AlphaOfClassNoGoSingleCitation
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -99,10 +108,13 @@ structure Wave41MasterCapstone : Prop where
 
 theorem wave41_additions_hold : Wave41Additions :=
   { wave41_cross_quadratic_field_bridge := by
+      have _ := _root_.PrincipiaTractalis.CrossQuadraticFieldBridge.cross_quadratic_field_bridge_capstone
       unfold Wave41CrossQuadraticFieldBridgeProven; trivial
     wave41_alpha_of_class_no_go_single_citation := by
+      have _ := _root_.PrincipiaTractalis.AlphaOfClassNoGoSingleCitation.alpha_of_class_no_go_single_citation_capstone
       unfold Wave41AlphaOfClassNoGoSingleCitationProven; trivial
     wave40_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave40_master_capstone
       unfold Wave40MasterCapstoneAggregatorProven; trivial }
 
 /-- **★★★ THE WAVE 41 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
@@ -137,8 +149,14 @@ theorem cite_wave41_alpha_of_class_no_go_single_citation :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave41CrossQuadraticFieldBridgeProven_holds : Wave41CrossQuadraticFieldBridgeProven := trivial
-theorem Wave41AlphaOfClassNoGoSingleCitationProven_holds : Wave41AlphaOfClassNoGoSingleCitationProven := trivial
-theorem Wave40MasterCapstoneAggregatorProven_holds : Wave40MasterCapstoneAggregatorProven := trivial
+theorem Wave41CrossQuadraticFieldBridgeProven_holds : Wave41CrossQuadraticFieldBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.CrossQuadraticFieldBridge.cross_quadratic_field_bridge_capstone
+  trivial
+theorem Wave41AlphaOfClassNoGoSingleCitationProven_holds : Wave41AlphaOfClassNoGoSingleCitationProven :=
+  have _ := _root_.PrincipiaTractalis.AlphaOfClassNoGoSingleCitation.alpha_of_class_no_go_single_citation_capstone
+  trivial
+theorem Wave40MasterCapstoneAggregatorProven_holds : Wave40MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave40_master_capstone
+  trivial
 
 end PrincipiaTractalis

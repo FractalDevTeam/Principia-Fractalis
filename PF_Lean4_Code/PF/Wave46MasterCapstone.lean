@@ -54,6 +54,15 @@ import PF.Wave45MasterCapstone
 import PF.YMConditionalDischargeViaGaloisRigidity
 import PF.CrossMillenniumOpenFrontierInventory
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -106,10 +115,13 @@ structure Wave46MasterCapstone : Prop where
 
 theorem wave46_additions_hold : Wave46Additions :=
   { wave46_YM_conditional_discharge_via_galois_rigidity := by
+      have _ := _root_.PrincipiaTractalis.YMConditionalDischargeViaGaloisRigidity.YM_conditional_discharge_via_galois_rigidity_capstone
       unfold Wave46YMConditionalDischargeViaGaloisRigidityProven; trivial
     wave46_cross_millennium_open_frontier_inventory := by
+      have _ := _root_.PrincipiaTractalis.CrossMillenniumOpenFrontierInventory.cross_millennium_open_frontier_inventory_capstone
       unfold Wave46CrossMillenniumOpenFrontierInventoryProven; trivial
     wave45_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave45_master_capstone
       unfold Wave45MasterCapstoneAggregatorProven; trivial }
 
 theorem principia_fractalis_wave46_master_capstone :
@@ -134,8 +146,14 @@ theorem cite_wave46_cross_millennium_open_frontier_inventory :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave46YMConditionalDischargeViaGaloisRigidityProven_holds : Wave46YMConditionalDischargeViaGaloisRigidityProven := trivial
-theorem Wave46CrossMillenniumOpenFrontierInventoryProven_holds : Wave46CrossMillenniumOpenFrontierInventoryProven := trivial
-theorem Wave45MasterCapstoneAggregatorProven_holds : Wave45MasterCapstoneAggregatorProven := trivial
+theorem Wave46YMConditionalDischargeViaGaloisRigidityProven_holds : Wave46YMConditionalDischargeViaGaloisRigidityProven :=
+  have _ := _root_.PrincipiaTractalis.YMConditionalDischargeViaGaloisRigidity.YM_conditional_discharge_via_galois_rigidity_capstone
+  trivial
+theorem Wave46CrossMillenniumOpenFrontierInventoryProven_holds : Wave46CrossMillenniumOpenFrontierInventoryProven :=
+  have _ := _root_.PrincipiaTractalis.CrossMillenniumOpenFrontierInventory.cross_millennium_open_frontier_inventory_capstone
+  trivial
+theorem Wave45MasterCapstoneAggregatorProven_holds : Wave45MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave45_master_capstone
+  trivial
 
 end PrincipiaTractalis

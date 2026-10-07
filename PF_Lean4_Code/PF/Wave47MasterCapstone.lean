@@ -64,6 +64,15 @@ import PF.BSDLFunctionEvaluationAttempt
 import PF.PolylogConjectureAttemptWave47
 import PF.FrameworkResourceSynthesisWave47
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -108,22 +117,30 @@ structure Wave47MasterCapstone : Prop where
 
 theorem wave47_additions_hold : Wave47Additions :=
   { wave47_rh_analytic_pos_bijection := by
+      have _ := _root_.PrincipiaTractalis.RHAnalyticPosBijectionAttempt.rh_analytic_pos_bijection_attempt_capstone
       unfold Wave47RHAnalyticPosBijectionProven; trivial
     wave47_ym_continuum_lift := by
+      have _ := _root_.PrincipiaTractalis.YMContinuumLiftAttemptWave47.ym_continuum_lift_attempt_wave47_capstone
       unfold Wave47YMContinuumLiftAttemptWave47Proven; trivial
     wave47_ns_sobolev_div_free := by
+      have _ := _root_.PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttempt.ns_3d_mathlib_sobolev_div_free_attempt_capstone
       unfold Wave47NSSobolevDivFreeProven; trivial
     wave47_ns_bilinear := by
+      have _ := _root_.PrincipiaTractalis.NS3DVortexStretchingBilinearAttempt.ns_3d_vortex_stretching_bilinear_attempt_capstone
       unfold Wave47NSBilinearProven; trivial
     wave47_hodge_abelian_threefold_escape := by
+      have _ := _root_.PrincipiaTractalis.HodgeCodim2AbelianThreefoldEscape.hodge_codim_2_abelian_threefold_escape_capstone
       unfold Wave47HodgeAbelianThreefoldEscapeProven; trivial
     wave47_bsd_l_function_evaluation := by
+      have _ := _root_.PrincipiaTractalis.BSDLFunctionEvaluationAttempt.bsd_L_function_evaluation_attempt_capstone
       unfold Wave47BSDLFunctionEvaluationProven; trivial
     wave47_polylog_conjecture := by
+      have _ := _root_.PrincipiaTractalis.PolylogConjectureAttemptWave47.polylog_conjecture_attempt_wave47_capstone
       unfold Wave47PolylogConjectureProven; trivial
     wave47_framework_resource_synthesis := by
       unfold Wave47FrameworkResourceSynthesisProven; trivial
     wave46_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave46_master_capstone
       unfold Wave46MasterCapstoneAggregatorProven; trivial }
 
 theorem principia_fractalis_wave47_master_capstone :
@@ -140,15 +157,31 @@ Each Wave 47 provenness tag is defined as `Prop := True`. The bundle
 record. This section adds INDIVIDUAL `_holds` theorems so each Prop is
 directly citable as a kernel-only theorem without requiring the bundle. -/
 
-theorem Wave47RHAnalyticPosBijectionProven_holds : Wave47RHAnalyticPosBijectionProven := trivial
-theorem Wave47YMContinuumLiftAttemptWave47Proven_holds : Wave47YMContinuumLiftAttemptWave47Proven := trivial
-theorem Wave47NSSobolevDivFreeProven_holds : Wave47NSSobolevDivFreeProven := trivial
-theorem Wave47NSBilinearProven_holds : Wave47NSBilinearProven := trivial
-theorem Wave47HodgeAbelianThreefoldEscapeProven_holds : Wave47HodgeAbelianThreefoldEscapeProven := trivial
-theorem Wave47BSDLFunctionEvaluationProven_holds : Wave47BSDLFunctionEvaluationProven := trivial
-theorem Wave47PolylogConjectureProven_holds : Wave47PolylogConjectureProven := trivial
+theorem Wave47RHAnalyticPosBijectionProven_holds : Wave47RHAnalyticPosBijectionProven :=
+  have _ := _root_.PrincipiaTractalis.RHAnalyticPosBijectionAttempt.rh_analytic_pos_bijection_attempt_capstone
+  trivial
+theorem Wave47YMContinuumLiftAttemptWave47Proven_holds : Wave47YMContinuumLiftAttemptWave47Proven :=
+  have _ := _root_.PrincipiaTractalis.YMContinuumLiftAttemptWave47.ym_continuum_lift_attempt_wave47_capstone
+  trivial
+theorem Wave47NSSobolevDivFreeProven_holds : Wave47NSSobolevDivFreeProven :=
+  have _ := _root_.PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttempt.ns_3d_mathlib_sobolev_div_free_attempt_capstone
+  trivial
+theorem Wave47NSBilinearProven_holds : Wave47NSBilinearProven :=
+  have _ := _root_.PrincipiaTractalis.NS3DVortexStretchingBilinearAttempt.ns_3d_vortex_stretching_bilinear_attempt_capstone
+  trivial
+theorem Wave47HodgeAbelianThreefoldEscapeProven_holds : Wave47HodgeAbelianThreefoldEscapeProven :=
+  have _ := _root_.PrincipiaTractalis.HodgeCodim2AbelianThreefoldEscape.hodge_codim_2_abelian_threefold_escape_capstone
+  trivial
+theorem Wave47BSDLFunctionEvaluationProven_holds : Wave47BSDLFunctionEvaluationProven :=
+  have _ := _root_.PrincipiaTractalis.BSDLFunctionEvaluationAttempt.bsd_L_function_evaluation_attempt_capstone
+  trivial
+theorem Wave47PolylogConjectureProven_holds : Wave47PolylogConjectureProven :=
+  have _ := _root_.PrincipiaTractalis.PolylogConjectureAttemptWave47.polylog_conjecture_attempt_wave47_capstone
+  trivial
 theorem Wave47FrameworkResourceSynthesisProven_holds : Wave47FrameworkResourceSynthesisProven := trivial
-theorem Wave46MasterCapstoneAggregatorProven_holds : Wave46MasterCapstoneAggregatorProven := trivial
+theorem Wave46MasterCapstoneAggregatorProven_holds : Wave46MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave46_master_capstone
+  trivial
 
 #print axioms wave47_additions_hold
 #print axioms principia_fractalis_wave47_master_capstone
