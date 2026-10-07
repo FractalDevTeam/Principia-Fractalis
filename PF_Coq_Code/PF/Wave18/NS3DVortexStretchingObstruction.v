@@ -179,7 +179,21 @@ Definition VortexStretchingBoundedHypothesis : Prop :=
 
 (** Coq-side stub for `NavierStokesGlobalSmoothness`
     (Lean Unit-typed Prop in `PF/MillenniumSixReductions.lean`). *)
-Parameter NavierStokesGlobalSmoothness_Prop : Prop.
+(** REPAIRED 2026-10-06. Was `Parameter ... : Prop`, an opaque constant.
+    Lean has a CONCRETE definition at MillenniumSixReductions.lean:115:
+
+        def NavierStokesGlobalSmoothness : Prop :=
+          forall (smooth_initial_data : Unit),
+            exists (global_smooth_solution : Unit), True
+
+    Ported faithfully. NOTE WHAT THIS MEANS: the Lean predicate is an
+    acknowledged PLACEHOLDER -- its own docstring says "the full Clay
+    statement (Fefferman 2000) is the existence of smooth solutions on
+    `R^3 x [0, infinity)`". Porting it exposes that gap in plain sight,
+    where the previous opaque Parameter plus `Admitted.` hid it behind an
+    axiom. The Clay content is NOT here and is not claimed to be. *)
+Definition NavierStokesGlobalSmoothness_Prop : Prop :=
+  forall _ : unit, exists _ : unit, True.
 
 (** Coq-side stub for the Gronwall enstrophy-control hypothesis. *)
 Parameter GronwallEnstrophyControl : Prop.
@@ -191,12 +205,23 @@ Parameter GronwallEnstrophyControl : Prop.
 
     Conditional reduction: VortexStretchingBoundedHypothesis +
     Gronwall enstrophy control => Clay 3D NS global smoothness. *)
+(** REPAIRED 2026-10-06. Was `Admitted.`, which asserted the conclusion as
+    an axiom. Now proved against the ported placeholder predicate.
+
+    THE TWO HYPOTHESES DO NO WORK, and that is the faithful parity rather
+    than a defect of this proof: the conclusion is a placeholder Prop on
+    both sides. A reader must not take this as a reduction of Clay 3D NS.
+    When `NavierStokesGlobalSmoothness_Prop` is replaced by a real
+    statement about solutions on `R^3 x [0, infinity)`, these hypotheses
+    become load-bearing and this proof will correctly stop working. *)
 Theorem BKM_3D_criterion_from_vortex_stretching_bound
     (Hbound : VortexStretchingBoundedHypothesis)
     (Hgron : GronwallEnstrophyControl) :
   NavierStokesGlobalSmoothness_Prop.
 Proof.
-Admitted.
+  unfold NavierStokesGlobalSmoothness_Prop.
+  intros _. exists tt. exact I.
+Qed.
 
 (* ============================================================ *)
 (* Section 6: NS 3D Clay residual capstone                      *)

@@ -191,13 +191,34 @@ Definition ConsciousnessStationaryStateCompleteness
     concrete formula over `pos`/`zeroSet`, which in turn would
     require Coq mathlib-style complex analysis. Per the parity
     audit, this is `Admitted.` here. *)
+(** REPAIRED 2026-10-06. Was `Admitted.`, which asserted the conclusion as
+    an axiom over an opaque Parameter.
+
+    NOT CLOSABLE HERE, and the reason is precise: `RiemannHypothesisCoqStub`
+    is an opaque `Parameter` and Coq's standard library has no zeta
+    function, so there is no concrete RH formula to bind it to. Per the
+    repair protocol, the STRONGEST EXACT MISSING CONSTRUCTION is named
+    below and taken as an explicit hypothesis. That removes an axiom and
+    puts the gap in the theorem's type where a reader will see it.
+
+    Discharging `ConsciousnessRHBridgeSoundness` requires a concrete Coq
+    formalization of `riemannZeta` and its zero set. That is the
+    formalization work this finding locates. *)
+Definition ConsciousnessRHBridgeSoundness : Prop :=
+  forall sR : ConsciousnessRHSubstrate,
+    CommutatorVanishesAtRHZeros sR ->
+    ConsciousnessStationaryStateCompleteness sR ->
+    RiemannHypothesisCoqStub.
+
 Theorem riemann_hypothesis_via_consciousness_bridge
+  (soundness : ConsciousnessRHBridgeSoundness)
   (sR : ConsciousnessRHSubstrate)
   (P5 : CommutatorVanishesAtRHZeros sR)
   (completeness : ConsciousnessStationaryStateCompleteness sR) :
   RiemannHypothesisCoqStub.
 Proof.
-Admitted.
+  exact (soundness sR P5 completeness).
+Qed.
 
 (* ============================================================ *)
 (* Section 7: Lean-side load-bearing-use witness (Coq parity)   *)
@@ -220,10 +241,49 @@ Definition trivialRHSubstrate : ConsciousnessRHSubstrate :=
     opaque Parameters (the Coq tree has no `Hilbert space` /
     `LinearMap` library to bind them to identity), this is recorded
     as a parity-tracked clause. *)
-Theorem P5_holds_trivial :
+(** REPAIRED 2026-10-06. Was `Admitted.`
+
+    WHY IT WAS UNPROVABLE. `CommutatorVanishesAtRHZeros sR` unfolds to
+
+        forall idx, (C_op (hamiltonian (ket idx))
+                       = hamiltonian (C_op (ket idx))) <-> zeroSet sR idx
+
+    and `trivialRHSubstrate` sets `zeroSet := fun _ => True`. So the
+    statement demanded that the opaque `C_op` and `hamiltonian` COMMUTE at
+    every index -- not a vacuous discharge at all, and `Admitted.` asserted
+    it as an axiom.
+
+    THE REPAIR, in two parts. First, a genuine UNCONDITIONAL witness: take
+    the substrate whose `zeroSet` IS the commutator condition. On it P5
+    holds by `iff_refl`, with no assumption whatsoever. That is a real
+    non-vacuity certificate for P5, which is what this theorem was reaching
+    for. Second, the original name is kept, with the commutation stated as
+    an explicit hypothesis instead of an axiom. *)
+Definition commutingRHSubstrate : ConsciousnessRHSubstrate :=
+  mkConsciousnessRHSubstrate
+    (fun _ => 1/2)
+    (fun idx => C_op (hamiltonian (ket idx)) = hamiltonian (C_op (ket idx)))
+    (fun _ _ => eq_refl).
+
+(** ** P5 is SATISFIABLE -- unconditional, no axioms, no hypotheses. *)
+Theorem P5_holds_on_commuting_substrate :
+  CommutatorVanishesAtRHZeros commutingRHSubstrate.
+Proof.
+  unfold CommutatorVanishesAtRHZeros, commutingRHSubstrate.
+  intro idx. simpl. apply iff_refl.
+Qed.
+
+(** On the trivial substrate P5 is equivalent to actual commutation, which
+    is now an explicit hypothesis rather than an admitted axiom. *)
+Theorem P5_holds_trivial
+    (h_commute : forall idx : Index,
+        C_op (hamiltonian (ket idx)) = hamiltonian (C_op (ket idx))) :
   CommutatorVanishesAtRHZeros trivialRHSubstrate.
 Proof.
-Admitted.
+  unfold CommutatorVanishesAtRHZeros, trivialRHSubstrate.
+  intro idx. simpl.
+  split; [ intros _; exact I | intros _; exact (h_commute idx) ].
+Qed.
 
 (** Critical-line anchor on the trivial substrate. *)
 Theorem trivial_critical_line :
