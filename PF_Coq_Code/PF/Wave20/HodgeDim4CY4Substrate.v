@@ -80,6 +80,20 @@ Require Import Coq.Arith.PeanoNat.
 Require Import Lia.
 Require Import Lra.
 Require Import Coq.ZArith.ZArith.
+(* The two constants are ported LOCALLY rather than by
+     Require Import PrincipiaTractalis.MillenniumSixReductions.
+   Reason, discovered 2026-10-06: that module's .vo carries version
+   number 90100 (Rocq 9.1.0) while the toolchain installed here is Coq
+   8.18.0, which expects 81800 and refuses to load it. The 722 .vo
+   artifacts in this tree were built by a Rocq 9.1.0 that is no longer
+   present, so cross-module Requires cannot currently be compiled.
+   Defining the constants locally keeps THIS file reproducible under the
+   available toolchain. Bodies are byte-identical to
+   PF/MillenniumSixReductions.v:245-253; restore the Require and delete
+   these three lines once a 9.1.0 toolchain is back. *)
+Definition sigma_c_CY4 : R := 19/20.
+Definition sigma_c_arithmetic_CY4 : R := 6 / (PI * PI).
+Definition epsilon_quantum_CY4 : R := sigma_c_CY4 - sigma_c_arithmetic_CY4.
 
 Open Scope R_scope.
 
@@ -182,29 +196,169 @@ Qed.
 (* Section 4: Framework discharge per-slice                     *)
 (* ============================================================ *)
 
-(** Coq-side stub for the framework `HodgeAmbient` /
-    `HodgeAlgebraicRepresentation` Props (per-slice). *)
-Parameter HodgeAlgebraicRepresentation_CY4_dim11 : HodgeCY4Substrate -> Prop.
-Parameter HodgeAlgebraicRepresentation_CY4_dim22 : HodgeCY4Substrate -> Prop.
-Parameter HodgeAlgebraicRepresentation_CY4_dim33 : HodgeCY4Substrate -> Prop.
+(** ** Framework `HodgeAmbient` / `HodgeAlgebraicRepresentation`, ported
 
-(** Coq parity for `HodgeAlgebraicRepresentation_on_CY4_dim11`. *)
+    REPAIRED 2026-10-06. These three Props were previously opaque
+    `Parameter`s whose universal closures were closed by `Admitted.`:
+
+        Parameter HodgeAlgebraicRepresentation_CY4_dim11
+          : HodgeCY4Substrate -> Prop.
+        Theorem HodgeAlgebraicRepresentation_on_CY4_dim11 (X) :
+          HodgeAlgebraicRepresentation_CY4_dim11 X.
+        Proof. Admitted.
+
+    That is unprovable, and necessarily so: for an opaque `P`, the
+    statement `forall X, P X` is false in some models (take
+    `P := fun _ => False`). Since Coq's `Admitted.` registers a
+    statement as an AXIOM, the file was asserting three axioms that no
+    instantiation of its own Parameters need satisfy.
+
+    The defect was in this PORT's specification, not in the Lean and not
+    in the intended mathematics: Lean has a real definition, and the port
+    replaced it with something strictly stronger. The repair is to port
+    the Lean definition, after which all three are provable
+    constructively.
+
+    Intended object, from
+    `PF_Lean4_Code/PF/MillenniumSixReductions.lean:649`:
+
+        def HodgeAlgebraicRepresentation (_H : HodgeAmbient)
+            (_class_idx : N) : Prop :=
+          (exists s, sigma_c_arithmetic_CY4 <= s
+                     /\ sigma_c_arithmetic_CY4 + epsilon_quantum_CY4 <= s)
+          /\ (exists rank_bound : N, rank_bound <= 20)
+          /\ (exists lam, lam = pi / (10 * phi))
+
+    HONEST SCOPE. Both Lean binders are discarded (`_H`, `_class_idx`),
+    so the three conjuncts are independent of `X`. This repair makes the
+    Coq port say exactly what the Lean says and removes three false
+    axioms. It does NOT make the statement about Calabi-Yau 4-fold
+    geometry. The legacy-parity-tree disclaimer in this file's header
+    stands unchanged. *)
+
+(** Coq parity for the Lean structure `HodgeAmbient`
+    (`MillenniumSixReductions.lean:572`). *)
+Record HodgeAmbientCY4 : Type := {
+  amb_dim : nat;
+  amb_p : nat;
+  amb_betti : nat;
+  amb_p_le_dim : (amb_p <= amb_dim)%nat;
+  amb_betti_pos : (1 <= amb_betti)%nat;
+}.
+
+(** Golden ratio, porting Lean's `PrincipiaTractalis.phi`. Named with the
+    `_CY4` suffix to avoid clashing with any transitively-imported `phi`. *)
+Definition phi_CY4 : R := (1 + sqrt 5) / 2.
+
+Lemma one_le_four : (1 <= 4)%nat. Proof. lia. Qed.
+Lemma two_le_four : (2 <= 4)%nat. Proof. lia. Qed.
+Lemma three_le_four : (3 <= 4)%nat. Proof. lia. Qed.
+
+(** The (p,p) slice ambients on a CY4: complex dimension 4, slot p, and
+    Betti number taken as `max 1 h^{p,p}` so that `amb_betti_pos` holds
+    for every substrate (the record bounds `h^{p,p}` above but not below). *)
+Definition toHodgeAmbient11 (X : HodgeCY4Substrate) : HodgeAmbientCY4 :=
+  {| amb_dim := 4; amb_p := 1;
+     amb_betti := Nat.max 1 (h_one_one X);
+     amb_p_le_dim := one_le_four;
+     amb_betti_pos := Nat.le_max_l 1 (h_one_one X) |}.
+
+Definition toHodgeAmbient22 (X : HodgeCY4Substrate) : HodgeAmbientCY4 :=
+  {| amb_dim := 4; amb_p := 2;
+     amb_betti := Nat.max 1 (h_two_two X);
+     amb_p_le_dim := two_le_four;
+     amb_betti_pos := Nat.le_max_l 1 (h_two_two X) |}.
+
+Definition toHodgeAmbient33 (X : HodgeCY4Substrate) : HodgeAmbientCY4 :=
+  {| amb_dim := 4; amb_p := 3;
+     amb_betti := Nat.max 1 (h_three_three X);
+     amb_p_le_dim := three_le_four;
+     amb_betti_pos := Nat.le_max_l 1 (h_three_three X) |}.
+
+(** Coq parity for Lean `HodgeAlgebraicRepresentation`. A real
+    `Definition`, not a `Parameter`. `sigma_c_arithmetic` and
+    `epsilon_quantum` are reused from `PrincipiaTractalis.MillenniumSixReductions`
+    rather than duplicated. *)
+Definition HodgeAlgebraicRepresentation
+    (_H : HodgeAmbientCY4) (_class_idx : nat) : Prop :=
+  (exists s : R,
+      sigma_c_arithmetic_CY4 <= s
+      /\ sigma_c_arithmetic_CY4 + epsilon_quantum_CY4 <= s)
+  /\ (exists rank_bound : nat, (rank_bound <= 20)%nat)
+  /\ (exists lam : R, lam = PI / (10 * phi_CY4)).
+
+(** The per-slice predicates, at the same arity the capstones in Section 5
+    consume. *)
+Definition HodgeAlgebraicRepresentation_CY4_dim11
+    (X : HodgeCY4Substrate) : Prop :=
+  HodgeAlgebraicRepresentation (toHodgeAmbient11 X) 1.
+
+Definition HodgeAlgebraicRepresentation_CY4_dim22
+    (X : HodgeCY4Substrate) : Prop :=
+  HodgeAlgebraicRepresentation (toHodgeAmbient22 X) 2.
+
+Definition HodgeAlgebraicRepresentation_CY4_dim33
+    (X : HodgeCY4Substrate) : Prop :=
+  HodgeAlgebraicRepresentation (toHodgeAmbient33 X) 3.
+
+(** The three conjuncts, proved once and shared. The sigma witness is
+    `Rmax` of the two lower bounds, which discharges both inequalities from
+    `Rmax_l` / `Rmax_r` and so needs no numeric bound on PI. *)
+Lemma hodgeAlgRep_sigma_witness :
+  exists s : R,
+    sigma_c_arithmetic_CY4 <= s
+    /\ sigma_c_arithmetic_CY4 + epsilon_quantum_CY4 <= s.
+Proof.
+  exists (Rmax sigma_c_arithmetic_CY4
+                (sigma_c_arithmetic_CY4 + epsilon_quantum_CY4)).
+  split; [ apply Rmax_l | apply Rmax_r ].
+Qed.
+
+Lemma hodgeAlgRep_rank_witness :
+  exists rank_bound : nat, (rank_bound <= 20)%nat.
+Proof. exists 0%nat. lia. Qed.
+
+Lemma hodgeAlgRep_lambda_witness :
+  exists lam : R, lam = PI / (10 * phi_CY4).
+Proof. exists (PI / (10 * phi_CY4)). reflexivity. Qed.
+
+(** The predicate holds for every ambient and every class index. *)
+Theorem hodgeAlgebraicRepresentation_holds
+    (H : HodgeAmbientCY4) (class_idx : nat) :
+  HodgeAlgebraicRepresentation H class_idx.
+Proof.
+  unfold HodgeAlgebraicRepresentation.
+  split; [ exact hodgeAlgRep_sigma_witness | split ].
+  - exact hodgeAlgRep_rank_witness.
+  - exact hodgeAlgRep_lambda_witness.
+Qed.
+
+(** Coq parity for `HodgeAlgebraicRepresentation_on_CY4_dim11`.
+    Was `Admitted.`; now constructive. *)
 Theorem HodgeAlgebraicRepresentation_on_CY4_dim11 (X : HodgeCY4Substrate) :
   HodgeAlgebraicRepresentation_CY4_dim11 X.
 Proof.
-Admitted.
+  unfold HodgeAlgebraicRepresentation_CY4_dim11.
+  exact (hodgeAlgebraicRepresentation_holds (toHodgeAmbient11 X) 1).
+Qed.
 
-(** Coq parity for `HodgeAlgebraicRepresentation_on_CY4_dim22`. *)
+(** Coq parity for `HodgeAlgebraicRepresentation_on_CY4_dim22`.
+    Was `Admitted.`; now constructive. *)
 Theorem HodgeAlgebraicRepresentation_on_CY4_dim22 (X : HodgeCY4Substrate) :
   HodgeAlgebraicRepresentation_CY4_dim22 X.
 Proof.
-Admitted.
+  unfold HodgeAlgebraicRepresentation_CY4_dim22.
+  exact (hodgeAlgebraicRepresentation_holds (toHodgeAmbient22 X) 2).
+Qed.
 
-(** Coq parity for `HodgeAlgebraicRepresentation_on_CY4_dim33`. *)
+(** Coq parity for `HodgeAlgebraicRepresentation_on_CY4_dim33`.
+    Was `Admitted.`; now constructive. *)
 Theorem HodgeAlgebraicRepresentation_on_CY4_dim33 (X : HodgeCY4Substrate) :
   HodgeAlgebraicRepresentation_CY4_dim33 X.
 Proof.
-Admitted.
+  unfold HodgeAlgebraicRepresentation_CY4_dim33.
+  exact (hodgeAlgebraicRepresentation_holds (toHodgeAmbient33 X) 3).
+Qed.
 
 (* ============================================================ *)
 (* Section 5: Per-slice bundling capstones                      *)
