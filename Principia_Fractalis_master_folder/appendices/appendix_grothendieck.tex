@@ -326,9 +326,17 @@ For each threshold value $t \in [0, 1]$, define the $t$-stratum:
 \end{equation}
 The dimension of $\mathcal{S}_t$ is:
 \begin{equation}
-\dim(\mathcal{S}_t) = 4 - \frac{\pi}{10} \cdot \frac{1 - t}{0.05}
+\dim(\mathcal{S}_t) = 4 - \frac{\pi}{10} \cdot \frac{0.95 - t}{0.05}
 \end{equation}
 \end{definition}
+
+\noindent\textit{(Numerator corrected 2026-10-07: the displayed equation
+previously read $(1-t)/0.05$, which gives the multipliers $1, 3, 8$ at
+$t = 0.95, 0.85, 0.60$ and hence $\dim = 3.686, 3.058, 1.487$ --- disagreeing
+with all three worked values below, and in particular giving
+$\dim(\mathcal{S}_{0.95}) = 3.686$ rather than the full $4$ that the material
+threshold requires. The form $(0.95-t)/0.05$ reproduces the printed multipliers
+$0, 2, 7$ and all three values exactly.)}
 
 \begin{itemize}
 \item At $t = 0.95$ (material threshold): $\dim(\mathcal{S}_{0.95}) = 4$ (full spacetime)

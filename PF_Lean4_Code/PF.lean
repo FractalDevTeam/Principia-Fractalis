@@ -253,6 +253,7 @@ import PF.NS3DOffDiagonalVortexStretching -- 2026-05-25 — Wave 24 extension: b
 import PF.Consciousness.TimelessField  -- T_∞ projective-limit skeleton + ch_2 ≥ 0.95 crystallization
 import PF.Consciousness.ChernCharacter  -- Second Chern character ch_2 + crystallization iff (Ch 06, 07, 21, 32)
 import PF.Consciousness.FractalResonance -- Ch 03 R_f(α, s): complex-s form, |Re s > 1| convergence, α=0 → ζ, 6-class bridge
+import PF.Consciousness.RfAlphaScalingConstantBase3  -- 2026-10-07 Ch 07 pi/10 audit: the R_f alpha-scaling constant derived from base 3. Termwise dR_f/dalpha = i*pi*D_3(n)*term -- the prefactor is i*pi, NOT pi/10. Also: D_3(n) = n mod 2 (the odd-alpha collapse), and a proof that Ch 07's thm:pi-ten-scaling is satisfied by EVERY nonzero constant so cannot determine pi/10. ZERO project axioms.
 
 -- ============================================================================
 -- Empirical: 143-Problem Validation Framework (Ch 21 §"Universal Coherence")
