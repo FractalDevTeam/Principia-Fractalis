@@ -1,4 +1,5 @@
 -Q PF PrincipiaTractalis
+-Q PF_Real PFReal
 
 PF/Basic.v
 PF/IntervalArithmetic.v
@@ -689,3 +690,9 @@ PF/SubstrateUHFTraceIsStarPreservingCoq.v
 PF/SubstrateUHFTraceIsPositiveCoq.v
 PF/SubstrateUHFTraceIsFaithfulCoq.v
 PF/SubstrateUHFCompletionSimplicityDischargeCoq.v
+
+# --- Real (non-shape-index) Coq/Rocq proofs; require mathcomp ---
+PF_Real/Base3Tower.v
+PF_Real/MatrixTraceFaithful.v
+PF_Real/MatrixTracialUnique.v
+PF_Real/WeylAveraging.v

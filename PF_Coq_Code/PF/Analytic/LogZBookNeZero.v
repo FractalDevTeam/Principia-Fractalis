@@ -90,6 +90,10 @@ Require Import Coq.Reals.R_sqrt.
 Require Import Lra.
 Require Import Lia.
 Require Import Coq.micromega.Psatz.
+(* Rocq 9.1.0: `Z_lt_le_dec` is no longer re-exported transitively by
+   Coq.Reals.Reals; it lives in ZArith_dec (Stdlib.ZArith.ZArith_dec,
+   reachable under the Coq.* compatibility prefix in both 8.18 and 9.1). *)
+Require Import Coq.ZArith.ZArith_dec.
 
 Open Scope R_scope.
 
