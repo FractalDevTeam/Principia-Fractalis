@@ -65,12 +65,25 @@ GE = chr(0x2265)
 OR = chr(0x2228)
 IFF = chr(0x2194)
 
+# Set once per file by the driver; lets TRUE_BODY see whether a
+# marker's discharge cites anything (ANCHORED) or not (FLOATING).
+_WHOLE_SRC = []
+
 REPAIR = {
     "TRUE_BODY":
         "locate the intended predicate; the name records an intent the body does "
-        "not. Replace True with the real statement, or mark the def explicitly as "
-        "a placeholder in its own docstring so no reader and no downstream theorem "
-        "treats it as content.",
+        "not. Two real routes. (1) Replace True with the intended statement -- "
+        "this changes what the marker ASSERTS, so it is a theory-meaning decision, "
+        "not a mechanical edit. (2) ANCHOR it: make its discharge cite the real "
+        "theorem by name, `have _ := <Module>.<capstone>`, so the marker cannot "
+        "outlive the content it is named for. Anchoring does NOT clear this "
+        "finding -- the body is still True and the marker still asserts nothing -- "
+        "it removes the separate defect of resting on nothing at all. An earlier "
+        "version of this text offered a third route, declaring the def a "
+        "placeholder in its docstring. That was withdrawn 2026-10-07: it was never "
+        "implemented (docstrings are stripped before parsing, and the check fires "
+        "unconditionally), and a caveat is scaffolding with a removal condition, "
+        "not a resolution.",
     "FALSE_BODY":
         "a False body makes every theorem over it vacuous. Either the predicate is "
         "mis-stated (check sign, direction, domain) or it is a deliberate "
@@ -280,7 +293,19 @@ def check_prop_def(name, binders, body, true_names):
     b, hits = norm(body), []
     short = name.split(".")[-1]
     if b == "True":
-        hits.append(("TRUE_BODY", "body := True"))
+        # ANCHORED vs FLOATING: does anything that discharges this marker
+        # depend on content outside this module? Both stay HARD -- the body is
+        # True either way -- but the distinction says whether deleting the named
+        # content would break the build. Every Wave-family marker was FLOATING
+        # before 2026-10-07.
+        _anch = re.search(
+            r"theorem\s+" + re.escape(name) + r"_holds\b[\s\S]{0,400}?"
+            r"have\s+_\s*:=\s*_?root_?\.?[A-Za-z]"
+            r"|:= by\n\s+have\s+_\s*:=\s*_?root_?\.?[A-Za-z][\s\S]{0,200}?"
+            r"unfold\s+" + re.escape(name) + r"\b",
+            _WHOLE_SRC[0] if _WHOLE_SRC else "")
+        hits.append(("TRUE_BODY",
+                     "body := True (%s)" % ("ANCHORED" if _anch else "FLOATING")))
     if b == "False":
         hits.append(("FALSE_BODY", "body := False"))
     if UNIT_QUANT.search(b) or re.search(r":\s*Unit\b", b):
@@ -371,6 +396,7 @@ def gather(paths):
     for mod, full in paths:
         try:
             code = strip_comments(io.open(full, encoding="utf-8").read())
+            _WHOLE_SRC[:] = [code]
         except (OSError, UnicodeDecodeError):
             continue
         for kind, name, line, binders, typ, body in split_decls(code):
@@ -390,6 +416,7 @@ def scan(paths):
     for mod, full in paths:
         try:
             code = strip_comments(io.open(full, encoding="utf-8").read())
+            _WHOLE_SRC[:] = [code]
         except (OSError, UnicodeDecodeError):
             continue
         for kind, name, line, binders, typ, body in split_decls(code):

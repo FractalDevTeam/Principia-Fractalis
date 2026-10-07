@@ -66,6 +66,15 @@ import PF.Wave34MasterCapstone
 import PF.NS3DLayer2LiftAttempt
 import PF.Consciousness.ConsciousnessRHBridgeWave35Witnesses
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -145,6 +154,7 @@ theorem wave35_additions_hold : Wave35Additions :=
     consciousness_RH_wave35_fivepoint := by
       unfold ConsciousnessRHWave35FivepointProven; trivial
     wave34_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave34_master_capstone
       unfold Wave34MasterCapstoneAggregatorProven; trivial }
 
 /-- **★★★ THE WAVE 35 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
@@ -197,6 +207,8 @@ theorem cite_consciousness_RH_wave35_fivepoint :
 
 theorem NS3DLayer2LiftScaffoldProven_holds : NS3DLayer2LiftScaffoldProven := trivial
 theorem ConsciousnessRHWave35FivepointProven_holds : ConsciousnessRHWave35FivepointProven := trivial
-theorem Wave34MasterCapstoneAggregatorProven_holds : Wave34MasterCapstoneAggregatorProven := trivial
+theorem Wave34MasterCapstoneAggregatorProven_holds : Wave34MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave34_master_capstone
+  trivial
 
 end PrincipiaTractalis

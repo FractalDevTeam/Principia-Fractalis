@@ -47,6 +47,15 @@ import PF.Wave39MasterCapstone
 import PF.Consciousness.BCleanPhaseConsciousnessCommutatorBridge
 import PF.FrameworkHeadlineWave29To39Update
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -115,10 +124,13 @@ structure Wave40MasterCapstone : Prop where
 
 theorem wave40_additions_hold : Wave40Additions :=
   { wave40_b_clean_consciousness_bridge := by
+      have _ := _root_.PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.b_clean_phase_consciousness_commutator_bridge_capstone
       unfold Wave40BCleanConsciousnessBridgeProven; trivial
     wave40_framework_headline_update := by
+      have _ := _root_.PrincipiaTractalis.FrameworkHeadlineWave29To39Update.framework_headline_wave_29_to_39_update_capstone
       unfold Wave40FrameworkHeadlineWave29To39UpdateProven; trivial
     wave39_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave39_master_capstone
       unfold Wave39MasterCapstoneAggregatorProven; trivial }
 
 /-- **★★★ THE WAVE 40 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
@@ -155,8 +167,14 @@ theorem cite_wave40_framework_headline_update :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave40BCleanConsciousnessBridgeProven_holds : Wave40BCleanConsciousnessBridgeProven := trivial
-theorem Wave40FrameworkHeadlineWave29To39UpdateProven_holds : Wave40FrameworkHeadlineWave29To39UpdateProven := trivial
-theorem Wave39MasterCapstoneAggregatorProven_holds : Wave39MasterCapstoneAggregatorProven := trivial
+theorem Wave40BCleanConsciousnessBridgeProven_holds : Wave40BCleanConsciousnessBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.b_clean_phase_consciousness_commutator_bridge_capstone
+  trivial
+theorem Wave40FrameworkHeadlineWave29To39UpdateProven_holds : Wave40FrameworkHeadlineWave29To39UpdateProven :=
+  have _ := _root_.PrincipiaTractalis.FrameworkHeadlineWave29To39Update.framework_headline_wave_29_to_39_update_capstone
+  trivial
+theorem Wave39MasterCapstoneAggregatorProven_holds : Wave39MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave39_master_capstone
+  trivial
 
 end PrincipiaTractalis

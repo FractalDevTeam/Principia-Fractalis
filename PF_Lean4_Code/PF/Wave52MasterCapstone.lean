@@ -93,6 +93,15 @@ import PF.BSDLPartialOscillationAnalysisAttempt
 import PF.BSDWilesModularityAttempt
 import PF.PNPRHRigidByQuadraticBridge
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -137,22 +146,31 @@ structure Wave52MasterCapstone : Prop where
 
 theorem wave52_additions_hold : Wave52Additions :=
   { wave52_strong_form_div_free_non_trivial := by
+      have _ := _root_.PrincipiaTractalis.StrongFormDivFreeNonTrivialWitness.strong_form_div_free_nontrivial_witness_capstone
       unfold Wave52StrongFormDivFreeNonTrivialWitnessProven; trivial
     wave52_t3_sym_canonical_alpha_carrier := by
+      have _ := _root_.PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.t3_sym_canonical_alpha_carrier_attempt_capstone
       unfold Wave52T3SymCanonicalAlphaCarrierProven; trivial
     wave52_kato_bilinear_estimate := by
+      have _ := _root_.PrincipiaTractalis.KatoBilinearEstimateAttempt.kato_bilinear_estimate_attempt_capstone
       unfold Wave52KatoBilinearEstimateProven; trivial
     wave52_ym_rank_k := by
+      have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.ym_reflection_positivity_3plus1d_rankK_attempt_capstone
       unfold Wave52YMRankKProven; trivial
     wave52_hodge_cm_abelian_4fold := by
+      have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.hodge_codim_2_cmAbelian4Fold_first_principles_capstone
       unfold Wave52HodgeCmAbelian4FoldProven; trivial
     wave52_bsd_L_partial_oscillation_analysis := by
+      have _ := _root_.PrincipiaTractalis.BSDLPartialOscillationAnalysisAttempt.bsd_L_partial_oscillation_analysis_attempt_capstone
       unfold Wave52BSDLPartialOscillationAnalysisProven; trivial
     wave52_bsd_wiles_modularity := by
+      have _ := _root_.PrincipiaTractalis.BSDWilesModularityAttempt.bsd_wiles_modularity_attempt_capstone
       unfold Wave52BSDWilesModularityProven; trivial
     wave52_pnp_rh_rigid_by_quadratic_bridge := by
+      have _ := _root_.PrincipiaTractalis.PNPRHRigidByQuadraticBridge.pnp_rh_rigid_by_quadratic_bridge_capstone
       unfold Wave52PNPRHRigidByQuadraticBridgeProven; trivial
     wave51_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave51_master_capstone
       unfold Wave51MasterCapstoneAggregatorProven; trivial }
 
 theorem principia_fractalis_wave52_master_capstone :
@@ -168,14 +186,32 @@ theorem wave52_master_capstone_axiom_free : True := trivial
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave52StrongFormDivFreeNonTrivialWitnessProven_holds : Wave52StrongFormDivFreeNonTrivialWitnessProven := trivial
-theorem Wave52T3SymCanonicalAlphaCarrierProven_holds : Wave52T3SymCanonicalAlphaCarrierProven := trivial
-theorem Wave52KatoBilinearEstimateProven_holds : Wave52KatoBilinearEstimateProven := trivial
-theorem Wave52YMRankKProven_holds : Wave52YMRankKProven := trivial
-theorem Wave52HodgeCmAbelian4FoldProven_holds : Wave52HodgeCmAbelian4FoldProven := trivial
-theorem Wave52BSDLPartialOscillationAnalysisProven_holds : Wave52BSDLPartialOscillationAnalysisProven := trivial
-theorem Wave52BSDWilesModularityProven_holds : Wave52BSDWilesModularityProven := trivial
-theorem Wave52PNPRHRigidByQuadraticBridgeProven_holds : Wave52PNPRHRigidByQuadraticBridgeProven := trivial
-theorem Wave51MasterCapstoneAggregatorProven_holds : Wave51MasterCapstoneAggregatorProven := trivial
+theorem Wave52StrongFormDivFreeNonTrivialWitnessProven_holds : Wave52StrongFormDivFreeNonTrivialWitnessProven :=
+  have _ := _root_.PrincipiaTractalis.StrongFormDivFreeNonTrivialWitness.strong_form_div_free_nontrivial_witness_capstone
+  trivial
+theorem Wave52T3SymCanonicalAlphaCarrierProven_holds : Wave52T3SymCanonicalAlphaCarrierProven :=
+  have _ := _root_.PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.t3_sym_canonical_alpha_carrier_attempt_capstone
+  trivial
+theorem Wave52KatoBilinearEstimateProven_holds : Wave52KatoBilinearEstimateProven :=
+  have _ := _root_.PrincipiaTractalis.KatoBilinearEstimateAttempt.kato_bilinear_estimate_attempt_capstone
+  trivial
+theorem Wave52YMRankKProven_holds : Wave52YMRankKProven :=
+  have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.ym_reflection_positivity_3plus1d_rankK_attempt_capstone
+  trivial
+theorem Wave52HodgeCmAbelian4FoldProven_holds : Wave52HodgeCmAbelian4FoldProven :=
+  have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.hodge_codim_2_cmAbelian4Fold_first_principles_capstone
+  trivial
+theorem Wave52BSDLPartialOscillationAnalysisProven_holds : Wave52BSDLPartialOscillationAnalysisProven :=
+  have _ := _root_.PrincipiaTractalis.BSDLPartialOscillationAnalysisAttempt.bsd_L_partial_oscillation_analysis_attempt_capstone
+  trivial
+theorem Wave52BSDWilesModularityProven_holds : Wave52BSDWilesModularityProven :=
+  have _ := _root_.PrincipiaTractalis.BSDWilesModularityAttempt.bsd_wiles_modularity_attempt_capstone
+  trivial
+theorem Wave52PNPRHRigidByQuadraticBridgeProven_holds : Wave52PNPRHRigidByQuadraticBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.PNPRHRigidByQuadraticBridge.pnp_rh_rigid_by_quadratic_bridge_capstone
+  trivial
+theorem Wave51MasterCapstoneAggregatorProven_holds : Wave51MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave51_master_capstone
+  trivial
 
 end PrincipiaTractalis

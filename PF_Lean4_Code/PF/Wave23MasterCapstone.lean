@@ -54,6 +54,15 @@ import PF.CrossMillenniumSharedInvariants
 import PF.YangMillsConcentrationViaMultiscaleAveraging
 import PF.BSDRankBlindUniversalConcordance
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -175,6 +184,7 @@ theorem wave22_23_additions_hold : Wave22_23Additions :=
     framework_headline_19_field := by
       unfold FrameworkHeadline19FieldProven; trivial
     cross_millennium_shared_invariants := by
+      have _ := _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.cross_millennium_shared_invariants_capstone
       unfold CrossMillenniumSharedInvariantsProven; trivial
     ym_multiscale_averaging_negative := by
       unfold YMMultiscaleAveragingNegativeProven; trivial
@@ -265,7 +275,9 @@ theorem YMKernelStructureObstructionProven_holds : YMKernelStructureObstructionP
 theorem NS3DLocalBoundLeTwoProven_holds : NS3DLocalBoundLeTwoProven := trivial
 theorem NS3DLocalBoundLeThreeProven_holds : NS3DLocalBoundLeThreeProven := trivial
 theorem FrameworkHeadline19FieldProven_holds : FrameworkHeadline19FieldProven := trivial
-theorem CrossMillenniumSharedInvariantsProven_holds : CrossMillenniumSharedInvariantsProven := trivial
+theorem CrossMillenniumSharedInvariantsProven_holds : CrossMillenniumSharedInvariantsProven :=
+  have _ := _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.cross_millennium_shared_invariants_capstone
+  trivial
 theorem YMMultiscaleAveragingNegativeProven_holds : YMMultiscaleAveragingNegativeProven := trivial
 theorem BSDRankBlindUniversalProven_holds : BSDRankBlindUniversalProven := trivial
 theorem Wave22ManuscriptCh29PropagationProven_holds : Wave22ManuscriptCh29PropagationProven := trivial

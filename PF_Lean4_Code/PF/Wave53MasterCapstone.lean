@@ -88,6 +88,15 @@ import PF.BSDRankZeroFullArgumentAttempt
 import PF.BSDModularFormAnAgreementAttempt
 import PF.RigidGaloisNormAxis
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -132,22 +141,31 @@ structure Wave53MasterCapstone : Prop where
 
 theorem wave53_additions_hold : Wave53Additions :=
   { wave53_t3_sym_continuous_spectral_measure := by
+      have _ := _root_.PrincipiaTractalis.T3SymContinuousSpectralMeasureAttempt.t3_sym_continuous_spectral_measure_attempt_capstone
       unfold Wave53T3SymContinuousSpectralMeasureProven; trivial
     wave53_strong_form_div_free_non_constant := by
+      have _ := _root_.PrincipiaTractalis.StrongFormDivFreeNonConstantWitness.strong_form_div_free_nonconstant_witness_capstone
       unfold Wave53StrongFormDivFreeNonConstantWitnessProven; trivial
     wave53_galerkin_pde_bilinear_bridge := by
+      have _ := _root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.galerkin_pde_bilinear_bridge_attempt_capstone
       unfold Wave53GalerkinPDEBilinearBridgeProven; trivial
     wave53_ym_wightman_vacuum_toy := by
+      have _ := _root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.ym_wightman_vacuum_toy_attempt_capstone
       unfold Wave53YMWightmanVacuumToyProven; trivial
     wave53_hodge_codim_2_cm_abelian_5fold := by
+      have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.hodge_codim_2_cmAbelian5Fold_first_principles_capstone
       unfold Wave53HodgeCodim2CmAbelian5FoldProven; trivial
     wave53_bsd_rank_zero_full_argument := by
+      have _ := _root_.PrincipiaTractalis.BSDRankZeroFullArgumentAttempt.bsd_rank_zero_full_argument_attempt_capstone
       unfold Wave53BSDRankZeroFullArgumentProven; trivial
     wave53_bsd_modular_form_an_agreement := by
+      have _ := _root_.PrincipiaTractalis.BSDModularFormAnAgreementAttempt.bsd_modular_form_an_agreement_attempt_capstone
       unfold Wave53BSDModularFormAnAgreementProven; trivial
     wave53_rigid_galois_norm_axis := by
+      have _ := _root_.PrincipiaTractalis.RigidGaloisNormAxis.rigid_galois_norm_axis_capstone
       unfold Wave53RigidGaloisNormAxisProven; trivial
     wave52_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave52_master_capstone
       unfold Wave52MasterCapstoneAggregatorProven; trivial }
 
 theorem principia_fractalis_wave53_master_capstone :
@@ -163,14 +181,32 @@ theorem wave53_master_capstone_axiom_free : True := trivial
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave53T3SymContinuousSpectralMeasureProven_holds : Wave53T3SymContinuousSpectralMeasureProven := trivial
-theorem Wave53StrongFormDivFreeNonConstantWitnessProven_holds : Wave53StrongFormDivFreeNonConstantWitnessProven := trivial
-theorem Wave53GalerkinPDEBilinearBridgeProven_holds : Wave53GalerkinPDEBilinearBridgeProven := trivial
-theorem Wave53YMWightmanVacuumToyProven_holds : Wave53YMWightmanVacuumToyProven := trivial
-theorem Wave53HodgeCodim2CmAbelian5FoldProven_holds : Wave53HodgeCodim2CmAbelian5FoldProven := trivial
-theorem Wave53BSDRankZeroFullArgumentProven_holds : Wave53BSDRankZeroFullArgumentProven := trivial
-theorem Wave53BSDModularFormAnAgreementProven_holds : Wave53BSDModularFormAnAgreementProven := trivial
-theorem Wave53RigidGaloisNormAxisProven_holds : Wave53RigidGaloisNormAxisProven := trivial
-theorem Wave52MasterCapstoneAggregatorProven_holds : Wave52MasterCapstoneAggregatorProven := trivial
+theorem Wave53T3SymContinuousSpectralMeasureProven_holds : Wave53T3SymContinuousSpectralMeasureProven :=
+  have _ := _root_.PrincipiaTractalis.T3SymContinuousSpectralMeasureAttempt.t3_sym_continuous_spectral_measure_attempt_capstone
+  trivial
+theorem Wave53StrongFormDivFreeNonConstantWitnessProven_holds : Wave53StrongFormDivFreeNonConstantWitnessProven :=
+  have _ := _root_.PrincipiaTractalis.StrongFormDivFreeNonConstantWitness.strong_form_div_free_nonconstant_witness_capstone
+  trivial
+theorem Wave53GalerkinPDEBilinearBridgeProven_holds : Wave53GalerkinPDEBilinearBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.galerkin_pde_bilinear_bridge_attempt_capstone
+  trivial
+theorem Wave53YMWightmanVacuumToyProven_holds : Wave53YMWightmanVacuumToyProven :=
+  have _ := _root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.ym_wightman_vacuum_toy_attempt_capstone
+  trivial
+theorem Wave53HodgeCodim2CmAbelian5FoldProven_holds : Wave53HodgeCodim2CmAbelian5FoldProven :=
+  have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.hodge_codim_2_cmAbelian5Fold_first_principles_capstone
+  trivial
+theorem Wave53BSDRankZeroFullArgumentProven_holds : Wave53BSDRankZeroFullArgumentProven :=
+  have _ := _root_.PrincipiaTractalis.BSDRankZeroFullArgumentAttempt.bsd_rank_zero_full_argument_attempt_capstone
+  trivial
+theorem Wave53BSDModularFormAnAgreementProven_holds : Wave53BSDModularFormAnAgreementProven :=
+  have _ := _root_.PrincipiaTractalis.BSDModularFormAnAgreementAttempt.bsd_modular_form_an_agreement_attempt_capstone
+  trivial
+theorem Wave53RigidGaloisNormAxisProven_holds : Wave53RigidGaloisNormAxisProven :=
+  have _ := _root_.PrincipiaTractalis.RigidGaloisNormAxis.rigid_galois_norm_axis_capstone
+  trivial
+theorem Wave52MasterCapstoneAggregatorProven_holds : Wave52MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave52_master_capstone
+  trivial
 
 end PrincipiaTractalis

@@ -60,6 +60,15 @@ import PF.Wave31MasterCapstone
 import PF.YangMillsCanonicalStrictMonotoneKernel
 import PF.YangMillsCanonicalConvexKernel
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -149,6 +158,7 @@ theorem wave32_additions_hold : Wave32Additions :=
     ym_canonical_convex_off_cluster_bound := by
       unfold YMCanonicalConvexOffClusterBoundProven; trivial
     wave31_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave31_master_capstone
       unfold Wave31MasterCapstoneAggregatorProven; trivial }
 
 /-- **★★★ THE WAVE 32 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
@@ -202,6 +212,8 @@ theorem cite_ym_canonical_convex_off_cluster_bound :
 
 theorem YMCanonicalStrictMonotoneSharpProven_holds : YMCanonicalStrictMonotoneSharpProven := trivial
 theorem YMCanonicalConvexOffClusterBoundProven_holds : YMCanonicalConvexOffClusterBoundProven := trivial
-theorem Wave31MasterCapstoneAggregatorProven_holds : Wave31MasterCapstoneAggregatorProven := trivial
+theorem Wave31MasterCapstoneAggregatorProven_holds : Wave31MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave31_master_capstone
+  trivial
 
 end PrincipiaTractalis

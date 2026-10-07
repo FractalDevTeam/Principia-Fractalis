@@ -33,6 +33,15 @@ import PF.Wave44MasterCapstone
 import PF.RHConditionalDischargeViaGaloisRigidity
 import PF.PerelmanSolvedCaseCrossValidation
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -85,10 +94,13 @@ structure Wave45MasterCapstone : Prop where
 
 theorem wave45_additions_hold : Wave45Additions :=
   { wave45_RH_conditional_discharge_via_galois_rigidity := by
+      have _ := _root_.PrincipiaTractalis.RHConditionalDischargeViaGaloisRigidity.RH_conditional_discharge_via_galois_rigidity_capstone
       unfold Wave45RHConditionalDischargeViaGaloisRigidityProven; trivial
     wave45_perelman_solved_case_cross_validation := by
+      have _ := _root_.PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.perelman_solved_case_cross_validation_capstone
       unfold Wave45PerelmanSolvedCaseCrossValidationProven; trivial
     wave44_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave44_master_capstone
       unfold Wave44MasterCapstoneAggregatorProven; trivial }
 
 theorem principia_fractalis_wave45_master_capstone :
@@ -113,8 +125,14 @@ theorem cite_wave45_perelman_solved_case_cross_validation :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave45RHConditionalDischargeViaGaloisRigidityProven_holds : Wave45RHConditionalDischargeViaGaloisRigidityProven := trivial
-theorem Wave45PerelmanSolvedCaseCrossValidationProven_holds : Wave45PerelmanSolvedCaseCrossValidationProven := trivial
-theorem Wave44MasterCapstoneAggregatorProven_holds : Wave44MasterCapstoneAggregatorProven := trivial
+theorem Wave45RHConditionalDischargeViaGaloisRigidityProven_holds : Wave45RHConditionalDischargeViaGaloisRigidityProven :=
+  have _ := _root_.PrincipiaTractalis.RHConditionalDischargeViaGaloisRigidity.RH_conditional_discharge_via_galois_rigidity_capstone
+  trivial
+theorem Wave45PerelmanSolvedCaseCrossValidationProven_holds : Wave45PerelmanSolvedCaseCrossValidationProven :=
+  have _ := _root_.PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.perelman_solved_case_cross_validation_capstone
+  trivial
+theorem Wave44MasterCapstoneAggregatorProven_holds : Wave44MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave44_master_capstone
+  trivial
 
 end PrincipiaTractalis

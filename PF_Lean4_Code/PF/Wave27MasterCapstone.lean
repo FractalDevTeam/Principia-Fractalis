@@ -61,6 +61,15 @@ import PF.Wave26MasterCapstone
 import PF.YangMillsCanonicalKernelMixedOrder
 import PF.CrossMillenniumImplicationChains
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -159,6 +168,7 @@ theorem wave27_additions_hold : Wave27Additions :=
   { ym_canonical_heat_kernel_narrow_out := by
       unfold YMCanonicalHeatKernelNarrowedOutProven; trivial
     cross_millennium_implication_chains := by
+      have _ := _root_.PrincipiaTractalis.CrossMillenniumImplicationChains.cross_millennium_implication_chains_capstone
       unfold CrossMillenniumImplicationChainsProven; trivial
     wave26_master_capstone_aggregator := by
       unfold Wave26MasterCapstoneAggregatorProven; trivial
@@ -212,7 +222,9 @@ theorem cite_cross_millennium_implication_chains :
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem YMCanonicalHeatKernelNarrowedOutProven_holds : YMCanonicalHeatKernelNarrowedOutProven := trivial
-theorem CrossMillenniumImplicationChainsProven_holds : CrossMillenniumImplicationChainsProven := trivial
+theorem CrossMillenniumImplicationChainsProven_holds : CrossMillenniumImplicationChainsProven :=
+  have _ := _root_.PrincipiaTractalis.CrossMillenniumImplicationChains.cross_millennium_implication_chains_capstone
+  trivial
 theorem Wave26MasterCapstoneAggregatorProven_holds : Wave26MasterCapstoneAggregatorProven := trivial
 theorem Wave27OpenProblemsBannerProven_holds : Wave27OpenProblemsBannerProven := trivial
 theorem Wave27CoqParityW25W26Proven_holds : Wave27CoqParityW25W26Proven := trivial

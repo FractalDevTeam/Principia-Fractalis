@@ -104,6 +104,15 @@ import PF.BSDLPartialEvaluationAttempt
 import PF.BSDConductorAttempt
 import PF.RHHodgeRigidTwistedGaloisBridge
 
+/-! ANCHORED 2026-10-07: each discharge and structure field proof below now cites, via
+    `have _ := ...`, the designated capstone of the module this file already imports, so it
+    does not elaborate unless that content exists; previously they read `trivial`
+    and depended on nothing. Marker names, marker types and the 2026-08-04 vacuity
+    banners are UNCHANGED: a `: Prop := True` marker still asserts nothing, and what
+    it ought to assert instead is a theory-meaning decision rather than a mechanical
+    one. See codex/WAVE_FAMILY_ANCHORING_2026-10-07.tsv for every marker-to-capstone
+    pairing and the rule that produced it. -/
+
 namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
@@ -148,22 +157,31 @@ structure Wave50MasterCapstone : Prop where
 
 theorem wave50_additions_hold : Wave50Additions :=
   { wave50_t3_sym_spectral_witness := by
+      have _ := _root_.PrincipiaTractalis.T3SymSpectralWitnessAttempt.t3_sym_spectral_witness_attempt_capstone
       unfold Wave50T3SymSpectralWitnessProven; trivial
     wave50_sobolev_hs_scale := by
+      have _ := _root_.PrincipiaTractalis.SobolevHSScaleOnTorus3Attempt.sobolev_HS_scale_on_torus3_attempt_capstone
       unfold Wave50SobolevHSScaleProven; trivial
     wave50_div_free_fourier_density := by
+      have _ := _root_.PrincipiaTractalis.DivFreeFourierDensityOnTorus3Attempt.div_free_fourier_density_on_torus3_attempt_capstone
       unfold Wave50DivFreeFourierDensityProven; trivial
     wave50_ym_reflection_positivity_3plus1D := by
+      have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DAttempt.ym_reflection_positivity_3plus1d_attempt_capstone
       unfold Wave50YMReflectionPositivity3plus1DProven; trivial
     wave50_hodge_codim_2_cmCube_first_principles := by
+      have _ := _root_.PrincipiaTractalis.HodgeCodim2CMCubeFirstPrinciplesAttempt.hodge_codim_2_cmCube_first_principles_capstone
       unfold Wave50HodgeCodim2CMCubeFirstPrinciplesProven; trivial
     wave50_bsd_L_partial_evaluation := by
+      have _ := _root_.PrincipiaTractalis.BSDLPartialEvaluationAttempt.bsd_L_partial_evaluation_attempt_capstone
       unfold Wave50BSDLPartialEvaluationProven; trivial
     wave50_bsd_conductor := by
+      have _ := _root_.PrincipiaTractalis.BSDConductorAttempt.bsd_conductor_attempt_capstone
       unfold Wave50BSDConductorProven; trivial
     wave50_rh_hodge_rigid_twisted_galois_bridge := by
+      have _ := _root_.PrincipiaTractalis.RHHodgeRigidTwistedGaloisBridge.rh_hodge_rigid_twisted_galois_bridge_capstone
       unfold Wave50RHHodgeRigidTwistedGaloisBridgeProven; trivial
     wave49_master_capstone_aggregator := by
+      have _ := _root_.PrincipiaTractalis.principia_fractalis_wave49_master_capstone
       unfold Wave49MasterCapstoneAggregatorProven; trivial }
 
 theorem principia_fractalis_wave50_master_capstone :
@@ -179,14 +197,32 @@ theorem wave50_master_capstone_axiom_free : True := trivial
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave50T3SymSpectralWitnessProven_holds : Wave50T3SymSpectralWitnessProven := trivial
-theorem Wave50SobolevHSScaleProven_holds : Wave50SobolevHSScaleProven := trivial
-theorem Wave50DivFreeFourierDensityProven_holds : Wave50DivFreeFourierDensityProven := trivial
-theorem Wave50YMReflectionPositivity3plus1DProven_holds : Wave50YMReflectionPositivity3plus1DProven := trivial
-theorem Wave50HodgeCodim2CMCubeFirstPrinciplesProven_holds : Wave50HodgeCodim2CMCubeFirstPrinciplesProven := trivial
-theorem Wave50BSDLPartialEvaluationProven_holds : Wave50BSDLPartialEvaluationProven := trivial
-theorem Wave50BSDConductorProven_holds : Wave50BSDConductorProven := trivial
-theorem Wave50RHHodgeRigidTwistedGaloisBridgeProven_holds : Wave50RHHodgeRigidTwistedGaloisBridgeProven := trivial
-theorem Wave49MasterCapstoneAggregatorProven_holds : Wave49MasterCapstoneAggregatorProven := trivial
+theorem Wave50T3SymSpectralWitnessProven_holds : Wave50T3SymSpectralWitnessProven :=
+  have _ := _root_.PrincipiaTractalis.T3SymSpectralWitnessAttempt.t3_sym_spectral_witness_attempt_capstone
+  trivial
+theorem Wave50SobolevHSScaleProven_holds : Wave50SobolevHSScaleProven :=
+  have _ := _root_.PrincipiaTractalis.SobolevHSScaleOnTorus3Attempt.sobolev_HS_scale_on_torus3_attempt_capstone
+  trivial
+theorem Wave50DivFreeFourierDensityProven_holds : Wave50DivFreeFourierDensityProven :=
+  have _ := _root_.PrincipiaTractalis.DivFreeFourierDensityOnTorus3Attempt.div_free_fourier_density_on_torus3_attempt_capstone
+  trivial
+theorem Wave50YMReflectionPositivity3plus1DProven_holds : Wave50YMReflectionPositivity3plus1DProven :=
+  have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DAttempt.ym_reflection_positivity_3plus1d_attempt_capstone
+  trivial
+theorem Wave50HodgeCodim2CMCubeFirstPrinciplesProven_holds : Wave50HodgeCodim2CMCubeFirstPrinciplesProven :=
+  have _ := _root_.PrincipiaTractalis.HodgeCodim2CMCubeFirstPrinciplesAttempt.hodge_codim_2_cmCube_first_principles_capstone
+  trivial
+theorem Wave50BSDLPartialEvaluationProven_holds : Wave50BSDLPartialEvaluationProven :=
+  have _ := _root_.PrincipiaTractalis.BSDLPartialEvaluationAttempt.bsd_L_partial_evaluation_attempt_capstone
+  trivial
+theorem Wave50BSDConductorProven_holds : Wave50BSDConductorProven :=
+  have _ := _root_.PrincipiaTractalis.BSDConductorAttempt.bsd_conductor_attempt_capstone
+  trivial
+theorem Wave50RHHodgeRigidTwistedGaloisBridgeProven_holds : Wave50RHHodgeRigidTwistedGaloisBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.RHHodgeRigidTwistedGaloisBridge.rh_hodge_rigid_twisted_galois_bridge_capstone
+  trivial
+theorem Wave49MasterCapstoneAggregatorProven_holds : Wave49MasterCapstoneAggregatorProven :=
+  have _ := _root_.PrincipiaTractalis.principia_fractalis_wave49_master_capstone
+  trivial
 
 end PrincipiaTractalis
