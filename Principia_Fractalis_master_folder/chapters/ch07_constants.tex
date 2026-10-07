@@ -198,7 +198,25 @@ Numerically: $\lambda_1^{\mathbf{NP}} \approx 0.5219115...$
 The difference is:
 \begin{equation}
 \Delta = 0.5219115... - 0.4327896... = 0.0891219046...
-\end{equation}
+\end{equation}\manuscriptcorrection{\textbf{The displayed formula does not produce
+these two numbers, and the framework certifies a different gap.} Flagged
+2026-10-07. Evaluating
+$\tfrac{1}{3}\sum_{k=0}^{2} e^{i\pi\alpha k}$ as written gives \emph{complex}
+values: $-0.0414905 - 0.1502047\,i$ at $\alpha_P = \sqrt2$ and
+$+0.8635915 - 0.3800592\,i$ at $\alpha_{NP} = \varphi + \tfrac14$. The quoted
+reals $0.4327896$ and $0.5219115$ match neither the real parts, nor the
+imaginary parts, nor the moduli ($0.1558298$ and $0.9435228$). Separately,
+\texttt{PF/SpectralGap.lean} certifies the closed forms
+$\lambda_0 = \pi/(10\alpha)$, i.e.\ $0.2221441469$ and $0.1681764182$, whose
+difference is $0.0539677287$ --- not $0.0891219046$. Chapter~\ref{ch:resonance}
+already carries a correction note naming this as a three-way inconsistency
+(together with a fourth figure, $0.1330222423$, printed in
+Chapter~\ref{ch:spectral_unity} for the nominally identical $\lambda_0(H_{NP})$),
+and \texttt{PF/TuringEncoding/SpectralGapInconsistencyAnalysis.lean} proves those
+values pairwise unequal. This chapter disclosed none of it at this theorem. The
+digits are left standing pending a decision on which operator
+$\lambda_1^{\mathbf{P}}, \lambda_1^{\mathbf{NP}}$ denote; that is a
+theory-meaning question, not an arithmetic one.}
 
 This value is \textit{universal}---it does not depend on the specific problem in $\mathbf{NP}$, only on the fundamental structure of computation itself.
 \end{level2}
@@ -242,10 +260,13 @@ NP Complexity & $\phi + 1/4$ & Golden shift & \ref{ch:p-vs-np} \\
 Circle Constant & $\pi$ & Circumference/diameter & \ref{ch:navier-stokes} \\
 Growth Constant & $e$ & Natural exponential & \ref{ch:yang-mills} \\
 Yang-Mills & $2$ & Octave doubling & \ref{ch:yang-mills} \\
-Navier-Stokes & $5/3$ & Kolmogorov cascade & \ref{ch:navier-stokes} \\
+Navier-Stokes & $3\pi/2$ & Three-quarter rotation & \ref{ch:navier-stokes} \\
 \hline
 \end{tabular}
 \end{table}
+
+\noindent\textbf{Correction to Table~\ref{tab:sacred-alpha} (2026-10-07).} Corrected 2026-10-07. The Navier--Stokes row read $5/3$ (``Kolmogorov cascade''); the canonical value is $3\pi/2$. Chapter~\ref{ch:resonance}'s Table~\ref{tab:resonance-values} states verbatim that ``prior NS$=5/3$, BSD$=\phi+1/3$, Hodge$=\pi/2$ did not match the canonical values'' and was corrected on 2026-05-18; this table was not updated at that time. Note also that the \emph{Circle Constant} ($\pi$), \emph{Growth Constant} ($e$) and \emph{Golden Mean} ($\varphi$) rows list constants of structural interest and the chapters where they arise; they are not $\alpha$-assignments for those chapters. The canonical assignments are $\alpha_{NS} = 3\pi/2$, $\alpha_{YM} = 2$ and $\alpha_{\text{Hodge}} = \varphi$.
+
 
 \begin{intuitive}[Why These Numbers?]
 You've seen these numbers before: $\sqrt{2}$ (the diagonal of a square), $\phi$ (the golden ratio in seashells and galaxies), $\pi$ (the circumference of a circle), $e$ (compound growth).
@@ -434,7 +455,20 @@ Wait---this gives $p_c \approx 0.02$, not $0.95$! What's going on?
 The key is that $p_c$ is the \textit{minimum} probability for connectivity. Consciousness requires not just connectivity but \textit{coherence}. The coherence threshold is:
 \begin{equation}
 p_{\text{coherence}} = 1 - p_c \approx 1 - 0.05 = 0.95
-\end{equation}
+\end{equation}\manuscriptcorrection{\textbf{This step substitutes $0.05$ for the
+$p_c$ computed two lines above, and the arithmetic does not give $0.95$.}
+Flagged 2026-10-07. The displayed $p_c$ is
+$1000/(50{,}000-1000) = 0.020408$, so $1 - p_c = 0.979592$, not $0.95$. To reach
+$0.95$ one needs $p_c = 0.05$, which is not what the stated degree moments yield;
+$\langle k^2 \rangle \approx 21{,}000$ would be required instead of $50{,}000$.
+So this route does not derive the threshold. Of the four ``independent
+derivations'' offered in this section, (1) assumes $\epsilon = 0.05$ and then
+concludes $1 - \epsilon = 0.95$, (2) is the step corrected here, and (3) asserts
+a change of character at $\lambda = 0.95$ without a computation; only (4), the
+EEG coherence measurement $0.95 \pm 0.02$, is independent evidence. The
+threshold's present standing is therefore as a phenomenological anchor, which is
+what Chapter~\ref{ch:consciousness} and Appendix~\ref{app:clinical} treat it as.
+The value $0.95$ is \emph{not} altered by this note.}
 
 This is the probability that the system is NOT in the percolation regime---i.e., it's fully connected and coherent.
 \end{level3}
