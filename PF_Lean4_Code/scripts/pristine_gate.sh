@@ -396,7 +396,15 @@ else
   for p in "${PROPS[@]}"; do
     # a witness is: an ∃ statement mentioning p, an `example : p ...`, or a
     # theorem whose statement applies p to concrete arguments.
-    if grep -qE "(∃[^,]*,[^\n]*\b$p\b|example[[:space:]]*:[[:space:]]*$p\b|_nonvacuous|_nonempty|_satisfiable|_holds|_witness)" "$STRIPPED" \
+    # FIXED 2026-10-07. The five suffix alternatives previously carried no
+    # $p, so ONE theorem named *_holds anywhere in a module satisfied (e)
+    # for EVERY Prop in it. That contradicted the design note above, which
+    # specifies the witness shape as `<predname>_nonvacuous`. Measured
+    # effect of the bug: 167 of the 1019 modules reported PRISTINE by the
+    # 2026-10-06 sweep passed (e) on the bare token alone, between them
+    # holding 716 Prop definitions with no witness naming them. Each token
+    # is now bound to the predicate.
+    if grep -qE "(∃[^,]*,[^\n]*\b$p\b|example[[:space:]]*:[[:space:]]*$p\b|\b${p}_(nonvacuous|nonempty|satisfiable|holds|witness)\b)" "$STRIPPED" \
        && grep -qE "\b$p\b" "$STRIPPED"; then
       :
     else
