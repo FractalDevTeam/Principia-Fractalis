@@ -5,9 +5,18 @@
 which constructed `L_partial(E_rank_zero, 1, 31)` over the nine good primes
 `p ∈ {5,7,11,13,17,19,23,29,31}` and proved a bracket `(0.553, 0.554)`.
 
-This file extends the partial Euler product to **all good primes
-`p ≤ 100`** (i.e., 23 primes `p ∈ {5,7,11,13,17,19,23,29,31,37,41,43,47,53,
-59,61,67,71,73,79,83,89,97}`, bad prime `p = 2` still excluded), by
+This file extends the partial Euler product to the 23 good primes
+`5 ≤ p ≤ 100` (i.e. `p ∈ {5,7,11,13,17,19,23,29,31,37,41,43,47,53,
+59,61,67,71,73,79,83,89,97}`), by
+
+★ CORRECTION 2026-10-07 — `p = 3` IS A GOOD PRIME AND IS OMITTED. The earlier
+wording ("all good primes `p ≤ 100`", "23 good primes") is wrong. `E_rank_zero`
+is LMFDB `32.a3`, `y² = x³ - x`, conductor `32 = 2⁵`, so `p = 2` is the ONLY
+bad prime: there are **24** good primes `p ≤ 100`, and this product covers 23 of
+them. Over `ℤ/3`, `x³ - x ≡ 0` for every `x`, giving 3 affine points plus the
+point at infinity, so `#E(\U0001D53D₃) = 4`, `a₃ = 3 + 1 - 4 = 0`, and the missing local
+factor at `s = 1` is `p/(p - a_p + 1) = 3/4`. See the HONEST SCOPE block below
+for why this is not cosmetic. By
 computing the Frobenius traces at the 14 new primes via decidable point
 counting and assembling the extended rational closed form.
 
@@ -393,8 +402,12 @@ def L_partial_new_primes : ℚ :=
   eulerFactor_71 * eulerFactor_73 * eulerFactor_79 * eulerFactor_83 *
   eulerFactor_89 * eulerFactor_97
 
-/-- **Extended partial Euler product** at `s = 1` over all 23 good primes
-    `p ≤ 100` for `E_rank_zero`. -/
+/-- **Extended partial Euler product** at `s = 1` over the 23 good primes
+    `5 ≤ p ≤ 100` for `E_rank_zero`.
+
+    NOT over all good primes `p ≤ 100`: `p = 3` is good (the conductor is
+    `2⁵`) and is omitted. Corrected 2026-10-07; the omitted local factor is
+    `3/4` and it inverts the upper bracket — see HONEST SCOPE below. -/
 def L_partial_E32a3_at_1_extended : ℚ :=
   L_partial_E32a3_at_1 * L_partial_new_primes
 
@@ -612,6 +625,25 @@ theorem eulerFactor_97_from_a_p :
 
     * Still a PARTIAL Euler product over 23 good primes. NOT a discharge
       of BSD (Coates-Wiles 1977 handles rank-0 CM classically).
+
+    * ★ **`p = 3` IS OMITTED, AND THE UPPER BRACKET DOES NOT SURVIVE ITS
+      INCLUSION** (found 2026-10-07). `p = 3` is a good prime for `32.a3`
+      (conductor `2⁵`); `a₃ = 0` and its local factor at `s = 1` is `3/4`.
+      Applying it to both partial products gives
+      `L_partial(31) → 0.4150811` and `L_partial(97) → 0.6063694`, while
+      `L(E,1) = 0.65551`. So `L(E,1) < L_partial(97)` **FAILS**: the right half
+      of the sandwich holds only because `p = 3` is absent from the product.
+
+      The Lean statements below are unaffected and remain true — they are
+      statements about `L_partial_E32a3_at_1_extended` exactly as defined here.
+      What does NOT follow is the INTERPRETATION of that bracket as a two-sided
+      bound on the true `L(E,1)`. `sandwich_right` and `sandwich_full` in
+      `PF/BSDRankZeroFullArgumentAttempt.lean` must not be read as bounding the
+      L-value until `eulerFactor_3` is included and the brackets recomputed.
+      Nothing downstream collapses, because that cascade terminates in `True`
+      (`MordellWeilRankZeroOf (_E) : Prop := True`), but
+      `bsd_axis_framework_level_millennium_answer` publishes this product as a
+      result and should not until this is repaired.
 
     * The bracket `(0.8084, 0.8085)` for `L_partial(97)` is *further*
       from `L(E,1) ≈ 0.65551` than Wave 50F's `(0.553, 0.554)` was.
