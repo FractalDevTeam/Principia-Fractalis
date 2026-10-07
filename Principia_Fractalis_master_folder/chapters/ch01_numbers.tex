@@ -418,10 +418,29 @@ $$D_3(n) = D_3(q) + r$$
 
 This corollary reveals the recursive nature: to find $D_3(n)$, divide by 3, find $D_3$ of the quotient, and add the remainder. This creates the fractal structure.
 
-\begin{theorem}[Modular Property]
+\begin{theorem}[Modular Property: the Last Digit Carries $n \bmod 3$]
 \label{thm:d3-modular}
-For any $n \in \mathbb{N}$:
-$$D_3(n) \equiv n \pmod{3}$$
+For any $n \in \mathbb{N}$ with base-3 expansion $n = \sum_{k=0}^{m} d_k \cdot 3^k$:
+$$n \equiv d_0 \pmod{3}$$
+That is, $n \bmod 3$ is determined by the \emph{last} base-3 digit alone --- which
+is exactly why divisibility by 3 is read off the final digit
+(Section~\ref{subsec:why-not-three}). The digit-\emph{sum} congruence in base 3 is
+modulo $2$, not modulo $3$: see Theorem~\ref{thm:digital-sum-modular} and
+Theorem~\ref{thm:parity-rule}.\manuscriptcorrection{\textbf{This theorem
+previously read $D_3(n) \equiv n \pmod 3$, which is false.} Flagged 2026-10-07.
+It fails for 666 of the first 999 integers; the smallest counterexample is
+$n = 3 = (10)_3$, where $D_3(3) = 1$ but $3 \equiv 0 \pmod 3$. Next:
+$n = 4 = (11)_3$ has $D_3(4) = 2$ and $4 \equiv 1$; $n = 5 = (12)_3$ has
+$D_3(5) = 3 \equiv 0$ and $5 \equiv 2$. The proof's second step,
+``$D_3(n) = \sum_k d_k \equiv d_0 \pmod 3$'', discards $\sum_{k \ge 1} d_k$,
+which is not a multiple of 3 in general. The first half of the proof is correct
+and establishes the statement now displayed. The chapter's two genuine
+digit-sum congruences --- $n \equiv D_b(n) \pmod{b-1}$ and its base-3 parity
+specialization $n \equiv D_3(n) \pmod 2$ --- are unaffected and were already
+proved correctly in Section~\ref{sec:divisibility-rules}; the parity one is
+formalized axiom-free as \texttt{digitalSum3\_mod\_two} in
+\texttt{PF/Consciousness/RfAlphaScalingConstantBase3.lean}. Note this chapter's
+Verification-status ledger vouches for those two and never mentioned this one.}
 \end{theorem}
 
 \begin{proof}
@@ -434,14 +453,24 @@ n &\equiv d_0 \cdot 3^0 + \sum_{k=1}^{m} d_k \cdot 3^k \\
 &\equiv d_0 \pmod{3}
 \end{align}
 
-But also:
-$$D_3(n) = \sum_{k=0}^{m} d_k \equiv d_0 \pmod{3}$$
+This establishes $n \equiv d_0 \pmod{3}$. \qed
 
-Therefore $D_3(n) \equiv n \pmod{3}$. \qed
+\medskip
+\noindent\emph{Removed step (2026-10-07).} The argument previously continued
+``But also $D_3(n) = \sum_{k=0}^{m} d_k \equiv d_0 \pmod 3$, therefore
+$D_3(n) \equiv n \pmod 3$.'' That inference is invalid --- it drops
+$\sum_{k \ge 1} d_k$, which need not be divisible by 3 --- and its conclusion is
+false; see the correction note on the theorem.
 \end{proof}
 
 \begin{remark}
-Theorem \ref{thm:d3-modular} shows that $D_3(n)$ contains the same information as $n \bmod 3$, but with additional fractal structure. This generalizes the classical "casting out nines" divisibility rule.
+Theorem \ref{thm:d3-modular} shows that $n \bmod 3$ is carried by the last
+base-3 digit alone. The digit-\emph{sum} analogue of the classical ``casting out
+nines'' rule is Theorem~\ref{thm:digital-sum-modular}: in base $b$ the digit sum
+is congruent to $n$ modulo $b-1$, so in base 3 the digit sum controls
+$n \bmod 2$ (Theorem~\ref{thm:parity-rule}) --- not $n \bmod 3$. The fractal
+structure of $D_3$ is real (Section~\ref{sec:fractal-structure}) but it is not
+what carries the mod-3 information.
 \end{remark}
 
 % ============================================================
@@ -544,7 +573,7 @@ Compute the Fourier transform of the sequence $\{D_3(n)\}_{n=1}^{N}$ for large $
 \begin{enumerate}
 \item $D_3(n)$ exhibits fractal self-similarity: $D_3(3^k \cdot n) = D_3(n)$
 \item The pattern has recursive structure: $D_3(3q + r) = D_3(q) + r$
-\item Modular property: $D_3(n) \equiv n \pmod{3}$
+\item Modular property: $n \equiv d_0 \pmod{3}$ (the last base-3 digit); the digit-\emph{sum} congruence in base 3 is $D_3(n) \equiv n \pmod{2}$
 \item Growth rate: $\max_{n \leq 3^k} D_3(n) = 2k$ (logarithmic)
 \item Connections to $p$-adic numbers and fractal geometry
 \end{enumerate}
@@ -1427,9 +1456,18 @@ where $\alpha \in \mathbb{R}$ is a parameter and $s \in \mathbb{C}$ with $\text{
 \item The function $R_f(\alpha, s)$ generalizes the Riemann zeta function $\zeta(s)$ (which corresponds to $\alpha = 0$)
 \item Different values of $\alpha$ encode different mathematical structures:
   \begin{itemize}
-  \item $\alpha = 1/2$: Connects to Riemann Hypothesis\index{Riemann Hypothesis}
-  \item $\alpha = \phi$ (golden ratio): Connects to Hodge conjecture\index{Hodge conjecture}
-  \item $\alpha = e$: Connects to Yang-Mills mass gap\index{Yang-Mills theory}
+  \item $\alpha = 3/2$: Connects to Riemann Hypothesis\index{Riemann Hypothesis}
+  \item $\alpha = \varphi$ (golden ratio): Connects to Hodge conjecture\index{Hodge conjecture}
+  \item $\alpha = 2$: Connects to Yang-Mills mass gap\index{Yang-Mills theory}\manuscriptcorrection{Corrected
+2026-10-07 to the canonical Per-Millennium $\alpha$-Dictionary. This list
+previously gave $\alpha_{RH} = 1/2$ and $\alpha_{YM} = e$; the canonical values
+are $\alpha_{RH} = 3/2$ and $\alpha_{YM} = 2$, as carried by
+Table~\ref{tab:resonance-values} in Chapter~\ref{ch:resonance} (itself corrected
+2026-05-18), by Table~\ref{tab:sacred-alpha} in
+Chapter~\ref{ch:constants}, and by the $\alpha$-substrate reference table in
+Chapter~\ref{ch:substrate-theorem}. $\alpha_{\text{Hodge}} = \varphi$ was already
+correct. These are \emph{assigned} resonance values, not derived ones --- see the
+status ledger in Chapter~\ref{ch:resonance}.}
   \end{itemize}
 \item The fractal structure of $D_3(n)$ (Section 1.4) is what allows $R_f(\alpha, s)$ to exhibit resonance at critical values
 \end{itemize}
