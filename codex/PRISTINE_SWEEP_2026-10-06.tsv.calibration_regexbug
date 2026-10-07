@@ -1,0 +1,13 @@
+module	verdict	failed_criteria	seconds
+PF	PRISTINE		2.9
+PF.AlgebraicGeometry.Bridge4_Hodge_SubstrateDischarge	FAILED	unparsed	10.6
+PF.AlgebraicGeometry.Cohen2025_HodgeConjecture_NamedAnchors_2026_06_19	PRISTINE		6.6
+PF.AlgebraicGeometry.CycleClassMapAtCodim2Attempt	FAILED	unparsed	12.5
+PF.AlgebraicGeometry.CycleClassMapOnCurve	FAILED	unparsed	10.6
+PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV2	FAILED	unparsed	11.0
+PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV3	FAILED	unparsed	17.7
+PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV4	FAILED	unparsed	18.4
+PF.AlgebraicGeometry.HodgeMathlibBridges	PRISTINE		18.1
+PF.AlgebraicGeometry.Hodge_ClayDischargeAttempt	FAILED	unparsed	12.0
+PF.AlgebraicGeometry.Hodge_ClayLiteralClosureAttempt	FAILED	unparsed	10.3
+PF.AlgebraicGeometry.Hodge_Substrate_NamedAnchors_2026_06_19	PRISTINE		7.7
