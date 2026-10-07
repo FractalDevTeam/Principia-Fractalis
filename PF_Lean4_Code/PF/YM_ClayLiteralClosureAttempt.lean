@@ -393,6 +393,115 @@ theorem H_OS_spectrum_contains_one_half :
   ⟨OS_eigvec_one_half, OS_eigvec_one_half_ne_zero,
    H_OS_Wightman_eigenvalue_one_half⟩
 
+/-! ### §6.1 — Componentwise form of the Hamiltonian action (added 2026-10-07)
+
+The two scalar equations behind every eigenvalue computation for
+`interactingHam = !![1, 1/2; 1/2, 1]`. These are the ONLY inputs the spectral
+inclusion in §6.2 needs: no spectral theorem, no characteristic polynomial, and
+no `Matrix.IsHermitian.eigenvalues` — which at this mathlib pin is a
+noncomputable choice of eigenvector basis and cannot be evaluated on a concrete
+matrix. -/
+
+/-- **First component of the OS Hamiltonian's action**: `(H v) 0 = v 0 + (1/2) * v 1`. -/
+theorem H_OS_Wightman_apply_zero (v : H_Wightman) :
+    H_OS_Wightman v 0 = v 0 + (1 / 2 : ℝ) * v 1 := by
+  rw [H_OS_Wightman_apply]
+  -- The simp call closes this outright; the trailing try-ring keeps the
+  -- script robust if the simp set ever leaves a ring-normalisable
+  -- residue. (Written without backticks: a heredoc through ssh ate the
+  -- backtick-quoted words here on 2026-10-07 as command substitutions.)
+  simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, interactingHam]
+  try ring
+
+/-- **Second component of the OS Hamiltonian's action**: `(H v) 1 = (1/2) * v 0 + v 1`. -/
+theorem H_OS_Wightman_apply_one (v : H_Wightman) :
+    H_OS_Wightman v 1 = (1 / 2 : ℝ) * v 0 + v 1 := by
+  rw [H_OS_Wightman_apply]
+  -- The simp call closes this outright; the trailing try-ring keeps the
+  -- script robust if the simp set ever leaves a ring-normalisable
+  -- residue. (Written without backticks: a heredoc through ssh ate the
+  -- backtick-quoted words here on 2026-10-07 as command substitutions.)
+  simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, interactingHam]
+  try ring
+
+/-! ### §6.2 — ★★★ THE SPECTRAL INCLUSION ★★★ (added 2026-10-07)
+
+`specSet_H_OS ⊆ {1/2, 3/2}`: there are NO eigenvalues besides the two exhibited
+above.
+
+This is the direction the file previously asserted in three docstrings without
+proving — header item (6), the §6 banner, and the `H_OS_mass_gap_one_half`
+docstring — and whose absence forced the goal-form theorem
+`ym_clay_literal_mass_gap` to quantify over the literal doubleton `{1/2, 3/2}`
+rather than over `specSet Hamil` as its own quoted specification requires. The
+clause as shipped does not mention the operator at all.
+
+Mechanism, the `det(M - λI) = (1-λ)² - 1/4 = 0` computation in eigenvector form:
+from `H v = E • v` the components (§6.1) are `v₀ + v₁/2 = E·v₀` and
+`v₀/2 + v₁ = E·v₁`; adding and subtracting diagonalises by hand in the
+`(1,1)`/`(1,-1)` frame to `(E - 3/2)(v₀ + v₁) = 0` and `(E - 1/2)(v₀ - v₁) = 0`.
+If `E ∉ {1/2, 3/2}` both factors force `v₀ = v₁ = 0`, i.e. `v = 0`, contradicting
+`v ≠ 0`.
+
+★ SCOPE MARKER, mandatory before citing anything in this section.
+`H_OS_Wightman` is a 2×2 REAL SYMMETRIC MATRIX lifted to a continuous linear map
+on `EuclideanSpace ℝ (Fin 2)`. It is NOT a quantum Yang–Mills theory on `ℝ⁴`.
+"Spectrum", "mass gap" and "Hamiltonian" here are the linear-algebra notions for
+that 2×2 matrix, not the Wightman-axiomatic notions of the Clay problem. The Clay
+statement requires a quantum Yang–Mills theory for a non-abelian compact simple
+gauge group on `ℝ⁴` satisfying the Osterwalder–Schrader axioms; no object of type
+`Measure (𝓢'(ℝ⁴))` exists anywhere in this corpus, and the carrier here is
+2-dimensional. Nothing in this section bears on the Clay Yang–Mills mass gap. -/
+
+/-- **★★★ SPECTRAL INCLUSION — `specSet_H_OS ⊆ {1/2, 3/2}` ★★★**
+
+    The OS Hamiltonian has NO eigenvalue other than `1/2` and `3/2`. With the two
+    membership theorems this pins the spectrum exactly
+    (`H_OS_specSet_eq_pair`).
+
+    Honest scope: a statement of finite-dimensional linear algebra about the 2×2
+    real symmetric matrix `!![1, 1/2; 1/2, 1]`. NO Clay Yang–Mills content. -/
+theorem H_OS_specSet_subset_pair :
+    specSet_H_OS ⊆ ({1 / 2, 3 / 2} : Set ℝ) := by
+  rintro E ⟨v, hv_ne, hv⟩
+  simp only [Set.mem_insert_iff, Set.mem_singleton_iff]
+  have h0 : v 0 + (1 / 2 : ℝ) * v 1 = E * v 0 := by
+    rw [← H_OS_Wightman_apply_zero v, hv]; simp
+  have h1 : (1 / 2 : ℝ) * v 0 + v 1 = E * v 1 := by
+    rw [← H_OS_Wightman_apply_one v, hv]; simp
+  have hplus : (E - 3 / 2) * (v 0 + v 1) = 0 := by linear_combination -h0 - h1
+  have hminus : (E - 1 / 2) * (v 0 - v 1) = 0 := by linear_combination h1 - h0
+  rcases mul_eq_zero.mp hplus with hE | hsum
+  · exact Or.inr (by linarith)
+  · rcases mul_eq_zero.mp hminus with hE | hdiff
+    · exact Or.inl (by linarith)
+    · exfalso
+      apply hv_ne
+      have e0 : v 0 = 0 := by linarith
+      have e1 : v 1 = 0 := by linarith
+      funext i
+      fin_cases i
+      · simpa using e0
+      · simpa using e1
+
+/-- **★★★ EXACT SPECTRUM — `specSet_H_OS = {1/2, 3/2}` ★★★**
+
+    Both inclusions: `⊆` from `H_OS_specSet_subset_pair`, `⊇` from the two
+    explicit eigenvector witnesses. This is what the file's §6 banner and header
+    item (6) previously asserted without proof.
+
+    Honest scope: exact spectrum of a 2×2 real symmetric matrix. NOT a
+    Yang–Mills spectrum on `ℝ⁴`. -/
+theorem H_OS_specSet_eq_pair :
+    specSet_H_OS = ({1 / 2, 3 / 2} : Set ℝ) := by
+  apply Set.Subset.antisymm H_OS_specSet_subset_pair
+  intro E hE
+  simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hE
+  rcases hE with h | h
+  · rw [h]; exact H_OS_spectrum_contains_one_half
+  · rw [h]; exact H_OS_spectrum_contains_three_halves
+
+
 /-- **The mass gap of the OS Hamiltonian is `1/2`**: both known
     eigenvalues are at least `1/2 > 0`. Spectrum is `{1/2, 3/2} ⊂
     [1/2, ∞)`. -/
