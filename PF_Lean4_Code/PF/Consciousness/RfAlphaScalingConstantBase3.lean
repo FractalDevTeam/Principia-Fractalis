@@ -137,7 +137,7 @@ theorem phaseFactor_eq_exp_const_mul (α : ℝ) (n : ℕ) :
   ring
 
 /-- **α-derivative of the phase factor**: multiplication by `iπ·D₃(n)`. -/
-theorem phaseFactor_hasDerivAt (α : ℝ) (n : ℕ) :
+theorem rfAlpha_phaseFactor_hasDerivAt (α : ℝ) (n : ℕ) :
     HasDerivAt (fun a : ℝ => phaseFactor a n)
       (Complex.I * (Real.pi : ℂ) * (digitalSum3 n : ℂ) * phaseFactor α n) α := by
   set C : ℂ := Complex.I * (Real.pi : ℂ) * (digitalSum3 n : ℂ) with hC
@@ -165,7 +165,7 @@ theorem rf_term_hasDerivAt (α : ℝ) (s : ℂ) (n : ℕ) :
       (Complex.I * (Real.pi : ℂ) * (digitalSum3 n : ℂ)
         * fractalResonanceTerm_complex α s n) α := by
   unfold fractalResonanceTerm_complex
-  simpa [mul_div_assoc] using (phaseFactor_hasDerivAt α n).div_const ((n : ℂ) ^ s)
+  simpa [mul_div_assoc] using (rfAlpha_phaseFactor_hasDerivAt α n).div_const ((n : ℂ) ^ s)
 
 /-- The same identity in `deriv` form. -/
 theorem rf_term_deriv_eq (α : ℝ) (s : ℂ) (n : ℕ) :
