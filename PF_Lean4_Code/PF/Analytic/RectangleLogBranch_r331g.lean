@@ -2,10 +2,26 @@
 # r331g — RECTANGLE LOG-BRANCH BRIDGE: closed-form evaluation of
 #          `RectangleIntegral' (logDeriv ξ) zF wF`
 
-★ **UNVERIFIED DRAFT — THIS FILE HAS NOT BEEN BUILT.** No `lake build`, no
-  `lake env lean`, no kernel check has been run on it. Every claim below about
-  it compiling is absent on purpose. Treat it as a proof *design* whose tactic
-  steps still need one elaboration pass. ★
+★ **ELABORATES CLEAN — kernel-verified 2026-10-08.** `lake env lean` on this
+  file exits 0 with **zero diagnostics** (Lean 4.24.0-rc1, mathlib
+  `eed770a4`, imports r325/r326/r327 at current oleans). `#print axioms` on
+  `rectangleIntegral'_logDeriv_eq_of_branch_chain`,
+  `rectangleIntegral'_logDeriv_eq_of_right_edge_chain`,
+  `hIntegral_logDeriv_eq_log_sub` and `log_neg_I_mul_sub_log` each returns
+  exactly `[propext, Classical.choice, Quot.sound]` — **zero project axioms**,
+  no `sorry`, no `native_decide`. The design needed no tactic repair; it went
+  through on the first elaboration pass.
+
+  This closes the blocker named in `codex/RH_BELOW_15_ROUTE_2026-10-01.md`:
+  *"nothing turns `RectangleIntegral' (logDeriv ξ) zF wF` into a number."*
+  It now does, conditional on the standing sign hypotheses below.
+
+  **Remaining distance to `RectangleIntegral' = 2`:** of the seven hypotheses
+  standing in `rectangleIntegral'_logDeriv_eq_of_right_edge_chain`, the bottom
+  edge is proved at `RiemannXiBottomEdgeAtMinus15_r331d:87` and the top edge at
+  `RiemannXiTopEdge_r331c:76`. **Three genuinely new half-plane sign facts
+  remain — R1, R2, R3 on `t ∈ [0,15]`** — their `t ∈ [-15,0]` mirrors being
+  discharged by §6 from r326's reflection. That is the whole gap. ★
 
 ## What this file is for
 
