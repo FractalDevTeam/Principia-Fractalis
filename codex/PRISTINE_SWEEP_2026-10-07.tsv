@@ -1,0 +1,1456 @@
+module	verdict	failed_criteria	seconds
+PF	PRISTINE		3.6
+PF.AlgebraicGeometry.Bridge4_Hodge_SubstrateDischarge	FAILED	(d2)|DEAD:PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.GeneralSmoothQuintic.coefficientList;DEAD:PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.GeneralSmoothQuintic.equationLabel;DEAD:PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.GeneralSmoothQuintic.moduliTag	10.7
+PF.AlgebraicGeometry.Cohen2025_HodgeConjecture_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	6.7
+PF.AlgebraicGeometry.CycleClassMapAtCodim2Attempt	FAILED	(d2),(f),(f),(f)|DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.curveClass;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two_le_twenty;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two_pos;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.intersectionPair	12.6
+PF.AlgebraicGeometry.CycleClassMapOnCurve	FAILED	(d2)|DEAD:PrincipiaTractalis.HodgeCurveDim1.HodgeCurveSubstrate.decEq;DEAD:PrincipiaTractalis.HodgeCurveDim1.HodgeCurveSubstrate.fintype;DEAD:PrincipiaTractalis.HodgeCurveDim1.HodgeCurveSubstrate.genus;DEAD:PrincipiaTractalis.HodgeCurveDim1.HodgeCurveSubstrate.multiplicity	10.9
+PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV2	FAILED	(d2),(e),(f),(f),(f),(f),(f)|DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.betti;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.betti_pos;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.dim;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.p;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.p_le_dim	11.1
+PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV3	FAILED	(d2),(e),(f),(f),(f),(f)|CONTAINED:PrincipiaTractalis.AlgebraicGeometry.HodgeAlgRepV3.HodgeAlgebraicRepresentationV3.left.left.left;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.betti;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.betti_pos;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.p_le_dim	17.8
+PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV4	FAILED	(d2),(e),(f),(f)|DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.betti;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.betti_pos;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.p_le_dim	18.6
+PF.AlgebraicGeometry.HodgeMathlibBridges	PRISTINE		18.4
+PF.AlgebraicGeometry.Hodge_ClayDischargeAttempt	FAILED	(d2)|DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.intersectionPair;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_three_three;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_three_three_le_twenty;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_three_three_pos;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_two_two;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_two_two_pos	12.1
+PF.AlgebraicGeometry.Hodge_ClayLiteralClosureAttempt	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.GeneralSmoothQuintic.coefficientList;DEAD:PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.GeneralSmoothQuintic.equationLabel;DEAD:PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.GeneralSmoothQuintic.moduliTag	10.4
+PF.AlgebraicGeometry.Hodge_Substrate_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	7.8
+PF.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge	PRISTINE		16.5
+PF.AlgebraicGeometry.MathlibSurfaceHodgeBridge	PRISTINE		15.2
+PF.AlgebraicGeometry.MinimalChowGroup	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.AlgebraicGeometry.CohomologyClass.addCommGroup;DEAD:PrincipiaTractalis.AlgebraicGeometry.CycleClassMap.cycleClass_zero	8.5
+PF.AlgebraicGeometry.MordellWeilGroup	FAILED	(d2),(e)|CONTAINED:PF.AlgebraicGeometry.MordellWeilGroup.UniversalBridge_MordellWeilRank_eq_algebraicRankV4;CONTAINED:hypothesis	12.7
+PF.AlgebraicGeometry.MordellWeilRankAgreement17	FAILED	(e)|	19.4
+PF.AlgebraicGeometry.MordellWeilRankAgreement17_NamedAnchors	PRISTINE		7.3
+PF.AlgebraicGeometry.MordellWeilRankAgreement17_V4Readings	PRISTINE		12.3
+PF.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision	FAILED	(d2),(e),(f),(f)|DEAD:PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.GeneralSmoothQuintic.coefficientList;DEAD:PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.GeneralSmoothQuintic.equationLabel;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.curveClass;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two_le_twenty;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two_pos	10.4
+PF.AlgebraicGeometry.Voisin2007PartialFormalization	FAILED	(e)|	8.7
+PF.AlgebraicGeometry.VoisinCodimTwoConcreteInstance	FAILED	(d2)|DEAD:PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.RationalHodgeClassAtCodim.codim_ge_two;DEAD:PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.RationalHodgeClassAtCodim.codim_le_dim;DEAD:PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.SmoothProjectiveVarietyDimGeqThree.complexDim;DEAD:PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.SmoothProjectiveVarietyDimGeqThree.dim_ge_three;DEAD:PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.SmoothProjectiveVarietyDimGeqThree.varietyLabel	10.8
+PF.AlgebraicGeometry.VoisinCodimTwoMoreInstances	PRISTINE		11.6
+PF.AlgebraicGeometry.VoisinObstructionTypedUpgrade	FAILED	(d2)|DEAD:PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.FermatQuinticConcrete.ambientDim;DEAD:PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.FermatQuinticConcrete.degree;DEAD:PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.FermatQuinticConcrete.dworkParameter;DEAD:PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.FermatQuinticConcrete.equationLabel;DEAD:PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.FermatQuinticConcrete.numberOfVariables	7.9
+PF.AlgebraicGeometry.WeierstrassHodgeBridgeRetry	PRISTINE		13.0
+PF.AllNineAlphaNumericalBrackets_2026_06_24	PRISTINE		10.9
+PF.AllNineAlphaStrictOrdering_2026_06_24	PRISTINE		12.4
+PF.AllNineAxisUniquenessBundle	PRISTINE		6.6
+PF.AllNineLambda0NumericalBrackets_2026_06_24	PRISTINE		11.7
+PF.AllNineLambda0StrictOrdering_2026_06_24	PRISTINE		10.7
+PF.AlphaArchitecturalIdentities	PRISTINE		8.7
+PF.AlphaArctanStrassnitzkyBundle	PRISTINE		6.2
+PF.AlphaArctanSumPiBundle	PRISTINE		7.1
+PF.AlphaBSDIntegralBundle	PRISTINE		12.2
+PF.AlphaBSDSigmaPositive_r228	PRISTINE		10.5
+PF.AlphaBSDUpperBracketCantor_r245	PRISTINE		11.0
+PF.AlphaBaselSumBundle	PRISTINE		9.6
+PF.AlphaBasisGenerators	PRISTINE		13.0
+PF.AlphaBerahaNumberBundle	PRISTINE		7.3
+PF.AlphaBernoulliFrameworkBundle	PRISTINE		6.4
+PF.AlphaComplexUnitAlgebraBundle	PRISTINE		7.0
+PF.AlphaDifferenceOfSquaresBundle	PRISTINE		4.7
+PF.AlphaEulerIdentityComplexBundle	PRISTINE		7.7
+PF.AlphaExpDirectBundle	PRISTINE		7.9
+PF.AlphaExponentialDecayIntegralBundle	PRISTINE		9.2
+PF.AlphaFiveFourthsUnifiedBundle	PRISTINE		4.5
+PF.AlphaFourAxisLinearIdentitiesBundle	PRISTINE		4.5
+PF.AlphaFromSubstrateKTheory_r123	FAILED	(e)|	32.3
+PF.AlphaFunPatternsMetaCapstone_2026_06_17	PRISTINE		4.8
+PF.AlphaGaloisStructure_r125	PRISTINE		10.8
+PF.AlphaGammaAtAlphaBundle	PRISTINE		9.3
+PF.AlphaGammaFunctionAxisAnchorBundle	PRISTINE		10.3
+PF.AlphaGaussianIntegralBundle	PRISTINE		9.6
+PF.AlphaGelfondSchneiderBundle	PRISTINE		4.8
+PF.AlphaGeometricSeriesBundle	PRISTINE		6.6
+PF.AlphaGoldenAnglePhyllotaxisBundle	PRISTINE		6.4
+PF.AlphaGoldenTrigIdentitiesBundle	PRISTINE		7.4
+PF.AlphaHNPillar_r232	PRISTINE		6.6
+PF.AlphaHarmonicTwoBundle	PRISTINE		6.3
+PF.AlphaHodgeFibonacciLadderExtension	PRISTINE		4.6
+PF.AlphaHodgeGoldenIdentitiesBundle	PRISTINE		4.6
+PF.AlphaHodgeHyperbolicFibonacciLadderExtension	PRISTINE		6.7
+PF.AlphaHodgeHyperbolicLadderBridges	PRISTINE		8.0
+PF.AlphaHodgeHyperbolicLadderRanks6And7	PRISTINE		8.1
+PF.AlphaHodgeHyperbolicLadderRanks8And9	PRISTINE		8.0
+PF.AlphaHodgeHyperbolicLadderUnifiedCapstone	PRISTINE		3.8
+PF.AlphaHodgeHyperbolicLucasLadderExtension	PRISTINE		6.7
+PF.AlphaHodgeHyperbolicSixFoldBundle	PRISTINE		8.0
+PF.AlphaHodgePowerFibonacciRecursionBundle	PRISTINE		4.7
+PF.AlphaHodgeSelfConjugationBundle	PRISTINE		4.9
+PF.AlphaHodgeSigmaPositive_r226	PRISTINE		12.7
+PF.AlphaHodgeSqrtFiveBundle	PRISTINE		6.4
+PF.AlphaHodgeTighterHalfBracket_r248	PRISTINE		12.8
+PF.AlphaHodgeUpperBracketCantor_r243	PRISTINE		10.6
+PF.AlphaInverseTrigAxisAnchorBundle	PRISTINE		8.1
+PF.AlphaL5PiScalingObstruction_r332	FAILED	(d)|	12.8
+PF.AlphaLayerSeparation	PRISTINE		10.7
+PF.AlphaLeibnizIntegralBundle	PRISTINE		8.4
+PF.AlphaLeibnizSeriesBundle	PRISTINE		8.4
+PF.AlphaMachinFormulaBundle	PRISTINE		6.1
+PF.AlphaMachinLikePiFormulasBundle	PRISTINE		8.1
+PF.AlphaMediantFareyBundle	FAILED	(d2)|CONTAINED:USize.toBitVec.toFin.isLt;CONTAINED:modus	8.6
+PF.AlphaNPDerivationAttempt_r122	FAILED	(e)|	17.5
+PF.AlphaNPHigherPowers_2026_06_25	PRISTINE		4.1
+PF.AlphaNPHodgeCrossPowerProducts	PRISTINE		4.5
+PF.AlphaNPLowerBracketPentagon_r247	PRISTINE		12.0
+PF.AlphaNPPowersSevenEight	PRISTINE		4.5
+PF.AlphaNPSigmaPositive_r227	PRISTINE		9.8
+PF.AlphaNPSubstrateOverdeterminationBundle	PRISTINE		6.5
+PF.AlphaNPUniquenessCompletion	PRISTINE		5.9
+PF.AlphaNPVietaGaloisConnectionBundle	PRISTINE		4.4
+PF.AlphaNSBSDHigherPowersBundle	PRISTINE		6.1
+PF.AlphaNSBSDLinearCombinations	FAILED	(d2)|CONTAINED:USize.toBitVec.toFin.isLt;CONTAINED:modus	9.1
+PF.AlphaNSBSDPowersRank7To9	PRISTINE		6.1
+PF.AlphaNSBSDQGRatioBundle	PRISTINE		4.6
+PF.AlphaNSSigmaNegative_r229	PRISTINE		16.5
+PF.AlphaNSUpperBracketNegCantor_r246	PRISTINE		14.4
+PF.AlphaOfClassNoGoSingleCitation	PRISTINE		9.1
+PF.AlphaPNewtonIterationBundle	PRISTINE		6.6
+PF.AlphaPParityLadderExtension	PRISTINE		4.3
+PF.AlphaPSigmaNegative_r225	PRISTINE		12.4
+PF.AlphaPUpperBracketNegCantor_r244	PRISTINE		12.6
+PF.AlphaParityComplexExponentialBundle	PRISTINE		6.8
+PF.AlphaPentagonalCosBundle	PRISTINE		6.7
+PF.AlphaPentagonalSinBundle	PRISTINE		6.7
+PF.AlphaPiAxesRatioBundle	PRISTINE		4.8
+PF.AlphaPythagoreanTripleBundle	PRISTINE		8.1
+PF.AlphaQGEvenZetaHierarchyCapstone	PRISTINE		4.0
+PF.AlphaQGFundamentalPeriodAnchorBundle	PRISTINE		9.1
+PF.AlphaQGGammaHalfIntegerLadder	PRISTINE		12.0
+PF.AlphaQGParityLadderExtension	PRISTINE		4.8
+PF.AlphaQGRank13To16ZetaEight	PRISTINE		5.3
+PF.AlphaQGRationalAxesProductBundle	PRISTINE		5.1
+PF.AlphaQGSharpBracket_r250	PRISTINE		11.8
+PF.AlphaQGSigmaNegative_r230	PRISTINE		17.2
+PF.AlphaQGTwelfthZetaSixBridge	PRISTINE		4.3
+PF.AlphaQGTwoSidedBracket_r254	PRISTINE		9.4
+PF.AlphaRHYMHigherPowersBundle	PRISTINE		4.6
+PF.AlphaRationalAlgebraicRatiosBundle	PRISTINE		4.8
+PF.AlphaRationalDecompositionBundle	PRISTINE		4.5
+PF.AlphaSelfInvolutionBundle	FAILED	(d2)|CONTAINED:Membership.mem;CONTAINED:Membership.mem.right;CONTAINED:Units.inv_val;CONTAINED:hypothesis	14.8
+PF.AlphaSilverRatioBundle	PRISTINE		4.3
+PF.AlphaSkeletonAlgebraicLocusBundle	PRISTINE		5.7
+PF.AlphaSkeletonExtendedLocusBundle	PRISTINE		6.5
+PF.AlphaSkeletonSupremeReceipt_2026_06_24	PRISTINE		4.0
+PF.AlphaSkeletonUniqueness_r128	FAILED	(d2)|DEAD:PrincipiaTractalis.AlphaSkeletonUniqueness.IsPositive.pos_BSD;DEAD:PrincipiaTractalis.AlphaSkeletonUniqueness.IsPositive.pos_NP;DEAD:PrincipiaTractalis.AlphaSkeletonUniqueness.IsPositive.pos_NS;DEAD:PrincipiaTractalis.AlphaSkeletonUniqueness.IsPositive.pos_Poincare;DEAD:PrincipiaTractalis.AlphaSkeletonUniqueness.IsPositive.pos_RH	15.9
+PF.AlphaSqrtPiViaQGDividedByPBundle	PRISTINE		8.8
+PF.AlphaStirlingFormulaBundle	PRISTINE		7.4
+PF.AlphaStructuralLawAudit_r334	PRISTINE		15.6
+PF.AlphaThreePiTripleIdentity	PRISTINE		6.9
+PF.AlphaTrigDirectBundle	PRISTINE		9.4
+PF.AlphaTrigIntegralAxisAnchorBundle	PRISTINE		11.4
+PF.AlphaTrigPiAlphaBundle	PRISTINE		7.7
+PF.AlphaTrigTangentExtension	PRISTINE		8.7
+PF.AlphaTripleProductBundle	PRISTINE		4.9
+PF.AlphaWallisProductBundle	PRISTINE		8.3
+PF.AlphaWebDegreesOfFreedom_r124	FAILED	(d2)|CONTAINED:PrincipiaTractalis.AlphaWebDegreesOfFreedom.AlphaWeb.toAlphaWebSansI10.I5	14.7
+PF.AlphaYMCorpusMaximum_r242	PRISTINE		15.3
+PF.AlphaYMHyperbolicLogBundle	PRISTINE		7.9
+PF.AlphaZetaFourSumBundle	PRISTINE		9.0
+PF.Analytic.AxiomRetirementWrapper	FAILED	(d2)|CONTAINED:LT.lt;CONTAINED:hypothesis	11.8
+PF.Analytic.BCleanPhaseIdentity	PRISTINE		9.8
+PF.Analytic.BernoulliCauchyCoefficientsEqualBernoulliDischarge	FAILED	(d),(e)|	11.3
+PF.Analytic.BernoulliExpHasSumAtNegLogNhdsHalfDischarge	FAILED	(e)|	12.9
+PF.Analytic.BernoulliExpHasSumOnBallTwoPiDischarge	FAILED	(e)|	18.7
+PF.Analytic.BernoulliFnHasSumOnSomeBallDischarge	PRISTINE		28.3
+PF.Analytic.BernoulliGrowthBound	PRISTINE		19.0
+PF.Analytic.BookEval019Discharge	FAILED	(d2)|CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.left.right;CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.right.right	17.8
+PF.Analytic.BookEvalBound018	PRISTINE		11.8
+PF.Analytic.BookEvalBound019	PRISTINE		11.0
+PF.Analytic.BookEvalNumericalBounds	FAILED	(e)|	11.4
+PF.Analytic.BookEvaluationContinuity	PRISTINE		11.2
+PF.Analytic.BookEvaluationManuscript	FAILED	(e)|	26.0
+PF.Analytic.Bridge1_RH_SubstrateDischarge	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.Bridge1_RH_SubstrateDischarge.PF_HPEncoding.ZeroOrdinate;CONTAINED:hypothesis	15.3
+PF.Analytic.CellMidpoint	PRISTINE		13.9
+PF.Analytic.ChiPositive15RgeqTwoGeometricBound_r314c	PRISTINE		12.5
+PF.Analytic.ChiPositive15RgeqTwoIntegralForm_r314	PRISTINE		17.9
+PF.Analytic.ChiPositive15RgeqTwoPointwiseBound_r314b	PRISTINE		12.1
+PF.Analytic.ChiPositive15RgeqTwoRationalBound_r314e	PRISTINE		11.6
+PF.Analytic.ChiPositive15RgeqTwoSymbolicBound_r314d	PRISTINE		15.6
+PF.Analytic.ChiPositive15ThetaTruncation_r313	PRISTINE		12.7
+PF.Analytic.CleanLambdaClosedForms	PRISTINE		10.1
+PF.Analytic.Cohen2025_TransferOperator_RH_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	6.7
+PF.Analytic.CompactSelfAdjointDiscreteEnumerationDischarge	PRISTINE		12.6
+PF.Analytic.CompactSelfAdjointNatEigenvalueWeylDecayDischarge	PRISTINE		11.2
+PF.Analytic.CompletedZeta0MellinFoldedCosineIntegralExplicit_r312	PRISTINE		20.3
+PF.Analytic.CompletedZeta0MellinFoldedCosineIntegral_r311	PRISTINE		26.3
+PF.Analytic.CompletedZeta0MellinRealAtCritical15_r310	PRISTINE		16.8
+PF.Analytic.CompletedZeta0MellinReduction_r309	PRISTINE		14.9
+PF.Analytic.CosineDifferenceDoubleIntegral	PRISTINE		9.8
+PF.Analytic.CosineKernelPositiveDefinite	PRISTINE		9.4
+PF.Analytic.CosineModeInnerProducts	PRISTINE		12.3
+PF.Analytic.Dilation	FAILED	(d)|	17.8
+PF.Analytic.DualCitationAggregateRouteBFullService_r300	FAILED	(d2)|DEAD:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.bombieri2000_clay_official;DEAD:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.cohen2025_ch21_s4_manuscript;DEAD:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.odlyzko1987_foundational;DEAD:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.platt2011_rigorous_verified;DEAD:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.riemann1859_original_conjecture;DEAD:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.titchmarsh1951_s21_modern_classical	14.0
+PF.Analytic.EigenvalueIdentity	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.Analytic.BookEigenvalueIdentity;CONTAINED:hypothesis	7.0
+PF.Analytic.EigenvalueIdentityNP	FAILED	(d2),(e)|CONTAINED:LT.lt;CONTAINED:hypothesis	31.0
+PF.Analytic.FourierCosineDecomposition	PRISTINE		7.7
+PF.Analytic.FractalDomain	FAILED	(e)|	14.3
+PF.Analytic.FractalResonanceIntegralIdentity	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.Consciousness.UniversalPi10IntegralIdentity;CONTAINED:hypothesis	7.2
+PF.Analytic.GammaHankel	PRISTINE		6.3
+PF.Analytic.GammaIntervalBounds	FAILED	(e)|	40.1
+PF.Analytic.GammaRAtCritical15_r305	PRISTINE		8.0
+PF.Analytic.GermAtHalfDischarge	FAILED	(e)|	14.2
+PF.Analytic.HNPOperatorConstruction	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.Analytic.GroundStateEigenvalueTargetNP;CONTAINED:hypothesis	16.5
+PF.Analytic.HPGeneralOperator	FAILED	(d2)|CONTAINED:PrincipiaTractalis.Analytic.HPSpectralFormula;CONTAINED:hypothesis	8.0
+PF.Analytic.HPOperatorConstruction	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.Analytic.GroundStateEigenvalueTarget;CONTAINED:hypothesis	14.7
+PF.Analytic.HPPositiveUnconditional	PRISTINE		17.0
+PF.Analytic.HPPositiveViaHardyAndCountability_r281	FAILED	(e)|	11.7
+PF.Analytic.HPSpectralBridge	PRISTINE		13.6
+PF.Analytic.HankelCauchyCapstone	PRISTINE		9.3
+PF.Analytic.HankelContour	PRISTINE		6.7
+PF.Analytic.HankelDeformation	PRISTINE		7.1
+PF.Analytic.HankelEdgeIntegrals	PRISTINE		9.6
+PF.Analytic.HankelFubini	PRISTINE		12.2
+PF.Analytic.HankelFubiniAxiomCheck	PRISTINE		1.9
+PF.Analytic.HankelIntegrability	PRISTINE		11.6
+PF.Analytic.HankelLowerEdgeBound	PRISTINE		10.0
+PF.Analytic.HankelLowerEdgeDCT	PRISTINE		7.0
+PF.Analytic.HankelLowerEdgeDCTProof	PRISTINE		10.1
+PF.Analytic.HankelLowerEdgeDCTUnified	PRISTINE		14.3
+PF.Analytic.HankelSmallLoop	PRISTINE		7.1
+PF.Analytic.HankelSmallLoopBoundProof	PRISTINE		8.7
+PF.Analytic.HankelTermwiseInterchange	PRISTINE		16.9
+PF.Analytic.HankelUpperEdgeBound	PRISTINE		10.0
+PF.Analytic.HankelUpperEdgeDCT	PRISTINE		7.0
+PF.Analytic.HankelUpperEdgeDCTProof	PRISTINE		8.0
+PF.Analytic.HankelUpperEdgeDCTProofReGeOne	PRISTINE		11.3
+PF.Analytic.HankelUpperEdgeDCTUnified	PRISTINE		9.5
+PF.Analytic.HankelUpperEdgeIntegralLimit	PRISTINE		7.7
+PF.Analytic.Hardy1914_NonemptyZetaOnLineZeros_Anchor	FAILED	(d2),(e),(f),(f),(f),(f),(f),(f)|CONTAINED:PrincipiaTractalis.Hardy1914_NonemptyZetaOnLineZeros_Anchor.Hardy1914_OnLineZetaZerosInfinite_Anchor;CONTAINED:PrincipiaTractalis.Hardy1914_NonemptyZetaOnLineZeros_Anchor.Riemann_FirstZero_Verified_Anchor;CONTAINED:hypothesis;VACUOUS:hypothesis	8.8
+PF.Analytic.HilbertPolyaIdentificationBulletproof	FAILED	(d2),(e)|CONTAINED:modus	10.5
+PF.Analytic.HilbertPolyaIdentificationPrecise	FAILED	(d2),(e)|CONTAINED:modus	18.2
+PF.Analytic.HilbertPolyaPositiveImageRigidity	PRISTINE		14.1
+PF.Analytic.HilbertPolyaPositiveReductionToCountability	FAILED	(e)|	9.1
+PF.Analytic.HilbertPolyaProgram_Substrate_Anchors	FAILED	(d2),(e),(f),(f),(f),(f),(f),(f)|CONTAINED:PrincipiaTractalis.HilbertPolyaProgram_Substrate_Anchors.PublishedHPProgramImplicationContent;CONTAINED:hypothesis	25.3
+PF.Analytic.Hutchinson	FAILED	(e)|	33.4
+PF.Analytic.Jonquieres	PRISTINE		12.2
+PF.Analytic.JonquieresAgreementResidual0Discharge	FAILED	(e)|	17.5
+PF.Analytic.JonquieresAnalyticity	FAILED	(e)|	19.1
+PF.Analytic.JonquieresAtNegFourDischarge	FAILED	(e)|	14.4
+PF.Analytic.JonquieresAtNegOneDischarge	FAILED	(e)|	13.9
+PF.Analytic.JonquieresAtNegThreeDischarge	FAILED	(e)|	14.1
+PF.Analytic.JonquieresAtNegTwoDischarge	FAILED	(e)|	14.0
+PF.Analytic.JonquieresAtOneDischarge	FAILED	(e)|	13.3
+PF.Analytic.JonquieresAtZeroDischarge	FAILED	(e)|	13.1
+PF.Analytic.JonquieresAtZeroFinalDischarge	PRISTINE		12.0
+PF.Analytic.JonquieresExpansionAnalyticOnPuncturedBall0Discharge	FAILED	(e)|	20.1
+PF.Analytic.JonquieresExpansionAnalyticOnPuncturedBallDischarge	FAILED	(e)|	24.0
+PF.Analytic.JonquieresExpansionEqualsGeomGermAtHalfClosure	FAILED	(e)|	10.7
+PF.Analytic.JonquieresExpansionEqualsGeomTendstoPartialAtHalfDischarge	FAILED	(e)|	11.4
+PF.Analytic.JonquieresGermAtHalfZeroSinglePoint	FAILED	(e)|	17.3
+PF.Analytic.JonquieresGermAtNegOneDischarge	PRISTINE		15.4
+PF.Analytic.JonquieresGermAtNegOneFullDischarge	FAILED	(e)|	21.1
+PF.Analytic.JonquieresGermAtNegTwoDischarge	PRISTINE		15.5
+PF.Analytic.JonquieresGermAtOneDischarge	PRISTINE		19.1
+PF.Analytic.JonquieresGlobalIdentityDischarge	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.Analytic.Sheaf.JonquieresLocalPatchesOnDomain.g_agree_disc	20.4
+PF.Analytic.JonquieresIdentity	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.Analytic.JonquieresIdentityHypothesis;CONTAINED:hypothesis	20.7
+PF.Analytic.JonquieresIdentityDischarge	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.Analytic.Sheaf.JonquieresIdentitySharperHypothesis.right	17.2
+PF.Analytic.JonquieresLocalWitness	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.Analytic.Sheaf.JonquieresExpansionAnalyticOnPuncturedBall;CONTAINED:hypothesis	13.8
+PF.Analytic.JonquieresZetaAnalyticity	FAILED	(e)|	18.3
+PF.Analytic.JonquieresZetaSeriesSummable	FAILED	(e)|	21.6
+PF.Analytic.KernelHilbertSchmidtFull	PRISTINE		7.6
+PF.Analytic.KernelSelfSimilarity	PRISTINE		15.1
+PF.Analytic.KernelSelfSimilarityComplex	PRISTINE		8.1
+PF.Analytic.KernelSelfSimilarityHilbertSchmidt	PRISTINE		8.6
+PF.Analytic.KernelSelfSimilarityLimit	PRISTINE		7.4
+PF.Analytic.KernelSelfSimilarityUniform	PRISTINE		6.8
+PF.Analytic.LambdaZeroHPBookBounds	PRISTINE		10.1
+PF.Analytic.Lipschitz	PRISTINE		8.9
+PF.Analytic.LogCoord	PRISTINE		11.9
+PF.Analytic.LogWeightedL2InnerBridgeDischarge	PRISTINE		7.4
+PF.Analytic.LogWeightedL2Nontrivial	PRISTINE		5.7
+PF.Analytic.LogZBookNeZero	PRISTINE		6.1
+PF.Analytic.MaassCuspSimplicityFactorings	FAILED	(d2),(e)|CONTAINED:_;CONTAINED:hypothesis;DEAD:PrincipiaTractalis.MaassSimplicityResidual.sarnak_witness	8.1
+PF.Analytic.MatrixEntry	PRISTINE		83.2
+PF.Analytic.Mayer1991NonDegeneracyDischarge	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.MayerNonDegeneracyConjecture.left;CONTAINED:PrincipiaTractalis.MayerNonDegeneracyConjecture.right;CONTAINED:PrincipiaTractalis.MayerNonDegeneracySharpened.all_nonzero;DEAD:PrincipiaTractalis.Mayer1991RHIngredients.contractivity	14.8
+PF.Analytic.Mayer1991TransferOperatorFormalization	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.Mayer1991TransferOperatorFormalization.Mayer1991_SymmetricQuotientHasZetaSpectrum;CONTAINED:hypothesis;CONTAINED:modus	19.7
+PF.Analytic.MellinEigenvalueInterpretation	FAILED	(e)|	10.3
+PF.Analytic.MellinMode	PRISTINE		9.9
+PF.Analytic.MercerExpansionSummable	FAILED	(d)|	11.6
+PF.Analytic.Monodromy	PRISTINE		23.2
+PF.Analytic.MonodromyFromJonquieres	FAILED	(d2),(e),(f),(f),(f)|CONTAINED:AnalyticOnNhd;CONTAINED:PrincipiaTractalis.Analytic.Sheaf.PolyLogMonodromyHypothesis;CONTAINED:_;CONTAINED:hypothesis	20.1
+PF.Analytic.MonodromyTheorem	PRISTINE		8.0
+PF.Analytic.OffDiscPatchDataConstruction	PRISTINE		7.5
+PF.Analytic.OnLineSurjectivityBaseCaseDischarge	FAILED	(d2)|DEAD:PrincipiaTractalis.ScalingParameter.pos	19.0
+PF.Analytic.OnLineSurjectivityCascadeK10ToK19	PRISTINE		20.8
+PF.Analytic.OnLineSurjectivityCascadeK1K2	PRISTINE		16.7
+PF.Analytic.OnLineSurjectivityCascadeK20ToK29	PRISTINE		22.2
+PF.Analytic.OnLineSurjectivityCascadeK30ToK49	PRISTINE		36.9
+PF.Analytic.OnLineSurjectivityCascadeK3ToK9	PRISTINE		18.5
+PF.Analytic.OnLineSurjectivitySubDecomposition	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.ScalingParameter.pos	26.0
+PF.Analytic.PNQ_Discharge	PRISTINE		8.2
+PF.Analytic.PNT.Rectangle_r327	FAILED	(d2)|CONTAINED:LE.le;CONTAINED:LE.le.left;CONTAINED:LT.lt;CONTAINED:Subtype.property;CONTAINED:hypothesis	47.6
+PF.Analytic.PNT.ResidueCalcOnRectangles_r327	FAILED	(d2),(e),(f)|CONTAINED:LE.le;CONTAINED:LE.le.left;CONTAINED:LT.lt;CONTAINED:Subtype.property;CONTAINED:hypothesis	60.4
+PF.Analytic.PhiPSLQRelations	FAILED	(e)|	13.3
+PF.Analytic.PiCpowPolarAt15_r306	PRISTINE		8.9
+PF.Analytic.PoincareS3Anchors	PRISTINE		8.6
+PF.Analytic.PolyLogAnalyticAtHalfNegInt	PRISTINE		16.0
+PF.Analytic.PolyLogAnalyticExtension	PRISTINE		29.8
+PF.Analytic.PolyLogAnalyticOnBallNegInt	PRISTINE		26.6
+PF.Analytic.PolyLogAtPosIntDischarge	PRISTINE		13.9
+PF.Analytic.PolyLogContinuation	FAILED	(e)|	19.9
+PF.Analytic.PolyLogContinuity	PRISTINE		6.1
+PF.Analytic.PolyLogContinuityAtZBook	PRISTINE		10.9
+PF.Analytic.PolyLogContinuityInDisc	PRISTINE		7.3
+PF.Analytic.PolyLogHankelIdentity	PRISTINE		9.2
+PF.Analytic.PolyLogHankelRealization	FAILED	(e)|	15.7
+PF.Analytic.PolyLogLocalPatches	FAILED	(e)|	8.6
+PF.Analytic.PolyLogMonodromyExtension	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.Analytic.Sheaf.PolyLogMonodromyHypothesisLocal.V_subset;DEAD:PrincipiaTractalis.Analytic.Sheaf.PolyLogMonodromyHypothesisLocal.g_analytic;DEAD:PrincipiaTractalis.Analytic.Sheaf.PolyLogMonodromyHypothesisLocal.open_V;DEAD:PrincipiaTractalis.Analytic.Sheaf.PolyLogMonodromyHypothesisLocal.patch_coherent	9.4
+PF.Analytic.PolyLogSheaf	FAILED	(e)|	7.4
+PF.Analytic.Polylog	PRISTINE		18.2
+PF.Analytic.PolylogBoundary	PRISTINE		67.1
+PF.Analytic.PolylogContInputDischarge	PRISTINE		7.5
+PF.Analytic.PolylogSpectrum	FAILED	(d),(e)|	60.1
+PF.Analytic.PositiveCompleteOracleRefutation	PRISTINE		58.5
+PF.Analytic.PositiveOnLineZetaOrdinatesCountableDischarge	FAILED	(d)|	30.6
+PF.Analytic.PositiveOnLineZetaZeroOrdinatesCountable_r280	PRISTINE		16.0
+PF.Analytic.RHBundleADischargeAttempt	PRISTINE		9.6
+PF.Analytic.RHMaxDischarged	PRISTINE		7.5
+PF.Analytic.RHProofAttemptMayerT3SymExplicit	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.RHProofAttemptMayerT3SymExplicit.SpectralMatchAtN.ordinates_pos	26.4
+PF.Analytic.RHSpectralWitness	FAILED	(e)|	7.3
+PF.Analytic.RHSurjectivityViaHilbertPolya	FAILED	(d2)|CONTAINED:modus	17.0
+PF.Analytic.RH_ClayLiteralClosureAttempt	FAILED	(d2),(e),(f),(f),(f)|CONTAINED:PrincipiaTractalis.HilbertPolyaIdentificationPrecise.PF_T3SymIsHilbertPolyaOperator;CONTAINED:hypothesis;CONTAINED:modus	29.8
+PF.Analytic.RH_DirectDischargeAttempt	FAILED	(e)|	27.2
+PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19	FAILED	(e)|	12.0
+PF.Analytic.RH_PartialStripCompleteDischarge	FAILED	(e)|	13.2
+PF.Analytic.RH_Substrate_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	7.8
+PF.Analytic.RayleighRitzUpperBound	PRISTINE		11.0
+PF.Analytic.RectangleArgumentPrinciple_r327	PRISTINE		12.5
+PF.Analytic.RectangleLogBranch_r331g	PRISTINE		44.5
+PF.Analytic.RfBaseThreeRecursion	FAILED	(e)|	7.4
+PF.Analytic.RfNumericalRefutation	FAILED	(e)|	6.7
+PF.Analytic.RfShiftSeries	PRISTINE		9.1
+PF.Analytic.RiemannXiBottomEdgeUnconditional_r329b	FAILED	(d)|	32.7
+PF.Analytic.RiemannXiBottomEdge_r329	PRISTINE		16.6
+PF.Analytic.RiemannXiBoundaryT15_r328	FAILED	(e)|	33.6
+PF.Analytic.RiemannXiEntire_r325	PRISTINE		12.7
+PF.Analytic.RiemannXiRectangleCount_r327	FAILED	(d)|	12.5
+PF.Analytic.RiemannXiSymmetries_r326	PRISTINE		26.3
+PF.Analytic.RiemannXiThetaBoxEnclosure_r331a	PRISTINE		23.5
+PF.Analytic.RiemannXiTopEdgeScaffolding_r330	PRISTINE		25.2
+PF.Analytic.RiemannZetaNonvanishingAt15_r323	PRISTINE		10.0
+PF.Analytic.RiemannZetaZeroBelow15_r324	PRISTINE		10.2
+PF.Analytic.RpowBookBracket	PRISTINE		13.4
+PF.Analytic.SStarBridge	PRISTINE		7.9
+PF.Analytic.SlitDiscPreconnected	PRISTINE		6.5
+PF.Analytic.SpectralAnalysisFramework	FAILED	(d2),(e)|CONTAINED:LT.lt;CONTAINED:hypothesis	6.5
+PF.Analytic.SpectralParameterBridge	FAILED	(d2)|CONTAINED:LT.lt;CONTAINED:hypothesis	9.6
+PF.Analytic.SpectralResonanceBridge	FAILED	(d),(e)|	6.8
+PF.Analytic.SpectrumSqrt2	FAILED	(e)|	19.4
+PF.Analytic.T3AdjointDischarge	PRISTINE		12.4
+PF.Analytic.T3LinearStructureDischarge	PRISTINE		10.9
+PF.Analytic.T3NormBoundDischarge	PRISTINE		13.2
+PF.Analytic.T3NormSquaredBoundDischarge	PRISTINE		8.8
+PF.Analytic.T3SymCLMConstruction	FAILED	(e)|	11.1
+PF.Analytic.T3SymCompactApproxDischarge	FAILED	(e)|	18.2
+PF.Analytic.T3SymCompactWitness	FAILED	(e),(f),(f)|	8.2
+PF.Analytic.T3SymCompactnessAttempt	FAILED	(d2)|CONTAINED:PrincipiaTractalis.T3SymFiniteRankTower;CONTAINED:PrincipiaTractalis.T3SymHilbertSchmidtNuclearWitness;CONTAINED:hypothesis	12.3
+PF.Analytic.T3SymEigenvalueExtractionDischarge	PRISTINE		9.4
+PF.Analytic.T3SymFiniteRankTowerDischarge	FAILED	(d2),(f),(f),(f)|CONTAINED:PrincipiaTractalis.T3SymCompactSelfAdjointApproximation;CONTAINED:PrincipiaTractalis.T3SymFiniteRankTower;CONTAINED:hypothesis	14.0
+PF.Analytic.T3SymLinearStructureDischarge	FAILED	(d2)|DEAD:PrincipiaTractalis.T3AdjointLinearStructure.norm_le;DEAD:PrincipiaTractalis.T3AdjointLinearStructure.smul;DEAD:PrincipiaTractalis.T3LinearStructure.add;DEAD:PrincipiaTractalis.T3LinearStructure.norm_le;DEAD:PrincipiaTractalis.T3LinearStructure.smul	11.4
+PF.Analytic.T3SymMercerTailDischarge	FAILED	(e)|	36.5
+PF.Analytic.T3SymMercerTailT3SymDischarge	PRISTINE		10.7
+PF.Analytic.TraceLimit	PRISTINE		10.1
+PF.Analytic.TridiagonalGaugeInvariance	FAILED	(e)|	5.6
+PF.Analytic.TrigBookBrackets	PRISTINE		13.2
+PF.Analytic.TruncatedOperatorPSD	PRISTINE		8.5
+PF.Analytic.TsumHankelAgreement	FAILED	(d2),(f),(f)|CONTAINED:Eq;CONTAINED:hypothesis	10.4
+PF.Analytic.USlitSimplyConnected	PRISTINE		9.8
+PF.Analytic.UnifiedClayClosureDualCitationAggregate_r299	FAILED	(d2)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.bombieri2000_clay_official;CONTAINED:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.riemann1859_original_conjecture;DEAD:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.cohen2025_ch21_s4_manuscript;DEAD:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.odlyzko1987_foundational;DEAD:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.riemann1859_original_conjecture;DEAD:PrincipiaTractalis.UnifiedClayClosureDualCitationAggregate.ClayClosureBundleDualCitationAggregate.titchmarsh1951_s21_modern_classical	23.9
+PF.Analytic.UnifiedClayClosureViaBombieri2000ClayOfficialRH_r294	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaBombieri2000ClayOfficialRH.Bombieri2000_ClayOfficialRH_Hypothesis;CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaBombieri2000ClayOfficialRH.ClayClosureBundleViaBombieri2000ClayOfficialRH.bombieri2000_clay_official_rh;CONTAINED:hypothesis	15.5
+PF.Analytic.UnifiedClayClosureViaCohen2025Ch21CanonicalPair_r292	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaCohen2025Ch21CanonicalPair.ClayClosureBundleViaCohen2025Ch21CanonicalPair.riemann1859_hypothesis;CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaCohen2025Ch21CanonicalPair.Cohen2025_Ch21_S4_CanonicalAlphaPair.left;CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaCohen2025Ch21CanonicalPair.Cohen2025_Ch21_S4_CanonicalAlphaPair.right	11.3
+PF.Analytic.UnifiedClayClosureViaDirichlet1858OriginalLectures_r298	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaDirichlet1858OriginalLectures.ClayClosureBundleViaDirichlet1858OriginalLectures.bombieri2000_clay_official_rh	13.6
+PF.Analytic.UnifiedClayClosureViaFullyAtomicResiduals_r283	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.left.left;CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.left.right;CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.right.left;CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.right.right;CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaFullyAtomicResiduals.PolylogAtomic_HeurBranchSelection.left;CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaFullyAtomicResiduals.PolylogAtomic_HeurBranchSelection.right	11.9
+PF.Analytic.UnifiedClayClosureViaHardyAndRH_r284	FAILED	(d2)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaHardyAndRH.ClayClosureBundleViaHardyAndRH.rh	11.9
+PF.Analytic.UnifiedClayClosureViaHardyAtomic_r282	PRISTINE		10.0
+PF.Analytic.UnifiedClayClosureViaIBMQuantumEmpiricalCanonicalPair_r296	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaIBMQuantumEmpiricalCanonicalPair.ClayClosureBundleViaIBMQuantumEmpiricalCanonicalPair.bombieri2000_clay_official_rh	11.2
+PF.Analytic.UnifiedClayClosureViaOdlyzkoNamedXi_r293	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaOdlyzkoNamedXi.ClayClosureBundleViaOdlyzkoNamedXi.riemann1859_hypothesis	11.8
+PF.Analytic.UnifiedClayClosureViaPlatt2011RigorousXi_r297	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaPlatt2011RigorousXi.ClayClosureBundleViaPlatt2011RigorousXi.bombieri2000_clay_official_rh	13.6
+PF.Analytic.UnifiedClayClosureViaRefinedDirichlet1858AndCanonicalPair_r291	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaRefinedDirichlet1858AndCanonicalPair.ClayClosureBundleViaRefinedDirichlet1858AndCanonicalPair.riemann1859_hypothesis;DEAD:PrincipiaTractalis.UnifiedClayClosureViaRefinedDirichlet1858AndCanonicalPair.ClayClosureBundleViaRefinedDirichlet1858AndCanonicalPair.dirichlet1858_powerseries_limit;DEAD:PrincipiaTractalis.UnifiedClayClosureViaRefinedDirichlet1858AndCanonicalPair.ClayClosureBundleViaRefinedDirichlet1858AndCanonicalPair.riemann1859_hypothesis;DEAD:PrincipiaTractalis.UnifiedClayClosureViaRefinedDirichlet1858AndCanonicalPair.ClayClosureBundleViaRefinedDirichlet1858AndCanonicalPair.xi_positive_at_15	12.4
+PF.Analytic.UnifiedClayClosureViaRouteBAndFullPinning_r287	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaRouteBAndFullPinning.ClayClosureBundleViaRouteBAndFullPinning.rh	11.2
+PF.Analytic.UnifiedClayClosureViaRouteBAndPPinning_r286	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaRouteBAndPPinning.ClayClosureBundleViaRouteBAndPPinning.rh	11.1
+PF.Analytic.UnifiedClayClosureViaRouteBAndRH_r285	FAILED	(d2)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaRouteBAndRH.ClayClosureBundleViaRouteBAndRH.rh	12.0
+PF.Analytic.UnifiedClayClosureViaRouteBRefinedDirichlet1858AndFullPinning_r290	FAILED	(d2)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaRouteBRefinedDirichlet1858AndFullPinning.ClayClosureBundleViaRouteBRefinedDirichlet1858AndFullPinning.riemann1859_hypothesis	10.1
+PF.Analytic.UnifiedClayClosureViaRouteBSpecificXiAndFullPinning_r288	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaRouteBSpecificXiAndFullPinning.ClayClosureBundleViaRouteBSpecificXiAndFullPinning.rh	11.8
+PF.Analytic.UnifiedClayClosureViaRouteBSpecificXiAndRiemann1859AndFullPinning_r289	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaRouteBSpecificXiAndRiemann1859AndFullPinning.ClayClosureBundleViaRouteBSpecificXiAndRiemann1859AndFullPinning.riemann1859_hypothesis	11.8
+PF.Analytic.UnifiedClayClosureViaTitchmarsh1951DirichletBoundary_r295	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.UnifiedClayClosureViaTitchmarsh1951DirichletBoundary.ClayClosureBundleViaTitchmarsh1951DirichletBoundary.bombieri2000_clay_official_rh	13.8
+PF.Analytic.VariationalRayleigh	FAILED	(d),(e)|	7.0
+PF.Analytic.Xi15CompletedZeta0Reduction_r308	PRISTINE		15.0
+PF.Analytic.XiExplicitFactorization_r304	PRISTINE		14.7
+PF.Analytic.XiOnLineZero	PRISTINE		22.1
+PF.Analytic.XiOnLineZeroConstants	PRISTINE		23.9
+PF.Analytic.XiOnLineZeroCore	PRISTINE		11.3
+PF.Analytic.XiOnLineZeroCoreT15	PRISTINE		9.6
+PF.Analytic.XiOnLineZeroT15	PRISTINE		374.3
+PF.Analytic.XiPanels.Seg01	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg01P1	PRISTINE		9.7
+PF.Analytic.XiPanels.Seg01P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg01P3	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg02	PRISTINE		6.2
+PF.Analytic.XiPanels.Seg02P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg02P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg02P3	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg03	PRISTINE		6.2
+PF.Analytic.XiPanels.Seg03P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg03P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg03P3	PRISTINE		6.2
+PF.Analytic.XiPanels.Seg04	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg04P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg04P2	PRISTINE		8.5
+PF.Analytic.XiPanels.Seg05	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg05P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg05P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg05P3	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg05P4	PRISTINE		7.3
+PF.Analytic.XiPanels.Seg06	PRISTINE		6.2
+PF.Analytic.XiPanels.Seg06P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg06P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg06P3	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg06P4	PRISTINE		7.3
+PF.Analytic.XiPanels.Seg07	PRISTINE		6.2
+PF.Analytic.XiPanels.Seg07P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg07P2	PRISTINE		9.7
+PF.Analytic.XiPanels.Seg07P3	PRISTINE		8.4
+PF.Analytic.XiPanels.Seg08	PRISTINE		6.2
+PF.Analytic.XiPanels.Seg08P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg08P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg08P3	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg09	PRISTINE		6.2
+PF.Analytic.XiPanels.Seg09P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg09P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg09P3	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg09P4	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg09P5	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg10	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg10P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg10P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg10P3	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg10P4	PRISTINE		7.3
+PF.Analytic.XiPanels.Seg11	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg11P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg11P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg11P3	PRISTINE		8.4
+PF.Analytic.XiPanels.Seg12	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg12P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg12P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg12P3	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg12P4	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg12P5	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg13	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg13P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg13P2	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg13P3	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg13P4	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg13P5	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg14	PRISTINE		6.1
+PF.Analytic.XiPanels.Seg14P1	PRISTINE		9.6
+PF.Analytic.XiPanels.Seg14P2	PRISTINE		8.4
+PF.Analytic.XiPanelsT15.Seg01	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg01P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg01P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg01P3	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg02	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg02P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg02P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg02P3	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg03	PRISTINE		6.2
+PF.Analytic.XiPanelsT15.Seg03P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg03P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg03P3	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg04	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg04P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg04P2	PRISTINE		8.4
+PF.Analytic.XiPanelsT15.Seg05	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg05P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg05P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg05P3	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg05P4	PRISTINE		7.3
+PF.Analytic.XiPanelsT15.Seg06	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg06P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg06P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg06P3	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg06P4	PRISTINE		7.3
+PF.Analytic.XiPanelsT15.Seg07	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg07P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg07P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg07P3	PRISTINE		8.4
+PF.Analytic.XiPanelsT15.Seg08	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg08P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg08P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg08P3	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg09	PRISTINE		6.2
+PF.Analytic.XiPanelsT15.Seg09P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg09P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg09P3	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg09P4	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg09P5	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg10	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg10P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg10P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg10P3	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg10P4	PRISTINE		7.3
+PF.Analytic.XiPanelsT15.Seg11	PRISTINE		6.2
+PF.Analytic.XiPanelsT15.Seg11P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg11P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg11P3	PRISTINE		8.5
+PF.Analytic.XiPanelsT15.Seg12	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg12P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg12P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg12P3	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg12P4	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg12P5	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg13	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg13P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg13P2	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg13P3	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg13P4	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg13P5	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg14	PRISTINE		6.1
+PF.Analytic.XiPanelsT15.Seg14P1	PRISTINE		9.6
+PF.Analytic.XiPanelsT15.Seg14P2	PRISTINE		8.5
+PF.Analytic.XiPositiveAt15Reduction_r307	PRISTINE		31.8
+PF.Analytic.XiQuadrature	PRISTINE		26.8
+PF.Analytic.XiRealWitness	PRISTINE		30.0
+PF.Analytic.XiThetaIntegral	PRISTINE		45.3
+PF.Analytic.ZBookNeOne	PRISTINE		9.8
+PF.Analytic.ZetaBridgeDischarge	FAILED	(e)|	13.0
+PF.Analytic.ZetaShiftBoundDischarge	PRISTINE		19.3
+PF.Analytic.ZetaShiftBoundNegNat	PRISTINE		14.4
+PF.Analytic.ZetaShiftBoundPosNat	PRISTINE		26.3
+PF.AppA_R_f_ResonanceCoefficientsRefutationAttempt	FAILED	(e),(f),(f),(f)|	14.0
+PF.AxiomCheck_2026_06_23	PRISTINE		81.4
+PF.AxiomCheck_All_2026_06_25	PRISTINE		2.1
+PF.AxiomCheck_Lambda_2026_06_24	PRISTINE		1.9
+PF.BSDCoatesWilesRankZeroAttempt	FAILED	(e),(f),(f),(f)|	9.8
+PF.BSDConductorAttempt	PRISTINE		14.4
+PF.BSDFrobeniusTraceAttempt	FAILED	(e)|	12.3
+PF.BSDFrobeniusTraceExtended	FAILED	(e)|	30.0
+PF.BSDGaloisPairConcordance	PRISTINE		11.8
+PF.BSDLFunctionBridgeRank0	PRISTINE		12.8
+PF.BSDLFunctionEvaluationAttempt	FAILED	(d),(d2),(e)|CONTAINED:PrincipiaTractalis.BSDLFunctionEvaluationAttempt.LSeriesMatchesLMFDBAnchor.right	10.7
+PF.BSDLPartialEvaluationAttempt	PRISTINE		20.3
+PF.BSDLPartialEvaluationExtendedAttempt	PRISTINE		44.7
+PF.BSDLPartialOscillationAnalysisAttempt	PRISTINE		19.2
+PF.BSDModularFormAnAgreementAttempt	FAILED	(e)|	22.1
+PF.BSDMordellWeilRankZeroTyped	FAILED	(d2),(e),(f),(f),(f)|CONTAINED:PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.MordellWeilRankZeroOf;CONTAINED:PrincipiaTractalis.BSDMordellWeilRankZeroTyped.MordellWeilRankZeroTyped.right.right.right;CONTAINED:hypothesis;VACUOUS:hypothesis	14.1
+PF.BSDMordellWeilRankZeroTypedEmpiricalAnchor	FAILED	(d),(d2),(e),(f),(f),(f),(f),(f),(f)|CONTAINED:PrincipiaTractalis.BSDMordellWeilRankZeroTyped.MordellWeilRankZeroTyped.left.left;CONTAINED:PrincipiaTractalis.BSDMordellWeilRankZeroTyped.MordellWeilRankZeroTyped.left.right.left;CONTAINED:PrincipiaTractalis.BSDMordellWeilRankZeroTyped.MordellWeilRankZeroTyped.right.left;CONTAINED:PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor.IBMHardwareAlphaBSDEmpiricalAnchor.left;CONTAINED:PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor.IBMHardwareAlphaBSDEmpiricalAnchor.right.left;CONTAINED:PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor.IBMHardwareAlphaBSDEmpiricalAnchor.right.right.left	17.4
+PF.BSDNSCrossMillenniumBridge	PRISTINE		17.9
+PF.BSDRankBlindUniversalConcordance	FAILED	(d2)|CONTAINED:PrincipiaTractalis.BSDRankBlindUniversalConcordance.BSDFrameworkInstance.eigenvalue_anchor_lb;CONTAINED:PrincipiaTractalis.BSDRankBlindUniversalConcordance.BSDFrameworkInstance.eigenvalue_anchor_ub;DEAD:PrincipiaTractalis.BSDRankBlindUniversalConcordance.BSDFrameworkInstance.galois_NP_separation;DEAD:PrincipiaTractalis.BSDRankBlindUniversalConcordance.BSDFrameworkInstance.galois_RH_separation;DEAD:PrincipiaTractalis.BSDRankBlindUniversalConcordance.BSDFrameworkInstance.rank_is_manuscript_label	7.9
+PF.BSDRankChainReal_r182	FAILED	(e)|	209.3
+PF.BSDRankDistinctionAttempt	PRISTINE		13.2
+PF.BSDRankFourFiveFrameworks	PRISTINE		12.0
+PF.BSDRankSignBridge	FAILED	(d),(e)|	5.5
+PF.BSDRankThreeCurveFramework	PRISTINE		8.5
+PF.BSDRankTwoCurveFramework	PRISTINE		8.4
+PF.BSDRankZeroFullArgumentAttempt	PRISTINE		14.8
+PF.BSDWilesModularityAttempt	FAILED	(e),(f),(f),(f)|	11.6
+PF.BSD_BoundedEncodingHonest	FAILED	(d2)|DEAD:PrincipiaTractalis.BSD.BoundedEncoding.RankLowerBoundWitness.alg_evidence;DEAD:PrincipiaTractalis.BSD.BoundedEncoding.RankLowerBoundWitness.r_alg_lb	13.1
+PF.BSD_ClayLiteralClosureAttempt	FAILED	(e),(f),(f)|	21.8
+PF.BSD_DirectDischargeAttempt	FAILED	(e)|	9.5
+PF.BSD_E32a3_RankZero_Discharge	FAILED	(d2)|CONTAINED:PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.hasCM.left;CONTAINED:PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.hasCM.right.left;CONTAINED:PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.hasCM.right.right.left;CONTAINED:PrincipiaTractalis.BSDMordellWeilRankZeroTyped.TorsionSubgroupHasOrderFour;CONTAINED:hypothesis	7.5
+PF.BSD_FrameworkMillenniumAnswer	PRISTINE		7.7
+PF.BSD_GrossZagier1986Formalization	FAILED	(d2),(f),(f),(f)|DEAD:PrincipiaTractalis.BSD_GrossZagier1986Formalization.ImaginaryQuadraticData.d_K;DEAD:PrincipiaTractalis.BSD_GrossZagier1986Formalization.ImaginaryQuadraticData.d_K_neg	15.7
+PF.BSD_HeegnerRank1Proof	FAILED	(d2),(e),(f),(f),(f),(f),(f)|VACUOUS:hypothesis	13.3
+PF.BSD_HeegnerRank1ProofE101a1	FAILED	(d2)|VACUOUS:hypothesis	12.7
+PF.BSD_HeegnerRank1ProofE102a1	FAILED	(d2)|VACUOUS:hypothesis	12.7
+PF.BSD_HeegnerRank1ProofE106a1	FAILED	(d2)|VACUOUS:hypothesis	12.7
+PF.BSD_HeegnerRank1ProofE131a1	FAILED	(d2)|VACUOUS:hypothesis	12.7
+PF.BSD_HeegnerRank1ProofE141a1	FAILED	(d2)|VACUOUS:hypothesis	12.7
+PF.BSD_HeegnerRank1ProofE43a1	FAILED	(d2)|VACUOUS:hypothesis	12.7
+PF.BSD_HeegnerRank1ProofE53a1	FAILED	(d2)|VACUOUS:hypothesis	12.7
+PF.BSD_HeegnerRank1ProofE61a1	FAILED	(d2)|VACUOUS:hypothesis	12.7
+PF.BSD_HeegnerRank1ProofE79a1	FAILED	(d2)|VACUOUS:hypothesis	12.8
+PF.BSD_HeegnerRank1ProofE83a1	FAILED	(d2)|VACUOUS:hypothesis	12.7
+PF.BSD_HeegnerRank1ProofE89a1	FAILED	(d2)|VACUOUS:hypothesis	12.8
+PF.BSD_HeegnerRank1ProofE91a1	FAILED	(d2)|VACUOUS:hypothesis	12.7
+PF.BSD_HeegnerThirteenCurvesBundle	PRISTINE		8.0
+PF.BSD_Kolyvagin1990Formalization	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.BSD_Kolyvagin1990Formalization.HeegnerPointInfiniteOrder;CONTAINED:hypothesis;VACUOUS:hypothesis	13.9
+PF.BSD_LSeriesAbsConvergenceDischarge	FAILED	(e)|	11.5
+PF.BSD_LSeriesConvergenceScaffold	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.BSDMordellWeilRankZeroTyped.TorsionSubgroupHasOrderFour;CONTAINED:hypothesis;CONTAINED:modus	13.1
+PF.BSD_MathlibWeierstrassCurveRankExists_Discharge	PRISTINE		11.0
+PF.BSD_MultiCMRankZeroBatch	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.hasCM.left;CONTAINED:PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.hasCM.right.left;CONTAINED:PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.hasCM.right.right.left	17.8
+PF.BSD_Rank2AttemptE389a1	FAILED	(d2),(e),(f),(f)|VACUOUS:hypothesis	14.2
+PF.BSD_RankWitnessTypedUpgrade	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.BSD_RankWitnessTypedUpgrade.RankCertificateTyped.rankWitness;CONTAINED:PrincipiaTractalis.BSD_RankWitnessTypedUpgrade.RankCertificateTyped.selmerWitness;CONTAINED:PrincipiaTractalis.BSD_RankWitnessTypedUpgrade.RankWitnessTyped;CONTAINED:hypothesis;DEAD:PrincipiaTractalis.BSD_RankWitnessTypedUpgrade.RankCertificateTyped.lValueWitness;DEAD:PrincipiaTractalis.BSD_RankWitnessTypedUpgrade.RankCertificateTyped.selmerWitness	11.3
+PF.BSD_SubstrateBulletproofClosure	PRISTINE		7.6
+PF.BSD_Wave56RankZeroActualDischargeAttempt	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.BSD_RankZero_E32a3_Statement.left;CONTAINED:PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.BSD_RankZero_E32a3_Statement.right.left;CONTAINED:PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.BSD_RankZero_E32a3_Statement.right.right.right	14.9
+PF.BSD_WilesModularityAnalyticContinuationDischarge	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.BSD_WilesModularityAnalyticContinuationDischarge.ModularFormYieldsAnalyticContinuation;CONTAINED:hypothesis;VACUOUS:hypothesis	13.0
+PF.Basic	PRISTINE		0.9
+PF.BiAdditive5077a1_r167	FAILED	(d2)|CONTAINED:Eq;CONTAINED:LE.le;CONTAINED:hypothesis	39.5
+PF.BiAdditiveUniversal_r201	FAILED	(d2)|CONTAINED:Eq;CONTAINED:LE.le;CONTAINED:hypothesis	509.6
+PF.BochnerMinlos	FAILED	(d2)|DEAD:PrincipiaTractalis.GaussianCharacteristic.continuous;DEAD:PrincipiaTractalis.GaussianCharacteristic.positive;DEAD:PrincipiaTractalis.GaussianCharacteristic.symmetric	5.7
+PF.Bulletproof_FrameworkClosure	PRISTINE		26.6
+PF.CanheightMultiple389a1_r151	PRISTINE		23.8
+PF.CanheightMultiple5077a1_r165	PRISTINE		24.0
+PF.CanheightParallelogram389a1_r150	PRISTINE		16.8
+PF.CanheightParallelogram5077a1_r164	PRISTINE		16.8
+PF.CanheightParallelogramUniversal_r200	PRISTINE		201.4
+PF.CanonicalHeight389a1_r147	PRISTINE		32.4
+PF.CanonicalHeight5077a1_r156	PRISTINE		35.0
+PF.CanonicalHeightGeneric_r171	FAILED	(d2)|DEAD:PrincipiaTractalis.CanonicalHeightGeneric.HeightWindow.nonneg;DEAD:PrincipiaTractalis.CanonicalHeightGeneric.HeightWindow.one_le	13.0
+PF.CanonicalHeightUnique_r173	FAILED	(d2)|DEAD:PrincipiaTractalis.CanonicalHeightGeneric.HeightWindow.nonneg;DEAD:PrincipiaTractalis.CanonicalHeightGeneric.HeightWindow.one_le	8.5
+PF.CantorDimension_r206	PRISTINE		13.5
+PF.CantorFunction_r207	PRISTINE		36.5
+PF.Ch01Ch03Ch04Ch06FoundationDefects	PRISTINE		15.5
+PF.Ch07Ch14NumericRefutationAttempt	PRISTINE		9.9
+PF.Ch08Ch14ModifiedRelativity	PRISTINE		10.8
+PF.Ch09QuantumEnhancementRefutationAttempt	PRISTINE		10.4
+PF.Ch10FractalDimensionRelationAudit	PRISTINE		11.7
+PF.Ch11AnomalyCancellationRefutationAttempt	PRISTINE		8.3
+PF.Ch11MuonG2RefutationAttempt	PRISTINE		10.3
+PF.Ch12Ch13Ch28Ch34PhysicsDefects	PRISTINE		14.8
+PF.Ch17Ch18ConsciousnessOperatorDomain	PRISTINE		11.4
+PF.Ch19MassFormulaRefutationAttempt	PRISTINE		7.9
+PF.Ch20Ch25NumericObstructions	PRISTINE		12.6
+PF.Ch21CompactnessGapObstruction	PRISTINE		10.7
+PF.Ch22EmergencePointSpectrum	PRISTINE		13.7
+PF.Ch23Ch24MillenniumNumerics	PRISTINE		14.5
+PF.Ch26VacuumEnergyRefutationAttempt	PRISTINE		10.0
+PF.Ch27QuipuCoherenceRefutationAttempt	PRISTINE		8.9
+PF.Ch29AdjustedImprovementRefutation	PRISTINE		11.2
+PF.Ch29DofRefutationAttempt	PRISTINE		9.1
+PF.Ch2ThresholdSelection	PRISTINE		12.9
+PF.Ch30Ch31Ch32ClinicalStatistics	PRISTINE		13.5
+PF.ChernWeil	FAILED	(d2),(e)|CONTAINED:GE.ge;CONTAINED:hypothesis;DEAD:PrincipiaTractalis.ConsciousnessState.coherent;DEAD:PrincipiaTractalis.SecondChernCharacter.bounded	9.3
+PF.ChiNormLevelThree_r224	PRISTINE		18.1
+PF.ChiNormUnity_r221	PRISTINE		11.3
+PF.ClassicalAnchoringMetaCapstone_2026_06_17	PRISTINE		5.8
+PF.Collapse.RateModulation	PRISTINE		11.7
+PF.ConjunctionOfEvidence	PRISTINE		8.1
+PF.Consciousness.BCleanPhaseConsciousnessCommutatorBridge	PRISTINE		16.2
+PF.Consciousness.Ch12MassIITBridge	FAILED	(e)|	15.2
+PF.Consciousness.Ch12QFTLagrangian	FAILED	(d2),(e)|CONTAINED:hypothesis;DEAD:PrincipiaTractalis.Consciousness.Ch12QFT.ConsciousnessCouplings.g_psiC;DEAD:PrincipiaTractalis.Consciousness.Ch12QFT.ConsciousnessCouplings.lambda	15.4
+PF.Consciousness.Ch2PhiBridge	FAILED	(e)|	8.0
+PF.Consciousness.Ch2PhiBridgeDischarge	FAILED	(e)|	10.8
+PF.Consciousness.Ch32AlphaNPSpecificity	PRISTINE		11.2
+PF.Consciousness.ChernCharacter	PRISTINE		21.1
+PF.Consciousness.ChurnStressTensorNoUniqueness	FAILED	(d2)|CONTAINED:modus	10.6
+PF.Consciousness.ClinicalCh2Calibration	PRISTINE		7.4
+PF.Consciousness.ConsciousnessLpNatSubstrate	FAILED	(e)|	9.4
+PF.Consciousness.ConsciousnessNonMultiplicativeC	FAILED	(e)|	9.9
+PF.Consciousness.ConsciousnessOdlyzko100Substrate	FAILED	(e),(f),(f),(f)|	8.2
+PF.Consciousness.ConsciousnessOdlyzko10Substrate	FAILED	(e),(f),(f),(f)|	8.7
+PF.Consciousness.ConsciousnessOperatorC	FAILED	(e)|	5.8
+PF.Consciousness.ConsciousnessOperatorCNonTrivial	PRISTINE		9.3
+PF.Consciousness.ConsciousnessP6InfiniteDimSubstrate	FAILED	(e)|	13.3
+PF.Consciousness.ConsciousnessRHBridge	FAILED	(e)|	8.6
+PF.Consciousness.ConsciousnessRHBridgeWave35Witnesses	FAILED	(e)|	11.4
+PF.Consciousness.ConsciousnessRHBridgeWave36InfiniteSubstrate	FAILED	(e)|	17.1
+PF.Consciousness.ConsciousnessRHBridgeWave38InfiniteZeroSet	FAILED	(e)|	18.3
+PF.Consciousness.ConsciousnessRHBridgeWitnesses	FAILED	(d),(d2),(e)|DEAD:PrincipiaTractalis.ConsciousnessRHSubstrate.zeroSet;DEAD:PrincipiaTractalis.ConsciousnessRHSubstrate.zero_set_on_critical_line	14.2
+PF.Consciousness.FractalResonance	FAILED	(e)|	28.6
+PF.Consciousness.FrobeniusChurn	PRISTINE		10.7
+PF.Consciousness.H3IcosahedralConsciousnessOperatorBridge	PRISTINE		13.8
+PF.Consciousness.Mechanism3HermitianSweetSpot	FAILED	(e)|	6.2
+PF.Consciousness.MillenniumConnection	FAILED	(e)|	10.8
+PF.Consciousness.MuonG2Prediction	FAILED	(e)|	8.1
+PF.Consciousness.NeutrinoHierarchyRatio	PRISTINE		10.0
+PF.Consciousness.PhaseFactorAlgebra	PRISTINE		8.6
+PF.Consciousness.PhaseFactorFirstOrder	PRISTINE		6.7
+PF.Consciousness.PhiCorrectionAtOne	PRISTINE		7.1
+PF.Consciousness.QuantumClassicalDecoherenceThreshold	FAILED	(e)|	21.1
+PF.Consciousness.QuantumComputerMaxSpeedup	PRISTINE		12.3
+PF.Consciousness.QuantumGravityEntanglementResonance	FAILED	(d2),(e)|CONTAINED:modus	9.9
+PF.Consciousness.RfAtAlphaOneIsNegEta	FAILED	(e)|	8.5
+PF.Consciousness.RfAtAlphaTwoIsZeta	PRISTINE		7.8
+PF.Consciousness.TimelessField	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.SecondChernCharacter.bounded	10.0
+PF.Consciousness.TimelessFieldConcreteMorphism	PRISTINE		8.6
+PF.Consciousness.TimelessFieldKTheoryUpgrade	FAILED	(d2)|CONTAINED:Nonempty;CONTAINED:PrincipiaTractalis.TimelessField.KTheoryOfTimelessFieldStructured.right;CONTAINED:hypothesis	10.3
+PF.Consciousness.TimelessFieldPartialTraceMorphism	PRISTINE		8.9
+PF.Consciousness.WBosonMassAnomaly	PRISTINE		11.2
+PF.Consciousness.WeinsteinGUResonantRescue	FAILED	(d2),(e),(f),(f),(f),(f),(f),(f)|DEAD:PrincipiaTractalis.WeinsteinGUResonantRescue.ResonantQuantumGeometryCorrection.Psi_RQG_amp_squared;DEAD:PrincipiaTractalis.WeinsteinGUResonantRescue.ResonantQuantumGeometryCorrection.amp_squared_eq_ch2	14.7
+PF.Consciousness.XENONExactMatch	PRISTINE		8.3
+PF.ConsciousnessNSBKMBridge	FAILED	(d),(d2),(f),(f)|DEAD:PrincipiaTractalis.ConsciousnessOperatorC.ConsciousnessSubstrate.rho	12.2
+PF.Corpus10PillarDichotomy_r235	PRISTINE		11.9
+PF.CorpusSharpBracketCapstone_r249	PRISTINE		8.9
+PF.CorpusSharpBracketComplete_r251	PRISTINE		6.4
+PF.CorpusSigmaSignDichotomy_r231	PRISTINE		17.9
+PF.Cosmology.CounterRotatingVorticesZeroPointFreeEnergy	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.Cosmology.CounterRotatingVortexPair.counter_rotating;DEAD:PrincipiaTractalis.Cosmology.CounterRotatingVortexPair.counter_rotating	17.4
+PF.Cosmology.E6ChernIndex78pi	FAILED	(d)|	9.8
+PF.Cosmology.E6ChernWeil78piFirstPrinciplesAttempt	FAILED	(e)|	12.7
+PF.Cosmology.E6CrossDomainAnchor	PRISTINE		7.7
+PF.Cosmology.LambdaCDMRebuttalEnergyConservation	PRISTINE		15.7
+PF.Cosmology.LambdaEffCalibration	PRISTINE		8.9
+PF.Cosmology.LambdaEffParameterFreeCapstone	PRISTINE		11.5
+PF.Cosmology.LambdaEffSuppression	FAILED	(e)|	9.7
+PF.Cosmology.LambdaEffTypedUpgrade	FAILED	(d2)|CONTAINED:PrincipiaTractalis.Cosmology.ModifiedFriedmannBridge.friedmann;DEAD:PrincipiaTractalis.Cosmology.ModifiedFriedmannBridge.Lambda_0_pos;DEAD:PrincipiaTractalis.Cosmology.ModifiedFriedmannBridge.N_pos;DEAD:PrincipiaTractalis.Cosmology.ModifiedFriedmannBridge.rho_pos;DEAD:PrincipiaTractalis.Cosmology.ModifiedFriedmannBridge.theta_pos	13.4
+PF.Cosmology.LateTimeConsciousness	FAILED	(e)|	7.9
+PF.Cosmology.VortexCavitationBridgeChecks	PRISTINE		13.9
+PF.CrossAxisProductGapFills	PRISTINE		6.8
+PF.CrossConnectionCapstone	PRISTINE		7.5
+PF.CrossMillennium.AlphaValuesFirstPrinciples	FAILED	(d2)|CONTAINED:And.right	15.7
+PF.CrossMillenniumAlgebraicAxisCrossBridges	PRISTINE		4.5
+PF.CrossMillenniumDerivedConsequences	FAILED	(d2)|DEAD:PF.CrossMillenniumDerivedConsequences.AbstractAlphaSystem.αBSD;DEAD:PF.CrossMillenniumDerivedConsequences.AbstractAlphaSystem.αNS;DEAD:PF.CrossMillenniumDerivedConsequences.AbstractAlphaSystem.αP	10.4
+PF.CrossMillenniumHodgeNPRatios	PRISTINE		4.3
+PF.CrossMillenniumImplicationChains	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.CrossMillenniumImplicationChains.RealisesP.right	11.7
+PF.CrossMillenniumMoreInvariants	FAILED	(d2)|CONTAINED:Membership.mem;CONTAINED:Membership.mem.right;CONTAINED:Units.inv_val;CONTAINED:hypothesis	136.5
+PF.CrossMillenniumOpenFrontierInventory	FAILED	(e),(f),(f),(f),(f),(f),(f)|	14.0
+PF.CrossMillenniumReverseChains	PRISTINE		12.4
+PF.CrossMillenniumSharedInvariants	PRISTINE		9.2
+PF.CrossProblemEquivalenceAttack	FAILED	(d),(d2),(e),(f),(f)|DEAD:PrincipiaTractalis.HAlphaUniversal.alpha;DEAD:PrincipiaTractalis.HAlphaUniversal.alpha_pos;DEAD:PrincipiaTractalis.HAlphaUniversal.kernel	14.4
+PF.CrossQuadraticFieldBridge	FAILED	(e)|	35.4
+PF.CrossSubstrateConstants	FAILED	(d2)|CONTAINED:PrincipiaTractalis.CrossSubstrate.ThresholdClassifier.UsesCrossSubstrateThreshold;CONTAINED:hypothesis	12.1
+PF.CylindricalMeasures	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.CharacteristicFunctional.continuous_at_zero;DEAD:PrincipiaTractalis.CharacteristicFunctional.normalized;DEAD:PrincipiaTractalis.CharacteristicFunctional.positive_definite;DEAD:PrincipiaTractalis.FiniteDimProjection.testFunctions	14.9
+PF.DigitWordSystem_r218	PRISTINE		24.9
+PF.Dirichlet1858AbelBridge_r275	FAILED	(e)|	7.7
+PF.DirichletEtaComplex_r267	PRISTINE		7.0
+PF.DirichletEtaConditionalConvergenceComplex_r277	PRISTINE		14.4
+PF.DirichletEtaConditionalConvergenceReal_r276	FAILED	(e)|	9.9
+PF.DirichletEtaExtDifferentiable_r278	FAILED	(e)|	14.6
+PF.DirichletEtaExtHalf_r270	PRISTINE		7.5
+PF.DirichletEtaExtension_r269	PRISTINE		8.8
+PF.DirichletEtaHalfBridge_r271	FAILED	(e)|	6.8
+PF.DirichletEtaHalfPositive_r264	PRISTINE		7.3
+PF.DirichletEtaHalfValue_r265	PRISTINE		6.2
+PF.DirichletEtaIdentityTheorem_r279	FAILED	(e)|	12.9
+PF.DirichletEtaZetaConditionalBridge_r266	PRISTINE		9.4
+PF.DirichletEtaZetaIdentity_r268	PRISTINE		13.6
+PF.DivFreeFourierDensityOnTorus3Attempt	PRISTINE		14.1
+PF.DuplicationBezout37a1_r131	PRISTINE		8.3
+PF.DuplicationBezoutUniversal_r174	PRISTINE		93.2
+PF.DuplicationFormula37a1_r132	PRISTINE		9.9
+PF.DuplicationFormula_r178	PRISTINE		9.4
+PF.DuplicationHeightBound37a1_r133	PRISTINE		6.9
+PF.DuplicationHeightUniversal_r176	FAILED	(d2)|CONTAINED:modus	83.4
+PF.DuplicationHeightUpper389a1_r145	PRISTINE		8.7
+PF.DuplicationHeightUpper5077a1_r146	PRISTINE		9.1
+PF.DuplicationLogWindowFixed_r179	FAILED	(d2)|DEAD:PrincipiaTractalis.CanonicalHeightGeneric.HeightWindow.nonneg;DEAD:PrincipiaTractalis.CanonicalHeightGeneric.HeightWindow.window	81.1
+PF.DuplicationLogWindow_r177	PRISTINE		83.3
+PF.DuplicationSizeUniversal_r175	FAILED	(d)|	35.2
+PF.DynamicalDeterminant_r204	FAILED	(d)|	11.0
+PF.E101a1RankOne_r141	PRISTINE		45.6
+PF.E106a1RankOne_r142	PRISTINE		44.1
+PF.E37a1RankOne_r134	PRISTINE		23.7
+PF.E389a1RankOne_r143	PRISTINE		32.3
+PF.E389a1RankTwo_r154	PRISTINE		25.8
+PF.E43a1RankOne_r135	PRISTINE		43.4
+PF.E5077a1RankOne_r144	PRISTINE		34.5
+PF.E5077a1RankThree_r169	FAILED	(d2)|CONTAINED:And.left;CONTAINED:And.right;CONTAINED:Function.Surjective;CONTAINED:hypothesis	36.6
+PF.E53a1RankOne_r136	PRISTINE		45.3
+PF.E61a1RankOne_r137	PRISTINE		42.7
+PF.E79a1RankOne_r138	PRISTINE		44.7
+PF.E83a1RankOne_r139	PRISTINE		44.8
+PF.E89a1RankOne_r140	PRISTINE		44.7
+PF.EllipticTrace_r194	PRISTINE		9.6
+PF.Empirical.AxiomCheck	PRISTINE		1.5
+PF.Empirical.Cohen2025_CorroboratingEvidence_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	7.8
+PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors	FAILED	(d2),(e),(f),(f),(f),(f),(f)|CONTAINED:And.left;CONTAINED:And.right.left;CONTAINED:And.right.right	9.5
+PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	8.2
+PF.Empirical.GIForwardPredictionProtocol_2026_06_24	FAILED	(e)|	5.8
+PF.Empirical.Hundred44ProblemPrediction	FAILED	(d2),(e)|CONTAINED:Eq;CONTAINED:hypothesis	20.4
+PF.Empirical.HundredFortyThreeProblems	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.Empirical.TestProblem.alphaMeasured;DEAD:PrincipiaTractalis.Empirical.TestProblem.lambdaMeasured;DEAD:PrincipiaTractalis.Empirical.TestProblem.name	10.7
+PF.Empirical.ProblemClassTriClass_2026_06_22	FAILED	(d2),(e),(f),(f),(f)|VACUOUS:hypothesis	5.4
+PF.Empirical.SubstrateNaturalPrior_NeutrinoAnchor_2026_06_24	FAILED	(e),(f),(f),(f),(f)|	6.7
+PF.EmpiricalClassification	FAILED	(e)|	8.8
+PF.EmpiricalPostulateDischarge	FAILED	(e)|	8.9
+PF.Empirical_FrameworkMillenniumEvidence	PRISTINE		6.0
+PF.EquationOfStateBridge_r219	FAILED	(e)|	15.3
+PF.EulerFactorThree_r214	PRISTINE		29.5
+PF.ExactSigmaTableCapstone_r239	PRISTINE		7.8
+PF.ExtremalTraceOrbits	PRISTINE		10.6
+PF.ExtremalTraceUniquenessProofPlan	FAILED	(e)|	24.7
+PF.FiltrationTheorem	PRISTINE		9.3
+PF.ForMathlib.CfcMemTwoSidedIdeal	PRISTINE		12.2
+PF.ForMathlib.ClopenSpectralProjection	PRISTINE		16.6
+PF.ForMathlib.TwoSidedIdealClosure	PRISTINE		7.9
+PF.FrameworkApplicationCapstone	PRISTINE		13.5
+PF.FrameworkCrossDomainAnchors	PRISTINE		19.4
+PF.FrameworkExperimentalWinsCapstone	PRISTINE		14.8
+PF.FrameworkHeadlineTheorem	PRISTINE		6.6
+PF.FrameworkHeadlineWave29To39Update	FAILED	(e),(f),(f),(f),(f),(f),(f)|	26.0
+PF.FrameworkMetaArchitectureWave29To43	FAILED	(e),(f),(f),(f),(f),(f),(f)|	24.9
+PF.FrameworkMillenniumAnswerMaster	PRISTINE		6.3
+PF.FrameworkResidualLedgerCapstone	PRISTINE		4.4
+PF.FrameworkResourceSynthesisWave47	FAILED	(e),(f),(f),(f),(f),(f),(f)|	4.1
+PF.FrameworkRigidityPlusAnswer	PRISTINE		4.2
+PF.GalerkinPDEBilinearBridgeAttempt	FAILED	(e)|	10.8
+PF.GalerkinPDEConcreteInstanceAttempt	FAILED	(e)|	9.7
+PF.GaloisOrbitMillenniumDiscriminator	FAILED	(e)|	13.8
+PF.GaloisRigidConditionalDischarge	FAILED	(e)|	12.1
+PF.GaussDimension_r208	PRISTINE		21.3
+PF.GaussLevelThree_r211	PRISTINE		545.8
+PF.GaussLevelTwo_r210	FAILED	(d2)|DEAD:PrincipiaTractalis.GaussLevelTwo.AddrIFS.L;DEAD:PrincipiaTractalis.GaussLevelTwo.AddrIFS.a;DEAD:PrincipiaTractalis.GaussLevelTwo.AddrIFS.a_pos;DEAD:PrincipiaTractalis.GaussLevelTwo.AddrIFS.diam_lt_one;DEAD:PrincipiaTractalis.GaussLevelTwo.AddrIFS.gamma_pos;DEAD:PrincipiaTractalis.GaussLevelTwo.AddrIFS.γ	79.4
+PF.GaussLowerBound_r209	FAILED	(d2),(f)|DEAD:PrincipiaTractalis.GaussLowerBound.GaussWeights.c;DEAD:PrincipiaTractalis.GaussLowerBound.GaussWeights.c_lt_one;DEAD:PrincipiaTractalis.GaussLowerBound.GaussWeights.w_le;DEAD:PrincipiaTractalis.GaussLowerBound.GaussWeights.w_pos	60.4
+PF.GaussTrace_r189	PRISTINE		16.9
+PF.GaussianModel	PRISTINE		5.7
+PF.GeneralRelativity	FAILED	(e)|	13.8
+PF.GenericFitsBothCurves_r172	PRISTINE		15.9
+PF.GramRankGeneral_r170	FAILED	(d2)|DEAD:PrincipiaTractalis.GramRankGeneral.BiAdditive.symm	8.3
+PF.GravitomagneticRescue	PRISTINE		10.9
+PF.H3CoxeterDiagramDerivation	PRISTINE		38.1
+PF.H3CoxeterOrigin	PRISTINE		22.8
+PF.H3ExponentUnification	PRISTINE		12.8
+PF.H3UnifiedMillenniumStructure	PRISTINE		16.2
+PF.H3UnifiedMillenniumStructureTranscendental	PRISTINE		24.0
+PF.HPProgramResidualEquivalenceToRH_r274	PRISTINE		8.9
+PF.HardyRouteBAlgebraicLayerCapstone_r262	PRISTINE		6.9
+PF.HardyRouteGammaRHalfReal_r259	PRISTINE		8.5
+PF.HardyRouteXiAtomCharacterization_r263	PRISTINE		12.1
+PF.HardyRouteXiEvenness_r257	PRISTINE		12.4
+PF.HardyRouteXiZeroFactored_r258	PRISTINE		10.3
+PF.HardyRouteXiZeroSignReduction_r260	PRISTINE		12.5
+PF.HardyRouteZetaHalfReal_r261	PRISTINE		8.8
+PF.HausdorffIFS_r205	PRISTINE		20.4
+PF.HiggsSectorSubstrate78Phi	PRISTINE		7.7
+PF.HilbertSchmidtCompact_r184	FAILED	(d)|	14.1
+PF.HilbertSchmidtGeometric_r185	FAILED	(d),(e)|	7.6
+PF.HilbertSchmidtL2_r183	FAILED	(e)|	11.1
+PF.HodgeAbelianSurfaceDim2Substrate	FAILED	(d2)|DEAD:PrincipiaTractalis.HodgeAbelianSurfaceDim2.HodgeAbelianSurfaceSubstrate.decEq;DEAD:PrincipiaTractalis.HodgeAbelianSurfaceDim2.HodgeAbelianSurfaceSubstrate.endomorphism_coefficient;DEAD:PrincipiaTractalis.HodgeAbelianSurfaceDim2.HodgeAbelianSurfaceSubstrate.fintype;DEAD:PrincipiaTractalis.HodgeAbelianSurfaceDim2.HodgeAbelianSurfaceSubstrate.torus_endomorphisms	10.1
+PF.HodgeAbelianVarietyP1Attempt	FAILED	(d2),(f),(f)|DEAD:PrincipiaTractalis.HodgeAbelianVarietyP1Attempt.AbelianVariety.dim	12.2
+PF.HodgeCalabiYau3FoldDim22Substrate	FAILED	(d2),(f),(f),(f),(f)|CONTAINED:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two_le_twenty;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.curveClass;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two_le_twenty;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.intersectionPair	12.8
+PF.HodgeCalabiYau3FoldSubstrate	FAILED	(d2),(f),(f),(f),(f)|CONTAINED:PrincipiaTractalis.HodgeCalabiYau3Fold.HodgeCalabiYau3FoldSubstrate.h_one_one_le_twenty;DEAD:PrincipiaTractalis.HodgeCalabiYau3Fold.HodgeCalabiYau3FoldSubstrate.h_one_one;DEAD:PrincipiaTractalis.HodgeCalabiYau3Fold.HodgeCalabiYau3FoldSubstrate.h_one_one_le_twenty;DEAD:PrincipiaTractalis.HodgeCalabiYau3Fold.HodgeCalabiYau3FoldSubstrate.h_two_one;DEAD:PrincipiaTractalis.HodgeCalabiYau3Fold.HodgeCalabiYau3FoldSubstrate.picClass	12.1
+PF.HodgeCodim2AbelianThreefoldEscapeAttempt	FAILED	(d2),(f),(f),(f),(f),(f),(f)|DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.curveClass;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two_le_twenty;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two_pos;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.intersectionPair;DEAD:PrincipiaTractalis.HodgeCodim2AbelianThreefoldEscape.Abelian3FoldDim22Substrate.pontryagin_rank_marker	15.8
+PF.HodgeCodim2CMCubeFirstPrinciplesAttempt	PRISTINE		14.6
+PF.HodgeCodim2CmAbelian4FoldAttempt	FAILED	(d2),(f),(f),(f),(f),(f),(f)|DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_one_one;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_one_one_le_twenty;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_one_one_pos;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_three_three;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_two_two;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_two_two_pos	19.2
+PF.HodgeCodim2CmAbelian5FoldAttempt	FAILED	(d2),(f),(f),(f),(f),(f),(f)|DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.CmAbelian5FoldCodim2Substrate.h_one_one;DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.CmAbelian5FoldCodim2Substrate.h_one_one_le_twenty;DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.CmAbelian5FoldCodim2Substrate.h_one_one_pos;DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.CmAbelian5FoldCodim2Substrate.h_three_three;DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.CmAbelian5FoldCodim2Substrate.h_two_two;DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.CmAbelian5FoldCodim2Substrate.h_two_two_pos	22.0
+PF.HodgeCodim2CmAbelian6FoldAttempt	FAILED	(d2),(f),(f),(f),(f),(f),(f)|DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.CmAbelian6FoldCodim2Substrate.h_one_one;DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.CmAbelian6FoldCodim2Substrate.h_one_one_le_twenty;DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.CmAbelian6FoldCodim2Substrate.h_one_one_pos;DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.CmAbelian6FoldCodim2Substrate.h_three_three;DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.CmAbelian6FoldCodim2Substrate.h_two_two;DEAD:PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.CmAbelian6FoldCodim2Substrate.h_two_two_pos	24.0
+PF.HodgeCodim2MixedCmRankOneAttempt	PRISTINE		16.7
+PF.HodgeCodim2UniruledThreefoldVoisin2018Attempt	FAILED	(d2),(f),(f),(f),(f),(f),(f)|DEAD:PrincipiaTractalis.HodgeCodim2AbelianThreefoldEscape.Abelian3FoldDim22Substrate.pontryagin_rank_marker;DEAD:PrincipiaTractalis.HodgeCodim2AbelianThreefoldEscape.Abelian3FoldDim22Substrate.pontryagin_rank_marker_holds;DEAD:PrincipiaTractalis.HodgeCodim2AbelianThreefoldEscape.Abelian3FoldDim22Substrate.toHodgeCY3Dim22Substrate;DEAD:PrincipiaTractalis.HodgeCodim2UniruledThreefoldVoisin2018Attempt.UniruledThreefoldCodim2Substrate.h_one_one;DEAD:PrincipiaTractalis.HodgeCodim2UniruledThreefoldVoisin2018Attempt.UniruledThreefoldCodim2Substrate.h_one_one_le_twenty;DEAD:PrincipiaTractalis.HodgeCodim2UniruledThreefoldVoisin2018Attempt.UniruledThreefoldCodim2Substrate.h_one_one_pos	18.2
+PF.HodgeCrystallizationH3Discharge	PRISTINE		9.6
+PF.HodgeCurveDim1Substrate	FAILED	(d2)|DEAD:PrincipiaTractalis.HodgeCurveDim1.HodgeCurveSubstrate.Points;DEAD:PrincipiaTractalis.HodgeCurveDim1.HodgeCurveSubstrate.decEq;DEAD:PrincipiaTractalis.HodgeCurveDim1.HodgeCurveSubstrate.fintype;DEAD:PrincipiaTractalis.HodgeCurveDim1.HodgeCurveSubstrate.genus;DEAD:PrincipiaTractalis.HodgeCurveDim1.HodgeCurveSubstrate.multiplicity	9.9
+PF.HodgeDim4CY4Substrate	FAILED	(d2),(f),(f),(f),(f),(f)|DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_one_one_le_twenty;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_three_three;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_three_three_le_twenty;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_three_three_pos;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_two_two;DEAD:PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate.h_two_two_pos	18.0
+PF.HodgeGeneralSurfaceDim2Substrate	FAILED	(d2)|DEAD:PrincipiaTractalis.HodgeAbelianSurfaceDim2.HodgeAbelianSurfaceSubstrate.decEq;DEAD:PrincipiaTractalis.HodgeAbelianSurfaceDim2.HodgeAbelianSurfaceSubstrate.endomorphism_coefficient;DEAD:PrincipiaTractalis.HodgeAbelianSurfaceDim2.HodgeAbelianSurfaceSubstrate.intersection_form	13.9
+PF.HodgeK3Dim2Substrate	FAILED	(d2),(f),(f)|DEAD:PrincipiaTractalis.HodgeK3Dim2.HodgeK3Substrate.nsClass;DEAD:PrincipiaTractalis.HodgeK3Dim2.HodgeK3Substrate.picard_le_twenty;DEAD:PrincipiaTractalis.HodgeK3Dim2.HodgeK3Substrate.picard_number;DEAD:PrincipiaTractalis.HodgeK3Dim2.HodgeK3Substrate.picard_pos	11.9
+PF.HodgeMumfordAbelianFirstPrinciplesInventory	FAILED	(d2),(e),(f),(f),(f),(f),(f),(f)|VACUOUS:field	17.5
+PF.Hodge_FrameworkMillenniumAnswer	PRISTINE		6.0
+PF.Hodge_QuinticCYCodim2Scaffold	FAILED	(d2),(f),(f),(f)|DEAD:PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.FermatQuinticConcrete.ambientDim;DEAD:PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.FermatQuinticConcrete.degree;DEAD:PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.FermatQuinticConcrete.dworkParameter;DEAD:PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.FermatQuinticConcrete.equationLabel;DEAD:PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.FermatQuinticConcrete.numberOfVariables	11.2
+PF.Hodge_SixSubstrateClassesBundle	PRISTINE		6.4
+PF.Hodge_SubstrateBulletproofClosure	PRISTINE		6.0
+PF.Hodge_Wave56CYThreefoldAttempt	FAILED	(d2),(f),(f),(f),(f),(f),(f)|DEAD:PrincipiaTractalis.Hodge_Wave56CYThreefoldAttempt.QuinticCYThreefoldCodim2Substrate.h_one_one;DEAD:PrincipiaTractalis.Hodge_Wave56CYThreefoldAttempt.QuinticCYThreefoldCodim2Substrate.h_one_one_eq_one;DEAD:PrincipiaTractalis.Hodge_Wave56CYThreefoldAttempt.QuinticCYThreefoldCodim2Substrate.h_two_one;DEAD:PrincipiaTractalis.Hodge_Wave56CYThreefoldAttempt.QuinticCYThreefoldCodim2Substrate.h_two_one_eq_101;DEAD:PrincipiaTractalis.Hodge_Wave56CYThreefoldAttempt.QuinticCYThreefoldCodim2Substrate.h_two_two_eq_h_one_one;DEAD:PrincipiaTractalis.Hodge_Wave56CYThreefoldAttempt.QuinticCYThreefoldCodim2Substrate.h_two_two_eq_one	19.6
+PF.I5DerivedFromCouplingAnchors	PRISTINE		6.7
+PF.I5VortexDoublingSubstrateDischarge	FAILED	(e)|	10.5
+PF.IBMEmpiricalAlphaTableBridge	FAILED	(e)|	19.1
+PF.IBMHardware9WayEvidence	PRISTINE		12.0
+PF.IBMHardwareStatisticalEvidence	PRISTINE		11.0
+PF.IBMPeaksGaloisPair	FAILED	(e)|	23.4
+PF.IntegralKernel.Basic	FAILED	(e)|	6.8
+PF.IntegralKernel.Bridge	PRISTINE		9.2
+PF.IntegralKernel.FractalKernel	PRISTINE		15.4
+PF.IntegralKernel.FractalKernelSelfSimilarity	PRISTINE		9.2
+PF.IntegralKernel.HilbertSchmidt	FAILED	(d2)|CONTAINED:MeasureTheory.AEStronglyMeasurable;CONTAINED:Subtype.property;CONTAINED:hypothesis	20.5
+PF.IntegralKernel.SelfAdjoint	PRISTINE		8.3
+PF.IntervalArithmetic	PRISTINE		24.3
+PF.KatoBilinearEstimateAttempt	FAILED	(e)|	11.4
+PF.Lambda0CrossClassStructure_2026_06_25	PRISTINE		8.9
+PF.Lambda0SquaredClosedForms_2026_06_25	PRISTINE		13.2
+PF.LambdaEffFromAction	PRISTINE		11.1
+PF.LogCosineNextZero_r222	PRISTINE		12.6
+PF.LogPeriodicity_r220	PRISTINE		33.4
+PF.MasterCrossMillenniumUnification	PRISTINE		7.6
+PF.MayerTrace_r190	PRISTINE		15.2
+PF.MetaEvidenceCapstone	PRISTINE		7.5
+PF.Millennium	PRISTINE		7.1
+PF.MillenniumRHSubstratePositionCapstone_r255	FAILED	(d)|	7.0
+PF.MillenniumReductionSoundness	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.PFInternalCapstone;CONTAINED:hypothesis;VACUOUS:hypothesis	6.4
+PF.MillenniumSectorResolutionData	FAILED	(e)|	13.4
+PF.MillenniumSixReductions	FAILED	(d),(d2),(e),(f),(f),(f),(f),(f),(f)|DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.betti;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.betti_pos;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.dim;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.p;DEAD:PrincipiaTractalis.MillenniumSix.HodgeAmbient.p_le_dim	176.6
+PF.ModifiedFriedmann_r187	FAILED	(d),(e)|	9.3
+PF.MordellWeilRankLowerBound_r129	FAILED	(e)|	8.2
+PF.NS2DGlobalRegularity	FAILED	(d2),(e),(f),(f),(f)|DEAD:PrincipiaTractalis.NS2DGlobalRegularity.Vorticity2DSystem.L_psd;DEAD:PrincipiaTractalis.NS2DGlobalRegularity.Vorticity2DSystem.ν_nonneg	12.6
+PF.NS3DGalerkinDensityAttempt	FAILED	(e)|	14.6
+PF.NS3DGenuineConvolutionBilinearAttempt	PRISTINE		20.3
+PF.NS3DGenuineConvolutionBilinearEmpiricalAnchor	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.NS3DGenuineConvolutionBilinearEmpiricalAnchor.IBMAlphaPEmpiricalAnchor.left;CONTAINED:PrincipiaTractalis.NS3DGenuineConvolutionBilinearEmpiricalAnchor.IBMAlphaPEmpiricalAnchor.right.left;CONTAINED:PrincipiaTractalis.NS3DGenuineConvolutionBilinearEmpiricalAnchor.IBMAlphaPEmpiricalAnchor.right.right;CONTAINED:PrincipiaTractalis.NS3DGenuineConvolutionBilinearEmpiricalAnchor.Wave55AGenuineBilinearInAlphaPRegime.left;CONTAINED:PrincipiaTractalis.NS3DGenuineConvolutionBilinearEmpiricalAnchor.Wave55AGenuineBilinearInAlphaPRegime.right.left;CONTAINED:PrincipiaTractalis.NS3DGenuineConvolutionBilinearEmpiricalAnchor.Wave55AGenuineBilinearInAlphaPRegime.right.right	13.5
+PF.NS3DGlobalKTAttempt	FAILED	(d),(e)|	26.2
+PF.NS3DLayer2LiftAttempt	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.NS3DLayer2LiftAttempt.VortexStretchingPDEBilinearBounded;CONTAINED:hypothesis	11.7
+PF.NS3DLayer2bSobolevTorusSkeleton	FAILED	(d2)|DEAD:PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.MathlibContentNeededForTorusSobolev.bilinear_vortex_stretching_bounded_Hs;DEAD:PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.MathlibContentNeededForTorusSobolev.div_free_subspace_Hs_T3;DEAD:PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.MathlibContentNeededForTorusSobolev.helmholtz_decomposition_L2_T3;DEAD:PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.MathlibContentNeededForTorusSobolev.sobolev_Hs_on_T3	10.7
+PF.NS3DLocalRegularityAtNEqFourFive	PRISTINE		12.5
+PF.NS3DLocalRegularityAtNEqThree	PRISTINE		7.7
+PF.NS3DLocalRegularityAtNGeqOneRetry	PRISTINE		9.9
+PF.NS3DLocalRegularityViaBKM	FAILED	(d),(d2),(e)|VACUOUS:hypothesis	9.1
+PF.NS3DMathlibSobolevDivFreeAttempt	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttempt.MathlibPDESobolevDivFreeAtTorus;CONTAINED:hypothesis	13.6
+PF.NS3DMathlibSobolevDivFreeAttemptWave51	FAILED	(d2),(e),(f),(f),(f)|DEAD:PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.SobolevDivFreeAnchorBundle.div_free_amplitude;DEAD:PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.SobolevDivFreeAnchorBundle.finite_rank;DEAD:PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.SobolevDivFreeAnchorBundle.fourier_density_3D;DEAD:PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.SobolevDivFreeAnchorBundle.hs_scale_mono;DEAD:PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.SobolevDivFreeAnchorBundle.leray_projection_bound	15.8
+PF.NS3DMultiDimFourierDensityAttempt	PRISTINE		18.2
+PF.NS3DOffDiagonalAtNFourFive	PRISTINE		15.6
+PF.NS3DOffDiagonalAtNTwoThree	PRISTINE		11.5
+PF.NS3DOffDiagonalVortexStretching	FAILED	(d),(e)|	11.9
+PF.NS3DUniformHadamardDischargeAttempt	PRISTINE		11.1
+PF.NS3DVortexStretchingBilinearAttempt	FAILED	(e)|	10.5
+PF.NS3DVortexStretchingObstruction	FAILED	(d2),(e),(f),(f),(f)|VACUOUS:hypothesis	10.4
+PF.NS3DVortexStretchingUniformGalerkinAttempt	PRISTINE		17.5
+PF.NS3D_ConcreteDivFreeHsInner	FAILED	(d2)|DEAD:PrincipiaTractalis.NS3D_ConcreteDivFreeVelocityField.ConcreteDivFreeVelocityField.div_free	18.9
+PF.NS3D_ConcreteDivFreeHsNorm	FAILED	(d2)|DEAD:PrincipiaTractalis.NS3D_ConcreteDivFreeVelocityField.ConcreteDivFreeVelocityField.div_free	13.7
+PF.NS3D_ConcreteDivFreeVectorSpace	FAILED	(d2)|CONTAINED:Eq;CONTAINED:hypothesis;DEAD:PrincipiaTractalis.NS3D_ConcreteDivFreeVelocityField.ConcreteDivFreeVelocityField.div_free;VACUOUS:hypothesis	22.8
+PF.NS3D_ConcreteDivFreeVelocityField	PRISTINE		7.9
+PF.NS3D_DivFreeLinearEquiv	PRISTINE		10.2
+PF.NS3D_DivFreeSubmodule	PRISTINE		10.5
+PF.NS3D_EvolutionRHS	PRISTINE		9.3
+PF.NS3D_FrameworkMillenniumAnswer	PRISTINE		5.8
+PF.NS3D_FullSubstrateNSCapstone	FAILED	(d)|	5.7
+PF.NS3D_GalerkinTruncation	PRISTINE		9.8
+PF.NS3D_HeatEnergyDecay	PRISTINE		7.0
+PF.NS3D_HeatEnergyMonotone	FAILED	(d)|	8.9
+PF.NS3D_HeatEquationPerMode	PRISTINE		7.7
+PF.NS3D_HeatExpFormula	PRISTINE		6.8
+PF.NS3D_HeatGlobalEnergyDecay	PRISTINE		7.2
+PF.NS3D_HeatLerayCommutation	PRISTINE		8.3
+PF.NS3D_HeatSemigroup	FAILED	(d)|	12.6
+PF.NS3D_HeatSemigroupHsContraction	FAILED	(d)|	7.0
+PF.NS3D_HeatSemigroupProperty	PRISTINE		7.4
+PF.NS3D_HsSigmaScaffold	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.NS3D_HsSigmaScaffold.HsSigmaInnerProductScaffold.left;CONTAINED:PrincipiaTractalis.NS3D_HsSigmaScaffold.HsSigmaInnerProductScaffold.right.left;CONTAINED:PrincipiaTractalis.NS3D_HsSigmaScaffold.HsSigmaInnerProductScaffold.right.right.left;CONTAINED:PrincipiaTractalis.NS3D_HsSigmaScaffold.HsSigmaInnerProductScaffold.right.right.right;CONTAINED:PrincipiaTractalis.NS3D_HsSigmaScaffold.LerayProjectionScaffold;CONTAINED:hypothesis	11.6
+PF.NS3D_LerayProjector	PRISTINE		12.6
+PF.NS3D_LerayProjectorLinear	PRISTINE		8.6
+PF.NS3D_MeanZeroDivFree	FAILED	(d2)|CONTAINED:Eq;CONTAINED:hypothesis	11.7
+PF.NS3D_NonlinearBilinear	PRISTINE		12.7
+PF.NS3D_NonlinearScaling	PRISTINE		7.4
+PF.NS3D_NonlinearZeroMode	PRISTINE		9.4
+PF.NS3D_StokesOperator	PRISTINE		11.6
+PF.NS3D_StokesPositivity	PRISTINE		9.7
+PF.NS3D_StokesSymmetric	PRISTINE		7.6
+PF.NS3D_SupportedSubmodule	PRISTINE		9.7
+PF.NS3D_Wave51BFullClosure	FAILED	(d)|	5.7
+PF.NS3D_Wave51BResidualClosed	FAILED	(d)|	5.6
+PF.NSBase3SelfSimilarity	PRISTINE		13.7
+PF.NSCascadeCrowBound	PRISTINE		25.5
+PF.NSYMBSDTranscendentalRatioBridge	PRISTINE		15.4
+PF.NS_SubstrateBulletproofClosure	PRISTINE		5.9
+PF.NS_Wave56UniformBilinearBoundAttempt	FAILED	(e)|	17.5
+PF.NaiveHeightQ_r130	PRISTINE		9.6
+PF.NavierStokes.BealeKatoMajda1984Formalization	FAILED	(e),(f),(f),(f)|	22.4
+PF.NavierStokes.Fefferman2000_LiteralClayNS3D_Statement_2026_06_19	FAILED	(d),(d2),(e),(f),(f),(f),(f),(f)|CONTAINED:_;CONTAINED:hypothesis	6.3
+PF.NavierStokes.FujitaKato1964.BilinearScaffold	FAILED	(e)|	10.0
+PF.NavierStokes.FujitaKato1964.ConvectiveDerivative	PRISTINE		16.6
+PF.NavierStokes.FujitaKato1964.FourierDivFree	FAILED	(e)|	8.5
+PF.NavierStokes.FujitaKato1964.GaussianDeriv1Discharge	PRISTINE		11.6
+PF.NavierStokes.FujitaKato1964.GaussianDerivBounds	FAILED	(d2),(e),(f),(f),(f),(f),(f)|CONTAINED:PF.NavierStokes.FujitaKato1964.GaussianDerivBounds.GaussianIteratedFDerivBoundedAt;CONTAINED:_;CONTAINED:hypothesis	12.1
+PF.NavierStokes.FujitaKato1964.HeatContractsSobolev	PRISTINE		19.9
+PF.NavierStokes.FujitaKato1964.HeatEvolveLinear	PRISTINE		13.5
+PF.NavierStokes.FujitaKato1964.HeatLerayCompose	PRISTINE		13.4
+PF.NavierStokes.FujitaKato1964.HeatLerayContractsSobolev	PRISTINE		20.3
+PF.NavierStokes.FujitaKato1964.HeatMultiplierTemperateGrowth	FAILED	(d2),(e)|CONTAINED:PF.NavierStokes.FujitaKato1964.HeatMultiplierTemperateGrowth.IteratedFDerivHeatMultiplierPolynomialBounded;CONTAINED:hypothesis	10.2
+PF.NavierStokes.FujitaKato1964.HeatPreservesDivFree	PRISTINE		11.7
+PF.NavierStokes.FujitaKato1964.HeatSemigroupFourier	PRISTINE		8.5
+PF.NavierStokes.FujitaKato1964.HeatSemigroupOperator	PRISTINE		14.8
+PF.NavierStokes.FujitaKato1964.HeatSemigroupPhysical	FAILED	(e)|	18.6
+PF.NavierStokes.FujitaKato1964.HeatSemigroupPhysicalOperator	FAILED	(e)|	15.7
+PF.NavierStokes.FujitaKato1964.HeatSemigroupVector	PRISTINE		14.9
+PF.NavierStokes.FujitaKato1964.LerayContractsSobolev	PRISTINE		20.4
+PF.NavierStokes.FujitaKato1964.LerayImageIsDivFree	PRISTINE		12.0
+PF.NavierStokes.FujitaKato1964.LerayLinear	PRISTINE		6.9
+PF.NavierStokes.FujitaKato1964.LerayProjectorFourier	PRISTINE		9.3
+PF.NavierStokes.FujitaKato1964.LerayProjectorOperator	PRISTINE		11.7
+PF.NavierStokes.FujitaKato1964.SchwartzMultiplication	FAILED	(d2)|CONTAINED:PF.NavierStokes.FujitaKato1964.SobolevSeminormFourier.ScalarSchwartz3C.smooth'	14.4
+PF.NavierStokes.FujitaKato1964.SmallDataInH12	FAILED	(d2),(e)|CONTAINED:LT.lt;CONTAINED:PF.NavierStokes.FujitaKato1964.SobolevSeminormFourier.SmallDataInH12Sq.left;CONTAINED:hypothesis	11.6
+PF.NavierStokes.FujitaKato1964.SobolevIntegrandIntegrable	PRISTINE		13.3
+PF.NavierStokes.FujitaKato1964.SobolevSeminormFiniteness	PRISTINE		23.7
+PF.NavierStokes.FujitaKato1964.SobolevSeminormFourier	PRISTINE		13.1
+PF.NavierStokes.FujitaKato1964.SobolevSeminormScaling	PRISTINE		10.0
+PF.NavierStokes.FujitaKato1964.SobolevSeminormVector	PRISTINE		16.8
+PF.NavierStokes.FujitaKato1964.VectorHeatContractsSobolev	PRISTINE		20.3
+PF.NavierStokes.FujitaKato1964.VectorPartialDeriv	PRISTINE		11.3
+PF.NavierStokes.FujitaKato1964.VectorSobolevIntegrandIntegrable	PRISTINE		13.4
+PF.NavierStokes.FujitaKato1964BilinearEstimate	FAILED	(d),(e)|	13.9
+PF.NavierStokes.FujitaKato1964HeatKernel	FAILED	(d),(e)|	13.7
+PF.NavierStokes.FujitaKato1964HomogeneousSobolev	FAILED	(d2),(e)|CONTAINED:LT.lt;CONTAINED:hypothesis	12.1
+PF.NavierStokes.FujitaKato1964Infrastructure	FAILED	(d),(d2),(e),(f),(f),(f)|CONTAINED:LT.lt;CONTAINED:PF.NavierStokes.FujitaKato1964Infrastructure.DivFreeVectorField.property;CONTAINED:hypothesis	18.7
+PF.NavierStokes.FujitaKato1964LerayProjection	FAILED	(e)|	13.9
+PF.NavierStokes.FujitaKato1964LocalExistenceDischarge	FAILED	(d2),(e)|VACUOUS:hypothesis	20.6
+PF.NavierStokes.FujitaKato1964PicardIteration	FAILED	(e),(f),(f)|	12.7
+PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	7.8
+PF.NavierStokes.LerayHopfGlobalExistenceBootstrap	FAILED	(d2),(e),(f),(f),(f),(f),(f)|CONTAINED:PF.NavierStokes.LerayHopfGlobalExistenceBootstrap.Leray1934WeakSolution.right.left;CONTAINED:PF.NavierStokes.LerayHopfGlobalExistenceBootstrap.Leray1934WeakSolution.right.right.left;CONTAINED:PF.NavierStokes.LerayHopfGlobalExistenceBootstrap.Leray1934WeakSolution.right.right.right;DEAD:PF.NavierStokes.NSPDETypedUpgrade.NS3DSchwartzInitialData.divFree;DEAD:PF.NavierStokes.NSPDETypedUpgrade.NS3DSchwartzInitialData.velocity	16.6
+PF.NavierStokes.NS3DRegularitySolutionV2	FAILED	(d2),(e)|CONTAINED:PF.NavierStokes.NS3DRegularitySolutionV2.NS3DRegularitySolutionV2.left;CONTAINED:PF.NavierStokes.NS3DRegularitySolutionV2.NS3DRegularitySolutionV2.right.left	9.7
+PF.NavierStokes.NS3DRegularitySolutionV3	FAILED	(d2),(e)|CONTAINED:PF.NavierStokes.NS3DRegularitySolutionV3.NS3DRegularitySolutionV3.left;CONTAINED:PF.NavierStokes.NS3DRegularitySolutionV3.NS3DRegularitySolutionV3.right.left	10.8
+PF.NavierStokes.NS3DRegularitySolutionV4	FAILED	(d2),(e)|CONTAINED:PF.NavierStokes.NS3DRegularitySolutionV4.NS3DRegularitySolutionV4.left;CONTAINED:PF.NavierStokes.NS3DRegularitySolutionV4.NS3DRegularitySolutionV4.right.left	13.8
+PF.NavierStokes.NSEnergyInequalityGalerkin	FAILED	(d2),(e),(f),(f),(f)|CONTAINED:PF.NavierStokes.Wave58TimeGlobalExistenceUpgrade.NS_Solution.left;CONTAINED:PF.NavierStokes.Wave58TimeGlobalExistenceUpgrade.NS_Solution.right.left;CONTAINED:PF.NavierStokes.Wave58TimeGlobalExistenceUpgrade.NS_Solution.right.right.left;CONTAINED:PF.NavierStokes.Wave58TimeGlobalExistenceUpgrade.NS_Solution.right.right.right;DEAD:PF.NavierStokes.NSPDETypedUpgrade.NS3DSchwartzInitialData.velocity	19.9
+PF.NavierStokes.NSPDETypedUpgrade	FAILED	(d2),(e)|DEAD:PF.NavierStokes.NSPDETypedUpgrade.NS3DSchwartzInitialData.velocity;DEAD:PrincipiaTractalis.MillenniumSix.NavierStokesAmbient.dim;DEAD:PrincipiaTractalis.MillenniumSix.NavierStokesAmbient.initial_energy_bound;DEAD:PrincipiaTractalis.MillenniumSix.NavierStokesAmbient.initial_energy_pos;DEAD:PrincipiaTractalis.MillenniumSix.NavierStokesAmbient.viscosity;DEAD:PrincipiaTractalis.MillenniumSix.NavierStokesAmbient.viscosity_pos	15.8
+PF.NavierStokes.NSPDETypedUpgradeV2	FAILED	(e)|	7.0
+PF.NavierStokes.NSSmoothnessProofAttemptViaAlphaRigidity	FAILED	(d2),(e)|CONTAINED:PF.NavierStokes.FujitaKato1964LocalExistenceDischarge.FujitaKato1964Theorem;CONTAINED:PF.NavierStokes.LerayHopfGlobalExistenceBootstrap.LerayHopfSmoothnessConjecture;CONTAINED:hypothesis	27.3
+PF.NavierStokes.NS_ClayDischargeAttempt	FAILED	(d2),(e)|CONTAINED:PF.NavierStokes.NS_ClayDischargeAttempt.PF_NS3DFullGlobalSmoothSolution.left;CONTAINED:PF.NavierStokes.NS_ClayDischargeAttempt.PF_NS3DFullGlobalSmoothSolution.right.left;DEAD:PF.NavierStokes.NSPDETypedUpgrade.NS3DSchwartzInitialData.velocity	12.4
+PF.NavierStokes.NS_ClayLiteralClosureAttempt	FAILED	(d),(d2),(e)|CONTAINED:PF.NavierStokes.FujitaKato1964LocalExistenceDischarge.FujitaKato1964Theorem;CONTAINED:PF.NavierStokes.LerayHopfGlobalExistenceBootstrap.NS_LocalToGlobalBootstrap;CONTAINED:hypothesis	25.6
+PF.NavierStokes.Wave58TimeGlobalExistenceUpgrade	FAILED	(d2),(e),(f),(f)|CONTAINED:PF.NavierStokes.Wave58TimeGlobalExistenceUpgrade.FujitaKatoLocalExistenceHypothesis;CONTAINED:hypothesis	8.1
+PF.NavierStokesTypedContent_r215	FAILED	(d2)|DEAD:PF.NavierStokes.FujitaKato1964.BilinearScaffold.BilinearMildOperator.zero_left;DEAD:PF.NavierStokes.FujitaKato1964.BilinearScaffold.BilinearMildOperator.zero_right;DEAD:PF.NavierStokes.NSPDETypedUpgrade.NS3DSchwartzInitialData.divFree;DEAD:PF.NavierStokes.NSPDETypedUpgrade.NS3DSchwartzInitialData.velocity	25.5
+PF.NuclearSpaces	PRISTINE		1.7
+PF.NumberTheory.AndrewsCurtisFrameworkAttack	FAILED	(e),(f),(f),(f),(f),(f)|	11.1
+PF.NumberTheory.BealConjectureFrameworkAttack	FAILED	(e)|	11.6
+PF.NumberTheory.BrocardProblemFrameworkAttack	FAILED	(e)|	11.3
+PF.NumberTheory.CatalanGeneralizedFrameworkAttack	FAILED	(e)|	9.9
+PF.NumberTheory.CollatzConjectureFrameworkAttack	FAILED	(e)|	22.0
+PF.NumberTheory.ErdosDiscrepancyFrameworkAttack	FAILED	(d2),(e)|CONTAINED:PF.NumberTheory.ErdosDiscrepancyFrameworkAttack.EDPViaFrameworkSpectralCascade.right	12.3
+PF.NumberTheory.ErdosStraussFrameworkAttack	FAILED	(e)|	13.5
+PF.NumberTheory.GoldbachConjectureFrameworkAttack	FAILED	(e)|	16.2
+PF.NumberTheory.HadwigerNelsonFrameworkAttack	FAILED	(e)|	11.8
+PF.NumberTheory.InverseGaloisProblemFrameworkAttack	FAILED	(d),(d2),(e),(f),(f)|CONTAINED:PF.NumberTheory.InverseGaloisProblemFrameworkAttack.IGP_M11_through_M24;CONTAINED:PF.NumberTheory.InverseGaloisProblemFrameworkAttack.IGP_remaining_simple_groups;CONTAINED:hypothesis	14.1
+PF.NumberTheory.LonelyRunnerFrameworkAttack	FAILED	(d),(e)|	12.5
+PF.NumberTheory.OddPerfectNumberFrameworkAttack	FAILED	(e)|	10.8
+PF.NumberTheory.PolignacConjectureFrameworkAttack	FAILED	(d),(e)|	14.1
+PF.NumberTheory.SingmastersConjectureFrameworkAttack	FAILED	(e)|	9.1
+PF.NumberTheory.SmaleProblemsFrameworkAttack	FAILED	(e)|	22.3
+PF.NumberTheory.TranscendentalSumOrProduct	PRISTINE		5.1
+PF.NumberTheory.TwinPrimeConjectureFrameworkAttack	FAILED	(e)|	17.6
+PF.NumberTheory.abcConjectureFrameworkAttack	FAILED	(e)|	18.4
+PF.Numerics.IntervalSmoke	PRISTINE		6.2
+PF.ObserverConsciousnessBridge	FAILED	(d),(d2)|DEAD:PrincipiaTractalis.HAlphaUniversal.alpha_pos;DEAD:PrincipiaTractalis.HAlphaUniversal.kernel;DEAD:PrincipiaTractalis.SecondChernCharacter.bounded	17.2
+PF.OmegaSymmetries_r322	PRISTINE		10.4
+PF.Operators.KatoRellichDischarge	PRISTINE		11.1
+PF.Operators.VAlphaExplicit	FAILED	(e)|	18.6
+PF.Operators.VAlphaExplicitFromArxiv	PRISTINE		11.2
+PF.Operators.VAlphaPMapDischarge	PRISTINE		11.7
+PF.Operators.VAlphaPMapShape	FAILED	(e),(f),(f),(f)|	13.1
+PF.Operators.VariationalDischarge	PRISTINE		8.4
+PF.PNPDischargeViaEmpiricalCH2	PRISTINE		10.6
+PF.PNPRHRigidByQuadraticBridge	PRISTINE		11.9
+PF.PNPUnconditionalDischargeAttempt	PRISTINE		10.2
+PF.PNP_FrameworkMillenniumAnswer	FAILED	(d)|	6.0
+PF.PNP_SubstrateBulletproofClosure	FAILED	(d)|	6.1
+PF.PNP_Wave56CrossGaloisLockAttempt	FAILED	(e)|	13.7
+PF.PNP_WitnessExistenceScaffold	PRISTINE		11.2
+PF.PNeqNP_ClayLiteralClosureAttempt	PRISTINE		17.0
+PF.PNeqNP_SpectralGap_Consolidated	FAILED	(d2)|DEAD:PrincipiaTractalis.Empirical.TestProblem.alphaMeasured;DEAD:PrincipiaTractalis.Empirical.TestProblem.name	13.7
+PF.P_NP_Complete_Proof	FAILED	(e)|	10.6
+PF.P_NP_Equivalence	PRISTINE		13.1
+PF.P_NP_EquivalenceLemmas	PRISTINE		9.2
+PF.PerelmanAnchorCascade_r126	PRISTINE		9.5
+PF.PerelmanAnchoredAlphaCascade	PRISTINE		26.8
+PF.PerelmanBackwardUnifiedAttack	FAILED	(e),(f),(f),(f)|	15.6
+PF.PerelmanCascadeComplete_r127	PRISTINE		6.9
+PF.PerelmanSolvedCaseCrossValidation	FAILED	(d2),(e),(f),(f),(f),(f)|CONTAINED:PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.FrameworkPredictionPoincare.left;CONTAINED:PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.FrameworkPredictionPoincare.right.left;CONTAINED:PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.FrameworkPredictionPoincare.right.right.left;CONTAINED:PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.PerelmanSolvedStructuralIdentity.left;CONTAINED:PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.PerelmanSolvedStructuralIdentity.right.right.left	10.8
+PF.Poincare_FrameworkMillenniumAnswer	PRISTINE		5.6
+PF.PointParallelogramUniversal_r199	PRISTINE		109.0
+PF.PointQuasiParallelogram389a1_r149	PRISTINE		17.5
+PF.PointQuasiParallelogram5077a1_r163	PRISTINE		17.7
+PF.PolylogConjectureAttemptWave47	FAILED	(e)|	12.4
+PF.PolylogConjectureAttemptWave48	FAILED	(e)|	8.3
+PF.PolylogConjecturePrimeDecoupledAttempt	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.PolylogConjecturePrimeDecoupledAttempt.PolylogEigenvalueConjecturePrime.left.left;CONTAINED:PrincipiaTractalis.PolylogConjecturePrimeDecoupledAttempt.PolylogEigenvalueConjecturePrime.left.right;CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.left.left;CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.left.right;CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.right.left;CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.right.right	14.2
+PF.PolylogEigenvalueConjectureDecomposition_2026_06_24	FAILED	(e)|	7.8
+PF.PolylogEigenvalueDischargeAttempt	FAILED	(d)|	13.3
+PF.PolylogEigenvalueReformulated	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.PolylogReformulated.PolylogAlgebraicContent.left.left;CONTAINED:PrincipiaTractalis.PolylogReformulated.PolylogAlgebraicContent.left.right;CONTAINED:PrincipiaTractalis.PolylogReformulated.PolylogAlgebraicContent.right.left;CONTAINED:PrincipiaTractalis.PolylogReformulated.PolylogAlgebraicContent.right.right	11.3
+PF.PolylogIBMEmpiricalGaloisCascade	FAILED	(e)|	11.8
+PF.PolylogIBMEmpiricalPinDischarge	FAILED	(d2),(e)|CONTAINED:And.left;CONTAINED:And.right;CONTAINED:Eq;CONTAINED:hypothesis	16.4
+PF.PolylogResonanceAtGaloisPair	PRISTINE		13.7
+PF.PolylogResonanceOrthogonalityCapstone	PRISTINE		6.9
+PF.PolylogSpectralPinningGap	PRISTINE		8.7
+PF.PolylogViaHilbertSchmidtCompactness	PRISTINE		18.8
+PF.PowerTowerExtensionWave_2026_06_17	PRISTINE		6.2
+PF.PrincipiaFractalisMillenniumPositionAtHEAD_r302	PRISTINE		120.0
+PF.PrincipiaFractalisMillenniumPositionUniqueness_r303	PRISTINE		11.2
+PF.PrincipiaFractalisMillenniumSupremeCapstoneExtendedV2_r299	FAILED	(d)|	7.8
+PF.PrincipiaFractalisMillenniumSupremeCapstoneExtended_r273	FAILED	(d)|	7.7
+PF.PrincipiaFractalisMillenniumSupremeCapstoneUniversal_r301	FAILED	(d2)|CONTAINED:PrincipiaTractalis.PrincipiaFractalisMillenniumSupremeCapstoneUniversal.ClayClosureBundleUniversal.aggregate.bombieri2000_clay_official;CONTAINED:PrincipiaTractalis.PrincipiaFractalisMillenniumSupremeCapstoneUniversal.ClayClosureBundleUniversal.aggregate.riemann1859_original_conjecture;CONTAINED:PrincipiaTractalis.PrincipiaFractalisMillenniumSupremeCapstoneUniversal.ClayClosureBundleUniversal.hardy1914;CONTAINED:modus	8.3
+PF.PrincipiaFractalisMillenniumSupremeCapstone_r256	FAILED	(d)|	7.7
+PF.Priority3SubstrateDischarge	FAILED	(e)|	11.0
+PF.Priority4SubstrateDischarge	FAILED	(e)|	10.3
+PF.Priority5SubstrateDischarge	FAILED	(e),(f),(f)|	9.9
+PF.QuadraticRootHeights_r148e	PRISTINE		8.7
+PF.QuantumGravity	PRISTINE		81.6
+PF.QuantumGravity_LambdaIdentity	PRISTINE		6.4
+PF.QuasiParallelogramCerts389a1_r148a	PRISTINE		6.0
+PF.QuasiParallelogramCerts5077a1_r157	PRISTINE		7.9
+PF.QuasiParallelogramContent389a1_r148b	PRISTINE		12.3
+PF.QuasiParallelogramContent5077a1_r158	PRISTINE		12.3
+PF.QuasiParallelogramLower389a1_r148g	PRISTINE		13.0
+PF.QuasiParallelogramLower5077a1_r162	PRISTINE		13.1
+PF.QuasiParallelogramSize389a1_r148c	PRISTINE		5.0
+PF.QuasiParallelogramSize5077a1_r159	PRISTINE		5.5
+PF.QuasiParallelogramUpper389a1_r148f	PRISTINE		13.8
+PF.QuasiParallelogramUpper5077a1_r161	PRISTINE		12.9
+PF.RHAnalyticPosBijectionAttempt	FAILED	(d2)|DEAD:PrincipiaTractalis.ScalingParameter.pos	32.4
+PF.RHAnalyticPosBijectionParityAttempt	PRISTINE		26.5
+PF.RHConditionalDischargeViaGaloisRigidity	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.RHConditionalDischargeViaGaloisRigidity.AnalyticPosBijectionToZetaZeros;CONTAINED:hypothesis;DEAD:PrincipiaTractalis.ConsciousnessRHSubstrate.zeroSet;DEAD:PrincipiaTractalis.ConsciousnessRHSubstrate.zero_set_on_critical_line	21.1
+PF.RHDimensionTwoTruncation	FAILED	(e),(f),(f),(f)|	16.6
+PF.RHHodgeRigidTwistedGaloisBridge	PRISTINE		18.2
+PF.RHMayerEigenvalueCarrierAttempt	PRISTINE		20.2
+PF.RHMayerEigenvalueCarrierEmpiricalAnchor	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.IBMAlphaRHEmpiricalAnchor.left;CONTAINED:PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.IBMAlphaRHEmpiricalAnchor.right.left;CONTAINED:PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.IBMAlphaRHEmpiricalAnchor.right.right	10.4
+PF.RHSpectralDensityArgument	FAILED	(d2),(e)|CONTAINED:hypothesis;DEAD:PrincipiaTractalis.ScalingParameter.pos	14.0
+PF.RHSpectralSurjectivityAttempt	FAILED	(e)|	27.5
+PF.RHSpectralSurjectivityFactorings	FAILED	(d2),(f),(f)|CONTAINED:hypothesis;DEAD:PrincipiaTractalis.ScalingParameter.pos	19.8
+PF.RHSpectralSurjectivityTripleAttack	FAILED	(d2),(f),(f)|DEAD:PrincipiaTractalis.ScalingParameter.pos	23.5
+PF.RHSurjectivityConjecture	FAILED	(d2)|DEAD:PrincipiaTractalis.ScalingParameter.pos	8.5
+PF.RHSurjectivityTypedUpgrade	FAILED	(d2),(f),(f)|CONTAINED:PrincipiaTractalis.RHSurjectivityTypedUpgrade.FirstZetaZeroInEigenvalueImage;CONTAINED:PrincipiaTractalis.RHSurjectivityTypedUpgrade.OnLineSurjectivityClause;CONTAINED:hypothesis;DEAD:PrincipiaTractalis.ScalingParameter.pos	24.4
+PF.RHT3PerturbationLemmaAttempt	FAILED	(d2),(f),(f)|CONTAINED:PrincipiaTractalis.RHT3PerturbationLemmaAttempt.NumericallyAnchoredAnalyticPosBijection.right	21.2
+PF.RHViaBerryKeatingConcreteOperator	PRISTINE		22.4
+PF.RHViaH3PerelmanBridge	FAILED	(e),(f),(f)|	9.0
+PF.RH_FrameworkMillenniumAnswer	PRISTINE		7.2
+PF.RH_HardyToFullStripScaffold	FAILED	(d2)|CONTAINED:Membership.mem.right.right.right;DEAD:PrincipiaTractalis.ScalingParameter.pos	20.5
+PF.RH_MayerNToInfinityScaffold	FAILED	(d2),(e),(f),(f),(f),(f)|CONTAINED:_;CONTAINED:hypothesis;DEAD:PrincipiaTractalis.ScalingParameter.pos;VACUOUS:hypothesis	20.9
+PF.RH_SubstrateBulletproofClosure	PRISTINE		7.3
+PF.RH_Wave56DirectDischargeAttempt	FAILED	(d2)|DEAD:PrincipiaTractalis.Empirical.TestProblem.classLabel;DEAD:PrincipiaTractalis.Empirical.TestProblem.lambdaMeasured;DEAD:PrincipiaTractalis.Empirical.TestProblem.name;DEAD:PrincipiaTractalis.ScalingParameter.pos	29.6
+PF.RadixEconomy	PRISTINE		9.3
+PF.RankPipelineUniversal_r202	PRISTINE		214.2
+PF.RankTransferWitnesses_r203	PRISTINE		31.3
+PF.Referee.BSDCapstoneTypedBridge	FAILED	(e)|	6.3
+PF.Referee.BSDCapstoneTypedBridgeV2	PRISTINE		8.4
+PF.Referee.BSDCapstoneTypedBridgeV3	PRISTINE		11.0
+PF.Referee.BSDCapstoneTypedBridgeV4	FAILED	(d2),(e),(f),(f)|CONTAINED:PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.hasCM.left;CONTAINED:PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.hasCM.right.left;CONTAINED:PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.hasCM.right.right.left	14.7
+PF.Referee.BSDCapstoneTypedBridgeV5	FAILED	(e),(f),(f)|	13.3
+PF.Referee.BSDHodgePairedClosure	FAILED	(e)|	13.2
+PF.Referee.BSDSubstrateScopeAccountability	PRISTINE		9.4
+PF.Referee.BulletproofingMetaCapstone_2026_06_17	FAILED	(d)|	28.1
+PF.Referee.CapstoneDependencyAudit	PRISTINE		6.3
+PF.Referee.ClayMasterTheorem	FAILED	(d),(d2)|DEAD:PF.Referee.CrossMillenniumCascadeParameterized.SatisfiesInvariants.inv_NS_YM_BSD;DEAD:PF.Referee.CrossMillenniumCascadeParameterized.SatisfiesInvariants.inv_RH_YM_prod	10.6
+PF.Referee.ClayResidualFrontierMetaCapstone_2026_06_18	PRISTINE		14.4
+PF.Referee.ClayResidualFrontier_Wave59_2026_06_18	PRISTINE		18.6
+PF.Referee.ClayResidualFrontier_r121_2026_07_25	PRISTINE		23.1
+PF.Referee.Cohen2025_AlphaUniqueness_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	6.7
+PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	6.7
+PF.Referee.Cohen2025_UnifiedClayChallenge_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	7.1
+PF.Referee.CrossMillenniumCascadeParameterized	FAILED	(d2),(f),(f)|DEAD:PF.Referee.CrossMillenniumCascadeParameterized.AlphaAssignment.a_NS;DEAD:PF.Referee.CrossMillenniumCascadeParameterized.AlphaAssignment.a_Poincare;DEAD:PF.Referee.CrossMillenniumCascadeParameterized.AlphaAssignment.a_PvNP;DEAD:PF.Referee.CrossMillenniumCascadeParameterized.AlphaAssignment.a_RH;DEAD:PF.Referee.CrossMillenniumCascadeParameterized.AlphaAssignment.a_YM;DEAD:PF.Referee.CrossMillenniumCascadeParameterized.SatisfiesInvariants.inv_RH_Poincare	12.1
+PF.Referee.CrossMillenniumInvariants_Extended_2026_06_19	PRISTINE		7.1
+PF.Referee.CrossMillenniumMetaClosure	FAILED	(d2),(e)|CONTAINED:Eq;CONTAINED:Fin.isLt;CONTAINED:LE.le;CONTAINED:hypothesis	29.6
+PF.Referee.DayUmbrella_2026_06_17	PRISTINE		11.5
+PF.Referee.FalsifiabilityRegistryV2	FAILED	(d2),(e)|DEAD:PF.Referee.FalsifiabilityRegistryV2.Measurement.source;DEAD:PF.Referee.FalsifiabilityRegistryV2.Measurement.tol_pos	24.1
+PF.Referee.FractalMathematicsCore	PRISTINE		8.7
+PF.Referee.FrameworkFalsifiabilityConditions	FAILED	(d2),(e),(f),(f),(f),(f),(f),(f)|CONTAINED:Ne;CONTAINED:hypothesis;DEAD:PrincipiaTractalis.Empirical.TestProblem.classLabel;DEAD:PrincipiaTractalis.Empirical.TestProblem.lambdaMeasured;DEAD:PrincipiaTractalis.Empirical.TestProblem.name	23.3
+PF.Referee.FrameworkRealClaim_2026_06_17	PRISTINE		8.0
+PF.Referee.FrameworkUniversalReach	PRISTINE		9.5
+PF.Referee.FrontierLedger	PRISTINE		3.7
+PF.Referee.HodgeCapstoneTypedBridge	FAILED	(e)|	10.1
+PF.Referee.HodgeSubstrateScopeAccountability	FAILED	(e)|	7.6
+PF.Referee.MinimalRigidityForces143ProblemCoherence	FAILED	(d2)|DEAD:PrincipiaTractalis.Empirical.TestProblem.classLabel;DEAD:PrincipiaTractalis.Empirical.TestProblem.lambdaMeasured;DEAD:PrincipiaTractalis.Empirical.TestProblem.name	9.0
+PF.Referee.MinimalRigidityForcesAlphaArchitecturalIdentities	PRISTINE		9.7
+PF.Referee.MinimalRigidityForcesAlphaBasisDecomposition	FAILED	(d2)|CONTAINED:Eq;CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal.inv_BSD;CONTAINED:hypothesis	8.1
+PF.Referee.MinimalRigidityForcesAlphaPowerTowers	FAILED	(d2),(f),(f),(f)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	12.0
+PF.Referee.MinimalRigidityForcesAlphaSkeletonLogLayer	PRISTINE		11.0
+PF.Referee.MinimalRigidityForcesAlphaSkeletonMasterCapstone	FAILED	(d2),(f),(f),(f),(f)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	11.3
+PF.Referee.MinimalRigidityForcesBSDConcordance	PRISTINE		8.0
+PF.Referee.MinimalRigidityForcesBSDDistinguishedEigenvalue	PRISTINE		8.8
+PF.Referee.MinimalRigidityForcesConsciousnessMassBridge	PRISTINE		13.6
+PF.Referee.MinimalRigidityForcesConsciousnessQuantification	PRISTINE		10.8
+PF.Referee.MinimalRigidityForcesCosmologicalSuppression	PRISTINE		10.2
+PF.Referee.MinimalRigidityForcesCrossDomainExperimentalWins	PRISTINE		15.1
+PF.Referee.MinimalRigidityForcesCrossMillenniumMoreInvariants	PRISTINE		15.4
+PF.Referee.MinimalRigidityForcesCrossMillenniumSharedInvariants	FAILED	(d2)|CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal.inv_NS_BSD;CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal.inv_YM_Poincare;CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal.inv_Hodge_quad;CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal.inv_NP_minus_Hodge;CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal.inv_P_sq_YM;CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal.inv_QG_sq_two_pi	10.0
+PF.Referee.MinimalRigidityForcesFrameworkExperimentalWins	FAILED	(d2),(f),(f),(f),(f)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	11.1
+PF.Referee.MinimalRigidityForcesGraphIsomorphismPrediction	PRISTINE		9.3
+PF.Referee.MinimalRigidityForcesH3CombinatorialStructure	PRISTINE		10.9
+PF.Referee.MinimalRigidityForcesH3CoxeterGeometry	FAILED	(d2)|CONTAINED:LT.lt;CONTAINED:hypothesis	11.7
+PF.Referee.MinimalRigidityForcesH3UnifiedAlgebraicStructure	FAILED	(d2)|CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal.inv_NP_minus_Hodge;CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal.inv_P_sq_YM	8.2
+PF.Referee.MinimalRigidityForcesHermitianRealization	PRISTINE		12.3
+PF.Referee.MinimalRigidityForcesHodgeGroundStateClean	PRISTINE		10.1
+PF.Referee.MinimalRigidityForcesIBMGaloisPair	PRISTINE		11.6
+PF.Referee.MinimalRigidityForcesIBMNineWayBound	FAILED	(d2),(f),(f)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	9.7
+PF.Referee.MinimalRigidityForcesIBMSearchRange	PRISTINE		16.4
+PF.Referee.MinimalRigidityForcesIITPhiThreshold	PRISTINE		10.0
+PF.Referee.MinimalRigidityForcesIITSaturationIdentity	PRISTINE		11.6
+PF.Referee.MinimalRigidityForcesLambdaEffExponentProduct	FAILED	(d2),(f),(f),(f)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	9.9
+PF.Referee.MinimalRigidityForcesM1Glueball	FAILED	(d2),(f),(f),(f)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	9.7
+PF.Referee.MinimalRigidityForcesModularSphereBridge	PRISTINE		9.6
+PF.Referee.MinimalRigidityForcesNeutrinoRatio	PRISTINE		10.5
+PF.Referee.MinimalRigidityForcesNonClayAlphas	PRISTINE		11.2
+PF.Referee.MinimalRigidityForcesNonClayAlphasExtended	PRISTINE		12.2
+PF.Referee.MinimalRigidityForcesNonClayAlphasFinal	FAILED	(d2)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	10.4
+PF.Referee.MinimalRigidityForcesParticlePhysicsCapstone	PRISTINE		12.6
+PF.Referee.MinimalRigidityForcesPerelmanAnchoredCascade	FAILED	(d2)|CONTAINED:Eq;CONTAINED:hypothesis	13.5
+PF.Referee.MinimalRigidityForcesPerelmanWEntropyScaling	FAILED	(d),(d2)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	11.1
+PF.Referee.MinimalRigidityForcesPiRationalSubstructure	PRISTINE		9.6
+PF.Referee.MinimalRigidityForcesPolylogResonanceAtGaloisPair	PRISTINE		8.2
+PF.Referee.MinimalRigidityForcesQCMaxSpeedup	PRISTINE		12.0
+PF.Referee.MinimalRigidityForcesScalarFingerprints	FAILED	(d2),(f),(f)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	8.8
+PF.Referee.MinimalRigidityForcesSharpBracketSaturation	FAILED	(d2),(f),(f),(f)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	11.0
+PF.Referee.MinimalRigidityForcesSpectralGapContent	PRISTINE		13.7
+PF.Referee.MinimalRigidityForcesWBosonPrediction	PRISTINE		8.4
+PF.Referee.MinimalRigidityForcesXENONPrediction	PRISTINE		7.9
+PF.Referee.MinimalSubstrateRigidity	FAILED	(d2)|DEAD:PF.Referee.CrossMillenniumCascadeParameterized.AlphaAssignment.a_BSD;DEAD:PF.Referee.CrossMillenniumCascadeParameterized.AlphaAssignment.a_PvNP;DEAD:PF.Referee.CrossMillenniumCascadeParameterized.AlphaAssignment.a_RH;DEAD:PF.Referee.MinimalSubstrateRigidity.MinimalSatisfiesInvariants.inv_BSD;DEAD:PF.Referee.MinimalSubstrateRigidity.MinimalSatisfiesInvariants.inv_PvNP_Poincare;DEAD:PF.Referee.MinimalSubstrateRigidity.MinimalSatisfiesInvariants.inv_RH_Poincare	9.8
+PF.Referee.MinimalSubstrateRigidityAnchorNecessity	PRISTINE		17.6
+PF.Referee.MinimalSubstrateRigidityIndependence	PRISTINE		45.5
+PF.Referee.MinimalSubstrateRigidityPositivityNecessity	PRISTINE		16.3
+PF.Referee.MinimalSubstrateRigiditySector2	FAILED	(d2)|DEAD:PF.Referee.MinimalSubstrateRigiditySector2.MinimalSector2Invariants.inv_NP_minus_Hodge;DEAD:PF.Referee.MinimalSubstrateRigiditySector2.MinimalSector2Invariants.inv_P_sq_YM;DEAD:PF.Referee.MinimalSubstrateRigiditySector2.MinimalSector2Invariants.inv_QG_sq_two_pi;DEAD:PF.Referee.MinimalSubstrateRigiditySector2.Sector2Assignment.a_NP;DEAD:PF.Referee.MinimalSubstrateRigiditySector2.Sector2Assignment.a_P;DEAD:PF.Referee.MinimalSubstrateRigiditySector2.Sector2Assignment.a_QG	18.1
+PF.Referee.MinimalSubstrateRigidityUnified	FAILED	(d2)|CONTAINED:Eq;CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal.inv_BSD;CONTAINED:hypothesis;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedAlphaAssignment.sector2;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	9.9
+PF.Referee.NSCapstoneTypedBridge	FAILED	(e)|	6.6
+PF.Referee.NSSubstrateScopeAccountability	FAILED	(e)|	9.5
+PF.Referee.NSYMPairedClosure	FAILED	(d2),(e),(f),(f),(f)|CONTAINED:PF.NavierStokes.Wave58TimeGlobalExistenceUpgrade.NS_Solution.left;CONTAINED:PF.NavierStokes.Wave58TimeGlobalExistenceUpgrade.NS_Solution.right.left	25.3
+PF.Referee.NoTrueOnClayPath	PRISTINE		4.0
+PF.Referee.PFCompleteFrameworkCapstone	PRISTINE		7.8
+PF.Referee.PFFrameworkAbsoluteCapstone	FAILED	(d2)|CONTAINED:Eq;CONTAINED:hypothesis;DEAD:PF.Referee.PerelmanAnchoredSimultaneousClosure.SimultaneousClayClosureBundle.bsd_universal_bridge;DEAD:PF.Referee.PerelmanAnchoredSimultaneousClosure.SimultaneousClayClosureBundle.hodge_unconditional_marker;DEAD:PF.Referee.PerelmanAnchoredSimultaneousClosure.SimultaneousClayClosureBundle.ns_bootstrap;DEAD:PF.Referee.PerelmanAnchoredSimultaneousClosure.SimultaneousClayClosureBundle.ym_unconditional_marker	26.5
+PF.Referee.PFFrameworkTotalReach	PRISTINE		14.0
+PF.Referee.PFFrameworkUnifiedClosure	PRISTINE		8.7
+PF.Referee.PFUnifiedSubstrate	FAILED	(e)|	7.5
+PF.Referee.PNPCanonicalEncoding	PRISTINE		5.8
+PF.Referee.PNPCapstoneTypedBridge	FAILED	(e)|	6.1
+PF.Referee.PNPRouteScopeAccountability	PRISTINE		8.5
+PF.Referee.PerelmanAnchoredSimultaneousClosure	FAILED	(d2),(e)|DEAD:PF.Referee.CrossMillenniumCascadeParameterized.SatisfiesInvariants.inv_NS_YM_BSD;DEAD:PF.Referee.CrossMillenniumCascadeParameterized.SatisfiesInvariants.inv_RH_YM_prod;DEAD:PF.Referee.PerelmanAnchoredSimultaneousClosure.SimultaneousClayClosureBundle.bsd_universal_bridge;DEAD:PF.Referee.PerelmanAnchoredSimultaneousClosure.SimultaneousClayClosureBundle.hodge_unconditional_marker;DEAD:PF.Referee.PerelmanAnchoredSimultaneousClosure.SimultaneousClayClosureBundle.ns_bootstrap;DEAD:PF.Referee.PerelmanAnchoredSimultaneousClosure.SimultaneousClayClosureBundle.ym_unconditional_marker	15.2
+PF.Referee.PrincipiaFractalisSubstrateTheorem	FAILED	(d2)|DEAD:PF.Referee.PrincipiaFractalisSubstrateTheorem.PFSubstrateAntecedents.IBMEmpiricalAnchor;DEAD:PF.Referee.PrincipiaFractalisSubstrateTheorem.PFSubstrateAntecedents.alphaRigiditySkeleton;DEAD:PF.Referee.PrincipiaFractalisSubstrateTheorem.PFSubstrateAntecedents.hundred43ProblemCoherence;DEAD:PF.Referee.PrincipiaFractalisSubstrateTheorem.PFSubstrateAntecedents.perelmanAlphaPoincareEqOne;DEAD:PF.Referee.PrincipiaFractalisSubstrateTheorem.PFSubstrateAntecedents.timelessFieldSubstrate	13.9
+PF.Referee.PrincipiaFractalis_Complete_Substrate_Position_2026_06_19	PRISTINE		51.5
+PF.Referee.PrincipiaFractalis_Unified_Substrate_Position_2026_06_19	PRISTINE		9.1
+PF.Referee.RHCapstoneTypedBridge	FAILED	(e)|	7.1
+PF.Referee.RHCapstoneTypedBridgeV2	FAILED	(d),(e)|	13.8
+PF.Referee.RHCapstoneTypedBridgeV3	FAILED	(d2),(e)|CONTAINED:modus	21.1
+PF.Referee.RHCapstoneTypedBridgeV4	FAILED	(d2),(e)|CONTAINED:modus	25.2
+PF.Referee.RHPvsNPPairedClosure	FAILED	(d),(d2),(e)|CONTAINED:PrincipiaTractalis.HilbertPolyaIdentificationPrecise.BerryKeatingHamiltonianHypothesis;CONTAINED:PrincipiaTractalis.HilbertPolyaIdentificationPrecise.BostConnesKMSPhaseTransition;CONTAINED:PrincipiaTractalis.HilbertPolyaIdentificationPrecise.ConnesTraceFormulaHypothesis;CONTAINED:hypothesis	18.1
+PF.Referee.RHRouteScopeAccountability	FAILED	(d),(d2)|CONTAINED:modus	15.3
+PF.Referee.RHSurjectivityArithmeticProgressionObstruction	PRISTINE		11.6
+PF.Referee.RefereeIndex	PRISTINE		6.5
+PF.Referee.SemanticBridgeAuditTrail_2026_06_19	FAILED	(d2)|CONTAINED:modus	19.8
+PF.Referee.SevenMillenniumUnification	FAILED	(e),(f),(f),(f)|	9.5
+PF.Referee.SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19	FAILED	(d2)|CONTAINED:PF.AlgebraicGeometry.MordellWeilRankAgreement17.AllSeventeenMordellWeilRanksKnown_namedAnchors.left;CONTAINED:PF.AlgebraicGeometry.MordellWeilRankAgreement17.AllSeventeenMordellWeilRanksKnown_namedAnchors.right.left;CONTAINED:PF.AlgebraicGeometry.MordellWeilRankAgreement17.AllSeventeenMordellWeilRanksKnown_namedAnchors.right.right.left	7.3
+PF.Referee.SixAxisScopeAccountabilitySuite	PRISTINE		8.0
+PF.Referee.SixAxisSingleCitationNarrowings	FAILED	(d2)|CONTAINED:modus	8.9
+PF.Referee.StandardClayStatements	FAILED	(e)|	5.4
+PF.Referee.SubstrateRigidityCrossDomainSuperCapstone	PRISTINE		8.5
+PF.Referee.SubstrateRigidityEndToEndMetaCapstone	FAILED	(d2)|DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal;DEAD:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector2_minimal	8.8
+PF.Referee.SubstrateRigidityForcesSpectralStructure	FAILED	(d),(e)|	18.6
+PF.Referee.SubstrateRigidityMasterCapstone	FAILED	(d2)|CONTAINED:Eq;CONTAINED:PF.Referee.MinimalSubstrateRigidityUnified.UnifiedMinimalInvariants.sector1_minimal.inv_BSD;CONTAINED:hypothesis	8.4
+PF.Referee.TypedMillenniumReduction	FAILED	(e),(f),(f)|	9.1
+PF.Referee.UnassailableClayClosure_2026_06_18	FAILED	(d)|	12.6
+PF.Referee.UnassailableClayClosure_With_BSD_NamedAnchors_2026_06_19	PRISTINE		10.6
+PF.Referee.UnifiedClayClosureLinkage	PRISTINE		9.5
+PF.Referee.UnifiedClayClosureLinkageBulletproof	FAILED	(d2)|CONTAINED:modus	8.1
+PF.Referee.UnifiedClayClosureLinkageV2DeprecationNotice	FAILED	(d),(d2)|CONTAINED:modus	11.9
+PF.Referee.UnifiedClayClosureLinkageV3	FAILED	(d2)|CONTAINED:modus	9.8
+PF.Referee.V3SubstrateForcedDischargeBulletproof	FAILED	(d2),(e)|CONTAINED:modus	20.4
+PF.Referee.YMCapstoneTypedBridge	FAILED	(e)|	5.9
+PF.Referee.YMSubstrateScopeAccountability	FAILED	(e)|	11.8
+PF.Regulator3Independence5077a1_r168	PRISTINE		24.5
+PF.RegulatorIndependence389a1_r152	PRISTINE		17.7
+PF.RegulatorPositive389a1_r153	PRISTINE		15.6
+PF.RfIntegerAlphaDichotomy	PRISTINE		13.3
+PF.RigidGaloisDiscriminantAxis	PRISTINE		12.2
+PF.RigidGaloisDiscriminantEmpiricalAnchor	PRISTINE		10.2
+PF.RigidGaloisNormAxis	PRISTINE		16.0
+PF.RouteBFactAViaNamedResiduals_r272	PRISTINE		10.7
+PF.ScreenedKernelAndFieldScale	PRISTINE		11.2
+PF.SecantBridge389a1_r148d	PRISTINE		12.6
+PF.SecantBridge5077a1_r160	PRISTINE		11.6
+PF.SecantContentBridge_r195	PRISTINE		10.8
+PF.SecantContentUniversal_r196	PRISTINE		30.9
+PF.SecantSizeLower_r197	FAILED	(d)|	42.4
+PF.SecantSizeUniversal_r193	PRISTINE		6.8
+PF.SecantUniversal_r181	PRISTINE		24.6
+PF.SecantUpperWindow_r198	PRISTINE		48.1
+PF.SetTheory.ContinuumHypothesisFrameworkAttack	FAILED	(e)|	9.5
+PF.SigmaAbscissa_r212	PRISTINE		31.2
+PF.SigmaDegenerateLocus_r253	PRISTINE		11.1
+PF.SigmaSymmetries_r240	PRISTINE		8.5
+PF.SigmaUpperBound_r241	PRISTINE		8.5
+PF.SobolevHSScaleOnTorus3Attempt	PRISTINE		17.2
+PF.SpectralBijection	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.ScalingParameter.pos;DEAD:PrincipiaTractalis.SelbergZetaModel.surface;DEAD:PrincipiaTractalis.SpectralZeroBijection.indexMap;DEAD:PrincipiaTractalis.SpectralZeroBijection.injective;DEAD:PrincipiaTractalis.SpectralZeroBijection.surjective	25.5
+PF.SpectralEmbedding	FAILED	(d2),(f),(f)|DEAD:PrincipiaTractalis.CurvatureShell.alpha;DEAD:PrincipiaTractalis.CurvatureShell.positive_radius;DEAD:PrincipiaTractalis.TimelessFieldTorus.su2;DEAD:PrincipiaTractalis.TimelessFieldTorus.u1	9.0
+PF.SpectralGap	PRISTINE		14.9
+PF.SpectralGapClosedForm_2026_06_25	PRISTINE		8.3
+PF.SpectralIsolationSubstrateDischarge	FAILED	(e)|	10.1
+PF.StieltjesHodgeAbelian3FoldSpectralBridge	FAILED	(d2)|DEAD:PrincipiaTractalis.HodgeCalabiYau3Fold.HodgeCalabiYau3FoldSubstrate.h_one_one_le_twenty;DEAD:PrincipiaTractalis.HodgeCalabiYau3Fold.HodgeCalabiYau3FoldSubstrate.h_one_one_pos;DEAD:PrincipiaTractalis.HodgeCalabiYau3Fold.HodgeCalabiYau3FoldSubstrate.h_two_one	25.1
+PF.StieltjesHodgeCodim2SpectralBridge	FAILED	(d2)|DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two_le_twenty;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.h_two_two_pos;DEAD:PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate.intersectionPair	19.5
+PF.StrictMonotoneGaloisRigidIdentityBridge	FAILED	(d2)|CONTAINED:PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.IsGaloisRigid;CONTAINED:hypothesis	14.0
+PF.StrongFormDivFreeNonConstantWitness	PRISTINE		17.3
+PF.StrongFormDivFreeNonTrivialWitness	PRISTINE		14.0
+PF.StrongFormDivFreeSinModeWitness	PRISTINE		18.4
+PF.Substrate.VedicCymaticBridge	FAILED	(e),(f),(f)|	13.3
+PF.Substrate9DimCentralProjections	FAILED	(e)|	8.6
+PF.SubstrateAutomorphismQuotientCollapse	PRISTINE		20.5
+PF.SubstrateBase3Embed	PRISTINE		9.2
+PF.SubstrateBase3Levels	PRISTINE		8.0
+PF.SubstrateBase3Norm	FAILED	(d),(e)|	21.4
+PF.SubstrateBase3RingHom	PRISTINE		8.9
+PF.SubstrateCompletionFaithful	PRISTINE		65.4
+PF.SubstrateCompletionSimplicity	FAILED	(e)|	43.5
+PF.SubstrateCondExpContraction	FAILED	(e)|	10.2
+PF.SubstrateCondExpOpNorm	PRISTINE		14.8
+PF.SubstrateConditionalExpectation	FAILED	(e)|	26.3
+PF.SubstrateDirectLimit	PRISTINE		11.6
+PF.SubstrateDirectLimitSimplicity	PRISTINE		13.5
+PF.SubstrateGaugeSubgroupsCollapse	PRISTINE		18.2
+PF.SubstrateIdempotentTraceRigidity	PRISTINE		15.2
+PF.SubstrateInnerAutomorphismNontrivial	PRISTINE		15.9
+PF.SubstrateMachineGrandCapstone_r252	PRISTINE		6.4
+PF.SubstrateMatrixUnitaryAveraging	PRISTINE		19.1
+PF.SubstrateNotCommutative_r217	PRISTINE		28.8
+PF.SubstrateOscillator_r223	FAILED	(d2)|DEAD:PrincipiaTractalis.SubstrateOscillator.A;DEAD:PrincipiaTractalis.SubstrateOscillator.hA;DEAD:PrincipiaTractalis.SubstrateOscillator.φ₀	13.3
+PF.SubstrateRigidity	FAILED	(d2)|DEAD:PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.tower_dense	35.9
+PF.SubstrateSpectralBump	PRISTINE		39.1
+PF.SubstrateTheoremContent_r216	FAILED	(d2),(f),(f),(f),(f)|DEAD:PF.Referee.PrincipiaFractalisSubstrateTheorem.PFSubstrateAntecedents.IBMEmpiricalAnchor;DEAD:PF.Referee.PrincipiaFractalisSubstrateTheorem.PFSubstrateAntecedents.alphaRigiditySkeleton;DEAD:PF.Referee.PrincipiaFractalisSubstrateTheorem.PFSubstrateAntecedents.perelmanAlphaPoincareEqOne;DEAD:PF.Referee.PrincipiaFractalisSubstrateTheorem.PFSubstrateAntecedents.timelessFieldSubstrate;DEAD:PrincipiaTractalis.Empirical.TestProblem.lambdaMeasured;DEAD:PrincipiaTractalis.Empirical.TestProblem.name	48.9
+PF.SubstrateTimelessFieldCompletion	PRISTINE		32.4
+PF.SubstrateTimelessFieldNorm	PRISTINE		27.0
+PF.SubstrateTraceDetectionAttempt	FAILED	(e)|	24.6
+PF.SubstrateTracePairing	FAILED	(e)|	9.2
+PF.SubstrateTraceUniqueness	FAILED	(d2)|DEAD:PrincipiaTractalis.SubstrateTraceUniqueness.IsTracialState.continuous	12.2
+PF.SubstrateUHFBoundedTrace	FAILED	(e)|	8.8
+PF.SubstrateUHFCanonicalTrace	FAILED	(e)|	9.9
+PF.SubstrateUHFCompletionSimplicityDischarge	FAILED	(e)|	10.1
+PF.SubstrateUHFCompletionTrace	FAILED	(e)|	14.7
+PF.SubstrateUHFPreTraceDirectLimit	PRISTINE		19.5
+PF.SubstrateUHFTraceCauchySchwarz	PRISTINE		34.7
+PF.SubstrateUHFTraceIsFaithful	FAILED	(e)|	11.0
+PF.SubstrateUHFTraceIsPositive	PRISTINE		11.1
+PF.SubstrateUHFTraceIsStarPreserving	PRISTINE		12.0
+PF.SubstrateUHFTraceIsTracial	PRISTINE		9.3
+PF.SubstrateUHFTraceLipschitz	FAILED	(e)|	16.0
+PF.SubstrateUHFTraceNullIdeal	PRISTINE		31.5
+PF.SubstrateUHFTraceOnLambdaMatrixClosedForm	PRISTINE		8.0
+PF.SubstrateUHFTraceOnMatrixProjections	PRISTINE		12.8
+PF.SubstrateUHFTraceOnSkeletonMatrices	PRISTINE		13.1
+PF.SupremeFrameworkAnswer	PRISTINE		5.5
+PF.T3SymCanonicalAlphaCarrierAttempt	PRISTINE		19.1
+PF.T3SymConcentratedSpectralMeasureAttempt	PRISTINE		15.7
+PF.T3SymContinuousSpectralMeasureAttempt	FAILED	(d2)|CONTAINED:LT.lt;CONTAINED:hypothesis	15.7
+PF.T3SymSpectralWitnessAttempt	PRISTINE		14.0
+PF.T3SymSurrogateSurjectivityAttempt	PRISTINE		13.8
+PF.TheoreticalPhysics_FrameworkBundle	PRISTINE		6.1
+PF.TorsionCheck5077a1_r166a	PRISTINE		4.9
+PF.TorsionTrivial389a1_r155	PRISTINE		12.6
+PF.TorsionTrivial5077a1_r166b	PRISTINE		19.7
+PF.TransferCompose_r192	PRISTINE		16.1
+PF.TransferMatrixCauchy_r186	FAILED	(d)|	9.4
+PF.TransferOperator	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.LogWeightedL2.property;DEAD:PrincipiaTractalis.TransferOperator.phases	123.9
+PF.TransferPower_r191	PRISTINE		15.8
+PF.TransferResidue_r188c	PRISTINE		9.0
+PF.TransferTrace_r188	FAILED	(d)|	11.6
+PF.TuringEncoding	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.TMConfig.head;DEAD:PrincipiaTractalis.TMConfig.tape	28.8
+PF.TuringEncoding.AlphaBSDIdentities	PRISTINE		10.9
+PF.TuringEncoding.AlphaCanonical	PRISTINE		8.4
+PF.TuringEncoding.AlphaEnum	PRISTINE		20.0
+PF.TuringEncoding.AlphaHodgeIdentities	PRISTINE		7.6
+PF.TuringEncoding.AlphaNSIdentities	PRISTINE		8.3
+PF.TuringEncoding.AlphaOfClassSetLevelAttempt	PRISTINE		10.2
+PF.TuringEncoding.AlphaPvsNPIdentities	PRISTINE		9.8
+PF.TuringEncoding.AlphaRHIdentities	PRISTINE		7.3
+PF.TuringEncoding.AlphaRealizationNoGo	PRISTINE		6.5
+PF.TuringEncoding.AlphaSkeletonIBMEmpiricalUnified	PRISTINE		8.1
+PF.TuringEncoding.AlphaSkeletonMasterCapstone	PRISTINE		5.9
+PF.TuringEncoding.AlphaSkeletonNonCollapse	PRISTINE		11.1
+PF.TuringEncoding.AlphaSkeletonSubstrateIntegration	PRISTINE		8.7
+PF.TuringEncoding.AlphaSkeletonToIBMTableBridge	PRISTINE		10.8
+PF.TuringEncoding.AlphaYMIdentities	PRISTINE		8.0
+PF.TuringEncoding.Basic	PRISTINE		7.4
+PF.TuringEncoding.CH2SharperPiBounds	PRISTINE		9.4
+PF.TuringEncoding.Cohen2025_PNeqNP_Spectral_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	7.1
+PF.TuringEncoding.Complexity	FAILED	(e)|	4.7
+PF.TuringEncoding.ConsciousnessAlphaSkeletonBridge	PRISTINE		12.2
+PF.TuringEncoding.ConsciousnessThresholdIdentities	PRISTINE		6.3
+PF.TuringEncoding.CubeRootOfUnityAlphaCondition	PRISTINE		8.8
+PF.TuringEncoding.D3NonAlgebraic	PRISTINE		9.5
+PF.TuringEncoding.DigitalSum	PRISTINE		7.3
+PF.TuringEncoding.DigitalSumUnitCircle	PRISTINE		9.5
+PF.TuringEncoding.ExtendedUnifiedCapstone	PRISTINE		6.9
+PF.TuringEncoding.FiniteDimSpectralClosedForm	FAILED	(d)|	7.6
+PF.TuringEncoding.FiniteDimSpectralDeterminant	PRISTINE		6.9
+PF.TuringEncoding.FiniteDimSpectralFrameworkOperator	PRISTINE		9.0
+PF.TuringEncoding.FiniteDimSpectralGap	PRISTINE		6.5
+PF.TuringEncoding.FiniteDimSpectralOperatorBound	PRISTINE		6.4
+PF.TuringEncoding.FiniteDimSpectralRealSpectrum	PRISTINE		7.5
+PF.TuringEncoding.FrameworkAlphaValueIdentities	PRISTINE		10.5
+PF.TuringEncoding.G3FiniteCoefficientsLowOrder	FAILED	(d)|	10.4
+PF.TuringEncoding.G3FiniteComplexUnitCircle	PRISTINE		7.0
+PF.TuringEncoding.G3PolynomialFiniteTruncation	FAILED	(d)|	9.5
+PF.TuringEncoding.GeometricPartialSumClosedForm	PRISTINE		6.6
+PF.TuringEncoding.GeometricSeriesLimit	PRISTINE		6.0
+PF.TuringEncoding.HilbertSchmidtBound	PRISTINE		6.1
+PF.TuringEncoding.HodgeSpectralConcentrationSharper	PRISTINE		9.6
+PF.TuringEncoding.IFSDimensionExamples	PRISTINE		8.0
+PF.TuringEncoding.IFSHausdorffDimensionInfrastructure	FAILED	(e)|	9.3
+PF.TuringEncoding.Operators	FAILED	(d2),(e),(f),(f),(f)|CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.left.right;CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture.right.right	13.4
+PF.TuringEncoding.PNPClassSeparationCarrierV2	FAILED	(e)|	7.5
+PF.TuringEncoding.PNPClassSeparationCarrierV3	FAILED	(e)|	7.8
+PF.TuringEncoding.PNPClassSeparationCarrierV4	FAILED	(d2),(e)|DEAD:PrincipiaTractalis.PNPClassSeparationCarrierV4.DeterministicMachineV4.computability;DEAD:PrincipiaTractalis.PNPClassSeparationCarrierV4.DeterministicMachineV4.runtime;DEAD:PrincipiaTractalis.PNPClassSeparationPrecisionBridge.Input.size	7.7
+PF.TuringEncoding.PNPClassSeparationPrecisionBridge	FAILED	(e)|	12.6
+PF.TuringEncoding.PNP_Substrate_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	7.5
+PF.TuringEncoding.PNeqNPCollapsesToEnumBridge	PRISTINE		8.0
+PF.TuringEncoding.PhaseSum	PRISTINE		7.1
+PF.TuringEncoding.PiOverTenAlphaCouplingIdentities	PRISTINE		13.7
+PF.TuringEncoding.PiOverTenCouplingIdentities	PRISTINE		6.6
+PF.TuringEncoding.PolylogChain20260606Manifest	FAILED	(e)|	10.3
+PF.TuringEncoding.PolylogChainSessionFinalCapstone	PRISTINE		6.2
+PF.TuringEncoding.PolylogEigenvalueClosureAttempt	FAILED	(d2)|DEAD:PF.Referee.CrossMillenniumCascadeParameterized.SatisfiesInvariants.inv_NS_YM_BSD;DEAD:PF.Referee.CrossMillenniumCascadeParameterized.SatisfiesInvariants.inv_RH_YM_prod	14.3
+PF.TuringEncoding.PolylogEigenvalueTypedUpgrade	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogSubProp_alpha_P_pos;CONTAINED:PrincipiaTractalis.TuringEncoding.PolylogSubProp_alpha_P_sq_eq_two;CONTAINED:hypothesis	15.5
+PF.TuringEncoding.PolylogQuadraticDerivation	FAILED	(d),(d2),(e),(f),(f)|VACUOUS:hypothesis	13.2
+PF.TuringEncoding.PolylogSubstrateRouteCapstone	FAILED	(d)|	5.5
+PF.TuringEncoding.RazborovRudich_AaronsonWigderson_Formalization	FAILED	(e),(f),(f),(f)|	9.3
+PF.TuringEncoding.SpectralConcentrationHodgeAxis	FAILED	(e)|	5.0
+PF.TuringEncoding.SpectralExamplesConstant	PRISTINE		7.5
+PF.TuringEncoding.SpectralExamplesDiagonal	PRISTINE		6.9
+PF.TuringEncoding.SpectralExamplesRankOne	PRISTINE		7.4
+PF.TuringEncoding.SpectralFrameworkZeroDistance	PRISTINE		6.7
+PF.TuringEncoding.SpectralGapInconsistencyAnalysis	PRISTINE		12.3
+PF.TuringEncoding.TFWeightIBMCompositionBridge	PRISTINE		7.7
+PF.TuringEncoding.ThetaSum	PRISTINE		7.7
+PF.TuringEncoding.TimelessFieldAxisAlgebraicAnchor	PRISTINE		10.6
+PF.TuringEncoding.UnifiedAlgebraicFrameworkCapstone	PRISTINE		6.9
+PF.TuringEncoding.WeightedDigitalSumGeneratingFunction	FAILED	(d),(e),(f),(f)|	7.7
+PF.TwoStateTransfer_r213	FAILED	(d2)|CONTAINED:modus	15.9
+PF.Universal389a1_r180	FAILED	(d2)|CONTAINED:Asymptotics.IsTheta.right;CONTAINED:Eq;CONTAINED:LE.le;CONTAINED:Membership.mem.right;CONTAINED:hypothesis	54.0
+PF.UniversalAlphaOperatorFamily	FAILED	(d2)|DEAD:PrincipiaTractalis.HAlphaUniversal.kernel	15.0
+PF.Upstream.MathlibStarAlgebra	PRISTINE		10.1
+PF.Upstream.NoetherSkolemC2	PRISTINE		35.3
+PF.Upstream.NoetherSkolemMatrix	PRISTINE		44.6
+PF.ValidationCantorHausdorff_r234	PRISTINE		8.3
+PF.ValidationSigmaOneThirdCantor_r236	PRISTINE		8.0
+PF.ValidationSigmaPentagonGolden_r237	PRISTINE		11.0
+PF.ValidationSigmaRationalTable_r238	PRISTINE		9.3
+PF.ValidationZetaAbscissa_r233	PRISTINE		8.0
+PF.Wave18MasterCapstone	PRISTINE		18.3
+PF.Wave21MasterCapstone	PRISTINE		20.7
+PF.Wave23MasterCapstone	PRISTINE		18.0
+PF.Wave24MasterCapstone	PRISTINE		12.8
+PF.Wave26MasterCapstone	PRISTINE		15.3
+PF.Wave27MasterCapstone	PRISTINE		12.0
+PF.Wave28MasterCapstone	PRISTINE		16.1
+PF.Wave29MasterCapstone	PRISTINE		16.3
+PF.Wave30MasterCapstone	PRISTINE		13.5
+PF.Wave31MasterCapstone	PRISTINE		13.6
+PF.Wave32MasterCapstone	PRISTINE		13.6
+PF.Wave33MasterCapstone	PRISTINE		13.7
+PF.Wave34MasterCapstone	PRISTINE		13.8
+PF.Wave35MasterCapstone	PRISTINE		13.6
+PF.Wave36_37MasterCapstone	PRISTINE		12.9
+PF.Wave38MasterCapstone	PRISTINE		10.7
+PF.Wave39MasterCapstone	PRISTINE		15.5
+PF.Wave40MasterCapstone	PRISTINE		13.8
+PF.Wave41MasterCapstone	PRISTINE		14.0
+PF.Wave42MasterCapstone	PRISTINE		14.0
+PF.Wave43MasterCapstone	PRISTINE		13.7
+PF.Wave44MasterCapstone	PRISTINE		13.9
+PF.Wave45MasterCapstone	PRISTINE		16.8
+PF.Wave46MasterCapstone	PRISTINE		14.1
+PF.Wave47MasterCapstone	PRISTINE		18.7
+PF.Wave48MasterCapstone	PRISTINE		19.9
+PF.Wave49MasterCapstone	PRISTINE		19.0
+PF.Wave50MasterCapstone	PRISTINE		17.6
+PF.Wave51MasterCapstone	PRISTINE		17.7
+PF.Wave52MasterCapstone	PRISTINE		18.9
+PF.Wave53MasterCapstone	PRISTINE		19.0
+PF.Wave54MasterCapstone	PRISTINE		17.3
+PF.Wave55MasterCapstone	PRISTINE		26.8
+PF.Wave56CrossMillenniumMasterCascade	FAILED	(e),(f),(f),(f),(f),(f),(f)|	15.6
+PF.Wave56MasterCapstone	PRISTINE		18.4
+PF.Wave57MasterCapstone	PRISTINE		20.5
+PF.Wave58.Ch02ComplexSchmidtFiniteDim	FAILED	(d2)|DEAD:PrincipiaTractalis.Wave58.Ch02.SchmidtFiniteDimDecomposition.nonneg	11.0
+PF.Wave58.Ch08FieldEquationsConcrete	FAILED	(e)|	14.6
+PF.Wave58.Ch17OperatorTheoryConcrete	FAILED	(e),(f),(f)|	15.5
+PF.Wave58.Ch18SpectralMeasureConcrete	FAILED	(e)|	15.3
+PF.Wave58MasterCapstone	PRISTINE		13.5
+PF.YMConditionalDischargeViaGaloisRigidity	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.YMConditionalDischargeViaGaloisRigidity.ContinuumLiftWithOSAxioms;CONTAINED:hypothesis	13.0
+PF.YMContinuumLiftAttempt	FAILED	(e)|	15.6
+PF.YMContinuumLiftAttemptWave47	FAILED	(d2),(e),(f),(f),(f),(f),(f),(f)|CONTAINED:PrincipiaTractalis.YMContinuumLiftAttemptWave47.OSAxiomBundle.sc;DEAD:PrincipiaTractalis.YMContinuumLiftAttemptWave47.OSAxiomBundle.ei;DEAD:PrincipiaTractalis.YMContinuumLiftAttemptWave47.OSAxiomBundle.rp;DEAD:PrincipiaTractalis.YMContinuumLiftAttemptWave47.OSAxiomBundle.uv;DEAD:PrincipiaTractalis.YMContinuumLiftAttemptWave47.OSAxiomBundle.Δ_target_pos;DEAD:PrincipiaTractalis.YMContinuumLiftAttemptWave47.OSAxiomBundle.Δ_witnessed_ge	14.9
+PF.YMInteractingHamiltonianAttempt	PRISTINE		14.3
+PF.YMInteractingHamiltonianEmpiricalAnchor	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.YMInteractingHamiltonianEmpiricalAnchor.Wave55CStructuralInput.left;CONTAINED:PrincipiaTractalis.YMInteractingHamiltonianEmpiricalAnchor.Wave55CStructuralInput.right	12.6
+PF.YMMassGapPropagationToyAttempt	PRISTINE		14.3
+PF.YMReflectionPositivity2plus1DAttempt	PRISTINE		12.7
+PF.YMReflectionPositivity3plus1DAttempt	PRISTINE		12.7
+PF.YMReflectionPositivity3plus1DRank2Attempt	PRISTINE		13.2
+PF.YMReflectionPositivity3plus1DRankKAttempt	PRISTINE		18.4
+PF.YMReflectionPositivityToyAttempt	PRISTINE		12.4
+PF.YMWightmanVacuumToyAttempt	PRISTINE		16.2
+PF.YM_BochnerMinlosConcreteWitness	FAILED	(e)|	16.0
+PF.YM_BochnerMinlosFinNWitness	FAILED	(e)|	22.0
+PF.YM_BochnerMinlosR4Witness	FAILED	(e),(f),(f)|	16.4
+PF.YM_ClayDischargeAttempt	PRISTINE		16.0
+PF.YM_ClayLiteralClosureAttempt	FAILED	(e)|	31.9
+PF.YM_ContinuumMassGapInfDimWitness	FAILED	(e),(f),(f)|	16.5
+PF.YM_ContinuumWightmanV2	PRISTINE		11.8
+PF.YM_ContinuumWightmanV3	PRISTINE		16.4
+PF.YM_ContinuumWightmanV4	PRISTINE		20.0
+PF.YM_FrameworkMillenniumAnswer	PRISTINE		7.0
+PF.YM_MassGapPropagationConcreteWitness	FAILED	(e)|	12.8
+PF.YM_OSRPInteractionScaffold	FAILED	(d2),(e),(f),(f),(f)|CONTAINED:PrincipiaTractalis.YM_OSRPInteractionScaffold.MathlibSpectralTheoremForBoundedSelfAdjointOpenProp;CONTAINED:hypothesis;VACUOUS:hypothesis	16.8
+PF.YM_SchwartzReflectionConcreteWitness	FAILED	(e)|	17.8
+PF.YM_SubstrateBulletproofClosure	PRISTINE		7.0
+PF.YM_Wave56ContinuumLiftAttempt	FAILED	(e),(f),(f),(f),(f),(f),(f)|	18.4
+PF.YM_WightmanContinuumGapsTypedUpgrade	FAILED	(e),(f),(f),(f),(f)|	22.3
+PF.YM_WightmanReconstructionConcreteWitness	FAILED	(e)|	12.3
+PF.YM_WightmanReconstructionScaffold	FAILED	(d2),(e),(f),(f),(f)|CONTAINED:PrincipiaTractalis.YM_WightmanReconstructionScaffold.BochnerMinlosStatement.left;CONTAINED:PrincipiaTractalis.YM_WightmanReconstructionScaffold.BochnerMinlosStatement.right;CONTAINED:PrincipiaTractalis.YM_WightmanReconstructionScaffold.MassGapPropagationStatement.left.left.left;CONTAINED:PrincipiaTractalis.YM_WightmanReconstructionScaffold.MassGapPropagationStatement.left.left.right;CONTAINED:PrincipiaTractalis.YM_WightmanReconstructionScaffold.WightmanReconstructionStatement.left.left;VACUOUS:hypothesis	17.8
+PF.YangMills.Bridge5_YM_SubstrateDischarge	FAILED	(d2),(e),(f),(f),(f),(f),(f),(f)|CONTAINED:PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.SU2Type.property.left.left;CONTAINED:PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.SU2Type.property.left.right;CONTAINED:PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.SU2Type.property.right	22.8
+PF.YangMills.YM_Substrate_NamedAnchors_2026_06_19	FAILED	(e),(f),(f),(f),(f),(f),(f)|	8.3
+PF.YangMillsCanonicalAsymmetricPadeKernel	PRISTINE		34.3
+PF.YangMillsCanonicalConvexKernel	FAILED	(e)|	12.0
+PF.YangMillsCanonicalKernelMixedOrder	PRISTINE		11.6
+PF.YangMillsCanonicalOperatorMonotoneKernel	PRISTINE		14.5
+PF.YangMillsCanonicalPade22Kernel	PRISTINE		19.3
+PF.YangMillsCanonicalPadeApproximantKernel	PRISTINE		17.0
+PF.YangMillsCanonicalPadeOperatorInstance	PRISTINE		13.2
+PF.YangMillsCanonicalPartialFractionKernel	PRISTINE		20.8
+PF.YangMillsCanonicalQuantumPropagatorKernel	PRISTINE		17.8
+PF.YangMillsCanonicalResolventKernel	PRISTINE		16.7
+PF.YangMillsCanonicalStieltjesKernel	PRISTINE		18.0
+PF.YangMillsCanonicalStrictMonotoneKernel	PRISTINE		11.4
+PF.YangMillsConcentrationViaMultiscaleAveraging	FAILED	(e)|	12.6
+PF.YangMillsContinuumLimit	PRISTINE		8.5
+PF.YangMillsLevel2Spectrum	PRISTINE		22.3
+PF.YangMillsLevel3Spectrum	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.fractalYMLevel3EigenvalueBracket;CONTAINED:PrincipiaTractalis.fractalYMLevel3FrobeniusSqLeFour;CONTAINED:PrincipiaTractalis.fractalYMLevel3TraceEqTwo;CONTAINED:hypothesis	12.1
+PF.YangMillsLevel4Spectrum	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.fractalYMLevel4EigenvalueBracket;CONTAINED:PrincipiaTractalis.fractalYMLevel4FrobeniusSqLeFour;CONTAINED:PrincipiaTractalis.fractalYMLevel4TraceEqTwo;CONTAINED:hypothesis	15.6
+PF.YangMillsLevel5Spectrum	FAILED	(d2),(e)|CONTAINED:PrincipiaTractalis.fractalYMLevel5EigenvalueBracket;CONTAINED:PrincipiaTractalis.fractalYMLevel5FrobeniusSqLeFour;CONTAINED:PrincipiaTractalis.fractalYMLevel5TraceEqTwo;CONTAINED:hypothesis	14.5
+PF.YangMillsMassGapBracket	PRISTINE		16.0
+PF.YangMillsMeasure	PRISTINE		8.7
+PF.YangMillsMixedOrderKernelCalculus	PRISTINE		15.2
+PF.YangMillsNonAffineCoupledResidual	FAILED	(e)|	15.3
+PF.YangMillsQuadraticKernelMechanism	FAILED	(e)|	15.8
+PF.YangMillsSpectralConcentrationAttempt	FAILED	(e)|	15.6
+PF.YangMillsUniformConcentrationViaKernelStructure	FAILED	(e)|	21.8
+PF.YangMillsUniformGapViaRepulsion	PRISTINE		13.6
