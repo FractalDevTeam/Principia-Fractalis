@@ -1094,7 +1094,7 @@ with critical values consistently measured as:
 \alpha_P &= \sqrt{2} \approx 1.41421356 \\
 \alpha_{NP} &= \varphi + \frac{1}{4} \approx 1.86803399
 \end{align}
-\end{theorem}
+\end{theorem}\manuscriptcorrection{\textbf{The ``100\% coherence across 143 problems'' is a local-simulator run of a classical formula, not a quantum-hardware experiment.} Added 2026-10-08; provenance \texttt{pablo\_context/scientific\_work/python\_code/143~Problems~Solved~On~IBM.py}, recorded at \texttt{codex/SCIENTIFIC\_WORK\_PROVENANCE\_2026-10-08.md}. The source establishes: (i) the backend is \texttt{AerSimulator} --- the real-hardware path requires a token and falls back to the local simulator, so ``on IBM'' is a local Aer simulation; (ii) the problem database holds \textbf{142} entries, not 143; (iii) the ``coherence'' is a deterministic classical sum $\sum_n (\cos+i\sin)(\pi\alpha D_3(n)(1+f/50))/n^x$, into which the simulator result does not enter; (iv) the perfect score is $\min(1,\,\text{base}+\tfrac12)$, added only when a problem's \texttt{known\_result} string contains ``solved'' --- so the $1.0$ values are assigned by string match to problems already known solved (Poincar\'e); and (v) the dimensions used there ($\alpha_P{=}1.618$, $\alpha_{\text{NS}}{=}5/3$) are not this chapter's $\alpha$-skeleton. The verification ledger below already records the Lean side of this as \textsc{circular}. Read the boxed $100\%$ as the output of that clamp, not as a measured success rate.}
 
 \begin{intuitive}
 Think of this as a physics experiment: we measured 143 different physical systems, and \textbf{every single one} exhibited the same mathematical signature. Just as the Michelson-Morley experiment's null result (repeated 100+ times) revolutionized physics, our 100\% success rate suggests we've discovered something fundamental about computation itself.
@@ -1113,7 +1113,7 @@ The probability of observing 100\% coherence across 143 independent problems by 
 \begin{equation}
 P(\text{all 143 by chance}) < 10^{-43}
 \end{equation}
-assuming even a generous 95\% baseline success rate. This is comparable to the statistical confidence used to confirm the Higgs boson (5σ ≈ $10^{-7}$).
+assuming even a generous 95\% baseline success rate. This is comparable to the statistical confidence used to confirm the Higgs boson (5σ ≈ $10^{-7}$).\manuscriptcorrection{\textbf{There are no 143 independent trials, so this $p$-value has no basis.} Added 2026-10-08. Per the provenance above the ``coherence'' is one deterministic formula clamped to its ceiling, not 143 independent Bernoulli outcomes, so the chance model this probability assumes does not exist. Independently, the stated inputs give $0.95^{143} \approx 6.5\times10^{-4}$, not $<10^{-43}$; the comparison to a $5\sigma$ Higgs confidence does not hold.}
 \end{remark}
 
 \subsection{Three Independent Lines of Evidence}
@@ -1519,7 +1519,7 @@ The \textbf{Principia Fractalis Conjectures} (Conjectures \ref{conj:polylog-spec
 \subsection{Computational Validation Across 143 Problems}
 
 \begin{itemize}
-\item \textbf{100\% Fractal Coherence}: All 143 problems achieve $\chi_P = \chi_{NP} = 1.0000$
+\item \textbf{100\% Fractal Coherence}: All 143 problems achieve $\chi_P = \chi_{NP} = 1.0000$\manuscriptcorrection{\textbf{Scope:} the ``100\% / 143'' figures restate the local-simulator clamp described at Theorem~\ref{thm:universal-coherence} (correction added 2026-10-08); they are not independent measurements.}
 \item \textbf{Spectral Gap Universality}: Measured $\Delta = 0.0891219046$ consistent across all problem types
 \item \textbf{Fractal Dimension Separation}: $\sqrt{2} < \varphi + 1/4$ validated geometrically
 \item \textbf{Consciousness Thresholds}: Certificate branching requires $\Delta\chi^2 \approx 0.0054$ crystallization gap
