@@ -43,10 +43,13 @@ SPDX-License-Identifier: Apache-2.0
 import PF.Analytic.RiemannXiTopUnion
 import PF.Analytic.RiemannXiSymmetries_r326
 
+set_option autoImplicit false
+
 namespace PrincipiaTractalis
 namespace TopEdgeR331c
 
 open PrincipiaTractalis.RiemannXiSymmetries
+open PrincipiaTractalis.RiemannXiEntire
 open scoped ComplexConjugate
 
 /-- **Reflection transfers the real part across `σ ↦ 1-σ`.** -/
