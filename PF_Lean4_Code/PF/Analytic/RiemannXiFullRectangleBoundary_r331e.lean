@@ -191,22 +191,25 @@ lemma interior_re_strict {s : ℂ} (hs : s ∈ Rectangle zF wF)
   obtain ⟨hRe, hIm⟩ := hs
   rw [Set.uIcc_of_le (by linarith : (0 : ℝ) ≤ 1)] at hRe
   -- Exclude the border cases s.re = 0 (left edge) and s.re = 1 (right edge) by hs_border.
+  -- `RectangleBorder zF wF` destructures as `((bottom ∨ left) ∨ top) ∨ right`
+  -- (see `full_rectangle_boundary_zero_free` above): the left edge is the second
+  -- disjunct `Or.inl (Or.inl (Or.inr _))`, the right edge the fourth `Or.inr _`.
   refine ⟨?_, ?_⟩
   · rcases eq_or_lt_of_le hRe.1 with hRe0 | hRe0
     · -- s.re = 0 would put s on the left edge; contradict hs_border.
       exfalso
       apply hs_border
-      right
-      rw [Set.uIcc_of_le (by linarith : (-15 : ℝ) ≤ 15)] at hIm
-      exact ⟨hRe0.symm, hIm⟩
+      simp only [RectangleBorder, zF_re, zF_im, wF_re, wF_im, Set.mem_union,
+                 Complex.mem_reProdIm, Set.mem_singleton_iff]
+      exact Or.inl (Or.inl (Or.inr ⟨hRe0.symm, hIm⟩))
     · exact hRe0
   · rcases eq_or_lt_of_le hRe.2 with hRe1 | hRe1
     · -- s.re = 1 would put s on the right edge; contradict hs_border.
       exfalso
       apply hs_border
-      left; right
-      rw [Set.uIcc_of_le (by linarith : (-15 : ℝ) ≤ 15)] at hIm
-      exact ⟨hRe1, hIm⟩
+      simp only [RectangleBorder, zF_re, zF_im, wF_re, wF_im, Set.mem_union,
+                 Complex.mem_reProdIm, Set.mem_singleton_iff]
+      exact Or.inr ⟨hRe1, hIm⟩
     · exact hRe1
 
 /-- **`interior_xi_zero_iff_zeta_zero`** — for every interior point of the full
