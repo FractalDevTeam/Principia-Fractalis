@@ -26,12 +26,15 @@ FINDING CLASSES
     PROOF_IS_OWN_INPUT   proof term is a projection of its own hypothesis
     MODUS_PONENS_SELF    proof applies one hypothesis field to another
     EXTERNAL_NAME_TRIV   named after published mathematics, body trivial
+    TRIVIAL_EXISTENTIAL  body/conclusion `exists x, x = c` -- witnessed by x := c
+    NONEMPTY_ENDO        `Nonempty (X -> X)` / `Inhabited (X -> X)` -- always id
 
   soft (reported, do not block):
     IFF_RFL_ALIAS        an equivalence closed only by Iff.rfl -- one Prop twice
     DUPLICATE_PROP_BODY  several Props with byte-identical bodies
     CONCL_IGNORES_BIND   conclusion never mentions a bound parameter
     TRUE_VIA_ALIAS       body resolves through a TRUE_BODY definition
+    DISCARDED_BINDER     proof introduces a NAMED hypothesis then discards it (_h)
 
 PARSING. Declarations are SPLIT first, then parsed one at a time. An earlier
 version used a single regex with a DOTALL binder group; it spanned declarations
@@ -132,11 +135,26 @@ REPAIR = {
     "TRUE_VIA_ALIAS":
         "resolves through a Prop := True definition. Repair the upstream definition "
         "and this follows.",
+    "TRIVIAL_EXISTENTIAL":
+        "`exists x, x = c` is witnessed by x := c and asserts only that c exists "
+        "under its own name -- no content. Recover the intended property of the "
+        "witness, or state it as the definitional fact `c = c` it actually is.",
+    "NONEMPTY_ENDO":
+        "`Nonempty (X -> X)` is inhabited by the identity for every X, so it carries "
+        "no information about X. If a specific map was meant to exist, name it and "
+        "state its property; if inhabitation of a genuinely non-endo type was meant, "
+        "the two sides of the arrow must differ.",
+    "DISCARDED_BINDER":
+        "the proof introduces a hypothesis and immediately discards it under an "
+        "underscore name (`intro _h`), a signal the hypothesis may be inert. "
+        "Confirm the hypothesis is genuinely used downstream, or drop it from the "
+        "statement (see the premise audit for dead-hypothesis repair).",
 }
 
 HARD = {"TRUE_BODY", "FALSE_BODY", "UNIT_CARRIER", "REFLEXIVE", "NUMERIC_TAUT",
         "TRICHOTOMY", "ALL_BINDERS_DEAD", "PROOF_IS_OWN_INPUT",
-        "MODUS_PONENS_SELF", "EXTERNAL_NAME_TRIV"}
+        "MODUS_PONENS_SELF", "EXTERNAL_NAME_TRIV", "TRIVIAL_EXISTENTIAL",
+        "NONEMPTY_ENDO"}
 
 EXTERNAL = ("Wiles", "Glimm", "Jaffe", "Wightman", "Osterwalder", "Schrader",
             "Coates", "Kolyvagin", "Hardy", "Odlyzko", "Perelman", "Fefferman",
@@ -288,6 +306,48 @@ PROJ_ONLY = re.compile(r"^([A-Za-z_][A-Za-z0-9_" + chr(39) + r"]*)"
                        r"((?:\.(?:\w+|[12]))*)$")
 MP_SELF = re.compile(r"^([A-Za-z_][A-Za-z0-9_" + chr(39) + r"]*)\.(\w+)\s+\1\.(\w+)$")
 
+EXISTS = chr(0x2203)
+ARROW = chr(0x2192)
+AND = chr(0x2227)
+# `exists <var>(...)? , <one equality clause>` -- capture var and the clause.
+EXISTS_TRIV_RE = re.compile(r"^" + EXISTS + r"\s*\(?\s*([A-Za-z_]\w*" + chr(39) +
+                            r"?)\b[^,]*,\s*(.+)$")
+# Nonempty/Inhabited of an arrow type; endo iff the two sides are textually equal.
+NONEMPTY_ARROW_RE = re.compile(
+    r"\b(?:Nonempty|Inhabited)\s*\(\s*(.+?)\s*" + ARROW + r"\s*(.+?)\s*\)\s*$")
+# an `intro`/`rintro` whose arguments include a NAMED underscore binder (`_h`),
+# i.e. a hypothesis introduced only to be discarded. `intro _` (bare) is excluded
+# -- that is an anonymous irrelevant binder, a common and legitimate idiom.
+DISCARDED_INTRO_RE = re.compile(r"\b[r]?intro\b[^;]*?(?<![A-Za-z0-9_])_[A-Za-z]")
+
+
+def _is_trivial_existential(s):
+    """True iff `s` is exactly `exists x, x = c` (or `c = x`) with c free of x and
+    no further connectives -- the pure trivial existential. Conservative: a second
+    conjunct (`exists x, x = c and P x`) is NOT flagged."""
+    m = EXISTS_TRIV_RE.match(s)
+    if not m:
+        return False
+    var, rest = m.group(1), m.group(2).strip().rstrip(")").strip()
+    if any(sym in rest for sym in (AND, OR, IFF, ARROW, "->", ";", ",")):
+        return False
+    if "=" not in rest or chr(0x2260) in rest:
+        return False
+    lhs, _, rhs = rest.partition("=")
+    lhs, rhs = lhs.strip(), rhs.strip()
+    vb = r"\b" + re.escape(var) + r"\b"
+    if lhs == var and not re.search(vb, rhs):
+        return True
+    if rhs == var and not re.search(vb, lhs):
+        return True
+    return False
+
+
+def _is_nonempty_endo(s):
+    """True iff `s` is `Nonempty (T -> T)` / `Inhabited (T -> T)` for one type T."""
+    m = NONEMPTY_ARROW_RE.search(s)
+    return bool(m) and norm(m.group(1)) == norm(m.group(2))
+
 
 def check_prop_def(name, binders, body, true_names):
     b, hits = norm(body), []
@@ -320,6 +380,10 @@ def check_prop_def(name, binders, body, true_names):
         lhs, _, rhs = b.partition("=")
         if lhs.strip() == rhs.strip():
             hits.append(("NUMERIC_TAUT", b[:120]))
+    if _is_trivial_existential(b):
+        hits.append(("TRIVIAL_EXISTENTIAL", b[:120]))
+    if _is_nonempty_endo(b):
+        hits.append(("NONEMPTY_ENDO", b[:120]))
     bn = BINDER_NAME.findall(binders or "")
     if bn and all(x.startswith("_") for x in bn):
         hits.append(("ALL_BINDERS_DEAD", "binders: " + ",".join(bn)))
@@ -343,6 +407,14 @@ def check_theorem(name, binders, concl, body):
 
     if MP_SELF.match(p):
         hits.append(("MODUS_PONENS_SELF", "proof := " + p))
+
+    if _is_trivial_existential(c):
+        hits.append(("TRIVIAL_EXISTENTIAL", c[:120]))
+    if _is_nonempty_endo(c):
+        hits.append(("NONEMPTY_ENDO", c[:120]))
+    if DISCARDED_INTRO_RE.search(p):
+        mm = DISCARDED_INTRO_RE.search(p)
+        hits.append(("DISCARDED_BINDER", "proof ...%s..." % p[max(0, mm.start()):mm.start() + 40]))
 
     # An equivalence whose proof contains nothing but Iff.rfl (possibly several,
     # under a refine) is one Prop named twice. Detect by removing every
