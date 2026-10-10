@@ -425,9 +425,11 @@ The formalization is a specialization; the natural generalizations are:
 \section{Reproducibility and availability}
 \label{sec:availability}
 
-The two headline results are each a single-file formalization: the substrate rigidity theorem \texttt{T\_infinity\_rigidity} in \texttt{PF/SubstrateRigidity.lean} (approximately 2{,}400 lines), and the obstruction theorem \texttt{pi\_not\_ktheoretic\_ratio} in \texttt{PF/AlphaL5PiScalingObstruction\_r332.lean}. Both reside in the \texttt{Principia-Fractalis} repository (\texttt{FractalDevTeam/Principia-Fractalis}); the substrate file is documented on the \texttt{r331b-provenance} branch at commit \texttt{18f55a14} (2026-09-10), and both theorems were re-audited with identical kernel verdicts at commit \texttt{9fdac09b} (2026-10-10). To build the two headline theorems and reproduce their axiom audit:
+The two headline results are each a single-file formalization: the substrate rigidity theorem \texttt{T\_infinity\_rigidity} in \texttt{PF/SubstrateRigidity.lean} (approximately 2{,}400 lines), and the obstruction theorem \texttt{pi\_not\_ktheoretic\_ratio} in \texttt{PF/AlphaL5PiScalingObstruction\_r332.lean}. Both are present in the public repository \texttt{FractalDevTeam/Principia-Fractalis} at commit \texttt{18f55a14} (2026-09-11), reachable on the \texttt{r331b-provenance} and \texttt{master} branches. To build the two headline theorems and reproduce their axiom audit:
 
 \begin{lstlisting}[language={}]
+git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
+cd Principia-Fractalis && git checkout 18f55a14
 cd PF_Lean4_Code
 # Cap to two cores: Lake 5.0.0 exposes no -j flag, and the
 # C*-algebra build is memory-bound, so more than one worker can
