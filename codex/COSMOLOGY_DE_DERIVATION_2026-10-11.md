@@ -186,10 +186,20 @@ measurement** — it is a translation of the CPL parameters through this very mo
   g because it tested the phenomenological r187 ODE with g free); it does not contradict it.
   The measured g₀/H₀≈0.74 is the data; the derived g₀/H₀≤0.21 is the prediction; they
   disagree in magnitude (direction only).
-- **Genuinely still open:** (i) PF's gauge sector itself — group, connection, and whether the
-  background is Q=0 or non-Abelian (ch04 automorphism classification is open; the action does
-  not fix F); **this is the fork that decides whether consciousness/topology affects the
-  background at all**; (ii) M's value inside the window (no deeper principle selects a point);
+- **Investigated (per review): does PF select a background? No.** PF constructs no dynamical
+  cosmological gauge field — the `YangMills*.lean` corpus is spectral/mass-gap work (Stieltjes
+  /Padé kernels, R_f(2,s)=ζ(s)), not a connection A^a_μ(x); no isotropic gauge ansatz exists
+  anywhere (grep empty). The one cosmological Chern–Weil file,
+  `PF/Cosmology/E6ChernWeil78piFirstPrinciplesAttempt.lean`, is a flagged ATTEMPT whose own
+  docstring records that the Pontryagin integral (1/8π)∫Tr(F∧F)=78π is currently only an
+  algebraic tautology / degenerate existential `∃N, N=78π`, that mathlib lacks Chern classes,
+  Chern–Weil, and principal bundles entirely, and that this is "the deepest open in the entire
+  PF Cosmology stack." So PF selects NEITHER branch; the Q=0 case is the trivial "no gauge
+  field present," not a derived selection.
+- **Genuinely still open:** (i) PF's gauge sector itself — group, connection, Q=0 vs
+  non-Abelian (ch04 automorphism classification open; action does not fix F; the E6 Chern–Weil
+  78π construction is PF's own deepest cosmology open); **this fork decides whether
+  consciousness/topology affects the background at all**; (ii) M's value inside the window (no deeper principle selects a point);
   (iii) the sheaf-ch₂ (ch06, a number) vs gauge-Pontryagin-ch₂ (a density) identification;
   (iv) the full inhomogeneous C^μν (needs the manifold + localization map, still absent).
 
