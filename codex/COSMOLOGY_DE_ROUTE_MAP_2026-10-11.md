@@ -2,7 +2,9 @@
 
 Author: Pablo Cohen. Purpose: a reusable, source-cited reconstruction of the FULL
 dependency route for the dark-energy sector, so later work starts here instead of
-re-deriving it. Supersedes the route-level framing of
+re-deriving it. (rev 2: four overclaims corrected per review — scalar→tensor scope,
+marginal-σ withdrawn, g=φ̇/M scoped to background, CPL-domain scoped. Registers A/B/C
+below separate verified deductions from modeling assumptions from empirical estimates.) Supersedes the route-level framing of
 `DERIVE_M_F_CH2_FROM_SUBSTRATE_2026-10-11.md` and `MODIFIED_GRAVITY_VS_DESI_2026-10-11.md`
 (both worked only in the ch08 action representation and missed the r187/r219 stones,
 the measured g, and the ch26 refutation). Verified against the live tree @149162e0 and
@@ -21,35 +23,43 @@ Spine arrow: substrate → emergent locality → modified relativity → cosmolo
 | 3 | Temporal law d/dt ch₂ = ? | ch06:707-708 | **OPEN BY THE BOOK'S OWN ADMISSION** — "explicitly acknowledges the temporal law is not formulated." This is the dynamics the DE sector needs and does not have |
 | 4 | Localization χ_k/ρ_t → spacetime points | — | **ABSENT.** No map from `Matrix (Fin (3^k))` states to x∈M⁴ (audit N4) |
 | 5 | Consciousness stress tensor C^μν | ch08:79-81, ch12 Def 12.1 | **POSTULATE; B11 conditionally circular** — defined via T̂^μν per state, which presupposes M⁴ (stage 1) and a measure μ on states (both unbuilt) |
-| 5′| scalar→tensor obstruction | audit §2.5 | **IMPOSSIBILITY (properly scoped):** a scalar cannot source a generic symmetric rank-2 tensor. Sym²(ℝ⁴)=10-dim, trace=1, traceless part=9 unfixed. So any C^μν=f(χ_k) is at most a 1-parameter *isotropic* family. Forbids scalar-ONLY bridges; does NOT forbid bridges using extra localization+geometry data (those are merely absent) |
+| 5′| scalar→tensor gap | audit §2.5 | **WITHDRAWN as stated; true statement is narrower.** The dimension count (Sym²ℝ⁴=10=1 trace+9 traceless) does NOT prove "scalar⟹isotropic tensor." It proves only: if the ONLY data available at a point are the churn scalar VALUE χ and the metric g_μν (no gradients ∂_μχ, no other fields), the sole symmetric rank-2 tensor is f(χ)·g_μν (isotropic). A scalar FIELD generically sources ANISOTROPIC stress via ∂_μχ∂_νχ (as every scalar in GR does). So this is not an obstruction to a scalar-field bridge; it only says "a pointwise function of χ's value, with no derivatives and no fields but the metric, is isotropic." Not Lean-worthy as an impossibility |
 | 6 | Modified Einstein / Λ_eff(C) | ch08:201, 205 | **POSTULATE** |
 | 7 | Modified-Friedmann ODE | `ModifiedFriedmann_r187.lean` | **KERNEL-PROVEN:** Λ_eff=Λ₀·exp(−∫₀ᵗ g), Λ_eff′=−g·Λ_eff. g is an ARBITRARY continuous function — an INPUT, not derived |
 | 8 | w-bridge | `EquationOfStateBridge_r219.lean` | **KERNEL-PROVEN:** w(t) = −1 + g/(3H), exact. Plus: g≥0 ⟺ w≥−1 (`not_phantom_of_nonneg_rate`); w=−1 ⟺ g=0; sign change ⟹ located crossing (IVT); and the CPL prediction below |
 | 9 | Observable w(z) / DESI | COSMOLOGY_W_BRIDGE §2 | g **MEASURED** by inverting r219: g₀≈0.74–1.05 H₀, zero at z≈0.40±0.03 (stable across 3 SN samples) |
 
-## The one parameter-free prediction (and it is mildly losing)
+## The candidate parameter-free prediction — in three registers
 
-The framework's monotonicity thesis — "consciousness only suppresses Λ", i.e. g≥0,
-which is exactly r187's `lambdaEff_antitone` hypothesis — yields a kernel-checked,
-dataset-free CPL prediction (`cpl_nonphantom_forces_wa_bound`):
+**(A) VERIFIED DEDUCTION (kernel, dataset-free).** `cpl_nonphantom_forces_wa_bound`
+(r219): if w(a)=w₀+wₐ(1−a) ≥ −1 for all a∈(0,1], then **wₐ ≥ −1−w₀**. The binding
+point is the a→0⁺ endpoint. Over a restricted domain a∈[a_min,1] the honest bound is
+weaker: wₐ ≥ (−1−w₀)/(1−a_min). All kernel-checked.
 
-    if w(a)=w₀+wₐ(1−a) ≥ −1 on a∈(0,1],  then  wₐ ≥ −1 − w₀.
+**(B) MODELING ASSUMPTION (not derived).** The bound becomes a PF *prediction* only
+under the monotonicity thesis g≥0 — which is **ASSUMED, not derived**: it is the
+hypothesis `hg0 : ∀ s, 0 ≤ g s` of r187 `lambdaEff_antitone` (r187:140; r219:223 calls
+it an assumption), encoding "consciousness only suppresses Λ." Two further assumptions
+are needed and are NOT established: (i) that PF commits to g≥0 over the *whole* domain
+incl. a→0 (early universe), not just the observed epoch — the a→0 endpoint drives the
+strong bound; (ii) that the CPL form faithfully represents PF's actual w(a) (PF gives
+w=−1+g/3H for its own g, not a CPL by construction).
 
-Confronted with DESI DR2 (2025), verified under my own hand (w₀ error propagated into
-the floor):
+**(C) EMPIRICAL ESTIMATE.** Robust, covariance-free fact: the DESI DR2 central values
+give w₀+wₐ<−1 and violate the bound at EVERY domain cut tested (a→0 through z≤1), in
+all three datasets (DESI+CMB, +DESY5, +Union3). **Significance: WITHDRAWN as I stated
+it.** My earlier 2.23–2.69σ propagated *marginal* σ(w₀),σ(wₐ) and implicitly assumed
+Cov(w₀,wₐ)=0; that is invalid — w₀,wₐ are strongly anti-correlated in CPL fits, so the
+true σ(w₀+wₐ) requires the joint posterior. The published joint-covariance result is
+DESI's own: dynamical DE preferred over ΛCDM at **2.8–4.2σ** (the 2D test; DESI DR2,
+arXiv:2503.14743). The specific 1D test of w₀+wₐ+1<0 needs the published Cov(w₀,wₐ),
+which I have not numerically extracted; I claim only the direction, not a σ.
 
-| dataset | w₀ | wₐ measured | PF floor −1−w₀ | tension |
-|---|---|---|---|---|
-| DESI+CMB | −0.667±0.088 | −1.09±0.29 | −0.333 | 2.50σ |
-| DESI+CMB+DESY5 | −0.752±0.057 | −0.86±0.22 | −0.248 | 2.69σ |
-| DESI+CMB+Union3 | −0.65±0.10 | −1.27±0.40 | −0.350 | 2.23σ |
-
-Measured wₐ sits BELOW the PF-allowed floor in all three → the monotone form is
-**disfavored at ~2.3–2.7σ**. No PF parameter is fit; this is the framework's own
-structural commitment confronting data, and losing mildly. Giving up monotonicity
-removes the prediction entirely (g unconstrained = pure measurement; a g sign change
-is then a *located* phantom crossing at z≈0.40, permitted by r187's ODE but forbidden
-by its monotonicity theorem).
+**Net:** the direction (PF's monotone form sits on the disfavoured side of DESI) is
+robust and parameter-free; the *magnitude* is DESI's joint number, not a marginal
+propagation of mine. Giving up monotonicity removes even the direction (g unconstrained
+= pure measurement; a g sign change is a *located* crossing at z≈0.40 by r219's IVT
+theorem, permitted by r187's ODE but forbidden by its monotonicity theorem).
 
 ## What is refuted, and what g owes
 
@@ -59,17 +69,25 @@ by its monotonicity theorem).
   Independent of ch26's own "engineered, not derived" admission at ch26:261.
 - **Retirement condition for "g is derived":** a first-principles g(t) that either
   (i) hits g₀≈0.74 H₀ and a zero at z≈0.40, or (ii) if it predicts monotone g≥0,
-  inherits the ~2.3–2.7σ tension above. It must route through a temporal law
-  (ch06:707-708, open), a localization map (absent), and must evade or satisfy the
-  §2.5 scalar→tensor obstruction.
+  sits on the disfavoured side of DESI (direction robust; magnitude per DESI's joint
+  posterior). It must route through a temporal law (ch06:707-708, open) and a
+  localization map (absent). Note: the scalar→tensor step is NOT an obstruction for a
+  scalar FIELD (gradients supply anisotropy); only a pointwise function of χ's value
+  with no derivatives is isotropic.
 
 ## Representation note (reconciles my two earlier Oct-11 notes)
 
-The ch08 action picture (V(φ)=Λ₀e^{−φ/M}, φ sourced by ch₂) and the r187/r219 picture
-(Λ_eff=Λ₀exp(−∫g)) are the SAME exponential with **g = φ̇/M**. So "derive M, f, ch₂(a)"
-and "derive g(t)" are one problem in two coordinates. The M≳0.287 M_Pl screening bound
-(ch08 `ScreenedKernelAndFieldScale`, `horizon_requires_planckian_scale`) is a necessary
-condition on that representation — observational (built from H₀, Λ), not substrate-derived.
+The identification **g = φ̇/M is a BACKGROUND-LEVEL conditional, NOT a demonstrated
+model equivalence.** Matching Λ_eff=Λ₀exp(−∫₀ᵗ g) with Λ_eff=Λ₀e^{−φ/M} and
+differentiating gives g=φ̇/M ONLY if (i) φ is homogeneous (φ=φ(t)), (ii) both are the
+same Λ_eff with the same Λ₀. It is not shown that the two models' DYNAMICS agree:
+r187's g is a phenomenological rate in a continuity-equation ODE; ch08's φ obeys a
+sourced Klein–Gordon equation □φ=V'−ch₂/f. Demonstrating equivalence requires showing
+the Klein–Gordon dynamics reproduces r187's g-ODE with matching source terms — NOT done.
+So "derive M,f,ch₂(a)" and "derive g(t)" coincide only at the homogeneous background and
+only under the posited-equal-Λ_eff assumption. The M≳0.287 M_Pl screening bound (ch08
+`horizon_requires_planckian_scale`) is a necessary condition on the action representation
+— observational (built from H₀, Λ), not substrate-derived.
 
 ## α-skeleton status (for anyone routing through it)
 Per ALPHA_SUPPLIED_VS_DERIVED_2026-10-01: every α is a literal `def`; the rigidity
