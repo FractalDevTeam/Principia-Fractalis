@@ -17,11 +17,18 @@ Lean: Ch08Ch14ModifiedRelativity, LambdaEffFromAction, ScreenedKernelAndFieldSca
 
 ## Three confrontations with data — all verified, all consistent
 
-1. **Dynamical dark energy — the sharp test.** ΛCDM: w = −1 constant. PF: w evolves
-   (thawing quintessence, w ≥ −1, w₀ > −1, w_a < 0). **DESI DR2 (2025) favors dynamical
-   DE over ΛCDM at 2.8–4.2σ, in the quadrant w₀ > −1, w_a < 0** (e.g. BA model
-   w₀ = −0.785±0.047, w_a = −0.43). PF's mechanism lives in that same quadrant.
-   QUALITATIVE alignment with the biggest cosmology result of the last two years.
+1. **Dynamical dark energy — comparison, with significance correctly attributed.**
+   ΛCDM: w = −1 constant. PF's Λ_eff(φ) is a rolling term, so w evolves. **DESI DR2 (2025)
+   prefers dynamical DE over ΛCDM at 2.8–4.2σ** (CMB+BAO+SN combinations), in the quadrant
+   w₀ > −1, w_a < 0 (e.g. BA model w₀ = −0.785±0.047, w_a = −0.43). **That significance is
+   DESI's dynamical-vs-ΛCDM comparison — it is NOT evidence for PF.** PF is *compatible*
+   with that quadrant; compatibility is not confirmation, and many models occupy it.
+   **Timing — RETROSPECTIVE, not predicted.** The formalized PF derivation (Lean files
+   Ch08Ch14ModifiedRelativity / LambdaEffFromAction / ScreenedKernelAndFieldScale, first
+   committed 2026-10-06; the ch08 manuscriptcorrections, 2026-10-06) POSTDATES DESI DR2
+   (2025-03) and DR1 (2024-04). So this is retrospective agreement, not a documented prior
+   prediction. Whether the core consciousness-dependent-Λ idea predates DESI is NOT
+   established by the available git history; I do not claim it.
 
 2. **Preferred-frame parameter α₃ = 0 structurally** (energy–momentum conservation,
    automatic once Λ_eff comes from the action — `absorbed_lambda_leaves_no_residue`).
@@ -37,12 +44,15 @@ Lean: Ch08Ch14ModifiedRelativity, LambdaEffFromAction, ScreenedKernelAndFieldSca
 
 ## The honest limits (fine precision requires naming them)
 
-- PF's φ is a CANONICAL scalar (standard −½(∇φ)² kinetic term), so w ≥ −1 always: it
-  **cannot cross the phantom divide** that DESI's best-fit reconstruction (phantom-in-past
-  → quintessence-today) slightly prefers. PF matches the quintessence-today half, not the
-  phantom-past half. That crossing is itself debated and dataset-dependent ("not robust"
-  per several analyses), so PF's thawing field is NOT excluded — it is a slightly worse
-  fit than unconstrained CPL but better than ΛCDM.
+- **Phantom crossing — corrected.** PF's φ is a canonical scalar, so the *scalar's own*
+  w_φ ≥ −1. But the EFFECTIVE dark-energy equation of state of PF's FULL modified-gravity
+  theory (the C^μν term, the aether L_æ, the ch₂ coupling) is NOT w_φ; it requires a
+  separate derivation from the modified Friedmann equations — which has NOT been done. So
+  whether PF's *effective* w can reach the phantom-crossing DESI's best-fit slightly prefers
+  is UNDETERMINED, not settled. My earlier claim "the canonical scalar can't phantom-cross"
+  conflated w_φ with the effective w and was wrong. (The crossing is also debated /
+  dataset-dependent — "not robust" per several analyses — so it is not a hard constraint
+  either way.)
 - PF does NOT pin w₀, w_a quantitatively (M, f, the ch₂ profile are undetermined). So this
   is QUALITATIVE consistency (right quadrant, right direction), NOT a quantitative fit.
 - M ~ Planck is the standard quintessence difficulty, flagged honestly in the corpus.
@@ -51,13 +61,30 @@ Lean: Ch08Ch14ModifiedRelativity, LambdaEffFromAction, ScreenedKernelAndFieldSca
 
 ## Verdict
 
-Not a confirmation, not a solved problem. But a REAL, falsifiable, Lean-structured
-prediction from PF's own machinery that (i) survives the PPN α₃ bound, (ii) survives the
-Λ_obs field-scale constraint, and (iii) predicted DYNAMICAL dark energy — which is exactly
-what DESI DR2 is now finding at 2.8–4.2σ, in PF's quadrant. This is the framework applied
-intelligently: engaging its actual physics and confronting current data, with every gap
-(phantom crossing, unpinned w₀/w_a, Planckian M) named. The next sharp calculation is the
-one the corpus itself owes: pin w₀, w_a from M, f, and a ch₂ profile, and compare
-quantitatively to DESI — the calculation that "can actually lose."
+Not a confirmation, not a prediction (the formalized derivation is retrospective), not a
+solved problem. What IS established and verified under my own hand: PF's modified-gravity
+sector is a real, falsifiable, Lean-structured mechanism that (i) is compatible with the
+PPN α₃ bound (α₃ = 0 structurally), (ii) is compatible with the Λ_obs field-scale
+constraint (M ≳ 0.287 M_Pl), and (iii) yields DYNAMICAL dark energy — the class DESI DR2
+now prefers over ΛCDM (2.8–4.2σ, which is DESI's significance, not PF's) in a quadrant PF
+can occupy. **The supported conclusion is retrospective QUALITATIVE COMPATIBILITY awaiting
+a quantitative, independently-specified test.** Compatibility is not confirmation.
+
+The next calculation, stated to avoid fitting: derive PF's full expansion history H(z) from
+the field equations with M, f, ch₂(a) and initial conditions FIXED INDEPENDENTLY (or given
+explicit prior ranges) — NOT chosen to reach the contour, which would be fitting — then
+compare the predicted distances to the DESI likelihood directly. A w₀–w_a (CPL) contour is
+a useful first diagnostic ONLY if CPL faithfully represents PF's actual w(a). This is the
+calculation that "can actually lose."
+
+## Reproducibility / provenance
+- PUBLIC on origin/master (verifiable): the three Lean files
+  Ch08Ch14ModifiedRelativity, LambdaEffFromAction, ScreenedKernelAndFieldScale (they carry
+  the logical structure + arithmetic; cosmological inputs external/cited). Kernel axioms
+  [propext, Classical.choice, Quot.sound].
+- NOT public: this codex note and the recent map/DESI commits are UNPUSHED (local only) —
+  which is why commit baac763f cannot be retrieved from the public repo. The substance (the
+  Lean files above, and the Planck-2018 recompute of the M-bound) is independently checkable.
 
 Sources: DESI DR2 2025 (arXiv:2503.17342, 2504.15222, 2511.22512; desi.lbl.gov 2025-03-19).
+Timing established from git: the modified-relativity Lean files first committed 2026-10-06.
