@@ -91,7 +91,7 @@
 \begin{abstract}
 We report a machine-checked \emph{joint statement} about the algebraic substrate $T_{\infty}$ of the \emph{Principia Fractalis} research program~\cite{cohen_pf_2026}. The joint statement pairs a positive uniqueness result (new to this paper) with a negative derivability result (previously kernel-verified in the parent project), and it is offered as the honest scientific summary of what the program has established about its substrate axis through 2026-09-10.
 
-(1) \emph{Substrate rigidity, new.} We give the first machine-checked formalization of the \emph{uniqueness half} of Glimm's 1960 classification of uniformly hyperfinite (UHF) $C^{\ast}$-algebras, specialized to supernatural number $3^{\infty}$, in the Lean 4 proof assistant (uniqueness for the exact $3^{\infty}$ tower; refinement-invariance and the distinct-supernatural-number direction are not formalized). The main theorem \texttt{T\_infinity\_rigidity} asserts that any $C^{\ast}$-algebra carrying a \emph{Substrate3Inf} witness --- a directed tower of $M_{3^k}(\mathbb{C})$ subalgebras with dense union and a unique \emph{continuous unital} tracial linear functional (positivity not assumed) --- is $\ast$-isomorphic to the distinguished object $T_{\infty}$, constructed as the norm completion of the algebraic direct limit of the ternary tower. All six load-bearing declarations audit to exactly $\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$, with no \texttt{sorry}, no project axioms, and no \texttt{native\_decide}.
+(1) \emph{Substrate rigidity, new.} We give the first machine-checked formalization of the \emph{uniqueness half} of Glimm's 1960 classification of uniformly hyperfinite (UHF) $C^{\ast}$-algebras, specialized to supernatural number $3^{\infty}$, in the Lean 4 proof assistant (uniqueness for the exact $3^{\infty}$ tower; refinement-invariance and the distinct-supernatural-number direction are not formalized). The main theorem \texttt{T\_infinity\_rigidity} asserts that any $C^{\ast}$-algebra carrying a \emph{Substrate3Inf} witness --- a directed tower of $M_{3^k}(\mathbb{C})$ subalgebras with dense union --- is $\ast$-isomorphic to the distinguished object $T_{\infty}$, constructed as the norm completion of the algebraic direct limit of the ternary tower. Uniqueness of the (continuous, unital) tracial linear functional is \emph{derived} as a consequence of this rigidity (\texttt{Substrate3Inf.trace\_unique}), not assumed as a hypothesis --- so the dense ternary tower alone forces the substrate. All seven load-bearing declarations (including the derived \texttt{Substrate3Inf.trace\_unique}) audit to exactly $\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$, with no \texttt{sorry}, no project axioms, and no \texttt{native\_decide}.
 
 (2) \emph{The $\alpha$-derivation obstruction, cited.} We pair this with a companion theorem, proved in the parent Principia Fractalis codebase and cited here as \texttt{pi\_not\_ktheoretic\_ratio} (Cohen, r332, 2026-09-07), asserting that for all $a, b \in \mathbb{Z}[1/3]$, $b/a \neq \pi$. Combined with the earlier r123 result that the substrate's $K$-theoretic trace range is exactly $\mathbb{Z}[1/3]$, this establishes that seven of the nine $\alpha$-values enumerated by the program (all irrationals, plus the ratio $\alpha_{\mathrm{NS}}/\alpha_{\mathrm{RH}} = \pi$) cannot be derived from the substrate through its $K$-theoretic channel --- the only channel the substrate mathematically possesses.
 
@@ -103,20 +103,20 @@ The paired reading is that Principia Fractalis's substrate is now a uniquely-det
 
 The theory of \emph{uniformly hyperfinite} (UHF) $C^{\ast}$-algebras was inaugurated by Glimm~\cite{glimm1960} in 1960. A UHF algebra is the norm completion of an inductive limit of finite matrix algebras under unital $\ast$-embeddings; Glimm proved that two UHF algebras are $\ast$-isomorphic if and only if their \emph{supernatural numbers} --- formal products $\prod_p p^{n_p}$ with $n_p \in \mathbb{N} \cup \{\infty\}$, tracking the multiplicities of the matrix sizes --- coincide. The proof strategy is the archetypal ``Elliott intertwining''~\cite{elliott1976}, later generalized by Bratteli, Elliott, R{\o}rdam, and others to a substantial classification programme.
 
-Despite the classical status of Glimm's result, it has not, until now, been formalized in any interactive theorem prover we are aware of. We verified this against \texttt{mathlib4} at commit HEAD (September~9,~2026), which contains substantial $C^{\ast}$-algebra machinery ($\texttt{CStarAlgebra}$, $\texttt{StarAlgHom}$, $\texttt{StarAlgEquiv}$, orthonormal-basis and reindex apparatus) but no \texttt{UHF} class, no \texttt{Bratteli} diagrams, and no direct-limit theory adapted to non-commutative $C^{\ast}$-algebras. We also confirmed the absence in \texttt{Isabelle/HOL} (Archive of Formal Proofs), \texttt{Coq/Rocq} (MathComp, coq-community), \texttt{Agda} (agda-stdlib), and \texttt{Lean~3}.
+Despite the classical status of Glimm's result, it has not, until now, been formalized in any interactive theorem prover we are aware of. We verified this against \texttt{mathlib4} at commit HEAD (September~9,~2026; this novelty check is to be re-run at submission, as mathlib's star-algebra apparatus --- e.g.\ \texttt{conjStarAlgAut} --- continues to evolve), which contains substantial $C^{\ast}$-algebra machinery ($\texttt{CStarAlgebra}$, $\texttt{StarAlgHom}$, $\texttt{StarAlgEquiv}$, orthonormal-basis and reindex apparatus) but no \texttt{UHF} class, no \texttt{Bratteli} diagrams, and no direct-limit theory adapted to non-commutative $C^{\ast}$-algebras. We also confirmed the absence in \texttt{Isabelle/HOL} (Archive of Formal Proofs), \texttt{Coq/Rocq} (MathComp, coq-community), \texttt{Agda} (agda-stdlib), and \texttt{Lean~3}.
 
 The present work formalizes Glimm's classification \emph{specialized to supernatural number $3^{\infty}$} --- that is, UHF algebras of Bratteli type $M_3 \otimes M_3 \otimes M_3 \otimes \cdots$. This specialization is motivated by an ongoing research program (Section~\ref{sec:pf-context}) in which a distinguished object of that isomorphism class, denoted here $T_{\infty}$, plays the role of a substrate. Rather than parameterize over all supernatural numbers --- which would require a full formalization of the supernatural-number arithmetic and its associated Bratteli-diagram theory --- we build the specialization directly, with the ternary structure hard-wired into the definitions. Two components of Glimm's full classification are deliberately out of scope and are \emph{not} claimed here: \emph{refinement-invariance} (that a tower whose $k$-th level is $M_{9^k}(\mathbb{C})$, or any other presentation with the same supernatural number $3^{\infty}$, yields the same algebra), and the \emph{completeness} direction (that \emph{distinct} supernatural numbers yield non-isomorphic algebras). What is formalized is the uniqueness statement for the fixed $3^{\infty}$ tower: any two $C^{\ast}$-algebras carrying the \texttt{Substrate3Inf} structure are $\ast$-isomorphic.
 
 \subsection*{Contributions}
 \begin{enumerate}[leftmargin=*]
-  \item A Lean 4 \texttt{structure} \texttt{Substrate3Inf} characterizing UHF algebras of type $3^{\infty}$ by four fields --- a ternary tower, monotone inclusions, dense union, and a unique tracial linear functional (Definition~\ref{def:substrate3inf}).
+  \item A Lean 4 \texttt{structure} \texttt{Substrate3Inf} characterizing UHF algebras of type $3^{\infty}$ by four fields --- a tower of subalgebras, each $\ast$-isomorphic to $M_{3^k}(\mathbb{C})$, with monotone inclusions and dense union (Definition~\ref{def:substrate3inf}); unique traciality is \emph{derived}, not assumed (Theorem~\ref{thm:trace-unique}).
   \item The main classification theorem \texttt{T\_infinity\_rigidity} (Theorem~\ref{thm:main}), with a proof organized into four arcs (Section~\ref{sec:proof}): block-diagonal embedding (C1), Noether--Skolem uniqueness (C2), completion universal property (C3), and a level-preserving recursion (C4; a one-sided, degenerate case of Elliott intertwining --- both towers share the dimension sequence $3^k$, so no genuine back-and-forth is required).
   \item An explicit statement of the paired \emph{$K$-theoretic obstruction} to $\alpha$-derivation (Theorem~\ref{thm:obstruction}, Section~\ref{sec:obstruction}), extracted from the parent Principia Fractalis codebase and set alongside the uniqueness result to give the honest joint statement about the substrate axis.
   \item Six auxiliary primitives absent from mathlib at time of writing, listed in Section~\ref{sec:mathlib-gaps} and offered as candidate upstream contributions: \texttt{conjByUnitary}, \texttt{reindexStarAlgEquiv}, a star-preserving completion lift, a non-commutative $C^{\ast}$-direct-limit apparatus, and the \texttt{IsTracialLinearFunctional} predicate with its uniqueness lemma.
-  \item A machine-checked axiom-audit chain: all six load-bearing declarations of the uniqueness result, together with the two cited declarations of the obstruction result, reduce to $\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$ (Section~\ref{sec:audit}).
+  \item A machine-checked axiom-audit chain: all seven load-bearing declarations of the uniqueness result --- including the derived trace-uniqueness theorem --- together with the two cited declarations of the obstruction result, reduce to $\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$ (Section~\ref{sec:audit}).
 \end{enumerate}
 
-The complete formalization is a single Lean file, \texttt{PF/SubstrateRigidity.lean}, comprising approximately 2{,}400 lines. It resides in the \texttt{Principia-Fractalis} repository on GitHub (branch \texttt{r331b-provenance}, commit \texttt{18f55a14}); see Section~\ref{sec:availability} for access.
+The complete formalization is a single Lean file, \texttt{PF/SubstrateRigidity.lean}, comprising approximately 2{,}500 lines. It resides in the public \texttt{Principia-Fractalis} repository on GitHub (branch \texttt{master}, commit \texttt{398e3dfd}); see Section~\ref{sec:availability} for access.
 
 \subsection*{On authorship and collaboration}
 The formalization in this paper was carried out with the assistance of the Anthropic Claude Opus language model, following the collaboration pattern established by Anthropic's formalization of Fermat's Last Theorem in September~2026~\cite{anthropic_flt_2026}. The sole author of this work is Pablo Cohen; the language model is a tool, not an author, and is credited here and in the acknowledgments rather than on the author line. All \emph{mathematical} content was authored, reviewed, and gated by the author; the Lean~4 \emph{proof engineering} was farmed to a coordinated series of prover-agent sessions under an explicit statement-card discipline. The kernel is the arbiter; no proof was accepted without an axiom-audit line reading exactly $\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$.
@@ -152,7 +152,7 @@ The present work formalizes this argument in the specialization $\prod_p p^{n_p}
 
 \subsection{Characterization}
 
-We formalize the class of UHF algebras of type $3^{\infty}$ as a structure over an arbitrary $C^{\ast}$-algebra \texttt{A}. The four fields collectively pin down the isomorphism class.
+We formalize the class of UHF algebras of type $3^{\infty}$ as a structure over an arbitrary $C^{\ast}$-algebra \texttt{A}. The four fields collectively pin down the isomorphism class. Unique traciality is \emph{not} among them: it is derived (Theorem~\ref{thm:trace-unique}), not assumed.
 
 \begin{definition}[Substrate3Inf]
 \label{def:substrate3inf}
@@ -163,7 +163,6 @@ structure Substrate3Inf (A : Type*) [CStarAlgebra A] where
                     (tower k ≃⋆ₐ[ℂ] Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
   tower_mono    : ∀ k, tower k ≤ tower (k+1)
   tower_dense   : Dense (((⨆ k, tower k : StarSubalgebra ℂ A) : Set A))
-  trace_unique  : ∃! τ : A → ℂ, IsTracialLinearFunctional A τ
 \end{lstlisting}
 \end{definition}
 
@@ -173,8 +172,7 @@ The fields are:
   \item[\texttt{tower}:] a sequence of $\mathbb{C}$-star-subalgebras $A_k \subseteq A$;
   \item[\texttt{tower\_matrix}:] each $A_k$ is $\ast$-isomorphic to $M_{3^k}(\mathbb{C})$; the assertion is stated as \emph{some such iso exists} (\texttt{Nonempty}), not as a distinguished datum, so as not to impose a coherence hypothesis that Glimm's classification is meant to derive;
   \item[\texttt{tower\_mono}:] the tower is monotone under inclusion;
-  \item[\texttt{tower\_dense}:] the norm-closure of $\bigcup_k A_k$ is all of $A$; this is the ``completion'' condition that distinguishes a UHF algebra from the bare algebraic direct limit;
-  \item[\texttt{trace\_unique}:] $A$ carries a unique tracial linear functional (Definition~\ref{def:tracial-linear} below).
+  \item[\texttt{tower\_dense}:] the norm-closure of $\bigcup_k A_k$ is all of $A$; this is the ``completion'' condition that distinguishes a UHF algebra from the bare algebraic direct limit.
 \end{enumerate}
 
 The predicate \texttt{IsTracialLinearFunctional} is defined \emph{locally} to the file (mathlib does not currently offer a named tracial-state class) as follows:
@@ -196,6 +194,18 @@ structure IsTracialLinearFunctional
 \label{rem:tracial-caveat}
 The predicate \texttt{IsTracialLinearFunctional} is \emph{strictly weaker} than the standard notion of a \emph{tracial state}: it omits positivity ($\phi(x^{\ast} x) \geq 0$) and star-hermitianness ($\phi(x^{\ast}) = \overline{\phi(x)}$). Both of these hold automatically on the completion $T_{\infty}$ (via the projection-trace calculation $\tau(p) = \operatorname{card}(p)/3^k$ for projections at level $k$), but we do not require them at the level of the structure. This choice matches the existing kernel-verified predicate \texttt{IsTracialState} in the Principia Fractalis codebase and is sufficient for the Elliott specialization to $3^{\infty}$, in which the projection-trace pairing suffices to pin the classifying invariant. An upgrade path adding these axioms is documented in the source; we do not depend on it here.
 \end{remark}
+
+\begin{theorem}[Trace uniqueness, derived; \texttt{Substrate3Inf.trace\_unique}]
+\label{thm:trace-unique}
+Every \texttt{Substrate3Inf} witness carries a \emph{unique} continuous unital tracial linear functional:
+\begin{lstlisting}
+theorem Substrate3Inf.trace_unique (h : Substrate3Inf A) :
+    ∃! τ : A → ℂ, IsTracialLinearFunctional A τ
+\end{lstlisting}
+\end{theorem}
+
+\noindent
+Unique traciality is therefore a \emph{consequence} of the four structural fields, not a hypothesis. In an earlier version of the development (commit \texttt{18f55a14}) it was carried as a fifth field; an audit (r337, 2026-09-17) found that no proof consumed it --- the recursion of arc~C4 reads only \texttt{tower\_matrix} and \texttt{tower\_dense} --- so it was removed and is recovered here by transport along the rigidity isomorphism. This strictly \emph{strengthens} \texttt{T\_infinity\_rigidity}: a dense ternary matrix tower \emph{alone} forces the substrate, and the unique trace comes out the other end, removing the objection that the hypothesis would otherwise encode half of the conclusion. The proof is kernel-clean (Section~\ref{sec:audit}).
 
 \subsection{The concrete substrate}
 
@@ -235,7 +245,7 @@ Immediate from Theorem~\ref{thm:main} applied twice.
 \section{The $K$-theoretic obstruction to $\alpha$-derivation}
 \label{sec:obstruction}
 
-The substrate $T_{\infty}$ is a $C^{\ast}$-algebra with a distinguished tracial linear functional $\tau$ (continuous and unital; on $T_{\infty}$ it is in fact a state, though the uniqueness in Theorem~\ref{thm:main} is proved among the larger class of continuous unital tracial linear functionals, see Remark~\ref{rem:tracial-caveat}). Its \emph{classifying invariant}, in the sense of the Elliott programme, is the pointed pre-ordered $K_0$ group $(K_0(T_{\infty}), K_0^+, [1]_0)$ together with the trace pairing. For the UHF algebra of type $3^{\infty}$, this invariant simplifies dramatically: classically, the pairing $\tau_{\ast}: K_0(T_{\infty}) \to \mathbb{R}$ takes values in $\mathbb{Z}[1/3]$, the dense subring of ternary-denominator rationals~\cite{glimm1960, elliott1976}. We emphasize that $K_0$ itself is \emph{not} constructed in the present Lean development; this $K_0$ identity is cited as classical mathematics, and what is kernel-verified here is the finite-level projection-trace computation that realizes its range (Theorem~\ref{thm:kth-range}).
+The substrate $T_{\infty}$ is a $C^{\ast}$-algebra with a distinguished tracial linear functional $\tau$ (continuous and unital; on $T_{\infty}$ it is in fact a state, though the uniqueness in Theorem~\ref{thm:trace-unique} is proved among the larger class of continuous unital tracial linear functionals, see Remark~\ref{rem:tracial-caveat}). Its \emph{classifying invariant}, in the sense of the Elliott programme, is the pointed pre-ordered $K_0$ group $(K_0(T_{\infty}), K_0^+, [1]_0)$ together with the trace pairing. For the UHF algebra of type $3^{\infty}$, this invariant simplifies dramatically: classically, the pairing $\tau_{\ast}: K_0(T_{\infty}) \to \mathbb{R}$ takes values in $\mathbb{Z}[1/3]$, the dense subring of ternary-denominator rationals~\cite{glimm1960, elliott1976}. We emphasize that $K_0$ itself is \emph{not} constructed in the present Lean development; this $K_0$ identity is cited as classical mathematics, and what is kernel-verified here is the finite-level projection-trace computation that realizes its range (Theorem~\ref{thm:kth-range}).
 
 This is not new mathematics; it is a corollary of the classical Elliott--Glimm classification. What \emph{is} new (or at least, what has not previously been packaged in the present form) is a machine-checked pairing of this invariant range with an explicit non-derivability result. Both directions --- the invariant range and the non-derivability --- are kernel-verified in the parent Principia Fractalis codebase and were established before the present formalization work; we quote them here as inputs.
 
@@ -330,21 +340,20 @@ Each of the first two are less than 50 lines and could be submitted as standalon
 \section{Kernel-audit verdict}
 \label{sec:audit}
 
-Running \texttt{lake build PF.SubstrateRigidity} against the current \texttt{mathlib4} pin (\texttt{v4.24.0-rc1}) yields the following audit block, output by the six \texttt{\#print axioms} directives at the tail of the file:
+Building \texttt{PF.SubstrateRigidity} against the pinned \texttt{mathlib4} (\texttt{v4.24.0-rc1}) yields the following audit block, output by the seven \texttt{\#print axioms} directives at the tail of the file:
 
 \begin{lstlisting}[language={}]
 T_infinity_rigidity                    : [propext, Classical.choice, Quot.sound]
+Substrate3Inf.trace_unique             : [propext, Classical.choice, Quot.sound]
 substrate3Inf_iso                      : [propext, Classical.choice, Quot.sound]
 substrate3Inf_TimelessFieldCompletion  : [propext, Classical.choice, Quot.sound]
 Substrate3Inf.connect_iso              : [propext, Classical.choice, Quot.sound]
 Substrate3Inf.connect_unital           : [propext, Classical.choice, Quot.sound]
 IsTracialLinearFunctional              : [propext, Classical.choice, Quot.sound]
-
-Build completed successfully (3265 jobs).
 \end{lstlisting}
 
 \noindent
-No \texttt{sorryAx}, no \texttt{ofReduceBool}, no project axioms. The three axioms shown are the standard Lean kernel axioms (propositional extensionality, classical choice, and quotient soundness), assumed by \texttt{mathlib4} throughout.
+No \texttt{sorryAx}, no \texttt{ofReduceBool}, no project axioms. The three axioms shown are the standard Lean kernel axioms (propositional extensionality, classical choice, and quotient soundness), assumed by \texttt{mathlib4} throughout. The audit directives are live in the source at commit \texttt{398e3dfd} (lines~2504--2510). A prose comment in the file's header, carried over from an earlier development stage, still describes this block as ``commented out while sorries remain''; that description is \emph{stale} --- the sorries were discharged and the block emits the verdict above. We note it so a reader scanning the header is not misled.
 
 \section{Place in Principia Fractalis}
 \label{sec:pf-context}
@@ -425,11 +434,11 @@ The formalization is a specialization; the natural generalizations are:
 \section{Reproducibility and availability}
 \label{sec:availability}
 
-The two headline results are each a single-file formalization: the substrate rigidity theorem \texttt{T\_infinity\_rigidity} in \texttt{PF/SubstrateRigidity.lean} (approximately 2{,}400 lines), and the obstruction theorem \texttt{pi\_not\_ktheoretic\_ratio} in \texttt{PF/AlphaL5PiScalingObstruction\_r332.lean}. Both are present in the public repository \texttt{FractalDevTeam/Principia-Fractalis} at commit \texttt{18f55a14} (2026-09-11), reachable on the \texttt{r331b-provenance} and \texttt{master} branches. To build the two headline theorems and reproduce their axiom audit:
+The two headline results are each a single-file formalization: the substrate rigidity theorem \texttt{T\_infinity\_rigidity} (with its derived \texttt{Substrate3Inf.trace\_unique}) in \texttt{PF/SubstrateRigidity.lean} (approximately 2{,}500 lines), and the obstruction theorem \texttt{pi\_not\_ktheoretic\_ratio} in \texttt{PF/AlphaL5PiScalingObstruction\_r332.lean}. Both are present in the public repository \texttt{FractalDevTeam/Principia-Fractalis} at commit \texttt{398e3dfd} (2026-09-29), reachable on the public \texttt{master} branch (\texttt{origin/master}). To build the two headline theorems and reproduce their axiom audit:
 
 \begin{lstlisting}[language={}]
 git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
-cd Principia-Fractalis && git checkout 18f55a14
+cd Principia-Fractalis && git checkout 398e3dfd
 cd PF_Lean4_Code
 # Cap to two cores: Lake 5.0.0 exposes no -j flag, and the
 # C*-algebra build is memory-bound, so more than one worker can
@@ -442,6 +451,7 @@ taskset -c 0,1 lake build PF.AlphaL5PiScalingObstruction_r332
 Each file's \texttt{\#print axioms} directive emits exactly
 \begin{quote}\ttfamily\footnotesize
 '...T\_infinity\_rigidity' depends on axioms: [propext, Classical.choice, Quot.sound]\\
+'...Substrate3Inf.trace\_unique' depends on axioms: [propext, Classical.choice, Quot.sound]\\
 '...pi\_not\_ktheoretic\_ratio' depends on axioms: [propext, Classical.choice, Quot.sound]
 \end{quote}
 with no \texttt{sorry}, no \texttt{native\_decide}, and no project axioms. The pinned toolchain is \texttt{leanprover/lean4:v4.24.0-rc1} with \texttt{mathlib4} at its \texttt{lakefile.lean}-pinned version.
@@ -521,7 +531,7 @@ G.~Gonthier.
 \section{Full Lean signatures of the load-bearing declarations}
 \label{app:signatures}
 
-For reference, the exact Lean 4 signatures of the six kernel-audited declarations:
+For reference, the exact Lean 4 signatures of the seven kernel-audited declarations:
 
 \begin{lstlisting}
 -- 1. The tracial linear functional predicate.
@@ -533,14 +543,14 @@ structure IsTracialLinearFunctional
   tracial    : ∀ x y : A, φ (x * y) = φ (y * x)
   unital     : φ 1 = 1
 
--- 2. The characterization structure.
+-- 2. The characterization structure (four fields; trace uniqueness is
+--    a derived theorem, item 7, not a field -- r337, 2026-09-17).
 structure Substrate3Inf (A : Type*) [CStarAlgebra A] where
   tower         : ℕ → StarSubalgebra ℂ A
   tower_matrix  : ∀ k, Nonempty
                     (tower k ≃⋆ₐ[ℂ] Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
   tower_mono    : ∀ k, tower k ≤ tower (k+1)
   tower_dense   : Dense (((⨆ k, tower k : StarSubalgebra ℂ A) : Set A))
-  trace_unique  : ∃! τ : A → ℂ, IsTracialLinearFunctional A τ
 
 -- 3. Auxiliary lemmas on the structure.
 lemma Substrate3Inf.connect_unital
@@ -567,6 +577,11 @@ theorem T_infinity_rigidity
     (h : Substrate3Inf A) :
     Nonempty (A ≃⋆ₐ[ℂ] TimelessFieldCompletion) :=
   substrate3Inf_iso h substrate3Inf_TimelessFieldCompletion
+
+-- 7. Trace uniqueness, DERIVED (r337) -- not a hypothesis.
+theorem Substrate3Inf.trace_unique
+    {A : Type*} [CStarAlgebra A] (h : Substrate3Inf A) :
+    ∃! τ : A → ℂ, IsTracialLinearFunctional A τ
 \end{lstlisting}
 
 \end{document}
