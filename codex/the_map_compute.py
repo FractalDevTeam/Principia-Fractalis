@@ -1,34 +1,40 @@
 #!/usr/bin/env python3
-# Grounding computation for THE_MAP: the substrate base-3 abscissa
-#   sigma(alpha) = log_3 | 1 + 2 cos(pi alpha) |   (r212; kernel-verified exact values)
-# and the trace-range / obstruction facts. No value is fitted or searched.
+# Grounding + review cross-check for THE_MAP. The substrate base-3 abscissa
+#   sigma(alpha) = log_3 | 1 + 2 cos(pi alpha) |   (r212; kernel-verified exact values).
+# No value fitted or searched. Corrections from the 2026-10-11 hand review are folded in.
 from mpmath import mp, mpf, cos, pi, log, sqrt
 mp.dps = 30
-
-def sigma(a):
-    return log(abs(1 + 2*cos(pi*mpf(a)))) / log(3)
-
+def sigma(a): return log(abs(1 + 2*cos(pi*mpf(a))))/log(3)
 phi = (1+sqrt(5))/2
+
 print("mpmath dps =", mp.dps)
-print("=== kernel-verified exact sigma values (r212-r239), numeric cross-check ===")
-table = [
-    ("1/3  Cantor Hausdorff dim log2/log3", mpf(1)/3, log(2)/log(3)),
-    ("1/4  silver  log_3(1+sqrt2)",          mpf(1)/4, log(1+sqrt(2))/log(3)),
-    ("1/5  golden  2 log_3 phi",             mpf(1)/5, 2*log(phi)/log(3)),
-    ("2/5  golden  log_3 phi",               mpf(2)/5, log(phi)/log(3)),
-    ("1/2  anchor  0",                        mpf(1)/2, mpf(0)),
-    ("1    Poincare 0",                       mpf(1),   mpf(0)),
-    ("3/2  RH       0",                        mpf(3)/2, mpf(0)),
-    ("2    YM       1 (zeta pole)",            mpf(2),   mpf(1)),
-    ("5    HN       0",                        mpf(5),   mpf(0)),
-]
-for name, a, claimed in table:
-    s = sigma(a)
-    ok = "OK" if abs(s - claimed) < mpf('1e-25') else "MISMATCH"
-    print("  sigma(%-32s) = % .12f   closed-form %s %s" % (name, float(s), mp.nstr(claimed,8), ok))
+print("=== kernel-verified exact sigma identities (r212-r239) ===")
+print("  sigma(1/3) = log2/log3 =", mp.nstr(sigma(mpf(1)/3),12),
+      " == Cantor Hausdorff dim", mp.nstr(log(2)/log(3),12), " (sigma EQUALS the dimension)")
+print("  1+2cos(pi/4) = 1+sqrt2 (silver) =", mp.nstr(1+sqrt(2),12),
+      " ; sigma(1/4)=log_3(silver) =", mp.nstr(sigma(mpf(1)/4),12),
+      " (silver is the ARGUMENT, not sigma)")
+print("  1+2cos(pi/5) = phi^2 =", mp.nstr(phi**2,12),
+      " ; sigma(1/5)=2log_3 phi =", mp.nstr(sigma(mpf(1)/5),12),
+      " (golden phi in the ARGUMENT)")
+print("  sigma at anchors 1/2,1,3/2,5 = 0 ; sigma(2)=1 (zeta pole):",
+      [mp.nstr(sigma(a),3) for a in (mpf(1)/2,1,mpf(3)/2,5,2)])
 print()
-print("=== obstruction: alpha_NS/alpha_RH = (3pi/2)/(3/2) = pi (irrational, not in Z[1/3]) ===")
+print("=== the nine alpha-skeleton sectors (alpha_X is a POSTULATE) ===")
+nine = [("Poincare",mpf(1)),("RH",mpf(3)/2),("YM",mpf(2)),("P",sqrt(2)),
+        ("NP",phi+mpf(1)/4),("Hodge",phi),("BSD",3*pi/4),("NS",3*pi/2),("QG",sqrt(2*pi))]
+for name,a in nine:
+    rat = "rational (closed form)" if name in ("Poincare","RH","YM") else "irrational (numeric)"
+    print("  %-9s alpha=%-14s sigma=% .4f   %s" % (name, mp.nstr(a,8), float(sigma(a)), rat))
+print()
+print("=== obstruction: alpha_NS/alpha_RH = pi (irrational, not in Z[1/3]) ===")
 print("  =", mp.nstr((3*pi/2)/(mpf(3)/2), 15))
-print("=== structural law: trace of level-k projections in Z[1/3] cap [0,1] = {m/3^k} ===")
-for k in range(5):
-    print("  level %d: multiples of 1/3^%d = %s" % (k, k, mp.nstr(mpf(1)/3**k, 8)))
+print()
+print("=== density caveat: Z[1/3] dense => ternary-rational law needs a fixed level K ===")
+x = mpf('0.137035999')
+best=None
+for k in range(0,20):
+    m=round(x*3**k); e=abs(x-mpf(m)/3**k)
+    if best is None or e<best[2]: best=(m,k,e)
+print("  0.137036 within", mp.nstr(best[2],3), "of %d/3^%d" % (best[0],best[1]),
+      "-> any x ~ m/3^k for large k; law is vacuous unless K fixed in advance")
