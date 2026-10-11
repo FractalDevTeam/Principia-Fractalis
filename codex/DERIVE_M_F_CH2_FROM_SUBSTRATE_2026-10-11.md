@@ -1,4 +1,5 @@
 # Can the substrate fix M, f, ch₂(a)? — the dark-energy parameters, 2026-10-11
+> **ROUTE-LEVEL ACCOUNT SUPERSEDED by codex/COSMOLOGY_DE_ROUTE_MAP_2026-10-11.md** (2026-10-11): this note worked only in the ch08 action representation (M,f,ch2) and missed the kernel stones ModifiedFriedmann_r187 + EquationOfStateBridge_r219, the MEASURED g (g0~0.74H0, zero at z~0.40), and the ch26 refutation. g=phi_dot/M is the route-level free function. The map settles the phantom-crossing question (w=-1+g/3H exact) and gives the one parameter-free prediction (wa>=-1-w0, DESI tension 2.2-2.7 sigma). Specific claims here that the map corrects stand corrected there.
 
 Author: Pablo Cohen. Task: derive the three undetermined parameters of PF's
 Λ_eff dark-energy mechanism (ch08) — M, f, ch₂(a) — from the substrate.
