@@ -46,3 +46,11 @@ print()
 print("=== QG row: predict n_s-1 = sigma(sqrt2pi) vs Planck ===")
 print("  sigma(QG) =", mp.nstr(sQG,6), " ; Planck n_s-1 =", mp.nstr(ns-1,6), "+/-", mp.nstr(ns_err,4),
       " ; agreement", mp.nstr(abs(sQG-(ns-1))/ns_err,3), "sigma")
+
+# --- NS row (filled): Kolmogorov turbulence spectrum E(k) ~ k^-5/3 ---
+sNS = sigma(3*pi/2)
+print()
+print("=== NS row: predict E(k) exponent = sigma(3pi/2) vs Kolmogorov -5/3 ===")
+print("  sigma(NS) =", mp.nstr(sNS,6), " ; Kolmogorov = -5/3 =", mp.nstr(-mpf(5)/3,6),
+      " ; diff", mp.nstr(abs(sNS+mpf(5)/3),4), "-> CLEAR MISS")
+print("JOINT TEST so far: QG hit (0.86 sigma), NS miss -> reads coincidence, not signal.")
