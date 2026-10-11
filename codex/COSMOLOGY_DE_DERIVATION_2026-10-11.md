@@ -51,7 +51,7 @@ central values.
   independent input (the Pontryagin history of the cosmic gauge field). On the standard
   isotropic background it is identically zero, so closure holds there.
 
-## Numbers (register C — integrated, Ω_m0=0.315, frozen-field thawing IC)
+## Numbers (register C — integrated, Ω_m0=0.315, frozen-field thawing IC: φ_initial/M≈276, see finding 1)
 
 | M/M_Pl | λ=M_Pl,red/M | w* (attractor) | w₀ (integrated) | wₐ (CPL fit z≤3) | g₀/H₀=3(1+w₀) |
 |---|---|---|---|---|---|
@@ -83,8 +83,9 @@ testable ingredient absent from the isotropic model.
 
 - **PF derived** (M in window): w₀ ∈ [−0.99,−0.93], true w(a) ≥ −1 everywhere,
   g₀/H₀ ∈ [0.02, 0.21].
-- **DESI DR2 central:** w₀ ≈ −0.65 to −0.75, wₐ ≈ −0.9 to −1.3, g₀/H₀ ≈ 0.74 (from the
-  r219 inversion, COSMOLOGY_W_BRIDGE §2), phantom crossing at z≈0.40.
+- **DESI DR2 central:** w₀ ≈ −0.65 to −0.75, wₐ ≈ −0.9 to −1.3, phantom crossing at z≈0.40.
+  (The "g₀/H₀ ≈ 0.74" of COSMOLOGY_W_BRIDGE §2 is NOT a measurement — it is the CPL fit
+  translated through THIS model, g=3H(1+w), and is M-dependent; so compare w, not g.)
 - **Two directions of disagreement:** (i) PF is strictly non-phantom; DESI central values
   prefer a crossing. (ii) PF's deviation is too MILD — derived g₀/H₀ ≤ 0.21 vs measured
   ≈0.74, i.e. w₀ too close to −1. Both are directions; **no σ is claimed** — the statistical
@@ -96,6 +97,42 @@ testable ingredient absent from the isotropic model.
   true w never crosses. Concrete demonstration that comparing PF to DESI's CPL contour via
   w₀+wₐ is itself only approximate (the reviewer's domain caveat, realized). Non-phantom on
   [a_min,1] requires BOTH w₀≥−1 and wₐ ≥ (−1−w₀)/(1−a_min); PF satisfies both by construction.
+
+## What the derivation ALSO establishes (the record must carry these)
+
+**1. The 10⁻¹²⁰ has become an INITIAL CONDITION, not a result.** The suppression is
+V_today/(Λ₀/κ) = e^{−φ_today/M}. For Λ₀ Planckian (Λ₀/κ ~ M_Pl⁴) and V_today ≈ (2.3 meV)⁴,
+this requires **φ_initial/M ≈ 276** (reduced M_Pl; 283 non-reduced) — i.e. the field starts
+≈120 decades down the exponential. The dynamics rolls φ by only Δφ/M ≈ g₀/H₀ ≈ 0.2 per
+Hubble time (verified), so it does NOT generate the 276; it is **preset in the IC**. The
+modeling input "V₀ tuned to Ω_Λ0=0.685" IS the cosmological-constant fine-tuning in disguise
+(it fixes φ_initial/M ≈ 276). This model does not solve the CC problem; it relocates it into
+φ_initial. (Consistent with
+ch26:261 "engineered, not derived" and COSMOLOGY_W_BRIDGE §3.)
+
+**2. The action gives consciousness ZERO effect on background cosmology** — stronger than
+"dressing not load-bearing." On the isotropic background the only action channel for ch₂
+(Pontryagin) is identically zero, so "Λ falls where consciousness is high" (ch26's thesis)
+**cannot be the cause of the observed Λ at all** in this action. REPAIR OBLIGATION: ch26 and
+ch27 should carry a pointer to this derivation noting that the homogeneous-cosmology
+consciousness mechanism is nulled by isotropy unless a helical Pontryagin background is added.
+
+**3. The prediction is NOT PF-specific — it is the generic exponential-quintessence class.**
+w ≥ −1, thawing, w₀ ∈ [−0.994,−0.930] with λ ∈ [0.20,0.70] is textbook exponential
+quintessence (Ratra–Peebles / Wetterich 1988; Ferreira–Joyce 1998). **If confirmed it
+confirms the class, not PF; if refuted it refutes PF's action along with the class.** The
+only PF-specific content is the M window — and even its lower bound M ≳ 0.287 M_Pl is the
+standard slow-roll condition m ≲ H in different clothes (m ≤ H ⟺ M ≥ M_Pl√(3/8π) = 0.345 M_Pl;
+the 0.287 is the same condition with the observed Ω_Λ factors). So PF here reduces to a
+known model; it does not add a distinguishing cosmological signature.
+
+**4. The falsifier, as a number.** Non-phantom is a theorem of this action, so **any
+confirmed w(a) < −1 at any epoch excludes PF's action** (together with the whole canonical
+single-field class). DESI DR2's central CPL fit has that feature; the joint-posterior
+significance is ~2.8–4.2σ across dataset combinations (DESI DR2, arXiv:2503.14743) — direction
+reported, σ not independently recomputed here. Note: "measured g₀/H₀ ≈ 0.74" is **not a
+measurement** — it is a translation of the CPL parameters through this very model
+(g = 3H(1+w)) and depends on M; labeled as such.
 
 ## What this changes vs the route map / COSMOLOGY_W_BRIDGE
 
