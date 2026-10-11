@@ -1,5 +1,12 @@
 # PF dark energy, DERIVED from the action — strongest conditional result, 2026-10-11
 
+> **rev 3 (per review):** retracts the universal "isotropy ⟹ Pontryagin=0" (true only for
+> zero/Abelian/parity-symmetric backgrounds; a non-Abelian isotropic chromo-natural background
+> has E·B≠0). Scopes the whole derivation to the Q=0 gauge branch — one allowed construction,
+> not the universal PF background. Adds a both-conventions Planck-mass block. Scopes the IC
+> finding to this construction. Clarifies DESI's 2.8–4.2σ is ΛCDM-deviation, not crossing
+> significance. NO manuscript edit: the checks show PF's gauge sector is unspecified/open.
+
 Author: Pablo Cohen. The route map (`COSMOLOGY_DE_ROUTE_MAP_2026-10-11.md`) located the
 g(t) route; this note turns the crank on it, deriving the homogeneous cosmology from PF's
 own ch08 action instead of inventorying what is missing. Registers A/B/C separate verified
@@ -8,12 +15,23 @@ reported separately from statistical significance (which is not claimed).
 
 ## Result (one line)
 
-On a homogeneous isotropic FRW background, PF's ch08 action **reduces to exponential
+On a homogeneous isotropic FRW background **AND a zero/Abelian/parity-symmetric gauge
+background (Q=0 branch — see step 3)**, PF's ch08 action **reduces to exponential
 quintessence with a single free parameter M**, DERIVING (not positing) a thawing, strictly
 non-phantom dark energy: w₀ ∈ [−0.99, −0.93] for M ∈ [0.287, 1] M_Pl, attractor
 w* = −1 + 1/(3κM²) = −1 + M_Pl²/(24πM²). It lands in DESI's preferred quadrant
 (w₀>−1, wₐ<0) but predicts a **milder deviation and NO phantom crossing** than the data's
-central values.
+central values. This is NOT the universal PF background: a non-Abelian isotropic (Q≠0)
+background sources ch₂ and is a different cosmology PF does not currently specify.
+
+## Planck-mass conventions (stated once, both ways)
+
+PF's `ScreenedKernel` uses κ = 8π/M_Pl², so **M_Pl is the UNREDUCED Planck mass**;
+M̄_Pl = M_Pl/√(8π) is reduced, κ = 1/M̄_Pl². Every bound in both conventions:
+- screening bound: M ≳ 0.287 M_Pl (unreduced) = **1.44 M̄_Pl** (reduced).
+- de Sitter slow-roll m ≤ H: M ≥ 0.345 M_Pl = √(3/8π) M_Pl (unreduced) = **√3 M̄_Pl** (reduced).
+- quintessence exponent λ (V∝e^{−λφ/M̄_Pl}) = M̄_Pl/M; λ²=1/(κM²); for M=0.287 M_Pl, λ=0.695.
+The table's "M/M_Pl" is UNREDUCED throughout.
 
 ## The derivation chain (register A unless flagged)
 
@@ -21,11 +39,23 @@ central values.
    with V(φ)=(Λ₀/κ)e^{−φ/M}.
 2. **φ-EOM:** □φ = V'(φ) − ch₂/f. On FRW with φ=φ(t): φ̈ + 3Hφ̇ = −V' + ch₂/f.
    Since V'=−V/M, this is φ̈ + 3Hφ̇ = V/M + ch₂/f.
-3. **Closure step — the action-admissible ch₂ vanishes on the isotropic background.** Of the
-   five objects called ch₂, only the Pontryagin density Tr(F∧F) ∝ E·B can sit in the
-   covariant action (LambdaEffFromAction step 0). E·B is a pseudoscalar: on ANY isotropic
-   FRW background it is **zero** (no parity-odd background). So ch₂ = 0 and the source term
-   drops: φ̈ + 3Hφ̇ = V/M.
+3. **Closure step — CORRECTED (rev 3).** Earlier I claimed "ch₂=Tr(F∧F)∝E·B vanishes on ANY
+   isotropic background." **That is wrong, and conceded.** E·B is parity-odd, so it vanishes
+   only if the gauge background also satisfies one of: **(a)** zero gauge background; **(b)**
+   Abelian group (then isotropy forbids a preferred E·B direction); **(c)** parity symmetry.
+   Spatial isotropy ALONE does NOT force it: a non-Abelian homogeneous *isotropic* ansatz
+   A^a_i ∝ δ^a_i (the chromo-natural / gauge-flation ansatz, SU(2)) has **E·B ≠ 0**
+   (E^a_i∝δ^a_i∂_t(aQ), B^a_i∝g_c(aQ)²δ^a_i ⟹ E·B∝g_c(aQ)²∂_t(aQ)·3 ≠ 0).
+   **Moreover PF does not specify F.** The action writes "Tr(F∧F)" without fixing the gauge
+   group, connection, or background; ch04's gauge/automorphism structure is an OPEN problem
+   (the spacetime-emergence quotient is machine-proved to collapse, r333–r335); and ch06's
+   ch₂ is the second Chern character of a coherent *sheaf* (a number, ch06:149), a different
+   object from a dynamical gauge field's Pontryagin *density*. So the Pontryagin source is
+   **underdetermined by the corpus.** What follows is therefore the **zero-gauge-background
+   branch (Q=0)** — ONE allowed construction, in which the source drops and
+   φ̈ + 3Hφ̇ = V/M. The non-Abelian branch (Q≠0) is a genuinely different cosmology (extra
+   d.o.f. Q(t), gauge energy density, and a nonzero ch₂/f source) and is NOT computed here
+   because PF supplies no connection/ansatz to compute it from.
 4. **This is exactly exponential quintessence.** V=V₀e^{−φ/M}, i.e. λ ≡ M_Pl,red/M with
    λ² = 1/(κM²). (The screening-length bound M≳0.287 M_Pl ⟺ λ ≲ 0.695; κ=8π/M_Pl².)
 5. **Background identification g=φ̇/M** (r187/r219, register B — background-level) gives the
@@ -46,10 +76,12 @@ central values.
 - **Remaining parameters, not functions:** M (in the [0.287,1] M_Pl window), Λ₀ (fixed by
   Ω_Λ0), matter IC (fixed by Ω_m0). The DE history is a **one-parameter (M) family.** The
   free function g(t) of the route map has collapsed to a single number.
-- **Where closure FAILS (the exact independent input, if isotropy is dropped):** a
-  parity-odd / helical gauge background gives Tr(F∧F) ≠ 0; then ch₂(t) is a genuine
-  independent input (the Pontryagin history of the cosmic gauge field). On the standard
-  isotropic background it is identically zero, so closure holds there.
+- **Where this branch is not the whole story (the exact independent input):** a non-Abelian
+  isotropic gauge background (chromo-natural ansatz A^a_i∝δ^a_i — isotropy NEED NOT be
+  dropped) or any parity-broken background gives Tr(F∧F) ≠ 0; then ch₂(t) is a genuine
+  independent input (the Pontryagin history of the cosmic gauge field), the system gains the
+  gauge d.o.f. Q(t), and the quintessence closure above does not apply. Closure holds only on
+  the Q=0 (zero/Abelian/parity-symmetric) branch. PF does not specify which background.
 
 ## Numbers (register C — integrated, Ω_m0=0.315, frozen-field thawing IC: φ_initial/M≈276, see finding 1)
 
@@ -64,7 +96,11 @@ w₀ sits between −1 and w* (field still thawing toward the attractor today).
 
 ## Topological source vs consciousness entropy (the reviewer's point)
 
-The action channel is **Pontryagin (topological)**, zero on isotropic FRW. The
+**[rev 3 scope: this section's "zero on isotropic FRW" holds only on the Q=0 branch; see
+step 3. On a non-Abelian isotropic background the Pontryagin source is nonzero and the
+mechanism is underdetermined, not nulled.]**
+
+The action channel is **Pontryagin (topological)**, zero on isotropic FRW *in the Q=0 branch*. The
 consciousness-entropy ch₂=1−Tr(ρ²) **cannot** appear in the covariant action (step 0) and
 so does **not** source the homogeneous DE roll. Therefore PF's DERIVED homogeneous dark
 energy has **no consciousness content** — it is ordinary exponential quintessence.
@@ -100,37 +136,46 @@ testable ingredient absent from the isotropic model.
 
 ## What the derivation ALSO establishes (the record must carry these)
 
-**1. The 10⁻¹²⁰ has become an INITIAL CONDITION, not a result.** The suppression is
+**1. The 10⁻¹²⁰ is an INITIAL CONDITION on THIS construction, not a result (scoped).** The suppression is
 V_today/(Λ₀/κ) = e^{−φ_today/M}. For Λ₀ Planckian (Λ₀/κ ~ M_Pl⁴) and V_today ≈ (2.3 meV)⁴,
 this requires **φ_initial/M ≈ 276** (reduced M_Pl; 283 non-reduced) — i.e. the field starts
 ≈120 decades down the exponential. The dynamics rolls φ by only Δφ/M ≈ g₀/H₀ ≈ 0.2 per
 Hubble time (verified), so it does NOT generate the 276; it is **preset in the IC**. The
 modeling input "V₀ tuned to Ω_Λ0=0.685" IS the cosmological-constant fine-tuning in disguise
-(it fixes φ_initial/M ≈ 276). This model does not solve the CC problem; it relocates it into
-φ_initial. (Consistent with
+(it fixes φ_initial/M ≈ 276). This model does not solve the CC problem; it relocates it into φ_initial. **Scope (per
+review):** this shows THIS construction (Planckian Λ₀, exponential V, frozen IC, Q=0)
+presets the hierarchy; it does NOT establish that every PF route does (a different Λ₀
+normalization or a Q≠0 gauge-sourced route is not covered). (Consistent with
 ch26:261 "engineered, not derived" and COSMOLOGY_W_BRIDGE §3.)
 
-**2. The action gives consciousness ZERO effect on background cosmology** — stronger than
-"dressing not load-bearing." On the isotropic background the only action channel for ch₂
-(Pontryagin) is identically zero, so "Λ falls where consciousness is high" (ch26's thesis)
-**cannot be the cause of the observed Λ at all** in this action. REPAIR OBLIGATION: ch26 and
-ch27 should carry a pointer to this derivation noting that the homogeneous-cosmology
-consciousness mechanism is nulled by isotropy unless a helical Pontryagin background is added.
+**2. On the Q=0 branch, consciousness has no effect on background cosmology — but this is
+NOT universal (rev 3 retraction).** I earlier wrote "the action gives consciousness ZERO
+background effect." That holds ONLY on the zero/Abelian/parity-symmetric branch. A
+non-Abelian isotropic (chromo-natural) background has ch₂=Tr(F∧F)≠0 and WOULD source φ, so
+the ch26 "Λ falls where consciousness is high" thesis is **not killed** on the background —
+it is **underdetermined**, because PF specifies no gauge connection/ansatz (step 3). NO
+manuscript null-result edit is warranted; the honest status is "the homogeneous consciousness
+mechanism is neither established nor excluded, pending PF fixing its gauge sector." The
+further obstacle: even with a nonzero Pontryagin density, the ch06 sheaf-ch₂ (a number) must
+be identified with the gauge Pontryagin density (a 4-form) — two different objects — for the
+"consciousness" reading to apply.
 
 **3. The prediction is NOT PF-specific — it is the generic exponential-quintessence class.**
 w ≥ −1, thawing, w₀ ∈ [−0.994,−0.930] with λ ∈ [0.20,0.70] is textbook exponential
 quintessence (Ratra–Peebles / Wetterich 1988; Ferreira–Joyce 1998). **If confirmed it
 confirms the class, not PF; if refuted it refutes PF's action along with the class.** The
 only PF-specific content is the M window — and even its lower bound M ≳ 0.287 M_Pl is the
-standard slow-roll condition m ≲ H in different clothes (m ≤ H ⟺ M ≥ M_Pl√(3/8π) = 0.345 M_Pl;
-the 0.287 is the same condition with the observed Ω_Λ factors). So PF here reduces to a
-known model; it does not add a distinguishing cosmological signature.
+standard slow-roll condition m ≲ H in different clothes: m ≤ H ⟺ M ≥ 0.345 M_Pl (unreduced)
+= √3 M̄_Pl (reduced); the screening 0.287 M_Pl = 1.44 M̄_Pl is the same condition with the
+observed Ω_Λ factors. So PF here reduces to a known model; it does not add a distinguishing
+cosmological signature.
 
 **4. The falsifier, as a number.** Non-phantom is a theorem of this action, so **any
 confirmed w(a) < −1 at any epoch excludes PF's action** (together with the whole canonical
-single-field class). DESI DR2's central CPL fit has that feature; the joint-posterior
-significance is ~2.8–4.2σ across dataset combinations (DESI DR2, arXiv:2503.14743) — direction
-reported, σ not independently recomputed here. Note: "measured g₀/H₀ ≈ 0.74" is **not a
+single-field class). DESI DR2's central CPL fit has that feature; the ~2.8–4.2σ figure (DESI DR2,
+arXiv:2503.14743) is the preference for **dynamical DE over ΛCDM** (a 2D w₀–wₐ deviation),
+**NOT the significance of w<−1 / phantom crossing specifically** — the latter needs the 1D
+projection with the joint w₀–wₐ covariance, not computed here. Direction reported only. Note: "measured g₀/H₀ ≈ 0.74" is **not a
 measurement** — it is a translation of the CPL parameters through this very model
 (g = 3H(1+w)) and depends on M; labeled as such.
 
@@ -141,10 +186,12 @@ measurement** — it is a translation of the CPL parameters through this very mo
   g because it tested the phenomenological r187 ODE with g free); it does not contradict it.
   The measured g₀/H₀≈0.74 is the data; the derived g₀/H₀≤0.21 is the prediction; they
   disagree in magnitude (direction only).
-- **Genuinely still open:** (i) M's value inside [0.287,1] M_Pl (screening+swampland give the
-  window; no deeper principle yet selects a point); (ii) whether a helical Pontryagin
-  background exists (the only route for topology/consciousness to enter the homogeneous DE);
-  (iii) the full inhomogeneous C^μν (needs the manifold + localization map, still absent).
+- **Genuinely still open:** (i) PF's gauge sector itself — group, connection, and whether the
+  background is Q=0 or non-Abelian (ch04 automorphism classification is open; the action does
+  not fix F); **this is the fork that decides whether consciousness/topology affects the
+  background at all**; (ii) M's value inside the window (no deeper principle selects a point);
+  (iii) the sheaf-ch₂ (ch06, a number) vs gauge-Pontryagin-ch₂ (a density) identification;
+  (iv) the full inhomogeneous C^μν (needs the manifold + localization map, still absent).
 
 ## Provenance
 Derivation algebra and the exponential-quintessence reduction checked under my own hand;
