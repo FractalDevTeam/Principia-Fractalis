@@ -6,6 +6,13 @@
 > not the universal PF background. Adds a both-conventions Planck-mass block. Scopes the IC
 > finding to this construction. Clarifies DESI's 2.8–4.2σ is ΛCDM-deviation, not crossing
 > significance. NO manuscript edit: the checks show PF's gauge sector is unspecified/open.
+>
+> **rev 4 (the substantive step):** varied the gauge connection A in the action-as-written.
+> A-EOM = the constraint dφ∧F=0 ⟹ B=0 ⟹ Pontryagin source = 0 for rolling φ — DERIVED, not an
+> ansatz, independent of group/isotropy/parity. The quintessence reduction (incl. the gauge
+> sector, which doesn't gravitate — θ-term is metric-independent) now follows from the full
+> variation. The whole result is conditional on ONE term: no gauge kinetic term for the
+> Pontryagin F (as displayed). Adding it (labeled) opens the chromo-natural branch.
 
 Author: Pablo Cohen. The route map (`COSMOLOGY_DE_ROUTE_MAP_2026-10-11.md`) located the
 g(t) route; this note turns the crank on it, deriving the homogeneous cosmology from PF's
@@ -21,8 +28,11 @@ quintessence with a single free parameter M**, DERIVING (not positing) a thawing
 non-phantom dark energy: w₀ ∈ [−0.99, −0.93] for M ∈ [0.287, 1] M_Pl, attractor
 w* = −1 + 1/(3κM²) = −1 + M_Pl²/(24πM²). It lands in DESI's preferred quadrant
 (w₀>−1, wₐ<0) but predicts a **milder deviation and NO phantom crossing** than the data's
-central values. This is NOT the universal PF background: a non-Abelian isotropic (Q≠0)
-background sources ch₂ and is a different cosmology PF does not currently specify.
+central values. **This Q=0 outcome is now DERIVED, not an ansatz** (rev 4): varying the gauge
+connection A in the action-as-written gives the constraint dφ∧F=0, which forces the magnetic
+field — hence the Pontryagin source — to vanish for any rolling φ. The ONLY way to the
+alternative (chromo-natural Q≠0) cosmology is to ADD a gauge kinetic term for F, which the
+displayed action does not contain (a labeled model extension; see "Varying the connection A").
 
 ## Planck-mass conventions (stated once, both ways)
 
@@ -93,6 +103,45 @@ The table's "M/M_Pl" is UNREDUCED throughout.
 | 1.00  | 0.199 | −0.987 | −0.994 | −0.008 | 0.02 |
 
 w₀ sits between −1 and w* (field still thawing toward the attractor today).
+
+## Varying the connection A — the gauge sector's own EOM (rev 4, the substantive step)
+
+Instead of asking "which background does PF pick," vary A in PF's actual action. A appears
+ONLY in the axion term (1/f)∫φ Tr(F∧F) — the displayed action has **no gauge kinetic term**
+−(1/4g²)∫√−g Tr(F_μνF^μν) (its terms are R, (∇φ)², V, L_m, L_æ, θ; L_æ is the Einstein-aether
+vector, not A). So δ_A hits only the θ-term:
+
+  δ_A (1/f)∫φ Tr(F∧F) = (2/f)∫ φ F̃^{aμν} D_μδA^a_ν = −(2/f)∫ (∂_μφ) F̃^{aμν} δA^a_ν
+
+(using δF=DδA and the Bianchi identity D_μF̃^{aμν}=0, valid Abelian AND non-Abelian). The
+connection's equation of motion is therefore the **constraint**
+
+  ∂_μφ F̃^{aμν} = 0   ⟺   dφ ∧ F = 0.
+
+On FRW with rolling φ (∂_μφ = φ̇ δ_μ⁰): φ̇ F̃^{a0k}=0, and F̃^{0k} ∝ B^k (verified: F̃^{01}∝F₂₃,
+etc.), so for φ̇≠0 the **magnetic field B^a = 0**, hence Tr(F∧F) ∝ E^a·B^a = **0**.
+
+**Consequences — DERIVED, conditional on the one fork below:**
+- The Pontryagin source vanishes during any dark-energy roll (φ̇≠0) **as the connection's own
+  EOM**, not as an ansatz (Q=0) and **independent of gauge group, isotropy, and parity**. My
+  rev-3 "three conditions" (zero/Abelian/parity) and the rev-3 "underdetermined" verdict are
+  both superseded: as the action is WRITTEN, the source is derived to vanish for rolling φ.
+  (Also corrects "Abelian alone ⟹ vanishing," which was wrong — the real reason is the
+  constraint.)
+- The θ-term is metric-independent (Levi-Civita symbol, no √−g) ⟹ it contributes **nothing to
+  the stress tensor**; the gauge sector does not gravitate. So the quintessence reduction is
+  DERIVED *including* the gauge sector, not assumed.
+
+**The one model fork, and the exact missing term (reviewer's three cases).** The above is case
+(1): A dynamical, **no kinetic term** → constraint → source vanishes. **(2)** If PF intends F to
+carry a kinetic term −(1/4g²)∫√−g Tr(F²) (e.g. F is a Standard-Model/YM matter gauge field),
+the A-EOM becomes the sourced Yang–Mills equation D_μF^{aμν} = (1/f)(∂_μφ)F̃^{aμν}, which admits
+B≠0 (chromo-natural) and coupled gauge dynamics — a DIFFERENT cosmology. **(3)** F prescribed
+externally is a third choice. **PF's displayed action includes no kinetic term for the Pontryagin
+F and does not say whether that F is a separate topological field or a kinetic-term-bearing
+matter field — THAT is the exact missing term.** Case (1) [as written] closes and yields the
+quintessence reduction; case (2) [a labeled model extension, not smuggled in] opens the Q≠0
+branch. The fork is one term: present or absent.
 
 ## Topological source vs consciousness entropy (the reviewer's point)
 
@@ -196,10 +245,12 @@ measurement** — it is a translation of the CPL parameters through this very mo
   Chern–Weil, and principal bundles entirely, and that this is "the deepest open in the entire
   PF Cosmology stack." So PF selects NEITHER branch; the Q=0 case is the trivial "no gauge
   field present," not a derived selection.
-- **Genuinely still open:** (i) PF's gauge sector itself — group, connection, Q=0 vs
-  non-Abelian (ch04 automorphism classification open; action does not fix F; the E6 Chern–Weil
-  78π construction is PF's own deepest cosmology open); **this fork decides whether
-  consciousness/topology affects the background at all**; (ii) M's value inside the window (no deeper principle selects a point);
+- **Genuinely still open:** (i) ONE term — whether the Pontryagin F carries a gauge kinetic
+  term. Absent (as displayed) ⟹ the A-constraint derives zero source and the quintessence
+  reduction; present ⟹ chromo-natural Q≠0 is possible. This single fork decides whether
+  consciousness/topology affects the background, and PF's action does not state it. (The ch04
+  automorphism classification and the E6 Chern–Weil 78π construction remain open but are no
+  longer what gates THIS question — the kinetic-term fork is.); (ii) M's value inside the window (no deeper principle selects a point);
   (iii) the sheaf-ch₂ (ch06, a number) vs gauge-Pontryagin-ch₂ (a density) identification;
   (iv) the full inhomogeneous C^μν (needs the manifold + localization map, still absent).
 
