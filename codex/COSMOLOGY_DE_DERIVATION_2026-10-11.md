@@ -13,6 +13,12 @@
 > sector, which doesn't gravitate — θ-term is metric-independent) now follows from the full
 > variation. The whole result is conditional on ONE term: no gauge kinetic term for the
 > Pontryagin F (as displayed). Adding it (labeled) opens the chromo-natural branch.
+>
+> **rev 5 (trace + theorem):** traced F = the ch06 consciousness-bundle connection F_∇ (not a
+> matter gauge field; not in L_m; no kinetic term — verified), resolving the reviewer's "could
+> be in L_m" qualification: it is not, so the chromo-natural escape is a genuine extension. The
+> residual gap is the base identification X=M⁴ (open), not a missing term. States the reduction
+> theorem with assumptions (A1–A5) and scope (S1–S5) explicit. No new physics added.
 
 Author: Pablo Cohen. The route map (`COSMOLOGY_DE_ROUTE_MAP_2026-10-11.md`) located the
 g(t) route; this note turns the crank on it, deriving the homogeneous cosmology from PF's
@@ -137,11 +143,75 @@ etc.), so for φ̇≠0 the **magnetic field B^a = 0**, hence Tr(F∧F) ∝ E^a·
 carry a kinetic term −(1/4g²)∫√−g Tr(F²) (e.g. F is a Standard-Model/YM matter gauge field),
 the A-EOM becomes the sourced Yang–Mills equation D_μF^{aμν} = (1/f)(∂_μφ)F̃^{aμν}, which admits
 B≠0 (chromo-natural) and coupled gauge dynamics — a DIFFERENT cosmology. **(3)** F prescribed
-externally is a third choice. **PF's displayed action includes no kinetic term for the Pontryagin
-F and does not say whether that F is a separate topological field or a kinetic-term-bearing
-matter field — THAT is the exact missing term.** Case (1) [as written] closes and yields the
-quintessence reduction; case (2) [a labeled model extension, not smuggled in] opens the Q≠0
-branch. The fork is one term: present or absent.
+externally is a third choice. **Which case PF is in is now traced (rev 5, below): F is the ch06
+consciousness-bundle connection F_∇, not a matter gauge field, and carries no kinetic term — so
+case (1) holds and case (2) would be a genuine new extension.** (Earlier I called this an
+"unstated" fork that "might be in L_m"; the trace shows F_∇ is not in L_m. The residual gap is
+not a missing kinetic term but the unestablished base identification X=M⁴; see rev 5.)
+
+## What is F? Traced through the corpus (rev 5)
+
+Reviewer's qualification: "a gauge kinetic term could already belong to L_m; so 'the only
+escape is adding a term' is premature." Traced, and resolved:
+
+- **The F in Tr(F∧F) is the curvature F_∇ of the ch06 consciousness bundle**, not a matter
+  gauge field. ch06:277 "π: E→X a complex Hermitian rank-r vector bundle with unitary
+  connection ∇"; ch06:280-281 the consciousness sheaf = sections of (E,∇); ch06:348
+  "ch₂(E,∇) is a quadratic form in F_∇"; and ch08:88 cross-references the action's ch₂ to
+  exactly this ch06 invariant. So F = F_∇, a u(r) connection on E→X.
+- **F_∇ is not in L_m**, and **carries no kinetic term anywhere** — ch06 uses it only in the
+  Chern–Weil invariant and a pointwise *curvature cap* |F_∇|≤M (ch06:301, 446); there is no
+  −¼∫Tr(F²)√−g for it in ch06 or ch08. (Verified by grep; L_m in the displayed action is an
+  unexpanded symbol, not specified to contain F_∇.)
+- **Therefore the kinetic term is NOT already present** (it would belong to a matter gauge
+  field; F_∇ is not one), so case (1) holds and the "add a kinetic term" alternative IS a
+  genuine new extension — now derived by tracing, not asserted. This resolves the
+  qualification in the action's favour, under the assumption that the action's F is the ch06
+  connection.
+- **But that assumption carries its own gap:** F_∇ lives over a base X; the action integrates
+  Tr(F∧F) over spacetime, so X must be identified with M⁴ — which the corpus does NOT
+  establish (M⁴-emergence is itself open). Without X=M⁴ the spacetime axion coupling is formal.
+- **A tension the trace surfaced:** the crystallization threshold ch₂≥0.95 (consciousness)
+  REQUIRES F_∇ large and aligned (ch06:335-348, "concentration of ch₂ ⟹ curvature alignment"),
+  i.e. B≠0 — which the background A-EOM (dφ∧F=0, rolling φ) forbids. Resolution: the A-EOM is
+  the *homogeneous background* equation (B_background=0); conscious regions (ch₂≥0.95, F_∇≠0)
+  are *local inhomogeneous* configurations, perturbations outside the background reduction.
+  Their effect on C^μν is the open inhomogeneous problem. So no contradiction, but the
+  background reduction is explicitly background-only.
+
+## Reduction theorem (every assumption explicit, rev 5)
+
+**Assumptions.**
+- (A1) The action is PF's ch08 displayed action (above), V=(Λ₀/κ)e^{−φ/M}.
+- (A2) The F in Tr(F∧F) is the ch06 consciousness-bundle connection F_∇, independently varied,
+  with its base identified with spacetime M⁴ — **the identification is NOT established (open);
+  stated as an assumption, not a theorem.**
+- (A3) F_∇ carries no kinetic term (verified: Chern–Weil invariant + curvature cap only; not a
+  matter field, not in L_m).
+- (A4) Background: homogeneous isotropic FRW, φ=φ(t), **rolling (φ̇≠0)**.
+- (A5) L_m, L_æ handled consistently (matter conserved; aether couplings in standard range);
+  their background contributions are the usual ρ_m and the standard aether terms. **Not
+  independently re-derived here** — assumed consistent.
+
+**Conclusions.**
+- (T1) δ∇ (F_∇ appears only in the θ-term) ⟹ dφ∧F_∇=0 ⟹ (A4) B_background=0 ⟹ Pontryagin
+  source ch₂=Tr(F∧F)=0.
+- (T2) θ-term is metric-independent ⟹ zero stress-energy; with (A3), F_∇ does not gravitate on
+  the background.
+- (T3) Background reduces to single-field exponential quintessence: φ̈+3Hφ̇=V/M, g=φ̇/M,
+  w=−1+g/(3H) (exact), strictly non-phantom, attractor w*=−1+1/(3κM²); table numbers.
+
+**Scope (explicit).**
+- (S1) Rolling-only: the stationary branch φ̇=0 (w=−1) does not constrain F_∇ — separate
+  analysis, not covered.
+- (S2) Background-only: local consciousness (ch₂≥0.95 ⟹ F_∇≠0) is an inhomogeneous perturbation
+  outside the theorem; its C^μν effect is the open inhomogeneous problem.
+- (S3) (T2) says the *topological* term gives no metric stress; it does NOT establish that every
+  gauge contribution elsewhere vanishes — only that, with (A3), there is no other gauge term.
+- (S4) The 10⁻¹²⁰ hierarchy enters via the φ initial condition under Planckian Λ₀ (finding 1),
+  not derived; scoped to this construction.
+- (S5) The chromo-natural alternative requires ADDING a kinetic term to F_∇ — a genuine
+  extension (A3), under (A2) — not a term already present.
 
 ## Topological source vs consciousness entropy (the reviewer's point)
 
@@ -245,12 +315,12 @@ measurement** — it is a translation of the CPL parameters through this very mo
   Chern–Weil, and principal bundles entirely, and that this is "the deepest open in the entire
   PF Cosmology stack." So PF selects NEITHER branch; the Q=0 case is the trivial "no gauge
   field present," not a derived selection.
-- **Genuinely still open:** (i) ONE term — whether the Pontryagin F carries a gauge kinetic
-  term. Absent (as displayed) ⟹ the A-constraint derives zero source and the quintessence
-  reduction; present ⟹ chromo-natural Q≠0 is possible. This single fork decides whether
-  consciousness/topology affects the background, and PF's action does not state it. (The ch04
-  automorphism classification and the E6 Chern–Weil 78π construction remain open but are no
-  longer what gates THIS question — the kinetic-term fork is.); (ii) M's value inside the window (no deeper principle selects a point);
+- **Genuinely still open:** (i) the base identification X=M⁴ — F_∇ lives over the ch06
+  consciousness base X, but the axion coupling integrates Tr(F∧F) over spacetime, so the
+  theorem assumes X=M⁴, which M⁴-emergence (open) does not supply. This, not a missing kinetic
+  term, is the residual gap (the kinetic-term question is resolved: F_∇ has none, is not a
+  matter field — rev 5). The chromo-natural alternative remains available only as a labeled
+  extension (adding a kinetic term to F_∇); (ii) M's value inside the window (no deeper principle selects a point);
   (iii) the sheaf-ch₂ (ch06, a number) vs gauge-Pontryagin-ch₂ (a density) identification;
   (iv) the full inhomogeneous C^μν (needs the manifold + localization map, still absent).
 
