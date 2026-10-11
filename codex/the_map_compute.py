@@ -38,3 +38,11 @@ for k in range(0,20):
     if best is None or e<best[2]: best=(m,k,e)
 print("  0.137036 within", mp.nstr(best[2],3), "of %d/3^%d" % (best[0],best[1]),
       "-> any x ~ m/3^k for large k; law is vacuous unless K fixed in advance")
+
+# --- QG row (filled): primordial spectral tilt P(k) ~ k^{n_s-1} ---
+aQG = sqrt(2*pi); sQG = sigma(aQG)
+ns, ns_err = mpf('0.9649'), mpf('0.0042')          # Planck 2018
+print()
+print("=== QG row: predict n_s-1 = sigma(sqrt2pi) vs Planck ===")
+print("  sigma(QG) =", mp.nstr(sQG,6), " ; Planck n_s-1 =", mp.nstr(ns-1,6), "+/-", mp.nstr(ns_err,4),
+      " ; agreement", mp.nstr(abs(sQG-(ns-1))/ns_err,3), "sigma")
