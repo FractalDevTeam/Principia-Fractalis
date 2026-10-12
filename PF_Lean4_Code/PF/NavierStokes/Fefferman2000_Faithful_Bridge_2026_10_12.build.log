@@ -1,0 +1,8 @@
+=== BUILD EVIDENCE: Fefferman2000_Faithful_Bridge_2026_10_12.lean ===
+host: acer  user: xluxx  date: 2026-10-12T13:04:34-04:00
+tree: /Storage 2TB/home/xluxx/Principia-Fractalis-ACTIVE/PF_Lean4_Code (MAIN tree, carries mathlib oleans)
+cmd:  taskset -c 0,1 lake env lean _ns_bridge_tmp_build.lean
+lean: Lean (version 4.24.0-rc1, x86_64-unknown-linux-gnu, commit 919e297292280cdb27598edd4e03437be5850221, Release)
+--- BEGIN stdout+stderr ---
+--- END stdout+stderr ---
+EXIT=0
