@@ -18,10 +18,14 @@ FINDING CLASSES
   hard (block the gate):
     TRUE_BODY            Prop body is definitionally True
     FALSE_BODY           Prop body is definitionally False
-    UNIT_CARRIER         quantifies over Unit -- a placeholder domain
+    UNIT_CARRIER         quantifies over Unit, or a def/abbrev/structure whose
+                         carrier type IS Unit -- a placeholder domain
     REFLEXIVE            body is `x = x`
     NUMERIC_TAUT         body is a closed numeric identity
     TRICHOTOMY           body is an exhaustive tautology over an order
+    EXCLUDED_MIDDLE      body/conclusion is `P \/ not-P`, or a parenthesised
+                         conjunct of it is -- the law of excluded middle,
+                         provable for any P, dressed up as content
     ALL_BINDERS_DEAD     every binder underscore-prefixed
     PROOF_IS_OWN_INPUT   proof term is a projection of its own hypothesis
     MODUS_PONENS_SELF    proof applies one hypothesis field to another
@@ -36,6 +40,16 @@ FINDING CLASSES
     TRUE_VIA_ALIAS       body resolves through a TRUE_BODY definition
     DISCARDED_BINDER     proof introduces a NAMED hypothesis then discards it (_h)
 
+QUARANTINE. Declarations in the `PF.Scaffolding` namespace -- recognised by the
+module path, by an enclosing `namespace PF.Scaffolding` / `namespace Scaffolding`
+block, or by a qualified declaration name under it -- are SEGREGATED, not failed.
+Their findings print under a separate QUARANTINED heading and are excluded from
+the hard-finding total and from the module-mode exit code. That namespace is the
+sanctioned home for an acknowledged placeholder: a finding there is already
+disclosed, so it informs rather than blocks. A finding ANYWHERE ELSE still blocks.
+This is segregation, not a clean bill -- the body is as trivial inside the
+namespace as outside it; what changes is that it no longer masquerades as content.
+
 PARSING. Declarations are SPLIT first, then parsed one at a time. An earlier
 version used a single regex with a DOTALL binder group; it spanned declarations
 and misattributed a finding at line 76 to `fractalResonanceTerm` while printing
@@ -49,6 +63,10 @@ MODES
 Read-only. Never modifies anything.
 
 Author: Pablo Cohen + Claude Opus 5. 2026-10-06.
+Extended 2026-10-11 (Claude Opus 4.8): EXCLUDED_MIDDLE (`P \/ not-P`); UNIT_CARRIER
+widened to type-level `def/abbrev := Unit` carriers and all-Unit-field structures;
+and a PF.Scaffolding quarantine that segregates acknowledged placeholders instead
+of counting them as blocking failures.
 """
 import argparse
 import io
@@ -149,12 +167,18 @@ REPAIR = {
         "underscore name (`intro _h`), a signal the hypothesis may be inert. "
         "Confirm the hypothesis is genuinely used downstream, or drop it from the "
         "statement (see the premise audit for dead-hypothesis repair).",
+    "EXCLUDED_MIDDLE":
+        "the body is `P \\/ not-P`, the law of excluded middle -- provable for "
+        "every P and so asserting nothing about this particular P. Recover the "
+        "intended definite claim; usually one disjunct was meant to hold "
+        "outright, or the two sides were meant to be independent propositions "
+        "rather than a statement and its own negation.",
 }
 
 HARD = {"TRUE_BODY", "FALSE_BODY", "UNIT_CARRIER", "REFLEXIVE", "NUMERIC_TAUT",
         "TRICHOTOMY", "ALL_BINDERS_DEAD", "PROOF_IS_OWN_INPUT",
         "MODUS_PONENS_SELF", "EXTERNAL_NAME_TRIV", "TRIVIAL_EXISTENTIAL",
-        "NONEMPTY_ENDO"}
+        "NONEMPTY_ENDO", "EXCLUDED_MIDDLE"}
 
 EXTERNAL = ("Wiles", "Glimm", "Jaffe", "Wightman", "Osterwalder", "Schrader",
             "Coates", "Kolyvagin", "Hardy", "Odlyzko", "Perelman", "Fefferman",
@@ -320,6 +344,179 @@ NONEMPTY_ARROW_RE = re.compile(
 # -- that is an anonymous irrelevant binder, a common and legitimate idiom.
 DISCARDED_INTRO_RE = re.compile(r"\b[r]?intro\b[^;]*?(?<![A-Za-z0-9_])_[A-Za-z]")
 
+NEG = chr(0x00AC)  # logical negation; the ASCII spellings `Not ` / `Not(` too.
+# TRICHOTOMY (above) already catches the order-tautology shape `0 <= x \/ x < 0`.
+# EXCLUDED_MIDDLE catches the raw law `P \/ not-P` for an ARBITRARY propositional
+# P -- distinct content, so a distinct class. A universe-level `def X := Unit`
+# carrier never reaches check_prop_def (its type is not Prop); _is_unit_carrier_type
+# gives the gate that reach.
+
+
+def _strip_leading_binders(s):
+    """Drop a leading `forall .../ exists ...,` quantifier prefix (depth 0)."""
+    s = s.strip()
+    while s[:1] in (FORALL, EXISTS):
+        depth, cut = 0, None
+        for i, ch in enumerate(s):
+            if ch in OPENERS:
+                depth += 1
+            elif ch in CLOSERS:
+                depth -= 1
+            elif depth == 0 and ch == ",":
+                cut = i
+                break
+        if cut is None:
+            break
+        s = s[cut + 1:].strip()
+    return s
+
+
+def _split_top_level(s, sym):
+    """Split `s` on every occurrence of `sym` at bracket depth 0."""
+    parts, depth, last, i, n = [], 0, 0, 0, len(s)
+    L = len(sym)
+    while i < n:
+        ch = s[i]
+        if ch in OPENERS:
+            depth += 1
+        elif ch in CLOSERS:
+            depth -= 1
+        elif depth == 0 and s[i:i + L] == sym:
+            parts.append(s[last:i])
+            last = i + L
+            i += L
+            continue
+        i += 1
+    parts.append(s[last:])
+    return parts
+
+
+def _strip_outer_parens(s):
+    """Strip a single fully-enclosing pair of parentheses, repeatedly."""
+    s = s.strip()
+    while len(s) >= 2 and s[0] == "(" and s[-1] == ")":
+        depth, closed_early = 0, False
+        for i, ch in enumerate(s):
+            if ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+                if depth == 0 and i != len(s) - 1:
+                    closed_early = True
+                    break
+        if closed_early:
+            break
+        s = s[1:-1].strip()
+    return s
+
+
+def _neg_of(x):
+    """If `x` is a negation `not-P` / `Not P` / `Not(P)`, return P (paren-stripped);
+    else None."""
+    x = x.strip()
+    if x.startswith(NEG):
+        return _strip_outer_parens(x[1:].strip())
+    if x.startswith("Not ") or x.startswith("Not("):
+        return _strip_outer_parens(x[3:].strip())
+    return None
+
+
+def _is_excluded_middle(s):
+    """True iff `s` is `P \\/ not-P` or `not-P \\/ P` (modulo outer parens and a
+    leading quantifier prefix) for one propositional P -- the law of excluded
+    middle presented as content. Conservative: EXACTLY two top-level disjuncts,
+    one of which is the other prefixed by a single top-level negation."""
+    body = _strip_outer_parens(_strip_leading_binders(norm(s)))
+    parts = _split_top_level(body, OR)
+    if len(parts) != 2:
+        return False
+    a = _strip_outer_parens(parts[0])
+    b = _strip_outer_parens(parts[1])
+    nb = _neg_of(b)
+    if nb is not None and nb != "" and nb == a:
+        return True
+    na = _neg_of(a)
+    if na is not None and na != "" and na == b:
+        return True
+    return False
+
+
+def _excluded_middle_hit(s):
+    """If the whole expression is a bare `P \\/ not-P`, or any EXPLICITLY
+    parenthesised top-level conjunct of it is, return that `P \\/ not-P`
+    sub-term; else None. The conjunct form catches the common disguise -- a
+    conjunction of `typed-contract` tautologies, e.g. `(Thm \\/ not-Thm) /\\ ...`
+    discharged by `Classical.em` -- while requiring the conjunct to be
+    parenthesised, so operator precedence can never manufacture a phantom match."""
+    pieces = _split_top_level(norm(s), AND)
+    if len(pieces) == 1:
+        return (norm(_strip_outer_parens(_strip_leading_binders(pieces[0])))[:80]
+                if _is_excluded_middle(pieces[0]) else None)
+    for piece in pieces:
+        t = piece.strip()
+        if t.startswith("(") and t.endswith(")"):
+            inner = _strip_outer_parens(t)
+            if _is_excluded_middle(inner):
+                return norm(inner)[:80]
+    return None
+
+
+def _is_unit_carrier_type(kind, typ, body):
+    """True iff a `def`/`abbrev` names Unit as its CARRIER type: `def X := Unit`
+    or `def X : Type := Unit`. The UNIT_CARRIER check in check_prop_def catches a
+    Prop that QUANTIFIES over Unit; this catches a type-level carrier that IS
+    Unit, which never reaches check_prop_def because its declared type is not
+    Prop. Conservative: the declared type, if any, must be a bare universe."""
+    if kind not in ("def", "abbrev"):
+        return False
+    t = norm(typ)
+    if t and t not in ("Type", "Type*", "Type _", "Type*_", "Sort", "Sort*",
+                       "Sort _"):
+        return False
+    return norm(body) == "Unit"
+
+
+# Unit-carrier STRUCTURES: a `structure` all of whose fields have type exactly
+# `Unit`. Independent of split_decls (which does not parse structure fields).
+STRUCT_RE = re.compile(r"(?m)^[ \t]*structure[ \t]+([A-Za-z_][A-Za-z0-9_" +
+                       chr(39) + r".]*)")
+
+
+def _unit_carrier_structures(code):
+    """Yield (line, name, detail) for each `structure` whose every field has type
+    exactly `Unit`. Fires only with at least one field and NO non-Unit field; any
+    non-Unit (or unparseable) field suppresses it -- under-reports, never over-."""
+    out = []
+    decl_starts = [m.start() for m in DECL_START.finditer(code)]
+    for m in STRUCT_RE.finditer(code):
+        pos, nm = m.start(), m.group(1)
+        nxt = [d for d in decl_starts if d > pos]
+        end = min(nxt) if nxt else len(code)
+        block = code[pos:end]
+        line = code[:pos].count(NL) + 1
+        wi = block.find("where")
+        if wi < 0:
+            continue
+        fields = []
+        bad = False
+        for fl in block[wi + 5:].split(NL):
+            t = fl.strip()
+            if not t or t.endswith("::"):
+                continue
+            if ":" not in t:
+                continue
+            ftyp = norm(t.split(":", 1)[1])
+            if ftyp == "":
+                continue
+            if ftyp != "Unit":
+                bad = True
+                break
+            fields.append(ftyp)
+        if fields and not bad:
+            out.append((line, nm, "structure carrier all-Unit (%d field%s)"
+                        % (len(fields), "" if len(fields) == 1 else "s")))
+    return out
+
 
 def _is_trivial_existential(s):
     """True iff `s` is exactly `exists x, x = c` (or `c = x`) with c free of x and
@@ -376,6 +573,9 @@ def check_prop_def(name, binders, body, true_names):
         if rx.match(b):
             hits.append(("TRICHOTOMY", b[:120]))
             break
+    _em = _excluded_middle_hit(b)
+    if _em:
+        hits.append(("EXCLUDED_MIDDLE", _em))
     if NUM_ID.match(b):
         lhs, _, rhs = b.partition("=")
         if lhs.strip() == rhs.strip():
@@ -412,6 +612,9 @@ def check_theorem(name, binders, concl, body):
         hits.append(("TRIVIAL_EXISTENTIAL", c[:120]))
     if _is_nonempty_endo(c):
         hits.append(("NONEMPTY_ENDO", c[:120]))
+    _em = _excluded_middle_hit(c)
+    if _em:
+        hits.append(("EXCLUDED_MIDDLE", _em))
     if DISCARDED_INTRO_RE.search(p):
         mm = DISCARDED_INTRO_RE.search(p)
         hits.append(("DISCARDED_BINDER", "proof ...%s..." % p[max(0, mm.start()):mm.start() + 40]))
@@ -482,6 +685,45 @@ def gather(paths):
     return true_names, dupes
 
 
+def _ns_by_line(code):
+    """Map each 1-based line of `code` to the fully-qualified namespace open at
+    that line. `namespace A.B` opens, `end A.B` / bare `end` closes; `section`
+    opens a frame that contributes no namespace segment. Robust enough for
+    quarantine membership (we only read whether `Scaffolding` is a segment)."""
+    lines = code.split(NL)
+    out = [""] * (len(lines) + 2)
+    frames = []  # stack of (kind, [segments]); kind in {"ns","sec"}
+    for idx, ln in enumerate(lines, start=1):
+        st = ln.lstrip()
+        if st.startswith("namespace"):
+            mo = re.match(r"namespace\s+([A-Za-z_][A-Za-z0-9_" + chr(39) +
+                          r".]*)", st)
+            if mo:
+                frames.append(("ns", mo.group(1).split(".")))
+        elif st.startswith("section"):
+            frames.append(("sec", []))
+        elif st.startswith("end") and (len(st) == 3 or not st[3].isalnum()):
+            if frames:
+                frames.pop()
+        segs = []
+        for kind, s in frames:
+            if kind == "ns":
+                segs.extend(s)
+        out[idx] = ".".join(segs)
+    return out
+
+
+def _is_quarantined(mod, name, ns_by_line, line):
+    """A declaration is quarantined iff `Scaffolding` appears as a segment of its
+    module path, of an enclosing namespace, or of its qualified name."""
+    if "Scaffolding" in mod.split("."):
+        return True
+    if "Scaffolding" in name.split("."):
+        return True
+    ns = ns_by_line[line] if 0 <= line < len(ns_by_line) else ""
+    return "Scaffolding" in ns.split(".")
+
+
 def scan(paths):
     true_names, dupes = gather(paths)
     records, nprop, nthm = [], 0, 0
@@ -491,7 +733,9 @@ def scan(paths):
             _WHOLE_SRC[:] = [code]
         except (OSError, UnicodeDecodeError):
             continue
+        nsline = _ns_by_line(code)
         for kind, name, line, binders, typ, body in split_decls(code):
+            quar = _is_quarantined(mod, name, nsline, line)
             if kind in ("def", "abbrev") and norm(typ) == "Prop":
                 nprop += 1
                 hs = check_prop_def(name, binders, body, true_names)
@@ -503,12 +747,25 @@ def scan(paths):
                         hs.append(("DUPLICATE_PROP_BODY",
                                    "byte-identical to " + ", ".join(others[:4])))
                 if hs:
-                    records.append((mod, line, name, hs))
+                    records.append((mod, line, name, hs, quar))
+            elif kind in ("def", "abbrev"):
+                # non-Prop def/abbrev: the only conclusion-level finding here is a
+                # type-level Unit carrier (`def X := Unit`).
+                if _is_unit_carrier_type(kind, typ, body):
+                    records.append((mod, line, name,
+                                    [("UNIT_CARRIER",
+                                      "carrier type := Unit")], quar))
             elif kind in ("theorem", "lemma"):
                 nthm += 1
                 hs = check_theorem(name, binders, typ, body)
                 if hs:
-                    records.append((mod, line, name, hs))
+                    records.append((mod, line, name, hs, quar))
+        # structures whose every field is Unit -- a Unit carrier split_decls does
+        # not reach, so scanned independently over the file text.
+        for sline, snm, sdetail in _unit_carrier_structures(code):
+            squar = _is_quarantined(mod, snm, nsline, sline)
+            records.append((mod, sline, snm,
+                            [("UNIT_CARRIER", sdetail)], squar))
     return records, nprop, nthm
 
 
@@ -542,7 +799,9 @@ def main():
         paths = allf if a.all_files else [(m, f) for m, f in allf if m in cl]
 
     records, nprop, nthm = scan(paths)
-    hard_recs = [r for r in records if any(k in HARD for k, _ in r[3])]
+    live = [r for r in records if not r[4]]
+    quar = [r for r in records if r[4]]
+    hard_recs = [r for r in live if any(k in HARD for k, _ in r[3])]
 
     if a.module:
         print("semantic_hygiene_gate: " + a.module)
@@ -550,30 +809,30 @@ def main():
         if not records:
             print("  PASS  (f) no conclusion-level or definition-body findings")
             return 0
-        for mod, line, nm, hs in records:
+        for mod, line, nm, hs, q in records:
             for k, d in hs:
-                tag = "FAIL" if k in HARD else "WARN"
+                tag = "QUAR" if q else ("FAIL" if k in HARD else "WARN")
                 print("  %s  (f) %-19s %s:%d  %s"
                       % (tag, k, mod.split(".")[-1], line, nm.split(".")[-1]))
                 print("        " + d[:150])
                 print("        REPAIR: " + REPAIR.get(k, ""))
-        print("  %s  (f) %d hard, %d soft"
+        print("  %s  (f) %d hard, %d soft, %d quarantined (PF.Scaffolding)"
               % ("FAIL" if hard_recs else "PASS",
-                 len(hard_recs), len(records) - len(hard_recs)))
+                 len(hard_recs), len(live) - len(hard_recs), len(quar)))
         return 1 if hard_recs else 0
 
     if a.ledger:
         tab = chr(9)
         print(tab.join(["severity", "class", "module", "line", "declaration",
                         "detail"]))
-        for mod, line, nm, hs in sorted(records, key=lambda r: (r[0], r[1])):
+        for mod, line, nm, hs, q in sorted(records, key=lambda r: (r[0], r[1])):
             for k, d in hs:
-                print(tab.join(["HARD" if k in HARD else "soft", k, mod,
-                                str(line), nm, norm(d)[:200]]))
+                sev = "QUAR" if q else ("HARD" if k in HARD else "soft")
+                print(tab.join([sev, k, mod, str(line), nm, norm(d)[:200]]))
         return 0
 
     cls = Counter()
-    for _m, _l, _n, hs in records:
+    for _m, _l, _n, hs, _q in live:
         for k, _d in hs:
             cls[k] += 1
 
@@ -585,7 +844,9 @@ def main():
     print("  Prop definitions inspected   %6d" % nprop)
     print("  theorems inspected           %6d" % nthm)
     print("  declarations with findings   %6d  (%d with a hard finding)"
-          % (len(records), len(hard_recs)))
+          % (len(live), len(hard_recs)))
+    print("  quarantined (PF.Scaffolding) %6d  (segregated, not counted above)"
+          % len(quar))
     print("")
     print("BY CLASS")
     for k, n in cls.most_common():
@@ -593,7 +854,7 @@ def main():
     print("")
     print("DETAIL, grouped by class, hardest first")
     bycls = defaultdict(list)
-    for mod, line, nm, hs in records:
+    for mod, line, nm, hs, _q in live:
         for k, d in hs:
             bycls[k].append((mod, line, nm, d))
     shown = 0
@@ -609,6 +870,18 @@ def main():
             print("        ... %d more" % (len(bycls[k]) - 5))
         if shown >= a.limit:
             break
+    if quar:
+        qcls = Counter()
+        for _m, _l, _n, hs, _q in quar:
+            for k, _d in hs:
+                qcls[k] += 1
+        print("")
+        print("QUARANTINED -- PF.Scaffolding (segregated, do NOT block the gate)")
+        for k, n in qcls.most_common():
+            print("  %-20s %5d   %s" % (k, n, "HARD" if k in HARD else "soft"))
+        for mod, line, nm, hs, _q in quar[:8]:
+            print("        %-50s %s:%d" % (nm.split(".")[-1][:50],
+                                           mod.split(".")[-1], line))
     return 0
 
 
