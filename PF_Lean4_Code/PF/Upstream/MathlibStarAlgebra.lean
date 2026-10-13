@@ -96,7 +96,7 @@ No `sorry`, no `axiom`, no `native_decide`. Every hypothesis of every declaratio
 is consumed by its proof. Each section ends with a non-vacuity witness, so no
 statement here is satisfied only by having unsatisfiable hypotheses.
 
-Author: Pablo Cohen + Claude Opus 5. 2026-10-05.
+Author: Pablo Cohen. 2026-10-05.
 -/
 
 namespace StarSubalgebra

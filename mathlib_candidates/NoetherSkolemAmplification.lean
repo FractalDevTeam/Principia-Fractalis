@@ -75,7 +75,7 @@ a build against current master:
 Proof text below is byte-identical to the verified
 `PF/Upstream/NoetherSkolemC2.lean`; only this docstring differs.
 
-Author: Pablo Cohen + Claude Opus. Staged 2026-10-09.
+Author: Pablo Cohen. Staged 2026-10-09.
 -/
 
 open scoped Matrix.Norms.L2Operator
