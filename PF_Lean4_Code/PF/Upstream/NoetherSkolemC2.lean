@@ -85,7 +85,7 @@ file where they belong). That is mechanical and is not done here. What *is* done
 here is the part that actually blocked it: the proofs no longer depend on
 anything outside mathlib.
 
-Author: Pablo Cohen + Claude Opus 5. Extracted 2026-10-05.
+Author: Pablo Cohen. Extracted 2026-10-05.
 -/
 
 open scoped Matrix.Norms.L2Operator

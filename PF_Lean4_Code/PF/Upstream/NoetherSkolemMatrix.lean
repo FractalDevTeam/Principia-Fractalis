@@ -109,7 +109,7 @@ needs mathlib naming and placement -- `Matrix.*`, with the matrix-unit calculus
 C2.1–C2.5 going to the file where those lemmas belong. That is mechanical. The
 part that actually blocked it is done.
 
-Author: Pablo Cohen + Claude Opus 5. 2026-10-05.
+Author: Pablo Cohen. 2026-10-05.
 -/
 
 namespace PrincipiaTractalis.Upstream.NoetherSkolem
