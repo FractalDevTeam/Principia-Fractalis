@@ -227,6 +227,14 @@ theorem F_minus_nonneg (u : ℝ) : 0 ≤ F_minus u :=
 theorem F_plus_nonneg (u : ℝ) : 0 ≤ F_plus u :=
   mul_nonneg (Real.exp_pos _).le (omega_nonneg _)
 
+/-- Pointwise derivative of `F_minus u = omega(exp u)` on all of `ℝ`. -/
+theorem F_minus_hasDerivAt (u : ℝ) :
+    HasDerivAt F_minus (omega' (Real.exp u) * Real.exp u) u := by
+  have h_exp_pos : 0 < Real.exp u := Real.exp_pos _
+  have h_omega := omega_hasDerivAt h_exp_pos
+  have h_exp := Real.hasDerivAt_exp u
+  exact h_omega.comp u h_exp
+
 /-! ## §Omega differentiability on `Ioi 0` -/
 
 /-- **`omega` is differentiable on `Ioi 0`.** Immediate from `omega_hasDerivAt`. -/
@@ -253,6 +261,7 @@ end
 #print axioms F_minus_antitone
 #print axioms F_minus_nonneg
 #print axioms F_plus_nonneg
+#print axioms F_minus_hasDerivAt
 
 end OmegaDerivative20261014
 end PrincipiaTractalis
