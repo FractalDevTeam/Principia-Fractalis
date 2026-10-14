@@ -201,6 +201,32 @@ theorem omega'_nonpos {x : ℝ} (hx : 0 < x) : omega' x ≤ 0 := by
     ext n; ring
   exact tsum_nonpos (fun n => omega'_term_nonpos n hx)
 
+/-! ## §Mellin-coord functions `F±` for the IBP route -/
+
+/-- `F_minus u := omega (exp u)` — the "minus" factor from the Mellin integral
+    after the change of variable `u = ln(x)` in the `x^(-1)·exp(-it·ln(x)/2)` branch. -/
+def F_minus (u : ℝ) : ℝ := omega (Real.exp u)
+
+/-- `F_plus u := exp(u/2) · omega(exp u)` — the "plus" factor from the Mellin integral
+    after the change of variable `u = ln(x)` in the `x^(-1/2)·exp(it·ln(x)/2)` branch. -/
+def F_plus (u : ℝ) : ℝ := Real.exp (u / 2) * omega (Real.exp u)
+
+/-- `F_minus` is antitone on `ℝ` (immediate from `omega_antitone`). -/
+theorem F_minus_antitone : Antitone F_minus := by
+  intro u₁ u₂ h
+  unfold F_minus
+  have h_exp_mono : Real.exp u₁ ≤ Real.exp u₂ := Real.exp_le_exp.mpr h
+  have h_exp_pos : 0 < Real.exp u₁ := Real.exp_pos _
+  exact omega_antitone h_exp_pos h_exp_mono
+
+/-- `F_minus u ≥ 0` for all `u`. -/
+theorem F_minus_nonneg (u : ℝ) : 0 ≤ F_minus u :=
+  omega_nonneg _
+
+/-- `F_plus u ≥ 0` for all `u`. -/
+theorem F_plus_nonneg (u : ℝ) : 0 ≤ F_plus u :=
+  mul_nonneg (Real.exp_pos _).le (omega_nonneg _)
+
 /-! ## §Omega differentiability on `Ioi 0` -/
 
 /-- **`omega` is differentiable on `Ioi 0`.** Immediate from `omega_hasDerivAt`. -/
@@ -224,6 +250,9 @@ end
 #print axioms omega'_nonpos
 #print axioms differentiableOn_omega
 #print axioms deriv_omega_eq
+#print axioms F_minus_antitone
+#print axioms F_minus_nonneg
+#print axioms F_plus_nonneg
 
 end OmegaDerivative20261014
 end PrincipiaTractalis
