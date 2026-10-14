@@ -194,20 +194,51 @@ determined by where the uniform bound takes over backward and the IBP
 bound suffices forward. Patch the dip near `t = 14` (first zero at
 `14.1347`) with per-point certified panels.
 
-### Rough lemma dependency graph (for a future Lean file)
+### Rough lemma dependency graph (progress during autonomous session)
 
 ```
-L1  omega_derivative_series: ω' = ∑ n (-π n²) exp(-π n² x)                   (small; ~30 L)
-L2  omega_prime_le_at: |ω'(x)| ≤ (π·exp(-πx))·(1 + small tail)                (medium; ~60 L)
-L3  F_plus_decreasing: F₊'(u) ≤ 0 for u ≥ 0                                  (medium; ~80 L)
-L4  F_plus_integrable_variation: V(F₊) = ω(1)                                 (small; ~20 L)
-L5  F_minus_decreasing: F₋'(u) ≤ 0 for u ≥ 0                                 (small; ~30 L)
-L6  F_minus_integrable_variation: V(F₋) = ω(1)                                (small; ~20 L)
-L7  IBP_identity_oscillating: integral IBP on Ioi 0 w/ cpx-valued integrand   (large; ~150 L)
-L8  lambda0_abs_decay_1_over_t: ‖Λ₀(1+it)‖ ≤ 4/(11·|t|) for |t| ≥ 1          (medium; ~80 L)
+L1a omega_hasDerivAt (x>0): ω' as tsum interchange     [LANDED kernel-clean ✓]
+L1b omega'_nonpos on Ioi 0                               [LANDED kernel-clean ✓]
+L1c differentiableOn_omega, deriv_omega_eq               [LANDED kernel-clean ✓]
+L1d F±  definitions, nonneg, F_minus_antitone            [LANDED kernel-clean ✓]
+L1e F_minus_hasDerivAt (chain rule)                      [LANDED kernel-clean ✓]
+L1f F_plus_hasDerivAt (product+chain rule)               [LANDED kernel-clean ✓]
+---
+L2  omega_prime_abs_bound: |ω'(x)| ≤ π · [series bound]  [NOT YET]
+L3a F_plus_antitone on Ici 0 (from F_plus' ≤ 0)          [NOT YET; needs L2]
+L3b F_plus_variation: V(F₊) = F₊(0) = ω(1)               [NOT YET]
+L3c F_minus_variation: V(F₋) = F₋(0) = ω(1)              [NOT YET]
+---
+L4  IBP_identity: `∫_0^∞ F(u) · exp(it·u/2) du` =         [BIG REMAINING STEP]
+    boundary + `(-2/it) · ∫_0^∞ F'(u) · exp(it·u/2) du`
+    (requires improper-interval IBP in Lean —
+     mathlib has IBP on [a,b] via IntegrationByParts;
+     IntegralEqImproper has FTC on Ioi; combining
+     needs limit-passing on boundary term.)
+---
+L5  lambda0_abs_decay_1_over_t: ‖Λ₀(1+it)‖ ≤ 4/(11·|t|)   [DEPENDS ON L4]
 ```
 
-Total estimate: ~470 LoC. 2–4 days of focused work with mathlib expertise.
+**Landed in `PF/Analytic/OmegaDerivative_2026_10_14.lean`** (13 theorems):
+
+- `hasDerivAt_omega_term`, `omega_term_deriv_abs_le_on_Ioi`,
+  `summable_omega_term_deriv_bound`, `omega_hasDerivAt`
+- `omega'_term_nonpos`, `omega'_nonpos`
+- `differentiableOn_omega`, `deriv_omega_eq`
+- `F_minus`, `F_plus` (defs) + `F_minus_antitone`,
+  `F_minus_nonneg`, `F_plus_nonneg`
+- `F_minus_hasDerivAt`, `F_plus_hasDerivAt`
+
+All axiom-clean `[propext, Classical.choice, Quot.sound]`.
+
+**Remaining work (rough estimates):**
+- L2 (quantitative bound on `|ω'|`): 50–100 LoC with series manipulation.
+- L3 (antitone + variation): 100–200 LoC combined.
+- L4 (IBP on improper interval): 150–300 LoC, requires combining
+  mathlib's finite-interval IBP with FTC-on-Ioi.
+- L5 (final decay bound): 50–100 LoC composition.
+
+**Total remaining estimate:** 350–700 LoC. 1–3 days focused work.
 
 ### Mathlib dependencies likely required
 
@@ -216,19 +247,18 @@ Total estimate: ~470 LoC. 2–4 days of focused work with mathlib expertise.
 - `intervalIntegral.integral_eq_sub_of_hasDerivAt` or improper-integral IBP equivalent
 - `Jacobi` or custom `omega_hasDerivAt` (not directly in mathlib)
 
-### What to prove first (feasibility probe, ~1 day)
+### Feasibility probe result (autonomous session 2026-10-14)
 
-**Target:** `omega_hasDerivAt (x : ℝ) (hx : 0 < x) :
+**Target was:** `omega_hasDerivAt (x : ℝ) (hx : 0 < x) :
     HasDerivAt omega (omega' x) x`
 
-where `omega' x = ∑ n, (-π·(n+1)²)·exp(-π·(n+1)²·x)` is the term-by-term
-derivative. This is the hardest single ingredient (interchange of
-differentiation and infinite sum).
+**RESULT: LANDED** — kernel-clean via `hasDerivAt_tsum_of_isPreconnected`
++ `Real.summable_pow_mul_exp_neg_nat_mul`. Chain rule corollaries
+(F_minus_hasDerivAt, F_plus_hasDerivAt) also land cleanly.
 
-If this one lemma lands clean, the rest of the IBP chain is routine.
-
-If this blocks: fall back to Route B (per-point certified panels for the
-critical `|t| ∈ [4, 13]` range — mechanical generation like r120 panels).
+**Implication:** The IBP route is feasible in Lean. The remaining steps
+(quantitative `|ω'|` bound, antitonicity of F±, improper-interval IBP)
+are routine but substantial LoC.
 
 ## Current state at end of this session
 
