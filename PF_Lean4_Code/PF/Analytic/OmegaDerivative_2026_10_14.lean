@@ -201,6 +201,17 @@ theorem omega'_nonpos {x : ℝ} (hx : 0 < x) : omega' x ≤ 0 := by
     ext n; ring
   exact tsum_nonpos (fun n => omega'_term_nonpos n hx)
 
+/-! ## §Omega differentiability on `Ioi 0` -/
+
+/-- **`omega` is differentiable on `Ioi 0`.** Immediate from `omega_hasDerivAt`. -/
+theorem differentiableOn_omega : DifferentiableOn ℝ omega (Ioi 0) := by
+  intro x hx
+  exact (omega_hasDerivAt (mem_Ioi.mp hx)).differentiableAt.differentiableWithinAt
+
+/-- **`deriv omega x = omega' x` on `Ioi 0`.** -/
+theorem deriv_omega_eq {x : ℝ} (hx : 0 < x) : deriv omega x = omega' x :=
+  (omega_hasDerivAt hx).deriv
+
 end
 
 /-! ## §Axiom check -/
@@ -211,6 +222,8 @@ end
 #print axioms omega_hasDerivAt
 #print axioms omega'_term_nonpos
 #print axioms omega'_nonpos
+#print axioms differentiableOn_omega
+#print axioms deriv_omega_eq
 
 end OmegaDerivative20261014
 end PrincipiaTractalis
