@@ -211,6 +211,67 @@ theorem R3_box_centered
   exact centered_form_neg (f := edgeRe) (f' := deriv edgeRe)
     hr (fun x _ => hasDerivAt_edgeRe x) hbound hmargin'
 
+/-! ## §3 — Producer-friendly inequality variants (Rank-1.5 interface)
+
+The exact-equality forms above (`R{1,2,3}_box_centered`) require the producer
+to prove `(ξ(1 + ic)).re = Mc` as an EXACT equality — which is only possible
+for rational Mc coincident with the (transcendental) true value. A certified
+interval-arithmetic producer actually gives one-sided BOUNDS:
+`Mc_lb ≤ (ξ(1 + ic)).re` (for R1 / R2 positivity),
+`(ξ(1 + ic)).re ≤ Mc_ub` (for R3 negativity).
+
+The variants below accept those one-sided bounds. They are the Rank-1.5
+producer-facing interface and strictly generalise the equality forms (take
+`Mc_lb = Mc`). -/
+
+/-- **R1 centered-form box (lower-bound form).** Right-edge real-part positivity
+on `[c - r, c + r]` from a certified lower bound `Mc_lb ≤ Re ξ(1 + ic)` plus the
+derivative-modulus bound. -/
+theorem R1_box_centered_of_lb
+    {c r L Mc_lb : ℝ}
+    (hr : 0 ≤ r)
+    (hvalue_lb : Mc_lb ≤ (riemannXiEntire (⟨1, c⟩ : ℂ)).re)
+    (hbound : ∀ x ∈ Icc (c - r) (c + r), |deriv edgeRe x| ≤ L)
+    (hmargin : L * r < Mc_lb) :
+    ∀ t ∈ Icc (c - r) (c + r), 0 < (riemannXiEntire (⟨1, t⟩ : ℂ)).re := by
+  have hmargin' : L * r < edgeRe c := by
+    show L * r < (riemannXiEntire (⟨1, c⟩ : ℂ)).re
+    linarith
+  exact centered_form_pos (f := edgeRe) (f' := deriv edgeRe)
+    hr (fun x _ => hasDerivAt_edgeRe x) hbound hmargin'
+
+/-- **R2 centered-form box (lower-bound form).** Right-edge imaginary-part
+positivity on `[c - r, c + r]` from a certified lower bound
+`Mc_lb ≤ Im ξ(1 + ic)` plus the derivative-modulus bound. -/
+theorem R2_box_centered_of_lb
+    {c r L Mc_lb : ℝ}
+    (hr : 0 ≤ r)
+    (hvalue_lb : Mc_lb ≤ (riemannXiEntire (⟨1, c⟩ : ℂ)).im)
+    (hbound : ∀ x ∈ Icc (c - r) (c + r), |deriv edgeIm x| ≤ L)
+    (hmargin : L * r < Mc_lb) :
+    ∀ t ∈ Icc (c - r) (c + r), 0 < (riemannXiEntire (⟨1, t⟩ : ℂ)).im := by
+  have hmargin' : L * r < edgeIm c := by
+    show L * r < (riemannXiEntire (⟨1, c⟩ : ℂ)).im
+    linarith
+  exact centered_form_pos (f := edgeIm) (f' := deriv edgeIm)
+    hr (fun x _ => hasDerivAt_edgeIm x) hbound hmargin'
+
+/-- **R3 centered-form box (upper-bound form).** Right-edge real-part negativity
+on `[c - r, c + r]` from a certified upper bound `Re ξ(1 + ic) ≤ Mc_ub < -(L·r)`
+plus the derivative-modulus bound. -/
+theorem R3_box_centered_of_ub
+    {c r L Mc_ub : ℝ}
+    (hr : 0 ≤ r)
+    (hvalue_ub : (riemannXiEntire (⟨1, c⟩ : ℂ)).re ≤ Mc_ub)
+    (hbound : ∀ x ∈ Icc (c - r) (c + r), |deriv edgeRe x| ≤ L)
+    (hmargin : Mc_ub < -(L * r)) :
+    ∀ t ∈ Icc (c - r) (c + r), (riemannXiEntire (⟨1, t⟩ : ℂ)).re < 0 := by
+  have hmargin' : edgeRe c < -(L * r) := by
+    show (riemannXiEntire (⟨1, c⟩ : ℂ)).re < -(L * r)
+    linarith
+  exact centered_form_neg (f := edgeRe) (f' := deriv edgeRe)
+    hr (fun x _ => hasDerivAt_edgeRe x) hbound hmargin'
+
 end
 
 /-! ## §Axiom check -/
@@ -225,6 +286,9 @@ end
 #print axioms R1_box_centered
 #print axioms R2_box_centered
 #print axioms R3_box_centered
+#print axioms R1_box_centered_of_lb
+#print axioms R2_box_centered_of_lb
+#print axioms R3_box_centered_of_ub
 
 end CenteredFormBridge20261013
 end PrincipiaTractalis
