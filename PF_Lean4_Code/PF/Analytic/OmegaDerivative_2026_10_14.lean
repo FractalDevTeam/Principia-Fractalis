@@ -144,6 +144,63 @@ theorem omega_hasDerivAt {x : ℝ} (hx : 0 < x) :
       hx_mem hx_summ hx_mem
   exact h_apply
 
+/-! ## §Sign of `omega'` -/
+
+/-- Each term of `omega' x` is non-positive at `x > 0`. -/
+lemma omega'_term_nonpos (n : ℕ) {x : ℝ} (hx : 0 < x) :
+    -(π * ((n : ℝ) + 1) ^ 2) * Real.exp (-π * ((n : ℝ) + 1) ^ 2 * x) ≤ 0 := by
+  have hπ : (0 : ℝ) < π := Real.pi_pos
+  have hn : (0 : ℝ) ≤ ((n : ℝ) + 1) ^ 2 := by positivity
+  have h_coef_nonneg : (0 : ℝ) ≤ π * ((n : ℝ) + 1) ^ 2 :=
+    mul_nonneg hπ.le hn
+  have h_exp_pos : (0 : ℝ) < Real.exp (-π * ((n : ℝ) + 1) ^ 2 * x) := Real.exp_pos _
+  have : 0 ≤ π * ((n : ℝ) + 1) ^ 2 * Real.exp (-π * ((n : ℝ) + 1) ^ 2 * x) :=
+    mul_nonneg h_coef_nonneg h_exp_pos.le
+  linarith
+
+/-- **`omega'(x) ≤ 0` on `Ioi 0`.** Immediate from term-wise non-positivity + summability. -/
+theorem omega'_nonpos {x : ℝ} (hx : 0 < x) : omega' x ≤ 0 := by
+  unfold omega'
+  -- The series' terms are all ≤ 0 and the series is summable (shown by the
+  -- same bound as the derivative-bound summability).
+  have h_summ : Summable fun n : ℕ =>
+      -(π * ((n : ℝ) + 1) ^ 2) * Real.exp (-π * ((n : ℝ) + 1) ^ 2 * x) := by
+    have h_abs_summ : Summable fun n : ℕ =>
+        π * ((n : ℝ) + 1) ^ 2 * Real.exp (-π * ((n : ℝ) + 1) ^ 2 * x) := by
+      -- Same proof as summable_omega_term_deriv_bound but at x instead of δ.
+      have hπ : (0 : ℝ) < π := Real.pi_pos
+      have hπx : (0 : ℝ) < π * x := mul_pos hπ hx
+      have h_mathlib : Summable fun n : ℕ => (n : ℝ) ^ 2 * Real.exp (-(π * x) * (n : ℝ)) :=
+        Real.summable_pow_mul_exp_neg_nat_mul 2 hπx
+      have h_shift : Summable fun n : ℕ =>
+          ((n : ℝ) + 1) ^ 2 * Real.exp (-(π * x) * ((n : ℝ) + 1)) := by
+        have h_succ : (fun n : ℕ => ((n : ℝ) + 1) ^ 2 * Real.exp (-(π * x) * ((n : ℝ) + 1)))
+                    = (fun n : ℕ => ((Nat.succ n : ℕ) : ℝ) ^ 2
+                                  * Real.exp (-(π * x) * ((Nat.succ n : ℕ) : ℝ))) := by
+          ext n; push_cast; ring_nf
+        rw [h_succ]
+        exact h_mathlib.comp_injective Nat.succ_injective
+      have h_pi : Summable fun n : ℕ =>
+          π * (((n : ℝ) + 1) ^ 2 * Real.exp (-(π * x) * ((n : ℝ) + 1))) :=
+        h_shift.mul_left π
+      refine Summable.of_nonneg_of_le (fun n => by positivity) (fun n => ?_) h_pi
+      have h_rewrite : π * ((n : ℝ) + 1) ^ 2 * Real.exp (-π * ((n : ℝ) + 1) ^ 2 * x)
+          = π * (((n : ℝ) + 1) ^ 2 * Real.exp (-π * ((n : ℝ) + 1) ^ 2 * x)) := by ring
+      rw [h_rewrite]
+      apply mul_le_mul_of_nonneg_left _ hπ.le
+      apply mul_le_mul_of_nonneg_left _ (by positivity : (0 : ℝ) ≤ ((n : ℝ) + 1) ^ 2)
+      apply Real.exp_le_exp.mpr
+      have h_sq_ge : ((n : ℝ) + 1) ≤ ((n : ℝ) + 1) ^ 2 := by
+        have h1 : (1 : ℝ) ≤ (n : ℝ) + 1 := by
+          have := Nat.cast_nonneg (α := ℝ) n
+          linarith
+        nlinarith [h1, sq_nonneg ((n : ℝ) + 1 - 1)]
+      nlinarith [h_sq_ge, hπ.le, hx.le]
+    have h_neg := h_abs_summ.neg
+    convert h_neg using 1
+    ext n; ring
+  exact tsum_nonpos (fun n => omega'_term_nonpos n hx)
+
 end
 
 /-! ## §Axiom check -/
@@ -152,6 +209,8 @@ end
 #print axioms omega_term_deriv_abs_le_on_Ioi
 #print axioms summable_omega_term_deriv_bound
 #print axioms omega_hasDerivAt
+#print axioms omega'_term_nonpos
+#print axioms omega'_nonpos
 
 end OmegaDerivative20261014
 end PrincipiaTractalis
