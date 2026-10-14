@@ -1,0 +1,102 @@
+% Revision 2 front matter — "What Changed, and What Is and Is Not Established."
+% Staged 2026-10-09. Grounded in the Lean/Coq corpus state at HEAD aa79d403,
+% the per-chapter verification ledgers, codex/BOOK_LEAN_SUPERSESSION_MAP and
+% codex/SEMANTIC_PARITY_MAP. NOT yet \input into main.tex — awaiting author review
+% of the framing (this is the page that states what the book claims).
+
+\chapter*{Revision 2 --- What Changed, and What Is and Is Not Established}
+\addcontentsline{toc}{chapter}{Revision 2 --- What Changed and What Is Established}
+
+\markboth{REVISION 2}{REVISION 2}
+
+This edition revises the first complete manuscript of \emph{Principia Fractalis}
+against an extensive Lean~4 and Rocq (Coq) formalization effort carried out
+since. The companion corpus now elaborates as a single verified environment
+(\texttt{lake build PF}, kernel axioms \texttt{[propext, Classical.choice,
+Quot.sound]} only, zero project-level axioms), and the substrate result is
+independently re-verified in a second proof assistant. Nothing in this book is
+submitted or published as settled beyond what that formalization establishes.
+
+\section*{The rigor ledger governs every claim}
+
+Each substantive claim in this book carries one of four labels, and the reader
+should hold the book to them:
+\begin{itemize}
+\item \textbf{PROVEN (kernel-verified)} --- machine-checked in Lean~4 (and, where
+noted, Rocq), depending only on the three standard kernel axioms, with no
+project axiom, \texttt{sorry}, or \texttt{native\_decide}.
+\item \textbf{CONDITIONAL REDUCTION} --- machine-checked as an \emph{implication}
+``if [a named, \emph{open} proposition] then [the claim]''. The implication is
+verified; its hypothesis is not.
+\item \textbf{ASSERTED (not derived)} --- a definition or chosen value, matched to
+evidence but not derived from first principles.
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- a physical or clinical claim
+that only experiment can settle; a proof assistant cannot establish it.
+\end{itemize}
+
+\section*{What is PROVEN}
+
+The load-bearing verified result is the \textbf{substrate rigidity theorem}: the
+Timeless Field $\mathcal{T}_\infty$ is the uniformly hyperfinite $C^\ast$-algebra
+of supernatural number $3^\infty$ --- \emph{forced}, not chosen. This is Glimm's
+1960 UHF classification specialised to $3^\infty$, formalised here, to our
+knowledge, for the first time in any proof assistant, and now carried in both
+Lean~4 and Rocq. The unique-trace condition is \emph{derived} as a consequence
+rather than assumed. The supporting operator-algebra results ($C^\ast$-simplicity,
+trace faithfulness, the block-diagonal amplification classification) are
+kernel-clean on the same footing.
+
+\section*{What is a CONDITIONAL REDUCTION --- and the honest statement on the Clay problems}
+
+\textbf{This book does not claim to have solved any Clay Millennium Prize
+Problem.} The Millennium chapters (Riemann Hypothesis, P versus NP,
+Yang--Mills, Navier--Stokes, Hodge, Birch--Swinnerton-Dyer) are machine-checked
+\emph{conditional reductions}: each is an implication whose hypothesis is a
+named open proposition carried explicitly in the corpus
+(e.g.\ \texttt{PolylogEigenvalueConjecture} for P versus NP,
+\texttt{VortexStretchingBoundedHypothesis} for Navier--Stokes, the
+Hilbert--P\'olya and spectral-surjectivity conjectures for the Riemann
+Hypothesis). The reduction is verified; the antecedent is open. Each chapter's
+own verification ledger states this in that chapter's terms --- for instance,
+``The Riemann Hypothesis is \emph{not} proven here and remains open.'' Where the
+corpus formalises a Millennium statement unconditionally, it is a bounded or
+classically-known instance (for example, the Riemann Hypothesis restricted to a
+finite rectangle, classically known since Riemann), and its value is that it is
+\emph{formalised}, not that it advances the open problem.
+
+\section*{What is ASSERTED or EMPIRICAL}
+
+The nine-value $\alpha$-skeleton is \emph{asserted}: the values are chosen and
+matched to numerics (and, where anchored, to settled external mathematics such
+as Perelman's resolution of Poincar\'e), not derived from the substrate alone.
+The one genuinely non-circular, kernel-verified selection mechanism is the
+base-3 abscissa $\sigma(\alpha)=\log_3\lvert 1+2\cos(\pi\alpha)\rvert$. The
+consciousness threshold $\mathrm{ch}_2 \ge 0.95$, the clinical accuracy figures,
+and all consciousness quantifications are \textbf{empirical hypotheses --- untested}:
+they await experiment and are not established by any computation in this book.
+
+\section*{Principal corrections in this revision}
+
+\begin{itemize}
+\item \textbf{Supersessions.} The Lean development refined several numerical
+values that the first edition carried as best-available. The spectral gap and the
+NP ground-state energy are stated at their certified values, with the closed
+forms cited symbolically so that future refinement has an anchor; downstream
+figures that scale with them are recomputed.
+\item \textbf{Errata.} A small number of first-edition statements were found false
+as written (a base-3 modular identity, several stale $\alpha$-preview values, a
+string-tension figure) and are corrected, with the corrected proofs machine-checked.
+\item \textbf{Scope repairs.} Prose that outran its proofs --- most consequentially
+the empirical ``validation'' narratives --- is scoped to what the source actually
+establishes. The computational ``143-problem'' panel, in particular, is a
+local-simulator run of a classical resonance formula, not quantum-hardware
+evidence, and is presented as such.
+\item \textbf{De-placeholdering.} Several formal statements that had stood as
+typed placeholders now carry genuine content with explicit non-vacuity witnesses.
+\end{itemize}
+
+\noindent The authoritative, line-level record of every correction lives in the
+per-chapter verification ledgers and in the project's dated audit documents; this
+page is the orientation, not the index.
+
+\endinput
