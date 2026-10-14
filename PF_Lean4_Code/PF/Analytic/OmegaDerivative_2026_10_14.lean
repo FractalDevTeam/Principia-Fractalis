@@ -235,6 +235,22 @@ theorem F_minus_hasDerivAt (u : ℝ) :
   have h_exp := Real.hasDerivAt_exp u
   exact h_omega.comp u h_exp
 
+/-- Pointwise derivative of `F_plus u = exp(u/2) · omega(exp u)` on all of `ℝ`. -/
+theorem F_plus_hasDerivAt (u : ℝ) :
+    HasDerivAt F_plus
+      ((1 / 2) * Real.exp (u / 2) * omega (Real.exp u)
+       + Real.exp (u / 2) * (omega' (Real.exp u) * Real.exp u)) u := by
+  have h_half : HasDerivAt (fun u : ℝ => u / 2) ((1 : ℝ) / 2) u := by
+    have := (hasDerivAt_id u).div_const 2
+    convert this using 1
+  have h_exp_half : HasDerivAt (fun u : ℝ => Real.exp (u / 2))
+      (((1 : ℝ) / 2) * Real.exp (u / 2)) u := by
+    have h := h_half.exp
+    convert h using 1
+    ring
+  have h_F_minus := F_minus_hasDerivAt u
+  exact h_exp_half.mul h_F_minus
+
 /-! ## §Omega differentiability on `Ioi 0` -/
 
 /-- **`omega` is differentiable on `Ioi 0`.** Immediate from `omega_hasDerivAt`. -/
@@ -262,6 +278,7 @@ end
 #print axioms F_minus_nonneg
 #print axioms F_plus_nonneg
 #print axioms F_minus_hasDerivAt
+#print axioms F_plus_hasDerivAt
 
 end OmegaDerivative20261014
 end PrincipiaTractalis
