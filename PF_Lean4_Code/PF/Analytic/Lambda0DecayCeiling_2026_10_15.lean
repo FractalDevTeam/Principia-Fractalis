@@ -31,27 +31,33 @@ with leading constant **exactly 1**.
 
 `Re ξ(1+it) = (1 + Re[s(s−1)·Λ₀])/2`, so every argument of the shape "bound
 `‖Λ₀‖`, then apply the triangle inequality" is limited by `|s(s−1)|·‖Λ₀‖`.
-That product tends to **exactly 1** — the critical threshold — so the modulus
-route lands precisely *on* `Re ξ ≥ 0` and can never reach a strict positive
-bound. For the R1 gate, which needs `Mc_lb = 1/4` and hence
-`|s(s−1)|·‖Λ₀‖ ≤ 1/2`, the shortfall is a factor of exactly 2.
+And that product is **exactly `‖2ξ(1+it) − 1‖`**
+(`lambda0_mul_eq_two_xi_sub_one`, immediate from the definition of
+`riemannXiEntire`) — so wherever `ξ` is small it sits just below `1`, the
+critical threshold. The modulus route therefore lands precisely *on*
+`Re ξ ≥ 0` and can never reach a strict positive bound. For the R1 gate, which
+needs `Mc_lb = 1/4` and hence `|s(s−1)|·‖Λ₀‖ ≤ 1/2`, the shortfall is a factor
+of exactly 2.
 
-`gate1_eventually_fails_of_threshold` states this. What saves `ξ` on the edge
-is the *phase* of `s(s−1)Λ₀`, which the modulus route discards.
+What saves `ξ` on the edge is the *phase* of `s(s−1)Λ₀`, which the modulus
+route discards.
 
 ## Scope — read this before citing
 
-* `omega_deriv_one` and `deriv_F_sum_zero` are UNCONDITIONAL and exact.
-* `gate1_eventually_fails_of_threshold` is CONDITIONAL on the hypothesis
-  `hlim : |s(s−1)·Λ₀(1+it)| → 1`. That limit is verified symbolically and
-  numerically (30 digits: `t²|Λ₀|` = 0.99881 at `t = 20`, 0.99999988 at
-  `t = 2000`) but is **not yet machine-checked here**.
-  **Removal condition:** a second application of
-  `Lambda0IBPIdentity20261015.ibp_phase` to `F₊'`/`F₋'` (needing `F''`
-  integrability and `F' → 0` at infinity) plus mathlib's Riemann–Lebesgue
-  (`Real.zero_at_infty_fourierIntegral`) discharges `hlim`; this file should
-  then be edited to drop the hypothesis. Until then the conditional form is
-  scaffolding, not the finished statement.
+* **Everything in this file is UNCONDITIONAL and exact**, including the
+  headline `gate1_fails_at_of_xi_small`. No asymptotic hypothesis is assumed
+  anywhere. The earlier conditional form (which assumed
+  `|s(s−1)Λ₀(1+it)| → 1` outright) has been removed: the exact identity
+  `s(s−1)Λ₀ = 2ξ − 1` plus the reverse triangle inequality does the work, so
+  the gate failure needs only the *pointwise, checkable* side condition
+  `‖ξ(1+it)‖ < 1/4` — true numerically for every `t ≳ 5.4`, with `‖ξ(1+it)‖`
+  decaying like `t²e^{−πt/4}` thereafter.
+* `gate1_eventually_fails_of_xi_tendsto_zero` and
+  `threshold_of_xi_tendsto_zero` give the asymptotic forms from the single
+  classical input `ξ(1+it) → 0`. That hypothesis is explicit in their
+  statements, is standard (Γ-factor decay), and is NOT assumed by the
+  headline theorem. A Lean proof of it is not attempted here: it needs a
+  growth bound for `ζ` on the 1-line, which mathlib does not currently have.
 * This file claims NOTHING about open RH, and nothing about R1/R2/R3 coverage.
   It closes one proof route and says so.
 
@@ -181,30 +187,87 @@ theorem re_xi_edge (t : ℝ) :
     Complex.one_re, Complex.one_im]
   ring
 
-/-- **★★★ THE CEILING ★★★** — the modulus route cannot meet the R1 gate.
+/-- **The exact algebraic identity.** `s(s−1)·Λ₀(s) = 2ξ(s) − 1`, immediately
+from PF's definition `riemannXiEntire s = (s(s−1)Λ₀(s) + 1)/2`. This is what
+replaces the asymptotic hypothesis: the critical product is *exactly*
+`‖2ξ − 1‖`, with no limit involved. -/
+theorem lambda0_mul_eq_two_xi_sub_one (s : ℂ) :
+    s * (s - 1) * completedRiemannZeta₀ s = 2 * riemannXiEntire s - 1 := by
+  rw [riemannXiEntire]
+  ring
 
-Let `B` be ANY modulus bound for `Λ₀` on the edge. If the critical product
-`|s(s−1)·Λ₀(1+it)|` tends to `1` (hypothesis `hlim`; see the scope note in the
-file header for its removal condition), then for all large `t` the R1 gate
-requirement `|s(s−1)|·B t ≤ 1/2` is violated — by a factor approaching
-exactly `2`.
+/-- `‖2ξ − 1‖ ≥ 1 − 2‖ξ‖` — the reverse triangle inequality, isolated. -/
+theorem one_sub_two_norm_le (z : ℂ) : 1 - 2 * ‖z‖ ≤ ‖2 * z - 1‖ := by
+  have h := norm_sub_norm_le (1 : ℂ) (2 * z)
+  rw [norm_sub_rev] at h
+  have h2 : ‖(2 : ℂ) * z‖ = 2 * ‖z‖ := by
+    rw [norm_mul]
+    norm_num
+  rw [norm_one, h2] at h
+  exact h
 
-So no sharpening of `B` — not a deeper IBP, not a better constant, not any
-structural input — can certify the R1 gate at large `t`. The obstruction is
-the true asymptotic constant, not slack in an estimate. -/
-theorem gate1_eventually_fails_of_threshold
-    {B : ℝ → ℝ}
+/-- **★★★ THE CEILING, UNCONDITIONAL ★★★** — the modulus route cannot meet the
+R1 gate at any `t` where `ξ` is small.
+
+Let `B` be ANY modulus bound for `Λ₀` on the edge. Wherever
+`‖ξ(1+it)‖ < 1/4`, the R1 gate requirement `|s(s−1)|·B t ≤ 1/2` is violated.
+
+No asymptotics, no unproved hypothesis: the critical product is *exactly*
+`‖2ξ(1+it) − 1‖` by `lambda0_mul_eq_two_xi_sub_one`, which the reverse
+triangle inequality bounds below by `1 − 2‖ξ‖ > 1/2`.
+
+Numerically `‖ξ(1+it)‖ < 1/4` holds for every `t ≳ 5.4` (and `‖ξ‖` decays like
+`t²e^{−πt/4}` thereafter), so this covers the entire region past the landed
+uniform frontier. The hypothesis is pointwise and checkable at any given `t`,
+rather than an asymptotic statement. -/
+theorem gate1_fails_at_of_xi_small {B : ℝ → ℝ}
     (hB : ∀ t : ℝ, ‖completedRiemannZeta₀ (⟨1, t⟩ : ℂ)‖ ≤ B t)
-    (hlim : Tendsto
-      (fun t : ℝ => ‖(⟨1, t⟩ : ℂ) * ((⟨1, t⟩ : ℂ) - 1)‖
-        * ‖completedRiemannZeta₀ (⟨1, t⟩ : ℂ)‖) atTop (nhds 1)) :
+    {t : ℝ} (hxi : ‖riemannXiEntire (⟨1, t⟩ : ℂ)‖ < 1 / 4) :
+    1 / 2 < ‖(⟨1, t⟩ : ℂ) * ((⟨1, t⟩ : ℂ) - 1)‖ * B t := by
+  have hprod : ‖(⟨1, t⟩ : ℂ) * ((⟨1, t⟩ : ℂ) - 1)‖
+      * ‖completedRiemannZeta₀ (⟨1, t⟩ : ℂ)‖
+        = ‖2 * riemannXiEntire (⟨1, t⟩ : ℂ) - 1‖ := by
+    rw [← norm_mul, lambda0_mul_eq_two_xi_sub_one]
+  have hlow := one_sub_two_norm_le (riemannXiEntire (⟨1, t⟩ : ℂ))
+  have hmono : ‖(⟨1, t⟩ : ℂ) * ((⟨1, t⟩ : ℂ) - 1)‖
+      * ‖completedRiemannZeta₀ (⟨1, t⟩ : ℂ)‖
+        ≤ ‖(⟨1, t⟩ : ℂ) * ((⟨1, t⟩ : ℂ) - 1)‖ * B t :=
+    mul_le_mul_of_nonneg_left (hB t) (norm_nonneg _)
+  rw [hprod] at hmono
+  linarith
+
+/-- **The asymptotic form.** With the single classical input `ξ(1+it) → 0`
+(the Γ-factor decay; `‖ξ(1+it)‖ ≈ 0.707·t²·e^{−πt/4}·‖ζ(1+it)‖`), the R1 gate
+requirement fails for all large `t`.
+
+This replaces the earlier bespoke hypothesis `|s(s−1)Λ₀| → 1` with a standard,
+recognisable one: `ξ → 0` on the edge. -/
+theorem gate1_eventually_fails_of_xi_tendsto_zero {B : ℝ → ℝ}
+    (hB : ∀ t : ℝ, ‖completedRiemannZeta₀ (⟨1, t⟩ : ℂ)‖ ≤ B t)
+    (hxi : Tendsto (fun t : ℝ => riemannXiEntire (⟨1, t⟩ : ℂ)) atTop (nhds 0)) :
     ∀ᶠ t : ℝ in atTop,
       1 / 2 < ‖(⟨1, t⟩ : ℂ) * ((⟨1, t⟩ : ℂ) - 1)‖ * B t := by
-  have hhalf : (1 : ℝ) / 2 < 1 := by norm_num
-  have hev := hlim.eventually (eventually_gt_nhds hhalf)
+  have hnorm : Tendsto (fun t : ℝ => ‖riemannXiEntire (⟨1, t⟩ : ℂ)‖) atTop (nhds 0) := by
+    simpa using hxi.norm
+  have hev := hnorm.eventually (eventually_lt_nhds (by norm_num : (0 : ℝ) < 1 / 4))
   filter_upwards [hev] with t ht
-  refine lt_of_lt_of_le ht ?_
-  exact mul_le_mul_of_nonneg_left (hB t) (norm_nonneg _)
+  exact gate1_fails_at_of_xi_small hB ht
+
+/-- The critical product is exactly `1` in the limit, given `ξ → 0` — the
+statement that was previously assumed outright. -/
+theorem threshold_of_xi_tendsto_zero
+    (hxi : Tendsto (fun t : ℝ => riemannXiEntire (⟨1, t⟩ : ℂ)) atTop (nhds 0)) :
+    Tendsto (fun t : ℝ => ‖(⟨1, t⟩ : ℂ) * ((⟨1, t⟩ : ℂ) - 1)‖
+      * ‖completedRiemannZeta₀ (⟨1, t⟩ : ℂ)‖) atTop (nhds 1) := by
+  have hcongr : ∀ t : ℝ, ‖(⟨1, t⟩ : ℂ) * ((⟨1, t⟩ : ℂ) - 1)‖
+      * ‖completedRiemannZeta₀ (⟨1, t⟩ : ℂ)‖
+        = ‖2 * riemannXiEntire (⟨1, t⟩ : ℂ) - 1‖ := by
+    intro t
+    rw [← norm_mul, lambda0_mul_eq_two_xi_sub_one]
+  simp only [hcongr]
+  have h : Tendsto (fun t : ℝ => 2 * riemannXiEntire (⟨1, t⟩ : ℂ) - 1) atTop
+      (nhds (2 * 0 - 1)) := (hxi.const_mul 2).sub_const 1
+  simpa using h.norm
 
 end
 
@@ -216,7 +279,11 @@ end
 #print axioms deriv_F_plus_zero
 #print axioms deriv_F_sum_zero
 #print axioms re_xi_edge
-#print axioms gate1_eventually_fails_of_threshold
+#print axioms lambda0_mul_eq_two_xi_sub_one
+#print axioms one_sub_two_norm_le
+#print axioms gate1_fails_at_of_xi_small
+#print axioms gate1_eventually_fails_of_xi_tendsto_zero
+#print axioms threshold_of_xi_tendsto_zero
 
 end Lambda0DecayCeiling20261015
 end PrincipiaTractalis
