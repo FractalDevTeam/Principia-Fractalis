@@ -482,6 +482,82 @@ lemma F_minus_le_exp_neg_pi_mul {u : ℝ} (hu : 0 ≤ u) :
     _ ≤ (23 / 22) * Real.exp (-π * u) :=
         mul_le_mul_of_nonneg_left h_exp_mono (by norm_num)
 
+/-- Pointwise bound: `F_plus(u) ≤ (23/22)·exp(-π)·exp(u·(1/2 - π))` for `u ≥ 0`.
+Since `1/2 − π < 0`, the dominating function is integrable on `Ioi 0`. -/
+lemma F_plus_le_exp_bound {u : ℝ} (hu : 0 ≤ u) :
+    F_plus u ≤ (23 / 22) * Real.exp (-π) * Real.exp (u * (1 / 2 - π)) := by
+  unfold F_plus
+  have h_exp_u_ge_u_plus_one : 1 + u ≤ Real.exp u := by linarith [Real.add_one_le_exp u]
+  have h_exp_u_pos : 0 < Real.exp u := Real.exp_pos u
+  have hπ_pos : 0 < π := Real.pi_pos
+  -- From the L3b-prep argument: ω(exp u) ≤ (23/22)·exp(-π·exp u).
+  have h_geom := omega_le_geometric h_exp_u_pos
+  have h_exp_eu_le_pi : Real.exp (-π * Real.exp u) ≤ Real.exp (-π) := by
+    apply Real.exp_le_exp.mpr
+    have h_one_le_exp : 1 ≤ Real.exp u := Real.one_le_exp hu
+    nlinarith [h_one_le_exp, hπ_pos]
+  have h_exp_pi_le : Real.exp (-π) ≤ 1 / 23 := by
+    have h := exp_pi_gt_twentythree
+    rw [Real.exp_neg]
+    rw [show (1 / 23 : ℝ) = (23 : ℝ)⁻¹ from by norm_num]
+    exact inv_anti₀ (by norm_num : (0 : ℝ) < 23) h.le
+  have h_exp_eu_le_23 : Real.exp (-π * Real.exp u) ≤ 1 / 23 :=
+    le_trans h_exp_eu_le_pi h_exp_pi_le
+  have h_one_sub_pos : 0 < 1 - Real.exp (-π * Real.exp u) := by
+    have h_exp_pos : 0 < Real.exp (-π * Real.exp u) := Real.exp_pos _
+    have h_exp_lt_one : Real.exp (-π * Real.exp u) < 1 := by linarith
+    linarith
+  have h_one_sub_ge : 22 / 23 ≤ 1 - Real.exp (-π * Real.exp u) := by linarith
+  have h_inv_le : 1 / (1 - Real.exp (-π * Real.exp u)) ≤ 23 / 22 := by
+    rw [div_le_div_iff₀ h_one_sub_pos (by norm_num : (0 : ℝ) < 22)]
+    linarith
+  have h_omega_bound : omega (Real.exp u) ≤ (23 / 22) * Real.exp (-π * Real.exp u) := by
+    calc omega (Real.exp u) ≤ Real.exp (-π * Real.exp u) / (1 - Real.exp (-π * Real.exp u)) :=
+          h_geom
+      _ = Real.exp (-π * Real.exp u) * (1 / (1 - Real.exp (-π * Real.exp u))) := by ring
+      _ ≤ Real.exp (-π * Real.exp u) * (23 / 22) :=
+          mul_le_mul_of_nonneg_left h_inv_le (Real.exp_pos _).le
+      _ = (23 / 22) * Real.exp (-π * Real.exp u) := by ring
+  -- Combine: F_plus(u) = exp(u/2)·ω(e^u) ≤ exp(u/2) · (23/22) · exp(-π·exp u).
+  -- Then use exp(-π·exp u) ≤ exp(-π) · exp(-π·u) via exp u ≥ 1 + u → exp(-π·exp u) ≤ exp(-π-πu).
+  have h_exp_u_bound : -π * Real.exp u ≤ -π - π * u := by
+    have h_mul := mul_le_mul_of_nonneg_left h_exp_u_ge_u_plus_one hπ_pos.le
+    linarith
+  have h_exp_mono : Real.exp (-π * Real.exp u) ≤ Real.exp (-π - π * u) :=
+    Real.exp_le_exp.mpr h_exp_u_bound
+  have h_half_pos : 0 < Real.exp (u / 2) := Real.exp_pos _
+  calc Real.exp (u / 2) * omega (Real.exp u)
+      ≤ Real.exp (u / 2) * ((23 / 22) * Real.exp (-π * Real.exp u)) :=
+        mul_le_mul_of_nonneg_left h_omega_bound h_half_pos.le
+    _ ≤ Real.exp (u / 2) * ((23 / 22) * Real.exp (-π - π * u)) := by
+        apply mul_le_mul_of_nonneg_left _ h_half_pos.le
+        exact mul_le_mul_of_nonneg_left h_exp_mono (by norm_num)
+    _ = (23 / 22) * (Real.exp (u / 2) * Real.exp (-π - π * u)) := by ring
+    _ = (23 / 22) * Real.exp (u / 2 + (-π - π * u)) := by rw [← Real.exp_add]
+    _ = (23 / 22) * Real.exp (-π + u * (1 / 2 - π)) := by ring_nf
+    _ = (23 / 22) * (Real.exp (-π) * Real.exp (u * (1 / 2 - π))) := by rw [Real.exp_add]
+    _ = (23 / 22) * Real.exp (-π) * Real.exp (u * (1 / 2 - π)) := by ring
+
+/-- **`F_plus` is integrable on `Ioi 0`.** -/
+theorem F_plus_integrable_Ioi : IntegrableOn F_plus (Ioi (0 : ℝ)) := by
+  have h_coeff : (1 / 2 - π : ℝ) < 0 := by linarith [Real.pi_gt_three]
+  have h_exp_integrable :=
+    integrableOn_exp_mul_Ioi (a := 1 / 2 - π) (c := 0) h_coeff
+  -- integrableOn (fun u => exp((1/2 - π) * u)) (Ioi 0), ∫ = ∫ exp(u·(1/2-π))
+  have h_bound_integrable : IntegrableOn
+      (fun u : ℝ => (23 / 22) * Real.exp (-π) * Real.exp (u * (1 / 2 - π))) (Ioi (0 : ℝ)) := by
+    have h_rewrite : (fun u : ℝ => (23 / 22) * Real.exp (-π) * Real.exp (u * (1 / 2 - π)))
+                   = (fun u : ℝ => ((23 / 22) * Real.exp (-π)) * Real.exp ((1 / 2 - π) * u)) := by
+      ext u
+      rw [show (u * (1 / 2 - π) : ℝ) = (1 / 2 - π) * u from mul_comm _ _]
+    rw [h_rewrite]
+    exact h_exp_integrable.const_mul _
+  refine h_bound_integrable.mono' F_plus_continuous.aestronglyMeasurable.restrict ?_
+  filter_upwards [self_mem_ae_restrict (measurableSet_Ioi : MeasurableSet (Ioi (0 : ℝ)))]
+    with u hu
+  rw [Real.norm_eq_abs, abs_of_nonneg (F_plus_nonneg u)]
+  exact F_plus_le_exp_bound (le_of_lt (mem_Ioi.mp hu))
+
 /-- **`F_minus` is integrable on `Ioi 0`.** Via comparison with `(23/22)·exp(-π·u)`. -/
 theorem F_minus_integrable_Ioi : IntegrableOn F_minus (Ioi (0 : ℝ)) := by
   have h_bound_integrable : IntegrableOn (fun u : ℝ => (23 / 22) * Real.exp (-π * u))
@@ -539,6 +615,8 @@ theorem sqrt_mul_omega_tendsto_atTop_zero :
 #print axioms sqrt_mul_omega_tendsto_atTop_zero
 #print axioms F_minus_le_exp_neg_pi_mul
 #print axioms F_minus_integrable_Ioi
+#print axioms F_plus_le_exp_bound
+#print axioms F_plus_integrable_Ioi
 
 end OmegaDerivativeBounds20261015
 end PrincipiaTractalis
