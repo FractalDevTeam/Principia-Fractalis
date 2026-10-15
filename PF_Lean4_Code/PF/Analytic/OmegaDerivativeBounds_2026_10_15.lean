@@ -426,6 +426,35 @@ theorem integral_neg_deriv_F_plus_Ioi_eq :
   rw [integral_deriv_F_plus_Ioi_eq]
   ring
 
+/-! ## §6 — x-coord boundary vanishing: `sqrt(x)·ω(x) → 0`
+
+For the x-coordinate IBP route (`∫_1^T x^(a-1)·ω(x) dx`), the boundary
+term at `T` is `T^(1/2+it/2)·ω(T) → 0`. Modulus-wise this is
+`T^(1/2)·ω(T) → 0`, which we obtain by substitution from
+`F_plus_tendsto_atTop_zero`:  `F_plus(ln x) = x^(1/2)·ω(x)` for `x > 0`.
+-/
+
+/-- **`x^(1/2)·ω(x) → 0` as `x → ∞`.** -/
+theorem sqrt_mul_omega_tendsto_atTop_zero :
+    Tendsto (fun x : ℝ => Real.sqrt x * omega x) atTop (nhds 0) := by
+  -- F_plus(u) = exp(u/2) · ω(exp u). Substituting u = ln x (for x > 0):
+  -- F_plus(ln x) = exp(ln x / 2) · ω(exp(ln x)) = sqrt(x) · ω(x) (for x > 0).
+  have h_comp : (fun x : ℝ => F_plus (Real.log x)) =ᶠ[atTop]
+                (fun x : ℝ => Real.sqrt x * omega x) := by
+    rw [Filter.EventuallyEq, Filter.eventually_atTop]
+    refine ⟨1, fun x hx => ?_⟩
+    have hx_pos : 0 < x := lt_of_lt_of_le zero_lt_one hx
+    unfold F_plus
+    rw [Real.exp_log hx_pos]
+    congr 1
+    -- Goal: Real.exp (Real.log x / 2) = Real.sqrt x  (for x > 0)
+    rw [Real.sqrt_eq_rpow]
+    rw [show (Real.log x) / 2 = Real.log x * (1 / 2) from by ring]
+    rw [← Real.rpow_def_of_pos hx_pos (1/2)]
+  have h_log : Tendsto Real.log atTop atTop := Real.tendsto_log_atTop
+  have h := F_plus_tendsto_atTop_zero.comp h_log
+  exact h.congr' h_comp
+
 /-! ## §Axiom check -/
 
 #print axioms crossTerm_nonpos
@@ -446,6 +475,7 @@ theorem integral_neg_deriv_F_plus_Ioi_eq :
 #print axioms integral_neg_deriv_F_minus_Ioi_eq
 #print axioms integral_deriv_F_plus_Ioi_eq
 #print axioms integral_neg_deriv_F_plus_Ioi_eq
+#print axioms sqrt_mul_omega_tendsto_atTop_zero
 
 end OmegaDerivativeBounds20261015
 end PrincipiaTractalis
