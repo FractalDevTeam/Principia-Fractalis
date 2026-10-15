@@ -434,6 +434,67 @@ term at `T` is `T^(1/2+it/2)·ω(T) → 0`. Modulus-wise this is
 `F_plus_tendsto_atTop_zero`:  `F_plus(ln x) = x^(1/2)·ω(x)` for `x > 0`.
 -/
 
+/-! ## §7 — Integrability of `F_minus` on `Ioi 0` (first L4 ingredient) -/
+
+/-- Pointwise bound: `F_minus(u) ≤ (23/22)·exp(-π·u)` for `u ≥ 0`.
+Uses `exp u ≥ u` (via `add_one_le_exp`) to get `exp(-π·exp u) ≤ exp(-π·u)`. -/
+lemma F_minus_le_exp_neg_pi_mul {u : ℝ} (hu : 0 ≤ u) :
+    F_minus u ≤ (23 / 22) * Real.exp (-π * u) := by
+  unfold F_minus
+  have h_exp_u_ge_u : u ≤ Real.exp u := by
+    have := Real.add_one_le_exp u; linarith
+  have h_exp_u_pos : 0 < Real.exp u := Real.exp_pos u
+  -- Replicate the omega(x) ≤ (23/22)·exp(-πx) bound from L3b omega_tendsto proof.
+  have h_geom := omega_le_geometric h_exp_u_pos
+  have h_exp_eu_le_pi : Real.exp (-π * Real.exp u) ≤ Real.exp (-π) := by
+    apply Real.exp_le_exp.mpr
+    have hπ_pos : 0 < π := Real.pi_pos
+    have h_one_le_exp : 1 ≤ Real.exp u := Real.one_le_exp hu
+    nlinarith [h_one_le_exp, hπ_pos]
+  have h_exp_pi_le : Real.exp (-π) ≤ 1 / 23 := by
+    have h := exp_pi_gt_twentythree
+    rw [Real.exp_neg]
+    rw [show (1 / 23 : ℝ) = (23 : ℝ)⁻¹ from by norm_num]
+    exact inv_anti₀ (by norm_num : (0 : ℝ) < 23) h.le
+  have h_exp_eu_le_23 : Real.exp (-π * Real.exp u) ≤ 1 / 23 :=
+    le_trans h_exp_eu_le_pi h_exp_pi_le
+  have h_one_sub_pos : 0 < 1 - Real.exp (-π * Real.exp u) := by
+    have h_exp_pos : 0 < Real.exp (-π * Real.exp u) := Real.exp_pos _
+    have h_exp_lt_one : Real.exp (-π * Real.exp u) < 1 := by linarith
+    linarith
+  have h_one_sub_ge : 22 / 23 ≤ 1 - Real.exp (-π * Real.exp u) := by linarith
+  have h_inv_le : 1 / (1 - Real.exp (-π * Real.exp u)) ≤ 23 / 22 := by
+    rw [div_le_div_iff₀ h_one_sub_pos (by norm_num : (0 : ℝ) < 22)]
+    linarith
+  have h_omega_bound : omega (Real.exp u) ≤ (23 / 22) * Real.exp (-π * Real.exp u) := by
+    calc omega (Real.exp u) ≤ Real.exp (-π * Real.exp u) / (1 - Real.exp (-π * Real.exp u)) :=
+          h_geom
+      _ = Real.exp (-π * Real.exp u) * (1 / (1 - Real.exp (-π * Real.exp u))) := by ring
+      _ ≤ Real.exp (-π * Real.exp u) * (23 / 22) :=
+          mul_le_mul_of_nonneg_left h_inv_le (Real.exp_pos _).le
+      _ = (23 / 22) * Real.exp (-π * Real.exp u) := by ring
+  have h_exp_mono : Real.exp (-π * Real.exp u) ≤ Real.exp (-π * u) := by
+    apply Real.exp_le_exp.mpr
+    have hπ_pos : 0 < π := Real.pi_pos
+    have h_mul := mul_le_mul_of_nonneg_left h_exp_u_ge_u hπ_pos.le
+    linarith
+  calc omega (Real.exp u) ≤ (23 / 22) * Real.exp (-π * Real.exp u) := h_omega_bound
+    _ ≤ (23 / 22) * Real.exp (-π * u) :=
+        mul_le_mul_of_nonneg_left h_exp_mono (by norm_num)
+
+/-- **`F_minus` is integrable on `Ioi 0`.** Via comparison with `(23/22)·exp(-π·u)`. -/
+theorem F_minus_integrable_Ioi : IntegrableOn F_minus (Ioi (0 : ℝ)) := by
+  have h_bound_integrable : IntegrableOn (fun u : ℝ => (23 / 22) * Real.exp (-π * u))
+                                        (Ioi (0 : ℝ)) := by
+    have h_exp_integrable := integrableOn_exp_mul_Ioi (a := -π)
+                                (c := 0) (by linarith [Real.pi_pos])
+    exact h_exp_integrable.const_mul (23 / 22)
+  refine h_bound_integrable.mono' F_minus_continuous.aestronglyMeasurable.restrict ?_
+  filter_upwards [self_mem_ae_restrict (measurableSet_Ioi : MeasurableSet (Ioi (0 : ℝ)))]
+    with u hu
+  rw [Real.norm_eq_abs, abs_of_nonneg (F_minus_nonneg u)]
+  exact F_minus_le_exp_neg_pi_mul (le_of_lt (mem_Ioi.mp hu))
+
 /-- **`x^(1/2)·ω(x) → 0` as `x → ∞`.** -/
 theorem sqrt_mul_omega_tendsto_atTop_zero :
     Tendsto (fun x : ℝ => Real.sqrt x * omega x) atTop (nhds 0) := by
@@ -476,6 +537,8 @@ theorem sqrt_mul_omega_tendsto_atTop_zero :
 #print axioms integral_deriv_F_plus_Ioi_eq
 #print axioms integral_neg_deriv_F_plus_Ioi_eq
 #print axioms sqrt_mul_omega_tendsto_atTop_zero
+#print axioms F_minus_le_exp_neg_pi_mul
+#print axioms F_minus_integrable_Ioi
 
 end OmegaDerivativeBounds20261015
 end PrincipiaTractalis
