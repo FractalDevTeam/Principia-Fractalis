@@ -362,6 +362,70 @@ theorem F_plus_tendsto_atTop_zero : Tendsto F_plus atTop (nhds 0) := by
     simpa using this
   exact tendsto_of_tendsto_of_tendsto_of_le_of_le' tendsto_const_nhds h_rhs h_nn h_bound
 
+/-! ## §5 — Variation integrals: `∫_0^∞ (−F'_±(u)) du = ω(1)`
+
+These are the IBP-ready bounds: for a monotone-decreasing F with F(∞) = 0,
+`∫_0^∞ (−F'(u)) du = F(0) − 0 = F(0)` by FTC-on-`Ioi 0`
+(`integral_Ioi_of_hasDerivAt_of_nonpos`).
+-/
+
+/-- `deriv F_minus u = omega' (exp u) · exp u ≤ 0` for all `u`. -/
+lemma deriv_F_minus_nonpos (u : ℝ) : deriv F_minus u ≤ 0 := by
+  have h := F_minus_hasDerivAt u
+  rw [h.deriv]
+  have h_omega' := omega'_nonpos (Real.exp_pos u)
+  have h_exp_pos : 0 < Real.exp u := Real.exp_pos u
+  exact mul_nonpos_of_nonpos_of_nonneg h_omega' h_exp_pos.le
+
+/-- `F_minus` continuity (follows from omega_continuous + exp continuous). -/
+lemma F_minus_continuous : Continuous F_minus := by
+  unfold F_minus
+  have h_omega_cont : ContinuousOn omega (Ioi 0) := continuousOn_omega
+  exact h_omega_cont.comp_continuous Real.continuous_exp (fun u => Real.exp_pos u)
+
+/-- **`∫_0^∞ deriv F_minus = -F_minus(0) = -omega(1)`.** -/
+theorem integral_deriv_F_minus_Ioi_eq :
+    ∫ u in Ioi (0 : ℝ), deriv F_minus u = -omega 1 := by
+  have h_cont : ContinuousWithinAt F_minus (Ici 0) 0 :=
+    F_minus_continuous.continuousOn.continuousWithinAt (mem_Ici.mpr le_rfl)
+  have h_deriv : ∀ x ∈ Ioi (0 : ℝ), HasDerivAt F_minus (deriv F_minus x) x :=
+    fun x _ => (F_minus_hasDerivAt x).congr_deriv ((F_minus_hasDerivAt x).deriv).symm
+  have h_nonpos : ∀ x ∈ Ioi (0 : ℝ), deriv F_minus x ≤ 0 :=
+    fun x _ => deriv_F_minus_nonpos x
+  have h_tendsto := F_minus_tendsto_atTop_zero
+  have h := integral_Ioi_of_hasDerivAt_of_nonpos h_cont h_deriv h_nonpos h_tendsto
+  simp [F_minus, Real.exp_zero] at h
+  linarith
+
+/-- **`∫_0^∞ (−deriv F_minus u) du = omega(1)`.** The variation. -/
+theorem integral_neg_deriv_F_minus_Ioi_eq :
+    ∫ u in Ioi (0 : ℝ), -(deriv F_minus u) = omega 1 := by
+  rw [MeasureTheory.integral_neg]
+  rw [integral_deriv_F_minus_Ioi_eq]
+  ring
+
+/-- **`∫_0^∞ deriv F_plus = -F_plus(0) = -omega(1)`.**
+Via `integral_Ioi_of_hasDerivAt_of_nonpos` applied to `F_plus`. -/
+theorem integral_deriv_F_plus_Ioi_eq :
+    ∫ u in Ioi (0 : ℝ), deriv F_plus u = -omega 1 := by
+  have h_cont : ContinuousWithinAt F_plus (Ici 0) 0 :=
+    F_plus_continuous.continuousOn.continuousWithinAt (mem_Ici.mpr le_rfl)
+  have h_deriv : ∀ x ∈ Ioi (0 : ℝ), HasDerivAt F_plus (deriv F_plus x) x :=
+    fun x _ => (F_plus_hasDerivAt x).congr_deriv ((F_plus_hasDerivAt x).deriv).symm
+  have h_nonpos : ∀ x ∈ Ioi (0 : ℝ), deriv F_plus x ≤ 0 :=
+    fun x hx => deriv_F_plus_nonpos_on_Ioi (mem_Ioi.mp hx)
+  have h_tendsto := F_plus_tendsto_atTop_zero
+  have h := integral_Ioi_of_hasDerivAt_of_nonpos h_cont h_deriv h_nonpos h_tendsto
+  simp [F_plus, Real.exp_zero] at h
+  linarith
+
+/-- **`∫_0^∞ (−deriv F_plus u) du = omega(1)`.** -/
+theorem integral_neg_deriv_F_plus_Ioi_eq :
+    ∫ u in Ioi (0 : ℝ), -(deriv F_plus u) = omega 1 := by
+  rw [MeasureTheory.integral_neg]
+  rw [integral_deriv_F_plus_Ioi_eq]
+  ring
+
 /-! ## §Axiom check -/
 
 #print axioms crossTerm_nonpos
@@ -376,6 +440,12 @@ theorem F_plus_tendsto_atTop_zero : Tendsto F_plus atTop (nhds 0) := by
 #print axioms omega_tendsto_atTop_zero
 #print axioms F_minus_tendsto_atTop_zero
 #print axioms F_plus_tendsto_atTop_zero
+#print axioms deriv_F_minus_nonpos
+#print axioms F_minus_continuous
+#print axioms integral_deriv_F_minus_Ioi_eq
+#print axioms integral_neg_deriv_F_minus_Ioi_eq
+#print axioms integral_deriv_F_plus_Ioi_eq
+#print axioms integral_neg_deriv_F_plus_Ioi_eq
 
 end OmegaDerivativeBounds20261015
 end PrincipiaTractalis
