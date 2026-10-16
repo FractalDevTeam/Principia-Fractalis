@@ -254,4 +254,122 @@ theorem box_im_midpoint_error_on_segment {L U : ℝ} {n : ℕ} (N : ℕ) {p1 p2 
     exact abs_realThetaImIntegrandND2_le_box (σlo := σlo) (σhi := σhi)
       (p1 := p1) (p2 := p2) hp1 hp2 hσhi1 hσhi0 hlo hσ0 hσ1 hL N hx.1
 
+/-! ## §P.6 — t-GENERIC copies of §P.4/§P.5 (P1+P2 for t=29/2 midpoint panels)
+
+Added by the t=14.5 build phase.  Verbatim copies of `abs_realThetaReIntegrandND2_le_box`,
+`abs_realThetaImIntegrandND2_le_box`, `box_re_midpoint_error_on_segment`,
+`box_im_midpoint_error_on_segment` with the hard-coded `15` threaded to a free
+parameter `t`.  All building blocks (`abs_thetaPow(Cos|Sin)SumD2_le`,
+`hasDerivAt_realTheta…`, the defs) are already t-generic; only these wrappers
+pinned t=15.  Original lemmas retained above (this is purely additive). -/
+
+theorem abs_realThetaReIntegrandND2_le_box_t (t : ℝ) {p1 p2 : ℝ}
+    (hp1 : (1 + σhi) / 2 ≤ p1) (hp2 : ((1 + σhi) / 2) * ((1 + σhi) / 2 + 1) ≤ p2)
+    (hσhi1 : σhi ≤ 1) (hσhi0 : (1 : ℝ) / 2 ≤ σhi) (hlo : (1 : ℝ) / 2 ≤ σlo)
+    (h0 : σlo ≤ σ) (h1 : σ ≤ σhi)
+    {L : ℝ} (hL : 1 ≤ L) (N : ℕ) {u : ℝ} (hu : L ≤ u) :
+    |realThetaReIntegrandND2 N σ t u|
+      ≤ 2 * ∑ n ∈ Finset.range N, thetaPowTermM t p1 p2 L n := by
+  have ⟨ha1_lo, ha1_hi⟩ := box_a1_range (σlo := σlo) (σhi := σhi) hlo h0 h1
+  have ⟨ha2_lo, ha2_hi⟩ := box_a2_range (σlo := σlo) (σhi := σhi) hlo h0 h1
+  have ⟨ha1_np, ha1_p1, ha1_p2⟩ :=
+    box_a_pow_bounds (σhi := σhi) hσhi1 hσhi0 ha1_lo ha1_hi
+  have ⟨ha2_np, ha2_p1, ha2_p2⟩ :=
+    box_a_pow_bounds (σhi := σhi) hσhi1 hσhi0 ha2_lo ha2_hi
+  have hb1 := abs_thetaPowCosSumD2_le (t := t) (p1 := p1) (p2 := p2) ha1_np
+    (le_trans ha1_p1 hp1) (le_trans ha1_p2 hp2) N hL hu
+  have hb2 := abs_thetaPowCosSumD2_le (t := t) (p1 := p1) (p2 := p2) ha2_np
+    (le_trans ha2_p1 hp1) (le_trans ha2_p2 hp2) N hL hu
+  unfold realThetaReIntegrandND2
+  calc |thetaPowCosSumD2 (σ / 2 - 1) t N u
+          + thetaPowCosSumD2 ((1 - σ) / 2 - 1) t N u|
+      ≤ |thetaPowCosSumD2 (σ / 2 - 1) t N u|
+        + |thetaPowCosSumD2 ((1 - σ) / 2 - 1) t N u| := abs_add _ _
+    _ ≤ _ + _ := add_le_add hb1 hb2
+    _ = 2 * ∑ n ∈ Finset.range N, thetaPowTermM t p1 p2 L n := by ring
+
+theorem abs_realThetaImIntegrandND2_le_box_t (t : ℝ) {p1 p2 : ℝ}
+    (hp1 : (1 + σhi) / 2 ≤ p1) (hp2 : ((1 + σhi) / 2) * ((1 + σhi) / 2 + 1) ≤ p2)
+    (hσhi1 : σhi ≤ 1) (hσhi0 : (1 : ℝ) / 2 ≤ σhi) (hlo : (1 : ℝ) / 2 ≤ σlo)
+    (h0 : σlo ≤ σ) (h1 : σ ≤ σhi)
+    {L : ℝ} (hL : 1 ≤ L) (N : ℕ) {u : ℝ} (hu : L ≤ u) :
+    |realThetaImIntegrandND2 N σ t u|
+      ≤ 2 * ∑ n ∈ Finset.range N, thetaPowTermM t p1 p2 L n := by
+  have ⟨ha1_lo, ha1_hi⟩ := box_a1_range (σlo := σlo) (σhi := σhi) hlo h0 h1
+  have ⟨ha2_lo, ha2_hi⟩ := box_a2_range (σlo := σlo) (σhi := σhi) hlo h0 h1
+  have ⟨ha1_np, ha1_p1, ha1_p2⟩ :=
+    box_a_pow_bounds (σhi := σhi) hσhi1 hσhi0 ha1_lo ha1_hi
+  have ⟨ha2_np, ha2_p1, ha2_p2⟩ :=
+    box_a_pow_bounds (σhi := σhi) hσhi1 hσhi0 ha2_lo ha2_hi
+  have hb1 := abs_thetaPowSinSumD2_le (t := t) (p1 := p1) (p2 := p2) ha1_np
+    (le_trans ha1_p1 hp1) (le_trans ha1_p2 hp2) N hL hu
+  have hb2 := abs_thetaPowSinSumD2_le (t := t) (p1 := p1) (p2 := p2) ha2_np
+    (le_trans ha2_p1 hp1) (le_trans ha2_p2 hp2) N hL hu
+  unfold realThetaImIntegrandND2
+  calc |thetaPowSinSumD2 (σ / 2 - 1) t N u
+          - thetaPowSinSumD2 ((1 - σ) / 2 - 1) t N u|
+      ≤ |thetaPowSinSumD2 (σ / 2 - 1) t N u|
+        + |thetaPowSinSumD2 ((1 - σ) / 2 - 1) t N u| := abs_sub _ _
+    _ ≤ _ + _ := add_le_add hb1 hb2
+    _ = 2 * ∑ n ∈ Finset.range N, thetaPowTermM t p1 p2 L n := by ring
+
+theorem box_re_midpoint_error_on_segment_t {L U : ℝ} {n : ℕ} (N : ℕ) (t : ℝ) {p1 p2 : ℝ}
+    (hp1 : (1 + σhi) / 2 ≤ p1) (hp2 : ((1 + σhi) / 2) * ((1 + σhi) / 2 + 1) ≤ p2)
+    (hσhi1 : σhi ≤ 1) (hσhi0 : (1 : ℝ) / 2 ≤ σhi) (hlo : (1 : ℝ) / 2 ≤ σlo)
+    (hσ0 : σlo ≤ σ) (hσ1 : σ ≤ σhi)
+    (hL : 1 ≤ L) (hLU : L ≤ U) (hn : 0 < n) :
+    |(∫ u in L..U, realThetaReIntegrandN N σ t u)
+       - (U - L) / n
+         * ∑ i ∈ Finset.range n,
+             realThetaReIntegrandN N σ t (L + (U - L) / n * (i + 1/2))|
+      ≤ (2 * ∑ n' ∈ Finset.range N, thetaPowTermM t p1 p2 L n')
+        * (U - L) ^ 3 / (24 * n ^ 2) := by
+  refine PrincipiaTractalis.XiQuadrature.composite_midpoint_error
+    (f := fun u => realThetaReIntegrandN N σ t u)
+    (f' := fun u => realThetaReIntegrandND1 N σ t u)
+    (f'' := fun u => realThetaReIntegrandND2 N σ t u)
+    hn hLU ?_ ?_ ?_
+  · intro x hx
+    rw [Set.uIcc_of_le hLU] at hx
+    have hx_pos : (0 : ℝ) < x := lt_of_lt_of_le zero_lt_one (le_trans hL hx.1)
+    exact hasDerivAt_realThetaReIntegrandN N σ t hx_pos
+  · intro x hx
+    rw [Set.uIcc_of_le hLU] at hx
+    have hx_pos : (0 : ℝ) < x := lt_of_lt_of_le zero_lt_one (le_trans hL hx.1)
+    exact hasDerivAt_realThetaReIntegrandND1 N σ t hx_pos
+  · intro x hx
+    rw [Set.uIcc_of_le hLU] at hx
+    exact abs_realThetaReIntegrandND2_le_box_t (t := t) (σlo := σlo) (σhi := σhi)
+      (p1 := p1) (p2 := p2) hp1 hp2 hσhi1 hσhi0 hlo hσ0 hσ1 hL N hx.1
+
+theorem box_im_midpoint_error_on_segment_t {L U : ℝ} {n : ℕ} (N : ℕ) (t : ℝ) {p1 p2 : ℝ}
+    (hp1 : (1 + σhi) / 2 ≤ p1) (hp2 : ((1 + σhi) / 2) * ((1 + σhi) / 2 + 1) ≤ p2)
+    (hσhi1 : σhi ≤ 1) (hσhi0 : (1 : ℝ) / 2 ≤ σhi) (hlo : (1 : ℝ) / 2 ≤ σlo)
+    (hσ0 : σlo ≤ σ) (hσ1 : σ ≤ σhi)
+    (hL : 1 ≤ L) (hLU : L ≤ U) (hn : 0 < n) :
+    |(∫ u in L..U, realThetaImIntegrandN N σ t u)
+       - (U - L) / n
+         * ∑ i ∈ Finset.range n,
+             realThetaImIntegrandN N σ t (L + (U - L) / n * (i + 1/2))|
+      ≤ (2 * ∑ n' ∈ Finset.range N, thetaPowTermM t p1 p2 L n')
+        * (U - L) ^ 3 / (24 * n ^ 2) := by
+  refine PrincipiaTractalis.XiQuadrature.composite_midpoint_error
+    (f := fun u => realThetaImIntegrandN N σ t u)
+    (f' := fun u => realThetaImIntegrandND1 N σ t u)
+    (f'' := fun u => realThetaImIntegrandND2 N σ t u)
+    hn hLU ?_ ?_ ?_
+  · intro x hx
+    rw [Set.uIcc_of_le hLU] at hx
+    have hx_pos : (0 : ℝ) < x := lt_of_lt_of_le zero_lt_one (le_trans hL hx.1)
+    exact hasDerivAt_realThetaImIntegrandN N σ t hx_pos
+  · intro x hx
+    rw [Set.uIcc_of_le hLU] at hx
+    have hx_pos : (0 : ℝ) < x := lt_of_lt_of_le zero_lt_one (le_trans hL hx.1)
+    exact hasDerivAt_realThetaImIntegrandND1 N σ t hx_pos
+  · intro x hx
+    rw [Set.uIcc_of_le hLU] at hx
+    exact abs_realThetaImIntegrandND2_le_box_t (t := t) (σlo := σlo) (σhi := σhi)
+      (p1 := p1) (p2 := p2) hp1 hp2 hσhi1 hσhi0 hlo hσ0 hσ1 hL N hx.1
+
+
 end PrincipiaTractalis.RiemannXiBoxParametric
