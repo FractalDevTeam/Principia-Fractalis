@@ -463,6 +463,206 @@ theorem nodeR_fourier_minus_at_c6_N3_tail_integral_abs_le :
     _ ≤ ∫ u in Ioi (5 : ℝ), tailDominator u := h_abs_le_dom
     _ ≤ 1 := integral_tailDominator_Ioi5_le_one
 
+/-! ## §5 — Tight tail bound: `|∫_{Ioi 5} f| ≤ 1/10⁶`
+
+The loose `≤ 1` bound in §4 is sufficient for existence but swamps the
+~0.015 segment contribution.  We now sharpen using
+`exp(-π) ≤ 1/23` (from `Lambda0TightestBoundsMellin`) and the
+rationalization `π > 157/50`.
+
+Chain:
+* `exp(5·(1/2 − π)) · exp(-π) = exp(5/2 − 6π) ≤ exp(-5π) ≤ (1/23)^5 = 1/6436343`
+  (uses `π ≥ 5/2`, so `5/2 − 6π ≤ −5π`).
+* `π − 1/2 ≥ 132/50`, `π ≥ 157/50`, so `1/(π − 1/2) ≤ 50/132`,
+  `1/π ≤ 50/157`.
+
+Numerical sum ≈ `1.13·10⁻⁷`, safely below `10⁻⁶`.
+-/
+
+open PrincipiaTractalis.Lambda0TightestBoundsMellin20261014
+
+/-- `exp(-5π) ≤ (1/23)^5 = 1/6436343`. -/
+lemma exp_neg_five_pi_le : Real.exp (-5 * π) ≤ 1 / 6436343 := by
+  have h : Real.exp (-5 * π) = (Real.exp (-π)) ^ 5 := by
+    rw [← Real.exp_nat_mul (-π) 5]
+    congr 1; push_cast; ring
+  rw [h]
+  have hbase : Real.exp (-π) ≤ 1 / 23 := exp_neg_pi_le_one_twentythird
+  have hbase_nn : 0 ≤ Real.exp (-π) := (Real.exp_pos _).le
+  have hpow : (Real.exp (-π)) ^ 5 ≤ (1 / 23 : ℝ) ^ 5 :=
+    pow_le_pow_left₀ hbase_nn hbase 5
+  have hrhs : ((1 : ℝ) / 23) ^ 5 = 1 / 6436343 := by norm_num
+  linarith [hpow, hrhs.le]
+
+/-- The combined factor `exp(-π) · exp(5·(1/2 − π)) ≤ 1/6436343`.
+Proof: `exp(-π) · exp(5·(1/2 − π)) = exp(5/2 − 6π)`.  Since
+`π ≥ 5/2` (we use `π > 157/50 > 5/2`), `5/2 − 6π ≤ −5π`, so
+`exp(5/2 − 6π) ≤ exp(-5π) ≤ (1/23)^5`. -/
+lemma exp_neg_pi_mul_exp_5_half_sub_pi_le :
+    Real.exp (-π) * Real.exp (5 * (1 / 2 - π)) ≤ 1 / 6436343 := by
+  have h_combine :
+      Real.exp (-π) * Real.exp (5 * (1 / 2 - π))
+        = Real.exp (5 / 2 - 6 * π) := by
+    rw [← Real.exp_add]
+    congr 1; ring
+  rw [h_combine]
+  have hπ_ge : (5 / 2 : ℝ) ≤ π := by
+    have hπ : (3.14 : ℝ) < π := Real.pi_gt_d2
+    linarith
+  have h_arg_le : (5 / 2 - 6 * π : ℝ) ≤ -5 * π := by linarith
+  have h_exp_mono : Real.exp (5 / 2 - 6 * π) ≤ Real.exp (-5 * π) :=
+    Real.exp_le_exp.mpr h_arg_le
+  exact h_exp_mono.trans exp_neg_five_pi_le
+
+/-- Tight numerical upper bound: the explicit tail-dominator integral is `≤ 1/10⁶`. -/
+lemma integral_tailDominator_Ioi5_le_tight :
+    ∫ u in Ioi (5 : ℝ), tailDominator u ≤ 1 / 10 ^ 6 := by
+  rw [integral_tailDominator_Ioi5]
+  have hπ : (0 : ℝ) < π := Real.pi_pos
+  have hπ_d2 : (3.14 : ℝ) < π := Real.pi_gt_d2
+  have h_coeff_pos : (0 : ℝ) < π - 1 / 2 := by linarith
+  -- Positivity needed for bounds
+  have h_exp_neg_pi_pos : 0 < Real.exp (-π) := Real.exp_pos _
+  have h_exp_5c_pos : 0 < Real.exp (5 * (1 / 2 - π)) := Real.exp_pos _
+  have h_exp_neg5pi_pos : 0 < Real.exp (-5 * π) := Real.exp_pos _
+  -- Bound exp(-5π) ≤ 1/6436343
+  have h_exp5pi_le : Real.exp (-5 * π) ≤ 1 / 6436343 := exp_neg_five_pi_le
+  -- Bound exp(-π) · exp(5·(1/2 - π)) ≤ 1/6436343
+  have h_combined_le :
+      Real.exp (-π) * Real.exp (5 * (1 / 2 - π)) ≤ 1 / 6436343 :=
+    exp_neg_pi_mul_exp_5_half_sub_pi_le
+  -- Lower bounds on denominators
+  have h_pi_minus_half_ge : (132 / 50 : ℝ) ≤ π - 1 / 2 := by linarith
+  have h_pi_ge : (157 / 50 : ℝ) ≤ π := by linarith
+  -- Term 1 bound: (23/22) · exp(-π) · exp(5·(1/2 - π)) / (π - 1/2)
+  --   = (23/22) · [exp(-π)·exp(5·(1/2 - π))] / (π - 1/2)
+  --   ≤ (23/22) · (1/6436343) / (132/50)
+  --   = (23 · 50) / (22 · 132 · 6436343) = 1150 / (2904 · 6436343)
+  have h_t1_le :
+      (23 / 22 : ℝ) * Real.exp (-π) * (Real.exp (5 * (1 / 2 - π)) / (π - 1 / 2))
+        ≤ (23 / 22) * (1 / 6436343) / (132 / 50) := by
+    have h_rewrite :
+        (23 / 22 : ℝ) * Real.exp (-π) * (Real.exp (5 * (1 / 2 - π)) / (π - 1 / 2))
+          = (23 / 22) * (Real.exp (-π) * Real.exp (5 * (1 / 2 - π))) / (π - 1 / 2) := by
+      ring
+    rw [h_rewrite]
+    have h_num_nn : 0 ≤ (23 / 22 : ℝ) * (Real.exp (-π) * Real.exp (5 * (1 / 2 - π))) := by
+      have := mul_pos h_exp_neg_pi_pos h_exp_5c_pos
+      positivity
+    have h_num_le :
+        (23 / 22 : ℝ) * (Real.exp (-π) * Real.exp (5 * (1 / 2 - π)))
+          ≤ (23 / 22) * (1 / 6436343) := by
+      have h_coeff_nn : (0 : ℝ) ≤ 23 / 22 := by norm_num
+      exact mul_le_mul_of_nonneg_left h_combined_le h_coeff_nn
+    have h_denom_pos : (0 : ℝ) < 132 / 50 := by norm_num
+    -- a/x ≤ b/y when a ≤ b, y ≤ x, all positive-ish
+    have h_inv_le : (1 : ℝ) / (π - 1 / 2) ≤ 1 / (132 / 50) :=
+      one_div_le_one_div_of_le h_denom_pos h_pi_minus_half_ge
+    have h_rhs_pos : (0 : ℝ) < 132 / 50 := h_denom_pos
+    have h_num_rhs_nn : 0 ≤ (23 / 22 : ℝ) * (1 / 6436343) := by norm_num
+    calc (23 / 22 : ℝ) * (Real.exp (-π) * Real.exp (5 * (1 / 2 - π))) / (π - 1 / 2)
+        = (23 / 22) * (Real.exp (-π) * Real.exp (5 * (1 / 2 - π))) * (1 / (π - 1 / 2)) := by
+            rw [div_eq_mul_one_div]
+      _ ≤ (23 / 22) * (1 / 6436343) * (1 / (π - 1 / 2)) := by
+            apply mul_le_mul_of_nonneg_right h_num_le
+            exact div_nonneg (by norm_num) h_coeff_pos.le
+      _ ≤ (23 / 22) * (1 / 6436343) * (1 / (132 / 50)) := by
+            apply mul_le_mul_of_nonneg_left h_inv_le h_num_rhs_nn
+      _ = (23 / 22) * (1 / 6436343) / (132 / 50) := by ring
+  -- Term 2 bound: (23/22) · exp(-5π) / π ≤ (23/22) · (1/6436343) / (157/50)
+  have h_t2_le :
+      (23 / 22 : ℝ) * (Real.exp (-5 * π) / π)
+        ≤ (23 / 22) * (1 / 6436343) / (157 / 50) := by
+    have h_rewrite :
+        (23 / 22 : ℝ) * (Real.exp (-5 * π) / π)
+          = (23 / 22) * Real.exp (-5 * π) / π := by ring
+    rw [h_rewrite]
+    have h_num_le :
+        (23 / 22 : ℝ) * Real.exp (-5 * π) ≤ (23 / 22) * (1 / 6436343) := by
+      have h_coeff_nn : (0 : ℝ) ≤ 23 / 22 := by norm_num
+      exact mul_le_mul_of_nonneg_left h_exp5pi_le h_coeff_nn
+    have h_denom_pos : (0 : ℝ) < 157 / 50 := by norm_num
+    have h_inv_le : (1 : ℝ) / π ≤ 1 / (157 / 50) :=
+      one_div_le_one_div_of_le h_denom_pos h_pi_ge
+    have h_num_rhs_nn : 0 ≤ (23 / 22 : ℝ) * (1 / 6436343) := by norm_num
+    have h_num_lhs_nn : 0 ≤ (23 / 22 : ℝ) * Real.exp (-5 * π) :=
+      mul_nonneg (by norm_num) h_exp_neg5pi_pos.le
+    calc (23 / 22 : ℝ) * Real.exp (-5 * π) / π
+        = (23 / 22) * Real.exp (-5 * π) * (1 / π) := by rw [div_eq_mul_one_div]
+      _ ≤ (23 / 22) * (1 / 6436343) * (1 / π) := by
+            apply mul_le_mul_of_nonneg_right h_num_le
+            exact div_nonneg (by norm_num) hπ.le
+      _ ≤ (23 / 22) * (1 / 6436343) * (1 / (157 / 50)) := by
+            apply mul_le_mul_of_nonneg_left h_inv_le h_num_rhs_nn
+      _ = (23 / 22) * (1 / 6436343) / (157 / 50) := by ring
+  -- Combine: sum ≤ (23/22)·(1/6436343)·(50/132 + 50/157) ≤ 1/10⁶
+  have h_rhs1 : (23 / 22 : ℝ) * (1 / 6436343) / (132 / 50)
+                = 1150 / (2904 * 6436343) := by norm_num
+  have h_rhs2 : (23 / 22 : ℝ) * (1 / 6436343) / (157 / 50)
+                = 1150 / (3454 * 6436343) := by norm_num
+  have h_sum_le_rat :
+      (23 / 22 : ℝ) * Real.exp (-π) * (Real.exp (5 * (1 / 2 - π)) / (π - 1 / 2))
+        + (23 / 22) * (Real.exp (-5 * π) / π)
+      ≤ 1150 / (2904 * 6436343) + 1150 / (3454 * 6436343) := by
+    have h1 := h_t1_le
+    have h2 := h_t2_le
+    rw [h_rhs1] at h1
+    rw [h_rhs2] at h2
+    linarith
+  have h_rat_le : (1150 : ℝ) / (2904 * 6436343) + 1150 / (3454 * 6436343) ≤ 1 / 10 ^ 6 := by
+    norm_num
+  linarith
+
+/-- **Tight tail integral bound: `≤ 1/10⁶`.**  Replaces the loose `≤ 1`.
+Actual value `≈ 10^{-203}`. -/
+theorem nodeR_fourier_plus_at_c6_N3_tail_integral_abs_le_tight :
+    |∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c6_N3 u| ≤ 1 / 10 ^ 6 := by
+  have h_int := nodeR_fourier_plus_at_c6_N3_integrable_Ioi5
+  have h_dom_int := tailDominator_integrable_Ioi5
+  have h_abs_le_abs :
+      |∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c6_N3 u|
+        ≤ ∫ u in Ioi (5 : ℝ), |nodeR_fourier_plus_at_c6_N3 u| :=
+    MeasureTheory.abs_integral_le_integral_abs
+  have h_abs_le_dom :
+      ∫ u in Ioi (5 : ℝ), |nodeR_fourier_plus_at_c6_N3 u|
+        ≤ ∫ u in Ioi (5 : ℝ), tailDominator u := by
+    refine MeasureTheory.setIntegral_mono_on h_int.abs h_dom_int measurableSet_Ioi ?_
+    intro u hu
+    have hu0 : 0 ≤ u := by
+      have := mem_Ioi.mp hu; linarith
+    have h1 := nodeR_fourier_plus_at_c6_N3_abs_le u
+    have h2 := F_plus_add_F_minus_le_tailDominator hu0
+    linarith
+  calc |∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c6_N3 u|
+      ≤ ∫ u in Ioi (5 : ℝ), |nodeR_fourier_plus_at_c6_N3 u| := h_abs_le_abs
+    _ ≤ ∫ u in Ioi (5 : ℝ), tailDominator u := h_abs_le_dom
+    _ ≤ 1 / 10 ^ 6 := integral_tailDominator_Ioi5_le_tight
+
+/-- **Tight tail integral bound: `≤ 1/10⁶`.**  Replaces the loose `≤ 1`.
+Actual value `≈ 10^{-203}`. -/
+theorem nodeR_fourier_minus_at_c6_N3_tail_integral_abs_le_tight :
+    |∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c6_N3 u| ≤ 1 / 10 ^ 6 := by
+  have h_int := nodeR_fourier_minus_at_c6_N3_integrable_Ioi5
+  have h_dom_int := tailDominator_integrable_Ioi5
+  have h_abs_le_abs :
+      |∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c6_N3 u|
+        ≤ ∫ u in Ioi (5 : ℝ), |nodeR_fourier_minus_at_c6_N3 u| :=
+    MeasureTheory.abs_integral_le_integral_abs
+  have h_abs_le_dom :
+      ∫ u in Ioi (5 : ℝ), |nodeR_fourier_minus_at_c6_N3 u|
+        ≤ ∫ u in Ioi (5 : ℝ), tailDominator u := by
+    refine MeasureTheory.setIntegral_mono_on h_int.abs h_dom_int measurableSet_Ioi ?_
+    intro u hu
+    have hu0 : 0 ≤ u := by
+      have := mem_Ioi.mp hu; linarith
+    have h1 := nodeR_fourier_minus_at_c6_N3_abs_le u
+    have h2 := F_plus_add_F_minus_le_tailDominator hu0
+    linarith
+  calc |∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c6_N3 u|
+      ≤ ∫ u in Ioi (5 : ℝ), |nodeR_fourier_minus_at_c6_N3 u| := h_abs_le_abs
+    _ ≤ ∫ u in Ioi (5 : ℝ), tailDominator u := h_abs_le_dom
+    _ ≤ 1 / 10 ^ 6 := integral_tailDominator_Ioi5_le_tight
+
 /-! ## §Axiom check -/
 
 #print axioms omega_N3_at_exp_eq_partial_sum
@@ -484,6 +684,11 @@ theorem nodeR_fourier_minus_at_c6_N3_tail_integral_abs_le :
 #print axioms integral_tailDominator_Ioi5_le_one
 #print axioms nodeR_fourier_plus_at_c6_N3_tail_integral_abs_le
 #print axioms nodeR_fourier_minus_at_c6_N3_tail_integral_abs_le
+#print axioms exp_neg_five_pi_le
+#print axioms exp_neg_pi_mul_exp_5_half_sub_pi_le
+#print axioms integral_tailDominator_Ioi5_le_tight
+#print axioms nodeR_fourier_plus_at_c6_N3_tail_integral_abs_le_tight
+#print axioms nodeR_fourier_minus_at_c6_N3_tail_integral_abs_le_tight
 
 end AnalyticTailBound
 end FourierPanels_c6
