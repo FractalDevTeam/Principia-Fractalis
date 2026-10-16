@@ -2,7 +2,7 @@
 # PF.Analytic.FourierPanels.ResidueBound_c25_4_three_halves_to_5_2026_10_16
 
 **Residue bound** between the panel pack cutoff `u = 3/2` and the
-analytic tail cutoff `u = 5` for the `c = 49/8` pilot.
+analytic tail cutoff `u = 5` for the `c = 25/4` pilot.
 
 Mirror of `ResidueBound_c6_three_halves_to_5_2026_10_15.lean`. The
 uniform-over-interval argument is c-independent: we use
