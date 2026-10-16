@@ -58,10 +58,20 @@ Composite enclosures after adding residue (≤ 231/279841), analytic tail
 * `I_lb_f = I_lb_h32 - 231/279841 - 1/10⁶ - 1/10⁴`
 
 Gate-1 check: `(2601/64)·R_ub_f + (51/8)·I_ub_f ≤ 3/4`.
-Numerically:
-  R_ub_f ≈ 0.017407 + 0.001011 ≈ 0.018418
-  I_ub_f ≈ 0.001872 + 0.001011 ≈ 0.002883
-  (2601/64)·0.018418 + (51/8)·0.002883 ≈ 0.6909 + 0.01765 ≈ 0.7086 ≤ 0.75 ✓
+Numerically (constants as actually used; cf. §M2.5 below):
+  R_ub_h32 = 542831867/32000000000 ≈ 0.0169634958
+  I_ub_h32 =  60314889/32000000000 ≈ 0.0018848403
+  add-on   = 231/279841 + 1/10⁶ + 1/10⁴  ≈ 0.0009264688
+  R_ub_f ≈ 0.0169634958 + 0.0009264688 ≈ 0.0178899646
+  I_ub_f ≈ 0.0018848403 + 0.0009264688 ≈ 0.0028113090
+  (2601/64)·0.0178899646 + (51/8)·0.0028113090
+      ≈ 0.7270595 + 0.0179221 ≈ 0.7449814 ≤ 0.75 ✓   (slack ≈ +0.0050186)
+
+NOTE 2026-10-16: the previous form of this block quoted R_ub_f ≈ 0.018418 and
+a product ≈ 0.6909. Those were inconsistent with each other
+(40.6406 × 0.018418 = 0.7485, which would FAIL the gate) and with the
+rational constants the proof actually uses. The proof was always correct;
+only this comment was wrong. Corrected above.
 -/
 
 private noncomputable abbrev epsOm : ℝ := 1 / 10 ^ 4
