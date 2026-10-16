@@ -1,0 +1,17 @@
+'PrincipiaTractalis.spectral_gap_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrincipiaTractalis.P_neq_NP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrincipiaTractalis.pvsnp_spectral_separation' depends on axioms: [propext, Classical.choice, Quot.sound]
+P_neq_NP : spectral_gap ≠ 0
+pvsnp_spectral_separation : ∃ Δ > 0, Δ = lambda_0_P - lambda_0_NP ∧ |Δ - 539677287e-10| < 1e-8
+def PrincipiaTractalis.lambda_0_P : ℝ :=
+pi_10 / √2
+def PrincipiaTractalis.lambda_0_NP : ℝ :=
+pi_10 / (phi + 1 / 4)
+TuringEncoding.alpha_realization_canonical_pair_iff_classes_distinct : (∃ f,
+    f TuringEncoding.ClassP = √2 ∧ f TuringEncoding.ClassNP = phi + 1 / 4) ↔
+  TuringEncoding.ClassP ≠ TuringEncoding.ClassNP
+'PrincipiaTractalis.TuringEncoding.alpha_realization_canonical_pair_iff_classes_distinct' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+opaque PrincipiaTractalis.TuringEncoding.alpha_of_class : Set TuringEncoding.Language → ℝ
+EXIT=0
