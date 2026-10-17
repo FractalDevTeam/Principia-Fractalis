@@ -39,7 +39,7 @@ None of these pathologies invalidate the SUBSTRATE work they surround. They do b
 | # | Track | Literal target present? | Substrate work? | Live residual strength |
 |---|---|---|---|---|
 | 1 | Riemann Hypothesis | Yes (`SpectralBijection.RiemannHypothesis`) | Deep (r120/r280/r315) | FULL-STRENGTH RESIDUAL (HP-Program) |
-| 2 | P vs NP | Framework-internal (`ClassP`/`ClassNP` Cook-1971 style) | r123–r128 α-web | FULL-STRENGTH RESIDUAL (named open Prop `PvsNP_via_Hodge_disc5_Bridge_Open`) |
+| 2 | P vs NP | Framework-internal (`ClassP`/`ClassNP` Cook-1971 style) | r123–r128 α-web | FULL-STRENGTH RESIDUAL — ~~named open Prop `PvsNP_via_Hodge_disc5_Bridge_Open`~~ **CORRECTED 2026-10-17: that Prop is a THEOREM (b75f5e35), not open; the residual is real but is not reachable through it. See row D/G notes.** |
 | 3 | Navier-Stokes | Partial (3D div-free formulated; smoothness `Prop := True` placeholder) | Substrate closures | FULL-STRENGTH RESIDUAL (continuum PDE) |
 | 4 | Yang-Mills | Finite-dim only (2×2 spectral gap) | Substrate closure + phenomenology | FULL-STRENGTH RESIDUAL (continuum QFT) |
 | 5 | BSD | Typed anchor on ONE curve (E_{32.a3}) + empirical cluster | α_BSD = 3π/4 substrate work | FULL-STRENGTH RESIDUAL (general rank) |
@@ -113,7 +113,7 @@ None of these pathologies invalidate the SUBSTRATE work they surround. They do b
 
 **D. Current PF files (live).**
 - `PF/TuringEncoding/Complexity.lean` — framework-internal `ClassP`, `ClassNP`, `PvsNP_Question : Prop := ClassP = ClassNP`. Cook-1971/Karp-1972-style TM encoding, not mathlib.
-- `PF/PNP_Wave56CrossGaloisLockAttempt.lean` — `PvsNP_via_Hodge_disc5_Bridge_Open : Prop := ∃ f : Set Language → ℝ, f ClassP = √2 ∧ f ClassNP = φ + 1/4`. **NAMED OPEN.**
+- `PF/PNP_Wave56CrossGaloisLockAttempt.lean` — `PvsNP_via_Hodge_disc5_Bridge_Open : Prop := ∃ f : Set Language → ℝ, f ClassP = √2 ∧ f ClassNP = φ + 1/4`. ~~**NAMED OPEN.**~~ **[CORRECTED 2026-10-17, commit b75f5e35: NOT OPEN — this Prop is a THEOREM.** `alpha_bridge_is_discharged` proves it, because `open_bridge_iff_classes_distinct` makes it equivalent to `ClassP ≠ ClassNP`, which `legacy_ClassP_ne_ClassNP` (2026-10-08) proves unconditionally from the `InClassP` trailing-input defect (`ClassP = {∅, univ}`). It has been discharge-able since 2026-10-08. The α-web's P-vs-NP bridge is therefore not this axis's open frontier; it is a theorem about a degenerate carrier. The Clay question remains open, but over the HONEST carriers (`PvsNP_Step`), not via this Prop. See `codex/PNP_REPAIR_PROPAGATION_2026-10-17.md`.]**
 - `PF/CrossMillenniumSharedInvariants.lean` — `α_NP := φ + 1/4`, `α_P := √2` (definitions).
 - `PF/AlphaFromSubstrateKTheory_r123.lean` — substrate CANNOT force the α-values (negative capstone).
 - `PF/AlphaGaloisStructure_r125.lean`, `PF/PerelmanAnchorCascade_r126.lean`, `PF/PerelmanCascadeComplete_r127.lean`, `PF/AlphaSkeletonUniqueness_r128.lean`.
@@ -123,7 +123,7 @@ None of these pathologies invalidate the SUBSTRATE work they surround. They do b
 **F. Mathlib infrastructure.** No `Complexity.P` / `Complexity.NP` classes in mathlib. Framework builds its own.
 
 **G. Kernel-proved PF content.**
-- `open_bridge_iff_P_neq_NP : PvsNP_via_Hodge_disc5_Bridge_Open ↔ ClassP ≠ ClassNP`. If the bridge Prop holds, P ≠ NP follows.
+- `open_bridge_iff_P_neq_NP : PvsNP_via_Hodge_disc5_Bridge_Open ↔ ClassP ≠ ClassNP`. ~~If the bridge Prop holds, P ≠ NP follows.~~ **CORRECTED 2026-10-17 (b75f5e35): the bridge Prop DOES hold — both sides of this `↔` are proved. The right-hand side is `legacy_ClassP_ne_ClassNP`, an unconditional consequence of the `InClassP` specification defect, so the equivalence carries no complexity content in either direction. The conditional reading above is therefore vacuous, not merely unfulfilled.**
 - r123's negative capstone: `α_P = √2`, `α_NP = φ+1/4`, five others irrational or 2-adic-obstructed; substrate K-theory range = ℤ[1/3]; substrate is spectrally VACUOUS (realizes any spectrum); framework's ternary reality condition independently excludes both `√2` and `φ+1/4`.
 - r124's `alpha_offset_is_free`: `∀ c : ℝ, ∃ W : AlphaWebSansI10, W.αNP − W.αHodge = c`. The `1/4` is a free parameter.
 - r125–r128: SUBSTRATE THEOREMS on Galois trace/norm structure and Perelman cascade closure of the α-skeleton (given the anchor).
