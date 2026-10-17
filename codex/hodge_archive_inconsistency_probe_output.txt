@@ -1,0 +1,4 @@
+'HodgeArchiveProbe.archive_axiom_is_inconsistent' depends on axioms: [propext,
+ Classical.choice,
+ HodgeArchiveProbe.concentration_implies_algebraic,
+ Quot.sound]
