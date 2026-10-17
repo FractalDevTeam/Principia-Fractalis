@@ -135,3 +135,91 @@ substitutes for the other.
   the Fourier `|D2| ≤ M` bound closes as cleanly as the θ one did (the `e^u`
   inside the exponential is the one structural difference from `thetaTerm`, and
   it is the thing to check first).
+
+---
+
+# ADDENDUM 2026-10-16 — the flagged `|D2| ≤ M` unknown is RESOLVED, favourably, and the panel counts IMPROVE
+
+§5 flagged one structural unknown: whether the Fourier `|D2| ≤ M` bound closes
+as cleanly as the θ one, given that the `e^u` sits **inside** the exponential
+(`e^{−πn²e^u}` versus `thetaTerm`'s `e^{−πn²u}`). Checked.
+Verification: `codex/d2_bound_verify.py`.
+
+**Answer: it closes, and it is not close to marginal.** MEASURED
+
+## The concern, and why it evaporates
+
+Differentiating `e^{−πn²e^u}` twice brings `(πn²e^u)²`, which at `u = 3/2` is
+large. But it is multiplied by the exponential itself, which is smaller by tens
+of orders:
+
+| n | `(πn²e^u)²` at u=3/2 | `e^{−πn²e^u}` | product |
+|---|---|---|---|
+| 1 | 1.982e+02 | 7.679e−07 | 1.522e−04 |
+| 2 | 3.172e+03 | 3.477e−25 | 1.103e−21 |
+| 3 | 1.606e+04 | 9.281e−56 | 1.490e−51 |
+
+**The `n ≥ 2` terms are numerically irrelevant; only `n = 1` near `u = 0`
+matters.** The polynomial growth from the chain rule never competes with the
+exponential it multiplies.
+
+## The provable majorant, per segment
+
+With `A = e^{u/2}+1`, `P = πn²e^u`, taking `|cos|,|sin| ≤ 1`, each algebraic
+factor at the segment's right end and the exponential at its left end:
+
+  `|g''| ≤ Bmax · [ A'' + A·P(P+1) + A·t²/4 + 2A'·P + A'·t + A·P·t ]`
+
+summed over `n ≤ 3`. Measured against the true maximum, per segment:
+
+**At `t = 13` (budget 1.407e−05):**
+
+| segment | measured `M₂` | majorant | loose | panels |
+|---|---|---|---|---|
+| [0, 1/4] | 3.1944e+00 | 1.1133e+01 | 3.5× | 56 |
+| [1/4, 1/2] | 1.9258e+00 | 5.9973e+00 | 3.1× | 41 |
+| [1/2, 3/4] | 3.4315e−01 | 2.5921e+00 | 7.6× | 27 |
+| [3/4, 1] | 2.6312e−01 | 8.3654e−01 | 3.2× | 16 |
+| [1, 5/4] | 2.6713e−02 | 1.8370e−01 | 6.9× | 8 |
+| [5/4, 3/2] | 5.8126e−03 | 2.4350e−02 | 4.2× | 3 |
+| **total** | | | | **151** |
+
+**At `t = 14.5` (budget 1.877e−06): total 433 panels** (163/119/78/44/21/8 by
+segment, majorant 2.8–12.2× loose).
+
+## The numbers improve on §3
+
+§3 reported 179 / 554 from a *global measured* `max|g''|`. A **provable
+per-segment** majorant does better, because the segments where the exponential
+has already crushed everything need almost no panels (3 and 8 on `[5/4, 3/2]`):
+
+| t | §3 (global, measured) | **this addendum (per-segment, PROVABLE)** | one global majorant | gain vs `O(h)` |
+|---|---|---|---|---|
+| 13 | 179 | **151** | 781 | **87×** |
+| 14.5 | 554 | **433** | 2211 | **229×** |
+
+So the revised gains are **87× and 229×**, up from the 74×/179× reported in §3
+— and these are with a bound that is *provable*, not merely measured.
+
+**Note the contrast with a single global majorant** (781 / 2211): applying the
+rule **per segment with a local `M`** is worth ~5× over one interval. The
+generator already works per segment, so this costs nothing to adopt.
+
+**Headroom left:** the measured-`M` floor is 78 / 235 against the provable 151 /
+433, so a tighter majorant (taking `A` and `P` at their true sup rather than the
+right endpoint, or splitting the first segment) would recover ~2× more. **Not
+needed — 151/433 already clears the budget.**
+
+## What this closes and what it leaves
+
+* **CLOSED:** the `e^u`-in-the-exponential concern. The bound closes with room,
+  and the majorant is a routine six-term product-rule expansion — no new
+  technique beyond `hasDerivAt_mul3` (:540).
+* **STILL OPEN, unchanged:** the per-panel *line* cost under midpoint emission
+  (§5.3 — measure on segment 1, do not assume), and the add-on tightening, which
+  remains 66× over budget at `t = 13` independently of all quadrature work.
+
+**JUDGEMENT:** with this resolved, the midpoint route has no remaining
+structural unknown — only engineering. The recommendation in §5 stands and is
+now better supported: wire `composite_midpoint_error`, build the Fourier C²
+layer per segment on the `thetaTerm` template, and leave Simpson alone.
