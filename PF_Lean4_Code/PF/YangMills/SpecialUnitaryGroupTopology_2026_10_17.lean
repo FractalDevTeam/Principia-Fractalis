@@ -37,6 +37,7 @@ Authors: Pablo Cohen + Claude Opus 4.7 (1M context). 2026-10-17.
 -/
 import Mathlib.LinearAlgebra.UnitaryGroup
 import Mathlib.Topology.Algebra.Star.Unitary
+import Mathlib.Topology.Instances.Matrix
 import Mathlib.Analysis.Matrix
 import Mathlib.Analysis.Normed.Module.FiniteDimension
 
@@ -101,6 +102,57 @@ continuous multiplication and continuous inversion. The first instance
 mathlib does not provide for this specific group at the pin. -/
 instance specialUnitaryGroup_isTopologicalGroup :
     IsTopologicalGroup (specialUnitaryGroup (Fin 2) ℂ) where
+
+/-! ## §6 — Closedness of `specialUnitaryGroup` as a subset of `Matrix (Fin 2) (Fin 2) ℂ`.
+
+The ambient `Set` is defined by `A * star A = 1` (unitarity) and
+`det A = 1` (special), each of which is a continuous polynomial
+equation in the matrix entries. The preimage of the singleton `{1}`
+under each continuous map is closed; their intersection is closed. -/
+
+/-- `A ∈ unitaryGroup n α ↔ A * star A = 1` (mathlib `mem_unitaryGroup_iff`).
+Reformulating this as a preimage: `unitaryGroup n α = φ⁻¹({1})` where
+`φ A = A * star A`. Since `φ` is continuous and `{1}` is closed in
+Hausdorff `Matrix n n ℂ`, `unitaryGroup` is a closed set. -/
+lemma unitaryGroup_isClosed_set :
+    IsClosed { A : Matrix (Fin 2) (Fin 2) ℂ | A ∈ Matrix.unitaryGroup (Fin 2) ℂ } := by
+  have hcont : Continuous fun A : Matrix (Fin 2) (Fin 2) ℂ => A * star A :=
+    continuous_id.mul continuous_star
+  have hclosed_one : IsClosed ({(1 : Matrix (Fin 2) (Fin 2) ℂ)} : Set _) :=
+    isClosed_singleton
+  have hpre : { A : Matrix (Fin 2) (Fin 2) ℂ | A ∈ Matrix.unitaryGroup (Fin 2) ℂ }
+      = (fun A => A * star A) ⁻¹' {1} := by
+    ext A
+    simp [Matrix.mem_unitaryGroup_iff]
+  rw [hpre]
+  exact hclosed_one.preimage hcont
+
+/-- `{A | A.det = 1}` is closed in `Matrix (Fin 2) (Fin 2) ℂ`: the determinant
+is a continuous polynomial in the matrix entries, and `{1}` is closed. -/
+lemma det_eq_one_isClosed :
+    IsClosed { A : Matrix (Fin 2) (Fin 2) ℂ | A.det = 1 } := by
+  have hcont : Continuous fun A : Matrix (Fin 2) (Fin 2) ℂ => A.det :=
+    continuous_id.matrix_det
+  have hclosed_one : IsClosed ({(1 : ℂ)} : Set _) := isClosed_singleton
+  have hpre : { A : Matrix (Fin 2) (Fin 2) ℂ | A.det = 1 }
+      = (fun A : Matrix (Fin 2) (Fin 2) ℂ => A.det) ⁻¹' {1} := by
+    ext A; simp
+  rw [hpre]
+  exact hclosed_one.preimage hcont
+
+/-- **`specialUnitaryGroup (Fin 2) ℂ` is a closed subset of `Matrix (Fin 2) (Fin 2) ℂ`.**
+Defined as `unitaryGroup ⊓ MonoidHom.mker detMonoidHom`, so an intersection of two
+closed sets. -/
+lemma specialUnitaryGroup_isClosed_set :
+    IsClosed { A : Matrix (Fin 2) (Fin 2) ℂ
+                | A ∈ Matrix.specialUnitaryGroup (Fin 2) ℂ } := by
+  have hinter : { A : Matrix (Fin 2) (Fin 2) ℂ
+                   | A ∈ Matrix.specialUnitaryGroup (Fin 2) ℂ }
+      = { A | A ∈ Matrix.unitaryGroup (Fin 2) ℂ } ∩ { A | A.det = 1 } := by
+    ext A
+    simp [Matrix.mem_specialUnitaryGroup_iff]
+  rw [hinter]
+  exact unitaryGroup_isClosed_set.inter det_eq_one_isClosed
 
 end
 
