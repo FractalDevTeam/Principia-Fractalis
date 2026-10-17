@@ -1,0 +1,16 @@
+'PrincipiaTractalis.XiQuadrature.midpoint_rule_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrincipiaTractalis.XiQuadrature.composite_midpoint_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+@XiQuadrature.midpoint_rule_error : ∀ {f f' f'' : ℝ → ℝ} {a b M : ℝ},
+  a ≤ b →
+    (∀ x ∈ Set.uIcc a b, HasDerivAt f (f' x) x) →
+      (∀ x ∈ Set.uIcc a b, HasDerivAt f' (f'' x) x) →
+        (∀ x ∈ Set.uIcc a b, |f'' x| ≤ M) →
+          |(∫ (x : ℝ) in a..b, f x) - (b - a) * f ((a + b) / 2)| ≤ M * (b - a) ^ 3 / 24
+@XiQuadrature.composite_midpoint_error : ∀ {f f' f'' : ℝ → ℝ} {a b M : ℝ} {n : ℕ},
+  0 < n →
+    a ≤ b →
+      (∀ x ∈ Set.uIcc a b, HasDerivAt f (f' x) x) →
+        (∀ x ∈ Set.uIcc a b, HasDerivAt f' (f'' x) x) →
+          (∀ x ∈ Set.uIcc a b, |f'' x| ≤ M) →
+            |(∫ (x : ℝ) in a..b, f x) - (b - a) / ↑n * ∑ i ∈ Finset.range n, f (a + (b - a) / ↑n * (↑i + 1 / 2))| ≤
+              M * (b - a) ^ 3 / (24 * ↑n ^ 2)
