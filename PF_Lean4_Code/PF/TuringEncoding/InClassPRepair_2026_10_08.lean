@@ -655,3 +655,25 @@ theorem Lfirst_mem_ClassNP_Step : Lfirst ∈ ClassNP_Step :=
   ClassP_Step_subset_ClassNP_Step Lfirst_mem_ClassP_Step
 
 end PrincipiaTractalis.TuringEncoding.Repair20261008
+
+/-! ## §Axiom check -/
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.legacy_ClassP_eq_pair
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.InClassP_NoInvariance_class_eq_univ
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.firstOneTM_certBlind
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.firstOneTM_decides
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.Lfirst_mem_ClassP_Step
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.Lfirst_ne_empty
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.Lfirst_ne_univ
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.ClassP_Step_noncollapse
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.Lfirst_mem_legacy_ClassNP
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.Lfirst_not_mem_legacy_ClassP
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.legacy_ClassP_ne_ClassNP
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.legacy_PvsNP_Question_refuted
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.legacy_P_neq_NP_def_unconditional
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.empty_mem_ClassP_Step
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.univ_mem_ClassP_Step
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.legacy_ClassP_subset_ClassP_Step
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.ClassP_Step_not_subset_legacy_ClassP
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.legacy_ClassP_ne_ClassP_Step
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.ClassP_Step_subset_ClassNP_Step
+#print axioms PrincipiaTractalis.TuringEncoding.Repair20261008.Lfirst_mem_ClassNP_Step

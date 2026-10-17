@@ -166,3 +166,13 @@ theorem pnp_honest_status :
    step_P_subset_NP, step_question_iff⟩
 
 end PrincipiaTractalis.PNPRepairPropagation20261017
+
+/-! ## §Axiom check -/
+#print axioms PrincipiaTractalis.PNPRepairPropagation20261017.legacy_classes_distinct
+#print axioms PrincipiaTractalis.PNPRepairPropagation20261017.legacy_P_neq_NP_def_unconditional
+#print axioms PrincipiaTractalis.PNPRepairPropagation20261017.alpha_bridge_is_discharged
+#print axioms PrincipiaTractalis.PNPRepairPropagation20261017.step_P_subset_NP
+#print axioms PrincipiaTractalis.PNPRepairPropagation20261017.step_question_iff
+#print axioms PrincipiaTractalis.PNPRepairPropagation20261017.step_nondegenerate
+#print axioms PrincipiaTractalis.PNPRepairPropagation20261017.carriers_differ
+#print axioms PrincipiaTractalis.PNPRepairPropagation20261017.pnp_honest_status

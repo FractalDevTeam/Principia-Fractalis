@@ -172,3 +172,9 @@ theorem rank_eq_zero_of_two_torsion {M : Type*} [AddCommGroup M] [Module ℤ M]
   exact h P
 
 end PrincipiaTractalis.Ch24DescentBookkeeping20261017
+
+/-! ## §Axiom check -/
+#print axioms PrincipiaTractalis.Ch24DescentBookkeeping20261017.isCoprime_prod_sumSq
+#print axioms PrincipiaTractalis.Ch24DescentBookkeeping20261017.isCoprime_of_isCoprime_pow_right
+#print axioms PrincipiaTractalis.Ch24DescentBookkeeping20261017.descent_lowest_terms
+#print axioms PrincipiaTractalis.Ch24DescentBookkeeping20261017.rank_eq_zero_of_two_torsion
