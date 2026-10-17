@@ -154,6 +154,104 @@ lemma specialUnitaryGroup_isClosed_set :
   rw [hinter]
   exact unitaryGroup_isClosed_set.inter det_eq_one_isClosed
 
+/-! ## §7 — Boundedness via the Frobenius norm, and the compactness instance.
+
+Activates `frobeniusNormedAddCommGroup` + `frobeniusNormedSpace` as local
+instances so `Matrix (Fin 2) (Fin 2) ℂ` acquires a NormedAddCommGroup
+structure. For unitary `A ∈ Matrix (Fin 2) (Fin 2) ℂ`: `A·A* = 1` ⇒
+`(A·A*)ᵢᵢ = Σₖ|Aᵢₖ|² = 1`, so each entry `|Aᵢⱼ| ≤ 1`, hence
+`‖A‖_F² = Σᵢⱼ|Aᵢⱼ|² ≤ 4`, so `‖A‖_F ≤ 2`. -/
+
+section Compact
+
+attribute [local instance] Matrix.frobeniusSeminormedAddCommGroup
+    Matrix.frobeniusNormedAddCommGroup Matrix.frobeniusNormedSpace
+
+/-- Each entry of a unitary matrix has absolute value at most 1. Follows from
+`(A·star A)ᵢᵢ = Σₖ|Aᵢₖ|² = 1`: the sum of non-negative squared norms equals 1,
+so each term is at most 1. -/
+lemma unitary_entry_norm_le_one {A : Matrix (Fin 2) (Fin 2) ℂ}
+    (hA : A ∈ Matrix.unitaryGroup (Fin 2) ℂ) (i j : Fin 2) : ‖A i j‖ ≤ 1 := by
+  rw [Matrix.mem_unitaryGroup_iff] at hA
+  have h_diag : (A * star A) i i = 1 := by rw [hA]; simp
+  have h_sum_C : ∑ k, A i k * star (A i k) = 1 := by
+    rw [← h_diag]
+    simp [Matrix.mul_apply, Matrix.star_apply]
+  have h_sum_sq_C : (∑ k, (‖A i k‖ : ℂ)^2) = 1 := by
+    rw [← h_sum_C]
+    refine Finset.sum_congr rfl (fun k _ => ?_)
+    exact (RCLike.mul_conj (A i k)).symm
+  have h_sum_sq_real : (∑ k, ‖A i k‖^2 : ℝ) = 1 := by exact_mod_cast h_sum_sq_C
+  have h_pos : ∀ k, 0 ≤ ‖A i k‖^2 := fun k => sq_nonneg _
+  have h_split : ∑ k, ‖A i k‖^2 = ‖A i j‖^2 + ∑ k ∈ Finset.univ.erase j, ‖A i k‖^2 := by
+    rw [← Finset.sum_erase_add _ _ (Finset.mem_univ j), add_comm]
+  have h_erase_nn : 0 ≤ ∑ k ∈ Finset.univ.erase j, ‖A i k‖^2 :=
+    Finset.sum_nonneg fun k _ => h_pos k
+  have h_sq_le : ‖A i j‖^2 ≤ 1 := by linarith
+  have h_abs_nn : 0 ≤ ‖A i j‖ := norm_nonneg _
+  nlinarith [h_sq_le, h_abs_nn]
+
+/-- **Frobenius-norm bound on unitary matrices**: for `A ∈ unitaryGroup (Fin 2) ℂ`,
+`‖A‖_F ≤ 2`. (True bound is `‖A‖_F = √n = √2`; the loose `≤ 2` is enough for
+boundedness.) -/
+lemma unitary_frobenius_norm_le_two {A : Matrix (Fin 2) (Fin 2) ℂ}
+    (hA : A ∈ Matrix.unitaryGroup (Fin 2) ℂ) : ‖A‖ ≤ 2 := by
+  rw [Matrix.frobenius_norm_def]
+  have h_entry : ∀ i j : Fin 2, ‖A i j‖ ≤ 1 := unitary_entry_norm_le_one hA
+  have h_sq_bound : ∀ i j : Fin 2, ‖A i j‖ ^ (2 : ℝ) ≤ 1 := by
+    intro i j
+    have h : ‖A i j‖ ^ (2 : ℝ) = ‖A i j‖ ^ 2 := by
+      rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) from by norm_num, Real.rpow_natCast]
+    rw [h]
+    have := h_entry i j
+    nlinarith [norm_nonneg (A i j)]
+  have h_sum_bound : (∑ i, ∑ j, ‖A i j‖ ^ (2 : ℝ)) ≤ 4 := by
+    calc (∑ i : Fin 2, ∑ j : Fin 2, ‖A i j‖ ^ (2 : ℝ))
+        ≤ ∑ i : Fin 2, ∑ _j : Fin 2, (1 : ℝ) :=
+          Finset.sum_le_sum fun i _ => Finset.sum_le_sum fun j _ => h_sq_bound i j
+      _ = 4 := by simp; ring
+  have h_sum_nn : 0 ≤ ∑ i : Fin 2, ∑ j : Fin 2, ‖A i j‖ ^ (2 : ℝ) :=
+    Finset.sum_nonneg fun i _ => Finset.sum_nonneg fun j _ =>
+      Real.rpow_nonneg (norm_nonneg _) 2
+  have h_rpow_le : (∑ i, ∑ j, ‖A i j‖ ^ (2 : ℝ)) ^ (1 / 2 : ℝ) ≤ (4 : ℝ) ^ (1 / 2 : ℝ) :=
+    Real.rpow_le_rpow h_sum_nn h_sum_bound (by norm_num)
+  have h_four : (4 : ℝ) ^ (1 / 2 : ℝ) = 2 := by
+    rw [show (4 : ℝ) = 2^2 from by norm_num, ← Real.rpow_natCast (2 : ℝ) 2,
+        ← Real.rpow_mul (by norm_num : (0 : ℝ) ≤ 2)]
+    norm_num
+  linarith [h_rpow_le, h_four]
+
+/-- **Boundedness of `specialUnitaryGroup (Fin 2) ℂ`** as a subset of
+`Matrix (Fin 2) (Fin 2) ℂ` under the Frobenius norm. -/
+lemma specialUnitaryGroup_isBounded_set :
+    Bornology.IsBounded { A : Matrix (Fin 2) (Fin 2) ℂ
+                          | A ∈ Matrix.specialUnitaryGroup (Fin 2) ℂ } := by
+  rw [Metric.isBounded_iff_subset_closedBall 0]
+  refine ⟨2, ?_⟩
+  intro A hA
+  rw [Metric.mem_closedBall, dist_zero_right]
+  exact unitary_frobenius_norm_le_two
+    (Matrix.specialUnitaryGroup_le_unitaryGroup hA)
+
+/-- **Compactness of `specialUnitaryGroup (Fin 2) ℂ`** as a subset. Heine-Borel
+on the finite-dimensional ℂ-normed space `Matrix (Fin 2) (Fin 2) ℂ`. -/
+lemma specialUnitaryGroup_isCompact_set :
+    IsCompact { A : Matrix (Fin 2) (Fin 2) ℂ
+                | A ∈ Matrix.specialUnitaryGroup (Fin 2) ℂ } := by
+  haveI : ProperSpace (Matrix (Fin 2) (Fin 2) ℂ) := FiniteDimensional.proper ℂ _
+  exact Metric.isCompact_iff_isClosed_bounded.mpr
+    ⟨specialUnitaryGroup_isClosed_set, specialUnitaryGroup_isBounded_set⟩
+
+/-- **★ `specialUnitaryGroup (Fin 2) ℂ` is a compact topological group ★** —
+the final instance that unlocks Haar measure on SU(2) at the pin. -/
+instance specialUnitaryGroup_compactSpace :
+    CompactSpace (Matrix.specialUnitaryGroup (Fin 2) ℂ) := by
+  have h : IsCompact ((Matrix.specialUnitaryGroup (Fin 2) ℂ : Set (Matrix (Fin 2) (Fin 2) ℂ))) :=
+    specialUnitaryGroup_isCompact_set
+  exact isCompact_iff_compactSpace.mp h
+
+end Compact
+
 end
 
 end PF.YangMills
@@ -162,3 +260,11 @@ end PF.YangMills
 #print axioms PF.YangMills.specialUnitaryGroup_continuousMul
 #print axioms PF.YangMills.specialUnitaryGroup_continuousInv
 #print axioms PF.YangMills.specialUnitaryGroup_isTopologicalGroup
+#print axioms PF.YangMills.unitaryGroup_isClosed_set
+#print axioms PF.YangMills.det_eq_one_isClosed
+#print axioms PF.YangMills.specialUnitaryGroup_isClosed_set
+#print axioms PF.YangMills.unitary_entry_norm_le_one
+#print axioms PF.YangMills.unitary_frobenius_norm_le_two
+#print axioms PF.YangMills.specialUnitaryGroup_isBounded_set
+#print axioms PF.YangMills.specialUnitaryGroup_isCompact_set
+#print axioms PF.YangMills.specialUnitaryGroup_compactSpace
