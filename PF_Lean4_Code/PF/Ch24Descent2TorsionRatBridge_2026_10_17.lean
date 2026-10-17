@@ -170,3 +170,11 @@ theorem Ecurve_rank_eq_zero : Module.rank ℤ Ecurve.toAffine.Point = 0 :=
   rank_eq_zero_of_two_torsion Ecurve_two_torsion
 
 end PrincipiaTractalis.Ch24DescentRatBridge20261017
+
+/-! ## §Axiom check -/
+#print axioms PrincipiaTractalis.Ch24DescentRatBridge20261017.rat_sq_int_is_int
+#print axioms PrincipiaTractalis.Ch24DescentRatBridge20261017.isCoprime_num_den
+#print axioms PrincipiaTractalis.Ch24DescentRatBridge20261017.no_rational_point_x_ne_zero
+#print axioms PrincipiaTractalis.Ch24DescentRatBridge20261017.solutions_are_origin
+#print axioms PrincipiaTractalis.Ch24DescentRatBridge20261017.Ecurve_two_torsion
+#print axioms PrincipiaTractalis.Ch24DescentRatBridge20261017.Ecurve_rank_eq_zero

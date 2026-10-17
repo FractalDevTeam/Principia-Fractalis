@@ -140,3 +140,9 @@ theorem descent_core_needs_e_ne_zero :
   refine ⟨isCoprime_one_left, by norm_num, one_ne_zero⟩
 
 end PrincipiaTractalis.Ch24Descent20261017
+
+/-! ## §Axiom check -/
+#print axioms PrincipiaTractalis.Ch24Descent20261017.isCoprime_descent_factors
+#print axioms PrincipiaTractalis.Ch24Descent20261017.descent_second_factor_pos
+#print axioms PrincipiaTractalis.Ch24Descent20261017.descent_core
+#print axioms PrincipiaTractalis.Ch24Descent20261017.descent_core_needs_e_ne_zero

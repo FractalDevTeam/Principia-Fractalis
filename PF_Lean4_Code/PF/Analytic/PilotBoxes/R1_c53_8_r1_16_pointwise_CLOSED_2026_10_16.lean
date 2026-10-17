@@ -59,19 +59,22 @@ Composite enclosures after adding residue (≤ 5712/10^8), analytic tail
 
 Gate-1 check: `(2809/64)·R_ub_f + (53/8)·I_ub_f ≤ 3/4`.
 Numerically (constants as actually used; cf. §M2.5 below):
-  R_ub_h32 = 2643610271/160000000000 ≈ 0.0169634958
-  I_ub_h32 =  15151373/8000000000 ≈ 0.0018848403
-  add-on   = 5712/10^8 + 1/10⁶ + 1/10⁴  ≈ 0.0009264688
-  R_ub_f ≈ 0.0169634958 + 0.0009264688 ≈ 0.0178899646
-  I_ub_f ≈ 0.0018848403 + 0.0009264688 ≈ 0.0028113090
-  (2809/64)·0.0178899646 + (53/8)·0.0028113090
-      ≈ 0.7270595 + 0.0179221 ≈ 0.7449814 ≤ 0.75 ✓   (slack ≈ +0.0050186)
+  R_ub_h32 = 2643610271/160000000000 ≈ 0.0165225642
+  I_ub_h32 =   15151373/8000000000  ≈ 0.0018939216
+  add-on   = 5712/10⁸ + 1/10⁶ + 1/10⁴ ≈ 0.00015812
+  R_ub_f ≈ 0.0165225642 + 0.00015812 ≈ 0.0166806842
+  I_ub_f ≈ 0.0018939216 + 0.00015812 ≈ 0.0020520416
+  (2809/64)·0.0166806842 + (53/8)·0.0020520416
+      ≈ 0.7321262 + 0.0135948 ≈ 0.7457210 ≤ 0.75 ✓   (slack ≈ +0.0042790)
 
-NOTE 2026-10-16: the previous form of this block quoted R_ub_f ≈ 0.018418 and
-a product ≈ 0.6909. Those were inconsistent with each other
-(40.6406 × 0.018418 = 0.7485, which would FAIL the gate) and with the
-rational constants the proof actually uses. The proof was always correct;
-only this comment was wrong. Corrected above.
+NOTE 2026-10-16: an earlier form of this block quoted R_ub_f ≈ 0.018418 and
+a product ≈ 0.6909 (inconsistent with each other and with the rational
+constants the proof actually uses — the proof was always correct, only
+the comment was wrong). It was then corrected AGAINST THE c=51/8 CONSTANTS
+(stale `231/279841` residue add-on; margin +0.0050186), which is still a
+copy-paste. 2026-10-17: now recomputed from the ACTUAL c=53/8 rational
+constants above (monotone-product `5712/10⁸` residue). Margin is `+0.00428`,
+not `+0.0050`.
 -/
 
 private noncomputable abbrev epsOm : ℝ := 1 / 10 ^ 4
@@ -900,15 +903,16 @@ theorem im_lambda0_at_c53_8_lb :
 /-! ## §10 — Instantiate scaffold
 
 Gate: `(2809/64)·R_ub_f + (53/8)·I_ub_f ≤ 3/4`. Numerically:
-  R_ub_h32 = 2643610271/160000000000 ≈ 0.0169635
-  R_ub_f ≈ 0.0169635 + 5712/10^8 + 10⁻⁶ + 10⁻⁴ ≈ 0.0178900
-  I_ub_h32 = 15151373/8000000000 ≈ 0.0018848
-  I_ub_f ≈ 0.0018848 + 5712/10^8 + 10⁻⁶ + 10⁻⁴ ≈ 0.0028113
-  (2809/64)·0.0178900 + (53/8)·0.0028113 ≈ 0.7272 + 0.01792 ≈ 0.7450 ≤ 0.75 ✓
-  gate-1 margin = 3/4 − 0.74498 ≈ 0.00502  (tight — required replacing the
-  loose `≤ 1/10³` residue budget with the tight `≤ 5712/10^8 ≈ 8.253·10⁻⁴`
-  bound; the ResidueBound proof already produces 5712/10^8, so this is
-  no new mathematics, only a semantic choice at the gate.)
+  R_ub_h32 = 2643610271/160000000000 ≈ 0.0165226
+  R_ub_f ≈ 0.0165226 + 5712/10⁸ + 10⁻⁶ + 10⁻⁴ ≈ 0.0166807
+  I_ub_h32 = 15151373/8000000000     ≈ 0.0018939
+  I_ub_f ≈ 0.0018939 + 5712/10⁸ + 10⁻⁶ + 10⁻⁴ ≈ 0.0020520
+  (2809/64)·0.0166807 + (53/8)·0.0020520 ≈ 0.7321 + 0.01359 ≈ 0.7457 ≤ 0.75 ✓
+  gate-1 margin = 3/4 − 0.74572 ≈ 0.00428  (tighter than c=51/8's +0.00502
+  — required replacing the loose `≤ 1/10³` residue budget with the
+  monotone-product `≤ 5712/10⁸ ≈ 5.712·10⁻⁵` bound; the ResidueBound proof
+  already produces 5712/10⁸, so this is no new mathematics, only a
+  semantic choice at the gate.)
 -/
 
 lemma gate1_arithmetic :
