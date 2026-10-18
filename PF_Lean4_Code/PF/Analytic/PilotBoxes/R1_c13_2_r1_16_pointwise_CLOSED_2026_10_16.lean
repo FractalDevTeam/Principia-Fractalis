@@ -61,11 +61,11 @@ Gate-1 check: `(169/4)·R_ub_f + (13/2)·I_ub_f ≤ 3/4`.
 Numerically (constants as actually used; cf. §M2.5 below):
   R_ub_h32 = 1339441331/80000000000  ≈ 0.0167430166
   I_ub_h32 =  302372667/160000000000 ≈ 0.0018898292
-  add-on   = 231/10⁶ + 1/10⁶ + 1/10⁴ ≈ 0.000332
-  R_ub_f ≈ 0.0167430166 + 0.000332 ≈ 0.0170750166
-  I_ub_f ≈ 0.0018898292 + 0.000332 ≈ 0.0022218292
-  (169/4)·0.0170750166 + (13/2)·0.0022218292
-      ≈ 0.7214194 + 0.0144419 ≈ 0.7358614 ≤ 0.75 ✓   (slack ≈ +0.0141386)
+  add-on   = 231/10⁶ + 12/10⁸ + 1/10²¹ ≈ 0.00023112
+  R_ub_f ≈ 0.0167430166 + 0.00023112 ≈ 0.0169741366
+  I_ub_f ≈ 0.0018898292 + 0.00023112 ≈ 0.0021209492
+  (169/4)·0.0169741366 + (13/2)·0.0021209492
+      ≈ 0.7171573 + 0.0137862 ≈ 0.7309434 ≤ 0.75 ✓   (slack ≈ +0.0190566)
 
 NOTE 2026-10-16: an earlier form of this block quoted R_ub_f ≈ 0.018418 and
 a product ≈ 0.6909 (inconsistent with each other and with the rational
@@ -74,9 +74,19 @@ the comment was wrong). It was then corrected AGAINST THE c=51/8 CONSTANTS
 (stale `231/279841` residue add-on; margin +0.0050186), which is still a
 copy-paste. 2026-10-17: now recomputed from the ACTUAL c=13/2 rational
 constants above (`231/10⁶` residue). Margin is `+0.01414`, not `+0.0050`.
+2026-10-18 (Legion): the two one-line add-on tightenings from the add-on
+scoping (`codex/ADDON_SCOPE_RESIDUE_IS_THE_WORK_2026-10-17.md`, commit
+4d5c26de) are now applied. `epsOm` 1/10⁴ → 1/10²¹ (the ω-gap chain already
+PROVED 4.3790e−22 and was discarding 2.284e17× of it in its final `norm_num`);
+analytic tail 1/10⁶ → 12/10⁸ (the chain already PROVED 1.1326e−7 — note 1/10⁷
+is NOT reachable, 1.2e−7 is). No new mathematics: only the two `norm_num`
+targets changed. Add-on total 3.3200e−4 → 2.3112e−4, and the Gate-1 margin
+improves from +0.0141387 to +0.0190566 (gain +0.0049179).
+The residue `231/10⁶` is now 99.9% of the remaining add-on total; subdividing
+it is the next lever (see that note's `ln k` design).
 -/
 
-private noncomputable abbrev epsOm : ℝ := 1 / 10 ^ 4
+private noncomputable abbrev epsOm : ℝ := 1 / 10 ^ 21
 
 /-! ## §1 — ω-gap integrated bound (loose but easy) -/
 
@@ -725,11 +735,11 @@ lemma int_gapDom_le_epsOm :
         ≤ (1/10^20) * ((1 : ℝ) / (16 * 3 - 1/2) + 1 / (16 * 3)) := h_step1.trans h_step2
     exact mul_le_mul_of_nonneg_right h_step12 (by norm_num)
   have h_numerical : ((1 : ℝ) / 10 ^ 20)
-      * ((1 : ℝ) / (16 * 3 - 1/2) + 1 / (16 * 3)) * (23/22) ≤ (1 : ℝ) / 10 ^ 4 := by
+      * ((1 : ℝ) / (16 * 3 - 1/2) + 1 / (16 * 3)) * (23/22) ≤ (1 : ℝ) / 10 ^ 21 := by
     norm_num
   calc Real.exp (-(16 * π)) * (1/(16 * π - 1/2) + 1/(16 * π)) * (23/22)
       ≤ (1 / 10 ^ 20) * ((1 : ℝ) / (16 * 3 - 1/2) + 1 / (16 * 3)) * (23/22) := h_prod_le
-    _ ≤ 1 / 10 ^ 4 := h_numerical
+    _ ≤ 1 / 10 ^ 21 := h_numerical
 
 /-! ## §8 — Pointwise gap bound integrated: `∫_{Ioi 0} |f_full − f_N3| ≤ epsOm` -/
 
@@ -805,7 +815,7 @@ lemma minus_gap_integrated_bound :
 
 theorem re_lambda0_at_c13_2_ub :
     (completedRiemannZeta₀ (⟨1, 13/2⟩ : ℂ)).re
-      ≤ (1339441331 / 80000000000 : ℝ) + 231/10^6 + 1/10^6 + epsOm := by
+      ≤ (1339441331 / 80000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm := by
   rw [re_lambda0_at_c13_2]
   have h_split := plus_N3_split
   have h_h32 := reLambda0_threehalves_lb_ub.2
@@ -819,7 +829,7 @@ theorem re_lambda0_at_c13_2_ub :
   rw [h_target, h_split]
   have h_res_le : ∫ u in (3/2 : ℝ)..5, nodeR_fourier_plus_at_c13_2_N3 u ≤ 231/10^6 :=
     (abs_le.mp h_res).2
-  have h_tail_le : ∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u ≤ 1/10^6 :=
+  have h_tail_le : ∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u ≤ 12/10^8 :=
     (abs_le.mp h_tail).2
   have h_gap_le : ((∫ u in Ioi (0 : ℝ), nodeR_fourier_plus_at_c13_2 u)
       - (∫ u in Ioi (0 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u)) ≤ epsOm :=
@@ -828,7 +838,7 @@ theorem re_lambda0_at_c13_2_ub :
   linarith
 
 theorem re_lambda0_at_c13_2_lb :
-    (2671109 / 200000000 : ℝ) - 231/10^6 - 1/10^6 - epsOm
+    (2671109 / 200000000 : ℝ) - 231/10^6 - 12/10^8 - epsOm
       ≤ (completedRiemannZeta₀ (⟨1, 13/2⟩ : ℂ)).re := by
   rw [re_lambda0_at_c13_2]
   have h_split := plus_N3_split
@@ -843,7 +853,7 @@ theorem re_lambda0_at_c13_2_lb :
   rw [h_target, h_split]
   have h_res_ge : -(231/10^6 : ℝ) ≤ ∫ u in (3/2 : ℝ)..5, nodeR_fourier_plus_at_c13_2_N3 u :=
     (abs_le.mp h_res).1
-  have h_tail_ge : -(1/10^6 : ℝ) ≤ ∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u :=
+  have h_tail_ge : -(12/10^8 : ℝ) ≤ ∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u :=
     (abs_le.mp h_tail).1
   have h_gap_ge : -epsOm ≤ ((∫ u in Ioi (0 : ℝ), nodeR_fourier_plus_at_c13_2 u)
       - (∫ u in Ioi (0 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u)) :=
@@ -853,7 +863,7 @@ theorem re_lambda0_at_c13_2_lb :
 
 theorem im_lambda0_at_c13_2_ub :
     (completedRiemannZeta₀ (⟨1, 13/2⟩ : ℂ)).im
-      ≤ (302372667 / 160000000000 : ℝ) + 231/10^6 + 1/10^6 + epsOm := by
+      ≤ (302372667 / 160000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm := by
   rw [im_lambda0_at_c13_2]
   have h_split := minus_N3_split
   have h_h32 := imLambda0_threehalves_lb_ub.2
@@ -867,7 +877,7 @@ theorem im_lambda0_at_c13_2_ub :
   rw [h_target, h_split]
   have h_res_le : ∫ u in (3/2 : ℝ)..5, nodeR_fourier_minus_at_c13_2_N3 u ≤ 231/10^6 :=
     (abs_le.mp h_res).2
-  have h_tail_le : ∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u ≤ 1/10^6 :=
+  have h_tail_le : ∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u ≤ 12/10^8 :=
     (abs_le.mp h_tail).2
   have h_gap_le : ((∫ u in Ioi (0 : ℝ), nodeR_fourier_minus_at_c13_2 u)
       - (∫ u in Ioi (0 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u)) ≤ epsOm :=
@@ -876,7 +886,7 @@ theorem im_lambda0_at_c13_2_ub :
   linarith
 
 theorem im_lambda0_at_c13_2_lb :
-    (13277 / 500000000 : ℝ) - 231/10^6 - 1/10^6 - epsOm
+    (13277 / 500000000 : ℝ) - 231/10^6 - 12/10^8 - epsOm
       ≤ (completedRiemannZeta₀ (⟨1, 13/2⟩ : ℂ)).im := by
   rw [im_lambda0_at_c13_2]
   have h_split := minus_N3_split
@@ -891,7 +901,7 @@ theorem im_lambda0_at_c13_2_lb :
   rw [h_target, h_split]
   have h_res_ge : -(231/10^6 : ℝ) ≤ ∫ u in (3/2 : ℝ)..5, nodeR_fourier_minus_at_c13_2_N3 u :=
     (abs_le.mp h_res).1
-  have h_tail_ge : -(1/10^6 : ℝ) ≤ ∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u :=
+  have h_tail_ge : -(12/10^8 : ℝ) ≤ ∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u :=
     (abs_le.mp h_tail).1
   have h_gap_ge : -epsOm ≤ ((∫ u in Ioi (0 : ℝ), nodeR_fourier_minus_at_c13_2 u)
       - (∫ u in Ioi (0 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u)) :=
@@ -916,11 +926,11 @@ Gate: `(169/4)·R_ub_f + (13/2)·I_ub_f ≤ 3/4`. Numerically:
 -/
 
 lemma gate1_arithmetic :
-    (169/4 : ℝ) * ((1339441331 / 80000000000 : ℝ) + 231/10^6 + 1/10^6 + epsOm)
-      + (13/2 : ℝ) * ((302372667 / 160000000000 : ℝ) + 231/10^6 + 1/10^6 + epsOm)
+    (169/4 : ℝ) * ((1339441331 / 80000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm)
+      + (13/2 : ℝ) * ((302372667 / 160000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm)
       ≤ 3/4 := by
-  show (169/4 : ℝ) * ((1339441331 / 80000000000 : ℝ) + 231/10^6 + 1/10^6 + 1/10^4)
-      + (13/2 : ℝ) * ((302372667 / 160000000000 : ℝ) + 231/10^6 + 1/10^6 + 1/10^4)
+  show (169/4 : ℝ) * ((1339441331 / 80000000000 : ℝ) + 231/10^6 + 12/10^8 + 1/10^21)
+      + (13/2 : ℝ) * ((302372667 / 160000000000 : ℝ) + 231/10^6 + 12/10^8 + 1/10^21)
       ≤ 3/4
   norm_num
 
@@ -932,10 +942,10 @@ theorem pilot_r1_box_c13_2_r1_16_pointwise_UNCONDITIONAL :
     ∀ t ∈ Icc ((103/16 : ℝ)) (105/16),
       0 < (riemannXiEntire (⟨1, t⟩ : ℂ)).re := by
   exact pilot_r1_box_c13_2_r1_16_pointwise_closed
-    ((2671109 / 200000000 : ℝ) - 231/10^6 - 1/10^6 - epsOm)
-    ((1339441331 / 80000000000 : ℝ) + 231/10^6 + 1/10^6 + epsOm)
-    ((13277 / 500000000 : ℝ) - 231/10^6 - 1/10^6 - epsOm)
-    ((302372667 / 160000000000 : ℝ) + 231/10^6 + 1/10^6 + epsOm)
+    ((2671109 / 200000000 : ℝ) - 231/10^6 - 12/10^8 - epsOm)
+    ((1339441331 / 80000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm)
+    ((13277 / 500000000 : ℝ) - 231/10^6 - 12/10^8 - epsOm)
+    ((302372667 / 160000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm)
     re_lambda0_at_c13_2_lb
     re_lambda0_at_c13_2_ub
     im_lambda0_at_c13_2_lb
