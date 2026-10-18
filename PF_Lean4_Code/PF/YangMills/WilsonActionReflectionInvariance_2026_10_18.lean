@@ -191,9 +191,70 @@ lemma shiftSite_shiftTimeNeg (x : LatticeSite L) :
     abel
   · simp [Function.update_of_ne h]
 
+/-! ## §5 — Plaquette holonomy under the θ-reflected gauge field.
+
+Four cases, each delivering `plaquetteHolonomy (θU) p = (cyclic rotation of)
+plaquetteHolonomy U (θ_p p)`. Trace cyclicity closes the gap for density. -/
+
+/-- **Case FF (spatial-spatial):** `μ ≠ 0`, `ν ≠ 0`. All four links are
+spatial, so the θ-reflected plaquette equals the untransformed plaquette
+based at `θx`. **Equality** (not just cyclic). -/
+lemma plaquetteHolonomy_timeReflection_both_spatial
+    {μ ν : LatticeDir} (hμ : μ ≠ 0) (hν : ν ≠ 0)
+    (U : GaugeField L) (x : LatticeSite L) :
+    plaquetteHolonomy (timeReflectionGaugeField U) (x, μ, ν)
+      = plaquetteHolonomy U (timeReflectionSite x, μ, ν) := by
+  unfold plaquetteHolonomy timeReflectionGaugeField
+  simp only [if_neg hμ, if_neg hν,
+    timeReflectionSite_shiftSite_spatial hμ,
+    timeReflectionSite_shiftSite_spatial hν]
+
+/-- **Case TT (both-zero diagonal):** when `μ = ν = 0`, the plaquette is
+diagonal and the holonomy is `1`. Density is zero on both sides. -/
+lemma plaquetteHolonomy_timeReflection_both_zero
+    (U : GaugeField L) (x : LatticeSite L) :
+    plaquetteHolonomy (timeReflectionGaugeField U) (x, 0, 0) = 1 := by
+  unfold plaquetteHolonomy timeReflectionGaugeField
+  simp only [if_pos rfl]
+  -- goal: A⁻¹ * B * (B)⁻¹ * (A)⁻¹ = 1 where A = U(shiftTimeNeg(θx), 0),
+  -- B = U(shiftTimeNeg(θ(shiftSite x 0)), 0)
+  group
+
+/-- Analogous diagonal collapse for `U` at `(y, 0, 0)`. -/
+lemma plaquetteHolonomy_diag_zero
+    (U : GaugeField L) (y : LatticeSite L) :
+    plaquetteHolonomy U (y, 0, 0) = 1 := by
+  unfold plaquetteHolonomy
+  simp only
+  group
+
+/-! ### Matrix-trace cyclicity primitives for `Fin 2 × Fin 2` complex
+matrices — four-factor rotation lemmas needed for Cases TF/FT. -/
+
+/-- Four-factor trace cyclicity: `tr(A · B · C · D) = tr(D · A · B · C)`. -/
+lemma trace_mul_four_rotate_right (A B C D : Matrix (Fin 2) (Fin 2) ℂ) :
+    (A * B * C * D).trace = (D * A * B * C).trace := by
+  rw [Matrix.trace_mul_comm (A * B * C) D, ← Matrix.mul_assoc D (A * B) C,
+      ← Matrix.mul_assoc D A B]
+
+/-- Variant: `tr(A · B · C · D) = tr(B · C · D · A)`. -/
+lemma trace_mul_four_rotate_left (A B C D : Matrix (Fin 2) (Fin 2) ℂ) :
+    (A * B * C * D).trace = (B * C * D * A).trace := by
+  rw [Matrix.mul_assoc A B C, Matrix.mul_assoc A (B * C) D,
+      Matrix.trace_mul_comm A (B * C * D)]
+
+/-! ### Trace cyclicity primitives land; Case TF/FT density assembly pending. -/
+
 end
 
 end PF.YangMills
+
+/-! ## §Axiom check (additional) -/
+#print axioms PF.YangMills.plaquetteHolonomy_timeReflection_both_spatial
+#print axioms PF.YangMills.plaquetteHolonomy_timeReflection_both_zero
+#print axioms PF.YangMills.plaquetteHolonomy_diag_zero
+#print axioms PF.YangMills.trace_mul_four_rotate_right
+#print axioms PF.YangMills.trace_mul_four_rotate_left
 
 /-! ## §Axiom check -/
 #print axioms PF.YangMills.timeReflectionSite_involutive
