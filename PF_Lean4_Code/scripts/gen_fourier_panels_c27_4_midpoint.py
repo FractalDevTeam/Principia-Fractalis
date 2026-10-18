@@ -91,7 +91,7 @@ def point_bounds(m_frac, series_terms=50):
 # Universal crude M-bound: `fourier_plus_termM (27/4) n (1/4) ≤ 1000` for each
 # n ∈ {0, 1, 2}, summed over 3 terms gives ≤ 3000 = M. (Only verified for Seg01
 # with T = 1/4; later segments need a looser M. For a demo we fix at 3000.)
-M_VALUE = Fraction(3000)
+M_VALUE = Fraction(24)
 PANEL_WIDTH = Fraction(1, 32)  # (b - a) for each panel
 ERR_PER_PANEL = M_VALUE * (PANEL_WIDTH ** 3) / 24  # = 3000/786432
 
@@ -178,94 +178,222 @@ private noncomputable abbrev f_plus (u : ℝ) : ℝ :=
 private noncomputable abbrev f_minus (u : ℝ) : ℝ :=
   ∑ n ∈ Finset.range 3, fourier_minus_term (27/4) n u
 
-/-- Segment-level M bound. (Crude; proven below.) -/
-private noncomputable abbrev M : ℝ := 3000
+/-- Segment-level M bound. Universal: bounds `|∑ fourier_plus_termD2|` on
+`u ∈ [0, 1/4]`. True max|f''| ≈ 1.3773; symbolic upper bound ≈ 8.44 at T=1/4;
+we prove ≤ 24 using per-`n` tight bounds (n=0: A≤4, B≤1/23; n=1: A≤16,
+B≤(1/23)⁴; n=2: A≤36, B≤(1/23)⁹). (24 instead of 20 keeps `M·(1/32)³/24`
+a terminating-decimal rational for literal emission.) -/
+private noncomputable abbrev M : ℝ := 24
 
-/-- Per-term crude bound `fourier_plus_termM (27/4) n (1/4) ≤ 1000` for
-`n ∈ {{0, 1, 2}}`, using `π ≤ 4`, `A ≤ 36`, `exp(-A) ≤ 1/23`, `exp(1/4) ≤ 2`. -/
-private lemma fourier_plus_termM_le_crude (n : ℕ) (hn : n ≤ 2) :
-    fourier_plus_termM (27/4) n (1/4) ≤ 1000 := by
+/-- Shared E/T bounds (`exp(1/8) ≤ 2`, `exp(1/4) ≤ 2`). -/
+private lemma hE_le_2 : Real.exp ((1:ℝ)/8) ≤ 2 :=
+  ((Real.exp_le_exp).mpr (by have := Real.log_two_gt_d9; linarith :
+    (1:ℝ)/8 ≤ Real.log 2)).trans_eq (Real.exp_log (by norm_num))
+
+private lemma hT_le_2 : Real.exp ((1:ℝ)/4) ≤ 2 :=
+  ((Real.exp_le_exp).mpr (by have := Real.log_two_gt_d9; linarith :
+    (1:ℝ)/4 ≤ Real.log 2)).trans_eq (Real.exp_log (by norm_num))
+
+/-- The per-`n` bound at n=0: A=π ≤ 4, B=exp(-π) ≤ 1/23. -/
+private lemma fourier_plus_termM_n0 :
+    fourier_plus_termM (27/4) 0 (1/4) ≤ 19 := by
   unfold fourier_plus_termM
   have hπ_le : π ≤ 4 := Real.pi_lt_four.le
   have hπ_pos : 0 < π := Real.pi_pos
-  have hE_le : Real.exp ((1:ℝ)/8) ≤ 2 :=
-    ((Real.exp_le_exp).mpr (by have := Real.log_two_gt_d9; linarith :
-      (1:ℝ)/8 ≤ Real.log 2)).trans_eq (Real.exp_log (by norm_num))
-  have hT_le : Real.exp ((1:ℝ)/4) ≤ 2 :=
-    ((Real.exp_le_exp).mpr (by have := Real.log_two_gt_d9; linarith :
-      (1:ℝ)/4 ≤ Real.log 2)).trans_eq (Real.exp_log (by norm_num))
-  have hT_ge_one : (1 : ℝ) ≤ Real.exp ((1:ℝ)/4) := Real.one_le_exp (by norm_num)
+  have hE_le := hE_le_2
+  have hT_le := hT_le_2
   have hE_pos : 0 < Real.exp ((1:ℝ)/8) := Real.exp_pos _
   have hT_pos : 0 < Real.exp ((1:ℝ)/4) := Real.exp_pos _
   have h_eneg_pi : Real.exp (-π) ≤ 1/23 :=
     PrincipiaTractalis.Lambda0TightestBoundsMellin20261014.exp_neg_pi_le_one_twentythird
-  have hA_pos : 0 ≤ π * ((n:ℝ)+1)^2 := mul_nonneg hπ_pos.le (sq_nonneg _)
-  have hA_ge_π : π ≤ π * ((n:ℝ)+1)^2 := by
-    have h0 : (0:ℝ) ≤ (n:ℝ) := Nat.cast_nonneg n
-    have h1 : (1:ℝ) ≤ ((n:ℝ)+1)^2 := by nlinarith
-    nlinarith
-  have hA_le : π * ((n:ℝ)+1)^2 ≤ 36 := by
-    have h1 : ((n:ℝ)+1)^2 ≤ 9 := by
-      have : (n:ℝ) ≤ 2 := by exact_mod_cast hn
-      nlinarith
-    nlinarith
-  have hB_pos : 0 < Real.exp (-(π * ((n:ℝ)+1)^2)) := Real.exp_pos _
-  have hB_le : Real.exp (-(π * ((n:ℝ)+1)^2)) ≤ 1/23 :=
-    (Real.exp_le_exp.mpr (by linarith : -(π * ((n:ℝ)+1)^2) ≤ -π)).trans h_eneg_pi
+  have hA_eq : π * ((0:ℕ) + 1 : ℝ)^2 = π := by push_cast; ring
+  rw [hA_eq]
+  have hB_pos : 0 < Real.exp (-π) := Real.exp_pos _
+  have hB_le : Real.exp (-π) ≤ 1/23 := h_eneg_pi
   have habs_c : |((27:ℝ)/4)| = 27/4 := by rw [abs_of_pos]; norm_num
   rw [habs_c, show ((1:ℝ)/4/2 : ℝ) = 1/8 from by norm_num]
-  set A := π * ((n:ℝ)+1)^2
   set E := Real.exp ((1:ℝ)/8)
-  set B := Real.exp (-A)
+  set B := Real.exp (-π)
   set T := Real.exp ((1:ℝ)/4)
-  have hAT_ge_one : (1 : ℝ) ≤ A * T := by
-    have h1 : (1:ℝ) ≤ A := by linarith [hπ_pos, Real.pi_gt_three]
-    have : (1 : ℝ) * 1 ≤ A * T := mul_le_mul h1 hT_ge_one (by norm_num) (by linarith)
-    linarith
-  have hAB_le : A * B ≤ 36/23 := by
-    have := mul_le_mul hA_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 36)
-    linarith
-  have hAB_nn : 0 ≤ A * B := mul_nonneg hA_pos hB_pos.le
+  have hπB_le : π * B ≤ 4/23 := by
+    have := mul_le_mul hπ_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 4); linarith
+  have hπB_nn : 0 ≤ π * B := mul_nonneg hπ_pos.le hB_pos.le
   have hEB_le : E * B ≤ 2/23 := by
-    have := mul_le_mul hE_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 2)
-    linarith
+    have := mul_le_mul hE_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 2); linarith
   have hEB_nn : 0 ≤ E * B := mul_nonneg hE_pos.le hB_pos.le
-  have hAT_le : A * T ≤ 72 := by
-    have := mul_le_mul hA_le hT_le hT_pos.le (by norm_num : (0:ℝ) ≤ 36)
+  have hπT_le : π * T ≤ 8 := by
+    have := mul_le_mul hπ_le hT_le hT_pos.le (by norm_num : (0:ℝ) ≤ 4); linarith
+  have hπT_pos : 0 ≤ π * T := mul_nonneg hπ_pos.le hT_pos.le
+  have hπT_ge_one : 1 ≤ π * T := by
+    have h1 : (1:ℝ) ≤ π := by linarith [hπ_pos, Real.pi_gt_three]
+    have h2 : (1:ℝ) ≤ T := Real.one_le_exp (by norm_num)
+    have : (1:ℝ) * 1 ≤ π * T := mul_le_mul h1 h2 (by norm_num) (by linarith)
     linarith
-  have hA2TB_bound : A * (A*T - 1) * B ≤ 36 * 71 / 23 := by
-    have h_ATm1_nn : (0:ℝ) ≤ A*T - 1 := by linarith
-    have h_ATm1_le : A*T - 1 ≤ 71 := by linarith
-    have h_A_ATm1_nn : (0:ℝ) ≤ A * (A*T - 1) := mul_nonneg hA_pos h_ATm1_nn
-    have h_A_ATm1_le : A * (A*T - 1) ≤ 36 * 71 := by
-      have := mul_le_mul hA_le h_ATm1_le h_ATm1_nn (by norm_num : (0:ℝ) ≤ 36)
-      linarith
-    have h := mul_le_mul h_A_ATm1_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 36*71)
-    calc A * (A*T - 1) * B ≤ 36 * 71 * (1/23) := by linarith
-      _ = 36 * 71 / 23 := by ring
-  have hA2TB_nn : 0 ≤ A * (A*T - 1) * B := by
-    have h_ATm1_nn : (0:ℝ) ≤ A*T - 1 := by linarith
-    exact mul_nonneg (mul_nonneg hA_pos h_ATm1_nn) hB_pos.le
-  have hEAB_le : E * (A * B) ≤ 2 * (36/23) := by
-    have := mul_le_mul hE_le hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 2)
+  -- π·(π·T−1)·B ≤ 4·7·(1/23) = 28/23 (with π·T ≤ 8, so π·T−1 ≤ 7)
+  have hπTm1_le : π * T - 1 ≤ 7 := by linarith
+  have hπTm1_nn : 0 ≤ π * T - 1 := by linarith
+  have hπ_πTm1_le : π * (π * T - 1) ≤ 28 := by
+    have := mul_le_mul hπ_le hπTm1_le hπTm1_nn (by norm_num : (0:ℝ) ≤ 4); linarith
+  have hπ_πTm1_nn : 0 ≤ π * (π * T - 1) := mul_nonneg hπ_pos.le hπTm1_nn
+  have hπ_πTm1_B_le : π * (π * T - 1) * B ≤ 28/23 := by
+    have := mul_le_mul hπ_πTm1_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 28)
     linarith
-  have hE1AB_le : (E + 1) * (A * B) ≤ 3 * (36/23) := by
+  have hπ_πTm1_B_nn : 0 ≤ π * (π * T - 1) * B := mul_nonneg hπ_πTm1_nn hB_pos.le
+  have hEπB_le : E * (π * B) ≤ 2 * (4/23) := by
+    have := mul_le_mul hE_le hπB_le hπB_nn (by norm_num : (0:ℝ) ≤ 2); linarith
+  have hE1πB_le : (E + 1) * (π * B) ≤ 3 * (4/23) := by
     have h1 : E + 1 ≤ 3 := by linarith
-    have := mul_le_mul h1 hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 3)
-    linarith
+    have := mul_le_mul h1 hπB_le hπB_nn (by norm_num : (0:ℝ) ≤ 3); linarith
   have hE1_nn : 0 ≤ E + 1 := by linarith
-  nlinarith [hAB_le, hAB_nn, hEB_le, hEB_nn, hA2TB_bound, hA2TB_nn,
-             hEAB_le, mul_nonneg hE_pos.le hAB_nn,
+  nlinarith [hπB_le, hπB_nn, hEB_le, hEB_nn, hπ_πTm1_B_le, hπ_πTm1_B_nn,
+             hEπB_le, mul_nonneg hE_pos.le hπB_nn,
+             hE1πB_le, mul_nonneg hE1_nn hπB_nn,
+             hE_le, hE_pos.le, hT_le, hT_pos.le, hB_pos.le, hπ_pos]
+
+/-- The per-`n` bound at n=1: A=4π ≤ 16, B=exp(-4π) ≤ (1/23)⁴ = 1/279841. -/
+private lemma fourier_plus_termM_n1 :
+    fourier_plus_termM (27/4) 1 (1/4) ≤ 1 := by
+  unfold fourier_plus_termM
+  have hπ_le : π ≤ 4 := Real.pi_lt_four.le
+  have hπ_pos : 0 < π := Real.pi_pos
+  have hE_le := hE_le_2
+  have hT_le := hT_le_2
+  have hE_pos : 0 < Real.exp ((1:ℝ)/8) := Real.exp_pos _
+  have hT_pos : 0 < Real.exp ((1:ℝ)/4) := Real.exp_pos _
+  have h_eneg_pi : Real.exp (-π) ≤ 1/23 :=
+    PrincipiaTractalis.Lambda0TightestBoundsMellin20261014.exp_neg_pi_le_one_twentythird
+  have hA_eq : π * ((1:ℕ) + 1 : ℝ)^2 = 4 * π := by push_cast; ring
+  rw [hA_eq]
+  have hB_pos : 0 < Real.exp (-(4 * π)) := Real.exp_pos _
+  have hB_le : Real.exp (-(4 * π)) ≤ 1/279841 := by
+    have h_split : -(4 * π) = (-π) + (-π) + (-π) + (-π) := by ring
+    rw [h_split, Real.exp_add, Real.exp_add, Real.exp_add]
+    have h0 := (Real.exp_pos (-π)).le
+    calc Real.exp (-π) * Real.exp (-π) * Real.exp (-π) * Real.exp (-π)
+        ≤ (1/23) * (1/23) * (1/23) * (1/23) :=
+          mul_le_mul (mul_le_mul (mul_le_mul h_eneg_pi h_eneg_pi h0 (by norm_num))
+            h_eneg_pi (by positivity) (by positivity))
+            h_eneg_pi (by positivity) (by positivity)
+      _ = 1/279841 := by norm_num
+  have habs_c : |((27:ℝ)/4)| = 27/4 := by rw [abs_of_pos]; norm_num
+  rw [habs_c, show ((1:ℝ)/4/2 : ℝ) = 1/8 from by norm_num]
+  set E := Real.exp ((1:ℝ)/8)
+  set B := Real.exp (-(4 * π))
+  set T := Real.exp ((1:ℝ)/4)
+  have h4π_le : 4 * π ≤ 16 := by linarith
+  have h4π_pos : 0 ≤ 4 * π := by linarith
+  -- Pre-compute all product bounds explicitly.
+  have hAB_le : (4 * π) * B ≤ 16 * (1/279841) := by
+    have := mul_le_mul h4π_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 16); linarith
+  have hAB_nn : 0 ≤ (4 * π) * B := mul_nonneg h4π_pos hB_pos.le
+  have hAT_le : (4 * π) * T ≤ 32 := by
+    have := mul_le_mul h4π_le hT_le hT_pos.le (by norm_num : (0:ℝ) ≤ 16); linarith
+  have hATm1_le : (4 * π) * T - 1 ≤ 31 := by linarith
+  have hATm1_nn : 0 ≤ (4 * π) * T - 1 := by
+    have h1 : (1:ℝ) ≤ 4*π := by linarith [hπ_pos, Real.pi_gt_three]
+    have h2 : (1:ℝ) ≤ T := Real.one_le_exp (by norm_num)
+    have : (1:ℝ) ≤ (4*π) * T := by
+      have := mul_le_mul h1 h2 (by norm_num) (by linarith)
+      linarith
+    linarith
+  have hA_ATm1_le : (4 * π) * ((4 * π) * T - 1) ≤ 16 * 31 := by
+    have := mul_le_mul h4π_le hATm1_le hATm1_nn (by norm_num : (0:ℝ) ≤ 16)
+    linarith
+  have hA_ATm1_nn : 0 ≤ (4 * π) * ((4 * π) * T - 1) := mul_nonneg h4π_pos hATm1_nn
+  have hA_ATm1_B_le : (4 * π) * ((4 * π) * T - 1) * B ≤ 16 * 31 * (1/279841) := by
+    have := mul_le_mul hA_ATm1_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 16*31)
+    linarith
+  have hA_ATm1_B_nn : 0 ≤ (4 * π) * ((4 * π) * T - 1) * B := mul_nonneg hA_ATm1_nn hB_pos.le
+  have hEB_le : E * B ≤ 2 * (1/279841) := by
+    have := mul_le_mul hE_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 2); linarith
+  have hEAB_le : E * ((4 * π) * B) ≤ 2 * (16 * (1/279841)) := by
+    have := mul_le_mul hE_le hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 2); linarith
+  have hE1AB_le : (E + 1) * ((4 * π) * B) ≤ 3 * (16 * (1/279841)) := by
+    have h1 : E + 1 ≤ 3 := by linarith
+    have := mul_le_mul h1 hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 3); linarith
+  have hE1_nn : 0 ≤ E + 1 := by linarith
+  nlinarith [hAB_le, hAB_nn, hEB_le, mul_nonneg hE_pos.le hB_pos.le,
+             hA_ATm1_B_le, hA_ATm1_B_nn, hEAB_le, mul_nonneg hE_pos.le hAB_nn,
              hE1AB_le, mul_nonneg hE1_nn hAB_nn,
              hE_le, hE_pos.le, hT_le, hT_pos.le, hB_pos.le, hπ_pos]
 
-/-- Sum of per-term bounds `≤ M = 3000`. -/
+/-- The per-`n` bound at n=2: A=9π ≤ 36, B=exp(-9π) ≤ exp(-4π) ≤ (1/23)⁴ = 1/279841.
+Looser than optimal (true B ≈ 5e-13 vs 1/279841 ≈ 3.6e-6) but sufficient for ≤ 1. -/
+private lemma fourier_plus_termM_n2 :
+    fourier_plus_termM (27/4) 2 (1/4) ≤ 1 := by
+  unfold fourier_plus_termM
+  have hπ_le : π ≤ 4 := Real.pi_lt_four.le
+  have hπ_pos : 0 < π := Real.pi_pos
+  have hE_le := hE_le_2
+  have hT_le := hT_le_2
+  have hE_pos : 0 < Real.exp ((1:ℝ)/8) := Real.exp_pos _
+  have hT_pos : 0 < Real.exp ((1:ℝ)/4) := Real.exp_pos _
+  have h_eneg_pi : Real.exp (-π) ≤ 1/23 :=
+    PrincipiaTractalis.Lambda0TightestBoundsMellin20261014.exp_neg_pi_le_one_twentythird
+  have hA_eq : π * ((2:ℕ) + 1 : ℝ)^2 = 9 * π := by push_cast; ring
+  rw [hA_eq]
+  have hB_pos : 0 < Real.exp (-(9 * π)) := Real.exp_pos _
+  -- exp(-9π) ≤ exp(-4π) ≤ (1/23)⁴ via two steps.
+  have hB_le : Real.exp (-(9 * π)) ≤ 1/279841 := by
+    have h_neg : -(9 * π) ≤ -(4 * π) := by nlinarith
+    have h_step1 : Real.exp (-(9 * π)) ≤ Real.exp (-(4 * π)) := Real.exp_le_exp.mpr h_neg
+    have h_step2 : Real.exp (-(4 * π)) ≤ 1/279841 := by
+      have h_split : -(4 * π) = (-π) + (-π) + (-π) + (-π) := by ring
+      rw [h_split, Real.exp_add, Real.exp_add, Real.exp_add]
+      have h0 := (Real.exp_pos (-π)).le
+      calc Real.exp (-π) * Real.exp (-π) * Real.exp (-π) * Real.exp (-π)
+          ≤ (1/23) * (1/23) * (1/23) * (1/23) :=
+            mul_le_mul (mul_le_mul (mul_le_mul h_eneg_pi h_eneg_pi h0 (by norm_num))
+              h_eneg_pi (by positivity) (by positivity))
+              h_eneg_pi (by positivity) (by positivity)
+        _ = 1/279841 := by norm_num
+    exact h_step1.trans h_step2
+  have habs_c : |((27:ℝ)/4)| = 27/4 := by rw [abs_of_pos]; norm_num
+  rw [habs_c, show ((1:ℝ)/4/2 : ℝ) = 1/8 from by norm_num]
+  set E := Real.exp ((1:ℝ)/8)
+  set B := Real.exp (-(9 * π))
+  set T := Real.exp ((1:ℝ)/4)
+  have h9π_le : 9 * π ≤ 36 := by linarith
+  have h9π_pos : 0 ≤ 9 * π := by linarith
+  have hAB_le : (9 * π) * B ≤ 36 * (1/279841) := by
+    have := mul_le_mul h9π_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 36); linarith
+  have hAB_nn : 0 ≤ (9 * π) * B := mul_nonneg h9π_pos hB_pos.le
+  have hAT_le : (9 * π) * T ≤ 72 := by
+    have := mul_le_mul h9π_le hT_le hT_pos.le (by norm_num : (0:ℝ) ≤ 36); linarith
+  have hATm1_le : (9 * π) * T - 1 ≤ 71 := by linarith
+  have hATm1_nn : 0 ≤ (9 * π) * T - 1 := by
+    have h1 : (1:ℝ) ≤ 9*π := by linarith [hπ_pos, Real.pi_gt_three]
+    have h2 : (1:ℝ) ≤ T := Real.one_le_exp (by norm_num)
+    have : (1:ℝ) ≤ (9*π) * T := by
+      have := mul_le_mul h1 h2 (by norm_num) (by linarith)
+      linarith
+    linarith
+  have hA_ATm1_le : (9 * π) * ((9 * π) * T - 1) ≤ 36 * 71 := by
+    have := mul_le_mul h9π_le hATm1_le hATm1_nn (by norm_num : (0:ℝ) ≤ 36)
+    linarith
+  have hA_ATm1_nn : 0 ≤ (9 * π) * ((9 * π) * T - 1) := mul_nonneg h9π_pos hATm1_nn
+  have hA_ATm1_B_le : (9 * π) * ((9 * π) * T - 1) * B ≤ 36 * 71 * (1/279841) := by
+    have := mul_le_mul hA_ATm1_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 36*71)
+    linarith
+  have hA_ATm1_B_nn : 0 ≤ (9 * π) * ((9 * π) * T - 1) * B := mul_nonneg hA_ATm1_nn hB_pos.le
+  have hEB_le : E * B ≤ 2 * (1/279841) := by
+    have := mul_le_mul hE_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 2); linarith
+  have hEAB_le : E * ((9 * π) * B) ≤ 2 * (36 * (1/279841)) := by
+    have := mul_le_mul hE_le hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 2); linarith
+  have hE1AB_le : (E + 1) * ((9 * π) * B) ≤ 3 * (36 * (1/279841)) := by
+    have h1 : E + 1 ≤ 3 := by linarith
+    have := mul_le_mul h1 hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 3); linarith
+  have hE1_nn : 0 ≤ E + 1 := by linarith
+  nlinarith [hAB_le, hAB_nn, hEB_le, mul_nonneg hE_pos.le hB_pos.le,
+             hA_ATm1_B_le, hA_ATm1_B_nn, hEAB_le, mul_nonneg hE_pos.le hAB_nn,
+             hE1AB_le, mul_nonneg hE1_nn hAB_nn,
+             hE_le, hE_pos.le, hT_le, hT_pos.le, hB_pos.le, hπ_pos]
+
+/-- Sum of per-term bounds `≤ M = 24` (per-n: ≤19 + ≤1 + ≤1 ≤ 24). -/
 private lemma M_sum_le_plus :
     ∑ n ∈ Finset.range 3, fourier_plus_termM (27/4) n (1/4) ≤ M := by
   simp only [Finset.sum_range_succ, Finset.sum_range_zero, zero_add]
-  linarith [fourier_plus_termM_le_crude 0 (by decide),
-            fourier_plus_termM_le_crude 1 (by decide),
-            fourier_plus_termM_le_crude 2 (by decide)]
+  linarith [fourier_plus_termM_n0, fourier_plus_termM_n1, fourier_plus_termM_n2]
 
 /-! ## §2 — Panel enclosures. -/
 
@@ -426,7 +554,7 @@ def emit_midpoint_panel_block(seg_idx, k, a, b, L_node_plus, U_node_plus, L_node
         f"  have h_mp := midpoint_rule_error hab h_f h_f' h_M\n"
         f"  rw [h_mid] at h_mp\n"
         f"  have h_rhs : M * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ) := by\n"
-        f"    show (3000 : ℝ) * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ)\n"
+        f"    show (24 : ℝ) * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ)\n"
         f"    norm_num\n"
         f"  linarith [h_rhs]\n\n"
     )
@@ -453,7 +581,7 @@ def emit_midpoint_panel_block(seg_idx, k, a, b, L_node_plus, U_node_plus, L_node
         f"  have h_mp := midpoint_rule_error hab h_f h_f' h_M\n"
         f"  rw [h_mid] at h_mp\n"
         f"  have h_rhs : M * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ) := by\n"
-        f"    show (3000 : ℝ) * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ)\n"
+        f"    show (24 : ℝ) * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ)\n"
         f"    norm_num\n"
         f"  linarith [h_rhs]\n\n"
     )

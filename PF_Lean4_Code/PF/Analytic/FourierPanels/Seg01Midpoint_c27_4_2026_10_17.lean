@@ -59,94 +59,222 @@ private noncomputable abbrev f_plus (u : ℝ) : ℝ :=
 private noncomputable abbrev f_minus (u : ℝ) : ℝ :=
   ∑ n ∈ Finset.range 3, fourier_minus_term (27/4) n u
 
-/-- Segment-level M bound. (Crude; proven below.) -/
-private noncomputable abbrev M : ℝ := 3000
+/-- Segment-level M bound. Universal: bounds `|∑ fourier_plus_termD2|` on
+`u ∈ [0, 1/4]`. True max|f''| ≈ 1.3773; symbolic upper bound ≈ 8.44 at T=1/4;
+we prove ≤ 24 using per-`n` tight bounds (n=0: A≤4, B≤1/23; n=1: A≤16,
+B≤(1/23)⁴; n=2: A≤36, B≤(1/23)⁹). (24 instead of 20 keeps `M·(1/32)³/24`
+a terminating-decimal rational for literal emission.) -/
+private noncomputable abbrev M : ℝ := 24
 
-/-- Per-term crude bound `fourier_plus_termM (27/4) n (1/4) ≤ 1000` for
-`n ∈ {0, 1, 2}`, using `π ≤ 4`, `A ≤ 36`, `exp(-A) ≤ 1/23`, `exp(1/4) ≤ 2`. -/
-private lemma fourier_plus_termM_le_crude (n : ℕ) (hn : n ≤ 2) :
-    fourier_plus_termM (27/4) n (1/4) ≤ 1000 := by
+/-- Shared E/T bounds (`exp(1/8) ≤ 2`, `exp(1/4) ≤ 2`). -/
+private lemma hE_le_2 : Real.exp ((1:ℝ)/8) ≤ 2 :=
+  ((Real.exp_le_exp).mpr (by have := Real.log_two_gt_d9; linarith :
+    (1:ℝ)/8 ≤ Real.log 2)).trans_eq (Real.exp_log (by norm_num))
+
+private lemma hT_le_2 : Real.exp ((1:ℝ)/4) ≤ 2 :=
+  ((Real.exp_le_exp).mpr (by have := Real.log_two_gt_d9; linarith :
+    (1:ℝ)/4 ≤ Real.log 2)).trans_eq (Real.exp_log (by norm_num))
+
+/-- The per-`n` bound at n=0: A=π ≤ 4, B=exp(-π) ≤ 1/23. -/
+private lemma fourier_plus_termM_n0 :
+    fourier_plus_termM (27/4) 0 (1/4) ≤ 19 := by
   unfold fourier_plus_termM
   have hπ_le : π ≤ 4 := Real.pi_lt_four.le
   have hπ_pos : 0 < π := Real.pi_pos
-  have hE_le : Real.exp ((1:ℝ)/8) ≤ 2 :=
-    ((Real.exp_le_exp).mpr (by have := Real.log_two_gt_d9; linarith :
-      (1:ℝ)/8 ≤ Real.log 2)).trans_eq (Real.exp_log (by norm_num))
-  have hT_le : Real.exp ((1:ℝ)/4) ≤ 2 :=
-    ((Real.exp_le_exp).mpr (by have := Real.log_two_gt_d9; linarith :
-      (1:ℝ)/4 ≤ Real.log 2)).trans_eq (Real.exp_log (by norm_num))
-  have hT_ge_one : (1 : ℝ) ≤ Real.exp ((1:ℝ)/4) := Real.one_le_exp (by norm_num)
+  have hE_le := hE_le_2
+  have hT_le := hT_le_2
   have hE_pos : 0 < Real.exp ((1:ℝ)/8) := Real.exp_pos _
   have hT_pos : 0 < Real.exp ((1:ℝ)/4) := Real.exp_pos _
   have h_eneg_pi : Real.exp (-π) ≤ 1/23 :=
     PrincipiaTractalis.Lambda0TightestBoundsMellin20261014.exp_neg_pi_le_one_twentythird
-  have hA_pos : 0 ≤ π * ((n:ℝ)+1)^2 := mul_nonneg hπ_pos.le (sq_nonneg _)
-  have hA_ge_π : π ≤ π * ((n:ℝ)+1)^2 := by
-    have h0 : (0:ℝ) ≤ (n:ℝ) := Nat.cast_nonneg n
-    have h1 : (1:ℝ) ≤ ((n:ℝ)+1)^2 := by nlinarith
-    nlinarith
-  have hA_le : π * ((n:ℝ)+1)^2 ≤ 36 := by
-    have h1 : ((n:ℝ)+1)^2 ≤ 9 := by
-      have : (n:ℝ) ≤ 2 := by exact_mod_cast hn
-      nlinarith
-    nlinarith
-  have hB_pos : 0 < Real.exp (-(π * ((n:ℝ)+1)^2)) := Real.exp_pos _
-  have hB_le : Real.exp (-(π * ((n:ℝ)+1)^2)) ≤ 1/23 :=
-    (Real.exp_le_exp.mpr (by linarith : -(π * ((n:ℝ)+1)^2) ≤ -π)).trans h_eneg_pi
+  have hA_eq : π * ((0:ℕ) + 1 : ℝ)^2 = π := by push_cast; ring
+  rw [hA_eq]
+  have hB_pos : 0 < Real.exp (-π) := Real.exp_pos _
+  have hB_le : Real.exp (-π) ≤ 1/23 := h_eneg_pi
   have habs_c : |((27:ℝ)/4)| = 27/4 := by rw [abs_of_pos]; norm_num
   rw [habs_c, show ((1:ℝ)/4/2 : ℝ) = 1/8 from by norm_num]
-  set A := π * ((n:ℝ)+1)^2
   set E := Real.exp ((1:ℝ)/8)
-  set B := Real.exp (-A)
+  set B := Real.exp (-π)
   set T := Real.exp ((1:ℝ)/4)
-  have hAT_ge_one : (1 : ℝ) ≤ A * T := by
-    have h1 : (1:ℝ) ≤ A := by linarith [hπ_pos, Real.pi_gt_three]
-    have : (1 : ℝ) * 1 ≤ A * T := mul_le_mul h1 hT_ge_one (by norm_num) (by linarith)
-    linarith
-  have hAB_le : A * B ≤ 36/23 := by
-    have := mul_le_mul hA_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 36)
-    linarith
-  have hAB_nn : 0 ≤ A * B := mul_nonneg hA_pos hB_pos.le
+  have hπB_le : π * B ≤ 4/23 := by
+    have := mul_le_mul hπ_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 4); linarith
+  have hπB_nn : 0 ≤ π * B := mul_nonneg hπ_pos.le hB_pos.le
   have hEB_le : E * B ≤ 2/23 := by
-    have := mul_le_mul hE_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 2)
-    linarith
+    have := mul_le_mul hE_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 2); linarith
   have hEB_nn : 0 ≤ E * B := mul_nonneg hE_pos.le hB_pos.le
-  have hAT_le : A * T ≤ 72 := by
-    have := mul_le_mul hA_le hT_le hT_pos.le (by norm_num : (0:ℝ) ≤ 36)
+  have hπT_le : π * T ≤ 8 := by
+    have := mul_le_mul hπ_le hT_le hT_pos.le (by norm_num : (0:ℝ) ≤ 4); linarith
+  have hπT_pos : 0 ≤ π * T := mul_nonneg hπ_pos.le hT_pos.le
+  have hπT_ge_one : 1 ≤ π * T := by
+    have h1 : (1:ℝ) ≤ π := by linarith [hπ_pos, Real.pi_gt_three]
+    have h2 : (1:ℝ) ≤ T := Real.one_le_exp (by norm_num)
+    have : (1:ℝ) * 1 ≤ π * T := mul_le_mul h1 h2 (by norm_num) (by linarith)
     linarith
-  have hA2TB_bound : A * (A*T - 1) * B ≤ 36 * 71 / 23 := by
-    have h_ATm1_nn : (0:ℝ) ≤ A*T - 1 := by linarith
-    have h_ATm1_le : A*T - 1 ≤ 71 := by linarith
-    have h_A_ATm1_nn : (0:ℝ) ≤ A * (A*T - 1) := mul_nonneg hA_pos h_ATm1_nn
-    have h_A_ATm1_le : A * (A*T - 1) ≤ 36 * 71 := by
-      have := mul_le_mul hA_le h_ATm1_le h_ATm1_nn (by norm_num : (0:ℝ) ≤ 36)
-      linarith
-    have h := mul_le_mul h_A_ATm1_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 36*71)
-    calc A * (A*T - 1) * B ≤ 36 * 71 * (1/23) := by linarith
-      _ = 36 * 71 / 23 := by ring
-  have hA2TB_nn : 0 ≤ A * (A*T - 1) * B := by
-    have h_ATm1_nn : (0:ℝ) ≤ A*T - 1 := by linarith
-    exact mul_nonneg (mul_nonneg hA_pos h_ATm1_nn) hB_pos.le
-  have hEAB_le : E * (A * B) ≤ 2 * (36/23) := by
-    have := mul_le_mul hE_le hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 2)
+  -- π·(π·T−1)·B ≤ 4·7·(1/23) = 28/23 (with π·T ≤ 8, so π·T−1 ≤ 7)
+  have hπTm1_le : π * T - 1 ≤ 7 := by linarith
+  have hπTm1_nn : 0 ≤ π * T - 1 := by linarith
+  have hπ_πTm1_le : π * (π * T - 1) ≤ 28 := by
+    have := mul_le_mul hπ_le hπTm1_le hπTm1_nn (by norm_num : (0:ℝ) ≤ 4); linarith
+  have hπ_πTm1_nn : 0 ≤ π * (π * T - 1) := mul_nonneg hπ_pos.le hπTm1_nn
+  have hπ_πTm1_B_le : π * (π * T - 1) * B ≤ 28/23 := by
+    have := mul_le_mul hπ_πTm1_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 28)
     linarith
-  have hE1AB_le : (E + 1) * (A * B) ≤ 3 * (36/23) := by
+  have hπ_πTm1_B_nn : 0 ≤ π * (π * T - 1) * B := mul_nonneg hπ_πTm1_nn hB_pos.le
+  have hEπB_le : E * (π * B) ≤ 2 * (4/23) := by
+    have := mul_le_mul hE_le hπB_le hπB_nn (by norm_num : (0:ℝ) ≤ 2); linarith
+  have hE1πB_le : (E + 1) * (π * B) ≤ 3 * (4/23) := by
     have h1 : E + 1 ≤ 3 := by linarith
-    have := mul_le_mul h1 hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 3)
-    linarith
+    have := mul_le_mul h1 hπB_le hπB_nn (by norm_num : (0:ℝ) ≤ 3); linarith
   have hE1_nn : 0 ≤ E + 1 := by linarith
-  nlinarith [hAB_le, hAB_nn, hEB_le, hEB_nn, hA2TB_bound, hA2TB_nn,
-             hEAB_le, mul_nonneg hE_pos.le hAB_nn,
+  nlinarith [hπB_le, hπB_nn, hEB_le, hEB_nn, hπ_πTm1_B_le, hπ_πTm1_B_nn,
+             hEπB_le, mul_nonneg hE_pos.le hπB_nn,
+             hE1πB_le, mul_nonneg hE1_nn hπB_nn,
+             hE_le, hE_pos.le, hT_le, hT_pos.le, hB_pos.le, hπ_pos]
+
+/-- The per-`n` bound at n=1: A=4π ≤ 16, B=exp(-4π) ≤ (1/23)⁴ = 1/279841. -/
+private lemma fourier_plus_termM_n1 :
+    fourier_plus_termM (27/4) 1 (1/4) ≤ 1 := by
+  unfold fourier_plus_termM
+  have hπ_le : π ≤ 4 := Real.pi_lt_four.le
+  have hπ_pos : 0 < π := Real.pi_pos
+  have hE_le := hE_le_2
+  have hT_le := hT_le_2
+  have hE_pos : 0 < Real.exp ((1:ℝ)/8) := Real.exp_pos _
+  have hT_pos : 0 < Real.exp ((1:ℝ)/4) := Real.exp_pos _
+  have h_eneg_pi : Real.exp (-π) ≤ 1/23 :=
+    PrincipiaTractalis.Lambda0TightestBoundsMellin20261014.exp_neg_pi_le_one_twentythird
+  have hA_eq : π * ((1:ℕ) + 1 : ℝ)^2 = 4 * π := by push_cast; ring
+  rw [hA_eq]
+  have hB_pos : 0 < Real.exp (-(4 * π)) := Real.exp_pos _
+  have hB_le : Real.exp (-(4 * π)) ≤ 1/279841 := by
+    have h_split : -(4 * π) = (-π) + (-π) + (-π) + (-π) := by ring
+    rw [h_split, Real.exp_add, Real.exp_add, Real.exp_add]
+    have h0 := (Real.exp_pos (-π)).le
+    calc Real.exp (-π) * Real.exp (-π) * Real.exp (-π) * Real.exp (-π)
+        ≤ (1/23) * (1/23) * (1/23) * (1/23) :=
+          mul_le_mul (mul_le_mul (mul_le_mul h_eneg_pi h_eneg_pi h0 (by norm_num))
+            h_eneg_pi (by positivity) (by positivity))
+            h_eneg_pi (by positivity) (by positivity)
+      _ = 1/279841 := by norm_num
+  have habs_c : |((27:ℝ)/4)| = 27/4 := by rw [abs_of_pos]; norm_num
+  rw [habs_c, show ((1:ℝ)/4/2 : ℝ) = 1/8 from by norm_num]
+  set E := Real.exp ((1:ℝ)/8)
+  set B := Real.exp (-(4 * π))
+  set T := Real.exp ((1:ℝ)/4)
+  have h4π_le : 4 * π ≤ 16 := by linarith
+  have h4π_pos : 0 ≤ 4 * π := by linarith
+  -- Pre-compute all product bounds explicitly.
+  have hAB_le : (4 * π) * B ≤ 16 * (1/279841) := by
+    have := mul_le_mul h4π_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 16); linarith
+  have hAB_nn : 0 ≤ (4 * π) * B := mul_nonneg h4π_pos hB_pos.le
+  have hAT_le : (4 * π) * T ≤ 32 := by
+    have := mul_le_mul h4π_le hT_le hT_pos.le (by norm_num : (0:ℝ) ≤ 16); linarith
+  have hATm1_le : (4 * π) * T - 1 ≤ 31 := by linarith
+  have hATm1_nn : 0 ≤ (4 * π) * T - 1 := by
+    have h1 : (1:ℝ) ≤ 4*π := by linarith [hπ_pos, Real.pi_gt_three]
+    have h2 : (1:ℝ) ≤ T := Real.one_le_exp (by norm_num)
+    have : (1:ℝ) ≤ (4*π) * T := by
+      have := mul_le_mul h1 h2 (by norm_num) (by linarith)
+      linarith
+    linarith
+  have hA_ATm1_le : (4 * π) * ((4 * π) * T - 1) ≤ 16 * 31 := by
+    have := mul_le_mul h4π_le hATm1_le hATm1_nn (by norm_num : (0:ℝ) ≤ 16)
+    linarith
+  have hA_ATm1_nn : 0 ≤ (4 * π) * ((4 * π) * T - 1) := mul_nonneg h4π_pos hATm1_nn
+  have hA_ATm1_B_le : (4 * π) * ((4 * π) * T - 1) * B ≤ 16 * 31 * (1/279841) := by
+    have := mul_le_mul hA_ATm1_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 16*31)
+    linarith
+  have hA_ATm1_B_nn : 0 ≤ (4 * π) * ((4 * π) * T - 1) * B := mul_nonneg hA_ATm1_nn hB_pos.le
+  have hEB_le : E * B ≤ 2 * (1/279841) := by
+    have := mul_le_mul hE_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 2); linarith
+  have hEAB_le : E * ((4 * π) * B) ≤ 2 * (16 * (1/279841)) := by
+    have := mul_le_mul hE_le hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 2); linarith
+  have hE1AB_le : (E + 1) * ((4 * π) * B) ≤ 3 * (16 * (1/279841)) := by
+    have h1 : E + 1 ≤ 3 := by linarith
+    have := mul_le_mul h1 hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 3); linarith
+  have hE1_nn : 0 ≤ E + 1 := by linarith
+  nlinarith [hAB_le, hAB_nn, hEB_le, mul_nonneg hE_pos.le hB_pos.le,
+             hA_ATm1_B_le, hA_ATm1_B_nn, hEAB_le, mul_nonneg hE_pos.le hAB_nn,
              hE1AB_le, mul_nonneg hE1_nn hAB_nn,
              hE_le, hE_pos.le, hT_le, hT_pos.le, hB_pos.le, hπ_pos]
 
-/-- Sum of per-term bounds `≤ M = 3000`. -/
+/-- The per-`n` bound at n=2: A=9π ≤ 36, B=exp(-9π) ≤ exp(-4π) ≤ (1/23)⁴ = 1/279841.
+Looser than optimal (true B ≈ 5e-13 vs 1/279841 ≈ 3.6e-6) but sufficient for ≤ 1. -/
+private lemma fourier_plus_termM_n2 :
+    fourier_plus_termM (27/4) 2 (1/4) ≤ 1 := by
+  unfold fourier_plus_termM
+  have hπ_le : π ≤ 4 := Real.pi_lt_four.le
+  have hπ_pos : 0 < π := Real.pi_pos
+  have hE_le := hE_le_2
+  have hT_le := hT_le_2
+  have hE_pos : 0 < Real.exp ((1:ℝ)/8) := Real.exp_pos _
+  have hT_pos : 0 < Real.exp ((1:ℝ)/4) := Real.exp_pos _
+  have h_eneg_pi : Real.exp (-π) ≤ 1/23 :=
+    PrincipiaTractalis.Lambda0TightestBoundsMellin20261014.exp_neg_pi_le_one_twentythird
+  have hA_eq : π * ((2:ℕ) + 1 : ℝ)^2 = 9 * π := by push_cast; ring
+  rw [hA_eq]
+  have hB_pos : 0 < Real.exp (-(9 * π)) := Real.exp_pos _
+  -- exp(-9π) ≤ exp(-4π) ≤ (1/23)⁴ via two steps.
+  have hB_le : Real.exp (-(9 * π)) ≤ 1/279841 := by
+    have h_neg : -(9 * π) ≤ -(4 * π) := by nlinarith
+    have h_step1 : Real.exp (-(9 * π)) ≤ Real.exp (-(4 * π)) := Real.exp_le_exp.mpr h_neg
+    have h_step2 : Real.exp (-(4 * π)) ≤ 1/279841 := by
+      have h_split : -(4 * π) = (-π) + (-π) + (-π) + (-π) := by ring
+      rw [h_split, Real.exp_add, Real.exp_add, Real.exp_add]
+      have h0 := (Real.exp_pos (-π)).le
+      calc Real.exp (-π) * Real.exp (-π) * Real.exp (-π) * Real.exp (-π)
+          ≤ (1/23) * (1/23) * (1/23) * (1/23) :=
+            mul_le_mul (mul_le_mul (mul_le_mul h_eneg_pi h_eneg_pi h0 (by norm_num))
+              h_eneg_pi (by positivity) (by positivity))
+              h_eneg_pi (by positivity) (by positivity)
+        _ = 1/279841 := by norm_num
+    exact h_step1.trans h_step2
+  have habs_c : |((27:ℝ)/4)| = 27/4 := by rw [abs_of_pos]; norm_num
+  rw [habs_c, show ((1:ℝ)/4/2 : ℝ) = 1/8 from by norm_num]
+  set E := Real.exp ((1:ℝ)/8)
+  set B := Real.exp (-(9 * π))
+  set T := Real.exp ((1:ℝ)/4)
+  have h9π_le : 9 * π ≤ 36 := by linarith
+  have h9π_pos : 0 ≤ 9 * π := by linarith
+  have hAB_le : (9 * π) * B ≤ 36 * (1/279841) := by
+    have := mul_le_mul h9π_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 36); linarith
+  have hAB_nn : 0 ≤ (9 * π) * B := mul_nonneg h9π_pos hB_pos.le
+  have hAT_le : (9 * π) * T ≤ 72 := by
+    have := mul_le_mul h9π_le hT_le hT_pos.le (by norm_num : (0:ℝ) ≤ 36); linarith
+  have hATm1_le : (9 * π) * T - 1 ≤ 71 := by linarith
+  have hATm1_nn : 0 ≤ (9 * π) * T - 1 := by
+    have h1 : (1:ℝ) ≤ 9*π := by linarith [hπ_pos, Real.pi_gt_three]
+    have h2 : (1:ℝ) ≤ T := Real.one_le_exp (by norm_num)
+    have : (1:ℝ) ≤ (9*π) * T := by
+      have := mul_le_mul h1 h2 (by norm_num) (by linarith)
+      linarith
+    linarith
+  have hA_ATm1_le : (9 * π) * ((9 * π) * T - 1) ≤ 36 * 71 := by
+    have := mul_le_mul h9π_le hATm1_le hATm1_nn (by norm_num : (0:ℝ) ≤ 36)
+    linarith
+  have hA_ATm1_nn : 0 ≤ (9 * π) * ((9 * π) * T - 1) := mul_nonneg h9π_pos hATm1_nn
+  have hA_ATm1_B_le : (9 * π) * ((9 * π) * T - 1) * B ≤ 36 * 71 * (1/279841) := by
+    have := mul_le_mul hA_ATm1_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 36*71)
+    linarith
+  have hA_ATm1_B_nn : 0 ≤ (9 * π) * ((9 * π) * T - 1) * B := mul_nonneg hA_ATm1_nn hB_pos.le
+  have hEB_le : E * B ≤ 2 * (1/279841) := by
+    have := mul_le_mul hE_le hB_le hB_pos.le (by norm_num : (0:ℝ) ≤ 2); linarith
+  have hEAB_le : E * ((9 * π) * B) ≤ 2 * (36 * (1/279841)) := by
+    have := mul_le_mul hE_le hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 2); linarith
+  have hE1AB_le : (E + 1) * ((9 * π) * B) ≤ 3 * (36 * (1/279841)) := by
+    have h1 : E + 1 ≤ 3 := by linarith
+    have := mul_le_mul h1 hAB_le hAB_nn (by norm_num : (0:ℝ) ≤ 3); linarith
+  have hE1_nn : 0 ≤ E + 1 := by linarith
+  nlinarith [hAB_le, hAB_nn, hEB_le, mul_nonneg hE_pos.le hB_pos.le,
+             hA_ATm1_B_le, hA_ATm1_B_nn, hEAB_le, mul_nonneg hE_pos.le hAB_nn,
+             hE1AB_le, mul_nonneg hE1_nn hAB_nn,
+             hE_le, hE_pos.le, hT_le, hT_pos.le, hB_pos.le, hπ_pos]
+
+/-- Sum of per-term bounds `≤ M = 24` (per-n: ≤19 + ≤1 + ≤1 ≤ 24). -/
 private lemma M_sum_le_plus :
     ∑ n ∈ Finset.range 3, fourier_plus_termM (27/4) n (1/4) ≤ M := by
   simp only [Finset.sum_range_succ, Finset.sum_range_zero, zero_add]
-  linarith [fourier_plus_termM_le_crude 0 (by decide),
-            fourier_plus_termM_le_crude 1 (by decide),
-            fourier_plus_termM_le_crude 2 (by decide)]
+  linarith [fourier_plus_termM_n0, fourier_plus_termM_n1, fourier_plus_termM_n2]
 
 /-! ## §2 — Panel enclosures. -/
 
@@ -240,7 +368,7 @@ theorem m01p1_minus_mid_hi : f_minus (0.015625 : ℝ) ≤ (0.000034008 : ℝ) :=
 
 theorem m01p1_plus_mp_err :
     |(∫ u in (0 : ℝ)..(0.03125 : ℝ), f_plus u) - (0.03125 : ℝ) * f_plus (0.015625 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0 : ℝ) ≤ (0.03125 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0 : ℝ) (0.03125 : ℝ), HasDerivAt f_plus
       (∑ n ∈ Finset.range 3, fourier_plus_termD1 (27/4) n u) u :=
@@ -259,14 +387,14 @@ theorem m01p1_plus_mp_err :
   have h_mid : ((0 : ℝ) + 0.03125) / 2 = 0.015625 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.03125 : ℝ) - (0 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.03125 : ℝ) - (0 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.03125 : ℝ) - (0 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.03125 : ℝ) - (0 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p1_minus_mp_err :
     |(∫ u in (0 : ℝ)..(0.03125 : ℝ), f_minus u) - (0.03125 : ℝ) * f_minus (0.015625 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0 : ℝ) ≤ (0.03125 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0 : ℝ) (0.03125 : ℝ), HasDerivAt f_minus
       (∑ n ∈ Finset.range 3, fourier_minus_termD1 (27/4) n u) u :=
@@ -285,16 +413,16 @@ theorem m01p1_minus_mp_err :
   have h_mid : ((0 : ℝ) + 0.03125) / 2 = 0.015625 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.03125 : ℝ) - (0 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.03125 : ℝ) - (0 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.03125 : ℝ) - (0 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.03125 : ℝ) - (0 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p1_plus_integral_bound :
-    (0.001339650265625 : ℝ)
+    (0.005123829953125 : ℝ)
       ≤ (∫ u in (0 : ℝ)..(0.03125 : ℝ), f_plus u)
     ∧ (∫ u in (0 : ℝ)..(0.03125 : ℝ), f_plus u)
-      ≤ (0.008969044815625 : ℝ) := by
+      ≤ (0.005184865128125 : ℝ) := by
   have h_mp := m01p1_plus_mp_err
   have h_lo := m01p1_plus_mid_lo
   have h_hi := m01p1_plus_mid_hi
@@ -304,10 +432,10 @@ theorem m01p1_plus_integral_bound :
   · nlinarith [h_abs.1, h_abs.2, h_lo, h_hi]
 
 theorem m01p1_minus_integral_bound :
-    (-0.003813634534375 : ℝ)
+    (-0.000029454846875 : ℝ)
       ≤ (∫ u in (0 : ℝ)..(0.03125 : ℝ), f_minus u)
     ∧ (∫ u in (0 : ℝ)..(0.03125 : ℝ), f_minus u)
-      ≤ (0.003815760015625 : ℝ) := by
+      ≤ (0.000031580328125 : ℝ) := by
   have h_mp := m01p1_minus_mp_err
   have h_lo := m01p1_minus_mid_lo
   have h_hi := m01p1_minus_mid_hi
@@ -406,7 +534,7 @@ theorem m01p2_minus_mid_hi : f_minus (0.046875 : ℝ) ≤ (0.0002777226 : ℝ) :
 
 theorem m01p2_plus_mp_err :
     |(∫ u in (0.03125 : ℝ)..(0.0625 : ℝ), f_plus u) - (0.03125 : ℝ) * f_plus (0.046875 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.03125 : ℝ) ≤ (0.0625 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.03125 : ℝ) (0.0625 : ℝ), HasDerivAt f_plus
       (∑ n ∈ Finset.range 3, fourier_plus_termD1 (27/4) n u) u :=
@@ -425,14 +553,14 @@ theorem m01p2_plus_mp_err :
   have h_mid : ((0.03125 : ℝ) + 0.0625) / 2 = 0.046875 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.0625 : ℝ) - (0.03125 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.0625 : ℝ) - (0.03125 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.0625 : ℝ) - (0.03125 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.0625 : ℝ) - (0.03125 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p2_minus_mp_err :
     |(∫ u in (0.03125 : ℝ)..(0.0625 : ℝ), f_minus u) - (0.03125 : ℝ) * f_minus (0.046875 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.03125 : ℝ) ≤ (0.0625 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.03125 : ℝ) (0.0625 : ℝ), HasDerivAt f_minus
       (∑ n ∈ Finset.range 3, fourier_minus_termD1 (27/4) n u) u :=
@@ -451,16 +579,16 @@ theorem m01p2_minus_mp_err :
   have h_mid : ((0.03125 : ℝ) + 0.0625) / 2 = 0.046875 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.0625 : ℝ) - (0.03125 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.0625 : ℝ) - (0.03125 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.0625 : ℝ) - (0.03125 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.0625 : ℝ) - (0.03125 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p2_plus_integral_bound :
-    (0.000827672609375 : ℝ)
+    (0.004611852296875 : ℝ)
       ≤ (∫ u in (0.03125 : ℝ)..(0.0625 : ℝ), f_plus u)
     ∧ (∫ u in (0.03125 : ℝ)..(0.0625 : ℝ), f_plus u)
-      ≤ (0.008457067159375 : ℝ) := by
+      ≤ (0.004672887471875 : ℝ) := by
   have h_mp := m01p2_plus_mp_err
   have h_lo := m01p2_plus_mid_lo
   have h_hi := m01p2_plus_mid_hi
@@ -470,10 +598,10 @@ theorem m01p2_plus_integral_bound :
   · nlinarith [h_abs.1, h_abs.2, h_lo, h_hi]
 
 theorem m01p2_minus_integral_bound :
-    (-0.003806018453125 : ℝ)
+    (-0.000021838765625 : ℝ)
       ≤ (∫ u in (0.03125 : ℝ)..(0.0625 : ℝ), f_minus u)
     ∧ (∫ u in (0.03125 : ℝ)..(0.0625 : ℝ), f_minus u)
-      ≤ (0.003823376096875 : ℝ) := by
+      ≤ (0.000039196409375 : ℝ) := by
   have h_mp := m01p2_minus_mp_err
   have h_lo := m01p2_minus_mid_lo
   have h_hi := m01p2_minus_mid_hi
@@ -572,7 +700,7 @@ theorem m01p3_minus_mid_hi : f_minus (0.078125 : ℝ) ≤ (0.0006951744 : ℝ) :
 
 theorem m01p3_plus_mp_err :
     |(∫ u in (0.0625 : ℝ)..(0.09375 : ℝ), f_plus u) - (0.03125 : ℝ) * f_plus (0.078125 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.0625 : ℝ) ≤ (0.09375 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.0625 : ℝ) (0.09375 : ℝ), HasDerivAt f_plus
       (∑ n ∈ Finset.range 3, fourier_plus_termD1 (27/4) n u) u :=
@@ -591,14 +719,14 @@ theorem m01p3_plus_mp_err :
   have h_mid : ((0.0625 : ℝ) + 0.09375) / 2 = 0.078125 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.09375 : ℝ) - (0.0625 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.09375 : ℝ) - (0.0625 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.09375 : ℝ) - (0.0625 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.09375 : ℝ) - (0.0625 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p3_minus_mp_err :
     |(∫ u in (0.0625 : ℝ)..(0.09375 : ℝ), f_minus u) - (0.03125 : ℝ) * f_minus (0.078125 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.0625 : ℝ) ≤ (0.09375 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.0625 : ℝ) (0.09375 : ℝ), HasDerivAt f_minus
       (∑ n ∈ Finset.range 3, fourier_minus_termD1 (27/4) n u) u :=
@@ -617,16 +745,16 @@ theorem m01p3_minus_mp_err :
   have h_mid : ((0.0625 : ℝ) + 0.09375) / 2 = 0.078125 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.09375 : ℝ) - (0.0625 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.09375 : ℝ) - (0.0625 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.09375 : ℝ) - (0.0625 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.09375 : ℝ) - (0.0625 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p3_plus_integral_bound :
-    (0.000306030540625 : ℝ)
+    (0.004090210228125 : ℝ)
       ≤ (∫ u in (0.0625 : ℝ)..(0.09375 : ℝ), f_plus u)
     ∧ (∫ u in (0.0625 : ℝ)..(0.09375 : ℝ), f_plus u)
-      ≤ (0.007935425090625 : ℝ) := by
+      ≤ (0.004151245403125 : ℝ) := by
   have h_mp := m01p3_plus_mp_err
   have h_lo := m01p3_plus_mid_lo
   have h_hi := m01p3_plus_mid_hi
@@ -636,10 +764,10 @@ theorem m01p3_plus_integral_bound :
   · nlinarith [h_abs.1, h_abs.2, h_lo, h_hi]
 
 theorem m01p3_minus_integral_bound :
-    (-0.003792973084375 : ℝ)
+    (-0.000008793396875 : ℝ)
       ≤ (∫ u in (0.0625 : ℝ)..(0.09375 : ℝ), f_minus u)
     ∧ (∫ u in (0.0625 : ℝ)..(0.09375 : ℝ), f_minus u)
-      ≤ (0.003836421465625 : ℝ) := by
+      ≤ (0.000052241778125 : ℝ) := by
   have h_mp := m01p3_minus_mp_err
   have h_lo := m01p3_minus_mid_lo
   have h_hi := m01p3_minus_mid_hi
@@ -738,7 +866,7 @@ theorem m01p4_minus_mid_hi : f_minus (0.109375 : ℝ) ≤ (0.0012191888 : ℝ) :
 
 theorem m01p4_plus_mp_err :
     |(∫ u in (0.09375 : ℝ)..(0.125 : ℝ), f_plus u) - (0.03125 : ℝ) * f_plus (0.109375 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.09375 : ℝ) ≤ (0.125 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.09375 : ℝ) (0.125 : ℝ), HasDerivAt f_plus
       (∑ n ∈ Finset.range 3, fourier_plus_termD1 (27/4) n u) u :=
@@ -757,14 +885,14 @@ theorem m01p4_plus_mp_err :
   have h_mid : ((0.09375 : ℝ) + 0.125) / 2 = 0.109375 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.125 : ℝ) - (0.09375 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.125 : ℝ) - (0.09375 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.125 : ℝ) - (0.09375 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.125 : ℝ) - (0.09375 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p4_minus_mp_err :
     |(∫ u in (0.09375 : ℝ)..(0.125 : ℝ), f_minus u) - (0.03125 : ℝ) * f_minus (0.109375 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.09375 : ℝ) ≤ (0.125 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.09375 : ℝ) (0.125 : ℝ), HasDerivAt f_minus
       (∑ n ∈ Finset.range 3, fourier_minus_termD1 (27/4) n u) u :=
@@ -783,16 +911,16 @@ theorem m01p4_minus_mp_err :
   have h_mid : ((0.09375 : ℝ) + 0.125) / 2 = 0.109375 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.125 : ℝ) - (0.09375 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.125 : ℝ) - (0.09375 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.125 : ℝ) - (0.09375 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.125 : ℝ) - (0.09375 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p4_plus_integral_bound :
-    (-0.000212225671875 : ℝ)
+    (0.003571954015625 : ℝ)
       ≤ (∫ u in (0.09375 : ℝ)..(0.125 : ℝ), f_plus u)
     ∧ (∫ u in (0.09375 : ℝ)..(0.125 : ℝ), f_plus u)
-      ≤ (0.007417168878125 : ℝ) := by
+      ≤ (0.003632989190625 : ℝ) := by
   have h_mp := m01p4_plus_mp_err
   have h_lo := m01p4_plus_mid_lo
   have h_hi := m01p4_plus_mid_hi
@@ -802,10 +930,10 @@ theorem m01p4_plus_integral_bound :
   · nlinarith [h_abs.1, h_abs.2, h_lo, h_hi]
 
 theorem m01p4_minus_integral_bound :
-    (-0.003776597634375 : ℝ)
+    (0.000007582053125 : ℝ)
       ≤ (∫ u in (0.09375 : ℝ)..(0.125 : ℝ), f_minus u)
     ∧ (∫ u in (0.09375 : ℝ)..(0.125 : ℝ), f_minus u)
-      ≤ (0.003852796915625 : ℝ) := by
+      ≤ (0.000068617228125 : ℝ) := by
   have h_mp := m01p4_minus_mp_err
   have h_lo := m01p4_minus_mid_lo
   have h_hi := m01p4_minus_mid_hi
@@ -904,7 +1032,7 @@ theorem m01p5_minus_mid_hi : f_minus (0.140625 : ℝ) ≤ (0.0017903948 : ℝ) :
 
 theorem m01p5_plus_mp_err :
     |(∫ u in (0.125 : ℝ)..(0.15625 : ℝ), f_plus u) - (0.03125 : ℝ) * f_plus (0.140625 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.125 : ℝ) ≤ (0.15625 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.125 : ℝ) (0.15625 : ℝ), HasDerivAt f_plus
       (∑ n ∈ Finset.range 3, fourier_plus_termD1 (27/4) n u) u :=
@@ -923,14 +1051,14 @@ theorem m01p5_plus_mp_err :
   have h_mid : ((0.125 : ℝ) + 0.15625) / 2 = 0.140625 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.15625 : ℝ) - (0.125 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.15625 : ℝ) - (0.125 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.15625 : ℝ) - (0.125 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.15625 : ℝ) - (0.125 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p5_minus_mp_err :
     |(∫ u in (0.125 : ℝ)..(0.15625 : ℝ), f_minus u) - (0.03125 : ℝ) * f_minus (0.140625 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.125 : ℝ) ≤ (0.15625 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.125 : ℝ) (0.15625 : ℝ), HasDerivAt f_minus
       (∑ n ∈ Finset.range 3, fourier_minus_termD1 (27/4) n u) u :=
@@ -949,16 +1077,16 @@ theorem m01p5_minus_mp_err :
   have h_mid : ((0.125 : ℝ) + 0.15625) / 2 = 0.140625 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.15625 : ℝ) - (0.125 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.15625 : ℝ) - (0.125 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.15625 : ℝ) - (0.125 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.15625 : ℝ) - (0.125 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p5_plus_integral_bound :
-    (-0.000715855959375 : ℝ)
+    (0.003068323728125 : ℝ)
       ≤ (∫ u in (0.125 : ℝ)..(0.15625 : ℝ), f_plus u)
     ∧ (∫ u in (0.125 : ℝ)..(0.15625 : ℝ), f_plus u)
-      ≤ (0.006913538590625 : ℝ) := by
+      ≤ (0.003129358903125 : ℝ) := by
   have h_mp := m01p5_plus_mp_err
   have h_lo := m01p5_plus_mid_lo
   have h_hi := m01p5_plus_mid_hi
@@ -968,10 +1096,10 @@ theorem m01p5_plus_integral_bound :
   · nlinarith [h_abs.1, h_abs.2, h_lo, h_hi]
 
 theorem m01p5_minus_integral_bound :
-    (-0.003758747446875 : ℝ)
+    (0.000025432240625 : ℝ)
       ≤ (∫ u in (0.125 : ℝ)..(0.15625 : ℝ), f_minus u)
     ∧ (∫ u in (0.125 : ℝ)..(0.15625 : ℝ), f_minus u)
-      ≤ (0.003870647103125 : ℝ) := by
+      ≤ (0.000086467415625 : ℝ) := by
   have h_mp := m01p5_minus_mp_err
   have h_lo := m01p5_minus_mid_lo
   have h_hi := m01p5_minus_mid_hi
@@ -1070,7 +1198,7 @@ theorem m01p6_minus_mid_hi : f_minus (0.171875 : ℝ) ≤ (0.002358456 : ℝ) :=
 
 theorem m01p6_plus_mp_err :
     |(∫ u in (0.15625 : ℝ)..(0.1875 : ℝ), f_plus u) - (0.03125 : ℝ) * f_plus (0.171875 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.15625 : ℝ) ≤ (0.1875 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.15625 : ℝ) (0.1875 : ℝ), HasDerivAt f_plus
       (∑ n ∈ Finset.range 3, fourier_plus_termD1 (27/4) n u) u :=
@@ -1089,14 +1217,14 @@ theorem m01p6_plus_mp_err :
   have h_mid : ((0.15625 : ℝ) + 0.1875) / 2 = 0.171875 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.1875 : ℝ) - (0.15625 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.1875 : ℝ) - (0.15625 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.1875 : ℝ) - (0.15625 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.1875 : ℝ) - (0.15625 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p6_minus_mp_err :
     |(∫ u in (0.15625 : ℝ)..(0.1875 : ℝ), f_minus u) - (0.03125 : ℝ) * f_minus (0.171875 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.15625 : ℝ) ≤ (0.1875 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.15625 : ℝ) (0.1875 : ℝ), HasDerivAt f_minus
       (∑ n ∈ Finset.range 3, fourier_minus_termD1 (27/4) n u) u :=
@@ -1115,16 +1243,16 @@ theorem m01p6_minus_mp_err :
   have h_mid : ((0.15625 : ℝ) + 0.1875) / 2 = 0.171875 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.1875 : ℝ) - (0.15625 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.1875 : ℝ) - (0.15625 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.1875 : ℝ) - (0.15625 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.1875 : ℝ) - (0.15625 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p6_plus_integral_bound :
-    (-0.001195518153125 : ℝ)
+    (0.002588661534375 : ℝ)
       ≤ (∫ u in (0.15625 : ℝ)..(0.1875 : ℝ), f_plus u)
     ∧ (∫ u in (0.15625 : ℝ)..(0.1875 : ℝ), f_plus u)
-      ≤ (0.006433876396875 : ℝ) := by
+      ≤ (0.002649696709375 : ℝ) := by
   have h_mp := m01p6_plus_mp_err
   have h_lo := m01p6_plus_mid_lo
   have h_hi := m01p6_plus_mid_hi
@@ -1134,10 +1262,10 @@ theorem m01p6_plus_integral_bound :
   · nlinarith [h_abs.1, h_abs.2, h_lo, h_hi]
 
 theorem m01p6_minus_integral_bound :
-    (-0.003740995534375 : ℝ)
+    (0.000043184153125 : ℝ)
       ≤ (∫ u in (0.15625 : ℝ)..(0.1875 : ℝ), f_minus u)
     ∧ (∫ u in (0.15625 : ℝ)..(0.1875 : ℝ), f_minus u)
-      ≤ (0.003888399015625 : ℝ) := by
+      ≤ (0.000104219328125 : ℝ) := by
   have h_mp := m01p6_minus_mp_err
   have h_lo := m01p6_minus_mid_lo
   have h_hi := m01p6_minus_mid_hi
@@ -1236,7 +1364,7 @@ theorem m01p7_minus_mid_hi : f_minus (0.203125 : ℝ) ≤ (0.0028827652 : ℝ) :
 
 theorem m01p7_plus_mp_err :
     |(∫ u in (0.1875 : ℝ)..(0.21875 : ℝ), f_plus u) - (0.03125 : ℝ) * f_plus (0.203125 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.1875 : ℝ) ≤ (0.21875 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.1875 : ℝ) (0.21875 : ℝ), HasDerivAt f_plus
       (∑ n ∈ Finset.range 3, fourier_plus_termD1 (27/4) n u) u :=
@@ -1255,14 +1383,14 @@ theorem m01p7_plus_mp_err :
   have h_mid : ((0.1875 : ℝ) + 0.21875) / 2 = 0.203125 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.21875 : ℝ) - (0.1875 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.21875 : ℝ) - (0.1875 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.21875 : ℝ) - (0.1875 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.21875 : ℝ) - (0.1875 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p7_minus_mp_err :
     |(∫ u in (0.1875 : ℝ)..(0.21875 : ℝ), f_minus u) - (0.03125 : ℝ) * f_minus (0.203125 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.1875 : ℝ) ≤ (0.21875 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.1875 : ℝ) (0.21875 : ℝ), HasDerivAt f_minus
       (∑ n ∈ Finset.range 3, fourier_minus_termD1 (27/4) n u) u :=
@@ -1281,16 +1409,16 @@ theorem m01p7_minus_mp_err :
   have h_mid : ((0.1875 : ℝ) + 0.21875) / 2 = 0.203125 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.21875 : ℝ) - (0.1875 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.21875 : ℝ) - (0.1875 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.21875 : ℝ) - (0.1875 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.21875 : ℝ) - (0.1875 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p7_plus_integral_bound :
-    (-0.001643791459375 : ℝ)
+    (0.002140388228125 : ℝ)
       ≤ (∫ u in (0.1875 : ℝ)..(0.21875 : ℝ), f_plus u)
     ∧ (∫ u in (0.1875 : ℝ)..(0.21875 : ℝ), f_plus u)
-      ≤ (0.005985603090625 : ℝ) := by
+      ≤ (0.002201423403125 : ℝ) := by
   have h_mp := m01p7_plus_mp_err
   have h_lo := m01p7_plus_mid_lo
   have h_hi := m01p7_plus_mid_hi
@@ -1300,10 +1428,10 @@ theorem m01p7_plus_integral_bound :
   · nlinarith [h_abs.1, h_abs.2, h_lo, h_hi]
 
 theorem m01p7_minus_integral_bound :
-    (-0.003724610871875 : ℝ)
+    (0.000059568815625 : ℝ)
       ≤ (∫ u in (0.1875 : ℝ)..(0.21875 : ℝ), f_minus u)
     ∧ (∫ u in (0.1875 : ℝ)..(0.21875 : ℝ), f_minus u)
-      ≤ (0.003904783678125 : ℝ) := by
+      ≤ (0.000120603990625 : ℝ) := by
   have h_mp := m01p7_minus_mp_err
   have h_lo := m01p7_minus_mid_lo
   have h_hi := m01p7_minus_mid_hi
@@ -1402,7 +1530,7 @@ theorem m01p8_minus_mid_hi : f_minus (0.234375 : ℝ) ≤ (0.0033326316 : ℝ) :
 
 theorem m01p8_plus_mp_err :
     |(∫ u in (0.21875 : ℝ)..(0.25 : ℝ), f_plus u) - (0.03125 : ℝ) * f_plus (0.234375 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.21875 : ℝ) ≤ (0.25 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.21875 : ℝ) (0.25 : ℝ), HasDerivAt f_plus
       (∑ n ∈ Finset.range 3, fourier_plus_termD1 (27/4) n u) u :=
@@ -1421,14 +1549,14 @@ theorem m01p8_plus_mp_err :
   have h_mid : ((0.21875 : ℝ) + 0.25) / 2 = 0.234375 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.25 : ℝ) - (0.21875 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.25 : ℝ) - (0.21875 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.25 : ℝ) - (0.21875 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.25 : ℝ) - (0.21875 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p8_minus_mp_err :
     |(∫ u in (0.21875 : ℝ)..(0.25 : ℝ), f_minus u) - (0.03125 : ℝ) * f_minus (0.234375 : ℝ)|
-      ≤ (0.003814697265625 : ℝ) := by
+      ≤ (0.000030517578125 : ℝ) := by
   have hab : (0.21875 : ℝ) ≤ (0.25 : ℝ) := by norm_num
   have h_f : ∀ u ∈ Set.uIcc (0.21875 : ℝ) (0.25 : ℝ), HasDerivAt f_minus
       (∑ n ∈ Finset.range 3, fourier_minus_termD1 (27/4) n u) u :=
@@ -1447,16 +1575,16 @@ theorem m01p8_minus_mp_err :
   have h_mid : ((0.21875 : ℝ) + 0.25) / 2 = 0.234375 := by norm_num
   have h_mp := midpoint_rule_error hab h_f h_f' h_M
   rw [h_mid] at h_mp
-  have h_rhs : M * ((0.25 : ℝ) - (0.21875 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ) := by
-    show (3000 : ℝ) * ((0.25 : ℝ) - (0.21875 : ℝ)) ^ 3 / 24 = (0.003814697265625 : ℝ)
+  have h_rhs : M * ((0.25 : ℝ) - (0.21875 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ) := by
+    show (24 : ℝ) * ((0.25 : ℝ) - (0.21875 : ℝ)) ^ 3 / 24 = (0.000030517578125 : ℝ)
     norm_num
   linarith [h_rhs]
 
 theorem m01p8_plus_integral_bound :
-    (-0.002055140646875 : ℝ)
+    (0.001729039040625 : ℝ)
       ≤ (∫ u in (0.21875 : ℝ)..(0.25 : ℝ), f_plus u)
     ∧ (∫ u in (0.21875 : ℝ)..(0.25 : ℝ), f_plus u)
-      ≤ (0.005574253903125 : ℝ) := by
+      ≤ (0.001790074215625 : ℝ) := by
   have h_mp := m01p8_plus_mp_err
   have h_lo := m01p8_plus_mid_lo
   have h_hi := m01p8_plus_mid_hi
@@ -1466,10 +1594,10 @@ theorem m01p8_plus_integral_bound :
   · nlinarith [h_abs.1, h_abs.2, h_lo, h_hi]
 
 theorem m01p8_minus_integral_bound :
-    (-0.003710552546875 : ℝ)
+    (0.000073627140625 : ℝ)
       ≤ (∫ u in (0.21875 : ℝ)..(0.25 : ℝ), f_minus u)
     ∧ (∫ u in (0.21875 : ℝ)..(0.25 : ℝ), f_minus u)
-      ≤ (0.003918842003125 : ℝ) := by
+      ≤ (0.000134662315625 : ℝ) := by
   have h_mp := m01p8_minus_mp_err
   have h_lo := m01p8_minus_mid_lo
   have h_hi := m01p8_minus_mid_hi
