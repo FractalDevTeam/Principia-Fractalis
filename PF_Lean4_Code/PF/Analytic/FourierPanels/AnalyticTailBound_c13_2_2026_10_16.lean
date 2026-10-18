@@ -414,7 +414,7 @@ lemma exp_neg_pi_mul_exp_5_half_sub_pi_le :
   exact h_exp_mono.trans exp_neg_five_pi_le
 
 lemma integral_tailDominator_Ioi5_le_tight :
-    ∫ u in Ioi (5 : ℝ), tailDominator u ≤ 1 / 10 ^ 6 := by
+    ∫ u in Ioi (5 : ℝ), tailDominator u ≤ 12 / 10 ^ 8 := by
   rw [integral_tailDominator_Ioi5]
   have hπ : (0 : ℝ) < π := Real.pi_pos
   have hπ_d2 : (3.14 : ℝ) < π := Real.pi_gt_d2
@@ -496,12 +496,12 @@ lemma integral_tailDominator_Ioi5_le_tight :
     rw [h_rhs1] at h1
     rw [h_rhs2] at h2
     linarith
-  have h_rat_le : (1150 : ℝ) / (2904 * 6436343) + 1150 / (3454 * 6436343) ≤ 1 / 10 ^ 6 := by
+  have h_rat_le : (1150 : ℝ) / (2904 * 6436343) + 1150 / (3454 * 6436343) ≤ 12 / 10 ^ 8 := by
     norm_num
   linarith
 
 theorem nodeR_fourier_plus_at_c13_2_N3_tail_integral_abs_le_tight :
-    |∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u| ≤ 1 / 10 ^ 6 := by
+    |∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u| ≤ 12 / 10 ^ 8 := by
   have h_int := nodeR_fourier_plus_at_c13_2_N3_integrable_Ioi5
   have h_dom_int := tailDominator_integrable_Ioi5
   have h_abs_le_abs :
@@ -521,10 +521,10 @@ theorem nodeR_fourier_plus_at_c13_2_N3_tail_integral_abs_le_tight :
   calc |∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u|
       ≤ ∫ u in Ioi (5 : ℝ), |nodeR_fourier_plus_at_c13_2_N3 u| := h_abs_le_abs
     _ ≤ ∫ u in Ioi (5 : ℝ), tailDominator u := h_abs_le_dom
-    _ ≤ 1 / 10 ^ 6 := integral_tailDominator_Ioi5_le_tight
+    _ ≤ 12 / 10 ^ 8 := integral_tailDominator_Ioi5_le_tight
 
 theorem nodeR_fourier_minus_at_c13_2_N3_tail_integral_abs_le_tight :
-    |∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u| ≤ 1 / 10 ^ 6 := by
+    |∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u| ≤ 12 / 10 ^ 8 := by
   have h_int := nodeR_fourier_minus_at_c13_2_N3_integrable_Ioi5
   have h_dom_int := tailDominator_integrable_Ioi5
   have h_abs_le_abs :
@@ -544,7 +544,7 @@ theorem nodeR_fourier_minus_at_c13_2_N3_tail_integral_abs_le_tight :
   calc |∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u|
       ≤ ∫ u in Ioi (5 : ℝ), |nodeR_fourier_minus_at_c13_2_N3 u| := h_abs_le_abs
     _ ≤ ∫ u in Ioi (5 : ℝ), tailDominator u := h_abs_le_dom
-    _ ≤ 1 / 10 ^ 6 := integral_tailDominator_Ioi5_le_tight
+    _ ≤ 12 / 10 ^ 8 := integral_tailDominator_Ioi5_le_tight
 
 /-! ## §Axiom check -/
 
