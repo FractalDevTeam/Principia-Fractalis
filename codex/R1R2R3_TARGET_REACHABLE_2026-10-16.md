@@ -126,6 +126,29 @@ Taking `Mc_lb = Re ξ/2` (half the true margin, leaving slack `= Re ξ`):
 | **13** | **2.509e−03** | **1.407e−05** | **186× tighter** |
 | **14.5** (R2 worst) | 4.142e−04 | 1.877e−06 | **1397× tighter** |
 
+**CLARIFICATION 2026-10-17 (Legion) — the column header, and the global worst
+point.** The header reads `` `Re ξ` = slack ``, but the margin is a *different*
+quantity on each leg (§1): `Re ξ` on R1 `[0,13]`, **`Im ξ` on R2 `[13,14.5]`**,
+`|Re ξ|` on R3 `[14.5,15]`. So the `t=14.5` row's `4.142e−04` is
+`Im ξ(1+14.5i) = +4.1418e−04` — **the value is correct; the header does not
+apply to that row.** (Re-derived independently; `Re ξ(1+14.5i)` is
+`−5.5910e−04`, which is R3's margin `|Re ξ|` at the same point, 1.8429e−06 after
+the `(t²+t)` weight.)
+
+Per-leg add-on budgets `margin(t)/(t²+t)`, each leg at its own worst t:
+
+| leg | worst t | margin | add-on budget |
+|---|---|---|---|
+| R1 | 13.000 | `Re ξ = 2.5094e−3` | 1.3788e−5 |
+| R2 | 14.495 | `Im ξ = 4.1721e−4` | 1.8576e−6 |
+| **R3** | **14.500** | **`\|Re ξ\| = 4.1418e−4`** | **1.8429e−6** ← global worst |
+
+**The binding point for the whole target is t ≈ 14.5, not t = 13 — 7.5×
+tighter.** See `codex/ADDON_SCOPE_RESIDUE_IS_THE_WORK_2026-10-17.md`: the
+add-on *architecture* floors at 32.7% of that budget (the exact integral of a
+majorant that has already discarded all oscillation via `|cos|,|sin| ≤ 1`), so
+no amount of subdivision clears it.
+
 **And the residue lever does not reach this.** The 32.8× residue tightening
 removes the *add-on* (9.26e−4 of the 2.62e−3 total); the **panel width is
 1.70e−3** and must come down by its own large factor. If the panel scheme is
