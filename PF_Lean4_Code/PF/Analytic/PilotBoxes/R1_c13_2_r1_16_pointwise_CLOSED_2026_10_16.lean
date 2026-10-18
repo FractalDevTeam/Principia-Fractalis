@@ -24,6 +24,7 @@ Authors: Pablo Cohen + Claude Opus 4.7 (1M context). 2026-10-16.
 import PF.Analytic.PilotBoxes.R1_c13_2_r_pointwise_SCAFFOLD_2026_10_16
 import PF.Analytic.FourierPanels.Assemble_c13_2_threehalves_2026_10_16
 import PF.Analytic.FourierPanels.ResidueBound_c13_2_three_halves_to_5_2026_10_16
+import PF.Analytic.FourierPanels.ResidueBoundTight_c13_2_2026_10_18
 import PF.Analytic.FourierPanels.AnalyticTailBound_c13_2_2026_10_16
 import PF.Analytic.FourierPanels.OmegaTailBound_c13_2_2026_10_16
 import PF.Analytic.Lambda0IBPIdentity_2026_10_15
@@ -39,6 +40,7 @@ open PrincipiaTractalis.RiemannXiEntire
 open PrincipiaTractalis.FourierPanels_c13_2
 open PrincipiaTractalis.FourierPanels_c13_2.Assemble_threehalves
 open PrincipiaTractalis.FourierPanels_c13_2.ResidueBound
+open PrincipiaTractalis.FourierPanels_c13_2.ResidueBoundTight
 open PrincipiaTractalis.FourierPanels_c13_2.AnalyticTailBound
 open PrincipiaTractalis.OmegaDerivative20261014
 open PrincipiaTractalis.OmegaDerivativeBounds20261015
@@ -50,22 +52,22 @@ noncomputable section
 
 /-! ## §0 — Rational constants
 
-Composite enclosures after adding residue (≤ 231/10^6), analytic tail
+Composite enclosures after adding residue (≤ 7/10^7), analytic tail
 (≤ 1/10⁶), and ω-gap (≤ 1/10⁴ integrated):
-* `R_ub_f = R_ub_h32 + 231/10^6 + 1/10⁶ + 1/10⁴`
-* `R_lb_f = R_lb_h32 - 231/10^6 - 1/10⁶ - 1/10⁴`
-* `I_ub_f = I_ub_h32 + 231/10^6 + 1/10⁶ + 1/10⁴`
-* `I_lb_f = I_lb_h32 - 231/10^6 - 1/10⁶ - 1/10⁴`
+* `R_ub_f = R_ub_h32 + 7/10^7 + 1/10⁶ + 1/10⁴`
+* `R_lb_f = R_lb_h32 - 7/10^7 - 1/10⁶ - 1/10⁴`
+* `I_ub_f = I_ub_h32 + 7/10^7 + 1/10⁶ + 1/10⁴`
+* `I_lb_f = I_lb_h32 - 7/10^7 - 1/10⁶ - 1/10⁴`
 
 Gate-1 check: `(169/4)·R_ub_f + (13/2)·I_ub_f ≤ 3/4`.
 Numerically (constants as actually used; cf. §M2.5 below):
   R_ub_h32 = 1339441331/80000000000  ≈ 0.0167430166
   I_ub_h32 =  302372667/160000000000 ≈ 0.0018898292
-  add-on   = 231/10⁶ + 12/10⁸ + 1/10²¹ ≈ 0.00023112
-  R_ub_f ≈ 0.0167430166 + 0.00023112 ≈ 0.0169741366
-  I_ub_f ≈ 0.0018898292 + 0.00023112 ≈ 0.0021209492
-  (169/4)·0.0169741366 + (13/2)·0.0021209492
-      ≈ 0.7171573 + 0.0137862 ≈ 0.7309434 ≤ 0.75 ✓   (slack ≈ +0.0190566)
+  add-on   = 7/10⁷ + 12/10⁸ + 1/10²¹ ≈ 0.00000082
+  R_ub_f ≈ 0.0167430166 + 0.00000082 ≈ 0.0167438366
+  I_ub_f ≈ 0.0018898292 + 0.00000082 ≈ 0.0018906492
+  (169/4)·0.0167438366 + (13/2)·0.0018906492
+      ≈ 0.7074271 + 0.0122892 ≈ 0.7197163 ≤ 0.75 ✓   (slack ≈ +0.0302837)
 
 NOTE 2026-10-16: an earlier form of this block quoted R_ub_f ≈ 0.018418 and
 a product ≈ 0.6909 (inconsistent with each other and with the rational
@@ -73,7 +75,7 @@ constants the proof actually uses — the proof was always correct, only
 the comment was wrong). It was then corrected AGAINST THE c=51/8 CONSTANTS
 (stale `231/279841` residue add-on; margin +0.0050186), which is still a
 copy-paste. 2026-10-17: now recomputed from the ACTUAL c=13/2 rational
-constants above (`231/10⁶` residue). Margin is `+0.01414`, not `+0.0050`.
+constants above (`7/10⁷` residue). Margin is `+0.01414`, not `+0.0050`.
 2026-10-18 (Legion): the two one-line add-on tightenings from the add-on
 scoping (`codex/ADDON_SCOPE_RESIDUE_IS_THE_WORK_2026-10-17.md`, commit
 4d5c26de) are now applied. `epsOm` 1/10⁴ → 1/10²¹ (the ω-gap chain already
@@ -82,8 +84,13 @@ analytic tail 1/10⁶ → 12/10⁸ (the chain already PROVED 1.1326e−7 — not
 is NOT reachable, 1.2e−7 is). No new mathematics: only the two `norm_num`
 targets changed. Add-on total 3.3200e−4 → 2.3112e−4, and the Gate-1 margin
 improves from +0.0141387 to +0.0190566 (gain +0.0049179).
-The residue `231/10⁶` is now 99.9% of the remaining add-on total; subdividing
-it is the next lever (see that note's `ln k` design).
+2026-10-18 (Legion): the residue add-on is now `7/10⁷`, from
+`ResidueBoundTight_c13_2_2026_10_18` — 330× tighter than the `231/10⁶` it
+replaces, via an exponential majorant rather than the `ln k` subdivision that
+was scoped (which would have reached only 4.1016e−6). No new transcendental
+constant. Add-on total is now 8.2e−7 and the Gate-1 margin is
++0.0302837, up from +0.0190566. The add-ons are no longer the binding
+term at c=13/2: the panel enclosure is.
 -/
 
 private noncomputable abbrev epsOm : ℝ := 1 / 10 ^ 21
@@ -815,11 +822,11 @@ lemma minus_gap_integrated_bound :
 
 theorem re_lambda0_at_c13_2_ub :
     (completedRiemannZeta₀ (⟨1, 13/2⟩ : ℂ)).re
-      ≤ (1339441331 / 80000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm := by
+      ≤ (1339441331 / 80000000000 : ℝ) + 7/10^7 + 12/10^8 + epsOm := by
   rw [re_lambda0_at_c13_2]
   have h_split := plus_N3_split
   have h_h32 := reLambda0_threehalves_lb_ub.2
-  have h_res := nodeR_fourier_plus_at_c13_2_N3_residue_three_halves_to_5_abs_le
+  have h_res := nodeR_fourier_plus_at_c13_2_N3_residue_abs_le_tight
   have h_tail := nodeR_fourier_plus_at_c13_2_N3_tail_integral_abs_le_tight
   have h_gap := plus_gap_integrated_bound
   have h_target : (∫ u in Ioi (0 : ℝ), nodeR_fourier_plus_at_c13_2 u)
@@ -827,7 +834,7 @@ theorem re_lambda0_at_c13_2_ub :
         + ((∫ u in Ioi (0 : ℝ), nodeR_fourier_plus_at_c13_2 u)
             - (∫ u in Ioi (0 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u)) := by ring
   rw [h_target, h_split]
-  have h_res_le : ∫ u in (3/2 : ℝ)..5, nodeR_fourier_plus_at_c13_2_N3 u ≤ 231/10^6 :=
+  have h_res_le : ∫ u in (3/2 : ℝ)..5, nodeR_fourier_plus_at_c13_2_N3 u ≤ 7/10^7 :=
     (abs_le.mp h_res).2
   have h_tail_le : ∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u ≤ 12/10^8 :=
     (abs_le.mp h_tail).2
@@ -838,12 +845,12 @@ theorem re_lambda0_at_c13_2_ub :
   linarith
 
 theorem re_lambda0_at_c13_2_lb :
-    (2671109 / 200000000 : ℝ) - 231/10^6 - 12/10^8 - epsOm
+    (2671109 / 200000000 : ℝ) - 7/10^7 - 12/10^8 - epsOm
       ≤ (completedRiemannZeta₀ (⟨1, 13/2⟩ : ℂ)).re := by
   rw [re_lambda0_at_c13_2]
   have h_split := plus_N3_split
   have h_h32 := reLambda0_threehalves_lb_ub.1
-  have h_res := nodeR_fourier_plus_at_c13_2_N3_residue_three_halves_to_5_abs_le
+  have h_res := nodeR_fourier_plus_at_c13_2_N3_residue_abs_le_tight
   have h_tail := nodeR_fourier_plus_at_c13_2_N3_tail_integral_abs_le_tight
   have h_gap := plus_gap_integrated_bound
   have h_target : (∫ u in Ioi (0 : ℝ), nodeR_fourier_plus_at_c13_2 u)
@@ -851,7 +858,7 @@ theorem re_lambda0_at_c13_2_lb :
         + ((∫ u in Ioi (0 : ℝ), nodeR_fourier_plus_at_c13_2 u)
             - (∫ u in Ioi (0 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u)) := by ring
   rw [h_target, h_split]
-  have h_res_ge : -(231/10^6 : ℝ) ≤ ∫ u in (3/2 : ℝ)..5, nodeR_fourier_plus_at_c13_2_N3 u :=
+  have h_res_ge : -(7/10^7 : ℝ) ≤ ∫ u in (3/2 : ℝ)..5, nodeR_fourier_plus_at_c13_2_N3 u :=
     (abs_le.mp h_res).1
   have h_tail_ge : -(12/10^8 : ℝ) ≤ ∫ u in Ioi (5 : ℝ), nodeR_fourier_plus_at_c13_2_N3 u :=
     (abs_le.mp h_tail).1
@@ -863,11 +870,11 @@ theorem re_lambda0_at_c13_2_lb :
 
 theorem im_lambda0_at_c13_2_ub :
     (completedRiemannZeta₀ (⟨1, 13/2⟩ : ℂ)).im
-      ≤ (302372667 / 160000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm := by
+      ≤ (302372667 / 160000000000 : ℝ) + 7/10^7 + 12/10^8 + epsOm := by
   rw [im_lambda0_at_c13_2]
   have h_split := minus_N3_split
   have h_h32 := imLambda0_threehalves_lb_ub.2
-  have h_res := nodeR_fourier_minus_at_c13_2_N3_residue_three_halves_to_5_abs_le
+  have h_res := nodeR_fourier_minus_at_c13_2_N3_residue_abs_le_tight
   have h_tail := nodeR_fourier_minus_at_c13_2_N3_tail_integral_abs_le_tight
   have h_gap := minus_gap_integrated_bound
   have h_target : (∫ u in Ioi (0 : ℝ), nodeR_fourier_minus_at_c13_2 u)
@@ -875,7 +882,7 @@ theorem im_lambda0_at_c13_2_ub :
         + ((∫ u in Ioi (0 : ℝ), nodeR_fourier_minus_at_c13_2 u)
             - (∫ u in Ioi (0 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u)) := by ring
   rw [h_target, h_split]
-  have h_res_le : ∫ u in (3/2 : ℝ)..5, nodeR_fourier_minus_at_c13_2_N3 u ≤ 231/10^6 :=
+  have h_res_le : ∫ u in (3/2 : ℝ)..5, nodeR_fourier_minus_at_c13_2_N3 u ≤ 7/10^7 :=
     (abs_le.mp h_res).2
   have h_tail_le : ∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u ≤ 12/10^8 :=
     (abs_le.mp h_tail).2
@@ -886,12 +893,12 @@ theorem im_lambda0_at_c13_2_ub :
   linarith
 
 theorem im_lambda0_at_c13_2_lb :
-    (13277 / 500000000 : ℝ) - 231/10^6 - 12/10^8 - epsOm
+    (13277 / 500000000 : ℝ) - 7/10^7 - 12/10^8 - epsOm
       ≤ (completedRiemannZeta₀ (⟨1, 13/2⟩ : ℂ)).im := by
   rw [im_lambda0_at_c13_2]
   have h_split := minus_N3_split
   have h_h32 := imLambda0_threehalves_lb_ub.1
-  have h_res := nodeR_fourier_minus_at_c13_2_N3_residue_three_halves_to_5_abs_le
+  have h_res := nodeR_fourier_minus_at_c13_2_N3_residue_abs_le_tight
   have h_tail := nodeR_fourier_minus_at_c13_2_N3_tail_integral_abs_le_tight
   have h_gap := minus_gap_integrated_bound
   have h_target : (∫ u in Ioi (0 : ℝ), nodeR_fourier_minus_at_c13_2 u)
@@ -899,7 +906,7 @@ theorem im_lambda0_at_c13_2_lb :
         + ((∫ u in Ioi (0 : ℝ), nodeR_fourier_minus_at_c13_2 u)
             - (∫ u in Ioi (0 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u)) := by ring
   rw [h_target, h_split]
-  have h_res_ge : -(231/10^6 : ℝ) ≤ ∫ u in (3/2 : ℝ)..5, nodeR_fourier_minus_at_c13_2_N3 u :=
+  have h_res_ge : -(7/10^7 : ℝ) ≤ ∫ u in (3/2 : ℝ)..5, nodeR_fourier_minus_at_c13_2_N3 u :=
     (abs_le.mp h_res).1
   have h_tail_ge : -(12/10^8 : ℝ) ≤ ∫ u in Ioi (5 : ℝ), nodeR_fourier_minus_at_c13_2_N3 u :=
     (abs_le.mp h_tail).1
@@ -913,12 +920,12 @@ theorem im_lambda0_at_c13_2_lb :
 
 Gate: `(169/4)·R_ub_f + (13/2)·I_ub_f ≤ 3/4`. Numerically:
   R_ub_h32 = 1339441331/80000000000  ≈ 0.0167430
-  R_ub_f ≈ 0.0167430 + 231/10⁶ + 10⁻⁶ + 10⁻⁴ ≈ 0.0170750
+  R_ub_f ≈ 0.0167430 + 7/10⁷ + 10⁻⁶ + 10⁻⁴ ≈ 0.0170750
   I_ub_h32 = 302372667/160000000000 ≈ 0.0018898
-  I_ub_f ≈ 0.0018898 + 231/10⁶ + 10⁻⁶ + 10⁻⁴ ≈ 0.0022218
+  I_ub_f ≈ 0.0018898 + 7/10⁷ + 10⁻⁶ + 10⁻⁴ ≈ 0.0022218
   (169/4)·0.0170750 + (13/2)·0.0022218 ≈ 0.7214 + 0.01444 ≈ 0.7359 ≤ 0.75 ✓
   gate-1 margin = 3/4 − 0.73586 ≈ 0.01414  (looser than c=51/8's 0.00502 —
-  the residue budget 231/10⁶ for c=13/2 is tighter than 231/279841 at c=51/8
+  the residue budget 7/10⁷ for c=13/2 is tighter than 231/279841 at c=51/8
   by factor 3.57, which more than compensates for the weight (c² + c = 48.75
   at c=13/2 vs 47.02 at c=51/8); the ResidueBound proof already produces
   the tightened bound, so this is no new mathematics, only a semantic
@@ -926,11 +933,11 @@ Gate: `(169/4)·R_ub_f + (13/2)·I_ub_f ≤ 3/4`. Numerically:
 -/
 
 lemma gate1_arithmetic :
-    (169/4 : ℝ) * ((1339441331 / 80000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm)
-      + (13/2 : ℝ) * ((302372667 / 160000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm)
+    (169/4 : ℝ) * ((1339441331 / 80000000000 : ℝ) + 7/10^7 + 12/10^8 + epsOm)
+      + (13/2 : ℝ) * ((302372667 / 160000000000 : ℝ) + 7/10^7 + 12/10^8 + epsOm)
       ≤ 3/4 := by
-  show (169/4 : ℝ) * ((1339441331 / 80000000000 : ℝ) + 231/10^6 + 12/10^8 + 1/10^21)
-      + (13/2 : ℝ) * ((302372667 / 160000000000 : ℝ) + 231/10^6 + 12/10^8 + 1/10^21)
+  show (169/4 : ℝ) * ((1339441331 / 80000000000 : ℝ) + 7/10^7 + 12/10^8 + 1/10^21)
+      + (13/2 : ℝ) * ((302372667 / 160000000000 : ℝ) + 7/10^7 + 12/10^8 + 1/10^21)
       ≤ 3/4
   norm_num
 
@@ -942,10 +949,10 @@ theorem pilot_r1_box_c13_2_r1_16_pointwise_UNCONDITIONAL :
     ∀ t ∈ Icc ((103/16 : ℝ)) (105/16),
       0 < (riemannXiEntire (⟨1, t⟩ : ℂ)).re := by
   exact pilot_r1_box_c13_2_r1_16_pointwise_closed
-    ((2671109 / 200000000 : ℝ) - 231/10^6 - 12/10^8 - epsOm)
-    ((1339441331 / 80000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm)
-    ((13277 / 500000000 : ℝ) - 231/10^6 - 12/10^8 - epsOm)
-    ((302372667 / 160000000000 : ℝ) + 231/10^6 + 12/10^8 + epsOm)
+    ((2671109 / 200000000 : ℝ) - 7/10^7 - 12/10^8 - epsOm)
+    ((1339441331 / 80000000000 : ℝ) + 7/10^7 + 12/10^8 + epsOm)
+    ((13277 / 500000000 : ℝ) - 7/10^7 - 12/10^8 - epsOm)
+    ((302372667 / 160000000000 : ℝ) + 7/10^7 + 12/10^8 + epsOm)
     re_lambda0_at_c13_2_lb
     re_lambda0_at_c13_2_ub
     im_lambda0_at_c13_2_lb
