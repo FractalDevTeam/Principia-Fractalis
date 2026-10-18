@@ -38,8 +38,8 @@ form factors through `∫ ‖h(x)‖² dμ(x)`.
 * `wilson_gramMatrix_posSemidef` — specialization to the Wilson Gibbs
   measure.
 
-* `timeReflectionSite`, `timeReflectionLink`, `timeReflectionGaugeField`
-  — the lattice time-reversal involution.
+* `timeReflectionSite`, `shiftTimeNeg`, `timeReflectionGaugeField`
+  — the lattice time-reversal involution (temporal case carries `⁻¹`).
 
 * `wilson_reflection_gram_posSemidef` — the `(F ∘ θ)` Gram PSD.
 
@@ -237,22 +237,42 @@ theorem wilson_gramMatrix_posSemidef {L K : ℕ} [NeZero L] (β : ℝ)
         ∫ U, star (F i U) * F j U ∂(wilsonGibbsMeasure L β))).PosSemidef :=
   gramMatrix_bochner_posSemidef (wilsonGibbsMeasure L β) F hF
 
-/-! ## §6 — Lattice time reflection. -/
+/-! ## §6 — Lattice time reflection.
+
+Legion 2026-10-17 (`codex/YM_OS_SCOPE_SITE_REFLECTION_2026-10-17.md`) measured
+that the previously-landed `timeReflectionLink` (base-site reflection, keep
+direction) does **NOT** leave `wilsonActionTotal` invariant (|ΔS| = 2.405
+at L=4, 15.50 at L=5), because a reflected temporal link spans times `-x₀`
+and `-x₀-1`, i.e. it is based at `θx - ê₀` and must be traversed backwards
+(hence the inverse). The corrected gauge-field reflection, measured
+invariant to numerical precision (|ΔS| ≈ 2e-11), is:
+
+  `(θU)(x, j) = U(θx, j)`                for `j ≠ 0`   (spatial — unchanged)
+  `(θU)(x, 0) = (U(θx − ê₀, 0))⁻¹`       (temporal — shifted base + inverse)
+
+Because the temporal case involves `⁻¹`, the gauge-field reflection no
+longer factors through a pure link-involution, and the previous
+`timeReflectionLink` is retired. -/
 
 /-- **Time reflection on a lattice site** — flips the 0-coordinate,
 leaves spatial coordinates fixed. On `Fin L`, negation is `-k mod L`. -/
 def timeReflectionSite {L : ℕ} [NeZero L] (x : LatticeSite L) : LatticeSite L :=
   Function.update x 0 (-(x 0))
 
-/-- **Time reflection on a link**: reflects the base site; keeps direction. -/
-def timeReflectionLink {L : ℕ} [NeZero L]
-    (ℓ : LatticeLink L) : LatticeLink L :=
-  (timeReflectionSite ℓ.1, ℓ.2)
+/-- Shift a lattice site by `-1` in the time direction (periodic). -/
+def shiftTimeNeg {L : ℕ} [NeZero L] (x : LatticeSite L) : LatticeSite L :=
+  Function.update x 0 (x 0 - 1)
 
-/-- **Time reflection on a gauge field**: pull back the link values. -/
+/-- **Time reflection on a gauge field** — site reflection on each spatial
+link, and site reflection with base-shift + per-link inverse on temporal
+links. Measured invariant for `wilsonActionTotal`. -/
 def timeReflectionGaugeField {L : ℕ} [NeZero L]
     (U : GaugeField L) : GaugeField L :=
-  fun ℓ => U (timeReflectionLink ℓ)
+  fun ℓ =>
+    if ℓ.2 = 0 then
+      (U (shiftTimeNeg (timeReflectionSite ℓ.1), ℓ.2))⁻¹
+    else
+      U (timeReflectionSite ℓ.1, ℓ.2)
 
 /-! ## §7 — The θ-reflected Gram matrix PSD. -/
 
@@ -289,6 +309,6 @@ end PF.YangMills
 #print axioms PF.YangMills.gramMatrix_bochner_posSemidef
 #print axioms PF.YangMills.wilson_gramMatrix_posSemidef
 #print axioms PF.YangMills.timeReflectionSite
-#print axioms PF.YangMills.timeReflectionLink
+#print axioms PF.YangMills.shiftTimeNeg
 #print axioms PF.YangMills.timeReflectionGaugeField
 #print axioms PF.YangMills.wilson_reflection_gram_posSemidef
