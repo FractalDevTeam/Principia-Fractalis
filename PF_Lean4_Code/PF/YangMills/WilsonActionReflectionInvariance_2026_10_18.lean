@@ -243,7 +243,160 @@ lemma trace_mul_four_rotate_left (A B C D : Matrix (Fin 2) (Fin 2) ℂ) :
   rw [Matrix.mul_assoc A B C, Matrix.mul_assoc A (B * C) D,
       Matrix.trace_mul_comm A (B * C * D)]
 
-/-! ### Trace cyclicity primitives land; Case TF/FT density assembly pending. -/
+/-! ### §6 — `timeReflectionGaugeField` direct-form helpers.
+
+Avoids the fragile `if_pos rfl` route by committing to each direction case
+up front. -/
+
+/-- `θU` on a temporal link evaluates to the inverse of `U` at the shifted
+reflection. -/
+@[simp] lemma timeReflectionGaugeField_temporal
+    (U : GaugeField L) (x : LatticeSite L) :
+    timeReflectionGaugeField U (x, 0) = (U (shiftTimeNeg (timeReflectionSite x), 0))⁻¹ := by
+  unfold timeReflectionGaugeField
+  rfl
+
+/-- `θU` on a spatial link (direction `j ≠ 0`) evaluates to `U` at the
+reflected base, same direction. -/
+lemma timeReflectionGaugeField_spatial
+    {j : LatticeDir} (hj : j ≠ 0)
+    (U : GaugeField L) (x : LatticeSite L) :
+    timeReflectionGaugeField U (x, j) = U (timeReflectionSite x, j) := by
+  unfold timeReflectionGaugeField
+  exact if_neg hj
+
+/-! ### §7 — SU2-level holonomy expansion lemmas (one per plaquette case). -/
+
+/-- Normal form of `plaquetteHolonomy (θU)` at a (0, ν)-plaquette (ν ≠ 0). -/
+lemma plaquetteHolonomy_timeReflection_mu_zero_form
+    {ν : LatticeDir} (hν : ν ≠ 0)
+    (U : GaugeField L) (x : LatticeSite L) :
+    plaquetteHolonomy (timeReflectionGaugeField U) (x, 0, ν)
+      = (U (shiftTimeNeg (timeReflectionSite x), 0))⁻¹
+          * U (shiftTimeNeg (timeReflectionSite x), ν)
+          * U (shiftSite (shiftTimeNeg (timeReflectionSite x)) ν, 0)
+          * (U (timeReflectionSite x, ν))⁻¹ := by
+  unfold plaquetteHolonomy
+  simp only [timeReflectionGaugeField_temporal, timeReflectionGaugeField_spatial hν,
+    timeReflectionSite_shiftSite_temporal,
+    timeReflectionSite_shiftSite_spatial hν,
+    shiftTimeNeg_shiftSite_spatial hν]
+  group
+
+/-- Normal form of `plaquetteHolonomy U` at a (ν, 0)-plaquette (ν ≠ 0),
+based at `shiftTimeNeg (θx)`. -/
+lemma plaquetteHolonomy_image_nu_zero_form
+    {ν : LatticeDir} (_hν : ν ≠ 0)
+    (U : GaugeField L) (x : LatticeSite L) :
+    plaquetteHolonomy U (shiftTimeNeg (timeReflectionSite x), ν, 0)
+      = U (shiftTimeNeg (timeReflectionSite x), ν)
+          * U (shiftSite (shiftTimeNeg (timeReflectionSite x)) ν, 0)
+          * (U (timeReflectionSite x, ν))⁻¹
+          * (U (shiftTimeNeg (timeReflectionSite x), 0))⁻¹ := by
+  unfold plaquetteHolonomy
+  simp only [shiftSite_shiftTimeNeg]
+
+/-! ### §8 — Case TF (temporal-spatial): trace equality via cyclic rotation. -/
+
+/-- **Case TF.** `tr(plaquetteHolonomy (θU) (x, 0, ν)) = tr(plaquetteHolonomy U (shiftTimeNeg(θx), ν, 0))`. -/
+lemma trace_plaquetteHolonomy_timeReflection_mu_zero
+    {ν : LatticeDir} (hν : ν ≠ 0)
+    (U : GaugeField L) (x : LatticeSite L) :
+    (plaquetteHolonomy (timeReflectionGaugeField U) (x, 0, ν)
+        : Matrix (Fin 2) (Fin 2) ℂ).trace
+      = (plaquetteHolonomy U (shiftTimeNeg (timeReflectionSite x), ν, 0)
+          : Matrix (Fin 2) (Fin 2) ℂ).trace := by
+  rw [plaquetteHolonomy_timeReflection_mu_zero_form hν,
+      plaquetteHolonomy_image_nu_zero_form hν]
+  -- Push coercions to matrix level
+  push_cast [MulMemClass.coe_mul]
+  -- Expected goal after cast: (A' * B' * C' * D').trace = (B' * C' * D' * A').trace
+  -- where A' = (U(..)⁻¹).val etc. Apply four-factor cyclic rotation.
+  exact trace_mul_four_rotate_left _ _ _ _
+
+/-! ### §9 — Case FT (spatial-temporal): trace equality via cyclic rotation. -/
+
+/-- Normal form of `plaquetteHolonomy (θU)` at a (μ, 0)-plaquette (μ ≠ 0). -/
+lemma plaquetteHolonomy_timeReflection_nu_zero_form
+    {μ : LatticeDir} (hμ : μ ≠ 0)
+    (U : GaugeField L) (x : LatticeSite L) :
+    plaquetteHolonomy (timeReflectionGaugeField U) (x, μ, 0)
+      = U (timeReflectionSite x, μ)
+          * (U (shiftSite (shiftTimeNeg (timeReflectionSite x)) μ, 0))⁻¹
+          * (U (shiftTimeNeg (timeReflectionSite x), μ))⁻¹
+          * U (shiftTimeNeg (timeReflectionSite x), 0) := by
+  unfold plaquetteHolonomy
+  simp only [timeReflectionGaugeField_temporal, timeReflectionGaugeField_spatial hμ,
+    timeReflectionSite_shiftSite_temporal,
+    timeReflectionSite_shiftSite_spatial hμ,
+    shiftTimeNeg_shiftSite_spatial hμ]
+  group
+
+/-- Normal form of `plaquetteHolonomy U` at a (0, μ)-plaquette (μ ≠ 0),
+based at `shiftTimeNeg (θx)`. -/
+lemma plaquetteHolonomy_image_mu_zero_form
+    {μ : LatticeDir} (_hμ : μ ≠ 0)
+    (U : GaugeField L) (x : LatticeSite L) :
+    plaquetteHolonomy U (shiftTimeNeg (timeReflectionSite x), 0, μ)
+      = U (shiftTimeNeg (timeReflectionSite x), 0)
+          * U (timeReflectionSite x, μ)
+          * (U (shiftSite (shiftTimeNeg (timeReflectionSite x)) μ, 0))⁻¹
+          * (U (shiftTimeNeg (timeReflectionSite x), μ))⁻¹ := by
+  unfold plaquetteHolonomy
+  simp only [shiftSite_shiftTimeNeg]
+
+/-- **Case FT.** `tr(plaquetteHolonomy (θU) (x, μ, 0)) = tr(plaquetteHolonomy U (shiftTimeNeg(θx), 0, μ))`. -/
+lemma trace_plaquetteHolonomy_timeReflection_nu_zero
+    {μ : LatticeDir} (hμ : μ ≠ 0)
+    (U : GaugeField L) (x : LatticeSite L) :
+    (plaquetteHolonomy (timeReflectionGaugeField U) (x, μ, 0)
+        : Matrix (Fin 2) (Fin 2) ℂ).trace
+      = (plaquetteHolonomy U (shiftTimeNeg (timeReflectionSite x), 0, μ)
+          : Matrix (Fin 2) (Fin 2) ℂ).trace := by
+  rw [plaquetteHolonomy_timeReflection_nu_zero_form hμ,
+      plaquetteHolonomy_image_mu_zero_form hμ]
+  push_cast [MulMemClass.coe_mul]
+  exact trace_mul_four_rotate_right _ _ _ _
+
+/-! ### §10 — Density invariance per plaquette. -/
+
+/-- The Wilson action density transforms covariantly under the plaquette
+involution `θ_p`: `density (θU) p = density U (θ_p p)`. -/
+lemma wilsonActionDensity_timeReflection (U : GaugeField L) (p : Plaquette L) :
+    wilsonActionDensity (timeReflectionGaugeField U) p
+      = wilsonActionDensity U (timeReflectionPlaquette p) := by
+  rcases p with ⟨x, μ, ν⟩
+  unfold wilsonActionDensity timeReflectionPlaquette
+  simp only
+  by_cases hμ : μ = 0
+  · subst hμ
+    by_cases hν : ν = 0
+    · subst hν
+      -- Case TT: both diagonal, holonomy = 1 on each side
+      simp only [if_true]
+      rw [plaquetteHolonomy_timeReflection_both_zero, plaquetteHolonomy_diag_zero]
+    · -- Case TF
+      simp only [if_true, if_neg hν]
+      rw [trace_plaquetteHolonomy_timeReflection_mu_zero hν]
+  · by_cases hν : ν = 0
+    · subst hν
+      -- Case FT
+      simp only [if_true, if_neg hμ]
+      rw [trace_plaquetteHolonomy_timeReflection_nu_zero hμ]
+    · -- Case FF: equality (not just trace)
+      simp only [if_neg hμ, if_neg hν]
+      rw [plaquetteHolonomy_timeReflection_both_spatial hμ hν]
+
+/-! ### §11 — Total action invariance via plaquette-sum reindexing. -/
+
+/-- **Wilson action invariance under the time-reflection θ.** -/
+theorem wilsonActionTotal_timeReflection (U : GaugeField L) :
+    wilsonActionTotal (timeReflectionGaugeField U) = wilsonActionTotal U := by
+  unfold wilsonActionTotal
+  -- Rewrite each term using density invariance
+  simp_rw [wilsonActionDensity_timeReflection]
+  -- Sum over θ_p is the same as sum over identity (θ_p is a bijection)
+  exact timeReflectionPlaquette_bijective.sum_comp (wilsonActionDensity U)
 
 end
 
@@ -255,6 +408,16 @@ end PF.YangMills
 #print axioms PF.YangMills.plaquetteHolonomy_diag_zero
 #print axioms PF.YangMills.trace_mul_four_rotate_right
 #print axioms PF.YangMills.trace_mul_four_rotate_left
+#print axioms PF.YangMills.timeReflectionGaugeField_temporal
+#print axioms PF.YangMills.timeReflectionGaugeField_spatial
+#print axioms PF.YangMills.plaquetteHolonomy_timeReflection_mu_zero_form
+#print axioms PF.YangMills.plaquetteHolonomy_image_nu_zero_form
+#print axioms PF.YangMills.trace_plaquetteHolonomy_timeReflection_mu_zero
+#print axioms PF.YangMills.plaquetteHolonomy_timeReflection_nu_zero_form
+#print axioms PF.YangMills.plaquetteHolonomy_image_mu_zero_form
+#print axioms PF.YangMills.trace_plaquetteHolonomy_timeReflection_nu_zero
+#print axioms PF.YangMills.wilsonActionDensity_timeReflection
+#print axioms PF.YangMills.wilsonActionTotal_timeReflection
 
 /-! ## §Axiom check -/
 #print axioms PF.YangMills.timeReflectionSite_involutive
