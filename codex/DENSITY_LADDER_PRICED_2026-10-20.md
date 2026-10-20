@@ -168,7 +168,31 @@ c ≈ 10.28 existing at all.** The per-box module count is the whole variable.
 **JUDGEMENT.** (3) is the one that can waste the whole march, and it is the
 cheapest of the three to fix. Order: (3), then (1), then (2).
 
-## 6. Validation of the method. MEASURED
+## 6. How density should be realised: split segments, don't fatten modules. JUDGEMENT
+
+Peak RSS is **7.6 GB of 15** on a module of 8 panels, so an 8x-denser single
+module would not fit and the march would die on memory rather than time. The
+design that keeps the measured per-module cost fixed is to hold `N_PANELS = 8`
+and **split each segment into `D` sub-segments**:
+
+* segment `s` = `[(s-1)/4, s/4]` becomes `D` sub-segments of width `1/(4D)`,
+  each emitted as its own module with 8 panels of width `h = 1/(32D)`;
+* `6D` modules per box, each the same size and the same ~7m30s / 7.6 GB as
+  today's;
+* the 8-panel block of the hierarchical fold (above) is then exactly one source
+  module, which is why the fold's blocks were cut at 8.
+
+Concretely, prerequisite (1) is: `PANEL_WIDTH -> F(1, 32*D)`, `m_data`'s
+hardcoded `786432 = 24*32^3 -> 24*(32*D)^3`, a sub-segment index in the module
+names, and the same two constants in `gen_box_part2.py`. Prerequisite (2) then
+falls out: a sub-segment of segment 3 has `T <= 3/4`, so it is **Tier B**, and
+`termM_coarse` needs the tier constants it currently hardcodes at Tier A.
+
+**This is also why `D` must be a power of two** beyond the decimal-literal
+argument: sub-segment endpoints `(s-1)/4 + j/(4D)` and panel endpoints must
+stay dyadic for `dec()` to terminate on all of them.
+
+## 7. Validation of the method. MEASURED
 
 The pricing never models the enclosure; it computes the producer's own
 `R_ub`/`I_ub` at parametric density, split as
