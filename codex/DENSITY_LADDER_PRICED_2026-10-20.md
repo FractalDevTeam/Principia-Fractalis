@@ -1,4 +1,4 @@
-# The density ladder to 13 is priced at **232 h serial (9.7 days)** — 0.61× of the ~6 h × boxes estimate, so the cost gate passes. But three generator prerequisites block Step 2, and the hard one is the assemble's flat `linarith`: 95 hypotheses today, **1535 at D = 16**.
+# The density ladder to 13 is priced at **~241 h serial (10.0 days)** — 0.63× of the ~6 h × boxes estimate, so the cost gate passes. But three generator prerequisites block Step 2, and the hard one is the assemble's flat `linarith`: 95 hypotheses today, **1535 at D = 16**.
 
 **Date:** 2026-10-20 (Legion). Computed with the shipped interval arithmetic and
 the producer's own `Mc_lb` formula at parametric density — no model.
@@ -225,6 +225,57 @@ the second term in closed form, the first converging to the true integral.
 
   All-midpoint straddles the hybrid between D = 1 and D = 2, as the 2.8×
   D = 1 penalty and the `1/D²` scaling require.
+
+## 8. Step 2, box 1: the first integer centre broke the producer. MEASURED
+
+Box `c = 7, r = 1/16, D = 1` is the first **integer** centre of the march
+(27/4, 55/8 and 13/2 are all fractions). `Mc_lb = 0.13863778`, reproducing the
+scan exactly, criterion PASS at 20.3× — and then the midpoint panels failed to
+compile.
+
+`retag` step 2b builds the type-ascribed literal by substituting numerator and
+denominator into a fixed template, so `|((27:ℝ)/4)|` became `|((7:ℝ)/1)|`:
+
+* the `have habs_c` itself fails. For a genuine fraction `rw [abs_of_pos]`
+  leaves the main goal `27/4 = 27/4`, which `rw` closes by `rfl`, so only the
+  side goal `0 < 27/4` reaches `norm_num`. With `/1` the main goal `7/1 = 7` is
+  **not** closed by `rfl`, `norm_num` consumes it, and the side goal survives —
+  the reported `unsolved goals ⊢ 0 < 7 / 1`;
+* `rw [habs_c]` then cannot fire, because Lean elaborates the goal's occurrence
+  as `|7|` and the pattern `|7 / 1|` is absent.
+
+**That rfl-closure is why the bug waited**: every fractional centre masks it
+completely. The march to 13 passes through **seven integer centres** — 7, 8, 9,
+10, 11, 12, 13 — and each would have failed identically.
+
+Fixed by canonicalising the target when the denominator is 1, plus a
+post-assertion that no `:ℝ)/1` survives any retag — catching the class rather
+than the instance. Of the 16 emitted modules only the two midpoint panels
+changed; the other 14 are byte-identical to the pre-fix generation.
+
+**JUDGEMENT.** The pricing in §1 is unaffected — this is an emitter defect, not
+an enclosure one — but it is a reminder that the ladder's *cost* model and the
+producer's *correctness* at new centres are independent risks. Five range panels
+had already built clean before the failure surfaced, so a box is not validated
+until its midpoint panels and assemble are through.
+
+**Outcome.** Box `c = 7` landed: 16 modules, 25 theorems, every one on exactly
+`[propext, Classical.choice, Quot.sound]`, no `sorryAx` / `nativeDecide` /
+`ofReduceBool`, one distinct axiom set in the whole `#print axioms` output.
+Frontier 6.9375 → 7.0625, coverage contiguous on `[5.9375, 7.0625]`. The
+hierarchical fold of §5(3) was validated by the same build — the refolded
+assemble compiles in **58 s** at D = 1, so the fold costs nothing at the
+density already shipped.
+
+**Cost calibration, measured on this box.** 56.7 min serial: five `Seg0kRange`
+at 7:20–7:34 and two `Seg0kMidpoint` at ~7:42 — the 7m30s/module the ladder was
+priced with — then Assemble 0:58, gate 0:08, four add-ons 1:40, unconditional
+pilot 0:31. But a D = 1 box compiles **7** panel modules, not 6: three midpoint
+and three range per the scheme, plus `Seg01Range` as a fixed definitional
+dependency of the add-ons. So per-box cost is `(6D + 1)·7.5 min + ~3 min`,
+which is **+24% at D = 1 and negligible by D = 16** — the 232 h march total
+becomes **~241 h**. Still 0.63× of the ~6 h × boxes estimate; the gate verdict
+is unchanged.
 
 ---
 
