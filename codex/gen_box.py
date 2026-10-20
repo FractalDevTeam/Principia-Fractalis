@@ -99,6 +99,15 @@ MID_SEGS = (1, 2)                   # midpoint tier: T <= 1/2
 RANGE_SEGS = (1, 2, 3, 4, 5, 6)     # range emitted for all six; 3-6 used by the hybrid
 ADDON = F(7, 10**7) + F(12, 10**8) + F(1, 10**21)
 
+# omega(1) to 30 digits; L0 c = 2*omega(1)*(1 + 1/c) + 1/(2 c^2)
+OMEGA1 = F(4321741, 10**8)   # > omega(1) = 0.04321740560665..., rounded UP
+
+
+def L0_val(c):
+    """The Lean `L0` of R1BoxLocalL_2026_10_20, as an exact rational in c
+    (omega(1) rounded UP so the computed value is an upper bound)."""
+    return 2 * OMEGA1 * (1 + 1 / F(c)) + 1 / (2 * F(c) ** 2)
+
 
 # --------------------------------------------------------------------------
 # c formatting
@@ -534,14 +543,27 @@ def main():
         I_[1] += src["minus"][1]
     gate = c * c * (R[1] + ADDON) + c * (I_[1] + ADDON)
     margin = F(3, 4) - gate
+    # --- the box criterion, parameterised (R1BoxLocalL_2026_10_20) ---
+    # box_of_enclosure needs  L0(c-r)*r < (1 - c^2 R_ub - c I_ub)/2 = (1-gate)/2.
+    # The old shape hardcoded Mc_lb = 1/8, i.e. gate <= 3/4, which is strictly
+    # stronger and fails from c = 29/4 on.
+    Mlb = (F(1) - gate) / 2
+    Lr = L0_val(c - r) * r
     print()
     print(f"  hybrid plus  [0,3/2] : [{float(R[0]):.10f}, {float(R[1]):.10f}]")
     print(f"  hybrid minus [0,3/2] : [{float(I_[0]):.10f}, {float(I_[1]):.10f}]")
-    print(f"  GATE-1 lhs = {float(gate):.8f}  margin = {float(margin):+.8f}")
-    if margin <= 0:
-        print("  GATE-1 FAILS at this centre -- refusing to emit the pilot.")
+    print(f"  gate lhs = {float(gate):.8f}")
+    print(f"  provable Mc_lb = (1-gate)/2 = {float(Mlb):.8f}")
+    print(f"  L0({float(c-r):.4f})*r      = {float(Lr):.8f}")
+    print(f"  BOX CRITERION  L0*r < Mc_lb : "
+          f"{'PASS' if Lr < Mlb else 'FAIL'}  (ratio {float(Mlb/Lr):.1f}x)"
+          if Lr > 0 else "")
+    print(f"  [old shape, Mc_lb=1/8] margin vs 3/4 = {float(margin):+.8f} "
+          f"{'PASS' if margin > 0 else 'FAIL'}")
+    if Lr >= Mlb:
+        print("  BOX CRITERION FAILS at this centre -- refusing to emit the pilot.")
         return 1
-    print("  GATE-1 PASSES")
+    print("  BOX CRITERION PASSES")
 
     # --- hybrid assemble ---
     panels = []
