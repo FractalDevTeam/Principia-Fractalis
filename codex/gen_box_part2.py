@@ -174,21 +174,50 @@ theorem {nm} :
     ({lean_frac(lo)} : ℝ) ≤ (∫ u in (0 : ℝ)..(3 / 2 : ℝ), {fn} u)
   ∧ (∫ u in (0 : ℝ)..(3 / 2 : ℝ), {fn} u) ≤ ({lean_frac(hi)} : ℝ) := by
 """)
-        for i, (kind, s, p, a, b) in enumerate(panels):
-            if kind == "mid":
-                w(f"  have b{i:02d} := hm{s}{p}_{side}\n")
-            else:
-                w(f"  have b{i:02d} := Seg0{s}Range.s0{s}p{p}_{side}_integral_bound\n")
-        for k in range(1, len(panels)):
-            x, y = panels[k][3], panels[k][4]
-            w(f"""  have h{k:02d} : (∫ u in (0 : ℝ)..({dec(x)} : ℝ), {fn} u)
+        # --- hierarchical fold: 8-panel blocks, then the blocks ------------
+        # A single flat linarith would carry 2*len(panels) - 1 hypotheses
+        # (1535 at D = 16). The adjacency chain is associative, so fold in two
+        # levels: 15 hypotheses per block, then 2*nblk - 1 for the top.
+        BLK = 8
+        assert len(panels) % BLK == 0, \
+            f"panel count {len(panels)} is not a multiple of {BLK}"
+        blocks = [panels[i:i + BLK] for i in range(0, len(panels), BLK)]
+        for j, blk in enumerate(blocks):
+            A, B = blk[0][3], blk[-1][4]
+            blo = sum(bounds[(side, kind, s, p)][0] for kind, s, p, _a, _b in blk)
+            bhi = sum(bounds[(side, kind, s, p)][1] for kind, s, p, _a, _b in blk)
+            w(f"""  have B{j:03d} : ({dec(blo)} : ℝ)
+          ≤ (∫ u in ({dec(A)} : ℝ)..({dec(B)} : ℝ), {fn} u)
+        ∧ (∫ u in ({dec(A)} : ℝ)..({dec(B)} : ℝ), {fn} u)
+          ≤ ({dec(bhi)} : ℝ) := by
+""")
+            for i, (kind, s, p, _a, _b) in enumerate(blk):
+                if kind == "mid":
+                    w(f"    have b{i} := hm{s}{p}_{side}\n")
+                else:
+                    w(f"    have b{i} := Seg0{s}Range.s0{s}p{p}_{side}_integral_bound\n")
+            for k in range(1, len(blk)):
+                x, y = blk[k][3], blk[k][4]
+                w(f"""    have k{k} : (∫ u in ({dec(A)} : ℝ)..({dec(x)} : ℝ), {fn} u)
+               + (∫ u in ({dec(x)} : ℝ)..({dec(y)} : ℝ), {fn} u)
+             = ∫ u in ({dec(A)} : ℝ)..({dec(y)} : ℝ), {fn} u :=
+      intervalIntegral.integral_add_adjacent_intervals ({ii} _ _) ({ii} _ _)
+""")
+            bl = ", ".join(f"b{i}.1" for i in range(len(blk)))
+            bh = ", ".join(f"b{i}.2" for i in range(len(blk)))
+            ks = ", ".join(f"k{k}" for k in range(1, len(blk)))
+            w(f"""    exact ⟨by linarith [{bl}, {ks}], by linarith [{bh}, {ks}]⟩
+""")
+        for j in range(1, len(blocks)):
+            x, y = blocks[j][0][3], blocks[j][-1][4]
+            w(f"""  have H{j:03d} : (∫ u in (0 : ℝ)..({dec(x)} : ℝ), {fn} u)
              + (∫ u in ({dec(x)} : ℝ)..({dec(y)} : ℝ), {fn} u)
            = ∫ u in (0 : ℝ)..({dec(y)} : ℝ), {fn} u :=
     intervalIntegral.integral_add_adjacent_intervals ({ii} _ _) ({ii} _ _)
 """)
-        lows = ", ".join(f"b{i:02d}.1" for i in range(len(panels)))
-        his = ", ".join(f"b{i:02d}.2" for i in range(len(panels)))
-        hs = ", ".join(f"h{k:02d}" for k in range(1, len(panels)))
+        lows = ", ".join(f"B{j:03d}.1" for j in range(len(blocks)))
+        his = ", ".join(f"B{j:03d}.2" for j in range(len(blocks)))
+        hs = ", ".join(f"H{j:03d}" for j in range(1, len(blocks)))
         w(f"""  refine ⟨?_, ?_⟩
   · linarith [{lows}, {hs}]
   · linarith [{his}, {hs}]
