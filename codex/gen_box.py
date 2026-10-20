@@ -214,8 +214,19 @@ def retag(src, c_from, c_to, *, is_python, set_params=False):
     # 2b. the type-ascribed form |((27:' + chr(8477) + ')/4)| -- the digits there are followed by
     #     ':' not '/', so the bare-fraction rule below does NOT see them. Missing
     #     this leaves a half-rewritten  |((27:' + chr(8477) + ')/4)| = 55/8  which is false.
+    #     An INTEGER target must NOT be written "(7:R)/1": Lean normalises that
+    #     occurrence to |7|, so the later `rw [habs_c]` cannot find the pattern,
+    #     and the main goal `7/1 = 7` is not closed by rw's rfl, so `norm_num`
+    #     consumes it and the positivity side goal `0 < 7/1` survives. (For a
+    #     genuine fraction the main goal IS closed by rfl, which is why 27/4 and
+    #     55/8 worked and c = 7 was the first centre to fail.)
+    assert c_from.denominator != 1, (
+        f"retag: integer source centre {c_from} would make asc_from a prefix "
+        "of the fractional form")
     asc_from = f"({c_from.numerator}:{chr(8477)})/{c_from.denominator}"
-    asc_to = f"({c_to.numerator}:{chr(8477)})/{c_to.denominator}"
+    asc_to = (f"({c_to.numerator}:{chr(8477)})/{c_to.denominator}"
+              if c_to.denominator != 1
+              else f"({c_to.numerator}:{chr(8477)})")
     n_asc = s.count(asc_from)
     s = s.replace(asc_from, asc_to)
 
@@ -244,6 +255,11 @@ def retag(src, c_from, c_to, *, is_python, set_params=False):
 
     # 4. post-assertions: no stale c literals
     assert asc_from not in s, f"retag: stale ascribed {asc_from}"
+    # Catches the whole integer-centre class, for every future centre: Lean
+    # normalises a /1 denominator away, so any rewrite naming it cannot match.
+    assert f":{chr(8477)})/1" not in s, (
+        "retag: emitted a '/1' denominator -- Lean normalises it away and "
+        "later rewrites will not match (integer-centre hazard)")
     for bad in (lean_frac(c_from), dec(c_from / 2)):
         assert re.search(NB + re.escape(bad) + NA, s) is None, \
             f"retag: stale {bad!r} survived"
