@@ -492,6 +492,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--c", required=True, help="box centre, e.g. 55/8")
     ap.add_argument("--r", default="1/16", help="box radius")
+    ap.add_argument("--pick-r", action="store_true",
+                    help="ignore --r; take the largest dyadic radius in "
+                         "1/16..1/4096 whose box criterion passes with the "
+                         "safety ratio, and report the ladder")
+    ap.add_argument("--safety", default="1.25",
+                    help="required Mc_lb / (L0*r) ratio when picking r")
     ap.add_argument("--out", required=True)
     ap.add_argument("--work", default=None)
     args = ap.parse_args()
@@ -548,6 +554,36 @@ def main():
     # The old shape hardcoded Mc_lb = 1/8, i.e. gate <= 3/4, which is strictly
     # stronger and fails from c = 29/4 on.
     Mlb = (F(1) - gate) / 2
+
+    # --- radius selection ---------------------------------------------------
+    # Mc_lb depends only on c, never on r, so a centre with Mc_lb <= 0 is
+    # unreachable at EVERY radius -- shrinking r cannot rescue it. Where
+    # Mc_lb > 0 the largest dyadic r that clears the safety ratio is taken.
+    if args.pick_r:
+        safety = F(args.safety)
+        ladder = [F(1, 2 ** k) for k in range(4, 13)]
+        chosen = None
+        print()
+        print(f"  Mc_lb = {float(Mlb):.8f}   radius ladder (safety {float(safety)}x):")
+        for rr in ladder:
+            if rr >= c:
+                continue
+            lr = L0_val(c - rr) * rr
+            ok = Mlb > 0 and lr * safety < Mlb
+            ratio = float(Mlb / lr) if lr > 0 else float("nan")
+            print(f"    r = {lean_frac(rr):>9}  L0*r = {float(lr):.8f}  "
+                  f"ratio = {ratio:7.2f}x  {'OK' if ok else '--'}")
+            if ok and chosen is None:
+                chosen = rr
+        if chosen is None:
+            print("  NO radius in the ladder works at this centre.")
+            if Mlb <= 0:
+                print("  Mc_lb <= 0: unreachable at ANY radius -- the panel "
+                      "enclosure, not the box geometry, is the wall here.")
+            return 1
+        r = chosen
+        print(f"  chosen r = {lean_frac(r)}  (box [{float(c-r):.6f}, {float(c+r):.6f}])")
+
     Lr = L0_val(c - r) * r
     print()
     print(f"  hybrid plus  [0,3/2] : [{float(R[0]):.10f}, {float(R[1]):.10f}]")
