@@ -228,6 +228,268 @@ theorem linkSector_linkTheta (hL : Even L) (ℓ : LatticeLink L) :
           simp [h_orig_ne_zero, ht_eq_M, ht_lt_M, h_img_ne_zero, h_img_ne_M,
                 h_img_lt, LinkSector.reflect]
 
+/-! ## §6 — Phase B: no-straddling plaquette theorem.
+
+**Claim:** For `Even L` and a non-diagonal plaquette `p = (x, μ, ν)` with
+`μ ≠ ν`, every one of `p`'s four links has sector `plaquetteSector p` or
+`zero`. In particular, no plaquette has both a `Λ₊` link and a `Λ₋` link.
+
+The diagonal case `μ = ν = 0` is excluded (plaquette holonomy = 1, density
+= 0, so these contribute nothing to the Wilson action). Legion measured
+0 straddling for all non-diagonal plaquettes at L = 4, 6, 8.
+-/
+
+/-- The sector assigned to a plaquette based on its base time. Diagonal
+plaquettes get `plus` by default (density 0, so assignment is arbitrary). -/
+def plaquetteSector (p : Plaquette L) : LinkSector :=
+  if (p.1 0).val < L / 2 then LinkSector.plus else LinkSector.minus
+
+/-- Time coordinate of `shiftSite x μ` for a spatial direction `μ ≠ 0` is
+unchanged (modification is in coord `μ`, not coord 0). -/
+lemma shiftSite_spatial_time_val {μ : LatticeDir} (hμ : μ ≠ 0)
+    (x : LatticeSite L) :
+    ((shiftSite x μ) 0).val = (x 0).val := by
+  unfold shiftSite
+  rw [Function.update_of_ne (Ne.symm hμ)]
+
+/-- Time coordinate of `shiftSite x 0`: `((x + ê₀) 0).val = ((x 0).val + 1) % L`. -/
+lemma shiftSite_temporal_time_val (x : LatticeSite L) :
+    ((shiftSite x 0) 0).val = ((x 0).val + 1) % L := by
+  unfold shiftSite
+  rw [Function.update_self]
+  rw [Fin.add_def]
+  have h1val : ((1 : Fin L) : ℕ) = 1 % L := Fin.val_one' L
+  rw [h1val]
+  rcases eq_or_ne L 1 with hL1 | hL1
+  · subst hL1
+    simp [Nat.mod_one]
+  · have hL_ge : 2 ≤ L := by
+      have : 0 < L := Nat.pos_of_ne_zero (NeZero.ne L)
+      omega
+    rw [Nat.mod_eq_of_lt (by omega : 1 < L)]
+
+/-! ## §7 — Sector characterization by direction and base time. -/
+
+/-- A temporal link at base time `t < M` is in `plus`. -/
+lemma linkSector_temporal_t_lt_half (ℓ : LatticeLink L) (hd : ℓ.2 = 0)
+    (ht : (ℓ.1 0).val < L / 2) : linkSector ℓ = LinkSector.plus := by
+  unfold linkSector
+  simp [hd, ht]
+
+/-- A temporal link at base time `t ≥ M` is in `minus`. -/
+lemma linkSector_temporal_t_ge_half (ℓ : LatticeLink L) (hd : ℓ.2 = 0)
+    (ht : L / 2 ≤ (ℓ.1 0).val) : linkSector ℓ = LinkSector.minus := by
+  unfold linkSector
+  simp [hd, Nat.not_lt.mpr ht]
+
+/-- A spatial link at time `t` with `t ≤ M` is `plus` or `zero`. -/
+lemma linkSector_spatial_t_le_half (ℓ : LatticeLink L) (hd : ℓ.2 ≠ 0)
+    (ht : (ℓ.1 0).val ≤ L / 2) :
+    linkSector ℓ = LinkSector.plus ∨ linkSector ℓ = LinkSector.zero := by
+  unfold linkSector
+  simp only [hd, if_false]
+  by_cases h0 : (ℓ.1 0).val = 0
+  · right
+    simp [h0]
+  by_cases hM : (ℓ.1 0).val = L / 2
+  · right
+    simp [hM]
+  · left
+    have ht_lt : (ℓ.1 0).val < L / 2 := lt_of_le_of_ne ht hM
+    simp [ht_lt, h0, hM]
+
+/-- A spatial link at time `t` with `t = 0 ∨ t ≥ M` is `minus` or `zero`. -/
+lemma linkSector_spatial_t_ge_half_or_zero (ℓ : LatticeLink L) (hd : ℓ.2 ≠ 0)
+    (ht : (ℓ.1 0).val = 0 ∨ L / 2 ≤ (ℓ.1 0).val) :
+    linkSector ℓ = LinkSector.minus ∨ linkSector ℓ = LinkSector.zero := by
+  unfold linkSector
+  simp only [hd, if_false]
+  rcases ht with h0 | hM_le
+  · right
+    simp [h0]
+  by_cases hM : (ℓ.1 0).val = L / 2
+  · right
+    simp [hM]
+  · have hM_lt : L / 2 < (ℓ.1 0).val :=
+      lt_of_le_of_ne hM_le (Ne.symm hM)
+    have h0 : (ℓ.1 0).val ≠ 0 := by
+      intro h0_eq
+      rw [h0_eq] at hM_lt
+      exact Nat.not_lt_zero _ hM_lt
+    left
+    simp [h0, hM, Nat.not_lt.mpr (le_of_lt hM_lt)]
+
+/-! ## §8 — Plaquette-link lemmas: each link is `plaquetteSector p` or `zero`
+for `Even L`, non-diagonal plaquette (`μ ≠ ν`). -/
+
+variable {μ ν : LatticeDir}
+
+/-- Case: `t < M`. Every link of a non-diagonal plaquette is `plus` or `zero`. -/
+lemma plaquette_links_plusOrZero (hL : Even L) (p : Plaquette L)
+    (hμν : p.2.1 ≠ p.2.2)
+    (ht : (p.1 0).val < L / 2) (ℓ : LatticeLink L)
+    (hℓ : ℓ = (p.1, p.2.1) ∨ ℓ = (shiftSite p.1 p.2.1, p.2.2)
+             ∨ ℓ = (shiftSite p.1 p.2.2, p.2.1) ∨ ℓ = (p.1, p.2.2)) :
+    linkSector ℓ = LinkSector.plus ∨ linkSector ℓ = LinkSector.zero := by
+  obtain ⟨M, hM⟩ := hL
+  have hL_eq : L = 2 * M := by omega
+  have hM_pos : 0 < M := by have := Nat.pos_of_ne_zero (NeZero.ne L); omega
+  have hM_eq : L / 2 = M := by omega
+  rw [hM_eq] at ht
+  -- Links 1, 4: base time t; links 2, 3: base time depends on direction.
+  -- For each case, prove the sector lemma.
+  rcases hℓ with h1 | h2 | h3 | h4
+  · -- Link 1: (p.1, p.2.1), base time t
+    subst h1
+    by_cases hd : p.2.1 = 0
+    · left
+      apply linkSector_temporal_t_lt_half _ hd
+      rw [hM_eq]; exact ht
+    · apply linkSector_spatial_t_le_half _ hd
+      rw [hM_eq]; exact le_of_lt ht
+  · -- Link 2: (shiftSite p.1 p.2.1, p.2.2)
+    subst h2
+    by_cases hd1 : p.2.1 = 0
+    · -- μ = 0, so ν ≠ 0 (by hμν). Base time of (shiftSite x 0, ν) is (t+1) % L.
+      have hd2 : p.2.2 ≠ 0 := by rw [hd1] at hμν; exact fun h => hμν h.symm
+      apply linkSector_spatial_t_le_half _ hd2
+      show ((shiftSite p.1 p.2.1) 0).val ≤ L / 2
+      rw [hd1, shiftSite_temporal_time_val, hM_eq]
+      have ht_le : (p.1 0).val ≤ M - 1 := by omega
+      have h_mod : ((p.1 0).val + 1) % L = (p.1 0).val + 1 := by
+        apply Nat.mod_eq_of_lt
+        have : (p.1 0).val + 1 ≤ M := by omega
+        omega
+      rw [h_mod]; omega
+    · -- μ ≠ 0: base time of (shiftSite x μ, ν) is t
+      by_cases hd2 : p.2.2 = 0
+      · left
+        apply linkSector_temporal_t_lt_half _ hd2
+        rw [shiftSite_spatial_time_val hd1, hM_eq]; exact ht
+      · apply linkSector_spatial_t_le_half _ hd2
+        rw [shiftSite_spatial_time_val hd1, hM_eq]; exact le_of_lt ht
+  · -- Link 3: (shiftSite p.1 p.2.2, p.2.1)
+    subst h3
+    by_cases hd2 : p.2.2 = 0
+    · have hd1 : p.2.1 ≠ 0 := by rw [hd2] at hμν; exact hμν
+      apply linkSector_spatial_t_le_half _ hd1
+      show ((shiftSite p.1 p.2.2) 0).val ≤ L / 2
+      rw [hd2, shiftSite_temporal_time_val, hM_eq]
+      have ht_le : (p.1 0).val ≤ M - 1 := by omega
+      have h_mod : ((p.1 0).val + 1) % L = (p.1 0).val + 1 := by
+        apply Nat.mod_eq_of_lt
+        have : (p.1 0).val + 1 ≤ M := by omega
+        omega
+      rw [h_mod]; omega
+    · by_cases hd1 : p.2.1 = 0
+      · left
+        apply linkSector_temporal_t_lt_half _ hd1
+        rw [shiftSite_spatial_time_val hd2, hM_eq]; exact ht
+      · apply linkSector_spatial_t_le_half _ hd1
+        rw [shiftSite_spatial_time_val hd2, hM_eq]; exact le_of_lt ht
+  · -- Link 4: (p.1, p.2.2)
+    subst h4
+    by_cases hd : p.2.2 = 0
+    · left
+      apply linkSector_temporal_t_lt_half _ hd
+      rw [hM_eq]; exact ht
+    · apply linkSector_spatial_t_le_half _ hd
+      rw [hM_eq]; exact le_of_lt ht
+
+/-- Case: `t ≥ M`. Every link of a non-diagonal plaquette is `minus` or `zero`. -/
+lemma plaquette_links_minusOrZero (hL : Even L) (p : Plaquette L)
+    (hμν : p.2.1 ≠ p.2.2)
+    (ht : L / 2 ≤ (p.1 0).val) (ℓ : LatticeLink L)
+    (hℓ : ℓ = (p.1, p.2.1) ∨ ℓ = (shiftSite p.1 p.2.1, p.2.2)
+             ∨ ℓ = (shiftSite p.1 p.2.2, p.2.1) ∨ ℓ = (p.1, p.2.2)) :
+    linkSector ℓ = LinkSector.minus ∨ linkSector ℓ = LinkSector.zero := by
+  obtain ⟨M, hM⟩ := hL
+  have hL_eq : L = 2 * M := by omega
+  have hM_pos : 0 < M := by have := Nat.pos_of_ne_zero (NeZero.ne L); omega
+  have hM_eq : L / 2 = M := by omega
+  rw [hM_eq] at ht
+  have h_t_lt : (p.1 0).val < L := (p.1 0).isLt
+  rcases hℓ with h1 | h2 | h3 | h4
+  · subst h1
+    by_cases hd : p.2.1 = 0
+    · left
+      apply linkSector_temporal_t_ge_half _ hd
+      rw [hM_eq]; exact ht
+    · apply linkSector_spatial_t_ge_half_or_zero _ hd
+      right; rw [hM_eq]; exact ht
+  · subst h2
+    by_cases hd1 : p.2.1 = 0
+    · have hd2 : p.2.2 ≠ 0 := by rw [hd1] at hμν; exact fun h => hμν h.symm
+      apply linkSector_spatial_t_ge_half_or_zero _ hd2
+      show ((shiftSite p.1 p.2.1) 0).val = 0 ∨ L / 2 ≤ ((shiftSite p.1 p.2.1) 0).val
+      rw [hd1, shiftSite_temporal_time_val, hM_eq]
+      -- (t+1) % L: either = 0 (when t = L-1) or ≥ M+1 ≥ M.
+      by_cases h_t_last : (p.1 0).val = L - 1
+      · left
+        rw [h_t_last]
+        have : L - 1 + 1 = L := by omega
+        rw [this, Nat.mod_self]
+      · right
+        have h_t_lt_last : (p.1 0).val + 1 < L := by omega
+        have h_mod : ((p.1 0).val + 1) % L = (p.1 0).val + 1 :=
+          Nat.mod_eq_of_lt h_t_lt_last
+        rw [h_mod]; omega
+    · by_cases hd2 : p.2.2 = 0
+      · left
+        apply linkSector_temporal_t_ge_half _ hd2
+        rw [shiftSite_spatial_time_val hd1, hM_eq]; exact ht
+      · apply linkSector_spatial_t_ge_half_or_zero _ hd2
+        right; rw [shiftSite_spatial_time_val hd1, hM_eq]; exact ht
+  · subst h3
+    by_cases hd2 : p.2.2 = 0
+    · have hd1 : p.2.1 ≠ 0 := by rw [hd2] at hμν; exact hμν
+      apply linkSector_spatial_t_ge_half_or_zero _ hd1
+      show ((shiftSite p.1 p.2.2) 0).val = 0 ∨ L / 2 ≤ ((shiftSite p.1 p.2.2) 0).val
+      rw [hd2, shiftSite_temporal_time_val, hM_eq]
+      by_cases h_t_last : (p.1 0).val = L - 1
+      · left
+        rw [h_t_last]
+        have : L - 1 + 1 = L := by omega
+        rw [this, Nat.mod_self]
+      · right
+        have h_t_lt_last : (p.1 0).val + 1 < L := by omega
+        have h_mod : ((p.1 0).val + 1) % L = (p.1 0).val + 1 :=
+          Nat.mod_eq_of_lt h_t_lt_last
+        rw [h_mod]; omega
+    · by_cases hd1 : p.2.1 = 0
+      · left
+        apply linkSector_temporal_t_ge_half _ hd1
+        rw [shiftSite_spatial_time_val hd2, hM_eq]; exact ht
+      · apply linkSector_spatial_t_ge_half_or_zero _ hd1
+        right; rw [shiftSite_spatial_time_val hd2, hM_eq]; exact ht
+  · subst h4
+    by_cases hd : p.2.2 = 0
+    · left
+      apply linkSector_temporal_t_ge_half _ hd
+      rw [hM_eq]; exact ht
+    · apply linkSector_spatial_t_ge_half_or_zero _ hd
+      right; rw [hM_eq]; exact ht
+
+/-! ## §9 — The no-straddling theorem. -/
+
+/-- **★ NO-STRADDLING ★** For `Even L` and non-diagonal plaquette
+`p = (x, μ, ν)` with `μ ≠ ν`, every link of `p` has sector
+`plaquetteSector p` or `zero`.
+
+Equivalently: no plaquette has both a `Λ₊` link and a `Λ₋` link.
+This is Legion's §4 measured property, now a theorem. -/
+theorem no_straddling (hL : Even L) (p : Plaquette L)
+    (hμν : p.2.1 ≠ p.2.2) (ℓ : LatticeLink L)
+    (hℓ : ℓ = (p.1, p.2.1) ∨ ℓ = (shiftSite p.1 p.2.1, p.2.2)
+             ∨ ℓ = (shiftSite p.1 p.2.2, p.2.1) ∨ ℓ = (p.1, p.2.2)) :
+    linkSector ℓ = plaquetteSector p ∨ linkSector ℓ = LinkSector.zero := by
+  unfold plaquetteSector
+  by_cases ht : (p.1 0).val < L / 2
+  · simp only [if_pos ht]
+    exact plaquette_links_plusOrZero hL p hμν ht ℓ hℓ
+  · simp only [if_neg ht]
+    exact plaquette_links_minusOrZero hL p hμν (Nat.not_lt.mp ht) ℓ hℓ
+
 end
 
 end PF.YangMills
@@ -242,3 +504,13 @@ end PF.YangMills
 #print axioms PF.YangMills.timeReflectionSite_time_val
 #print axioms PF.YangMills.shiftTimeNeg_timeReflectionSite_time_val
 #print axioms PF.YangMills.linkSector_linkTheta
+#print axioms PF.YangMills.plaquetteSector
+#print axioms PF.YangMills.shiftSite_spatial_time_val
+#print axioms PF.YangMills.shiftSite_temporal_time_val
+#print axioms PF.YangMills.linkSector_temporal_t_lt_half
+#print axioms PF.YangMills.linkSector_temporal_t_ge_half
+#print axioms PF.YangMills.linkSector_spatial_t_le_half
+#print axioms PF.YangMills.linkSector_spatial_t_ge_half_or_zero
+#print axioms PF.YangMills.plaquette_links_plusOrZero
+#print axioms PF.YangMills.plaquette_links_minusOrZero
+#print axioms PF.YangMills.no_straddling
