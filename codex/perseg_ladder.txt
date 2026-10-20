@@ -1,0 +1,29 @@
+====================================================================================================
+PER-SEGMENT-OPTIMAL LADDER: where each density rung begins
+====================================================================================================
+  centre c   D   scheme        Mc_lb |  r=1/16 need       1/32       1/64   best r
+    6.8750   1   mmmrrr   0.14722119 | <- rung starts here, r = 1/16, 6 modules, 0.75 h/box
+   10.1250   2   mmmrrr   0.02603606 | <- rung starts here, r = 1/16, 12 modules, 1.50 h/box
+   11.1250   4   mmmrrr   0.01410700 | <- rung starts here, r = 1/16, 24 modules, 3.00 h/box
+   11.7500   8   mmmmrr   0.00931894 | <- rung starts here, r = 1/16, 48 modules, 6.00 h/box
+   11.9688   4   mmmrrr   0.00472851 | <- rung starts here, r = 1/32, 24 modules, 3.00 h/box
+   12.0938   8   mmmmrr   0.00638390 | <- rung starts here, r = 1/32, 48 modules, 6.00 h/box
+   12.5312  16   mmmmrr   0.00429855 | <- rung starts here, r = 1/32, 96 modules, 12.00 h/box
+   12.6406   8   mmmmrr   0.00290572 | <- rung starts here, r = 1/64, 48 modules, 6.00 h/box
+   12.8594  16   mmmmrr   0.00267209 | <- rung starts here, r = 1/64, 96 modules, 12.00 h/box
+----------------------------------------------------------------------------------------------------
+  64 boxes, frontier 13.000000 REACHED 13
+  1860 panel modules, 232.5 h serial (9.7 days)
+
+  THE LADDER:
+                 c range   D   scheme  mods  h/box  boxes              r  subtotal
+    [ 6.8750,10.0000]   1   mmmrrr     6   0.75     26           1/16     19.5h
+    [10.1250,11.0000]   2   mmmrrr    12   1.50      8           1/16     12.0h
+    [11.1250,12.0312]   4   mmmrrr    24   3.00      7      1/16,1/32     21.0h
+    [11.7500,12.8281]   8   mmmmrr    48   6.00     16 1/16,1/32,1/64     96.0h
+    [12.5312,12.9844]  16   mmmmrr    96  12.00      7      1/32,1/64     84.0h
+
+  TOTAL 232 h serial = 9.7 days continuous, 1860 new panel modules
+  vs Rio's ~6 h x boxes = 384 h  -> ladder is 0.61x of it
+
+[exited with code 0]
