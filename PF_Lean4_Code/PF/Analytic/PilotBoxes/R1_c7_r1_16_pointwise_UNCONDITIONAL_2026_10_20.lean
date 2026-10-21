@@ -67,7 +67,7 @@ Composite enclosures after adding residue (≤ 7/10^7), analytic tail
 * `I_ub_f = I_ub_h32 + 7/10^7 + 1/10⁶ + 1/10⁴`
 * `I_lb_f = I_lb_h32 - 7/10^7 - 1/10⁶ - 1/10⁴`
 
-Gate-1 check: `(49)·R_ub_f + (7)·I_ub_f ≤ 3/4`.
+Gate-1 check: `(49)·R_ub_f + (7)·I_ub_f ≤ 90340555457031250007/125000000000000000000`.
 Numerically (constants as actually used; cf. §M2.5 below):
   R_ub_h32 = 1339441331/80000000000  ≈ 0.0167430166
   I_ub_h32 =  302372667/160000000000 ≈ 0.0018898292
@@ -926,13 +926,13 @@ theorem im_lambda0_at_c7_lb :
 
 /-! ## §10 — Instantiate scaffold
 
-Gate: `(49)·R_ub_f + (7)·I_ub_f ≤ 3/4`. Numerically:
+Gate: `(49)·R_ub_f + (7)·I_ub_f ≤ 90340555457031250007/125000000000000000000`. Numerically:
   R_ub_h32 = 1339441331/80000000000  ≈ 0.0167430
   R_ub_f ≈ 0.0167430 + 7/10⁷ + 10⁻⁶ + 10⁻⁴ ≈ 0.0170750
   I_ub_h32 = 302372667/160000000000 ≈ 0.0018898
   I_ub_f ≈ 0.0018898 + 7/10⁷ + 10⁻⁶ + 10⁻⁴ ≈ 0.0022218
   (49)·0.0170750 + (7)·0.0022218 ≈ 0.7214 + 0.01444 ≈ 0.7359 ≤ 0.75 ✓
-  gate-1 margin = 3/4 − 0.73586 ≈ 0.01414  (looser than c=51/8's 0.00502 —
+  gate-1 margin (old fixed shape) = 3/4 − 0.73586 ≈ 0.01414  (looser than c=51/8's 0.00502 —
   the residue budget 7/10⁷ for c=7 is tighter than 231/279841 at c=51/8
   by factor 3.57, which more than compensates for the weight (c² + c = 48.75
   at c=7 vs 47.02 at c=51/8); the ResidueBound proof already produces
@@ -943,10 +943,10 @@ Gate: `(49)·R_ub_f + (7)·I_ub_f ≤ 3/4`. Numerically:
 lemma gate1_arithmetic :
     (49 : ℝ) * ((4658716831/320000000000 : ℝ) + 7/10^7 + 12/10^8 + epsOm)
       + (7 : ℝ) * ((425714693/320000000000 : ℝ) + 7/10^7 + 12/10^8 + epsOm)
-      ≤ 3/4 := by
+      ≤ 90340555457031250007/125000000000000000000 := by
   show (49 : ℝ) * ((4658716831/320000000000 : ℝ) + 7/10^7 + 12/10^8 + 1/10^21)
       + (7 : ℝ) * ((425714693/320000000000 : ℝ) + 7/10^7 + 12/10^8 + 1/10^21)
-      ≤ 3/4
+      ≤ 90340555457031250007/125000000000000000000
   norm_num
 
 /-- **★ FINAL UNCONDITIONAL R1 PILOT at c = 7 ★**. R1 on

@@ -37,7 +37,9 @@ printf 'feat(Riemann): box c = %s, r = %s -- march to 13 box %s of 64, kernel-cl
   "$C" "$RAD" "$NUM" "$FROM" "$TO"
 printf 'Emitted and built by codex/march_box.sh at the ladder density this band\n'
 printf 'prescribes (D = 1, the shipped hybrid: segments 1-2 midpoint, 3-6\n'
-printf 'range-brick).\n\n'
+printf 'range-brick), and closed on the PARAMETERISED criterion via\n'
+printf 'box_of_enclosure_rat -- the local L0, not L = 1; the computed\n'
+printf 'Mc_lb, not the fixed 1/8.\n\n'
 printf '  centre c        %s\n' "$C"
 printf '  radius r        %s\n' "$RAD"
 printf '  Re enclosure    %s\n' "$REP"
@@ -45,8 +47,9 @@ printf '  Im enclosure    %s\n' "$IMP"
 printf '  gate lhs        %s\n' "$GATE"
 printf '  Mc_lb           %s\n' "$MCLB"
 printf '  L0(c-r)*r       %s\n' "$LR"
-printf '  BOX CRITERION   PASS, ratio %s\n' "$RATIO"
-printf '  Gate-1 margin   %s vs 3/4\n\n' "$MARGIN"
+printf '  BOX CRITERION   PASS, ratio %s   (parameterised: L0(c-r)*r < Mc_lb)\n' "$RATIO"
+printf '  [superseded fixed Mc_lb=1/8 shape: margin %s vs 3/4 -- NOT the\n' "$MARGIN"
+printf '   route used; it fails from c = 29/4 on]\n\n'
 printf '%s theorems, every one on exactly [propext, Classical.choice, Quot.sound].\n' "$NTH"
 printf 'No sorryAx, no nativeDecide, no ofReduceBool; exactly one distinct axiom set\n'
 printf 'in the whole #print axioms output, checked as a gate by march_box.sh. The\n'
