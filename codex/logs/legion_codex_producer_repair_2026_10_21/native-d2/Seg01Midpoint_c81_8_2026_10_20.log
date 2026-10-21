@@ -1,0 +1,35 @@
+'PrincipiaTractalis.FourierPanels_c81_8.Seg01Midpoint.m01p1_plus_integral_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.Seg01Midpoint.m01p1_minus_integral_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.Seg01Midpoint.m01p8_plus_integral_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.Seg01Midpoint.m01p8_minus_integral_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+	Command being timed: "taskset -c 0,1 lake env lean -o .lake/build/lib/lean/PF/Analytic/FourierPanels/Seg01Midpoint_c81_8_2026_10_20.olean PF/Analytic/FourierPanels/Seg01Midpoint_c81_8_2026_10_20.lean"
+	User time (seconds): 509.51
+	System time (seconds): 23.77
+	Percent of CPU this job got: 106%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:20.98
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 13826896
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 161
+	Minor (reclaiming a frame) page faults: 3888571
+	Voluntary context switches: 43285
+	Involuntary context switches: 22480
+	Swaps: 0
+	File system inputs: 20544
+	File system outputs: 9896
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

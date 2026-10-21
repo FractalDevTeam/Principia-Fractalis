@@ -1,0 +1,38 @@
+=== gen_box: c = 81/8 (10.125000), r = 1/16, D = 2, tag = c81_8 ===
+  geometry  : 12 sub-segments x 8 panels, h = 1/64, 4 midpoint + 8 range
+  port      : CoreDefs_c81_8_2026_10_16.lean
+  port      : ResidueBound_c81_8_three_halves_to_5_2026_10_20.lean
+  port      : ResidueBoundTight_c81_8_2026_10_20.lean
+  port      : AnalyticTailBound_c81_8_2026_10_20.lean
+  port      : OmegaTailBound_c81_8_2026_10_20.lean
+  range   seg1: Seg01Range_c81_8_2026_10_16.lean
+  range   seg2: Seg02Range_c81_8_2026_10_16.lean
+  range   seg3: Seg03Range_c81_8_2026_10_16.lean
+  range   seg4: Seg04Range_c81_8_2026_10_16.lean
+  range   seg5: Seg05Range_c81_8_2026_10_16.lean
+  range   seg6: Seg06Range_c81_8_2026_10_16.lean
+  range   seg7: Seg07Range_c81_8_2026_10_16.lean
+  range   seg8: Seg08Range_c81_8_2026_10_16.lean
+  range   seg9: Seg09Range_c81_8_2026_10_16.lean
+  range   seg10: Seg10Range_c81_8_2026_10_16.lean
+  range   seg11: Seg11Range_c81_8_2026_10_16.lean
+  range   seg12: Seg12Range_c81_8_2026_10_16.lean
+  midpnt  seg1: Seg01Midpoint_c81_8_2026_10_20.lean  T=1/8 M=30 targets=[27, 1, 1]
+  midpnt  seg2: Seg02Midpoint_c81_8_2026_10_20.lean  T=1/4 M=30 targets=[27, 1, 1]
+  midpnt  seg3: Seg03Midpoint_c81_8_2026_10_20.lean  T=3/8 M=30 targets=[27, 1, 1]
+  midpnt  seg4: Seg04Midpoint_c81_8_2026_10_20.lean  T=1/2 M=30 targets=[27, 1, 1]
+
+  hybrid plus  [0,3/2] : [0.0088139315, 0.0092209386]
+  hybrid minus [0,3/2] : [0.0005484700, 0.0008196084]
+  gate lhs = 0.95368118
+  provable Mc_lb = (1-gate)/2 = 0.02315941
+  L0(10.0625)*r      = 0.00624767
+  BOX CRITERION  L0*r < Mc_lb : PASS  (ratio 3.7x)
+  [old shape, Mc_lb=1/8] margin vs 3/4 = -0.20368118 FAIL
+  BOX CRITERION PASSES
+  assemble  : Assemble_c81_8_threehalves_HYBRID_2026_10_20.lean  (margin -0.20368118)
+  pilot     : R1_c81_8_r1_16_HYBRID_2026_10_20.lean
+  pilot     : R1_c81_8_r1_16_pointwise_UNCONDITIONAL_2026_10_20.lean
+
+  build order (19 modules) -> _buildorder.txt
+  emitted but NOT imported (do not compile): Seg02Range_c81_8_2026_10_16, Seg03Range_c81_8_2026_10_16, Seg04Range_c81_8_2026_10_16
