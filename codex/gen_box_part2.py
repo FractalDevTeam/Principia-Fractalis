@@ -9,10 +9,29 @@ import re
 from fractions import Fraction as F
 
 LF = chr(10)
+N_PANELS = 8            # panels per MODULE -- fixed, never scaled with density
+
+
+# Density-dependent geometry. gen_box.set_density() is the SINGLE writer and
+# pushes into this module directly. It must not be re-derived by importing
+# gen_box: that script runs as __main__, so `import gen_box` would load a
+# second, pristine copy whose geometry is still the D = 1 default -- which is
+# exactly the bug that made emit_assemble raise KeyError('plus', 3, 1) at D = 2.
 PANEL_WIDTH = F(1, 32)
-N_PANELS = 8
 MID_SEGS = (1, 2)
 RANGE_SEGS = (1, 2, 3, 4, 5, 6)
+
+
+def _geom():
+    return PANEL_WIDTH, MID_SEGS, RANGE_SEGS
+
+
+def seg_mod_range(s):
+    return f"Seg{s:02d}Range"
+
+
+def seg_mod_mid(s):
+    return f"Seg{s:02d}Midpoint"
 
 
 # --------------------------------------------------------------------------
@@ -25,12 +44,13 @@ def _parse_midpoint_literals(c, tag, outdir):
     ascription in the assemble matches byte-for-byte; a mismatch there would be
     a defeq failure at elaboration, not a numeric error."""
     import re as _re
+    PANEL_WIDTH, MID_SEGS, RANGE_SEGS = _geom()
     t = tag(c)
     out = {}
     for s_idx in MID_SEGS:
-        path = os.path.join(outdir, f"Seg0{s_idx}Midpoint_{t}_2026_10_20.lean")
+        path = os.path.join(outdir, f"{seg_mod_mid(s_idx)}_{t}_2026_10_20.lean")
         txt = io.open(path, encoding="utf-8").read()
-        pat = (r"theorem m0(\d)p(\d)_(plus|minus)_integral_bound\s*:\s*"
+        pat = (r"theorem m(\d+)p(\d+)_(plus|minus)_integral_bound\s*:\s*"
                r"\((-?[0-9.]+) : ℝ\)\s*≤\s*\(∫ u in \((-?[0-9.]+) : ℝ\)\.\."
                r"\((-?[0-9.]+) : ℝ\),[^)]*\)\s*∧[^≤]*≤\s*\((-?[0-9.]+) : ℝ\)")
         n = 0
@@ -46,6 +66,7 @@ def _parse_midpoint_literals(c, tag, outdir):
 def emit_assemble(c, tag, lean_frac, dec, outdir, panels, bounds, M_by_seg):
     """`panels`: list of (kind, seg, k, a, b) in increasing u.
        `bounds[(side, kind, seg, k)] = (lo, hi)` exact Fractions on nodeR."""
+    PANEL_WIDTH, MID_SEGS, RANGE_SEGS = _geom()
     raw = _parse_midpoint_literals(c, tag, outdir)
     t = tag(c)
     L = []
@@ -79,9 +100,11 @@ Authors: Pablo Cohen + Claude Opus 5 (1M context). 2026-10-20.
 
 """)
     for s in MID_SEGS:
-        w(f"import PF.Analytic.FourierPanels.Seg0{s}Midpoint_{t}_2026_10_20\n")
-    for s in (3, 4, 5, 6):
-        w(f"import PF.Analytic.FourierPanels.Seg0{s}Range_{t}_2026_10_16\n")
+        w(f"import PF.Analytic.FourierPanels.{seg_mod_mid(s)}_{t}_2026_10_20\n")
+    for s in RANGE_SEGS:
+        if s in MID_SEGS:
+            continue
+        w(f"import PF.Analytic.FourierPanels.{seg_mod_range(s)}_{t}_2026_10_16\n")
     w(f"""
 set_option autoImplicit false
 set_option maxHeartbeats 2000000
@@ -160,7 +183,7 @@ theorem mid_to_node_minus (a b : ℝ) :
   ∧ (∫ u in ({dec(a)} : ℝ)..({dec(b)} : ℝ), {FN[side]} u) ≤ ({dec(hi)} : ℝ) := by
   have b : ({rlo} : ℝ) ≤ {integ}
       ∧ {integ} ≤ ({rhi} : ℝ) :=
-    Seg0{s}Midpoint.m0{s}p{p}_{side}_integral_bound
+    {seg_mod_mid(s)}.m{s:02d}p{p}_{side}_integral_bound
   rw [{BR[side]}] at b
   exact ⟨by linarith [b.1], by linarith [b.2]⟩
 
@@ -195,7 +218,7 @@ theorem {nm} :
                 if kind == "mid":
                     w(f"    have b{i} := hm{s}{p}_{side}\n")
                 else:
-                    w(f"    have b{i} := Seg0{s}Range.s0{s}p{p}_{side}_integral_bound\n")
+                    w(f"    have b{i} := {seg_mod_range(s)}.s{s:02d}p{p}_{side}_integral_bound\n")
             for k in range(1, len(blk)):
                 x, y = blk[k][3], blk[k][4]
                 w(f"""    have k{k} : (∫ u in ({dec(A)} : ℝ)..({dec(x)} : ℝ), {fn} u)
