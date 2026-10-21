@@ -1,0 +1,12 @@
+# D=2 test box c=81/8 -- Seg01 pack, EMITTED AND BUILT, NOT LANDED (Rio §2 LEGION task 4)
+# Regenerate: cd codex && python3 gen_box.py --c 81/8 --r 1/16 --density 2 --out <dir>
+# Build evidence below is the #print axioms output, matched directive-by-directive
+# by codex/check_march_axioms.py. Sources live untracked in PF/Analytic/FourierPanels/.
+
+axiom-bar OK: d2seg01_CoreDefs_c81_8_2026_10_16.log: 10 declarations, all [propext, Classical.choice, Quot.sound]
+axiom-bar OK: d2seg01_Seg01Range_c81_8_2026_10_16.log: 54 declarations, all [propext, Classical.choice, Quot.sound]
+axiom-bar OK: d2seg01_Seg01Midpoint_c81_8_2026_10_20.log: 4 declarations, all [propext, Classical.choice, Quot.sound]
+
+CoreDefs_c81_8_2026_10_16 rc=0 17:09:34 freeGB=9
+Seg01Range_c81_8_2026_10_16 rc=0 17:16:48 freeGB=11
+Seg01Midpoint_c81_8_2026_10_20 rc=0 17:24:25 freeGB=10
