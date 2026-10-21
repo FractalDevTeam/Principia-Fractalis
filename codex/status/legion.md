@@ -1,127 +1,151 @@
 # LEGION — status
 
-**Updated:** 2026-10-21 18:2x · **Owner:** Legion session (march ownership, pipeline, research)
+**Updated:** 2026-10-21 evening · **Owner:** Legion session (march ownership, pipeline, research)
 
 ## Current task
 
-§2 LEGION items 1–2 are **done**; item 3 (D=2 band on the repaired producer) is
-**blocked on two decisions that are Pablo's**, below. The D=1 band is running
-unattended and is the only build I have in flight.
-
-## Last landed
-
-| commit | what |
-|---|---|
-| `5c48f698` | lock contention no longer stops the band (shared flock with YM) |
-| `48ef3fca` | §0B study answer: the asymmetry analog exists and is deleted by construction |
-| `2089b8b5` | march priced against the deployed criterion; `march_schedule.txt` (36 rows) |
-| `b2c3a26c` | Legion native-build standup; panel modules need 7 GB not 12 |
-| `ab2a4586` | **§2 task 1** producer pipeline repair + input drift guard |
-| `89a5fdb1` | `ω(1) ≤ 1/22`, `L0_le_rat`, `box_of_enclosure_rat` |
-
-§2 task-by-task: **1** done (`ab2a4586`, 9/9 md5). **2** and **5** were already
-done by Acer on the same instruction set — I verified rather than duplicated
-(see that commit body). **3** done: landed c=7 regenerates **16/16
-byte-identical** from the repo producer. **4** done: D=2 box emitted at c=81/8,
-Seg01 pack built, **not landed** — evidence in `codex/data/`.
+Driving the D=1 band to the c=10 stop (Rio, evening). Two script fixes are
+staged for **the stop, not before**. BSD gap-curve **pre-flight is below and
+complete**; no proof code written yet.
 
 ## In flight
 
-* **D=1 band**, `codex/march_run.sh` under `nohup setsid` on Acer. 24 boxes
-  landed, frontier **9.8125**, building **c=39/4**. Hard-stops at c = 10.0625
-  per §0.7. Its untracked `_c39_4_` files in `PF/Analytic/` are the in-flight
-  box — **`commit_box.sh` will add them; no other session should.**
-* Nothing else of mine is building. The Legion-side native builds are finished.
+* **D=1 band**, `codex/march_run.sh` on Acer. 24 boxes landed, frontier
+  **9.8125**; building **c=39/4** (Seg01Midpoint done 18:29, ~20 min left).
+  Then **79/8**, then **c=10** → stop at frontier 10.0625.
+  Untracked `_c39_4_` files in `PF/Analytic/` are that in-flight box —
+  **`commit_box.sh` adds them; no other session should.**
+* Nothing of mine building on Legion.
 
-## §0.7 is now superseded by evidence, and that is my doing to report
+## Staged for the band stop — one commit, then push immediately
 
-§0.7 says the deployed producer is `/tmp/prod/gen_box.py` with no density
-machinery, and the repo producer cannot run from the tree. **Both halves are
-fixed as of `ab2a4586`:** the nine inputs are committed at
-`codex/gen/`, `codex/addons/` and `codex/R1_c27_4_…UNCONDITIONAL_2026_10_19.lean`,
-the repo producer runs from the tree, and `march_box.sh` points at it (Acer's
-edit). The producer now also refuses to start if any input drifts.
+Per Rio: scripts do not change mid-flight.
 
-§0.7's other clause — "the march hard-stops at c=10 until the pipeline is
-repaired" — I have **not** overridden. The band still stops at the D=1 band
-edge, because going past it needs the decisions below.
+1. **`march_box.sh`: `flock -n` → blocking `flock -w <timeout>`**, matching
+   Acer's `-x` convention. My diagnosis confirmed: the fail-fast `-n` in the box
+   script is the layer that turned contention into a stop. The `march_run.sh`
+   retry (`5c48f698`) stays as belt-and-braces.
+2. **`march_box.sh`: add `-M 7000`** to its `lake env lean` calls. Basis:
+   capped panel builds measured 54/54 and 4/4 declarations on the three-axiom
+   bar; the band runs at **12.3 GB of 15**; the cap costs ~16% on range modules
+   and **nothing** on midpoint (449 s capped vs ~461 s uncapped).
 
-## Two decisions for Pablo, blocking §2 item 3
+`march_box.sh` is Acer's file — Rio ruled both changes mine to make at the stop.
 
-1. **`--extend-midpoint` on or off for D ≥ 2.** Measured: with the default
-   boundary the march **does not reach 13 under any safety factor** (stops at
-   12.906250). Extending it is free — same tier, same M-bound proof,
-   byte-identical at D = 1 — and takes 397.8 h → **225.3 h**. It changes every
-   emitted box past the band edge, so I have not turned it on.
-2. **The safety factor.** §0.8 is right that the deployed march applies none.
-   That is currently true by default rather than by decision: at the default
-   boundary, requiring 1.25× makes 13 unreachable. With the extension it costs
-   62 h (287.5 vs 225.3). This is a claim-strength call.
+## BSD gap-curve PRE-FLIGHT — complete, no proof code written
 
-## Lanes I would cross — flagged before starting, per §1
+### Curve: **91a1**, `y² + y = x³ + x`, `(a₁..a₆) = (0,0,1,1,0)`, `P = (0,0)`
 
-* `codex/march_box.sh` — **Acer owns it** (Acer pointed it at the repo producer
-  and added `check_march_axioms.py`). I propose **two** changes and have made
-  **neither**: align its `flock -n` to a blocking `flock -w` to match Acer's own
-  `-x` convention (see Conflicts below), and add `-M 7000` to its
-  `lake env lean` calls. Measured basis: panel
-  modules build fine capped (54/54 and 4/4 declarations on the bar), the band
-  currently runs at **12.3 GB of 15**, and the cap costs ~16% on range modules
-  and **nothing** on midpoint (449 s capped vs ~461 s uncapped). Acer's call.
-* `PF/Analytic/TransferOperator.lean` — three docstrings (1244, 3050, 3854) call
-  `T3_self_adjoint_conj` an `axiom`; the file has **zero** axioms and it is a
-  proved theorem (line 3545). Not edited: that module is inside the march's
-  dependency closure, so touching it mid-band invalidates oleans the running
-  band depends on. For whoever holds the file, after the band.
+**102a1 is excluded, not a free choice** — two in-tree records flag rational
+2-torsion at `x = 0` breaking the pipeline (`BSD_91A1_SPEC_2026-10-19` §1.3).
 
-## Outside the repo — everything the program depends on that is not committed
+### Cheap falsification step — RUN, all five checks pass
 
-Shipped in this update: `codex/data/rss_peaks_2026-10-21.log` (100 measured
-per-module peak-RSS samples — the evidence for the 7 GB cap),
-`codex/data/d2_c81_8_seg01_evidence_2026-10-21.txt` (task-4 axiom output),
-`codex/legion_build10.sh` (the Legion native serial capped builder).
+| check | result |
+|---|---|
+| `Disc = −91` from `b₂,b₄,b₆,b₈ = 0,2,1,−1` | **OK** |
+| b-relation `b₂b₆ − b₄² = 4b₈` | **OK** (−4 = −4) |
+| `P = (0,0)` on the curve | **OK** |
+| `−P = (0,−1) ≠ P` ⇒ not 2-torsion | **OK** |
+| `2ⁿP` for n = 1…5 all on curve, no `O` | **OK**, `x`-heights 1 → 9 → 8845 → 6.09e15 → **1.24e60** |
 
-Named, not shipped:
+The height growth (roughly squaring per doubling) is exactly the premise the
+duplication window supplies. Nothing here is taken from the spec file; it was
+recomputed.
 
-| lives at | what it is | if lost |
+### Route: **(b), the universal instantiation — NOT the ~800-line route**
+
+The repo's own `BSD_91A1_SPEC_2026-10-19` §3–4 priced both and recommended (b):
+
+| # | item | size |
 |---|---|---|
-| `/tmp/d2test/` on Acer, 26 files | the emitted D=2 box at c=81/8 (task 4) | regenerate: `cd codex && python3 gen_box.py --c 81/8 --r 1/16 --density 2 --out <dir>` |
-| `PF/Analytic/FourierPanels/{CoreDefs,Seg01Range,Seg01Midpoint}_c81_8_*.lean` | the 3 task-4 sources, installed untracked so Lean could resolve module paths | regenerate as above; **deliberately not landed** |
-| `/tmp/prod/` on Acer | the **superseded** pre-repair producer; `march_box.sh` keeps it as a commented emergency fallback | its `gen_box.py` has **no density machinery** — do not re-point at it without re-reading §0.7 |
-| `/tmp/prodD/`, `/tmp/prodR/` on Acer | new-vs-reference producer copies used for the D=1 byte-identity test | regenerable from git history |
-| `/tmp/march_*` logs, `/tmp/d2seg01_*`, `/tmp/sched2.log`, `/tmp/closure.txt` | band and build logs; the 428-module closure used for the staleness check | evidence only; conclusions are in the commit bodies |
-| `D:\CLAUDE-i9\_tmp\pf-ocirc-verify-20261001\PF_Lean4_Code` on Legion | **the second build host.** Current PF sources + packages junction + 1732 cached oleans + the 13 modules I built natively | not shippable (build cache). Recipe is in my memory note `infrastructure_legion_lean_verify_tree`; manifest md5 matches Acer's `ce569bf7…` |
-| `D:\CLAUDE-i9\_tmp\legion_*.log`, `lb_*.log` | native-build evidence (rc, timings, axiom output) | the conclusions are in `b2c3a26c` |
-| Legion session scratchpad (`…\Temp\claude\…\scratchpad\`) | `patch_*.py` producer patch scripts, `ref/` pre-density producer snapshot, commit-message drafts | historical; the producer itself is committed, so none is load-bearing |
+| 1 | **`window ⇒ ¬IsOfFinAddOrder`, universal** — lift `E43a1RankOne_r135:777–789` off 43a1's constants. **This is the whole gap.** | ~80–150 L |
+| 2 | `b_relation_91a1`, `disc_91a1` (both `decide`/`norm_num`, verified above) | ~15 L |
+| 3 | `E_91a1_rank_ge_one` via `mordellWeil_rank_ge_one` | ~20 L |
+| | total | **~120–200 L** |
 
-**Legion is a build host, not just an analysis seat.** It builds march modules
-natively with identical evidence to Acer (same declaration counts, same axiom
-set). It is **not** currently taking band boxes: with `-M 7000` it can, but the
-split needs decision 1 above and Acer's agreement on `march_box.sh`.
+Route (a) is the ~800-line longhand in Rio's note. I am **not** taking it: it is
+the *twelfth* hand-written copy of a shape already written eleven times, and it
+leaves 131a1/141a1 as expensive as they are today. After item 1, each remaining
+gap curve is items 2+3 ≈ **35 lines**.
+
+### Load-bearing facts, all present in-tree
+
+* `PF/DuplicationHeightUniversal_r176.lean` — the universal height window; its
+  own comment says it applies "with no curve-specific input whatsoever", and
+  `window_389a1` is four lines.
+* `PF/E43a1RankOne_r135.lean:777–789` — the non-torsion argument to lift. Uses
+  only `pts n = 2ⁿ • P`, the window's growth, and mathlib's
+  `IsOfFinAddOrder.finite_zmultiples`. ~60 of E43a1's 815 lines; **the only part
+  never universalised**.
+* `MordellWeilRankLowerBound_r129.mordellWeil_rank_ge_one` — two live consumers
+  (`Ch24CurveANonTorsion_2026_10_15:492`, `Ch24CurveARankGeOne_2026_10_15:236`).
+* mathlib at the pin has **no `L(E,s)`**, so nothing here touches analytic rank.
+
+### Divergence from the instruction, stated before starting
+
+Rio's note says "~800-line 2-descent route to **an exact rank statement**".
+Three things in the repo's own adjudication cut against that, and I am not
+silently reconciling them:
+
+1. **The target cannot be an exact rank on 91a1 by this route.** What routes
+   (a) and (b) both deliver is `1 ≤ Module.rank ℤ E.toAffine.Point` — a **lower**
+   bound from a non-torsion point. `rank = 0` is **false** for all four gap
+   curves (they are rank ≥ 1).
+2. **"2-descent" names a different object here.** The in-tree 2-descent chain
+   (`5ea7e0e9`+`4028e3c0`+`3e58279d`, on `y² = x³ + x`) is an **upper** bound
+   proving rank 0 — opposite direction, disjoint machinery from the height
+   descent used for lower bounds.
+3. **An exact rank needs the upper bound, and 91a1 is the wrong curve for it.**
+   `BSD_SCOPING…_2026-10-17:190` concludes a first upper bound "should be
+   attempted on a newly chosen curve with rational 2-torsion". 2-Selmer
+   finiteness is the route (`rank ≤ dim_F₂ Sel₂ − dim_F₂ E(ℚ)[2]`), and it has
+   never been walked in this tree.
+
+**What I will build, absent a contrary ruling:** items 1–3 above, target
+`1 ≤ Module.rank ℤ E_91a1.toAffine.Point`, kernel-clean on the three-axiom bar.
+That is a genuine new theorem and it makes the remaining gap curves cheap. It is
+**not** an exact rank statement, and I will not label it one. If an exact rank
+is the actual requirement, that is a different build on a different curve and I
+need that ruling first.
+
+Builds on Legion natively (verify tree manifest md5-matches Acer's
+`ce569bf7…`); touches neither Acer's flock nor the march. Pauses if the D=2
+decisions land.
+
+## Blocked on Pablo
+
+* **`--extend-midpoint` on/off for D ≥ 2**, and **safety 1.25× vs 1.0×**. Rio
+  recommends extend ON + 1.25×. Measured: default boundary **does not reach 13
+  under any safety factor** (stops 12.906250); extend+1.0× = 225.3 h,
+  extend+1.25× = 287.5 h, default+1.0× = 397.8 h. No D=2 boxes emitted until
+  these land (Rio: emitting early manufactures rework).
+
+## Lanes / do-not-touch
+
+* `PF/Analytic/TransferOperator.lean` — three docstrings (1244, 3050, 3854) call
+  `T3_self_adjoint_conj` an `axiom`; zero axioms in the file, it is a proved
+  theorem (3545). **Rio: leave it alone**, queued for after the march passes it.
+* `codex/status/acer.md` — the `48ef3fca` attribution is Acer's to fix. Not
+  touched.
+
+## Outside the repo
+
+Shipped earlier: `codex/data/rss_peaks_2026-10-21.log`,
+`codex/data/d2_c81_8_seg01_evidence_2026-10-21.txt`, `codex/legion_build10.sh`.
+Named, unchanged from `b8cadcac`: `/tmp/d2test/` (regenerable in one command),
+the three untracked `_c81_8_` sources (deliberately not landed), the superseded
+`/tmp/prod` and its no-density hazard, `/tmp/prodD`, `/tmp/prodR`, band logs,
+and the Legion verify tree at `D:\CLAUDE-i9\_tmp\pf-ocirc-verify-20261001\`
+(1732-olean build cache, not shippable; recipe in memory note
+`infrastructure_legion_lean_verify_tree`).
+
+**New this update:** the BSD falsification script lives only in the Legion
+scratchpad (`scratchpad/`, ~50 lines of `Fraction` curve arithmetic). It is
+named here rather than shipped because its five results are recorded in the
+table above and it is trivially rewritten; if it becomes load-bearing it ships.
 
 ## Conflicts with other sessions
 
-**Read `codex/status/acer.md` (upstream `23532902`). No conflict.** Acer's lane
-is `PF/YangMills/*` and its in-flight work is Steps 5–6 of the Fubini discharge;
-mine is the march, the producer and the Legion build host. No shared files, and
-nothing I was about to start is in flight there.
-
-(I had written "I am the first to write a status file" — wrong. My session-start
-`git pull` predated Acer's push by minutes. Corrected here rather than left
-standing, because the board is only useful if it is accurate about itself.)
-
-**Two corrections to acer.md, raised rather than edited** — it is Acer's file:
-
-1. **`48ef3fca` is Legion's commit, not Pablo's.** acer.md records "Pablo then
-   committed a fuller answer at 48ef3fca". That was this session, answering the
-   §0B study question. It matters only for routing: follow-ups on the asymmetry
-   result come here, not to Pablo.
-2. **Acer's flock convention and `march_box.sh`'s disagree, and that is the
-   whole contention bug.** acer.md states Acer takes `flock -x` — blocking,
-   exclusive wait. `march_box.sh` takes `flock -n` — fail immediately. So when
-   Acer legitimately held the lock at 17:08:51, the march read contention as
-   failure and stopped. My `5c48f698` makes `march_run.sh` retry, which works
-   but is a patch at the wrong layer. **The clean fix is to align
-   `march_box.sh` to a blocking `flock -w`, matching Acer's own convention** —
-   then the contention class disappears instead of being caught. `march_box.sh`
-   is Acer's file; I have not touched it.
+None new. `codex/status/acer.md` (upstream) has Acer in `PF/YangMills/*` on
+Fubini Steps 5–6 — no overlap with the march, the producer, or BSD.
