@@ -30,6 +30,13 @@ HEAD=$(grep -oE "pilot_r1_box_${TAG}_[a-z0-9_]*UNCONDITIONAL" "$U" | head -1)
 FIRST=$(grep -m1 "rc=" "$PG" | awk '{print $3}')
 LAST=$(grep "uncond rc=" "$PG" | awk '{print $3}')
 MODS=$(grep -c "rc=0" "$PG")
+# Ladder ordinal, when the caller passes "-": the priced D=1 band starts at
+# c = 55/8 as box 1 and steps by 1/8, so the ordinal is 8c - 54. (Boxes
+# c = 7 and c = 57/8 were hand-labelled 1 and 2 before this existed; by the
+# ladder they are 2 and 3. The frontier line is the unambiguous record.)
+if [ "$NUM" = "-" ]; then
+  NUM=$(python3 -c "from fractions import Fraction as F; print(int(8*F('$C') - 54))") || NUM="-"
+fi
 
 MSG=$(mktemp /tmp/cm_box.XXXXXX)
 {
