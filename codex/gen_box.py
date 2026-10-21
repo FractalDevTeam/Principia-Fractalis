@@ -106,7 +106,10 @@ RANGE_SEGS = (1, 2, 3, 4, 5, 6)
 SUBSEGS = {s: (F(s - 1, 4), F(s, 4)) for s in range(1, 7)}
 
 
-def set_density(D):
+TIER_A_MAX = F(693, 1000)   # < log 2; the preamble already asserts T <= this
+
+
+def set_density(D, extend_midpoint=False):
     """Install the density-D geometry: each of the six base segments splits
     into D sub-segments of width 1/(4D), each a module of 8 panels of width
     h = 1/(32D). D must be a power of two so that every sub-segment endpoint
@@ -122,7 +125,22 @@ def set_density(D):
     # which is Tier A -- the only tier the emitted M-bound proof supports, at
     # ANY density. (price7 measured that mmrrrr reaches c = 13 at every centre,
     # so Tier B is a cost optimisation, not a prerequisite.)
-    MID_SEGS = tuple(range(1, 2 * D + 1))
+    # Midpoint boundary. The default stops at u = 1/2 (the first 2D
+    # sub-segments), which is where the six-segment geometry put it. But the
+    # tier constant the proof emits is `exp(T) <= 2`, valid for every
+    # T <= log 2 = 0.693147..., so sub-segments out to u = 0.6875 are ALREADY
+    # Tier A and need no new tier, no new Lean and no change to the M-bound
+    # proof. `extend_midpoint` takes them.
+    #
+    # Measured worth (codex/price_boundary.py): Mc_lb improves 1.11x at
+    # c = 41/4 D=2 rising to 2.36x at c = 13 D=16, and it SAVES A DENSITY RUNG
+    # from c = 12.5 on -- D=8 instead of 16 at 12.5, D=32 instead of 64 at 13 --
+    # which is the most expensive stretch of the march.
+    #
+    # Off by default so the first D>1 box validates parametric density alone;
+    # at D = 1 both settings give exactly 2, so byte-identity holds either way.
+    n_mid = int(TIER_A_MAX * 4 * D) if extend_midpoint else 2 * D
+    MID_SEGS = tuple(range(1, n_mid + 1))
     RANGE_SEGS = tuple(range(1, n + 1))
     # Push into the other half of the producer. Single writer, explicit: part2
     # must never re-import this script to discover the geometry (see the note
@@ -131,9 +149,9 @@ def set_density(D):
     P2.MID_SEGS = MID_SEGS
     P2.RANGE_SEGS = RANGE_SEGS
     for s in MID_SEGS:
-        assert SUBSEGS[s][1] <= F(1, 2), (
-            f"sub-segment {s} has T = {SUBSEGS[s][1]} > 1/2; the midpoint "
-            f"M-bound proof is Tier A only")
+        assert SUBSEGS[s][1] <= TIER_A_MAX, (
+            f"sub-segment {s} has T = {SUBSEGS[s][1]} > {TIER_A_MAX}; the "
+            f"midpoint M-bound proof emits exp(T) <= 2, which needs T <= log 2")
 
 
 def seg_mod_range(s):
@@ -595,13 +613,18 @@ def main():
                          "into D sub-segments of 8 panels, so 6D modules per "
                          "box and panel width 1/(32D). Must be a power of "
                          "two. D=1 is the shipped geometry.")
+    ap.add_argument("--extend-midpoint", action="store_true",
+                    help="take the midpoint/range boundary out to the real "
+                         "Tier-A limit T <= 693/1000 (u = 0.6875) instead of "
+                         "u = 1/2. Free -- same tier, same proof -- and worth "
+                         "a density rung from c = 12.5 on. No effect at D = 1.")
     ap.add_argument("--out", required=True)
     ap.add_argument("--work", default=None)
     args = ap.parse_args()
 
     c, r = F(args.c), F(args.r)
     assert c > 0 and r > 0
-    set_density(args.density)
+    set_density(args.density, extend_midpoint=args.extend_midpoint)
     dec(c / 2)                       # phase must be a terminating decimal
     os.makedirs(args.out, exist_ok=True)
     work = args.work or os.path.join(args.out, "_work")
