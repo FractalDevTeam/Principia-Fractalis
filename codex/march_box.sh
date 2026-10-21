@@ -12,7 +12,9 @@ set -u
 C="${1:?usage: march_box.sh CENTRE [RADIUS]}"
 RAD="${2:-1/16}"
 REPO="/Storage 2TB/home/xluxx/Principia-Fractalis-ACTIVE"
-PROD=/tmp/prod
+PROD="$REPO/codex"
+# Emergency fallback only; restore explicitly after investigating a repo failure:
+# PROD=/tmp/prod
 TAG="c$(echo "$C" | tr '/' '_')"
 ST="/tmp/march_${TAG}_status"
 PG="/tmp/march_${TAG}_progress"
@@ -73,15 +75,18 @@ taskset -c 0,1 lake env lean "PF/Analytic/PilotBoxes/$UNC" \
 rc=$?; echo "uncond rc=$rc $(date +%H:%M:%S)" >> "$PG"
 [ $rc -ne 0 ] && { echo "FAILED uncond" > "$ST"; exit 1; }
 
-# --- 4. the three-axiom bar, as a gate and not a glance -------------------
-U="/tmp/march_${TAG}_uncond.log"
-if grep -qE "sorryAx|nativeDecide|ofReduceBool" "$U"; then
-  echo "FAILED axiom bar: forbidden axiom present" > "$ST"; exit 1
-fi
-SETS=$(tr '\n' ' ' < "$U" | grep -oE "axioms: \[[^]]*\]" | tr -s ' ' | sort -u)
-N=$(grep -c "depends on axioms" "$U")
-if [ "$SETS" != "axioms: [propext, Classical.choice, Quot.sound]" ]; then
-  echo "FAILED axiom bar: unexpected set(s): $SETS" > "$ST"; exit 1
-fi
-echo "axiom-bar OK: $N theorems, all [propext, Classical.choice, Quot.sound]" >> "$PG"
-echo "DONE c=$C r=$RAD ($N theorems on the bar)" > "$ST"
+# --- 4. exact three-axiom bar on assemble, gate and unconditional logs -----
+# Match every generated #print directive to its own output. A clean pilot
+# log cannot substitute for missing or contaminated gate/assemble evidence.
+for f in "$OUT"/Assemble_*.lean "$OUT/$GATE" "$OUT/$UNC"; do
+  b=$(basename "$f" .lean)
+  case "$b" in
+    Assemble_*) AXLOG="/tmp/march_${TAG}_${b}.log" ;;
+    "${GATE%.lean}") AXLOG="/tmp/march_${TAG}_gate.log" ;;
+    *) AXLOG="/tmp/march_${TAG}_uncond.log" ;;
+  esac
+  if ! python3 "$PROD/check_march_axioms.py" "$f" "$AXLOG" >> "$PG" 2>&1; then
+    echo "FAILED axiom bar: $AXLOG -- see $PG" > "$ST"; exit 1
+  fi
+done
+echo "DONE c=$C r=$RAD (assemble, gate and unconditional on the exact three-axiom bar)" > "$ST"

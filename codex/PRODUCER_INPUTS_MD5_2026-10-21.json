@@ -1,0 +1,11 @@
+{
+  "gen/gen_fourier_panels_c27_4_midpoint.py": "ae5ddfa1b5d9f86a06da33fa06d9417f",
+  "gen/gen_fourier_panels_c27_4.py": "d6099e42384d7dab2ee2c4a6fe22aed4",
+  "addons/OmegaTailBound_c13_2_2026_10_16.lean": "52ceed2ef826f4da9be25766839222c1",
+  "addons/R1_c13_2_r1_16_pointwise_CLOSED_2026_10_16.lean": "093be8bb18f3cbb2187e991f724ab909",
+  "addons/ResidueBound_c13_2_three_halves_to_5_2026_10_16.lean": "3ff0a6a22abbda59ebc509891a46cd25",
+  "addons/AnalyticTailBound_c13_2_2026_10_16.lean": "05545cc5ad2976cd05beb051bd16306c",
+  "addons/ResidueBoundTight_c13_2_2026_10_18.lean": "8fb16c002305e20059b3bee030dc006b",
+  "addons/CoreDefs_c13_2_2026_10_16.lean": "5f47f4f2ab520da8b9754447f51a43fe",
+  "R1_c27_4_r1_16_pointwise_UNCONDITIONAL_2026_10_19.lean": "bee4d16f640ed7d0dfcab2e04e30068d"
+}

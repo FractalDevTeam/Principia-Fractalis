@@ -1,0 +1,42 @@
+{
+  "commit": "ab2a4586e48f6cbe226f20d6b7b19b2374ba2374",
+  "result": "9/9 committed inputs match deployed-input manifest",
+  "files": [
+    {
+      "file": "codex/gen/gen_fourier_panels_c27_4_midpoint.py",
+      "md5": "ae5ddfa1b5d9f86a06da33fa06d9417f"
+    },
+    {
+      "file": "codex/gen/gen_fourier_panels_c27_4.py",
+      "md5": "d6099e42384d7dab2ee2c4a6fe22aed4"
+    },
+    {
+      "file": "codex/addons/OmegaTailBound_c13_2_2026_10_16.lean",
+      "md5": "52ceed2ef826f4da9be25766839222c1"
+    },
+    {
+      "file": "codex/addons/R1_c13_2_r1_16_pointwise_CLOSED_2026_10_16.lean",
+      "md5": "093be8bb18f3cbb2187e991f724ab909"
+    },
+    {
+      "file": "codex/addons/ResidueBound_c13_2_three_halves_to_5_2026_10_16.lean",
+      "md5": "3ff0a6a22abbda59ebc509891a46cd25"
+    },
+    {
+      "file": "codex/addons/AnalyticTailBound_c13_2_2026_10_16.lean",
+      "md5": "05545cc5ad2976cd05beb051bd16306c"
+    },
+    {
+      "file": "codex/addons/ResidueBoundTight_c13_2_2026_10_18.lean",
+      "md5": "8fb16c002305e20059b3bee030dc006b"
+    },
+    {
+      "file": "codex/addons/CoreDefs_c13_2_2026_10_16.lean",
+      "md5": "5f47f4f2ab520da8b9754447f51a43fe"
+    },
+    {
+      "file": "codex/R1_c27_4_r1_16_pointwise_UNCONDITIONAL_2026_10_19.lean",
+      "md5": "bee4d16f640ed7d0dfcab2e04e30068d"
+    }
+  ]
+}

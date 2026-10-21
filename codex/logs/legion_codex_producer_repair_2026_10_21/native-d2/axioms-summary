@@ -1,0 +1,2 @@
+axiom-bar OK: Seg01Range_c81_8_2026_10_16.log: 54 declarations, all [propext, Classical.choice, Quot.sound]
+axiom-bar OK: Seg01Midpoint_c81_8_2026_10_20.log: 4 declarations, all [propext, Classical.choice, Quot.sound]

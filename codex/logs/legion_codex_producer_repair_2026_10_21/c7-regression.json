@@ -1,0 +1,73 @@
+{
+  "result": "16/16 Lean files byte-identical",
+  "files": [
+    {
+      "file": "AnalyticTailBound_c7_2026_10_20.lean",
+      "sha256": "45b755b3398582b016bac11d7ac588b5a3e24e2adf0adfc04d49438f4bd0d4ec"
+    },
+    {
+      "file": "Assemble_c7_threehalves_HYBRID_2026_10_20.lean",
+      "sha256": "cc5aa4939435070653df3f49a345be89e338a7d931453555d4a2b44c89a1715e"
+    },
+    {
+      "file": "CoreDefs_c7_2026_10_16.lean",
+      "sha256": "564d1a2c7b8878a215ce4305747b6d9e7e3bff3ea0d4119281b52e714bf04f93"
+    },
+    {
+      "file": "OmegaTailBound_c7_2026_10_20.lean",
+      "sha256": "59fe1294b07aeeedca0ff82a2f284dca559248e246d2d302e7f19d4e37bc6d2e"
+    },
+    {
+      "file": "R1_c7_r1_16_HYBRID_2026_10_20.lean",
+      "sha256": "9314e3a4728f88334020e80698f28ab466669b5d7a4c6d4d94ecd6df21d6fa3e"
+    },
+    {
+      "file": "R1_c7_r1_16_pointwise_UNCONDITIONAL_2026_10_20.lean",
+      "sha256": "daab7709c2d0b3c0d4bc3d2e3a9f2477d2c2fa9763476f2782e122aea49a9ccd"
+    },
+    {
+      "file": "ResidueBoundTight_c7_2026_10_20.lean",
+      "sha256": "c31e4ef0dcd127bc0b5811d10ef931554bbeb2260accc37acc961ab1f1f5fe73"
+    },
+    {
+      "file": "ResidueBound_c7_three_halves_to_5_2026_10_20.lean",
+      "sha256": "3b6a2227a17c505d82dead67ac689723bca8e9a2a977c0281588e4dfe26a887f"
+    },
+    {
+      "file": "Seg01Midpoint_c7_2026_10_20.lean",
+      "sha256": "c54da6fefe737b50250d43cbb2cb412d0c8eb52225842ca680c04c998d3c5114"
+    },
+    {
+      "file": "Seg01Range_c7_2026_10_16.lean",
+      "sha256": "d5fd43c55720f47e3b658269590547e443852b4c3abced719f86b4ce6d7da1ed"
+    },
+    {
+      "file": "Seg02Midpoint_c7_2026_10_20.lean",
+      "sha256": "c4fd1bd448159b6dbe40195b6d5bceb885dd6515b410fe0975599f9d6955e344"
+    },
+    {
+      "file": "Seg02Range_c7_2026_10_16.lean",
+      "sha256": "0bc8f4304161f0e2df00990edb5f9f8475e7aa8cff0087531dd9ddd5cf846f3e"
+    },
+    {
+      "file": "Seg03Range_c7_2026_10_16.lean",
+      "sha256": "689ddf91a67f061d193d4669b02a15f580ea667bc47aa62ba024254fcf7fd9de"
+    },
+    {
+      "file": "Seg04Range_c7_2026_10_16.lean",
+      "sha256": "b60ab6e735eb06fd101bd457573b12f4245d5217e8c152553df2fd106c4e5385"
+    },
+    {
+      "file": "Seg05Range_c7_2026_10_16.lean",
+      "sha256": "bbac50f395ef27b4a29ced189f11777f395a235e2354a13bf5de4d907d1435fe"
+    },
+    {
+      "file": "Seg06Range_c7_2026_10_16.lean",
+      "sha256": "e404a26caf90365d965f170c0077b09fd5296e9230f15db01f25287f96d882ad"
+    }
+  ],
+  "excluded": [
+    "_buildorder.txt and _totals.txt are generated run metadata",
+    "R1_c7_5_r0_2_2026_10_14.lean is a different historical box matched by the download glob"
+  ]
+}
