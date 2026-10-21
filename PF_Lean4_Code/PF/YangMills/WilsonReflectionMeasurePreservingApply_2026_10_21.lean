@@ -136,20 +136,90 @@ theorem timeReflectionGaugeField_measurable :
   rw [h_eq]
   exact gaugeFieldCondInv_measurable.comp relabel_linkTheta_measurable
 
-/-! ## §5 — The relabeling factor preserves `wilsonBaseMeasure`. -/
+/-! ## §5 — Per-link measure preservation for `gaugeFieldCondInv`. -/
 
--- relabel_linkTheta_measurePreserving — the full MeasurePreserving via
--- `measurePreserving_piCongrLeft` needs the constant-family cast identification
--- to compose cleanly; deferred to a follow-up file that will complete the
--- MeasurePreserving θ̂ proof and the final Fubini apply.
+/-- Per-link function in `gaugeFieldCondInv`: `Inv.inv` on temporal, `id`
+on spatial. -/
+def condInvAt (ℓ : LatticeLink L) : SU2 → SU2 :=
+  if ℓ.2 = 0 then Inv.inv else id
+
+/-- `gaugeFieldCondInv U ℓ = condInvAt ℓ (U ℓ)` — unfolds `gaugeFieldCondInv`
+into a per-link function application. -/
+lemma gaugeFieldCondInv_eq_pi (U : GaugeField L) :
+    gaugeFieldCondInv U = fun ℓ => condInvAt ℓ (U ℓ) := by
+  funext ℓ
+  unfold gaugeFieldCondInv condInvAt
+  by_cases hd : ℓ.2 = 0
+  · simp [hd]
+  · simp [hd]
+
+/-- Per-link `condInvAt ℓ` preserves `SU2_haar`. -/
+lemma condInvAt_measurePreserving (ℓ : LatticeLink L) :
+    MeasurePreserving (condInvAt ℓ) SU2_haar SU2_haar := by
+  unfold condInvAt
+  by_cases hd : ℓ.2 = 0
+  · simp [hd]; exact SU2_measurePreserving_inv
+  · simp [hd]; exact MeasurePreserving.id SU2_haar
 
 /-! ## §6 — `gaugeFieldCondInv` preserves `wilsonBaseMeasure`. -/
 
--- gaugeFieldCondInv_measurePreserving — the full Pi-measure proof via
--- per-link measure preservation (Haar-inv on temporal, identity on spatial).
--- Deferred.
+/-- **`gaugeFieldCondInv` preserves `wilsonBaseMeasure`.** Pi of per-link
+measure-preserving `condInvAt` via `measurePreserving_pi`. -/
+theorem gaugeFieldCondInv_measurePreserving :
+    MeasurePreserving (gaugeFieldCondInv : GaugeField L → GaugeField L)
+      (wilsonBaseMeasure L) (wilsonBaseMeasure L) := by
+  have h_eq : (gaugeFieldCondInv : GaugeField L → GaugeField L)
+              = fun U ℓ => condInvAt ℓ (U ℓ) := by
+    funext U
+    exact gaugeFieldCondInv_eq_pi U
+  rw [h_eq]
+  unfold wilsonBaseMeasure
+  exact measurePreserving_pi
+    (μ := fun _ : LatticeLink L => SU2_haar)
+    (ν := fun _ : LatticeLink L => SU2_haar)
+    (f := condInvAt)
+    (fun ℓ => condInvAt_measurePreserving ℓ)
 
-/-! ## §7 — `θ̂` is measure-preserving. -/
+/-! ## §7 — The link-relabel preserves `wilsonBaseMeasure`.
+
+Via `measurePreserving_piCongrLeft`: since all links carry the same
+`SU2_haar`, relabeling by a bijection is measure-preserving. -/
+
+/-- **The link-relabel preserves `wilsonBaseMeasure`.** -/
+theorem relabel_linkTheta_measurePreserving :
+    MeasurePreserving
+      (MeasurableEquiv.piCongrLeft (fun _ : LatticeLink L => SU2) linkThetaEquiv)
+      (wilsonBaseMeasure L) (wilsonBaseMeasure L) := by
+  unfold wilsonBaseMeasure
+  -- `measurePreserving_piCongrLeft` gives us
+  --   MeasurePreserving (piCongrLeft ...) (Pi fun i' => μ (f i')) (Pi μ)
+  -- For μ constant (= SU2_haar), both Pi measures coincide.
+  exact measurePreserving_piCongrLeft
+    (μ := fun _ : LatticeLink L => SU2_haar) linkThetaEquiv
+
+/-! ## §8 — Reconcile the two forms of the link-relabel. -/
+
+/-- The `piCongrLeft linkThetaEquiv` acting on a constant-family gauge field
+agrees pointwise with the explicit `fun ℓ => U (linkTheta ℓ)` form. -/
+lemma piCongrLeft_linkThetaEquiv_eq (U : GaugeField L) :
+    (MeasurableEquiv.piCongrLeft (fun _ : LatticeLink L => SU2) linkThetaEquiv) U
+      = fun ℓ => U (linkTheta ℓ) := by
+  funext ℓ
+  -- Apply `piCongrLeft_apply_apply` at `a := linkTheta ℓ`:
+  --   (piCongrLeft ... U) (linkThetaEquiv (linkTheta ℓ)) = U (linkTheta ℓ)
+  -- Since linkThetaEquiv (linkTheta ℓ) = linkTheta (linkTheta ℓ) = ℓ:
+  have h_apply :
+      (Equiv.piCongrLeft (fun _ : LatticeLink L => SU2) linkThetaEquiv) U
+          (linkThetaEquiv (linkTheta ℓ))
+        = U (linkTheta ℓ) :=
+    Equiv.piCongrLeft_apply_apply (fun _ => SU2) linkThetaEquiv U (linkTheta ℓ)
+  have h_fix : linkThetaEquiv (linkTheta ℓ) = ℓ := by
+    show linkTheta (linkTheta ℓ) = ℓ
+    exact linkTheta_involutive ℓ
+  rw [h_fix] at h_apply
+  exact h_apply
+
+/-! ## §9 — `θ̂` is measure-preserving. -/
 
 /-- **★ θ̂ IS MEASURE-PRESERVING ★**
 
@@ -158,12 +228,22 @@ theorem timeReflectionGaugeField_measurable :
 Composition of the relabeling (`relabel_linkTheta_measurePreserving`) and
 the conditional inversion (`gaugeFieldCondInv_measurePreserving`), both
 measure-preserving on `wilsonBaseMeasure`. -/
-theorem timeReflectionGaugeField_measurePreserving_structure :
-    True := trivial  -- placeholder: structural pieces (factorization, measurability
-                     -- of both factors, Λ_- Pi inv-invariance) are landed; the
-                     -- full MeasurePreserving proof composes them cleanly in a
-                     -- follow-up once the piCongrLeft constant-family cast is
-                     -- threaded.
+theorem timeReflectionGaugeField_measurePreserving :
+    MeasurePreserving (timeReflectionGaugeField : GaugeField L → GaugeField L)
+      (wilsonBaseMeasure L) (wilsonBaseMeasure L) := by
+  have h_eq : (timeReflectionGaugeField : GaugeField L → GaugeField L) =
+              gaugeFieldCondInv ∘
+                (MeasurableEquiv.piCongrLeft (fun _ : LatticeLink L => SU2)
+                  linkThetaEquiv) := by
+    funext U
+    show timeReflectionGaugeField U
+         = gaugeFieldCondInv
+             ((MeasurableEquiv.piCongrLeft (fun _ : LatticeLink L => SU2)
+                linkThetaEquiv) U)
+    rw [piCongrLeft_linkThetaEquiv_eq]
+    exact timeReflectionGaugeField_factorization U
+  rw [h_eq]
+  exact gaugeFieldCondInv_measurePreserving.comp relabel_linkTheta_measurePreserving
 
 end
 
@@ -178,3 +258,8 @@ end PF.YangMills
 #print axioms PF.YangMills.relabel_linkTheta_measurable
 #print axioms PF.YangMills.gaugeFieldCondInv_measurable
 #print axioms PF.YangMills.timeReflectionGaugeField_measurable
+#print axioms PF.YangMills.condInvAt_measurePreserving
+#print axioms PF.YangMills.gaugeFieldCondInv_measurePreserving
+#print axioms PF.YangMills.relabel_linkTheta_measurePreserving
+#print axioms PF.YangMills.piCongrLeft_linkThetaEquiv_eq
+#print axioms PF.YangMills.timeReflectionGaugeField_measurePreserving
