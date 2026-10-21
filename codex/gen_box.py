@@ -7,8 +7,8 @@ gen_box.py -- ONE c-parametric producer for a complete R1 pilot box.
 emits the whole pack for an unconditional `R1` box centred at `c`:
 
     CoreDefs_<tag>_2026_10_16.lean                     (1)
-    Seg0{1,2}Midpoint_<tag>_2026_10_20.lean            (2)   midpoint tier
-    Seg0{1..6}Range_<tag>_2026_10_16.lean              (6)   range-brick tier
+    Seg{01..2D}Midpoint_<tag>_2026_10_20.lean         (2D)   midpoint tier
+    Seg{01..6D}Range_<tag>_2026_10_16.lean           (6D)   range-brick tier
     Assemble_<tag>_threehalves_HYBRID_2026_10_20.lean  (1)
     ResidueBound_<tag>_three_halves_to_5_2026_10_20.lean
     ResidueBoundTight_<tag>_2026_10_20.lean
@@ -93,10 +93,79 @@ MID_TPL = os.path.join(HERE, "gen", "gen_fourier_panels_c27_4_midpoint.py")
 PORT_DIR = os.path.join(HERE, "addons")      # c=13/2 CoreDefs + 4 add-ons + pilot
 
 LF = chr(10)
+N_PANELS = 8            # panels per MODULE -- fixed, never scaled with density
+N_SEG_BASE = 6          # the six base segments tiling [0, 3/2]
+
+# Density is set once from --density and read through these. Splitting segments
+# rather than fattening modules is what keeps per-module RSS at the measured
+# 7.6 GB of 15; see codex/DENSITY_LADDER_PRICED_2026-10-20.md section 6.
+DENSITY = 1
 PANEL_WIDTH = F(1, 32)
-N_PANELS = 8
-MID_SEGS = (1, 2)                   # midpoint tier: T <= 1/2
-RANGE_SEGS = (1, 2, 3, 4, 5, 6)     # range emitted for all six; 3-6 used by the hybrid
+MID_SEGS = (1, 2)
+RANGE_SEGS = (1, 2, 3, 4, 5, 6)
+SUBSEGS = {s: (F(s - 1, 4), F(s, 4)) for s in range(1, 7)}
+
+
+def set_density(D):
+    """Install the density-D geometry: each of the six base segments splits
+    into D sub-segments of width 1/(4D), each a module of 8 panels of width
+    h = 1/(32D). D must be a power of two so that every sub-segment endpoint
+    and the error literal M/(24*(32D)^3) terminate as decimals (`dec`)."""
+    global DENSITY, PANEL_WIDTH, MID_SEGS, RANGE_SEGS, SUBSEGS
+    assert D >= 1 and (D & (D - 1)) == 0, f"density {D} is not a power of two"
+    DENSITY = D
+    PANEL_WIDTH = F(1, 32 * D)
+    n = N_SEG_BASE * D
+    SUBSEGS = {s: (F(s - 1, 4 * D), F(s, 4 * D)) for s in range(1, n + 1)}
+    # Scheme `mmrrrr`: midpoint on [0, 1/2] (the first 2D sub-segments),
+    # range-brick on the rest. Every midpoint sub-segment then has T <= 1/2,
+    # which is Tier A -- the only tier the emitted M-bound proof supports, at
+    # ANY density. (price7 measured that mmrrrr reaches c = 13 at every centre,
+    # so Tier B is a cost optimisation, not a prerequisite.)
+    MID_SEGS = tuple(range(1, 2 * D + 1))
+    RANGE_SEGS = tuple(range(1, n + 1))
+    # Push into the other half of the producer. Single writer, explicit: part2
+    # must never re-import this script to discover the geometry (see the note
+    # there).
+    P2.PANEL_WIDTH = PANEL_WIDTH
+    P2.MID_SEGS = MID_SEGS
+    P2.RANGE_SEGS = RANGE_SEGS
+    for s in MID_SEGS:
+        assert SUBSEGS[s][1] <= F(1, 2), (
+            f"sub-segment {s} has T = {SUBSEGS[s][1]} > 1/2; the midpoint "
+            f"M-bound proof is Tier A only")
+
+
+def seg_mod_range(s):
+    """`Seg01Range` .. `Seg96Range`. Byte-identical to the pre-density names
+    for s = 1..6, which is what makes D = 1 a regression test."""
+    return f"Seg{s:02d}Range"
+
+
+def seg_mod_mid(s):
+    return f"Seg{s:02d}Midpoint"
+
+
+def inject_geometry(g, midpoint, t):
+    """Install the sub-segment geometry and the wider module naming into a
+    loaded generator namespace. The generators' own functions resolve these
+    through their module globals, which IS this dict, so overriding takes
+    effect for calls made from inside the generator -- the same mechanism the
+    producer already uses for `M_for_seg`. The shipped generators are not
+    edited, and the panel arithmetic is not touched: `panel_endpoints` derives
+    the width from `(hi - lo)/N_PANELS`, so a narrower segment IS a denser
+    panel grid."""
+    g["SEGMENTS"] = dict(SUBSEGS)
+    g["N_PANELS"] = N_PANELS
+    if midpoint:
+        g["seg_file_name_mp"] = lambda s: f"{seg_mod_mid(s)}_{t}_2026_10_17.lean"
+        g["seg_namespace_mp"] = seg_mod_mid
+        g["seg_prefix_mp"] = lambda s: f"m{s:02d}p"
+    else:
+        g["seg_file_name"] = lambda s: f"{seg_mod_range(s)}_{t}_2026_10_16.lean"
+        g["seg_namespace"] = seg_mod_range
+        g["seg_prefix"] = lambda s: f"s{s:02d}p"
+    return g
 ADDON = F(7, 10**7) + F(12, 10**8) + F(1, 10**21)
 
 # omega(1) to 30 digits; L0 c = 2*omega(1)*(1 + 1/c) + 1/(2 c^2)
@@ -166,13 +235,14 @@ def termM_coarse(c, n, T):
 
 def m_data(c, T):
     """(per-n integer targets, M) with M the least multiple of 3 >= sum.
-    M must be a multiple of 3 so that M*(1/32)^3/24 = M/786432 terminates
-    (786432 = 2^18 * 3)."""
+    M must be a multiple of 3 so that M*h^3/24 = M/(24*(32D)^3) terminates;
+    at D = 1 that denominator is 786432 = 2^18 * 3."""
     tg = [int(termM_coarse(c, n, T)) + 1 for n in range(3)]
     s = sum(tg)
     M = s + (-s) % 3
-    assert F(M, 786432) == F(M) * PANEL_WIDTH ** 3 / 24
-    dec(F(M, 786432))        # must terminate
+    den = 24 * (32 * DENSITY) ** 3
+    assert F(M, den) == F(M) * PANEL_WIDTH ** 3 / 24
+    dec(F(M, den))           # must terminate
     return tg, M
 
 
@@ -298,6 +368,11 @@ def load_both(c, workdir):
     exec(compile(rsrc, rpath, "exec"), rg)
     mg = {"__name__": "_mg", "__file__": mpath}
     exec(compile(msrc, mpath, "exec"), mg)
+    # Install the density-D geometry. At D = 1 this is the identity (the six
+    # base segments, `Seg01..Seg06`), which is what makes a D = 1 run a
+    # byte-identity regression test against the pre-density producer.
+    inject_geometry(rg, midpoint=False, t=tag(c))
+    inject_geometry(mg, midpoint=True, t=tag(c))
     return rg, mg
 
 
@@ -499,7 +574,8 @@ def emit_midpoint(mg, mg_src, c, seg, T, outdir):
     for w in (1, N_PANELS):
         body += f"#print axioms {nsf}.{pre}{w}_plus_integral_bound\n"
         body += f"#print axioms {nsf}.{pre}{w}_minus_integral_bound\n"
-    path = os.path.join(outdir, f"Seg0{seg}Midpoint_{tag(c)}_2026_10_20.lean")
+    path = os.path.join(outdir,
+                        f"{seg_mod_mid(seg)}_{tag(c)}_2026_10_20.lean")
     io.open(path, "w", encoding="utf-8", newline="\n").write(body)
     return path, {k: (v[0], v[1]) for k, v in sums.items()}, M, targets, per, ivl
 
@@ -514,18 +590,28 @@ def main():
                          "safety ratio, and report the ladder")
     ap.add_argument("--safety", default="1.25",
                     help="required Mc_lb / (L0*r) ratio when picking r")
+    ap.add_argument("--density", type=int, default=1,
+                    help="panel density D: each of the six segments splits "
+                         "into D sub-segments of 8 panels, so 6D modules per "
+                         "box and panel width 1/(32D). Must be a power of "
+                         "two. D=1 is the shipped geometry.")
     ap.add_argument("--out", required=True)
     ap.add_argument("--work", default=None)
     args = ap.parse_args()
 
     c, r = F(args.c), F(args.r)
     assert c > 0 and r > 0
+    set_density(args.density)
     dec(c / 2)                       # phase must be a terminating decimal
     os.makedirs(args.out, exist_ok=True)
     work = args.work or os.path.join(args.out, "_work")
     os.makedirs(work, exist_ok=True)
 
-    print(f"=== gen_box: c = {c} ({float(c):.6f}), r = {r}, tag = {tag(c)} ===")
+    print(f"=== gen_box: c = {c} ({float(c):.6f}), r = {r}, "
+          f"D = {DENSITY}, tag = {tag(c)} ===")
+    print(f"  geometry  : {N_SEG_BASE * DENSITY} sub-segments x {N_PANELS} "
+          f"panels, h = {PANEL_WIDTH}, "
+          f"{len(MID_SEGS)} midpoint + {len(RANGE_SEGS) - len(MID_SEGS)} range")
     rg, mg = load_both(c, work)
     mg_src = io.open(os.path.join(work, "gen_mid.py"), encoding="utf-8").read()
 
@@ -623,12 +709,18 @@ def main():
         for k in range(1, N_PANELS + 1):
             a, b = IVL[(seg, "mid", k)]
             panels.append(("mid", seg, k, a, b))
-    for seg in (3, 4, 5, 6):
+    for seg in RANGE_SEGS:
+        if seg in MID_SEGS:
+            continue
         for k in range(N_PANELS):
             a, b = IVL[(seg, "rng", k)]
             panels.append(("rng", seg, k, a, b))
     panels.sort(key=lambda e: e[3])
     assert panels[0][3] == 0 and panels[-1][4] == F(3, 2), "panels do not tile [0,3/2]"
+    assert len(panels) == N_SEG_BASE * DENSITY * N_PANELS, (
+        f"panel count {len(panels)} != {N_SEG_BASE * DENSITY * N_PANELS} "
+        f"for density {DENSITY}")
+    assert panels[0][4] - panels[0][3] == PANEL_WIDTH, "panel width disagrees"
     for i in range(len(panels) - 1):
         assert panels[i][4] == panels[i + 1][3], f"panel gap at {i}"
     ap, tots, marg2 = P2.emit_assemble(c, tag, lean_frac, dec, args.out,
@@ -658,8 +750,8 @@ def main():
                 imported.add(line.strip().split(".")[-1])
     t = tag(c)
     order = ([f"CoreDefs_{t}_2026_10_16"]
-             + [f"Seg0{k}Range_{t}_2026_10_16" for k in RANGE_SEGS]
-             + [f"Seg0{k}Midpoint_{t}_2026_10_20" for k in MID_SEGS]
+             + [f"{seg_mod_range(k)}_{t}_2026_10_16" for k in RANGE_SEGS]
+             + [f"{seg_mod_mid(k)}_{t}_2026_10_20" for k in MID_SEGS]
              + [f"ResidueBound_{t}_three_halves_to_5_2026_10_20",
                 f"ResidueBoundTight_{t}_2026_10_20",
                 f"AnalyticTailBound_{t}_2026_10_20",
