@@ -12,6 +12,11 @@
 # grows with c, the march could OOM before c = 13, and the dense bands keep
 # module SIZE fixed at 8 panels so the trend is purely in c.
 #
+# Matches any lean invocation on a PF module, with or without -o: the
+# unconditional pilot is built WITHOUT -o so it is checked rather than cached,
+# and an -o-only pattern silently skips exactly the module whose peak matters
+# most if it ever OOMs.
+#
 # Output: /tmp/rss_peaks.log   "<module> <peakRSS_GB> <seconds> <finished>"
 set -u
 OUT=/tmp/rss_peaks.log
@@ -21,7 +26,7 @@ peak=0
 t0=0
 while true; do
   line=$(ps -eo rss,args --sort=-rss 2>/dev/null \
-         | grep -E "^ *[0-9]+ lean -o " | head -1)
+         | grep -E "^ *[0-9]+ lean (-o [^ ]+ )?PF/" | head -1)
   if [ -n "$line" ]; then
     rss=$(echo "$line" | awk '{print $1}')
     mod=$(echo "$line" | grep -oE "[A-Za-z0-9_]+\.lean" | tail -1)
