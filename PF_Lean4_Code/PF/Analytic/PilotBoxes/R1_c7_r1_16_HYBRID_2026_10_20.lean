@@ -3,8 +3,14 @@
 
 **R1 pilot box at `c = 7`, radius `1/16` — both gates discharged.**
 
-Gate-1: `(49)·R_ub + (7)·I_ub ≤ 3/4`, margin `+0.02727556`,
-from the hybrid assemble.
+Gate-1: `(49)·R_ub + (7)·I_ub ≤ 90340555457031250007/125000000000000000000`
+(= `0.72272444`), from the hybrid assemble. The box then closes by the
+PARAMETERISED criterion `L0(c−r)·r < Mc_lb`:
+`Q·r = 0.00715012 < 0.13863778 = Mc_lb`, a margin of
+`19.4×`, with the local `L0 ≤ Q = 0.11440187` from
+`R1BoxLocalLNumeric` rather than `L = 1`.
+(The old fixed `Mc_lb = 1/8` shape would need `≤ 3/4`; its margin here is
+`+0.02727556`.)
 Gate-2: `|deriv edgeRe| ≤ 1` on the box, from `abs_deriv_edgeRe_le_one_le_fourteen`
 (`15ddbf2e`) — the log-weighted `Λ₀'` bound, no `K_sum` side condition. The box
 edge is `113/16 = 7.0625 ≤ 14`.
@@ -16,6 +22,7 @@ Authors: Pablo Cohen + Claude Opus 5 (1M context). 2026-10-20.
 -/
 
 import PF.Analytic.CenteredFormBridge_2026_10_13
+import PF.Analytic.R1BoxLocalLNumeric_2026_10_20
 import PF.Analytic.Lambda0PrimeThetaLogBound_2026_10_19
 import PF.Analytic.FourierPanels.Assemble_c7_threehalves_HYBRID_2026_10_20
 
@@ -32,6 +39,7 @@ open PrincipiaTractalis.EdgeSignNeighborhoods20261013
 open PrincipiaTractalis.CenteredFormBridge20261013
 open PrincipiaTractalis.EdgeReDerivBound20261014
 open PrincipiaTractalis.Lambda0PrimeThetaLogBound20261019
+open PrincipiaTractalis.R1BoxLocalLNumeric20261020
 open PrincipiaTractalis.FourierPanels_c7.Assemble_threehalves_HYBRID
 
 noncomputable section
@@ -43,12 +51,12 @@ theorem pilot_r1_hvalue_lb
     (R_ub I_ub : ℝ)
     (hR_ub : (completedRiemannZeta₀ (⟨1, 7⟩ : ℂ)).re ≤ R_ub)
     (hI_ub : (completedRiemannZeta₀ (⟨1, 7⟩ : ℂ)).im ≤ I_ub)
-    (h_gate : (49 : ℝ) * R_ub + (7) * I_ub ≤ 3/4) :
-    (1 / 8 : ℝ) ≤ (riemannXiEntire (⟨1, 7⟩ : ℂ)).re := by
+    (h_gate : (49 : ℝ) * R_ub + (7) * I_ub ≤ 90340555457031250007/125000000000000000000) :
+    (34659444542968749993/250000000000000000000 : ℝ) ≤ (riemannXiEntire (⟨1, 7⟩ : ℂ)).re := by
   rw [re_xi_at_s]
   set re := (completedRiemannZeta₀ (⟨1, 7⟩ : ℂ)).re with hre_def
   set im := (completedRiemannZeta₀ (⟨1, 7⟩ : ℂ)).im with him_def
-  have h_combo : (49 : ℝ) * re + (7 : ℝ) * im ≤ 3/4 := by
+  have h_combo : (49 : ℝ) * re + (7 : ℝ) * im ≤ 90340555457031250007/125000000000000000000 := by
     have h_c2 : (49 : ℝ) * re ≤ (49 : ℝ) * R_ub :=
       mul_le_mul_of_nonneg_left hR_ub (by norm_num : (0 : ℝ) ≤ 49)
     have h_c : (7 : ℝ) * im ≤ (7 : ℝ) * I_ub :=
@@ -72,20 +80,32 @@ theorem pilot_r1_hbound :
   rw [hx_abs]
   linarith [hx.2]
 
-/-- **R1 box at `c = 7`**, conditional only on the two `Λ₀` upper bounds. -/
+/-- **R1 box at `c = 7`**, conditional only on the two `Λ₀` upper bounds.
+
+Via `box_of_enclosure_rat`: the PARAMETERISED criterion with the local
+derivative bound, `L0(111/16) ≤ Q = 0.11440187`, against the
+COMPUTED `Mc_lb = 0.13863778`:
+
+  `Q·r = 0.00715012 < 0.13863778`,  margin `19.4×`.
+
+The superseded route took `L = 1` and `Mc_lb = 1/8`, which needs `gate ≤ 3/4`
+and so dies at `c = 29/4`. Here `L0` is ~9× smaller than 1 and `Mc_lb` is the
+real value, which is what carries the march past it. -/
 theorem pilot_r1_box_closed
     (R_ub I_ub : ℝ)
     (hR_ub : (completedRiemannZeta₀ (⟨1, 7⟩ : ℂ)).re ≤ R_ub)
     (hI_ub : (completedRiemannZeta₀ (⟨1, 7⟩ : ℂ)).im ≤ I_ub)
-    (h_gate : (49 : ℝ) * R_ub + (7) * I_ub ≤ 3/4) :
+    (h_gate : (49 : ℝ) * R_ub + (7) * I_ub ≤ 90340555457031250007/125000000000000000000) :
     ∀ t ∈ Icc ((7 : ℝ) - 1/16) ((7 : ℝ) + 1/16),
-      0 < (riemannXiEntire (⟨1, t⟩ : ℂ)).re :=
-  R1_box_centered_of_lb
-    (c := 7) (r := 1/16) (L := 1) (Mc_lb := 1/8)
+      0 < (riemannXiEntire (⟨1, t⟩ : ℂ)).re := by
+  refine box_of_enclosure_rat
+    (Q := (15505/135531 : ℝ))
     (by norm_num : (0 : ℝ) ≤ 1/16)
-    (pilot_r1_hvalue_lb R_ub I_ub hR_ub hI_ub h_gate)
-    pilot_r1_hbound
-    (by norm_num : (1 : ℝ) * (1/16) < 1/8)
+    (by norm_num : (1/16 : ℝ) < 7)
+    hR_ub hI_ub (by norm_num) ?_
+  have hq : (15505/135531 : ℝ) * 1/16 < (1 - 90340555457031250007/125000000000000000000) / 2 := by
+    norm_num
+  linarith
 
 /-- **The pilot with the hybrid Gate-1 arithmetic substituted.** -/
 theorem pilot_r1_box_from_addons

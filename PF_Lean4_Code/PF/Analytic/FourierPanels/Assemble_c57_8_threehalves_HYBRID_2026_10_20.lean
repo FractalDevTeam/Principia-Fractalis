@@ -990,12 +990,16 @@ theorem imLambda0_threehalves_hybrid_lb_ub :
 
 /-! ## §4 — Gate-1 arithmetic at `c = 57/8` -/
 
-/-- **Gate-1 closes at `c = 57/8` under the hybrid scheme.**
-Margin `+0.01280615`. -/
+/-- **Gate-1 arithmetic at `c = 57/8` under the hybrid scheme.**
+
+States the COMPUTED gate value `0.73719385`, not the fixed `3/4` of the
+old `Mc_lb = 1/8` shape. That fixed target is false from `c = 29/4` on (here the
+margin against it is `+0.01280615`), while the parameterised criterion
+`L0(c−r)·r < Mc_lb` holds far beyond it — so the bound must be the real one. -/
 theorem gate1_arithmetic_hybrid {epsOm : ℝ} (hEps : epsOm ≤ 1 / 10 ^ 21) :
     (3249/64 : ℝ) * ((4587175189/320000000000 : ℝ) + 7 / 10 ^ 7 + 12 / 10 ^ 8 + epsOm)
       + (57/8 : ℝ) * ((423301839/320000000000 : ℝ) + 7 / 10 ^ 7 + 12 / 10 ^ 8 + epsOm)
-      ≤ 3 / 4 := by
+      ≤ 9436081262278125000741/12800000000000000000000 := by
   nlinarith [hEps]
 
 end
