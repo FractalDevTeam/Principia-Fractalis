@@ -45,11 +45,34 @@ for ((e=START; e<=END; e++)); do
   TO=$(python3 -c "from fractions import Fraction as F; print(float(F('$C')+F('$RAD')))")
 
   say "build c=$C r=$RAD  frontier $FROM -> $TO"
-  if ! ./codex/march_box.sh "$C" "$RAD" >> "$LOG" 2>&1; then
-    say "STOP: march_box.sh failed at c=$C -- $(cat "/tmp/march_${TAG}_status" 2>/dev/null)"
-    say "STOP: measured numbers are in /tmp/march_${TAG}_progress; NOT raising density"
-    exit 1
-  fi
+  # Lock contention is NOT a mathematical failure and must not stop the march.
+  # The flock is shared with the YM session (Rio section 1), which is told to
+  # take it before every lake build -- and march_box.sh takes it with `flock -n`,
+  # so a legitimate concurrent YM build makes march_box.sh exit 1. Treating that
+  # as a STOP is what halted the band at c = 39/4 on 2026-10-21 at 17:08:51,
+  # 33 s before anything of ours even acquired the lock. Retry contention with
+  # backoff; stop only on a real generate/build/axiom failure.
+  tries=0
+  while :; do
+    if ./codex/march_box.sh "$C" "$RAD" >> "$LOG" 2>&1; then break; fi
+    st=$(cat "/tmp/march_${TAG}_status" 2>/dev/null)
+    case "$st" in
+      LOCKED*)
+        tries=$((tries+1))
+        if [ "$tries" -ge 240 ]; then
+          say "STOP: lock held by another build for 2h+ at c=$C -- giving up"
+          exit 1
+        fi
+        [ $((tries % 10)) -eq 1 ] && say "waiting: $st (attempt $tries) at c=$C"
+        sleep 30
+        ;;
+      *)
+        say "STOP: march_box.sh failed at c=$C -- $st"
+        say "STOP: measured numbers are in /tmp/march_${TAG}_progress; NOT raising density"
+        exit 1
+        ;;
+    esac
+  done
   say "built c=$C : $(cat "/tmp/march_${TAG}_status")"
 
   if ! ./codex/commit_box.sh "$C" "$RAD" "-" "$FROM" "$TO" >> "$LOG" 2>&1; then
