@@ -1,0 +1,30 @@
+=== gen_box: c = 7 (7.000000), r = 1/16, D = 1, tag = c7 ===
+  geometry  : 6 sub-segments x 8 panels, h = 1/32, 2 midpoint + 4 range
+  port      : CoreDefs_c7_2026_10_16.lean
+  port      : ResidueBound_c7_three_halves_to_5_2026_10_20.lean
+  port      : ResidueBoundTight_c7_2026_10_20.lean
+  port      : AnalyticTailBound_c7_2026_10_20.lean
+  port      : OmegaTailBound_c7_2026_10_20.lean
+  range   seg1: Seg01Range_c7_2026_10_16.lean
+  range   seg2: Seg02Range_c7_2026_10_16.lean
+  range   seg3: Seg03Range_c7_2026_10_16.lean
+  range   seg4: Seg04Range_c7_2026_10_16.lean
+  range   seg5: Seg05Range_c7_2026_10_16.lean
+  range   seg6: Seg06Range_c7_2026_10_16.lean
+  midpnt  seg1: Seg01Midpoint_c7_2026_10_20.lean  T=1/4 M=24 targets=[20, 1, 1]
+  midpnt  seg2: Seg02Midpoint_c7_2026_10_20.lean  T=1/2 M=24 targets=[20, 1, 1]
+
+  hybrid plus  [0,3/2] : [0.0136265175, 0.0145584901]
+  hybrid minus [0,3/2] : [0.0005046797, 0.0013303584]
+  gate lhs = 0.72272444
+  provable Mc_lb = (1-gate)/2 = 0.13863778
+  L0(6.9375)*r      = 0.00683017
+  BOX CRITERION  L0*r < Mc_lb : PASS  (ratio 20.3x)
+  [old shape, Mc_lb=1/8] margin vs 3/4 = +0.02727556 PASS
+  BOX CRITERION PASSES
+  assemble  : Assemble_c7_threehalves_HYBRID_2026_10_20.lean  (margin +0.02727556)
+  pilot     : R1_c7_r1_16_HYBRID_2026_10_20.lean
+  pilot     : R1_c7_r1_16_pointwise_UNCONDITIONAL_2026_10_20.lean
+
+  build order (13 modules) -> _buildorder.txt
+  emitted but NOT imported (do not compile): Seg02Range_c7_2026_10_16

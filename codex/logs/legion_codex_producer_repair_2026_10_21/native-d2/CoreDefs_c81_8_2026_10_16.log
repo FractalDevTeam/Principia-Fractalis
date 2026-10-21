@@ -1,0 +1,51 @@
+'PrincipiaTractalis.FourierPanels_c81_8.nodeR_fourier_plus_at_c81_8' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.nodeR_fourier_minus_at_c81_8' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.omega_N3_at_exp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.nodeR_fourier_plus_at_c81_8_N3' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.nodeR_fourier_minus_at_c81_8_N3' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.nodeI_fourier_plus_at_c81_8' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.nodeI_fourier_minus_at_c81_8' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.omega_N3_at_exp_mem_approx' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.nodeR_fourier_plus_at_c81_8_N3_mem_approx' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PrincipiaTractalis.FourierPanels_c81_8.nodeR_fourier_minus_at_c81_8_N3_mem_approx' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+	Command being timed: "taskset -c 0,1 lake env lean -o .lake/build/lib/lean/PF/Analytic/FourierPanels/CoreDefs_c81_8_2026_10_16.olean PF/Analytic/FourierPanels/CoreDefs_c81_8_2026_10_16.lean"
+	User time (seconds): 8.61
+	System time (seconds): 1.38
+	Percent of CPU this job got: 83%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:11.99
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2838048
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 8457
+	Minor (reclaiming a frame) page faults: 84165
+	Voluntary context switches: 15743
+	Involuntary context switches: 1264
+	Swaps: 0
+	File system inputs: 1200504
+	File system outputs: 440
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
