@@ -93,6 +93,103 @@ MID_TPL = os.path.join(HERE, "gen", "gen_fourier_panels_c27_4_midpoint.py")
 PORT_DIR = os.path.join(HERE, "addons")      # c=13/2 CoreDefs + 4 add-ons + pilot
 
 LF = chr(10)
+
+# --------------------------------------------------------------------------
+# Input drift guard
+# --------------------------------------------------------------------------
+# codex/gen/, codex/addons/ and the unconditional template are DUPLICATES of
+# files that already live in the tree at their own canonical locations. They
+# are committed here because this is where the producer looks (Rio 2026-10-21
+# §2.1). Duplicates drift, and §0.7 is on the record because exactly that
+# happened once already -- a deployed producer diverged from the repo one and
+# nobody noticed. So verify, every run, and refuse rather than emit from a
+# drifted input.
+_CANON = {
+    "gen/gen_fourier_panels_c27_4.py":
+        "PF_Lean4_Code/scripts/gen_fourier_panels_c27_4.py",
+    "gen/gen_fourier_panels_c27_4_midpoint.py":
+        "PF_Lean4_Code/scripts/gen_fourier_panels_c27_4_midpoint.py",
+    "addons/CoreDefs_c13_2_2026_10_16.lean":
+        "PF_Lean4_Code/PF/Analytic/FourierPanels/CoreDefs_c13_2_2026_10_16.lean",
+    "addons/ResidueBound_c13_2_three_halves_to_5_2026_10_16.lean":
+        "PF_Lean4_Code/PF/Analytic/FourierPanels/"
+        "ResidueBound_c13_2_three_halves_to_5_2026_10_16.lean",
+    "addons/ResidueBoundTight_c13_2_2026_10_18.lean":
+        "PF_Lean4_Code/PF/Analytic/FourierPanels/"
+        "ResidueBoundTight_c13_2_2026_10_18.lean",
+    "addons/AnalyticTailBound_c13_2_2026_10_16.lean":
+        "PF_Lean4_Code/PF/Analytic/FourierPanels/"
+        "AnalyticTailBound_c13_2_2026_10_16.lean",
+    "addons/OmegaTailBound_c13_2_2026_10_16.lean":
+        "PF_Lean4_Code/PF/Analytic/FourierPanels/"
+        "OmegaTailBound_c13_2_2026_10_16.lean",
+    "addons/R1_c13_2_r1_16_pointwise_CLOSED_2026_10_16.lean":
+        "PF_Lean4_Code/PF/Analytic/PilotBoxes/"
+        "R1_c13_2_r1_16_pointwise_CLOSED_2026_10_16.lean",
+    "R1_c27_4_r1_16_pointwise_UNCONDITIONAL_2026_10_19.lean":
+        "PF_Lean4_Code/PF/Analytic/PilotBoxes/"
+        "R1_c27_4_r1_16_pointwise_UNCONDITIONAL_2026_10_19.lean",
+}
+
+
+def _md5(path):
+    import hashlib
+    h = hashlib.md5()
+    with open(path, "rb") as fh:
+        for blk in iter(lambda: fh.read(1 << 16), b""):
+            h.update(blk)
+    return h.hexdigest()
+
+
+# Acer's task-1 verification artifact: the md5 each input had when the repair
+# was made. Consumed rather than duplicated -- it and the canonical comparison
+# below catch DIFFERENT failures. The manifest catches an edit applied to the
+# codex/ copy (or to both copies identically); the canonical comparison catches
+# the two copies diverging. Neither alone is sufficient.
+_MANIFEST = "PRODUCER_INPUTS_MD5_2026-10-21.json"
+
+
+def check_inputs(verbose=True):
+    """Verify every producer input against (a) the recorded md5 manifest and
+    (b) its canonical in-tree original. Raises on either mismatch. Absent
+    originals are REPORTED, never silently skipped."""
+    root = os.path.dirname(HERE)
+    checked, absent, bad = 0, [], []
+    man = {}
+    mpath = os.path.join(HERE, _MANIFEST)
+    if os.path.exists(mpath):
+        import json
+        man = json.load(io.open(mpath, encoding="utf-8"))
+    else:
+        absent.append(_MANIFEST)
+    for rel, canon in _CANON.items():
+        mine = os.path.join(HERE, rel)
+        theirs = os.path.join(root, canon)
+        if not os.path.exists(mine):
+            bad.append(f"{rel}: MISSING from codex/ -- the producer cannot run")
+            continue
+        if not os.path.exists(theirs):
+            absent.append(rel)
+            continue
+        mine_md5 = _md5(mine)
+        if rel in man and man[rel] != mine_md5:
+            bad.append(f"{rel}: md5 {mine_md5[:8]} != manifest "
+                       f"{man[rel][:8]} -- the committed input was edited")
+        elif mine_md5 != _md5(theirs):
+            bad.append(f"{rel}: DRIFTED from {canon}")
+        else:
+            checked += 1
+    if bad:
+        raise SystemExit("producer input check FAILED:" + LF
+                         + LF.join("  " + b for b in bad))
+    if verbose:
+        print(f"  inputs    : {checked}/{len(_CANON)} md5-match BOTH the "
+              f"recorded manifest and their canonical in-tree originals"
+              + (f", {len(absent)} original(s) absent: "
+                 f"{', '.join(absent)}" if absent else ""))
+    return checked, absent
+
+
 N_PANELS = 8            # panels per MODULE -- fixed, never scaled with density
 N_SEG_BASE = 6          # the six base segments tiling [0, 3/2]
 
@@ -625,6 +722,7 @@ def main():
     c, r = F(args.c), F(args.r)
     assert c > 0 and r > 0
     set_density(args.density, extend_midpoint=args.extend_midpoint)
+    check_inputs()
     dec(c / 2)                       # phase must be a terminating decimal
     os.makedirs(args.out, exist_ok=True)
     work = args.work or os.path.join(args.out, "_work")
