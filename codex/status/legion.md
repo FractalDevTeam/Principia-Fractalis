@@ -160,6 +160,68 @@ Rio's stop condition does not fire and no per-curve workaround was written.
 per-curve copies — it is a **seventh**. Its `X` should be retired in favour of
 r199's; not done, since it touches a landed module.
 
+
+## 01:40 — two corrections to numbers on the boards, mine included
+
+**1. The band is 35 boxes, not 28, and it is contiguous from 5.9375.** I had
+been counting boxes by globbing filenames for `*UNCONDITIONAL*`, which misses
+six. The six earliest boxes (c = 6, 49/8, 25/4, 51/8, 13/2, 53/8, landed
+10-15/10-16) keep their unconditional capstone *inside* a file named
+`..._pointwise_CLOSED_...`, next to a `..._SCAFFOLD_...` sibling that states the
+box conditionally. The filename predates the march runner's convention; the
+theorem does not. Verified, not inferred:
+
+* each `_CLOSED_` file contains exactly one
+  `theorem pilot_r1_box_<c>_r1_16_pointwise_UNCONDITIONAL` **with zero
+  hypotheses** (c6: `∀ t ∈ Icc (95/16) (97/16), 0 < (riemannXiEntire ⟨1,t⟩).re`);
+* the conditional scaffold capstone is referenced only from inside its own
+  `_CLOSED_` file, which discharges all five of its hypotheses with its own
+  numerics (c6 line 1101);
+* no `sorry`, `native_decide` or project `axiom` in any of the six — the single
+  grep hit in c6 is line 41 of its own header docstring stating the bar.
+
+The reconciliation, exact:
+
+| group | boxes | interval |
+|---|---|---|
+| pre-march, hand-built | 7 | [5.9375, 6.8125] |
+| march (`march_run*.sh`) | 28 | [6.8125, 10.3125] |
+| **total, contiguous** | **35** | **[5.9375, 10.3125]** |
+
+So "box 28 of 64" in my commit messages is *march-internal* numbering and is
+correct as such; it is not the number of landed boxes. Both numbers are right
+about different things, which is exactly how they got conflated. 33 of the 35
+are D = 1; the top two are D = 2.
+
+**2. A build-breaking defect in the manuscript, found and fixed, NOT committed.**
+`ch24_birch_swinnerton_dyer.tex:599` read `\subsection{Example 2: Rank 1
+Curve}` — a doubled backslash, immediately after a blank line. That is not a
+cosmetic typo: `\` there is a line break with no line to end, so LaTeX errors
+out ("There's no line here to end") and the book does not build. It arrived with
+the uncommitted 2026-10-16 repair batch in that file, whose mathematical content
+is correct and good (it replaced two printed examples that were simply wrong).
+Fixed in the working tree by a file-based patch that asserts a single
+substitution; backup at `ch24_...tex.bak-bsfix`.
+
+**Left uncommitted deliberately.** Those two chapters (`ch07_constants.tex`,
+`ch24_birch_swinnerton_dyer.tex`) hold five days of someone else's manuscript
+repairs, unclaimed by any `codex/` note and untouched since 10-16 14:53. The
+manuscript is Pablo's call, and committing the file would commit that batch
+under my name. **Whoever owns the 10-16 batch: it is at risk, it is now
+buildable, and it wants a commit.** My sweep for this defect class found nothing
+else in either file (the two hits in ch07 are real TikZ `align=center` line
+breaks).
+
+**3. Producer integrity re-checked.** `gen_box.py` and `gen_box_part2.py` are
+byte-identical between HEAD and the working tree, so the producer that built
+every box is the committed one — "deployed artifact > committed file" holds
+here rather than merely being asserted. (Rio's `69638902` is a different file,
+`scripts/gen_fourier_panels_c27_4_midpoint.py`.)
+
+Still untracked and not mine: `codex/PILOT14_GATE_ANALYSIS_2026-10-14.md`
+(uncommitted since 10-15) and Acer's two in-flight `PF/YangMills/*Reflection*`
+modules.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
