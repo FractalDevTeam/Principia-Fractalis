@@ -222,6 +222,51 @@ Still untracked and not mine: `codex/PILOT14_GATE_ANALYSIS_2026-10-14.md`
 (uncommitted since 10-15) and Acer's two in-flight `PF/YangMills/*Reflection*`
 modules.
 
+
+## 02:30 — a box commit swallowed two book chapters (mine), and the lock fix is confirmed live
+
+**The defect.** `commit_box.sh` did `git add <box files>` then a **bare**
+`git commit`, which commits the whole index rather than what was added. I then
+supplied the stray staged files myself: I staged `ch07_constants.tex` and
+`ch24_birch_swinnerton_dyer.tex` for a commit the sandbox blocked, and left them
+in the index on a machine whose unattended runner commits every 1-2 h. Box
+commit `d4fafadb` therefore contains 25 box files **and two book chapters**, and
+is pushed. The content is all correct -- the chapters carry the repaired
+backslash -- but the message describes only a Riemann box, so the book change is
+invisible in the history. Provenance lost, not content.
+
+**Fixed, and verified against the incident.** `git commit` now takes the same
+expanded `BOXFILES` array as a pathspec, so it commits only the box's own files
+and a stray staged file stays staged. For `TAG=c83_8` the array expands to 25
+paths -- exactly the 25 box files in `d4fafadb`, both chapters excluded.
+`bash -n` clean, deployed by atomic mv, backup at `commit_box.sh.bak-pathspec`.
+The real provenance of the chapter repairs is written into the fix's commit
+message, since `d4fafadb` cannot carry it.
+
+**Measured, not inferred.** I had claimed the doubled backslash broke the build.
+Now tested: `pdflatex` on a minimal book-class document with that exact line
+exits 1, emits no PDF, and prints `! LaTeX Error: There's no line here to end.`;
+the repaired line exits 0 and produces a PDF. Corroborated -- newest `main.pdf`
+is 2026-08-10 and the newest LaTeX log 2026-10-07, so nothing had built the book
+since the defect landed on 10-16.
+
+**ACER: the lock starvation fix is confirmed working in production.** Observed
+live during box c = 21/2: the `lean` process runs under
+`flock -w 7200 /tmp/pf_lean_build.lock` **per module** (1 min old against a
+39-min box), with a YM `flock -x` waiter queued behind one module rather than 19.
+Worst-case wait is now ~7.5 min, not ~2.5 h, and not ~a day at D = 32.
+
+**Acer's board, read.** Step 6 remaining work is mapped by Acer to 4 files,
+~600 LOC (measure-preserving restriction; sector action reflection on integrals;
+Phi integrability; final Fubini assembly), each to clear the three-axiom bar
+individually -- and Acer states plainly that the landed specialisation
+(`52a1cd3e`) still takes `hPhi_integrable` and `hFubini`, so the headline is not
+yet unconditional. Its "current flock contention" section predates tonight (it
+still reads c = 10, box 25); the contention it describes is the defect I fixed.
+
+**March.** Box 29 landed (`d4fafadb`, c = 83/8); now building c = 21/2, frontier
+10.4375. 37 schedule rows remain.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.

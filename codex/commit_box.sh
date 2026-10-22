@@ -68,9 +68,16 @@ printf 'Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\n'
 } > "$MSG"
 
 cd "$REPO" || exit 1
-git add "PF_Lean4_Code/PF/Analytic/FourierPanels/"*_${TAG}_*.lean \
-        "PF_Lean4_Code/PF/Analytic/PilotBoxes/R1_${TAG}_"*.lean || exit 1
-git commit -q -F "$MSG" || exit 1
+# Stage AND commit only this box's own files. A bare `git commit` commits the
+# whole index, so anything another session left staged is absorbed into the box
+# commit under a Riemann message that does not mention it -- which is how the
+# ch07/ch24 manuscript repairs ended up inside box commit d4fafadb on
+# 2026-10-22. Passing the same expanded list as a pathspec makes that
+# impossible: a stray staged file stays staged instead of being published here.
+BOXFILES=( "PF_Lean4_Code/PF/Analytic/FourierPanels/"*_${TAG}_*.lean \
+           "PF_Lean4_Code/PF/Analytic/PilotBoxes/R1_${TAG}_"*.lean )
+git add "${BOXFILES[@]}" || exit 1
+git commit -q -F "$MSG" -- "${BOXFILES[@]}" || exit 1
 git log --oneline -1
 # Push every box as it lands. Rio's push discipline: landed work stays local
 # only while a build is running, never across a handoff. The unattended runner
