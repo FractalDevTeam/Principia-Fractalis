@@ -8,19 +8,23 @@
 
 **Full Step 6 — EMPTY hypothesis list acceptance.**
 
-The sector-action-reflection block is DONE as of commit `24a2a90c`:
+The sector-action structural payload is DONE through `8426e74c`:
 
-* `wilsonActionMinusR (θU) = wilsonActionPlusR U` LANDED, three-axiom bar.
-* Pointwise refined-sector reflection on non-diag plaquettes LANDED.
-* Zero sector θ-invariance LANDED.
-* Diagonality θ-invariance LANDED.
+| landed | content |
+|---|---|
+| `24a2a90c` | **`wilsonActionMinusR (θU) = wilsonActionPlusR U`** (sum-level sector reflection) |
+| `24a2a90c` | `wilsonActionZero (θU) = wilsonActionZero U` (zero sector θ-invariant) |
+| `5c0b8b4c` | `wilsonActionPlusR_congr` / `wilsonActionMinusR_congr` (refined gauge-dependence) |
+| `d267d9d9` | `wilsonBoltzmann_plusR_supportedOnPlusZero` (complex lift) |
+| `09b95c1c` | **`wilsonActionTotal_sector_decomposition_refined`** (`S_W = S_+R + S_0 + S_-R`) |
+| `8426e74c` | **`wilsonBoltzmann_factorize_3way_real`** (`exp(-β S_W) = · · ·`) |
 
-This is the mathematical crux of Step 6. Remaining is mechanical plumbing:
+Remaining to the empty-hypothesis headline:
 
-* Λ_- restriction of `timeReflectionGaugeField_measurePreserving` (~100 LOC).
-* Fubini identity assembly using the sum-level reflection + the Λ_- restriction + the glue parametrisation (~150 LOC).
-* `hΦ_integrable` discharge via bounded-F ⇒ bounded-Φ on finite base measure (~100 LOC).
-* Empty-hypothesis headline.
+1. Λ_- restriction of `timeReflectionGaugeField_measurePreserving` — sector-swap bijection `{isMinusLink} ≃ {isPlusLink}` with per-link conditional inversion, measure-preserving on Λ_- Pi Haar (~100 LOC, non-trivial).
+2. Fubini identity assembly (~150 LOC).
+3. `hΦ_integrable` discharge via bounded-F + bounded Boltzmann (~100 LOC).
+4. Empty-hypothesis headline theorem.
 
 ## Last landed commit (origin/master)
 
