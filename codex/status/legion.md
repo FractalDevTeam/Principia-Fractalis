@@ -793,6 +793,127 @@ to establish what the D = 4 fold actually costs before choosing between raising
 the limit and deepening the fold. Took the lock immediately, since the march
 being stopped means nothing is contending. Result to be recorded here.
 
+
+## #42100 — GREEN (Legion, 2026-10-22)
+
+`ci (fork) / Build` **pass** in 1m53s on head `a28b07e16c`, with
+`✔ [18149/18151] Built Mathlib (2.5s)`, **zero Lean errors and zero warnings in
+the PR's own two files**. Both of Pablo's red PRs are now green.
+
+Pablo authorised the one-site proof repair, bounded to local adaptation of that
+file, stopping if it spread. It did not spread: no new error anywhere in the
+18,151-module build.
+
+### The repair
+
+```
+-  | frequently f h => exact h.mem_of_closed (hI.preimage (cfcHom_continuous ha'))
++  | frequently f h =>
++    exact hI.mem_of_frequently_of_tendsto h ((cfcHom_continuous ha').tendsto f)
+```
+
+**Why it had broken.** `Filter.Frequently.mem_of_closed` concludes `x ∈ s`, so
+elaborating against the goal `cfcHom ha' f ∈ I` binds `s := ↑I` and
+`x := cfcHom ha' f` *from the goal*, before the closedness argument is
+consulted. The old proof needed `s` to be the preimage of `I` under
+`cfcHom ha'` and `x` to be `f` — a binding no longer reachable, which is
+exactly the type mismatch CI reported.
+
+**Why this shape and not a workaround.** `IsClosed.mem_of_frequently_of_tendsto`
+is declared three lines below `mem_of_closed` in
+`Mathlib/Topology/Neighborhoods.lean` and takes the map as an explicit
+argument, which is precisely what makes the composition through `cfcHom`
+expressible. It is mathlib's own lemma for this situation. The statement being
+proved is unchanged; one line changed; verified programmatically that no other
+line moved.
+
+### Full sequence for #42100
+
+| commit | what | effect |
+|---|---|---|
+| `2c6837ebfe` | inverted `Mathlib.lean` import line | cleared the `mk_all` defect |
+| `6db80eacaa` | merge upstream master, 2151 commits, toolchain → `v4.36.0-rc1` | cleared the outdated-cache-tool gate |
+| `33f1363009` | redo my botched `Mathlib.lean` resolution by literal insertion | `mk_all` clean |
+| `988a252ceb` | sort `Ideal.lean` imports; `haveI` → `have` | its warnings gone |
+| `48b24aff71` | adapt the drifted `frequently` proof site | **zero Lean errors, Mathlib builds** |
+| `a28b07e16c` | sort `SpectralProjection.lean` imports | **Build pass** |
+
+No public comment on either PR at any point. Merging remains the maintainers'
+act.
+
+## March — CORRECTION to my own D=4 diagnosis
+
+**I reported the D = 4 failure as a 47-term `linarith` fold. That was wrong** —
+it was inference from the producer's design, not measurement of the emitted
+file. Measured in `Assemble_c11_threehalves_HYBRID` (4241 lines, 229 `linarith`
+calls):
+
+| argument-list width | calls | timed out |
+|---|---|---|
+| 1 term | 353 | no |
+| **15 terms** | 96 | **yes — both failing sites (3031, 4116)** |
+| 47 terms | 4 | no |
+
+Both timeouts are at **15-term** folds; the four 47-term folds passed. So fold
+width is not the problem and **deepening the fold — my own recommendation —
+would not have helped.**
+
+The measured culprit is numeral size: decimal literals up to **27 characters**,
+e.g. `0.0000000060705474853515625`, which Lean parses as rationals over 10^25.
+At D = 4 the panel subdivision is 1/64, so endpoints and bounds carry 25-plus
+digit decimals, and `linarith` does exact rational arithmetic over them. Hence
+the `whnf` timeouts.
+
+That reframes the repair options:
+
+1. **Raise `maxHeartbeats`** in the emitted Assemble — one producer line, but
+   only viable if the true cost is bounded.
+2. **Emit dyadic bounds as `a / 2^k` rather than long decimals** — the
+   arithmetic then runs on small numerators over a power of two instead of over
+   10^25. Better engineering, a real producer change.
+
+**Also recorded: my first measurement was invalid.** I passed
+`-D maxHeartbeats=8000000` on the command line, and the run still reported the
+2,000,000 limit — the emitted file's own `set_option maxHeartbeats` overrides a
+`-D` flag. Caught by reading the output rather than trusting the flag. The valid
+run raises the file's own `set_option` to 16,000,000; `/tmp/Assemble_c11.orig.lean`
+holds the unmodified emitted file for restoration.
+
+## March — RESOLVED and RESTARTED (`d252b57f`)
+
+The measurement settled it. Same emitted file, cap raised to 16,000,000:
+
+```
+WALL = 320.75 s   MAXRSS = 5,345,788 KB (5.1 GB)   RC = 0
+```
+
+and all seven theorems report exactly `[propext, Classical.choice, Quot.sound]`
+— **including the two that had fallen to `sorryAx`**. So the proof was never
+wrong; it only wanted more elaboration budget. 5.3 minutes and 5.1 GB sits
+inside the existing `lean -M 7000` cap and is comparable to a panel module's
+7.5 minutes.
+
+**Producer fixed:** the emitted Assemble cap goes 2,000,000 → **64,000,000**.
+Flat, not scaled by D, because `maxHeartbeats` is a *ceiling, not an allowance*
+— raising it cannot slow a module that does not need the headroom, so D = 1 and
+D = 2 boxes are untouched, and a flat value extrapolates nothing from a single
+data point. 64M is 4x the value measured sufficient at D = 4, leaving headroom
+for D = 8/16/32 whose literals are longer still; at the measured rate a module
+consuming the whole ceiling would take about 20 minutes, so the cap cannot
+silently cost hours.
+
+Both real guards are untouched: `lean -M 7000` still caps memory, and the
+axiom-bar gate still refuses any box carrying `sorryAx` — which is exactly what
+caught this and kept an unsound box out of the tree.
+
+**Restarted at 15:26.** The runner skipped all 34 committed boxes and resumed at
+`c = 11 r = 1/16 D = 4`, frontier 10.9375 → 11.0625. Down 3h32m in total.
+
+**Recorded, not attempted:** emitting dyadic bounds as `a / 2^k` rather than long
+decimals would keep the arithmetic on small numerators over a power of two
+instead of over 10^25. Better engineering, unnecessary for unblocking, so it is
+written down.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
