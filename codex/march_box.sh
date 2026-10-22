@@ -9,6 +9,13 @@
 # /tmp/march_<tag>_progress. Peak RSS is ~7 GB of 15 on a single panel module,
 # so this NEVER parallelises and refuses to run if another build holds the lock.
 set -u
+# -M 7000 caps each lean invocation at 7 GB. Measured 2026-10-21: panel modules
+# peak at 12.29-12.62 GB UNCAPPED on a 15 GB box -- a 2.7 GB margin against a
+# hard OOM while sharing the machine with the YM session. Capped, the same
+# modules build fine (Seg01Range_c7 54/54 and Seg01Midpoint_c7 4/4 declarations
+# on the three-axiom bar), so that 12 GB is garbage lean declines to collect,
+# not live data. Cost: ~16% on range modules, none on midpoint (449 s capped
+# vs ~461 s uncapped).
 C="${1:?usage: march_box.sh CENTRE [RADIUS]}"
 RAD="${2:-1/16}"
 REPO="/Storage 2TB/home/xluxx/Principia-Fractalis-ACTIVE"
@@ -20,7 +27,15 @@ ST="/tmp/march_${TAG}_status"
 PG="/tmp/march_${TAG}_progress"
 
 exec 9>/tmp/pf_lean_build.lock
-if ! flock -n 9; then echo "LOCKED: another build is running" > "$ST"; exit 1; fi
+# BLOCKING wait, matching the Acer session's `flock -x` convention. The old
+# `flock -n` failed immediately on contention, and march_run.sh read that as a
+# STOP -- which halted the band at c = 39/4 on 2026-10-21 17:08:51 while the YM
+# session legitimately held the lock (Rio §1 shares it between them). Waiting
+# removes the class; march_run.sh's LOCKED retry (5c48f698) stays as
+# belt-and-braces for the case where this times out.
+if ! flock -w 7200 9; then
+  echo "LOCKED: lock held by another build for 2h+" > "$ST"; exit 1
+fi
 export PATH="$HOME/.elan/bin:$PATH"
 : > "$PG"
 echo "GENERATING" > "$ST"
@@ -55,7 +70,7 @@ echo "BUILDING" > "$ST"
 
 while read -r m; do
   [ -z "$m" ] && continue
-  taskset -c 0,1 lake env lean -o "$FP/$m.olean" \
+  taskset -c 0,1 lake env lean -M 7000 -o "$FP/$m.olean" \
     "PF/Analytic/FourierPanels/$m.lean" > "/tmp/march_${TAG}_$m.log" 2>&1
   rc=$?
   echo "$m rc=$rc $(date +%H:%M:%S) freeGB=$(free -g | awk 'NR==2{print $4}')" >> "$PG"
@@ -64,13 +79,13 @@ done < PF/Analytic/_buildorder.txt
 
 GATE=$(cd "$A/PilotBoxes" && ls R1_${TAG}_*_HYBRID_*.lean | head -1)
 UNC=$(cd "$A/PilotBoxes" && ls R1_${TAG}_*_UNCONDITIONAL_*.lean | head -1)
-taskset -c 0,1 lake env lean -o "$PB/${GATE%.lean}.olean" \
+taskset -c 0,1 lake env lean -M 7000 -o "$PB/${GATE%.lean}.olean" \
   "PF/Analytic/PilotBoxes/$GATE" > "/tmp/march_${TAG}_gate.log" 2>&1
 rc=$?; echo "gate rc=$rc $(date +%H:%M:%S)" >> "$PG"
 [ $rc -ne 0 ] && { echo "FAILED gate" > "$ST"; exit 1; }
 
 # Unconditional pilot: no -o, so it is CHECKED, not cached.
-taskset -c 0,1 lake env lean "PF/Analytic/PilotBoxes/$UNC" \
+taskset -c 0,1 lake env lean -M 7000 "PF/Analytic/PilotBoxes/$UNC" \
   > "/tmp/march_${TAG}_uncond.log" 2>&1
 rc=$?; echo "uncond rc=$rc $(date +%H:%M:%S)" >> "$PG"
 [ $rc -ne 0 ] && { echo "FAILED uncond" > "$ST"; exit 1; }
