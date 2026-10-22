@@ -520,6 +520,107 @@ someone's in-flight #42101 work (`ZetaAsymp.lean`, `RiemannZeta.lean`,
 a separate `git worktree` for the #42093 branch; that tree is still on
 `feat-riemannzeta-conj` with all 4 files intact, verified after the checkout.
 
+
+## mathlib #42093 — GREEN (Legion, 2026-10-22)
+
+`ci (fork) / Build` **pass** on head `44557bce1d`, with Post-Build Step, Upload
+to cache, Lint style, main and Verify-Transient all pass. (Test-and-lint and
+Lint-and-suggest were still running; they were green on the previous head.)
+
+Fix as described in the entry above: two import lines swapped into sorted order.
+Merge fallout from the newer `linter.style.header.imports`, not the PR's code.
+Design question untouched. No public comment.
+
+## mathlib #42100 — STOPPING, and why (Legion, 2026-10-22)
+
+**The defect I was sent for was real and is fixed.** `mk_all --check` was
+failing:
+
+```
+The file 'Mathlib.lean' is out of date: run `lake exe mk_all` to update it
+```
+
+Not a Lean error — the same run reported `[8686/8687] Built Mathlib (2.5s)`.
+Rather than run `mk_all` (it needs the branch's three-month-old toolchain
+built), I checked all 8295 import lines for ordering inversions: exactly **one**,
+no duplicates — `...CFC.SpectralProjection` listed before `...CFC.Restrict`,
+which sorts first. Moved that one line; re-ran the checker: **no inversions, no
+duplicates**. Commit `2c6837ebfe`.
+
+**Confirmed effective:** the new build log contains no "out of date" message at
+all, and `Test and lint` + `Lint style` are now **pass**. The job stops earlier,
+at a different gate.
+
+**That gate is the blocker, and it is not our code:**
+
+```
+ERROR: Your branch's 'lake exe cache' tool is outdated.
+It reads from storage that CI does not write for your branch, so it will miss
+the artifacts CI builds for your branch and rebuild them locally instead.
+Please merge 'master' into your PR branch and push again.
+```
+
+CI refuses to build at all — 42 s — until upstream master is merged.
+
+**Measured facts behind the stop:**
+
+| | |
+|---|---|
+| #42100 head `7f7138a1` commit date | **2026-07-26** (not 10-14; that was a skipped "Check PR titles" run) |
+| branch toolchain | `v4.33.0-rc1` |
+| upstream master toolchain | `v4.36.0-rc1` |
+| **Pablo's fork `master`** | `c8830a1d9c`, **2026-07-25**, also `v4.33.0-rc1` |
+| branch vs fork master | **0 commits behind** |
+
+So **merging the fork's own master is a no-op** — it is the same vintage as the
+branch. The merge CI wants is of **upstream** `leanprover-community/mathlib4`
+master, which is ~3 months and a toolchain ahead.
+
+**Why I stopped rather than doing it.** That is not "the smallest change that
+builds":
+
+1. It is a three-month mathlib merge plus a toolchain bump, into an actively
+   churning area (`Analysis/CStarAlgebra/ContinuousFunctionalCalculus`), where
+   the PR's two new files must still compile.
+2. I cannot even **assess** the merge locally: the Legion clone is **shallow**
+   (2 grafted tips), so merge-base is empty and `merge-tree` reports "refusing
+   to merge unrelated histories". Assessing needs an unshallow fetch of full
+   mathlib history.
+3. I cannot **verify** the result without a full mathlib build — hours — and I
+   will not run that on Pablo's interactive machine (my own recorded runaway
+   took his desktop to 51 MB free) nor on the Acer (one build lock, shared with
+   the march, Acer mid-Step-6).
+4. Post-merge proof repair against three months of CFC drift is upstream-drift
+   adaptation, i.e. a material scope change — Pablo's call, not mine.
+
+**Recommended next action, and it is one click:** use GitHub's **"Update
+branch"** on #42100. That is exactly what put #42093 right — its head
+`5782b447` is a web-flow "Merge branch 'master'" commit carrying toolchain
+`v4.36.0-rc1`, i.e. a merge of the *upstream* base, not the fork's master.
+After it lands, CI will actually build, and whatever it then reports I will
+diagnose. I did not click it myself: it rewrites the PR head with a merge of
+3 months of upstream, which is the scope change above.
+
+**I did NOT attempt a narrower workaround.** Hand-updating just the `Cache/`
+tooling or bumping `lean-toolchain` alone would be inventing a fix against CI's
+explicit instruction, and the cache tool has to match both the protocol and the
+toolchain. Reporting beats guessing here.
+
+**No public comment on either PR.** Code pushes only.
+
+**Side findings worth keeping:**
+
+* Pablo's fork `master` is stale at 2026-07-25. Any branch cut from it inherits
+  this exact blocker, so it is worth refreshing independently of #42100.
+* This Legion clone **fails to write refs** intermittently and now
+  reproducibly (`error: couldn't set 'refs/remotes/upstream/master'`) while
+  objects fetch fine and the disk has 1.2 TB free and refs/heads is writable.
+  Worked around with `--detach` worktrees and by addressing commits by SHA.
+* Pablo's #42101 work in that clone is **untouched**: 4 dirty files
+  (`ZetaAsymp.lean`, `RiemannZeta.lean`, `PR42101Axioms.lean`,
+  `PR_DESCRIPTION.md`) still present on `feat-riemannzeta-conj`, verified after
+  every checkout. I never switched its branch.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
