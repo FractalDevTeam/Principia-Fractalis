@@ -267,6 +267,80 @@ still reads c = 10, box 25); the contention it describes is the defect I fixed.
 **March.** Box 29 landed (`d4fafadb`, c = 83/8); now building c = 21/2, frontier
 10.4375. 37 schedule rows remain.
 
+
+## 03:16 — the 91a1 rank bound LANDED (`d32dd117`), 275 lines measured
+
+```
+E91a1_rank_ge_one : 1 <= Module.rank Z E_91a1.toAffine.Point
+P91_nonTorsion    : not (IsOfFinAddOrder P91),   P91 = (0,0)
+```
+
+rc=0, 3421 jobs, olean produced. All 11 axiom-checked declarations on exactly
+`[propext, Classical.choice, Quot.sound]`; no `sorryAx`, `nativeDecide` or
+`ofReduceBool` anywhere in the build. **The un-landed tail from yesterday is now
+landed** — and it was remaining work, not a gap, exactly as recorded.
+
+**Honest scope, unchanged:** a LOWER bound on ONE curve. Not the exact rank,
+nothing about `L(E,s)`, no part of BSD.
+
+**Cost, measured rather than estimated:**
+
+| | lines | decls |
+|---|---|---|
+| part 2, this capstone | **275** | 29 |
+| part 1 (`1d10a090`) | 182 | 13 |
+| **91a1 total** | **457** | 42 |
+| `E43a1RankOne_r135`, same conclusion, hand-written | **815** | — |
+
+The 815-line comparator re-derives the Bezout layer, size bound, height join and
+driver glue per curve. That is the work the universal layers delete. Nothing
+general was re-derived here: r178 for `dblQ`, r176 for the quartic step, r199
+for the height bridge, r200 for `X(R+R)` and `2^n.R /= 0`, r130 for the driver,
+r129 for the flag. The only new arithmetic is 91a1's own orbit.
+
+**The orbit, exactly:**
+
+```
+x(2^n P) : 0 -> 1 -> -2/9 -> 8845/441 -> 6088653225047446/1223724862004841
+heights  : 1,   1,    9,      8845,      6088653225047446
+```
+
+Threshold bites at `n = 4` — the same shift E43a1 needed.
+
+**kappa computed, never transcribed.** `kap` is *defined* as
+`(CL 0 2 1 (-1)).toNat`; `0 < kap` and `kap < 6088653225047446` are proved by
+`norm_num` unfolding r175's sixteen cofactor polynomials. Lean computes it, so a
+wrong hand-copied value could not hide. Build `#eval` reports **kap = 24388** —
+so yesterday's conversational 24388 is now measured, not assumed.
+
+**Why `Psi /= 0` was the whole curve-specific story.** On 91a1
+`Psi 0 2 1 X Y = Y*(4X^3 + 4XY^2 + Y^3)`: the duplication denominator IS the
+2-torsion cubic, so part 1's parity argument makes `Psi_ne_zero_at` hold at
+*every* rational. No case analysis along the orbit, and the orbit can never
+reach the identity.
+
+**My duplicate-`X` defect is now load-bearing, and visible rather than hidden.**
+The r130 driver consumes `NonTorsionFromOrbit.X` (my seventh copy) while the
+capstone should speak through r199's. `X_bridge` proves them equal by
+`cases <;> rfl`, docstringed as the pending retirement. Retirement still open.
+
+**Two errors of mine this stretch**, both cheap and both now fenced: `lake` is
+not on a non-interactive ssh PATH (needs `$HOME/.elan/bin`), and Lean block
+comments NEST — my explanatory text quoted `/-` tokens and swallowed its own
+terminator, costing one full lock cycle. I wrote a comment-nesting checker and
+validated it against the exact failing input rather than just fixing the line.
+
+**ACER: both lanes are now progressing through the per-module lock.** While my
+capstone queued, Acer took the lock and landed `17c2afbf` and `76931203`
+(plaquette time-sector reflects strictly; pointwise refined-sector reflection on
+non-diag plaquettes) — two of the three files I had flagged as uncommitted.
+`WilsonSectorRefinedSumIdentity_2026_10_21.lean` is still untracked, and is
+Acer's to commit. Three-way lock queues (march / YM / BSD) are resolving in
+minutes, which is what the fix was for.
+
+**March.** Box 29 landed (`d4fafadb`, c = 83/8); building c = 21/2, frontier
+10.4375. 37 rows remain.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
