@@ -744,6 +744,55 @@ small. The second is the better engineering; the first is one producer line.
 **Measurement first** (how far over budget it actually is), which costs one
 locked build. Frontier stands at **10.9375**, 34 boxes committed.
 
+
+## #42100 — final state of this pass: reduced to ONE blocker
+
+After the merge and three follow-up pushes, CI on head `988a252ceb` reports:
+
+```
+mk_all "out of date" messages           : 0
+warnings in the PR's own two files      : none
+errors                                  : Ideal.lean:78:28 and :78:44
+```
+
+Two error positions, one line, one cause. Everything mechanical is cleared and
+the PR now carries exactly one genuine blocker.
+
+Sequence, for the record:
+
+| commit | what | result |
+|---|---|---|
+| `2c6837ebfe` | the inverted `Mathlib.lean` import line | cleared the `mk_all` defect |
+| `6db80eacaa` | merge of upstream master, 2151 commits, toolchain → `v4.36.0-rc1` | cleared the outdated-cache-tool gate |
+| `33f1363009` | redo my botched `Mathlib.lean` resolution by literal insertion | `mk_all` clean, verified by reconstructing upstream byte-for-byte |
+| `988a252ceb` | sort `Ideal.lean`'s imports; `haveI` → `have` | no warnings left in the PR's files |
+
+**The one blocker, untouched and reported:**
+
+```
+Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Ideal.lean:78
+  | frequently f h => exact h.mem_of_closed (hI.preimage (cfcHom_continuous ha'))
+
+Application type mismatch: the argument h has type
+  Frequently (fun g => (cfcHom ha') g in I) (nhds f)
+but is expected to have type
+  Frequently (fun x => x in coe I) (nhds ((cfcHom ha') f))
+```
+
+`Frequently.mem_of_closed` now wants the predicate stated **at the image point**
+with the ideal coerced to a set, where the PR supplies it **composed through
+`cfcHom`**. That is upstream drift against the PR's own mathematics, so by Rio's
+bound it is reported, not repaired — Pablo's call. The `haveI → have` change in
+the same file introduced no new error, so it needs no revert.
+
+## March — measurement in flight
+
+Building the already-emitted `Assemble_c11_threehalves_HYBRID` with
+`-D maxHeartbeats=8000000` (4x the limit it blew) under the shared lock, timed,
+to establish what the D = 4 fold actually costs before choosing between raising
+the limit and deepening the fold. Took the lock immediately, since the march
+being stopped means nothing is contending. Result to be recorded here.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
