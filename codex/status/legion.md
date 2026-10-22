@@ -1,12 +1,13 @@
 # LEGION — status
 
-**Updated:** 2026-10-21 late evening · **Owner:** Legion session (march ownership, pipeline, research)
+**Updated:** 2026-10-21 23:xx · **Owner:** Legion session (march ownership, pipeline, research)
 
 ## Current task
 
-**D=1 band is COMPLETE.** Both staged script fixes applied and pushed. BSD
-item 1 (the universal non-torsion step) is landed and validated. Next: BSD
-items 2+3 for 91a1, whose feasibility constants are now Lean-verified.
+**The D=2+ band is running on the decided configuration.** Pablo 2026-10-21:
+`--extend-midpoint` ON, safety 1.25x. Enforced in the producer gate, not only
+in the schedule. First D=2 box landed; `march_run_schedule.sh` is walking the
+remaining 39 rows unattended.
 
 ## Last landed
 
@@ -29,7 +30,52 @@ The lock fix earned itself twice: the band hit contention again at c = 10 and
 
 ## In flight
 
-Nothing building. No locks held by me.
+* **D>=2 band**, `codex/march_run_schedule.sh` under `nohup setsid`, driving
+  `codex/march_schedule.txt` (40 rows). Row 1 (c = 81/8) landed; now on row 2
+  (c = 41/4, r = 1/16, D = 2). Holds the shared flock per box via
+  `march_box.sh`'s blocking `flock -w`.
+* Priced total **287.5 h (12.0 days)**, 2284 panel modules.
+
+## The decided configuration, and what enforcing it required
+
+| | |
+|---|---|
+| schedule | 40 boxes, 2284 modules, 287.5 h, 10.0625 -> 13 |
+| producer gate | `1.25x * Q*r < Mc_lb` on the **proof's** majorant scale |
+| `march_box.sh` | takes a density arg; passes `--extend-midpoint --safety 1.25` |
+
+Two things §0.8 flagged are now actually true in the deployed path: the gate
+compares on **Q** (the `omega(1) <= 1/22` majorant the proof carries, ~5% larger
+than the tight `L0` it used to compare against), and the safety factor is
+**applied** rather than existing only for `--pick-r`. Verified both ways —
+`--safety 10` at a 3.89x centre refuses and emits 0 pilots, while reporting that
+the bare criterion still passes, so a margin decision can never read as a
+mathematical failure.
+
+D defaults to 1 in `march_box.sh`, so re-running any landed box stays
+byte-identical (`--extend-midpoint` is a no-op at D=1).
+
+## The D=2 test found a real bug — `d78a7771`
+
+`emit_assemble` had **`Seg03Range` hardcoded** for the two integrability
+lemmas. Correct for every box ever built, because at D=1 segments 3–6 are
+range-brick. With extend-ON at D=2, sub-segments 1–5 are midpoint and the range
+modules start at 6, so the assemble failed on an unknown identifier. The density
+refactor parameterised `MID_SEGS`/`RANGE_SEGS` but left that literal.
+
+**The axiom gate caught the consequence independently** — the two headline
+enclosure theorems came back carrying `sorryAx` from Lean's error recovery, so
+the exact-set check would have refused the box even if the exit code had been
+missed.
+
+Fixed to `min(RANGE_SEGS \ MID_SEGS)` with an assertion that one exists. D=1
+regeneration is **18/18 byte-identical**, so the landed band cannot be
+perturbed; only the assemble changed, so the rebuild was 3 modules not 1.8 h.
+
+Worth noting why building beat inspecting: this was the first D>=2 **assemble**
+ever compiled. The earlier D=8 check read the emitted text's `linarith`
+structure, and task 4 built only the Seg01 pack. A structural check on generated
+text cannot find an unknown identifier.
 
 ## BSD — item 1 landed, items 2+3 next
 
@@ -66,10 +112,7 @@ the doubling chain with explicit x-values, and the flag.
 
 ## Blocked on Pablo
 
-**`--extend-midpoint` on/off, and safety 1.25× vs 1.0×.** Rio recommends extend
-ON + 1.25×. Measured: default boundary **does not reach 13 under any safety
-factor** (stops 12.906250); extend+1.0× = 225.3 h, extend+1.25× = 287.5 h,
-default+1.0× = 397.8 h. **No D=2 boxes emitted until these land.**
+Nothing. Both decisions landed 2026-10-21 and are in force.
 
 ## A reproducibility hazard found and closed — `69638902`
 
