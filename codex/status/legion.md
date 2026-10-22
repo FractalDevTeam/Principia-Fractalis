@@ -418,6 +418,108 @@ sector-action-reflection block is done and it calls the remainder mechanical
 plumbing. Its three in-flight files are down to committed work plus
 `WilsonSectorRefinedSumIdentity`.
 
+
+## TO ACER — read this first (Legion, 2026-10-22 ~16:20)
+
+**Three things that affect your lane directly.**
+
+**1. Legion has moved to mathlib PR repairs and is NOT using the Acer build
+lock.** Rio assigned me #42093 and #42100 (both red Build checks). That work
+runs on Legion hardware plus GitHub CI — it touches
+`/tmp/pf_lean_build.lock` **not at all**. So for the duration, the only
+competitor for the lock is the unattended march (one module at a time, ~7.5 min
+worst case). **The lock is effectively yours for Step 6.** This is the opposite
+of last night's starvation; use it.
+
+**2. A trap that will bite any mathlib branch you touch after a master merge.**
+#42093's Build failure was not a Lean error at all. The 2026-10-22 merge of
+master brought in a newer `linter.style.header.imports`, and its
+"Imports can be reformatted" warning is **build-failing** in mathlib CI:
+
+```
+warning: .../TwoSidedIdeal.lean:10:0: Imports can be reformatted:
+Some required targets logged failures:
+- Mathlib.Topology.Algebra.Ring.TwoSidedIdeal
+error: build failed
+```
+
+The entire fix was swapping two import lines into sorted order
+(`...Algebra.IsOpenUnits` sorts before `...Algebra.Ring.Basic`). If you ever
+merge master into a mathlib branch, expect a red Build from import order alone
+and do not go looking for a maths error.
+
+**3. The CI axiom gate that is supposed to verify your YM modules cannot fail.**
+Detail in the 08:45 entry above and in
+`codex/CI_GATE_PRIME_HOLE_2026-10-22.md`. Two independent defects in
+`verify.sh`, both still live: the allowlist is applied as a line *deleter* so
+`exit 2` is unreachable, and the transcript is empty because `PF.lean` already
+imports the AxiomCheck modules. **Your `wilson_reflection_positivity` axiom
+claims are currently checked only by whatever greps you and I run by hand, not
+by CI.** The gate fix is written and self-tested but applying it is Pablo's
+call. `codex/ci_gate_audit_transcript.py` will audit any `lake build` log you
+already have, with no rebuild and no lock — worth running on your Step 6 log
+when it lands.
+
+Nothing of yours is touched by any of this: no `PF/YangMills/*`, no
+`TransferOperator.lean`, no shared scripts beyond the `commit_box.sh`/
+`march_box.sh` fixes already reported.
+
+## mathlib #42093 — repaired and pushed (Legion, 2026-10-22)
+
+**Error, read from CI's own log** (run 39808925118, job 119929728821, head
+`5782b447`, Build failed in 1m49s; Test-and-lint and Lint-style were green):
+
+```
+##[warning]warning: Mathlib/Topology/Algebra/Ring/TwoSidedIdeal.lean:10:0:
+  Imports can be reformatted:
+    public import Mathlib.RingTheory.TwoSidedIdeal.Lattice
+    public import Mathlib.Topology.Algebra.IsOpenUnits
+    public import Mathlib.Topology.Algebra.Ring.Basic
+Some required targets logged failures:
+- Mathlib.Topology.Algebra.Ring.TwoSidedIdeal
+error: build failed
+```
+
+**Diagnosis: merge fallout, not the PR's own code.** Head `5782b447` is a
+web-flow "Merge branch 'master'" commit from 2026-10-22 ~08:52 whose file list
+is dominated by `.github/**`. That merge brought in a newer
+`linter.style.header.imports` which requires the import block sorted and whose
+warning is build-failing under mathlib's required-targets mechanism. The branch
+was all-green before it. `IsOpenUnits` sorts before `Ring` (`I` < `R`), so the
+block as written was unsorted.
+
+**Fix — the smallest change that builds:** swap two import lines into sorted
+order. Verified a pure reorder: byte length unchanged and the line multiset
+unchanged, so nothing but order moved. Diff is
+`1 file changed, 1 insertion(+), 1 deletion(-)`.
+
+**Commit** `44557bce1d`, pushed `5782b44727..44557bce1d` onto
+`DrDMT-VR:feat-twosidedideal-closure`. Build check being watched; result
+recorded below when it settles.
+
+**The design question was NOT touched.** j-loreaux's open point (a separate
+`TwoSidedIdeal` API versus generalising `Ideal`) is untouched by an import
+reorder — no declaration, statement, or API surface changed. Per Rio's stop
+condition, no design decision was needed.
+
+**No public comment of any kind was made.** Code push only; the reply is
+Pablo's.
+
+**One honest limitation.** I did not reproduce the failure with a local mathlib
+build. The branch needs toolchain v4.36.0-rc1 while the Legion clone is on
+v4.35.0, so a local repro means a fresh multi-GB cache for a different
+toolchain on Pablo's interactive machine — and my own recorded incident is a
+Legion runaway costing him his desktop. I read the failure from **CI's own log**,
+which is stronger evidence than a local repro, and the fix is the exact
+reordering the linter itself printed. CI is the verification. If the Build check
+comes back red I will stand up the local build rather than guess again.
+
+**Worktree discipline:** the Legion mathlib clone had **4 dirty files** of
+someone's in-flight #42101 work (`ZetaAsymp.lean`, `RiemannZeta.lean`,
+`PR42101Axioms.lean`, `PR_DESCRIPTION.md`). I did not switch its branch. I added
+a separate `git worktree` for the #42093 branch; that tree is still on
+`feat-riemannzeta-conj` with all 4 files intact, verified after the checkout.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
