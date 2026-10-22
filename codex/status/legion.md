@@ -621,6 +621,129 @@ toolchain. Reporting beats guessing here.
   `PR_DESCRIPTION.md`) still present on `feat-riemannzeta-conj`, verified after
   every checkout. I never switched its branch.
 
+
+## 2026-10-22 evening — data-protection sweep + #42100 merge (Rio's pass)
+
+### 1. EXPOSED DATA, NOW PROTECTED (done first, as ordered)
+
+**#42101 working tree — `e0f684ad`.** Those four files existed in exactly one
+place: the working tree of a clone that was shallow and intermittently failed to
+write refs, two of them untracked (so `git stash` would not have covered them by
+default), with Pablo mid-reply on that PR. Landed at
+`codex/data/pr42101_worktree_snapshot_2026-10-22/` as **complete file contents**
+— not just a diff, so it depends on no base commit staying reachable — plus the
+116-line diff checked with `git apply --check --reverse`, SHA256SUMS, the base
+commit and restore instructions. **All five hashes re-verified on the Acer after
+transfer**, independently of the machine that produced them.
+
+Deliberately NOT done: nothing committed or pushed to `feat-riemannzeta-conj` or
+to PR #42101. Adding commits would move the PR head while Pablo is mid-reply,
+and that PR's content is his.
+
+**Scratchpad — `b4bf708e`.** Chosen by measurement: all 223 `.py/.sh/.lean/.md`
+scratchpad files md5-hashed against **all 9942 tracked files**; **114 had no
+content match anywhere** and are preserved at
+`codex/data/legion_scratchpad_rescue_2026-10-22/` — one 164 KB archive (nothing
+from the measured set omitted), `MANIFEST.txt`, and 10 reusable tools kept
+readable. The other 109 are byte-identical to already-committed content.
+
+Recorded honestly: **there is no file called "the BSD falsification script."**
+The 91a1 constant probe is `chain91.py` and does exist under that description;
+BSD-side checking was spread across four arithmetic probes plus Lean artifacts
+already committed. Named rather than shipping something and labelling it that.
+
+### 2. CLONE HAZARDS
+
+**(a) Shallow — FIXED by unshallowing**, not replacement: `is-shallow` is now
+`false`. This also removed the false readings the shallow clone had produced —
+"refusing to merge unrelated histories", an empty merge-base, and "186 commits
+ahead" where the true figure is **2151**.
+
+**(b) Ref-write failures — diagnosed as far as the evidence allows, and not
+over-claimed.** Transient, not deterministic: **15/15** `update-ref` writes
+succeed on demand, including the exact ref that had just failed. They cluster
+during large `fetch` operations, and one happened with no checkout running, so
+"file locking during large checkouts" is not the whole story. Defender
+real-time scanning is **on** and its exclusion list needs admin to read, so the
+AV-contention hypothesis is *consistent with everything observed but unproven*.
+I did **not** change `gc.auto` / `maintenance.auto` on a hypothesis I cannot
+confirm — that would be cargo-culting.
+
+What matters for safety was checked instead: **`git fsck --connectivity-only`
+exits 0**, reporting only dangling objects (one of them literally a `probe` blob
+I wrote with `hash-object`; the dangling tags are unshallow residue). Dangling
+is not corrupt. **No missing or broken objects — the failed ref writes corrupted
+nothing.** Proven workarounds: retry, `git worktree add --detach` (needs no new
+branch), and addressing commits by SHA.
+
+**(c) Scripts shipped** — see §1.
+
+### 3. FORK HYGIENE — DONE
+
+`DrDMT-VR/mathlib4` master fast-forwarded `c8830a1d9c` → `0db93bb444`,
+advancing **2151 commits**, 2026-07-25 → 2026-10-22. Verified a clean
+fast-forward first (`merge-base --is-ancestor` true), so **no force was used**.
+Branches cut from the fork no longer inherit #42100's blocker.
+
+### 4. #42100 — merged, then STOPPING on a proof-level break
+
+The merge of upstream master, in the dedicated worktree, produced **exactly one
+conflict, `Mathlib.lean` only**; the PR's own two added files merged clean
+because upstream never touched those paths. That is inside Rio's bound, so I
+resolved rather than stopped. Toolchain came across as `v4.36.0-rc1`.
+
+**My own error, caught by CI and fixed (`33f1363009`).** My first resolution
+*restructured* a generated file: it gathered every `public import` line and
+sorted them as one block, which moved `Std` from first position to after every
+`Mathlib.*` (S > M). mk_all rejected it, correctly. Redone by **literal text
+insertion** into upstream's file, verified by reconstruction — deleting exactly
+the two inserted lines reproduces upstream's `Mathlib.lean` byte-for-byte.
+
+**STOP CONDITION FIRED — not mine to fix.** Upstream drift broke the PR's own
+mathematics:
+
+```
+Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Ideal.lean:78:28:
+Application type mismatch: the argument h has type
+  Frequently (fun g => (cfcHom ha') g in I) (nhds f)
+but is expected to have type
+  Frequently (fun x => x in coe I) (nhds ((cfcHom ha') f))
+in the application
+  Frequently.mem_of_closed h
+```
+
+`Frequently.mem_of_closed` now wants the predicate stated at the image point
+with the ideal coerced to a set, where the PR supplies it composed through
+`cfcHom`. Adapting that is a mathematical decision about the PR's content —
+Pablo's, not mine. **I did not touch it.**
+
+No public comment on either PR at any point; code pushes only.
+
+### 5. MARCH HALTED — found on sync, diagnosed, not yet fixed
+
+The march **stopped at 11:54** and has been down since. First D = 4 box,
+c = 11: all 24 Range + 11 Midpoint + 4 bound modules built `rc=0`; only
+`Assemble_c11_threehalves_HYBRID` failed:
+
+```
+error: (deterministic) timeout at whnf, maximum number of heartbeats
+       (2000000) has been reached        (lines 3031, 3036, 4116, 4121)
+```
+
+and two theorems consequently fell back to `sorryAx`:
+`reLambda0_threehalves_hybrid_lb_ub` and `imLambda0_threehalves_hybrid_lb_ub`.
+
+**The axiom gate caught it and the runner refused to commit the box** — the gate
+working exactly as designed, and the reason no unsound box entered the tree.
+
+Cause: the hierarchical `linarith` fold is `max(15, 12D-1)` wide, so D = 4 gives
+**47** terms against 15 at D <= 2. This gates **every D >= 4 row** in the 40-row
+schedule, not just c = 11. Two candidate repairs — raise `maxHeartbeats` in the
+emitted Assemble, or deepen the fold another level so each `linarith` stays
+small. The second is the better engineering; the first is one producer line.
+**Measurement first** (how far over budget it actually is), which costs one
+locked build. Frontier stands at **10.9375**, 34 boxes committed.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
