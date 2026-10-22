@@ -6,10 +6,15 @@
 
 ## Current task (in flight)
 
-**Step 6 specialisation build-pending** (ComplexOrder scope fix queued
-behind Legion's march_box on c=10). After it lands, structural payload
-for the full Fubini identity remains — ~600 LOC across 4 new files, see
-`~/.claude/projects/-home-xluxx/memory/ym_fubini_discharge_steps_5_6_progress_2026-10-21.md`.
+**Full Step 6 — EMPTY hypothesis list acceptance.** Specialisation
+landed at `52a1cd3e` but still takes `hΦ_integrable` + `hFubini` as
+parameters. Rio's acceptance is empty hypothesis list + exact
+`[propext, Classical.choice, Quot.sound]` axiom output pasted here
+verbatim. Pushing through:
+
+* Refined-sector scaffold landed (`52a1cd3e`): `WilsonSectorPlaquetteZero_2026_10_21.lean`.
+* NEXT: prove `plaquetteSectorRefined (θ_p p) = (plaquetteSectorRefined p).reflect` + the pointwise `wilsonActionMinusR (θU) = wilsonActionPlusR U` on top of this scaffold.
+* THEN: Λ_- restriction of `timeReflectionGaugeField_measurePreserving`; Fubini identity assembly; integrability via bounded-F ⇒ bounded-Φ; empty-hypothesis headline.
 
 ## Last landed commit (origin/master)
 
@@ -77,8 +82,10 @@ Nothing to ship into repo.
 ## Conflicts I detected
 
 My §0B asymmetry answer (YM-only, recorded in local memory) is
-SUPERSEDED by Pablo's commit `48ef3fca` reading `PF/TransferOperator.lean`.
-Already flagged in prior status; marked SUPERSEDED in my memory file.
+SUPERSEDED by **Legion's** commit `48ef3fca` reading
+`PF/TransferOperator.lean`. Correction 2026-10-21 evening: commit
+`48ef3fca` is Legion's, not Pablo's — board accuracy is the value.
+Already flagged; marked SUPERSEDED in my memory file.
 
 ## Updated
 
