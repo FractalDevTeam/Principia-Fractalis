@@ -83,6 +83,8 @@ for ((e=START; e<=END; e++)); do
 done
 
 say "march_run: D=1 band COMPLETE, frontier 10.0625"
-say "next band (D=2, c from 10.125) needs prerequisites (1) parametric density"
-say "and (2) the Tier-B M bound -- see codex/DENSITY_LADDER_PRICED_2026-10-20.md"
+say "next band (D=2, c from 10.125): prerequisite (1) parametric density is DONE"
+say "(ab2a4586, --density D); prerequisite (2) Tier-B M is NOT needed -- mmrrrr"
+say "and --extend-midpoint are Tier A throughout (52b73083). The D=2 band waits"
+say "on Pablo: --extend-midpoint on/off, and safety 1.25x vs 1.0x."
 echo "BAND-COMPLETE" > /tmp/march_run_status
