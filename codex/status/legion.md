@@ -1,6 +1,6 @@
 # LEGION — status
 
-**Updated:** 2026-10-21 23:xx · **Owner:** Legion session (march ownership, pipeline, research)
+**Updated:** 2026-10-22 01:00 · **Owner:** Legion session (march ownership, pipeline, research)
 
 ## Current task
 
@@ -9,10 +9,37 @@
 in the schedule. First D=2 box landed; `march_run_schedule.sh` is walking the
 remaining 39 rows unattended.
 
+## Audit at 00:51 — two defects found and fixed (`ba4e6fb2`)
+
+Checked rather than reported. Both were mine.
+
+1. **`commit_box.sh` never pushed.** Zero `git push` in it, so every box the
+   unattended runner landed was local-only; `3235a3a9` (c = 41/4) was already
+   sitting unpushed. With 39 rows left the whole night would have accumulated
+   local — against the push discipline. Now pushes each box as it lands.
+2. **The march starved the Acer YM lane.** `march_box.sh` took the shared lock
+   once *per box* and held it for all 19 modules. Acer's
+   `flock -x … lake build PF.YangMills.WilsonSectorPlaquetteSectorReflection`
+   had been **blocked 42 minutes** behind one D = 2 box; at D = 32 (193 modules)
+   it would be starved ~a day, and there are 12 such boxes. Now acquired **per
+   module** — same one-lean-at-a-time guarantee, but YM interleaves. **Acer: the
+   wait ends when c = 83/8 finishes; from the next box the worst case is one
+   module (~7.5 min).**
+
+Both deployed by atomic `mv`, so the in-flight box kept its old inode and
+continued Seg10→Seg11 across the swap. Backups at `/tmp/*.sh.bak`.
+
+**A false alarm of mine, withdrawn:** my first diagnostic called the march
+stalled for 43 min. It wasn't — I grepped `ps` for `[l]ean -o`, which no longer
+matches `lean -M 7000 -o` because of the `-M` flag I added myself. The march was
+building normally throughout.
+
 ## Last landed
 
 | commit | what |
 |---|---|
+| `ba4e6fb2` | audit fixes: per-box push, per-module lock |
+| `1d10a090` | **E91a1**: no rational 2-torsion + the universal window on it, 182 L measured |
 | `69638902` | commit the per-segment M tier in `scripts/` — 26 boxes depended on an **uncommitted** file |
 | `bd2b33bf` | **the two staged fixes**: blocking `flock -w 7200` + `-M 7000` in `march_box.sh` |
 | `8af253eb` | **final band box c = 10** — 25 decls on the bar, frontier 10.0625 |
@@ -31,8 +58,9 @@ The lock fix earned itself twice: the band hit contention again at c = 10 and
 ## In flight
 
 * **D>=2 band**, `codex/march_run_schedule.sh` under `nohup setsid`, driving
-  `codex/march_schedule.txt` (40 rows). Row 1 (c = 81/8) landed; now on row 2
-  (c = 41/4, r = 1/16, D = 2). Holds the shared flock per box via
+  `codex/march_schedule.txt` (40 rows). Rows 1–3 landed (81/8, 41/4 at
+  `3235a3a9`); now on **c = 83/8**, Seg11 of 19. **28 box commits total,
+  frontier 10.3125.** Holds the shared flock per box via
   `march_box.sh`'s blocking `flock -w`.
 * Priced total **287.5 h (12.0 days)**, 2284 panel modules.
 
@@ -109,6 +137,28 @@ the doubling chain with explicit x-values, and the flag.
 **Target, restated:** `1 ≤ Module.rank` — a *lower* bound. Not an exact rank.
 `rank = 0` is false for all four gap curves, and an exact rank needs the
 2-Selmer upper bound on a curve with rational 2-torsion.
+
+
+## BSD — E91a1 landed (`1d10a090`), **182 lines measured**
+
+That closes the cost thread: the spec said ~35 L, I said ~150–250 L, both wrong.
+
+9 declarations, 0 errors. `h2tor` (∀ R ≠ 0, 2•R ≠ 0) is the one real per-curve
+obligation and it is **proved**; `heightWindow_91a1` instantiates the r179/r200
+universal window on 91a1. Axiom output: eight on exactly
+`[propext, Classical.choice, Quot.sound]`, and `hΔ91` on `[propext]` alone — a
+*strict subset*, since `decide` needs no choice. No `sorryAx`.
+
+**Not landed:** `1 ≤ Module.rank`. Every dependency for the tail is confirmed
+present (`r176.nh_pow_le_of_disc_ne_zero`, `r199.naiveHeight_eq_nh`,
+`r130.infinite_of_duplication_step`, `r200.X_dbl_of_ne_zero`,
+`r200.smul_ne_zero_of_two_torsion_free`), so this is remaining work, not a gap —
+Rio's stop condition does not fire and no per-curve workaround was written.
+
+**My error, recorded:** `r199:63` already defines `def X : W.Point → ℚ`. My
+`NonTorsionFromOrbit` (`9260ab5f`) defines its own and claims to replace six
+per-curve copies — it is a **seventh**. Its `X` should be retired in favour of
+r199's; not done, since it touches a landed module.
 
 ## Blocked on Pablo
 
