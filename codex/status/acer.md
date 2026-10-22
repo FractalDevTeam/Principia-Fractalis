@@ -6,15 +6,21 @@
 
 ## Current task (in flight)
 
-**Full Step 6 — EMPTY hypothesis list acceptance.** Specialisation
-landed at `52a1cd3e` but still takes `hΦ_integrable` + `hFubini` as
-parameters. Rio's acceptance is empty hypothesis list + exact
-`[propext, Classical.choice, Quot.sound]` axiom output pasted here
-verbatim. Pushing through:
+**Full Step 6 — EMPTY hypothesis list acceptance.**
 
-* Refined-sector scaffold landed (`52a1cd3e`): `WilsonSectorPlaquetteZero_2026_10_21.lean`.
-* NEXT: prove `plaquetteSectorRefined (θ_p p) = (plaquetteSectorRefined p).reflect` + the pointwise `wilsonActionMinusR (θU) = wilsonActionPlusR U` on top of this scaffold.
-* THEN: Λ_- restriction of `timeReflectionGaugeField_measurePreserving`; Fubini identity assembly; integrability via bounded-F ⇒ bounded-Φ; empty-hypothesis headline.
+The sector-action-reflection block is DONE as of commit `24a2a90c`:
+
+* `wilsonActionMinusR (θU) = wilsonActionPlusR U` LANDED, three-axiom bar.
+* Pointwise refined-sector reflection on non-diag plaquettes LANDED.
+* Zero sector θ-invariance LANDED.
+* Diagonality θ-invariance LANDED.
+
+This is the mathematical crux of Step 6. Remaining is mechanical plumbing:
+
+* Λ_- restriction of `timeReflectionGaugeField_measurePreserving` (~100 LOC).
+* Fubini identity assembly using the sum-level reflection + the Λ_- restriction + the glue parametrisation (~150 LOC).
+* `hΦ_integrable` discharge via bounded-F ⇒ bounded-Φ on finite base measure (~100 LOC).
+* Empty-hypothesis headline.
 
 ## Last landed commit (origin/master)
 
