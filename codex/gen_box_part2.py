@@ -67,6 +67,15 @@ def emit_assemble(c, tag, lean_frac, dec, outdir, panels, bounds, M_by_seg):
     """`panels`: list of (kind, seg, k, a, b) in increasing u.
        `bounds[(side, kind, seg, k)] = (lo, hi)` exact Fractions on nodeR."""
     PANEL_WIDTH, MID_SEGS, RANGE_SEGS = _geom()
+    # The integrability lemmas live in whichever sub-segment module is actually
+    # emitted as range-brick. This was hardcoded to Seg03Range, which was
+    # correct only because segments 3-6 were range at D=1; with
+    # --extend-midpoint at D=2 the first range sub-segment is 6, and the D=2
+    # assemble failed with "Unknown identifier
+    # Seg03Range.nodeR_fourier_plus_at_c81_8_N3_intervalIntegrable".
+    _rng_only = [s for s in RANGE_SEGS if s not in MID_SEGS]
+    assert _rng_only, "no range sub-segment: nothing provides integrability"
+    first_rng = seg_mod_range(min(_rng_only))
     raw = _parse_midpoint_literals(c, tag, outdir)
     t = tag(c)
     L = []
@@ -125,10 +134,10 @@ private noncomputable abbrev fP : ℝ → ℝ := nodeR_fourier_plus_at_{t}_N3
 private noncomputable abbrev fM : ℝ → ℝ := nodeR_fourier_minus_at_{t}_N3
 
 private theorem iiP (a b : ℝ) : IntervalIntegrable fP MeasureTheory.volume a b :=
-  Seg03Range.nodeR_fourier_plus_at_{t}_N3_intervalIntegrable a b
+  {first_rng}.nodeR_fourier_plus_at_{t}_N3_intervalIntegrable a b
 
 private theorem iiM (a b : ℝ) : IntervalIntegrable fM MeasureTheory.volume a b :=
-  Seg03Range.nodeR_fourier_minus_at_{t}_N3_intervalIntegrable a b
+  {first_rng}.nodeR_fourier_minus_at_{t}_N3_intervalIntegrable a b
 
 /-! ## §1 — The convention bridge: the midpoint pack's integrand is `2 · fP` -/
 
