@@ -93,10 +93,13 @@ if __name__ == "__main__":
                   f"{'YES' if ok else 'NO':>9} {float(f):>10.6f} "
                   f"{len(rows):>6} {mods:>8} {h:>8.1f} {h/24:>6.1f}")
     print()
-    # the deployed configuration: extended boundary, no safety factor
-    rows, f, ok, mods, h = results[(True, "1.0")]
+    # THE DECIDED CONFIGURATION (Pablo, 2026-10-21): extend-midpoint ON,
+    # safety 1.25x. Not the cheapest variant -- extend+1.0x is 225.3 h against
+    # 287.5 h -- but the default boundary does not reach 13 under ANY safety
+    # factor, so the extension is what makes a margin affordable at all.
+    rows, f, ok, mods, h = results[(True, "1.25")]
     if ok:
-        print("DEPLOYED CONFIGURATION (extended boundary, bare criterion): "
+        print("DECIDED CONFIGURATION (--extend-midpoint ON, safety 1.25x): "
               "reaches 13")
         print(f"  {len(rows)} boxes, {mods} panel modules, {h:.1f} h "
               f"({h/24:.1f} days serial)")
@@ -112,8 +115,8 @@ if __name__ == "__main__":
             print(f"  {D:>3} {len(cs):>6} [{min(cs):>9.4f},{max(cs):>9.4f}] "
                   f"{','.join(rs):>16} {hh:>7.1f}")
         out = ["# march schedule: D=1 band edge -> c = 13",
-               "# codex/make_schedule2.py -- extended midpoint boundary "
-               "(--extend-midpoint), bare Q*r < Mc_lb criterion",
+               "# codex/make_schedule2.py -- DECIDED CONFIG (Pablo 2026-10-21): "
+               "--extend-midpoint ON, safety 1.25x on Q*r < Mc_lb",
                "# a PROPOSAL: gen_box.py asserts the criterion itself and "
                "refuses infeasible rows",
                "# columns: centre radius density"]
