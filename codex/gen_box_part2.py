@@ -116,7 +116,7 @@ Authors: Pablo Cohen + Claude Opus 5 (1M context). 2026-10-20.
         w(f"import PF.Analytic.FourierPanels.{seg_mod_range(s)}_{t}_2026_10_16\n")
     w(f"""
 set_option autoImplicit false
-set_option maxHeartbeats 2000000
+set_option maxHeartbeats 64000000
 set_option maxRecDepth 1000000
 
 namespace PrincipiaTractalis
