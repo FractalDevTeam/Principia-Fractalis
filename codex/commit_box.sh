@@ -72,3 +72,11 @@ git add "PF_Lean4_Code/PF/Analytic/FourierPanels/"*_${TAG}_*.lean \
         "PF_Lean4_Code/PF/Analytic/PilotBoxes/R1_${TAG}_"*.lean || exit 1
 git commit -q -F "$MSG" || exit 1
 git log --oneline -1
+# Push every box as it lands. Rio's push discipline: landed work stays local
+# only while a build is running, never across a handoff. The unattended runner
+# lands a box roughly every 1-2 h, so without this the night's work accumulates
+# unpushed -- which is how it was until the 2026-10-21 00:51 audit found one
+# box already sitting local-only.
+if ! git push origin master 2>&1 | tail -2; then
+  echo "WARNING: box committed but PUSH FAILED -- push by hand before handoff"
+fi
