@@ -16,8 +16,14 @@ set -u
 # on the three-axiom bar), so that 12 GB is garbage lean declines to collect,
 # not live data. Cost: ~16% on range modules, none on midpoint (449 s capped
 # vs ~461 s uncapped).
-C="${1:?usage: march_box.sh CENTRE [RADIUS]}"
+C="${1:?usage: march_box.sh CENTRE [RADIUS] [DENSITY]}"
 RAD="${2:-1/16}"
+# Density and the midpoint boundary. Pablo 2026-10-21: --extend-midpoint ON and
+# safety 1.25x for the whole march. D defaults to 1 so every D=1 invocation --
+# including a re-run of any landed box -- stays byte-identical to what landed
+# (--extend-midpoint is a no-op at D=1: int(693/1000 * 4) = 2).
+DENS="${3:-1}"
+EXTRA="--density $DENS --extend-midpoint --safety 1.25"
 REPO="/Storage 2TB/home/xluxx/Principia-Fractalis-ACTIVE"
 PROD="$REPO/codex"
 # Emergency fallback only; restore explicitly after investigating a repo failure:
@@ -45,12 +51,12 @@ echo "GENERATING" > "$ST"
 # non-zero exit here means the centre is unreachable at this radius, which is
 # the signal to STOP the march rather than raise density silently.
 OUT=$(mktemp -d /tmp/march_out.XXXXXX)
-if ! (cd "$PROD" && python3 gen_box.py --c "$C" --r "$RAD" --out "$OUT" \
+if ! (cd "$PROD" && python3 gen_box.py --c "$C" --r "$RAD" $EXTRA --out "$OUT" \
         --work "$(mktemp -d /tmp/march_work.XXXXXX)" > "/tmp/march_${TAG}_gen.log" 2>&1); then
   echo "FAILED generate -- see /tmp/march_${TAG}_gen.log (box criterion?)" > "$ST"
   exit 1
 fi
-grep -E "Mc_lb|L0\(|BOX CRITERION|margin|hybrid (plus|minus)|gate lhs" \
+grep -E "geometry|Mc_lb|Q\*r|BOX CRITERION|SAFETY|margin|hybrid (plus|minus)|gate lhs" \
   "/tmp/march_${TAG}_gen.log" >> "$PG"
 
 # --- 2. install into the tree ---------------------------------------------
