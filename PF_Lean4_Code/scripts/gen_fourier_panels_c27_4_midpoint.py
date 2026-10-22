@@ -88,12 +88,20 @@ def point_bounds(m_frac, series_terms=50):
 # ---------------------------------------------------------------------------
 # Segment constants (T, M, error-per-panel)
 # ---------------------------------------------------------------------------
-# Universal crude M-bound: `fourier_plus_termM (27/4) n (1/4) ≤ 1000` for each
-# n ∈ {0, 1, 2}, summed over 3 terms gives ≤ 3000 = M. (Only verified for Seg01
-# with T = 1/4; later segments need a looser M. For a demo we fix at 3000.)
-M_VALUE = Fraction(24)
+# Per-segment M-bound. T = seg_hi dictates the tier:
+#   Tier A (T ≤ 1/2):  M=24, bounds E ≤ 2 and expT ≤ 2 via T ≤ log 2.    Seg01-02.
+#   Tier B (T ≤ 1):    M=30, bounds E ≤ 2 and expT ≤ 3 via T ≤ 1,exp 1≤3. Seg03-04.
+#   Tier C (T ≤ 3/2):  M=72, bounds E ≤ 3 and expT ≤ 9 via T ≤ 2,exp 2≤9. Seg05-06.
+def M_for_seg(seg_idx):
+    seg_lo, seg_hi = SEGMENTS[seg_idx]
+    T = seg_hi
+    if T <= Fraction(1, 2):
+        return Fraction(24)
+    elif T <= Fraction(1):
+        return Fraction(30)
+    else:
+        return Fraction(72)
 PANEL_WIDTH = Fraction(1, 32)  # (b - a) for each panel
-ERR_PER_PANEL = M_VALUE * (PANEL_WIDTH ** 3) / 24  # = 3000/786432
 
 
 def seg_file_name_mp(seg_idx):
@@ -404,7 +412,8 @@ def emit_midpoint_panel_block(seg_idx, k, a, b, L_node_plus, U_node_plus, L_node
     prefix = seg_prefix_mp(seg_idx)
     m = (a + b) / 2
     width = b - a
-    err = M_VALUE * (width ** 3) / 24
+    M_val = M_for_seg(seg_idx)
+    err = M_val * (width ** 3) / 24
     # f_plus = 2 * nodeR_fourier_plus (same for minus). So f_plus bound =
     # 2 * node bound. We emit BOTH: the node bound (used in Interval proof)
     # and the f_plus bound (used in the final theorem statement).
@@ -554,7 +563,7 @@ def emit_midpoint_panel_block(seg_idx, k, a, b, L_node_plus, U_node_plus, L_node
         f"  have h_mp := midpoint_rule_error hab h_f h_f' h_M\n"
         f"  rw [h_mid] at h_mp\n"
         f"  have h_rhs : M * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ) := by\n"
-        f"    show (24 : ℝ) * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ)\n"
+        f"    show ({frac_to_lean_decimal(M_val)} : ℝ) * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ)\n"
         f"    norm_num\n"
         f"  linarith [h_rhs]\n\n"
     )
@@ -581,7 +590,7 @@ def emit_midpoint_panel_block(seg_idx, k, a, b, L_node_plus, U_node_plus, L_node
         f"  have h_mp := midpoint_rule_error hab h_f h_f' h_M\n"
         f"  rw [h_mid] at h_mp\n"
         f"  have h_rhs : M * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ) := by\n"
-        f"    show (24 : ℝ) * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ)\n"
+        f"    show ({frac_to_lean_decimal(M_val)} : ℝ) * (({b_s} : ℝ) - ({a_s} : ℝ)) ^ 3 / 24 = ({err_s} : ℝ)\n"
         f"    norm_num\n"
         f"  linarith [h_rhs]\n\n"
     )
