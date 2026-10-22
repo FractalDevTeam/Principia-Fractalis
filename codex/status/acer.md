@@ -6,65 +6,80 @@
 
 ## Current task (in flight)
 
-**Steps 5 and 6 of the Fubini discharge memo** — Pablo direct order,
-2026-10-21.
-
-- Step 5: Φ construction. Needs a *second* glue (Λ_+ vs rest) parallel to the Λ_- glue already landed at `c5080d4b`; equivalently a nested `piEquivPiSubtypeProd` applied with an `isPlusLink` predicate. Then Φ is a partial Bochner integral over the Λ_+ component.
-- Step 6: final Fubini apply + Haar-inversion change-of-variable → `wilson_reflection_positivity` with empty hypothesis list.
-- Flock discipline (§1): every `lake build` on this machine takes `flock -x /tmp/pf_lean_build.lock` before invoking lake. March builds and YM builds share the same lock. Dual builds OOM at 15 GB.
+**Step 6 specialisation build-pending** (ComplexOrder scope fix queued
+behind Legion's march_box on c=10). After it lands, structural payload
+for the full Fubini identity remains — ~600 LOC across 4 new files, see
+`~/.claude/projects/-home-xluxx/memory/ym_fubini_discharge_steps_5_6_progress_2026-10-21.md`.
 
 ## Last landed commit (origin/master)
 
-`4e5bbb10` — action/Boltzmann symmetry on glued sector configs
-(`WilsonSectorGlueAction_2026_10_21.lean`, 4 decls, three-axiom bar).
+`cc1fe60c` — explicit `Φ` for Wilson RP Fubini discharge (step 5).
+Prior landings this session: `7bb5572e` (Λ_+ glue), `4e5bbb10`
+(glue action symmetry), `c5080d4b` (Λ_- glue + supportedOnPlusZero factor-eq).
 
-## Six-step mapping (where we are)
+## Six-step mapping — current state
 
 | # | Scope | Status | Commit |
 |---|---|---|---|
-| 1 | Λ_- Pi inv-invariance | LANDED | `42d6ad7a` + `5ad9b21a` |
-| 1b | θ̂ factorization + measure-preserving | LANDED | `2d1a840e` + `5fd31285` |
-| 1c | Change-of-variable identities under θ̂ | LANDED (off-plan — gives Hermiticity directly) | `9a8f1ddd` |
-| 2 | `gaugeFieldGlue` + restriction identities + measurability | LANDED | `c5080d4b` |
-| 3 | Action/Boltzmann symmetry on glue (X-independence form; weaker than memo's `S_- glue = S_+ glue ∘ θ`) | LANDED | `4e5bbb10` |
+| 1 | Λ_- Pi inv-invariance + θ̂ measure-preserving | LANDED | `42d6ad7a` `5ad9b21a` `2d1a840e` `5fd31285` `9a8f1ddd` |
+| 2 | Λ_- glue + restriction + measurability | LANDED | `c5080d4b` |
+| 3 | Action/Boltzmann symmetry on glue (X-independence) | LANDED | `4e5bbb10` |
 | 4 | `supportedOnPlusZero_glue` + `_factor_eq` | LANDED | `c5080d4b` |
-| 5 | Φ construction (needs Λ_+ second glue) | IN FLIGHT | — |
-| 6 | Final Fubini apply, headline empty-hypothesis | IN FLIGHT | — |
+| 5a | Λ_+ side glue (parallel to Λ_-) | LANDED | `7bb5572e` |
+| 5b | `wilsonReducedPhi` definition + `restrictNonPlus` + invariance | LANDED | `cc1fe60c` |
+| 6a | `wilson_reflection_positivity_withReducedPhi` specialisation | BUILD-PENDING (ComplexOrder fix in flight) | — |
+| 6b | `hΦ_integrable` discharge | IN FLIGHT | — |
+| 6c | `hFubini` discharge (sector action reflection + Λ_- change of variable) | IN FLIGHT | — |
 
 Acceptance target (§2.3): `wilson_reflection_positivity` with empty
 hypothesis list, kernel-clean, three-axiom bar.
 
+## Remaining Fubini identity proof — structural payload
+
+~600 LOC across 4 new files, detailed in the progress memory. Short
+list:
+
+1. `WilsonSectorMinusMeasurePreserving_2026_10_21.lean` — restrict the
+   full-field `timeReflectionGaugeField_measurePreserving` to the Λ_-
+   subtype using `measurePreserving_piCongrLeft` for the sector-swap
+   bijection + per-link `condInv_minus`. ~100 LOC.
+2. `WilsonSectorActionReflection_2026_10_21.lean` — sector action
+   reflection identity on INTEGRALS (not pointwise; boundary plaquettes
+   require sum-level handling via `wilsonActionDensity_timeReflection`
+   + `timeReflectionPlaquette_bijective`). ~250 LOC.
+3. `WilsonReducedPhiIntegrable_2026_10_21.lean` — bounded F ⇒ bounded Φ
+   ⇒ integrable `|Φ|²` on wilsonBaseMeasure (probability measure, finite).
+   ~100 LOC.
+4. `WilsonRPFubiniApplyUnconditional_2026_10_21.lean` — the final Fubini
+   identity assembly. Combines pieces 1-3 + landed Boltzmann factorisation.
+   ~150 LOC.
+
+Each file three-axiom bar individually.
+
 ## Crossings / files other sessions may read-touch
 
 - `PF/YangMills/*` is my lane. No concurrent writer expected.
-- `PF/TransferOperator.lean` was named in the §0B asymmetry study — not touched by me.
-- `/tmp/pf_lean_build.lock` is SHARED with Legion's march runner (`codex/march_box.sh`). Legion's `5c48f698` note confirms the shared-flock contract.
+- `PF/TransferOperator.lean` was named in the §0B asymmetry study (`48ef3fca`) — not touched by me.
+- `/tmp/pf_lean_build.lock` is SHARED with Legion's march runner (`codex/march_box.sh`). Legion's `5c48f698` note confirms shared-flock contract.
 
-## Conflict I detected on first-run (2026-10-21)
+## Current flock contention
 
-The §0B asymmetry study question (team awareness directive 2026-10-21):
-I answered it (YM-only scan), concluded "operators symmetric, no analog,"
-and recorded that at `~/.claude/projects/-home-xluxx/memory/pf_substrate_asymmetry_study_2026-10-21.md`.
-
-Pablo then committed a fuller answer at **`48ef3fca`** that read
-`PF/TransferOperator.lean` and found `T3` vs `T3_adjoint` IS the
-asymmetry analog, and `T3_sym_action := (T3 + T3*) / 2` deletes it at
-the point of definition — load-bearing for the entire Hilbert–Polya /
-spectral route (`T3_self_adjoint_conj`, `IsSelfAdjoint` consumers).
-
-My YM-only record was partial and is now superseded. I've marked it as
-SUPERSEDED in the memory file (pointer to `48ef3fca`) and in the
-MEMORY.md index. The authoritative answer is `48ef3fca` — do not cite
-my earlier record.
+Legion's march_box.sh on c=10, box 25 (D=1 band edge per §0, LEGION task 1 — producer pipeline repair / D=2 standup should be prioritised to unblock Legion). My Step 6 rebuild (PID 1708656) waiting ~26+ min — unusually long box.
 
 ## Out-of-repo items I touched (program-relevant to name)
 
-- `/tmp/pf_lean_build.lock` — shared with Legion (named in §1 of the master doc; well-known).
-- `/tmp/sectorglue_watch.log` — session-only watcher log for build completion; no retention needed, auto-expires with session.
-- `/tmp/claude-1000/-home-xluxx/<session-id>/tasks/*.output` — my Bash background-task outputs; session-only, no retention.
+- `/tmp/pf_lean_build.lock` — shared with Legion (named in §1).
+- `/tmp/sectorglue_watch.log` — session-only, no retention.
+- `/tmp/claude-1000/-home-xluxx/<session-id>/tasks/*.output` — session-only.
 
-Nothing to ship into the repo. No cross-session dependencies live outside.
+Nothing to ship into repo.
+
+## Conflicts I detected
+
+My §0B asymmetry answer (YM-only, recorded in local memory) is
+SUPERSEDED by Pablo's commit `48ef3fca` reading `PF/TransferOperator.lean`.
+Already flagged in prior status; marked SUPERSEDED in my memory file.
 
 ## Updated
 
-2026-10-21, before starting Steps 5-6.
+2026-10-21, after Steps 2-5 landings; before Step 6 full Fubini apply.
