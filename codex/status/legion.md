@@ -341,6 +341,83 @@ minutes, which is what the fix was for.
 **March.** Box 29 landed (`d4fafadb`, c = 83/8); building c = 21/2, frontier
 10.4375. 37 rows remain.
 
+
+## 08:45 — the CI axiom gate's *proposed fix* had a hole of its own (`05cd082d`)
+
+**`verify.sh` and the workflow are still untouched** — applying the gate remains
+Pablo's call, as recorded 2026-10-17, and the commit's diff against `verify.sh`
+and `.github/` is empty. What was wrong is the **proposal** and its self-test.
+
+The 10-17 proposal parsed axiom records with
+`r"'([^']+)' depends on axioms:..."`. Lean quotes the declaration name, so a
+name **ending in a prime** prints with a doubled quote —
+`'...sub_ne_zero'' depends on axioms:`. `[^']+` stops at the inner prime, the
+marker no longer follows, and **the record is silently skipped, not flagged.**
+A `sorryAx` in any `foo'` would have passed the replacement gate. Primed names
+are ordinary Lean style.
+
+**Found by measurement, not reading.** The 10-17 note *was* written by reading,
+and this survived both that reading and the self-test. It surfaced only on a
+real transcript — the 3421-job build of my capstone:
+
+```
+records parsed, proposed parser : 551
+lines selected, old line-grep   : 555
+```
+
+The replacement parsed FOUR FEWER records than the broken logic it replaces.
+That negative delta was the whole tell. The four: r131/r144
+`reduced_height_bound'`, r157 `dvd_R6_of_dvd_forms'`, r199 `sub_ne_zero'`.
+Fixed by anchoring the name on the marker with a greedy `[^
+]+` — now 555/555.
+
+**The new fixture needed five records, and that is the point.** `F5_primed` is
+four *clean* records plus the primed violating one. Four records *including* it
+would be rejected by the `MIN_RECORDS` guard even with a broken parser — passing
+for the wrong reason, the exact slip already on record against this self-test's
+first version. Discrimination proved by swapping the parser back:
+
+| parser | F5 | selftest |
+|---|---|---|
+| `[^']+` as proposed | **PASS** (wrong) | FAILED, exit 1 |
+| `[^
+]+` fixed | **FAIL(axiom)** | PASSED, exit 0 |
+
+**What this says about applying the gate.** On the closure measured the fixed
+gate goes **green**: 522 `[propext, Classical.choice, Quot.sound]`, 16
+`[propext]`, 16 `[propext, Quot.sound]`, 1 `[propext, Classical.choice]` — the
+small sets are *subsets* of the bar (`decide` needs no choice), not violations.
+**Scope, honestly:** one BSD capstone's import closure, not the whole `PF`
+target. It does not license a claim about the tree; it does show the fixed gate
+is not sitting on a pile of violations in the part measured.
+
+`codex/ci_gate_audit_transcript.py` is committed so this question is answerable
+from any ordinary `lake build` log — **no rebuild, no build lock.**
+
+Still open in `verify.sh`, unchanged and Pablo's: the `grep -vE` line-deleter
+(so `exit 2` is unreachable), the empty transcript (`PF.lean` imports the three
+AxiomCheck modules at 1293/1346/1355-1357, so the three `lake build
+PF.AxiomCheck_*` calls are no-ops, and `|| true` swallows failures),
+`cancel-in-progress: true`, and `github.sha` in the primary cache key.
+
+## 08:45 — march, and the pathspec fix verified in production
+
+Four more boxes landed unattended while I worked on the gate: **boxes 30-33**
+(c = 21/2, 85/8, 43/4, 87/8), frontier **10.9375**. 40 boxes total now
+(34 UNCONDITIONAL-named + 6 CLOSED-named). Now building **c = 11 at D = 4** —
+the first D = 4 box of the schedule.
+
+**The pathspec fix works on the thing that runs.** `dedd3918` is the first box
+committed after it; it and the three following each contain **exactly 25 files,
+0 non-box files**. Before the fix, `d4fafadb` carried 25 box files plus two book
+chapters.
+
+**Acer** landed `24a2a90c` (sum-level refined sector reflection,
+S_-R(theta U) = S_+R(U)) and refreshed its board (`081c0918`): the
+sector-action-reflection block is done and it calls the remainder mechanical
+plumbing. Its three in-flight files are down to committed work plus
+`WilsonSectorRefinedSumIdentity`.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
