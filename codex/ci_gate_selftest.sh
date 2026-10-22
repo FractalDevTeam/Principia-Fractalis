@@ -82,6 +82,22 @@ cat > "${TMP}/E_good.txt" <<'EOF'
 'PF.t4' depends on axioms: [propext, Classical.choice, Quot.sound]
 EOF
 
+# F5: FOUR clean records plus a PRIMED violating record, placed last. This is
+# the fixture that detects the prime-name hole. With a [^']+ parser the primed
+# record is dropped, 4 clean records remain, MIN_RECORDS is satisfied and the
+# verdict is a wrong PASS. Four records total (including the primed one) would
+# NOT discriminate: the record-count guard would reject it even with a broken
+# parser, i.e. it would pass for the wrong reason.
+cat > "${TMP}/F5_primed.txt" <<'EOF'
+'PF.t1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.t2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.t3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.t4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.reduced_height_bound'' depends on axioms: [propext,
+ sorryAx,
+ Quot.sound]
+EOF
+
 # ------------------------------------------------- OLD logic (verify.sh today)
 old_verdict () {
   local out
@@ -108,7 +124,12 @@ ALLOWED = {
     "Mayer1991_Cohen2025_T3_sym_HP_program_citation",
     "framework_substrate_pins_bulletproof_bundle",
 }
-REC = re.compile(r"'([^']+)' depends on axioms:\s*\[(.*?)\]", re.DOTALL)
+# The name is anchored on the marker with a greedy [^\n]+, NOT [^']+:
+# Lean declaration names may end in a prime, which it prints inside its
+# own quotes as "...sub_ne_zero'' depends on axioms:", and [^']+ stops
+# at that inner prime so the record is silently skipped. Measured: 4 of
+# 555 records in one real transcript were primed and invisible.
+REC = re.compile(r"'([^\n]+)' depends on axioms:\s*\[(.*?)\]", re.DOTALL)
 records = REC.findall(text)
 violations = []
 for name, body in records:
@@ -154,6 +175,7 @@ check "${TMP}/D_sorry.txt"   "D sorryAx, wrapped"            reject
 check "${TMP}/B4_oneline.txt" "B4 violation, 4 recs, 1 line"  reject
 check "${TMP}/C4_wrapped.txt" "C4 violation, 4 recs, wrapped" reject
 check "${TMP}/D4_sorry.txt"   "D4 sorryAx, 4 recs, wrapped"   reject
+check "${TMP}/F5_primed.txt" "F5 primed name hides sorryAx" reject
 check "${TMP}/E_good.txt"    "E clean, 4 records"            accept
 
 echo
@@ -164,6 +186,11 @@ echo
 echo "NEW logic parses records structurally (DOTALL, so wrapping is handled),"
 echo "checks each axiom name against the allowlist, and treats a transcript"
 echo "with too few records as a FAILURE rather than a pass."
+echo
+echo "Fixture F5 guards the prime-name hole: Lean prints a declaration"
+echo "whose name ends in a prime as \"name'' depends on axioms:\", and a"
+echo "[^']+ parser stops at the inner prime and skips the record. Found by"
+echo "measuring a real 3421-job transcript: 4 of 555 records were primed."
 
 if [[ "${MODE}" == "--expect-fail" ]]; then
   if (( slipped > 0 )); then
@@ -172,6 +199,9 @@ if [[ "${MODE}" == "--expect-fail" ]]; then
     exit 1
   fi
   echo
-  echo "SELFTEST PASSED: new logic rejects all 7 bad fixtures (4 by the record-count\n  guard, 3 by the axiom parser) and accepts the clean one."
+  echo "SELFTEST PASSED: new logic rejects all 8 bad fixtures:"
+  echo "  4 by the record-count guard, 4 by the axiom parser (one of those"
+  echo "  reachable only via a primed declaration name), and it accepts the"
+  echo "  clean fixture."
 fi
 exit 0
