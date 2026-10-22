@@ -3,100 +3,96 @@
 **Owner:** Acer session (Linux server 192.168.0.94, Opus 4.7, 1M ctx).
 **Lane:** YM Fubini discharge → unconditional `wilson_reflection_positivity`.
 **Pinned by:** `codex/INSTRUCTIONS_FOR_EVERY_AI_2026-10-21.md` §2 ACER.
+**Updated:** 2026-10-22, after Rio's "get back up to speed + data protection" pass.
 
-## Current task (in flight)
+## Current task
 
-**Full Step 6 — EMPTY hypothesis list acceptance.**
+**Full Step 6 — EMPTY hypothesis list acceptance.** The sector-action
+structural payload is DONE (14 commits since Rio's 10-21 directive, all
+three-axiom bar). Remaining is the Λ_- measure-preserving restriction +
+Fubini assembly + integrability + headline.
 
-The sector-action structural payload is DONE through `8426e74c`:
+## Last landed (origin/master)
 
-| landed | content |
+`8e942c4d` — status update after 3-way Boltzmann factorization. Prior
+block of 14 YM commits summarized under "Sector-action payload" below.
+
+## Sector-action structural payload — COMPLETE
+
+| commit | content |
 |---|---|
-| `24a2a90c` | **`wilsonActionMinusR (θU) = wilsonActionPlusR U`** (sum-level sector reflection) |
-| `24a2a90c` | `wilsonActionZero (θU) = wilsonActionZero U` (zero sector θ-invariant) |
-| `5c0b8b4c` | `wilsonActionPlusR_congr` / `wilsonActionMinusR_congr` (refined gauge-dependence) |
-| `d267d9d9` | `wilsonBoltzmann_plusR_supportedOnPlusZero` (complex lift) |
-| `09b95c1c` | **`wilsonActionTotal_sector_decomposition_refined`** (`S_W = S_+R + S_0 + S_-R`) |
-| `8426e74c` | **`wilsonBoltzmann_factorize_3way_real`** (`exp(-β S_W) = · · ·`) |
+| `c5080d4b` | Λ_- glue + `supportedOnPlusZero_factor_eq` |
+| `4e5bbb10` | Action/Boltzmann glue symmetry |
+| `7bb5572e` | Λ_+ side glue |
+| `cc1fe60c` | Explicit Φ definition |
+| `52a1cd3e` | Φ specialisation + 3-way refactor scaffold |
+| `71d9a040` | `isZeroPlaquette` θ-invariance |
+| `0a687967` | Non-diagonality θ-invariance |
+| `17c2afbf` | Plaquette time-sector reflects strictly |
+| `76931203` | Pointwise refined-sector reflection on non-diag |
+| **`24a2a90c`** | **Sum-level `S_-R(θU) = S_+R(U)`** |
+| `5c0b8b4c` | `wilsonActionPlusR / MinusR_congr` (gauge dependence) |
+| `d267d9d9` | `wilsonBoltzmann_plusR_supportedOnPlusZero` |
+| **`09b95c1c`** | **3-way decomposition `S_W = S_+R + S_0 + S_-R`** |
+| **`8426e74c`** | **3-way Boltzmann `exp(-βS_W) = exp(-βS_+R)·exp(-βS_0)·exp(-βS_-R)`** |
 
-Remaining to the empty-hypothesis headline:
+## Remaining to the empty-hypothesis headline
 
-1. Λ_- restriction of `timeReflectionGaugeField_measurePreserving` — sector-swap bijection `{isMinusLink} ≃ {isPlusLink}` with per-link conditional inversion, measure-preserving on Λ_- Pi Haar (~100 LOC, non-trivial).
-2. Fubini identity assembly (~150 LOC).
-3. `hΦ_integrable` discharge via bounded-F + bounded Boltzmann (~100 LOC).
-4. Empty-hypothesis headline theorem.
+1. **Λ_- measure-preserving restriction** (~100 LOC, non-trivial): sector-swap bijection `{isMinusLink} ≃ {isPlusLink}` with per-link conditional inversion, measure-preserving on Λ_- Pi Haar.
+2. **Fubini identity assembly** (~150 LOC).
+3. **`hΦ_integrable` discharge** (~100 LOC) via bounded F + bounded Boltzmann on compact SU(2).
+4. **Empty-hypothesis headline theorem** (~30 LOC).
 
-## Last landed commit (origin/master)
+Acceptance target (§2.3 unchanged): `wilson_reflection_positivity` with
+empty hypothesis list, exact `[propext, Classical.choice, Quot.sound]`
+axiom output pasted into this file verbatim.
 
-`cc1fe60c` — explicit `Φ` for Wilson RP Fubini discharge (step 5).
-Prior landings this session: `7bb5572e` (Λ_+ glue), `4e5bbb10`
-(glue action symmetry), `c5080d4b` (Λ_- glue + supportedOnPlusZero factor-eq).
+## March state — verified from origin (not runner's promise)
 
-## Six-step mapping — current state
+* `cbeffa13` — c=87/8, box 33 of 64, frontier 10.9375 (Rio's claim: this holds).
+* Push defect fix (`ba4e6fb2`) confirmed holding: `git log origin/master..HEAD` is empty — no local-only commits of mine.
+* Legion's per-module lock (`ba4e6fb2`): active. My next build will interleave with the march.
 
-| # | Scope | Status | Commit |
-|---|---|---|---|
-| 1 | Λ_- Pi inv-invariance + θ̂ measure-preserving | LANDED | `42d6ad7a` `5ad9b21a` `2d1a840e` `5fd31285` `9a8f1ddd` |
-| 2 | Λ_- glue + restriction + measurability | LANDED | `c5080d4b` |
-| 3 | Action/Boltzmann symmetry on glue (X-independence) | LANDED | `4e5bbb10` |
-| 4 | `supportedOnPlusZero_glue` + `_factor_eq` | LANDED | `c5080d4b` |
-| 5a | Λ_+ side glue (parallel to Λ_-) | LANDED | `7bb5572e` |
-| 5b | `wilsonReducedPhi` definition + `restrictNonPlus` + invariance | LANDED | `cc1fe60c` |
-| 6a | `wilson_reflection_positivity_withReducedPhi` specialisation | BUILD-PENDING (ComplexOrder fix in flight) | — |
-| 6b | `hΦ_integrable` discharge | IN FLIGHT | — |
-| 6c | `hFubini` discharge (sector action reflection + Λ_- change of variable) | IN FLIGHT | — |
+## Data protection sweep — 2026-10-22
 
-Acceptance target (§2.3): `wilson_reflection_positivity` with empty
-hypothesis list, kernel-clean, three-axiom bar.
+**Working tree:** `git status --short` shows **49 untracked**, **0 modified**. All of mine is on origin. Breakdown:
 
-## Remaining Fubini identity proof — structural payload
+* **43 c=11 panel files** under `PF_Lean4_Code/PF/Analytic/FourierPanels/` (`Seg*_c11_*.lean`, `CoreDefs_c11_*.lean`, etc). Legion's march working output for upcoming c=11 box (not yet landed). Not mine; Legion is aware (march runner-generated, committed per-box as the march runs).
+* **`Principia_Fractalis_master_folder/chapters/ch24_birch_swinnerton_dyer.tex.bak-bsfix`** — Legion's backup from the ch24:599 backslash fix. The fix itself is in the committed .tex. Backup is historical; disposable.
+* `codex/PILOT14_GATE_ANALYSIS_2026-10-14.md` — pre-existing untracked analysis document, not touched by me.
+* `codex/ci_gate_selftest.sh.bak-prime`, `codex/commit_box.sh.bak-pathspec` — Legion's audit backups (per Rio: let lapse; fixes are at `ba4e6fb2`).
+* `PF_Lean4_Code/PF/Analytic/_buildorder.txt`, `_totals.txt` — Legion's march bookkeeping files (not mine).
 
-~600 LOC across 4 new files, detailed in the progress memory. Short
-list:
+**ch07/ch24 edits per Rio's note:** my working tree has NO modifications
+to `ch07_*.tex` or `ch24_*.tex` (only the untracked `.bak-bsfix`). The
+edits Rio mentioned either (a) were committed earlier by Book session,
+or (b) only exist on a different machine. Not my single-copy state.
 
-1. `WilsonSectorMinusMeasurePreserving_2026_10_21.lean` — restrict the
-   full-field `timeReflectionGaugeField_measurePreserving` to the Λ_-
-   subtype using `measurePreserving_piCongrLeft` for the sector-swap
-   bijection + per-link `condInv_minus`. ~100 LOC.
-2. `WilsonSectorActionReflection_2026_10_21.lean` — sector action
-   reflection identity on INTEGRALS (not pointwise; boundary plaquettes
-   require sum-level handling via `wilsonActionDensity_timeReflection`
-   + `timeReflectionPlaquette_bijective`). ~250 LOC.
-3. `WilsonReducedPhiIntegrable_2026_10_21.lean` — bounded F ⇒ bounded Φ
-   ⇒ integrable `|Φ|²` on wilsonBaseMeasure (probability measure, finite).
-   ~100 LOC.
-4. `WilsonRPFubiniApplyUnconditional_2026_10_21.lean` — the final Fubini
-   identity assembly. Combines pieces 1-3 + landed Boltzmann factorisation.
-   ~150 LOC.
+**/tmp items:**
 
-Each file three-axiom bar individually.
+| path | nature | action |
+|---|---|---|
+| `/tmp/pf_lean_build.lock` | shared with Legion (§1) | keep (coord) |
+| `/tmp/commit_box.sh.bak`, `/tmp/march_box.sh.bak` | Legion's audit fix backups | **let lapse** per Rio (fixes at `ba4e6fb2`) |
+| `/tmp/sectorglue_watch.log` | my session watcher | session-only, disposable |
+| `/tmp/claude-1000/-home-xluxx/<sid>/tasks/*.output` | my build task outputs | session-only, disposable |
+
+**Single-copy items of mine remaining after sweep:** **none**. All my
+code and status is on origin. My session's /tmp artifacts are
+disposable (session-only; reboot-safe only in the sense that losing
+them loses nothing load-bearing).
 
 ## Crossings / files other sessions may read-touch
 
 - `PF/YangMills/*` is my lane. No concurrent writer expected.
-- `PF/TransferOperator.lean` was named in the §0B asymmetry study (`48ef3fca`) — not touched by me.
-- `/tmp/pf_lean_build.lock` is SHARED with Legion's march runner (`codex/march_box.sh`). Legion's `5c48f698` note confirms shared-flock contract.
+- `PF/TransferOperator.lean` was named in the §0B asymmetry study (Legion's `48ef3fca`) — not touched by me.
+- `/tmp/pf_lean_build.lock` SHARED with Legion's `march_box.sh` under the new per-module lock contract (`ba4e6fb2`).
 
-## Current flock contention
+## Conflicts I detected / corrections
 
-Legion's march_box.sh on c=10, box 25 (D=1 band edge per §0, LEGION task 1 — producer pipeline repair / D=2 standup should be prioritised to unblock Legion). My Step 6 rebuild (PID 1708656) waiting ~26+ min — unusually long box.
-
-## Out-of-repo items I touched (program-relevant to name)
-
-- `/tmp/pf_lean_build.lock` — shared with Legion (named in §1).
-- `/tmp/sectorglue_watch.log` — session-only, no retention.
-- `/tmp/claude-1000/-home-xluxx/<session-id>/tasks/*.output` — session-only.
-
-Nothing to ship into repo.
-
-## Conflicts I detected
-
-My §0B asymmetry answer (YM-only, recorded in local memory) is
-SUPERSEDED by **Legion's** commit `48ef3fca` reading
-`PF/TransferOperator.lean`. Correction 2026-10-21 evening: commit
-`48ef3fca` is Legion's, not Pablo's — board accuracy is the value.
-Already flagged; marked SUPERSEDED in my memory file.
+* §0B asymmetry answer: my YM-only record SUPERSEDED by Legion's `48ef3fca`. Marked in my memory file; status corrected 2026-10-21 evening.
+* No new conflicts on this pass.
 
 ## Updated
 
-2026-10-21, after Steps 2-5 landings; before Step 6 full Fubini apply.
+2026-10-22, after Rio's "get up to speed + data protection" pass. Resuming Step 6 next.
