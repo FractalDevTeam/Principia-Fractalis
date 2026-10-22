@@ -704,7 +704,7 @@ def main():
                          "1/16..1/4096 whose box criterion passes with the "
                          "safety ratio, and report the ladder")
     ap.add_argument("--safety", default="1.25",
-                    help="required Mc_lb / (L0*r) ratio when picking r")
+                    help="required Mc_lb / (Q*r) ratio -- applied BOTH when picking r and as the emit gate. Pablo 2026-10-21: 1.25.")
     ap.add_argument("--density", type=int, default=1,
                     help="panel density D: each of the six segments splits "
                          "into D sub-segments of 8 panels, so 6D modules per "
@@ -819,8 +819,33 @@ def main():
           if Lr > 0 else "")
     print(f"  [old shape, Mc_lb=1/8] margin vs 3/4 = {float(margin):+.8f} "
           f"{'PASS' if margin > 0 else 'FAIL'}")
+    # The authoritative gate, on the scale the EMITTED PROOF uses and with the
+    # decided safety factor. Two differences from the L0 line above, both
+    # material (Rio section 0.8 flagged each):
+    #   * Q, not L0. The proof carries the rational majorant from
+    #     omega(1) <= 1/22 (R1BoxLocalLNumeric.L0_le_rat), which is ~5% larger
+    #     than the tight L0. Gating on L0 would pass boxes the proof cannot.
+    #   * the safety factor. Pablo's decision 2026-10-21 is 1.25x. Previously
+    #     none was applied here, so the march was running with no margin by
+    #     default rather than by decision.
+    # The safety factor is a SCHEDULING margin, not a proof obligation: the
+    # emitted `hmargin` still needs only the bare Q*r < Mc_lb, and the emitted
+    # Lean is unchanged by this. What changes is which centres we agree to
+    # attempt.
+    Qr = (F(1, 11) * (1 + 1 / (c - r)) + F(1, 2) / (c - r) ** 2) * r
+    saf = F(args.safety)
+    print(f"  Q*r (proof scale)    = {float(Qr):.8f}")
+    print(f"  BOX CRITERION  {float(saf)}x * Q*r < Mc_lb : "
+          f"{'PASS' if saf * Qr < Mlb else 'FAIL'}"
+          f"  (ratio {float(Mlb / Qr):.2f}x, need {float(saf)})")
     if Lr >= Mlb:
         print("  BOX CRITERION FAILS at this centre -- refusing to emit the pilot.")
+        return 1
+    if saf * Qr >= Mlb:
+        print(f"  SAFETY MARGIN FAILS: Mc_lb/Q*r = {float(Mlb / Qr):.2f}x is below "
+              f"the decided {float(saf)}x -- refusing to emit the pilot.")
+        print("  (the bare criterion would pass; this is a deliberate margin, "
+              "not a mathematical failure)")
         return 1
     print("  BOX CRITERION PASSES")
 
