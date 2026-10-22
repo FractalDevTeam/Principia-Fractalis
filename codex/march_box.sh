@@ -32,16 +32,13 @@ TAG="c$(echo "$C" | tr '/' '_')"
 ST="/tmp/march_${TAG}_status"
 PG="/tmp/march_${TAG}_progress"
 
-exec 9>/tmp/pf_lean_build.lock
-# BLOCKING wait, matching the Acer session's `flock -x` convention. The old
-# `flock -n` failed immediately on contention, and march_run.sh read that as a
-# STOP -- which halted the band at c = 39/4 on 2026-10-21 17:08:51 while the YM
-# session legitimately held the lock (Rio §1 shares it between them). Waiting
-# removes the class; march_run.sh's LOCKED retry (5c48f698) stays as
-# belt-and-braces for the case where this times out.
-if ! flock -w 7200 9; then
-  echo "LOCKED: lock held by another build for 2h+" > "$ST"; exit 1
-fi
+# PER-MODULE locking, not per-box. The lock exists so only one lean runs at a
+# time (12 GB peaks on a 15 GB box). Holding it for the whole box is stricter
+# than that requires and STARVES the other lane: on 2026-10-21 the Acer YM
+# session sat 42 min behind a D=2 box, and at D=32 (193 modules) it would wait
+# roughly a day. Acquiring per module keeps the one-lean-at-a-time guarantee
+# while letting YM interleave between modules.
+LK="flock -w 7200 /tmp/pf_lean_build.lock"
 export PATH="$HOME/.elan/bin:$PATH"
 : > "$PG"
 echo "GENERATING" > "$ST"
@@ -76,7 +73,7 @@ echo "BUILDING" > "$ST"
 
 while read -r m; do
   [ -z "$m" ] && continue
-  taskset -c 0,1 lake env lean -M 7000 -o "$FP/$m.olean" \
+  $LK taskset -c 0,1 lake env lean -M 7000 -o "$FP/$m.olean" \
     "PF/Analytic/FourierPanels/$m.lean" > "/tmp/march_${TAG}_$m.log" 2>&1
   rc=$?
   echo "$m rc=$rc $(date +%H:%M:%S) freeGB=$(free -g | awk 'NR==2{print $4}')" >> "$PG"
@@ -85,13 +82,13 @@ done < PF/Analytic/_buildorder.txt
 
 GATE=$(cd "$A/PilotBoxes" && ls R1_${TAG}_*_HYBRID_*.lean | head -1)
 UNC=$(cd "$A/PilotBoxes" && ls R1_${TAG}_*_UNCONDITIONAL_*.lean | head -1)
-taskset -c 0,1 lake env lean -M 7000 -o "$PB/${GATE%.lean}.olean" \
+$LK taskset -c 0,1 lake env lean -M 7000 -o "$PB/${GATE%.lean}.olean" \
   "PF/Analytic/PilotBoxes/$GATE" > "/tmp/march_${TAG}_gate.log" 2>&1
 rc=$?; echo "gate rc=$rc $(date +%H:%M:%S)" >> "$PG"
 [ $rc -ne 0 ] && { echo "FAILED gate" > "$ST"; exit 1; }
 
 # Unconditional pilot: no -o, so it is CHECKED, not cached.
-taskset -c 0,1 lake env lean -M 7000 "PF/Analytic/PilotBoxes/$UNC" \
+$LK taskset -c 0,1 lake env lean -M 7000 "PF/Analytic/PilotBoxes/$UNC" \
   > "/tmp/march_${TAG}_uncond.log" 2>&1
 rc=$?; echo "uncond rc=$rc $(date +%H:%M:%S)" >> "$PG"
 [ $rc -ne 0 ] && { echo "FAILED uncond" > "$ST"; exit 1; }
