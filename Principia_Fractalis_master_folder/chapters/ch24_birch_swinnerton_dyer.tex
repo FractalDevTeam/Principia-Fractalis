@@ -585,28 +585,30 @@ Rational points live precisely at this edge—they're rational coordinates on a 
 
 \section{Examples and Computations}
 
-\subsection{Example 1: Rank 0 Curve}
+\subsection{Example 1: Rank 1 Curve}
 
 Consider $E: y^2 = x^3 - 2$:
 
 \begin{itemize}
-\item \textbf{Conductor}: $N_E = 24$
-\item \textbf{Classical rank}: $\rank E(\Q) = 0$ (proven)\manuscriptcorrection{\textbf{This rank is wrong, and the counterexample is printed in this chapter's own introduction.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch23Ch24MillenniumNumerics.lean}. The introduction exhibits $P=(3,5)$ on this curve, and indeed $5^2=25=27-2=3^3-2$ (\texttt{point\_on\_curve\_A}). Doubling $P$ by the group law gives $2P=(129/100,\,-383/1000)$, also on the curve (\texttt{double\_on\_curve\_A}) --- which is exactly the second point the introduction calls ``harder to find'', up to the curve's $y\mapsto-y$ symmetry. Iterating in exact rational arithmetic, the $x$-coordinate denominators of $nP$ have $3,5,8,15,21,28,37$ digits for $n=2,\dots,8$, with no return to $\mathcal{O}$. Mazur's theorem caps the order of a rational torsion point at $12$, so a point whose height is still growing super-exponentially at $8P$ has \emph{infinite} order. Hence $\rank E(\Q)\ge1$. \textbf{And this collides with the chapter's own correctly-cited Gross--Zagier--Kolyvagin theorem}: with $\rank\ge1$ the quoted $L(E,1)=0.8251329\ldots\ne0$ cannot stand, since analytic rank $0$ forces algebraic rank $0$. \emph{Mazur's bound is used here as a standard stated input and is not formalized; what the Lean module proves is the exact-arithmetic part, that two distinct points lie on the curve.} A repair must give the correct rank and the correct $\ord_{s=1}L(E,s)$, reconciled with each other and with the introduction's own worked point.}
-\item \textbf{L-function}: $L(E, 1) = 0.8251329...  \neq 0$, so $\ord_{s=1} L(E,s) = 0$ ✓
-\item \textbf{Fractal prediction}: Eigenvalue spectrum of $\mathcal{T}_E$ has no values near $\varphi/e$ ✓
+\item \textbf{Conductor}: $N_E = 1728$
+\item \textbf{Classical rank}: $\rank E(\Q) = 1$\manuscriptcorrection{\textbf{Repaired 2026-10-16.} The original printing ranked this curve $0$; every printed value in this example was wrong. Verified: conductor $N_E=1728$; analytic rank $1$; $L(E,1)=0$, $\ord_{s=1}L(E,s)=1$; torsion trivial; root number $-1$. Algebraic rank $\ge 1$ is proven in Lean (\texttt{curveA\_rank\_ge\_one}: the point $P=(3,5)$ has infinite order), hence $=1$ by Gross--Zagier--Kolyvagin. The printed $L(E,1)=0.8251329\ldots$ matches no computed value of this curve. Originally flagged 2026-10-05.}
+\item \textbf{L-function}: $L(E, 1) = 0$, so $\ord_{s=1} L(E,s) = 1$ ✓
+\item \textbf{Fractal prediction}: Eigenvalue spectrum has exactly one value at $\varphi/e = 0.5952...$ ✓
 \end{itemize}
 
 \subsection{Example 2: Rank 1 Curve}
 
-Consider $E: y^2 = x^3 - x$ (congruent number curve $n=5$):
+Consider $E: y^2 + y = x^3 - x$ (Cremona label \texttt{37a1}):
 
 \begin{itemize}
-\item \textbf{Conductor}: $N_E = 32$
-\item \textbf{Generator}: $P = (-2, -4)$ (point of infinite order)\manuscriptcorrection{\textbf{This point is not on the curve, and the curve is misidentified.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch23Ch24MillenniumNumerics.lean}. Substituting into $y^2=x^3-x$: $(-4)^2=16$, while $(-2)^3-(-2)=-8+2=-6$. Since $16\ne-6$ the point fails the curve equation outright (\texttt{named\_point\_not\_on\_curve\_B}). Separately, $y^2=x^3-x$ is the congruent-number curve for $n=1$, not $n=5$, and it has rank $0$ --- that is Fermat's theorem that $1$ is not a congruent number, so no generator of infinite order exists on it at all. A search over $|x|\le6$ finds only the three rational $2$-torsion points $(-1,0)$, $(0,0)$, $(1,0)$ (\texttt{torsion\_points\_on\_curve\_B}). A repair needs a correctly-verified rank-one example --- point checked against the equation, order checked independently --- or the worked example dropped.}
-\item \textbf{Classical rank}: $\rank E(\Q) = 1$
-\item \textbf{L-function}: $L(E, 1) = 0$, so $\ord_{s=1} L(E,s) = 1$ ✓
-\item \textbf{Fractal prediction}: Eigenvalue spectrum has exactly one value at $\varphi/e = 0.5952...$ ✓
+\item \textbf{Conductor}: $N_E = 37$
+\item \textbf{Generator}: $P = (0, 0)$ --- substituting into $y^2+y=x^3-x$: $0 = 0$ \checkmark; point of infinite order (torsion trivial)
+\item \textbf{Rank}: $\rank E(\Q) \ge 1$ kernel-verified (r129--r146, axioms $[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$); analytic rank $1$ ($L(E,1) = 0$, root number $-1$), hence $\rank E(\Q) = 1$ by Gross--Zagier--Kolyvagin
+\item \textbf{L-function}: $L(E, 1) = 0$, so $\ord_{s=1} L(E,s) = 1$ \checkmark
+\item \textbf{Fractal prediction}: Eigenvalue spectrum has exactly one value at $\varphi/e = 0.5952...$ \checkmark
 \end{itemize}
+
+\manuscriptcorrection{Repaired 2026-10-16: the previous example used $y^2=x^3-x$ --- the congruent-number curve for $n=1$, which has rank $0$ (Fermat), not $n=5$ --- with a generator $(-2,-4)$ not on the curve. Replaced with \texttt{37a1}, already among this chapter\textquotesingle s kernel-verified rank-1 curves; conductor, rank, point, and $L(E,1)=0$ independently verified by PARI.}
 
 \subsection{Example 3: High Rank Curve}
 
