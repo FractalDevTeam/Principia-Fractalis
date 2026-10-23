@@ -36,12 +36,23 @@ block of 14 YM commits summarized under "Sector-action payload" below.
 | **`09b95c1c`** | **3-way decomposition `S_W = S_+R + S_0 + S_-R`** |
 | **`8426e74c`** | **3-way Boltzmann `exp(-βS_W) = exp(-βS_+R)·exp(-βS_0)·exp(-βS_-R)`** |
 
+## 2026-10-23 Fubini-apply payload — architectural skeleton COMPLETE
+
+| commit | content |
+|---|---|
+| `e028c251` | `sectorSwapEquiv : {isMinusLink} ≃ {isPlusLink}` |
+| `7cf3c4ce` | `sectorSwap_measurePreserving` (Pi Haar) |
+| `42656e9b` | `minusCondInv_measurePreserving` (per-link conditional inversion on Λ_-) |
+| `74414ed1` | **`minusToPlus_measurePreserving`** (full Λ_- → Λ_+ map, measure-preserving) |
+| `8f8e160f` | `wilsonReducedPhiR` (refined Φ using `wilsonActionPlusR`) |
+| `517cdace` | `wilson_reflection_positivity_withReducedPhiR` (specialisation) |
+| `c63cc802` | Refined Boltzmann plus-R X-independence on glue |
+
 ## Remaining to the empty-hypothesis headline
 
-1. **Λ_- measure-preserving restriction** (~100 LOC, non-trivial): sector-swap bijection `{isMinusLink} ≃ {isPlusLink}` with per-link conditional inversion, measure-preserving on Λ_- Pi Haar.
-2. **Fubini identity assembly** (~150 LOC).
-3. **`hΦ_integrable` discharge** (~100 LOC) via bounded F + bounded Boltzmann on compact SU(2).
-4. **Empty-hypothesis headline theorem** (~30 LOC).
+1. **Fubini identity proof** (~150 LOC): compose the 3-way Boltzmann factorization + Λ_- base split + Λ_- → Λ_+ change of variable + sector reflection + supportedOnPlusZero into the key integral identity.
+2. **`hΦ_integrable` discharge** (~100 LOC) via bounded F + bounded Boltzmann on compact SU(2).
+3. **Empty-hypothesis headline theorem** (~30 LOC): final glue invoking `wilson_reflection_positivity_withReducedPhiR` with internally-discharged hypotheses.
 
 Acceptance target (§2.3 unchanged): `wilson_reflection_positivity` with
 empty hypothesis list, exact `[propext, Classical.choice, Quot.sound]`
