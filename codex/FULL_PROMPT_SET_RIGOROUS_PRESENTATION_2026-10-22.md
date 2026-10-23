@@ -12,6 +12,7 @@ Pablo's order stands: fix the producer and restart the march. Constraints (Rio):
 3. D≤2 emitted output stays byte-identical, or regen-compare proves landed provenance unchanged (the 18/18 standard).
 4. Validate on c=11 end-to-end — assemble builds, axiom gate passes with no sorryAx, box commits AND pushes — then restart the schedule runner and watch the first box complete before leaving it unattended.
 5. Acceptance for the lane: frontier 13.0, every box on the bar, every box on origin the day it lands. Any stop reports measured numbers, never a workaround.
+6. Only after frontier 13: the TransferOperator.lean docstring fix (three docstrings call the proved `T3_self_adjoint_conj` an "axiom" — it is a theorem; the file has zero axiom declarations). It waits because the module is inside the march's closure; touching it earlier invalidates oleans the band stands on. Small, clearly-titled commit.
 
 ## P2 — LEGION: close the E91a1 tail + the evidence-side fit
 
@@ -23,13 +24,13 @@ Pablo's order stands: fix the producer and restart the march. Constraints (Rio):
 
 1. Finish Step 6 to the acceptance that has never moved: `wilson_reflection_positivity` with an EMPTY hypothesis list, `#print axioms` output pasted verbatim into your status file. Remaining payload per your own map (~600 LOC / 4 files). Each file on the bar individually; the headline's axiom print is the deliverable Rio verifies.
 2. The per-module lock is in force — your builds interleave with the march; contend accordingly, and keep the flock convention yours (blocking) as the program standard.
-3. On landing: status + push in the same stop, headline statement quoted exactly. Then stand ready for the split when the D≥2 runner needs Acer hands.
+3. On landing: status + push in the same stop, headline statement quoted exactly. Then report build capacity free on the board — the old Acer/Legion box split is superseded (the schedule runner walks the rows); your next assignment comes from Pablo/Rio, with the YM mass-gap formalization scoping as the standing candidate.
 
 ## P4 — ACER: the book-side extraction + fit memos (book work, evidence half)
 
 The manuscript is in your tree; Pablo designates book-work sessions — this prompt is that designation for the EVIDENCE half only (no chapter text changes under this prompt).
 1. Extract the book's claims VERBATIM, with chapter, in three domains: (a) coherence/resonance as organizing principle; (b) communication/consciousness in living systems — plants included if the text goes there; if it does not, record that it does not; (c) emergent scale/coherence in matter. Quotes, or an honest "not present." No paraphrase.
-2. Fit memos at grade: Veenstra against (a) (§0B grade: qualitative corroboration; the substrate asymmetry answer is already on record); Kondo against (a) and (c) via the study note's three questions (Wilson's RG — what flows, what is universal at the fixed point; the emergent-scale mechanism vs any the corpus relies on; screening-cloud size from a primary source only).
+2. Fit memos at grade: Veenstra against (a) (§0B grade: qualitative corroboration; the substrate asymmetry answer is already on record); Kondo against (a) and (c) via the study note's three questions (full note: `codex/study/KONDO_RG_STUDY_NOTE_2026-10-22.md` in this repo) — (i) Wilson's RG: what flows, what is universal at the fixed point; (ii) the emergent-scale mechanism (T_K, present in no bare parameter) vs any emergent scale the corpus relies on; (iii) the screening cloud's size, from a primary source only.
 3. Each memo filed in the study workspace + one board line. A failed fit is filed as failed, with the reason. That is a result.
 
 ## P5 — GPT: the corroboration computation
@@ -48,6 +49,19 @@ Build the presentation manuscript from the ledgers, not the prose: (1) the 2026-
 
 Assemble the readiness dossier from the boards and the tree: per-lane evidence index (theorem → commit → axiom output), the mathlib state, the corroboration dossier's grades, the open items list with owners. Verify every line against its source layer before it reaches Pablo. The publication call is reported when — and only when — the dossier supports all seven lanes at their honest strengths, per Pablo's standing rule: all seven, no partial publication.
 
+## P9 — PABLO (the principal's own list — no session can do these for him)
+
+1. **Decide #42100's repair:** authorize the Legion to fix the one drift break at Ideal.lean:78 (Rio recommends yes, bounded to that file), or park the PR. Everything else on that PR is done.
+2. **Your two mathlib replies** (#42093 design position; #42101 engaging tb65536's three PRs) — briefings in hand; both PRs are green and waiting on these alone.
+3. **Confirm or strike Rio's P4 designation** (Acer for the book-work evidence half; text changes remain under P7, separately designated).
+4. **Public surfaces** — the Oct 17 audit's open items, false as they stand: the repo description ("triple-verified in Lean 4, Coq, and L4L"), the wiki P≠NP "FORMALLY VERIFIED" badge, the Turing site's "proving P ≠ NP" meta, the YM glossary's "Solved here: Δ_YM = 420.43 MeV" line. Correct, scope, or leave — each is your call, but a rigorous presentation cannot ship with them unexamined.
+5. **IntervalArithmetic.lean:** 21 axiom declarations in the root file, two mathematically false — the Oct 12 referee recommendation was delete/archive. Decide.
+6. **CI axiom-gate patch:** diagnosed, demonstrated necessary (the old gate never fired in 697 runs) — apply or not.
+7. **ch07/ch24:** commit the working-tree edits (including the ch24:599 fix) or leave them parked — currently intentional and board-recorded either way.
+8. **DeepSeek:** confirm whether the arm is live — P6 fires on your word.
+9. **XOUT:** choose the second-backup destination for the at-risk archive list (3,705 basenames, saved and waiting).
+
+
 ---
 
-**Sequencing:** P1 and P3 run now (both machines, in parallel, per-module lock). P2/P4 fill the hands the march doesn't need. P5 fires when pasted. P7 assembles as P4/P5 land. P6 audits the assembly. P8 closes. Board discipline throughout: status at every natural stop; nothing program-critical in exactly one place; pushes are total.
+**Sequencing:** P1 and P3 run now (both machines, in parallel, per-module lock). P2/P4 fill the hands the march doesn't need. P5 fires when pasted. P9 sits with Pablo throughout — several lanes close only when its items land. P7 assembles as P4/P5 land. P6 audits the assembly. P8 closes. Board discipline throughout: status at every natural stop; nothing program-critical in exactly one place; pushes are total.
