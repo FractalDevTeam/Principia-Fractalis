@@ -1227,6 +1227,50 @@ unmodified. Taking it end-to-end: assemble, axiom gate with no `sorryAx`, box
 commits and pushes — that landing also retires the width caveat with a real
 wide fold passing in-tree, which is what Rio asked for.
 
+
+## 2026-10-23 14:38 — c = 93/8 LANDED: the 95-term fold passed in-tree, unmodified
+
+Rio's condition 3, met, and the width caveat retired by real in-tree evidence
+rather than by a probe's say-so.
+
+```
+status: DONE c=93/8 r=1/16 (assemble, gate and unconditional on the exact three-axiom bar)
+  assemble      :  7 declarations, all [propext, Classical.choice, Quot.sound]
+  gate          :  4 declarations, all [propext, Classical.choice, Quot.sound]
+  unconditional : 25 declarations, all [propext, Classical.choice, Quot.sound]
+```
+
+`9451564b` — box 39 of 64, frontier 11.5625 -> 11.6875. **Confirmed an ancestor
+of `origin/master`**, so committed AND pushed the day it landed. No errors in
+the assemble log, no `sorryAx`. 40 boxes committed; now building c = 47/4, also
+D = 8.
+
+**The fold that passed, read back from the committed file:**
+
+| | |
+|---|---|
+| widest `linarith` | **95** |
+| S-lemmas (third level) | **0** |
+
+So the first D = 8 box closed on the **unmodified two-level producer**, with the
+exact top-fold width that the earlier faulty probe had declared a live blocker.
+
+### What this settles
+
+1. **The width caveat is retired properly.** A real 95-term fold passed in-tree,
+   which is the evidence Rio named — not an isolated probe.
+2. **Not deploying the third fold level was correct.** Had it gone in, this box
+   would have closed through ~50 narrow `linarith` calls instead of 2 wide ones,
+   measured at 12x slower, to fix a problem that does not exist.
+3. **My withdrawn verdict stays withdrawn.** The 383-term "solver failure" was
+   my probe's missing `maxRecDepth`, and the in-tree result now agrees with the
+   corrected probe (`flat`, 384 terms, 43.34 s, rc=0) rather than with my
+   original claim.
+
+Remaining schedule at D >= 8: 12 more rows at D = 8, 10 at D = 16 (191-term top
+fold), 2 at D = 32 (383). On this evidence they proceed unmodified; each is
+still its own measurement, and any stop reports measured numbers.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
