@@ -12,6 +12,11 @@
 # grows with c, the march could OOM before c = 13, and the dense bands keep
 # module SIZE fixed at 8 panels so the trend is purely in c.
 #
+# 2026-10-23: the pattern above was "lean (-o ...)?PF/", which stopped
+# matching when -M 7000 was added to the march invocation -- the flag sits
+# BETWEEN lean and -o. The sampler then ran for ~52 hours recording nothing,
+# the same "check that silently stops checking" defect class as the CI axiom
+# gate. Pattern loosened to "lean .*PF/" so no flag ordering can blind it.
 # Matches any lean invocation on a PF module, with or without -o: the
 # unconditional pilot is built WITHOUT -o so it is checked rather than cached,
 # and an -o-only pattern silently skips exactly the module whose peak matters
@@ -26,7 +31,7 @@ peak=0
 t0=0
 while true; do
   line=$(ps -eo rss,args --sort=-rss 2>/dev/null \
-         | grep -E "^ *[0-9]+ lean (-o [^ ]+ )?PF/" | head -1)
+         | grep -E "^ *[0-9]+ lean .*PF/" | head -1)
   if [ -n "$line" ]; then
     rss=$(echo "$line" | awk '{print $1}')
     mod=$(echo "$line" | grep -oE "[A-Za-z0-9_]+\.lean" | tail -1)
