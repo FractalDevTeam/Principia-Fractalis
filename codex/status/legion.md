@@ -1132,6 +1132,101 @@ every committed box keeps regenerating as it does today.
    not defined` — `dec` is a *parameter* of `emit_assemble`, so the helper had
    to be a closure. Caught before deployment.
 
+
+## 2026-10-23 03:40 — CORRECTION: verdict (b) is RETIRED, not live. The third level is NOT deployed.
+
+**I reported (b) as a live structural blocker. That was wrong, and the cause was
+a defect in my own probe.** The correction is attached here to the original
+claim rather than replacing it quietly.
+
+### The falsification gate, run correctly
+
+The real producer emits THREE settings in every assemble header:
+
+```
+set_option autoImplicit false
+set_option maxHeartbeats 64000000
+set_option maxRecDepth 1000000
+```
+
+My probes carried only `maxHeartbeats`. With `maxRecDepth` absent, both probes
+died on `maximum recursion depth has been reached` — a ceiling the real file
+does not have. Re-run with both settings, matching the producer exactly:
+
+| probe | widest `linarith` | WALL | MAXRSS | rc |
+|---|---|---|---|---|
+| `flat` — one fold, the shape emitted today | **384** | **43.34 s** | 2.0 GB | **0** |
+| `tri` — the proposed three-level fold | 48 | **517.26 s** | 3.0 GB | 0 |
+
+**The 384-term flat fold PASSES, in 43 seconds.**
+
+### Consequences, stated at full strength
+
+1. **The D = 32 width concern is RETIRED.** A fold wider than anything in the
+   schedule (384 against the real 383) passes at the producer's actual
+   settings.
+2. **My earlier "solver failure, not budget-bound — no heartbeat value fixes
+   it" is WITHDRAWN.** The `linarith failed to find a contradiction` result at
+   64M came from the missing `maxRecDepth`, not from `linarith` giving up on
+   width. Rio's constraint 1 was accepted on the strength of that reading; the
+   reading was mine and it was wrong.
+3. **The third fold level is NOT deployed.** It is unnecessary, and as measured
+   it is **12x slower** — 517 s against 43 s. Deploying it would slow every
+   remaining D >= 8 box to fix a problem that does not exist.
+4. **Width was never the expensive axis.** `flat` does 2 wide calls; `tri` does
+   ~50 narrow ones over a local context swollen to ~800 hypotheses, and
+   `linarith` preprocesses the whole context per call. Call count against a
+   large context is what costs, not the argument list.
+
+Caveat kept attached: `tri`'s 517 s is partly an artifact of modelling the
+superblock state as signature hypotheses rather than `have` lemmas, so the real
+three-level emission might not be exactly 12x worse. It does not affect the
+decision — `flat` passing at 43 s removes the reason to change anything.
+
+### Status of the two producer experiments
+
+Both closed, with measurements, neither deployed:
+
+| experiment | verdict | measured |
+|---|---|---|
+| (a) reduced-rational bound literals | closed | 2.2% end-to-end (313.70 s vs 320.75 s) |
+| (b) third fold level | closed | unnecessary; 12x slower as modelled |
+
+The producer the march is running is the right one. **Deployed
+`gen_box_part2.py` verified clean against HEAD** — before the bench run, after
+it, and now.
+
+Bench evidence retained even though unused, because it is the standard the next
+producer change will be held to: regen-compare gave D = 4 c = 11 **43/43
+identical**, D = 4 c = 45/4 **43/43**, D = 2 c = 81/8 24 identical with the sole
+assemble difference chased to exactly one line (`maxHeartbeats 64000000` against
+`2000000`, i.e. the committed `d252b57f`). Generated structure measured at
+widest `linarith` 15 at D = 8 and 47 at D = 32.
+
+### My probe defects this sequence — three, all the same shape
+
+1. missing `import Mathlib.Data.Real.Basic` — probe failed on
+   `OfScientific ℝ`, measured nothing;
+2. unrealistic literals (`0.0000005` instead of the real 25-place bounds) —
+   would have measured the wrong quantity;
+3. missing `set_option maxRecDepth` — **produced a false structural verdict
+   that I reported upward as fact.**
+
+The shape is identical each time: I reconstructed my model of the emitted file
+instead of copying what the producer actually emits, and each time the
+difference is what the probe reported instead of the thing under test. The third
+one cost a wrong verdict, not just a lock cycle. Standing correction for any
+future probe: build it by taking the real emitted header and structure verbatim,
+then changing exactly the one variable under test.
+
+### Next
+
+The march walks on the current producer, unchanged. **c = 93/8 (D = 8, 95-term
+top fold) is the real in-tree test** and on this evidence should pass
+unmodified. Taking it end-to-end: assemble, axiom gate with no `sorryAx`, box
+commits and pushes — that landing also retires the width caveat with a real
+wide fold passing in-tree, which is what Rio asked for.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
