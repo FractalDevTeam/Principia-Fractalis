@@ -6,11 +6,11 @@
 
 ## P1 — LEGION: finish the march (producer fix, restart, walk to 13)
 
-Pablo's order stands: fix the producer and restart the march. Constraints (Rio):
-1. The D=4 assemble failure is structural — the hierarchical fold hits the whnf heartbeat cap at 47 terms (D=4); D=32 means 383. Fix the fold's shape (chunk it so no single step exceeds D≤2 scale), not the heartbeat budget.
-2. Falsify first: demonstrate the new fold at 383 terms in isolation before the runner restarts.
+Pablo's order stands: fix the producer and restart the march. **[AMENDED 2026-10-22 evening — the Legion's measured correction supersedes constraint 1's stated cause, and events have met constraint 4.]** Constraints (Rio):
+1. ~~The D=4 assemble failure is structural — the hierarchical fold hits the whnf heartbeat cap at 47 terms (D=4); D=32 means 383. Fix the fold's shape (chunk it so no single step exceeds D≤2 scale), not the heartbeat budget.~~ **CORRECTED (Legion, measured over 229 linarith calls): the four 47-term top folds PASSED; both failures were 15-term per-block folds — the fold was already two-level. The driver is numeral size. The fix in flight: reduced-rational emission for the four bound sites (42.1% fewer summed bits over 946 literals), gated to D≥4, endpoints left decimal. The patch stays HELD until the four isolated probes return — the probes decide whether it earns its keep and whether the 383-term top-fold width is a live concern at D=32.**
+2. Falsify first: demonstrate the new fold at 383 terms in isolation before the runner restarts. **[Stands as the probe program for the rework.]**
 3. D≤2 emitted output stays byte-identical, or regen-compare proves landed provenance unchanged (the 18/18 standard).
-4. Validate on c=11 end-to-end — assemble builds, axiom gate passes with no sorryAx, box commits AND pushes — then restart the schedule runner and watch the first box complete before leaving it unattended.
+4. Validate on c=11 end-to-end — assemble builds, axiom gate passes with no sorryAx, box commits AND pushes — then restart the schedule runner and watch the first box complete before leaving it unattended. **[MET BY EVENTS 2026-10-22: c=11 landed clean unattended (gate clean on all three stages), boxes 35–36 followed; frontier 11.3125.]**
 5. Acceptance for the lane: frontier 13.0, every box on the bar, every box on origin the day it lands. Any stop reports measured numbers, never a workaround.
 6. Only after frontier 13: the TransferOperator.lean docstring fix (three docstrings call the proved `T3_self_adjoint_conj` an "axiom" — it is a theorem; the file has zero axiom declarations). It waits because the module is inside the march's closure; touching it earlier invalidates oleans the band stands on. Small, clearly-titled commit.
 
@@ -18,7 +18,7 @@ Pablo's order stands: fix the producer and restart the march. Constraints (Rio):
 
 1. E91a1: land `1 ≤ Module.rank` — every dependency is confirmed present (r176/r199/r130/r200). Acceptance: named theorem, on the bar, axiom output in your status file. If a dependency turns out not to compose, stop and file the exact gap; no per-curve workaround. Retire NonTorsionFromOrbit's duplicate `X` in favour of r199's only when doing so cannot disturb a landed module — otherwise file it as known debt with the reason.
 2. Electric Plant separation pass (from connect-the-dots): primary literature only — what plant electrophysiology demonstrates today; then the three-column fit against the Acer's verbatim book claims (startup claims / literature / the book in 2025 — never merged). Filed as a graded memo in the study workspace + one board line.
-3. #42100's Ideal.lean:78 repair fires ONLY on Pablo's explicit word. Until then the board carries it as the single named blocker.
+3. ~~#42100's Ideal.lean:78 repair fires ONLY on Pablo's explicit word.~~ **RESOLVED 2026-10-22 evening: Pablo authorized it in session (bounded, verbatim on the board); the repair landed and #42100's Build passes (head a28b07e16c). No mathlib machine-side blockers remain.**
 
 ## P3 — ACER: complete the Yang-Mills discharge
 
@@ -51,7 +51,7 @@ Assemble the readiness dossier from the boards and the tree: per-lane evidence i
 
 ## P9 — PABLO (the principal's own list — no session can do these for him)
 
-1. **Decide #42100's repair:** authorize the Legion to fix the one drift break at Ideal.lean:78 (Rio recommends yes, bounded to that file), or park the PR. Everything else on that PR is done.
+1. ~~**Decide #42100's repair**~~ **CLOSED 2026-10-22 evening: authorized in session, repair landed, Build green — nothing left on this item.**
 2. **Your two mathlib replies** (#42093 design position; #42101 engaging tb65536's three PRs) — briefings in hand; both PRs are green and waiting on these alone.
 3. **Confirm or strike Rio's P4 designation** (Acer for the book-work evidence half; text changes remain under P7, separately designated).
 4. **Public surfaces** — the Oct 17 audit's open items, false as they stand: the repo description ("triple-verified in Lean 4, Coq, and L4L"), the wiki P≠NP "FORMALLY VERIFIED" badge, the Turing site's "proving P ≠ NP" meta, the YM glossary's "Solved here: Δ_YM = 420.43 MeV" line. Correct, scope, or leave — each is your call, but a rigorous presentation cannot ship with them unexamined.
