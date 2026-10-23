@@ -1271,6 +1271,58 @@ Remaining schedule at D >= 8: 12 more rows at D = 8, 10 at D = 16 (191-term top
 fold), 2 at D = 32 (383). On this evidence they proceed unmodified; each is
 still its own measurement, and any stop reports measured numbers.
 
+
+## 2026-10-23 — RSS watch per density band (Rio's standing addition)
+
+### The instrument was broken, and is fixed (`86a59d5c`)
+
+`codex/rss_sampler.sh` had been **running for ~52 hours recording nothing.** Its
+pattern was `lean (-o ...)?PF/`, which stopped matching when `-M 7000` was added
+to the march invocation — the flag sits BETWEEN `lean` and `-o`. The process
+stayed up, the log stayed silent. Same **"a check that silently stops checking"**
+defect class as the CI axiom gate, this time in my own monitoring, and the same
+`-M` gap that caused the stall alarm I withdrew on 10-22. Pattern loosened to
+`lean .*PF/` so no flag ordering can blind it; reason recorded at the point of
+the fix. Verified capturing after restart.
+
+### The freeGB figures cannot stand in for peak RSS
+
+`march_box.sh:79` samples `free -g` **after** each module exits. Derived peak
+from those numbers is 6-7 GB across every box — against **11.4 GB measured
+live**. The progress logs show there is no leak; they say nothing about the peak,
+and the peak is what OOMs. The sampler is the only source for what Rio asked to
+watch. (This was already written in the sampler's own header on 10-21; I
+re-derived it instead of reading it first, which my own rule says to do.)
+
+### The trend, measured
+
+| era | source | modules | mean | **peak RSS** |
+|---|---|---|---|---|
+| D = 1 / D = 2, **before `-M 7000`** | sampler | 138 | 7.5 GB | **13.0 GB** of 15 |
+| D = 4, after the cap | live `ps` | spot | — | 11.3 GB |
+| D = 8, after the cap | live `ps` | spot | — | **11.4 GB** |
+
+Worst peaks in the entire record are the **early D = 1 boxes**: 12.97 GB
+(Seg06Range c = 75/8), 12.94, 12.88, 12.83, 12.73 (c = 19/2) — 67 of 138
+modules above 9 GB. Those all predate the heap cap.
+
+**Density is not driving RSS toward the ceiling.** Module SIZE is fixed at 8
+panels at every density by design, so D changes the module COUNT, not the
+per-module footprint; and `-M 7000` bounds the heap, holding peak at
+11.3-11.4 GB, about 3.5 GB clear of the 15 GB ceiling. The dense bands are
+therefore longer, not heavier.
+
+**Caveat, stated:** the sampler went blind exactly when `-M 7000` landed, so
+there is no per-module peak distribution for D = 4 or D = 8 yet — only two live
+spot readings. The restarted sampler fills that in, and the next landings will
+carry a real per-band peak rather than a spot check.
+
+## c = 93/8 landing — RSS line for the board
+
+Box 39 of 64, `9451564b`, frontier 11.5625 -> 11.6875, on origin. Peak module
+RSS for this box: not captured (sampler blind until 14:5x). From c = 47/4
+onward the per-box peak is recorded.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
