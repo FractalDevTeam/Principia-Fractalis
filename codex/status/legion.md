@@ -1042,6 +1042,96 @@ D >= 4 — so the landed D <= 2 band regenerates byte-identically per constraint
 Interval endpoints stay decimal: they are short, and they sit inside the
 integral expressions the adjacency identities match syntactically.
 
+
+## 2026-10-23 — probe verdict per Rio's deploy rule: (a) NO, (b) LIVE
+
+### (a) Reduced-rational bound literals — DO NOT DEPLOY. Closed experiment.
+
+Measured at the sites that actually timed out: c = 11's D = 4 assemble, same
+file, same cap, only the bound-literal form changed.
+
+| bound form | WALL | MAXRSS | rc |
+|---|---|---|---|
+| decimal (baseline) | 320.75 s | 5,345,788 KB | 0 |
+| **reduced rational** | **313.70 s** | 5,223,432 KB | 0 |
+
+**7.05 s, or 2.2%.** The supporting numbers were all real and all misleading
+about the end result: 42.1% fewer numerator/denominator bits across the 946 long
+literals, and 22% less wall time in an isolated width-15 probe (2.88 s vs
+3.71 s). End to end it is 2.2%, because the assemble's cost is dominated by
+integral elaboration, the `rw` steps, the adjacency lemmas and the 353 one-term
+`linarith` calls — not by the bit-width of bound literals. 352 long decimals
+also remain after the patch: the `rlo`/`rhi` raw midpoint literals, which come
+from `_parse_midpoint_literals` and feed only those one-term calls.
+
+2.2% does not buy a second code path in the producer, the loss of assemble
+byte-identity from D >= 8, or a producer change while the march is mid-run.
+**My own proposal, retired by its own measurement.** The march finishes on the
+current producer, per Rio's rule.
+
+The patch itself worked and is recorded as a closed experiment, not as debt:
+`bnd()` as a closure in `emit_assemble` gated at D >= 8, four BOUND sites only
+(`dec(lo)/dec(hi)/dec(blo)/dec(bhi)`), endpoints untouched. At D = 8 it emits
+525 `(p / q)` literals, e.g. `B000 : ((168244570793 / 65536000000000) : ℝ)`.
+
+**Byte-identity, verified while it was on the bench:** regenerating committed
+boxes with the patched producer gave D = 2 c = 81/8 → 24 identical and D = 4
+c = 11 → 43 identical, **0 differing**. The single D = 2 assemble difference is
+exactly two lines — `maxHeartbeats 64000000` against `2000000` — i.e. the
+already-committed heartbeat change `d252b57f`, not the patch. Stated plainly:
+assemble byte-identity with the landed band was already given up by that change,
+deliberately and measurably; panel and bound modules remain byte-identical.
+
+### (b) The 383-term top fold — LIVE, and heartbeats cannot fix it
+
+| probe | at the DEPLOYED 64M cap | wall | rc |
+|---|---|---|---|
+| `w383_dec` | `linarith failed to find a contradiction` | 74.96 s | 1 |
+| `w383_rat` | `linarith failed to find a contradiction` | 55.90 s | 1 |
+
+**Not a timeout — a solver failure**, at the deployed budget, on a goal that is
+trivially derivable (`sum lo <= sum x <= sum hi` from `lo_i <= x_i <= hi_i`), in
+both numeral forms. The identical construction passes at width 15, so width is
+the controlled variable.
+
+**Rio's constraint 1 is confirmed and my earlier framing was too broad.** The
+64M cap unblocked D = 4; it does **not** unblock D = 16 or D = 32, and no
+heartbeat value will, because the failure is not budget-bound.
+
+Caveat kept attached: the probe uses independent variables, while the real top
+fold combines `B`-lemma conjunctions with `H` adjacency identities. The real
+47-term fold (D = 4) passes; the real 95 (D = 8), 191 (D = 16) and 383 (D = 32)
+are untested. So the probe establishes that width breaks `linarith` in
+isolation, not the exact real-world threshold.
+
+### Consequence for the lane — the fold chunking is now the critical path
+
+Schedule densities: 7 rows at D = 2, 8 at D = 4, **13 at D = 8 (95-term top
+fold), 10 at D = 16 (191), 2 at D = 32 (383)**. Ten rows are committed. The
+first uncommitted D >= 8 row is **c = 93/8**, and the march is building c = 91/8
+now — so the untested 95-term fold arrives within a box or two.
+
+The fix is a third fold level, not a bigger budget. The fold is already
+two-level (8 panels per block, then `2*nblk - 1` on top); grouping blocks into
+superblocks of 8 caps every step at 15 within a level and leaves the top at
+`2*nsuper - 1`: 11 at D = 8, 23 at D = 16, **47 at D = 32** — and 47 is the
+width already proven to pass in the real D = 4 file. One extra level suffices
+for the whole remaining schedule.
+
+Gating: engage the third level only when `2*nblk - 1 > 47`, i.e. D >= 8, so
+every committed box keeps regenerating as it does today.
+
+### Two errors of mine this pass, both caught by the test rig
+
+1. The `sed` meant to repoint the patch at a copy did not match, so the patch
+   briefly landed on the **live** producer. Reverted with `git checkout`; **no
+   box was contaminated** — the in-flight box was generated an hour earlier.
+   Second quoting failure of the night; this is exactly why the evaluation ran
+   against a copy.
+2. `bnd()` written as a module-level function raised `NameError: name 'dec' is
+   not defined` — `dec` is a *parameter* of `emit_assemble`, so the helper had
+   to be a closure. Caught before deployment.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
