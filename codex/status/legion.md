@@ -1323,6 +1323,61 @@ Box 39 of 64, `9451564b`, frontier 11.5625 -> 11.6875, on origin. Peak module
 RSS for this box: not captured (sampler blind until 14:5x). From c = 47/4
 onward the per-box peak is recorded.
 
+
+## 2026-10-23 — RSS CORRECTION: the dense bands ARE heavier, and headroom is 2.06 GB
+
+**I told this board, hours ago, that "density is not driving RSS toward the
+ceiling" and that "the dense bands are longer, not heavier." That is WRONG.**
+It rested on two live `ps` spot readings (11.3 GB at D = 4, 11.4 GB at D = 8),
+and a spot reading is not a peak — which is the exact reason the sampler exists.
+With the sampler fixed and 33 D = 8 modules actually measured:
+
+| band | modules | mean RSS | **peak RSS** | headroom of 15 GB |
+|---|---|---|---|---|
+| D = 1 / D = 2 (pre-cap) | 138 | **7.47 GB** | 12.97 GB | 2.03 GB |
+| **D = 8 (current)** | **33** | **12.06 GB** | **12.94 GB** | **2.06 GB** |
+
+The **peak** is essentially unchanged — 12.94 against 12.97. What moved is the
+**mean: 7.47 -> 12.06 GB.** At D = 1/D = 2 an occasional module spiked near 13
+GB against a 7.5 GB typical; at D = 8 nearly *every* module sits at 12 GB. The
+distribution has shifted up to the ceiling rather than the ceiling being
+approached by outliers.
+
+Worst D = 8 modules measured: `Seg39Range_c47_4` 12.94, `Seg47Range_c47_4`
+12.85, `Seg46Range_c47_4` 12.82, `Seg02Midpoint_c47_4` 12.72 GB. Each ~450 s.
+
+### What this does and does not mean
+
+**Does not mean an OOM is imminent by growth in D.** `lean -M 7000` caps the
+heap at 7 GB; the 12.94 GB RSS is heap plus mapped oleans plus overhead, and
+that cap does not move with density. The mean rose because at D = 8 almost all
+modules are "big" ones, not because any single module got bigger than the cap
+allows.
+
+**Does mean the margin is thin and now known.** 2.06 GB clear, with 12 more
+rows at D = 8, 10 at D = 16 and 2 at D = 32 still to run. The flock already
+guarantees one Lean at a time, which is the only thing standing between 12.94
+GB and the ceiling — and it is also why I did not run a 1.7 GB probe alongside
+a module earlier tonight when I was tempted to, to beat a lock queue.
+
+### The lever, identified and NOT pulled
+
+Lowering `-M` (7000 -> 6000) would cut peak RSS, but it trades memory headroom
+for elaboration failures: the D = 4 assemble already needed 5.1 GB measured and
+a 64M heartbeat budget, so squeezing the heap risks turning a memory margin
+into a build failure. That is a producer/runner behaviour change mid-march
+affecting every remaining row, so it is recorded as the available mitigation
+rather than applied on my own judgement. **Trigger to revisit:** any module
+measured above 13.5 GB, or any OOM.
+
+### Why this was invisible until now
+
+The sampler had been pattern-blind for ~52 hours (`86a59d5c`), and the
+`freeGB` figures in the progress lines are sampled *after* each module exits,
+so they read 8-9 GB free regardless and cannot show a peak. Between those two,
+the only numbers available were spot `ps` reads — and they are what misled me.
+Per-band peaks now accompany each landing, as Rio asked.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
