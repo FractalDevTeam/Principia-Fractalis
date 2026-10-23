@@ -914,6 +914,134 @@ decimals would keep the arithmetic on small numerators over a power of two
 instead of over 10^25. Better engineering, unnecessary for unblocking, so it is
 written down.
 
+
+## 2026-10-23 — P1/P2 pass: three prompt-set items are already satisfied
+
+Read `codex/FULL_PROMPT_SET_RIGOROUS_PRESENTATION_2026-10-22.md` (P1, P2),
+`codex/status/acer.md`, and this file. Three items in it are superseded by work
+already landed, and Rio's P8 dossier will inherit the errors unless corrected
+here.
+
+### SUPERSEDED 1 — #42100's `Ideal.lean:78` repair: authorised, done, green
+
+P2 item 3 and P9 item 1 both carry it as awaiting Pablo's word and as "the
+single named mathlib blocker." **Pablo gave that word in session, verbatim:**
+"authorize the Legion to repair that one site (bounded to that file's local
+adaptation; it stops if it spreads)."
+
+Done, bounded, and it did not spread. **#42100 Build passes** on head
+`a28b07e16c`: zero Lean errors, zero warnings in the PR's own two files,
+`✔ [18149/18151] Built Mathlib`. #42100 has **no remaining blocker**. Both PRs
+are green and wait only on Pablo's two replies (P9 item 2).
+
+### SUPERSEDED 2 — P1's stated cause is not what the file shows
+
+P1 constraint 1: "the hierarchical fold hits the whnf heartbeat cap at 47 terms
+(D=4)". Measured in the emitted assemble — 229 `linarith` calls:
+
+| argument width | calls | timed out |
+|---|---|---|
+| 1 | 353 | no |
+| **15** | 96 | **yes — both failing sites** |
+| 47 | 4 | no |
+
+The four 47-term calls **are** the top folds, and they passed; the failures were
+15-term per-block folds. Rio's arithmetic is right (top fold = `2*nblk - 1`, so
+47 at D = 4 and 383 at D = 32) but the fold is **already two-level** — the
+producer's own comment says "15 hypotheses per block, then 2*nblk-1 for the
+top". So "chunk it so no single step exceeds D<=2 scale" describes a structure
+that already exists, and width is not what broke.
+
+### SUPERSEDED 3 — the march is already past D = 4
+
+Overnight, unattended: **c = 11 landed** — the box that failed — with the axiom
+gate clean on all three stages (7, 4 and 25 declarations, every one on exactly
+`[propext, Classical.choice, Quot.sound]`, no `sorryAx`), box committed **and**
+pushed. Boxes 35 and 36 followed (`bdcea297`, c = 45/4). **Frontier 11.3125**,
+now building c = 91/8 at D = 4. That is P1 constraint 4's end-to-end validation
+already met.
+
+## P2.1 — `1 ≤ Module.rank` for E91a1: COMPLETE, acceptance evidence below
+
+`d32dd117`, confirmed an ancestor of `origin/master`.
+
+```
+theorem E91a1_rank_ge_one : 1 ≤ Module.rank ℤ E_91a1.toAffine.Point :=
+  NonTorsionFromOrbit20261021.rank_ge_one_of_doubling_orbit_infinite P91 4
+    orbit_infinite
+```
+
+**Axiom output, verbatim, all 11 declarations — 0 off-bar:**
+
+```
+P91_nonsingular        [propext, Classical.choice, Quot.sound]
+dblQ_eq_fg91           [propext, Classical.choice, Quot.sound]
+xs_four                [propext, Classical.choice, Quot.sound]
+height_step            [propext, Classical.choice, Quot.sound]
+naiveHeight_xs_four    [propext, Classical.choice, Quot.sound]
+threshold              [propext, Classical.choice, Quot.sound]
+xs_shifted_infinite    [propext, Classical.choice, Quot.sound]
+X_two_pow_smul         [propext, Classical.choice, Quot.sound]
+X_bridge               [propext, Classical.choice, Quot.sound]
+P91_nonTorsion         [propext, Classical.choice, Quot.sound]
+E91a1_rank_ge_one      [propext, Classical.choice, Quot.sound]
+```
+
+Extracted with `codex/ci_gate_audit_transcript.py`'s prime-aware DOTALL parser,
+not an ad-hoc grep — a one-line regex finds only 4 of the 11, because Lean wraps
+long axiom lists. That is the same parsing defect that tool was written to fix.
+
+No dependency failed to compose, so no gap to file and no per-curve workaround.
+Scope unchanged: a LOWER bound on ONE curve; not the exact rank, nothing about
+`L(E,s)`, no part of BSD.
+
+## P2.1b — the duplicate `X`: FILED AS KNOWN DEBT, with the reason
+
+Rio's condition is to retire it "only when doing so cannot disturb a landed
+module." It cannot be done under that condition, so it stays debt:
+
+* `NonTorsionFromOrbit20261021.X` is generic over any field
+  (`{F} [Field F] [DecidableEq F]`); r199's `X` is **ℚ-only**
+  (`variable {W : WeierstrassCurve.Affine ℚ}`). Retiring mine in favour of
+  r199's therefore *narrows* a published generality — a downgrade.
+* Generalising r199's `X` instead would touch a landed universal module with
+  dependents: r200, r201, r202, plus my two BSD files — 61 use sites of `X`
+  across r199/r200 alone. That is the disturbance the condition forbids.
+* The duplication is already visible in code rather than hidden: `X_bridge`
+  proves the two definitions equal by `cases <;> rfl`, with a docstring naming
+  it as the pending retirement.
+
+Removal condition: whenever r199's `X` is next touched for its own reasons,
+generalise it to an arbitrary field there and delete mine in the same commit.
+
+## P1 — reduced-rational bound literals: measured, probes in flight
+
+Pablo's instruction this pass is the dyadic/numeral rework. Measured first, on
+the real emitted c = 11 assemble — 946 distinct decimal literals of >= 6 places:
+
+| bound literal form | summed max(num, den) bit-length |
+|---|---|
+| decimal, parsed as `digits/10^k` | **67,156 bits** |
+| reduced fraction `p/q` | **38,884 bits** |
+
+**42.1% fewer bits** for `linarith`'s exact arithmetic. Worked example:
+`0.0000162528528900146484375` parses as `162528528900146484375 / 10^25`
+(84-bit denominator) and reduces to `1065146967 / 65536000000000` (30-bit
+numerator). Accuracy note: only 144 of the 946 reduce to a pure power of two, so
+the honest name is **reduced-rational**, not dyadic.
+
+Four isolated probes are queued behind the march to separate the two axes before
+anything is deployed — all at a deliberately low 400k cap so the effects show as
+pass/fail: width 15 vs 383, each with decimal vs fraction literals, literals
+matched to the real emitted scale. `w15_dec` vs `w15_rat` measures the numeral
+effect; `w15` vs `w383` settles whether Rio's 383-term concern is real.
+
+Planned change is narrow and gated: only the four BOUND sites
+(`dec(lo)`, `dec(hi)`, `dec(blo)`, `dec(bhi)`) become fractions, and only for
+D >= 4 — so the landed D <= 2 band regenerates byte-identically per constraint 3.
+Interval endpoints stay decimal: they are short, and they sit inside the
+integral expressions the adjacency identities match syntactically.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
