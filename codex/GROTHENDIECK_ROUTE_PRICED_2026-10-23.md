@@ -114,3 +114,151 @@ first Hodge-type-`(1,1)` predicate that can fail — with an explicit class on t
 split `E × E` model that does fail — replacing an archive definition that was
 `True` and entailed `False`. Left-hand side, degree 2, cited comparison; no part
 of the conjecture.
+
+
+---
+
+## Step 2, PRICED — the easy route is refuted, the viable route is named
+
+**Legion, 2026-10-24.** This closes the "Order of operations" item above, which
+said to price step 2 before building anything general. Measured against mathlib
+at the pin, not estimated.
+
+### The obvious route does not work
+
+To define `d_n : Ω^n → Ω^{n+1}` one needs a map out of an exterior power, and
+mathlib has the canonical tool for exactly that —
+`ExteriorPower.alternatingMapLinearEquiv`:
+
+    (M [⋀^Fin n]→ₗ[R] N) ≃ₗ[R] (⋀[R]^n M →ₗ[R] N)
+
+i.e. to give a linear map out of `⋀^n M` it suffices to give an alternating
+map. That is precisely the well-definedness machinery the earlier pricing
+called "the genuinely new work", and finding it looked like the price had
+collapsed.
+
+**It does not apply.** That equivalence produces an `R`-LINEAR map, and the
+exterior derivative is **not** `S`-linear: `d(aω) = da ∧ ω + a·dω`, so `d` is
+only `R`-linear over the base and satisfies Leibniz over `S`. Since `Ω^n` is
+the exterior power over `S`, the equivalence that would discharge
+well-definedness is the one whose hypothesis `d` fails.
+
+Confirmed by a second measurement: **no `Derivation` into an exterior power
+exists anywhere in `Mathlib/LinearAlgebra/ExteriorPower/`** (zero files). There
+is no prepared route for a non-linear-but-Leibniz map out of `⋀^n`.
+
+This is worth stating plainly because the opposite conclusion was one grep away
+from being reported as "step 2 is also assembly".
+
+### The viable route, with its mathlib lemma
+
+`Mathlib/RingTheory/Kaehler/Basic.lean` carries a `Presentation` section
+(lines 479–599) and, at lines 628 and 654, the statement that matters:
+
+> "The kernel of the presentation `⊕ₓ B dx ↠ Ω_{B/R}` is spanned by the image
+> of the [relations]"
+
+So the construction is: define `d` on the FREE module `⊕ₓ B dx`, where it is
+unproblematic; prove it annihilates the spanning set of the kernel; descend.
+A kernel **spanned** by an explicit family is the good case — well-definedness
+reduces to a check on generators rather than on arbitrary elements.
+
+### Revised price
+
+| step | verdict |
+|---|---|
+| 1. `Ω^n := exteriorPower n (Ω[S⁄R])` | assembly, unchanged |
+| 2. `d_n` with `d∘d = 0` | **the whole price, and harder than the equiv suggested** — must go through the Kaehler presentation and its spanned kernel, not through `alternatingMapLinearEquiv` |
+| 3. package as `CochainComplex` | assembly, unchanged |
+| 4. `H^n_dR` as its cohomology | assembly, unchanged |
+
+The four-step shape and the "one construction is the whole price" verdict both
+survive. What changed is the route through step 2, and the change is from a
+false cheap route to a real one.
+
+### What this does NOT change
+
+Everything the earlier note refused to claim, it still refuses. Chow groups,
+the cycle class map and intersection theory remain absent, so the Hodge
+conjecture is still not stateable, and this route does not touch its content.
+Nothing here is progress on the conjecture.
+
+
+---
+
+## SCOPE CORRECTION — this note prices the AFFINE case only
+
+**Legion, 2026-10-24,** prompted by Pablo asking whether sheaves are important
+to this route. They are, and this note had understated it.
+
+### What the earlier sections got wrong
+
+The four-step price above lists steps 3 (package as a `CochainComplex`) and 4
+(`H^n_dR` as its cohomology) as "existing API", citing `HomologicalComplex`
+(111 files) and `homology` (108 files). **That is correct for a complex of
+MODULES over a ring — i.e. for a smooth AFFINE scheme — and it does not carry
+over to a variety.**
+
+For a general smooth variety the de Rham complex is a complex of **sheaves**,
+and its cohomology is the **hypercohomology** of that complex, computed from an
+affine cover. The assembly steps then need a layer this note never measured.
+
+### The sheaf layer, measured
+
+Same method and the same sanity check as the table above (`LinearMap` = 1031,
+so the pattern works):
+
+| layer | concept | files | verdict |
+|---|---|---|---|
+| **present** | `Sheaf` | 167 | rich |
+| | `presheaf` | 168 | rich |
+| | `Cech` | 17 | present |
+| | `AffineOpen` | 24 | present |
+| | `Scheme.Opens` | 16 | present |
+| | `SheafOfModules` | 13 | present, thin |
+| **THE GAP** | `QuasicoherentSheaf` | **0** | **absent** |
+| | `CoherentSheaf` | **0** | **absent** |
+| | `sheafCohomology` | **0** | **absent** |
+| | `Hypercohomology` | **0** | **absent** |
+| | `SpectralSequence` | **0** | **absent** |
+
+General sheaf theory is well developed, and Cech machinery and affine covers
+exist. What is absent is the whole coherent-sheaf-cohomology layer: no
+quasi-coherent sheaves, no sheaf cohomology, no hypercohomology, no spectral
+sequences.
+
+### Consequence for the price
+
+The route splits in two, and only the first half was priced:
+
+1. **Affine algebraic de Rham** — priced above, and the price stands: one
+   construction (`d_n` through the Kaehler presentation's spanned kernel),
+   three assembly steps. This is the LOCAL BUILDING BLOCK.
+2. **Gluing it to a variety** — **NOT priced, and four pillars are at zero.**
+   Needs quasi-coherent sheaves, sheaf cohomology, hypercohomology of a complex
+   of sheaves, and — for the Hodge filtration — spectral sequences.
+
+This matters more than a bookkeeping correction, because **gluing is not an
+incidental step in this program**: the spine terminates in Grothendieck
+gluing — global coherence recovered from local data with no central driver —
+and that is exactly step 2. Pricing step 1 and calling the route priced
+understated the one step the program actually cares about.
+
+`SpectralSequence = 0` also independently confirms what the earlier section
+already refused to claim: the Hodge–de Rham degeneration is not merely unproved
+here, it is not currently expressible.
+
+### What stands, and what is withdrawn
+
+**Stands.** The affine construction is cheap, mathlib-shaped, wanted
+independently, and the step-2 route through the Kaehler presentation is real.
+The original note's central correction — that the blocking note dismissed this
+direction on an estimate rather than a measurement — also stands.
+
+**Withdrawn.** Any reading of this note as pricing a route to Hodge *theory* on
+varieties. It prices the affine piece. The honest headline is: the local block
+is cheap and buildable now; the gluing that the spine actually names is
+unpriced and sits behind four absent layers.
+
+As before: Chow groups, the cycle class map and intersection theory remain
+absent, so no part of the Hodge conjecture is touched by any of this.
