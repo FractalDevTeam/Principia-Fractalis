@@ -36,6 +36,17 @@ themselves.
 The 9 α-values are NOT free parameters — they sit at the intersection
 of 11 algebraic constraints, all of which are substrate-consequences.
 
+STATUS 2026-10-24 (retirement applied). The "not free parameters"
+phrasing above was RETIRED on 2026-09-07 as misleading -- see
+codex/LABEL_RETIREMENT_PATCH_LIST_2026-09-07.md -- because the parameters
+were spent on the constraints. Per the 2026-10-01 accounting in
+codex/ALPHA_SUPPLIED_VS_DERIVED_2026-10-01.md, every canonical alpha is a
+literal definition in PF/CrossMillenniumSharedInvariants.lean and the
+invariants were read off the values they force. The uniqueness proved
+here is true, non-vacuous and axiom-free, but it is a COHERENCE result,
+not an independent derivation. No theorem or proof is changed by this
+note.
+
 ZERO project axioms. ZERO sorries.
 
 Author: Pablo Cohen + Claude Opus 4.7. 2026-06-11.

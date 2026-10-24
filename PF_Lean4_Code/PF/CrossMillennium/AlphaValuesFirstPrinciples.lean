@@ -25,8 +25,33 @@ Cross-references:
   (α_YM, α_RH, α_Poincare) = (2, 3/2, 1).
 * `PrincipiaTractalis.PNPClassSeparationPrecisionBridge` — α_PvsNP = 5/4.
 
-Honest scope: not a Millennium discharge. Strengthens the framework's
-α-table from "asserted" to "forced by substrate structure".
+Honest scope: not a Millennium discharge.
+
+STATUS 2026-10-24 (upstream correction; no theorem or proof changed).
+This header formerly claimed the file "strengthens the framework's
+α-table from 'asserted' to 'forced by substrate structure'". That
+claim is withdrawn, and it is withdrawn HERE because this file is the
+site other files cite for it — `CrossMillenniumCascadeParameterized`
+and `CrossMillenniumMetaClosure` both carried "substrate-derived"
+labels pointing at this file.
+
+Measured 2026-10-24, all 20 theorems with their proof bodies: every
+α-value theorem is `rfl`, `unfold ...; norm_num`, `ring`, or a
+re-export of another identity — `α_Poincare = 1` is literally `rfl`,
+and `α_RH = α_Poincare + 1/2` is `unfold; norm_num` over the literal
+defs `α_RH := 3/2`, `α_Poincare := 1`. The "Forcing reason" column of
+the table above is therefore INTERPRETIVE PROSE, not a Lean
+derivation, and the ternary group is likewise arithmetic
+(`(5 : ℕ) = 3 + 2` by `norm_num`).
+
+What this file DOES establish, and it is worth keeping: the α-table is
+arithmetically COHERENT — the identities between the values hold, are
+machine-checked, and are axiom-clean; and the recorded coincidences
+(the gap α_RH − α_Poincare being the critical-line 1/2,
+α_NS = 2·α_BSD, α_RH·α_YM = 3) are real relations among the chosen
+values. Per codex/ALPHA_SUPPLIED_VS_DERIVED_2026-10-01.md that is a
+coherence structure, not a proof apparatus. Every theorem below stands
+as written; only this scope paragraph changed.
 -/
 
 import PF.CrossMillenniumSharedInvariants

@@ -1,7 +1,20 @@
 /-
 # PF.Referee.CrossMillenniumCascadeParameterized
 
-★★★ GENUINE deductive cascade — parameterized over the α-values ★★★
+Deductive cascade over UNKNOWN α-values — conditional, not first-principles
+
+STATUS 2026-10-24 (framing corrected; no theorem or proof changed).
+The deduction in this file is GENUINE and that part of the former
+headline was right: the entailment proofs really use their hypothesis,
+nothing is discharged by `intro _h`, and the six theorems stand. What
+the headline overclaimed is the ORIGIN of the invariants. Per the
+2026-10-01 accounting (codex/ALPHA_SUPPLIED_VS_DERIVED_2026-10-01.md),
+the invariants were read off the table values they force. So what is
+established is a CONDITIONAL derivation — given the invariants, the
+values follow — and not a derivation of the values from substrate
+structure. The anchor α_Poincare = 1 is a POSTULATE, not a forced
+value: see `perelman_anchor_is_strictly_necessary`, where a different
+anchor propagates to a different consistent skeleton.
 
 This file addresses a manuscript referee's medium-severity finding against
 `PF/Referee/CrossMillenniumMetaClosure.lean`: the cascade-closure theorems
@@ -96,8 +109,15 @@ the entailment theorems in §3 genuinely deductive rather than tautological.
 Mapping to existing framework invariants (re-exported by name in
 `PF.Referee.CrossMillenniumMetaClosure`):
 
-  * `inv_RH_Poincare` ↔ `α_RH = α_Poincare + 1/2` (substrate-derived
-      in `AlphaValuesFirstPrinciples`).
+  * `inv_RH_Poincare` ↔ `α_RH = α_Poincare + 1/2` (stated in
+      `AlphaValuesFirstPrinciples`; the label "substrate-derived" is
+      RETIRED here 2026-10-24. Measured: that file's
+      `alpha_RH_eq_one_plus_one_half_from_critical_line` is proved by
+      `unfold α_RH α_Poincare; norm_num` over the literal definitions
+      `α_RH := 3/2` and `α_Poincare := 1`, so it certifies the
+      arithmetic 3/2 = 1 + 1/2 and not a substrate origin. The genuine
+      observation it records — that the gap α_RH − α_Poincare equals
+      the critical-line position 1/2 — is coherence, not derivation).
   * `inv_YM_Poincare` ↔ `α_YM = α_Poincare + 1` (re-export of
       `α_YM_eq_α_Poincare_plus_one` in `CrossMillenniumSharedInvariants`).
   * `inv_BSD` ↔ `α_BSD = (3/4) * π` (re-export of
@@ -111,8 +131,12 @@ Mapping to existing framework invariants (re-exported by name in
   * `inv_PvNP_Poincare` ↔ `α_PvNP - α_Poincare = 1/4` (re-export of
       `alpha_PvNP_minus_Poincare_eq_polylog_deficit`). -/
 structure SatisfiesInvariants (a : AlphaAssignment) : Prop where
-  /-- (I-RH-P) `α_RH = α_Poincare + 1/2` — substrate-derived from
-      Perelman α=1 plus critical-line position 1/2. -/
+  /-- (I-RH-P) `α_RH = α_Poincare + 1/2` — a PREMISE of the cascade.
+      Motivated by reading the Perelman anchor α=1 plus the
+      critical-line position 1/2; the former "substrate-derived" label
+      is retired 2026-10-24 because the cited derivation is
+      `unfold; norm_num` over literal definitions. The field itself is
+      unchanged, and every proof using it is unaffected. -/
   inv_RH_Poincare : a.a_RH = a.a_Poincare + 1/2
   /-- (I-YM-P) `α_YM = α_Poincare + 1` — gauge-duality doubling on
       the Perelman calibration anchor. -/

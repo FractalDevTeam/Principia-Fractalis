@@ -1,7 +1,18 @@
 /-
 # r339 — The two-anchor cascade, over UNKNOWNS
 
-★ 2026-09-29 — the five open α-values derived, not read off ★
+★ 2026-09-29 — the five open α-values obtained from the invariants
+as PREMISES ★
+
+STATUS 2026-10-24 (headline corrected to match this file's own body).
+The former headline read "derived, not read off", which overclaimed
+against the section below in this same file: "Not claimed. That the
+invariants themselves are forced. They are premises", and "only
+non-circular once each invariant has an independent origin". Per the
+2026-10-01 accounting the invariants were read off the values they
+force, so what is established is a conditional derivation: GIVEN the
+invariants and the Poincaré anchor (itself a postulate), the five
+values follow. No theorem or proof in this file is changed.
 
 ## What was wrong with the previous statement
 
