@@ -1378,6 +1378,68 @@ so they read 8-9 GB free regardless and cannot show a peak. Between those two,
 the only numbers available were spot `ps` reads — and they are what misled me.
 Per-band peaks now accompany each landing, as Rio asked.
 
+
+## 2026-10-23 — landings with RSS, per Rio's standing watch
+
+| box | commit | frontier | gates (assemble / gate / uncond) | RSS: modules, mean, peak |
+|---|---|---|---|---|
+| c = 93/8 (D=8) | `9451564b` | → 11.6875 | 7 / 4 / 25, all on the bar | not captured (sampler blind) |
+| **c = 47/4 (D=8)** | **`93a1de46`** | **→ 11.8125** | **7 / 4 / 25, all on the bar** | **48 modules, mean 10.89 GB, peak 12.94 GB** |
+
+Box 40 of 64. No `sorryAx`. Peak **12.94 GB of 15**, i.e. **2.06 GB headroom** —
+unchanged from the D = 8 figure already on the board, and below the 13.5 GB
+trigger. Now building c = 379/32 at **D = 4**: the schedule interleaves
+densities rather than climbing monotonically, so the dense bands are not a
+one-way ratchet.
+
+Refinement to the earlier band figure: the mean for this box over its full 48
+modules is **10.89 GB**, against the 12.06 GB I reported from a partial sample
+that mixed two boxes. Peak is the same at 12.94. The correction direction
+matters — the typical module is about 1.2 GB further from the ceiling than I
+said, while the worst case is exactly where I said.
+
+## Hodge axis — reopened on measurement, two artefacts landed
+
+| | commit | what |
+|---|---|---|
+| Grothendieck route **priced** | `79db649d` | one construction, not a multi-year project |
+| first real Hodge object | `e5c6a1ac` | 223 lines, 7 decls, 6 on the bar + 1 on `[propext]`, no `sorryAx` |
+
+Both openings came from inside `HODGE_SCOPING_BLOCKED_2026-10-17.md` itself: the
+route it stated it had never priced, and a structural claim ("Hodge has no
+surrogate") that is false for complex tori, where
+`H^k(A,ℚ) = ⋀^k Hom(Λ,ℚ)` exactly and pointwise linear algebra already IS the
+global cohomology.
+
+**Scope held on both, and written into both file headers:** no Chow groups, no
+cycle class map, no intersection theory — and the conjecture's content is the
+inclusion into the image of that map. The lattice file is the **left-hand side
+of the degree-2 case and no part of the conjecture**; the priced route makes
+Hodge *theory* expressible algebraically, not the Hodge *conjecture* provable.
+
+## The CI gate's FIRST LIVE CATCH — upgrade P9 item 6
+
+The first version of `w02_not_isType11` failed to elaborate and came out
+carrying `sorryAx`. On that transcript:
+
+```
+OLD verify.sh logic : PASS
+repaired logic      : FAIL(axiom) -- 1 declaration outside the allowlist
+```
+
+A real file written this session, not a fixture. **The repo's green badge would
+have covered a `sorryAx`.** Until now the gate's vacuity was demonstrated only
+on the eight synthetic fixtures and on 697 runs with no success; this is the
+first instance of something it actually let through. P9 item 6 ("CI axiom-gate
+patch: diagnosed, demonstrated necessary — apply or not") now has a live
+instance behind it.
+
+Cause of my error, recorded: the basis vectors were `fun j => if j = i then 1
+else 0`, and `simp` could not discharge the resulting `Fin`-index conditions.
+Fixed by pattern-matching the definitions so they reduce. Same lesson as the
+probe defects — build from what the system actually reduces, not from my model
+of it.
+
 ## Blocked on Pablo
 
 Nothing. Both decisions landed 2026-10-21 and are in force.
