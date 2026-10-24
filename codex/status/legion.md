@@ -1,6 +1,122 @@
 # LEGION — status
 
-**Updated:** 2026-10-22 01:00 · **Owner:** Legion session (march ownership, pipeline, research)
+**Updated:** 2026-10-24 · **Owner:** Legion session (march ownership, pipeline, research)
+
+## 2026-10-24 — the α-chain, fixed at the Lean end and measured per axis
+
+Rio's α-chain prompt (version 2), Phase A framing + Phase B measurement.
+Guard held throughout: **no theorem statement and no proof body was changed**
+in the framing work, and that is proved from the diff rather than asserted.
+
+### What was wrong, and is now right
+
+Three files claimed an ORIGIN for the α-invariants that no proof supplies.
+Measured, not inferred: all 20 theorems of
+`PF/CrossMillennium/AlphaValuesFirstPrinciples.lean` enumerated with their
+proof bodies — every α-value theorem is `rfl`, `unfold …; norm_num`, `ring`,
+or a re-export. `α_Poincare = 1` is literally `rfl`; `α_RH = α_Poincare + 1/2`
+is `unfold; norm_num` over the literal defs `3/2` and `1`. The "forcing reason"
+lived in a markdown table column, not in any proof — which is **exactly the
+defect `CrossMillenniumCascadeParameterized`'s own header diagnoses in its
+sibling** `CrossMillenniumMetaClosure`.
+
+Corrected at all three sites, including the upstream one the other two cite
+(`AlphaValuesFirstPrinciples`'s own "Honest scope" paragraph), so this is a
+repair of the cause and not a caveat sprayed on the symptoms. Plus the five
+live "not free parameters" claims carry the 2026-09-07 retirement.
+
+**Not** a downgrade: every theorem stands as written and stays true. What
+changed is prose asserting a provenance the code does not establish.
+
+### Two of my own queued "gaps" discharged as non-gaps
+
+`PoincareAnchorForced_r338.lean` and `CrossMillenniumSharedInvariants.lean`
+needed nothing. The latter is the most honest file in the chain — "algebraic
+curiosity catalogue", "the 9 **chosen** α-values", "These are **not**
+Millennium discharges", and it points at the no-go meta-theorem itself.
+`AlphaFromSubstrateKTheory_r123` likewise ("the result is NEGATIVE and SHARP").
+My Step 0 gap list was grep-generated and over-reported; 5 real, 3 not.
+Annotating an already-honest file is scaffolding, so they were left alone.
+
+### Phase B — the per-axis bar, measured
+
+`codex/ALPHA_CHAIN_PER_AXIS_BAR_2026-10-24.md`. The October 1 bar splits into
+(A) a non-circular forcing equation, (B) a proved identification, and — tracked
+separately, because conflating it with A/B is what produced the overclaims —
+(C) an independent origin for the equation itself.
+
+**Better than the blanket "read off the table" line implies.** Four axes have
+an equation that never mentions its α, plus a machine-checked proof that it
+pins the table value: **P** (`a²=2`), **Hodge** (`a²=a+1`, real `nlinarith`
+root separation), **Poincaré** (`a²=1`, r338 — with a negative control),
+**NS** (`2a=3π`, r340). **YM** is then forced from P and **RH** from the
+Poincaré datum, by implications that genuinely consume their hypothesis.
+
+**Worse than the headlines claimed.** Column (C) is OPEN on every axis. No
+axis derives its root equation from the substrate operator. Both H₃ axes
+bottom out in one proposition, which `H3CoxeterOrigin.lean` states plainly: it
+does not prove the framework's `H_α` operator inherits the H₃ Coxeter
+structure. **That single proposition is the highest-leverage open item in the
+α-chain** — closing it moves two axes from root-supplied to root-derived at
+once.
+
+### The one broken link — found and REPAIRED, not just reported
+
+BSD was the only axis whose forcing chain was rooted in a circular predicate.
+r340 built the non-circular `RealisesNS_forced (a) := 0 < a ∧ 2a = 3π`, but
+`chain_NS_implies_BSD` still took the OLD `RealisesNS (a) := 0 < a ∧ a = α_NS`,
+so when r340 landed nothing re-pointed the BSD chain at the new root and the
+H₃ work never reached BSD.
+
+`PF/BSDAnchorFromH3ExponentDatum_r341.lean` closes it: one bridge lemma
+(`realisesNS_of_forced`, one `linarith` — the mathematics was already in r340),
+BSD rooted in the H₃ exponent datum, a non-vacuity witness, the endpoint pinned
+at `3π/4`, and a negative control recording that positivity is **not**
+load-bearing on this axis (unlike Poincaré's, where `(-1)² = 1` makes it
+essential). Additive only — nothing in r340 or `ImplicationChains` is modified.
+
+### Verification
+
+* **Comment-only guard, with a live negative control.** A guard that only ever
+  prints PASS proves nothing, so it was broken on purpose twice: an appended
+  declaration → FAIL, and a single tactic swapped `norm_num`→`ring` → FAIL
+  (caught by the code-line check after the declaration check passed, which is
+  why that second check exists). Restored → PASS.
+* **Framing modules rebuilt:** all 6 green, RC=0, serialized under the shared per-module flock; wall 5.28 s 4.67 s 4.76 s 2.76 s 5.10 s 6.22 s 
+* **r341:** r340 + r341 both green, RC=0; wall 3.48 s 3.11 s 
+
+### Reported, not changed (job guard)
+
+`reverse_chain_YM_pins_P_value` states `RealisesYM aYM → RealisesP aP →
+aP = √2` but opens `intro aYM _`, discarding the YM hypothesis. So it proves
+the stronger unconditional fact while stating it behind the *circular* YM
+predicate — an UNDERclaim that makes the P axis look dependent on a circular
+premise. Fix is an addition; filed, not done here.
+
+### Two findings of mine withdrawn
+
+1. "Two incompatible P/NP relations" — **false**. `alpha_PvsNP` is the P-vs-NP
+   *axis* quantity (`= α_Poincare + 1/4 = 5/4`); `α_NP = φ + 1/4` is the *class*
+   value. Different baselines, same deficit.
+   `H3CoxeterOrigin.lean:255` independently confirms `α_NP := φ + 1/4` as live,
+   as Pablo ruled.
+2. "`α_BSD = 3π/4` vs `alphaBSD := 1/2` is a contradiction" — **not
+   established**; `ALPHA_SUPPLIED_VS_DERIVED_2026-10-01.md:133` already reads it
+   as a different quantity.
+
+Both were manufactured by grepping a codex note for phrases instead of reading
+it. The note had adjudicated both. The annotation Pablo authorized on the first
+was withdrawn by me rather than applied, because executing it would have
+injected an error into correct files.
+
+### March
+
+Untouched by this work and running: boxes at `c383_32`, `c385_32`, `c387_32`
+— frontier **12.09375**, across the 12 boundary. All Lean above was built
+WITHOUT `-o` and serialized under the shared per-module flock, so no olean the
+march depends on was written and no duplicate build ran. TransferOperator
+docstring fix still held until frontier 13.
+
 
 ## Current task
 
