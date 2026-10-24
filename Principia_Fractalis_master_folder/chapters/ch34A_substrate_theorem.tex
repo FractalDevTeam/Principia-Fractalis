@@ -496,6 +496,18 @@ system together with \emph{any} of five pinning hypotheses. The
 manuscript's claim that ``closing one axis forces the others'' is
 the View~2 reading, witnessed by
 \texttt{cascade\_\allowbreak{}parameterized\_\allowbreak{}capstone}.
+
+\emph{Amendment (2026-10-24).} View~2 is stated accurately above:
+the skeleton is forced \emph{by the invariant system together with} a
+pinning hypothesis. Two things that sentence does not say, and that a
+referee is entitled to hear said: the invariant system is a set of
+\emph{premises} with no independent derivation, and the pinning
+hypothesis is supplied, not proved. So View~2 is a genuine deduction
+over a generic carrier --- which is what
+\texttt{Cross\-Millennium\-Cascade\-Parameterized.lean} certifies ---
+and it is not a derivation of the $\alpha$-values from substrate
+structure. Both readings are compatible; conflating them is what the
+2026-10-01 accounting flagged.
 \end{keyidea}
 
 \begin{theorem}[The Parameterized Cascade Specializes to the
@@ -1070,6 +1082,40 @@ machine-checked at a sharper bar than the
 Section~\ref{sec:substrate-antecedents} indicates. The minimum
 load-bearing invariant set is~\textbf{nine}, not eleven; the
 remaining two invariants are derived theorems.
+
+\paragraph{Amendment (2026-10-24): the rigidity is a conditional
+derivation.}
+The sentence above --- that the nine $\alpha$-values ``are not free
+parameters but are forced by the cross-Millennium algebraic
+invariants'' --- states the entailment correctly and its ORIGIN
+incorrectly, and the second half is withdrawn here. What is
+machine-checked is that \emph{given} the invariants, the values follow:
+\texttt{PF/Referee/Cross\-Millennium\-Cascade\-Parameterized.lean},
+theorem \texttt{cascade\_parameterized\_capstone}, whose entailment
+proofs genuinely consume their hypothesis rather than unfolding a
+definition. What is \emph{not} established is that the invariants
+themselves have an independent origin: each is a literal definition in
+\texttt{PF/Cross\-Millennium\-Shared\-Invariants.lean}, and the
+invariants were read off the values they force. Every $\alpha$-value in
+this book is unchanged; what changes is the label. The correct label is
+\emph{conditional derivation} --- a coherence structure, not a proof
+apparatus --- and the phrase ``no free parameters'' was retired on
+2026-09-07 for precisely this reason: the parameters were spent on the
+constraints.
+
+This is consistent with, and sharpened by,
+\S\ref{sec:substrate-antecedents}'s own statement that the anchor is
+\emph{not} forced. That the anchor is a postulate rather than a derived
+value is itself machine-checked:
+\texttt{PF/Poincare\-Anchor\-Forced\_r338.lean}, theorem
+\texttt{perelman\_anchor\_is\_strictly\_necessary} --- a different
+anchor propagates to a different consistent skeleton. The same file's
+\texttt{poincare\_forced} shows what the stronger standard looks like
+when it is met: the value $1$ is pinned by the equation
+$0 < a \wedge a^{2} = 1$, which does not mention $\alpha$ at all.
+Four axes now meet that standard --- $P$, Hodge, Poincar\'e and NS ---
+and the per-axis accounting is
+\texttt{codex/ALPHA\_CHAIN\_PER\_AXIS\_BAR\_2026-10-24.md}.
 
 This section records the formal certification of that sharper
 rigidity statement, landed at HEAD~\texttt{883ed58}. Three companion
