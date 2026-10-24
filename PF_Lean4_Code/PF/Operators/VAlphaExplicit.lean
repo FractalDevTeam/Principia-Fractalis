@@ -66,6 +66,57 @@ NAMED OPEN INPUTS (no project axiom, no sorry; explicit `Prop` hypotheses):
   The B-clean reformulation here provides the RHS unconditionally; the
   variational inf is the remaining manuscript content.
 
+  **AMENDED 2026-10-24 — that input is FALSE, and this Prop does not state
+  it.** Two separate defects, both now machine-checked:
+
+  (a) *The Prop is vacuous.* As written it concludes
+      `∃ lam0, lam0 = groundStateValue α ∧ 0 < lam0`, which never mentions
+      `inf ⟨H ψ, ψ⟩`; `lam0` is not tied to `H`'s spectrum at all. Its
+      witness is `lam0 := groundStateValue α`, and `0 < π/(10α)` holds for
+      `α > 0`, so the conclusion is provable outright. The comment at the Prop
+      concedes the point ("We leave the precise quantifier shape to the future
+      mathlib hook"). Consequently
+      `H_alpha_ground_state_eq_pi_10_alpha` is true as stated and does NOT say
+      that `H_α`'s ground-state energy is `π/(10·α)`.
+
+  (b) *The underlying claim is false by the variational principle.*
+      `PF/VAlphaGroundStateUpperBound_r347.lean`. This file already proves
+      `h_alpha_basis_diag_zero : h_alpha_basis α 0 0 = 0` and calls `|0⟩` "the
+      arxiv paper's variational-principle starting point" — but the
+      variational principle gives `inf ≤ ⟨H φ, φ⟩` for ANY unit `φ`, so
+      `|0⟩` yields `λ₀ ≤ H₀₀ = 0 < π/(10α)`. The lemma refutes the claimed
+      value rather than supporting it; the inference ran the wrong way. The
+      two-state trial `(e₀+e₁)/√2` makes it quantitative:
+      `⟨Hφ,φ⟩ = -1/2 + π/(20α)`, which is NEGATIVE for every `α > 1/2`. At
+      `α = √2` that is `≈ -0.389` against a claimed `+0.222`: the stated
+      formula has the wrong SIGN.
+
+  **And the claim is of the wrong FORM**, independently:
+  `PF/VAlphaNotConfining_r348.lean` proves
+  `v_alpha_coeff α (3^k + 2) = 3π/(10α)` for every `k ≥ 1` — an unbounded
+  level set — so `V_α` is NOT confining and the standard route to discrete
+  spectrum for `T + V_α` is unavailable. `H_α` need not have a ground state as
+  an eigenvalue at all. (Note the substrate tower itself is not a bounded level
+  set: `v_alpha_coeff α (3^k) = π/(10α) + k/α² → ∞`.)
+
+  **What survives, and it is a theorem.**
+  `PF/GroundStateIsPotentialMinimum_r346.lean`: `π/(10α)` IS an invariant of
+  this operator — it is `min` of `v_alpha_coeff α` over the COMPUTATIONAL
+  SECTOR `n ≥ 1`, attained uniquely at `n = 1 = 3⁰`, with `n = 0` a zero mode.
+  `D₃(n) = 1` says `n` is a power of 3, so the whole substrate tower achieves
+  the minimal digit sum and the 3-adic term breaks the degeneracy to `k = 0`.
+  The repair direction is therefore to state this file's spectral claims about
+  `min diag V_α` on the computational sector, where they hold, rather than
+  about `λ₀(H_α)`, where they do not.
+
+  **SCOPE.** All of the above is about the ARXIV operator on `ℓ²(ℕ)` that this
+  file formalises. Chapter 21's operator is a DIFFERENT object — a fractal
+  Hilbert-Schmidt convolution kernel on `L²(K,μ)` — with its own,
+  independently recorded obstructions at
+  `PF/Ch21CompactnessGapObstruction.lean` and a named repair direction there
+  (compact RESOLVENT rather than compact `H`). Neither result subsumes the
+  other.
+
 ## Bridge to the P ≠ NP chain
 
 The framework's `alpha_of_class : Set Language → ℝ` is `opaque` (see
@@ -89,9 +140,14 @@ could do so. Instead, this file provides:
 
 For Pabs / the manuscript: the file gives the Lean operator one can
 point at — `H_alpha α hα` is the actual arxiv `H_α`, not an abstract
-kernel placeholder. The B-clean identity gives `λ_0 = π/(10·α)` as a
-**referee-proof identity** (algebraic, no analytic machinery), and the
-remaining gap is named, not opaque.
+kernel placeholder. The B-clean identity gives the NUMBER `π/(10·α)` a referee-proof
+algebraic closed form, and the remaining gap is named, not opaque.
+**AMENDED 2026-10-24:** that closed form is not `λ_0(H_α)` — see the
+amendment in the NAMED OPEN INPUTS section above. The B-clean identity
+is about the expression `π/(10α)`; identifying that expression with the
+operator's ground-state energy is the part that fails. What it IS, is
+the minimum of the potential's diagonal on the computational sector
+(`r346`).
 
 Stage Wave 9 — Explicit V_α operator (post-arxiv-submission).
 -/
