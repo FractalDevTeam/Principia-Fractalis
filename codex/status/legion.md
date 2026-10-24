@@ -2,6 +2,93 @@
 
 **Updated:** 2026-10-24 · **Owner:** Legion session (march ownership, pipeline, research)
 
+## 2026-10-24 — r342: the H₃ braid relations, and the GROUP behind the 10
+
+Pablo: "do the H3 operator proposition and continue with precission."
+
+### First, a correction to my own framing
+
+I had called the H₃ Coxeter number the highest-leverage open item on the
+grounds that the `10` was stipulated. **It was not.**
+`PF/H3CoxeterDiagramDerivation.lean` (805 lines, built and gated) already
+derives the whole dataset from mathlib's own `CoxeterMatrix.H₃`: Gram matrix,
+simple reflections, Coxeter element in closed form, characteristic polynomial,
+and via Cayley–Hamilton `c⁵ = -1`, `c¹⁰ = 1`, `orderOf c = 10`. The Coxeter
+number is EXTRACTED from the matrix, and `ζ` is `exp(2πi / orderOf c)`, not
+`exp(2πi/10)`. That corpus was further along than I credited.
+
+### The real gap, which that file names itself
+
+§8: "the braid relations `(s₀s₁)³ = (s₁s₂)⁵ = (s₀s₂)² = 1` are NOT proved
+here, so there is no Lean-level group homomorphism
+`CoxeterMatrix.H₃.Group →* GL₃(ℝ)` yet. **This is the one real remaining gap in
+the chain.**" And: "the 5-fold one is a five-term matrix product requiring
+repeated `φ² = φ + 1` reduction and has not been written out here."
+
+Consequence: every H₃ fact in the corpus was a fact about ONE HAND-BUILT MATRIX
+TRIPLE, not about the Coxeter group H₃. "The H₃ group has Coxeter number 10"
+was not available.
+
+### What r342 proves — green, RC=0, 13.10 s, no sorryAx
+
+All three relations, verified by hand before a line of Lean was written:
+
+* `(s₀s₂)² = 1` — the commuting pair; the φ's cancel linearly
+* `(s₀s₁)³ = 1` — no `φ²` reduction needed anywhere
+* **`(s₁s₂)⁵ = 1`** — the icosahedral relation the upstream file declined to
+  write, done stepwise through explicit `B², B³, B⁴` with `φ² = φ + 1` at
+  every step
+
+The reversed products are POWERS of the forward ones — `s₁s₀ = (s₀s₁)²`,
+`s₂s₁ = (s₁s₂)⁴`, `s₂s₀ = s₀s₂`, each computed rather than assumed — so six
+relations cost three computations.
+
+Then `H3_isLiftable : CoxeterMatrix.H₃.IsLiftable H3_simple` over all nine
+ordered pairs; `H3_rep : CoxeterMatrix.H₃.Group →* Matrix (Fin 3) (Fin 3) ℝ` via
+`CoxeterSystem.lift`; the abstract Coxeter element maps to `H3_coxeterElement`;
+hence **`10 ∣ orderOf H3_abstractCoxeterElement`.** The icosahedral 10 of the
+universal coupling `π/(10α)` is now a fact about the GROUP H₃.
+
+All seven declarations on `[propext, Classical.choice, Quot.sound]`.
+
+### Not claimed, written into the file
+
+1. The representation is NOT shown faithful, so the transfer is divisibility,
+   not equality. `= 10` needs faithfulness or `|H₃| = 120`, neither in mathlib
+   at this pin.
+2. The choice of Coxeter element `s₀s₁s₂` is still not shown canonical.
+3. **The operator is untouched.**
+
+### The operator side, now priced precisely
+
+The arxiv operator is explicit:
+`V_α = (π/(10α))·D̂₃ + (1/α)·ν̂₂ + (1/α²)·ν̂₃`, `H_α = T + V_α`.
+
+**The `π/(10α)` is a hand-supplied COEFFICIENT of `D̂₃`, not an eigenvalue
+derived from the operator.** So the open item is not "compute a spectrum" — it
+is "explain why 10 sits in that coefficient". What r342 buys is therefore
+precise and limited: it upgrades the TARGET of the identification from "a
+number in a matrix computation" to "an invariant of the Coxeter group H₃". The
+identification itself stays supplied, still localized to the single Prop
+`SubstrateH3IdentificationAtPoincare` in `PF/PoincareAlphaDerivedFromH3.lean`.
+
+Relevant existing negative result, already in the corpus:
+`KatoRellichDischarge.lean` proves axiom-free that the literal
+`KatoRellichInput α` is UNSATISFIABLE for every `α > 1/2` — Hellinger–Toeplitz
+forces a symmetric `LinearMap` on a complete inner-product space to be bounded,
+while `v_alpha_coeff α (2^k) ≥ k/α` is unbounded. The fix (`LinearPMap`, the
+textbook frame for unbounded densely-defined operators) is built in
+`VAlphaPMapShape.lean`. So self-adjointness of `H_α` is the live analytic
+question, and it is research-grade, not bookkeeping.
+
+### Upstream §8 amended
+
+The "Until they exist …" paragraph is kept as history with a CLOSED note
+beside it. That file's own header warns about "a file's self-description
+outliving the facts and then being believed by an audit" — leaving it as-is
+would have been that failure a third time. Comment-only, guard-proven:
+363 code lines and 85 declarations identical, delimiters 58/58.
+
 ## 2026-10-24 — the α-chain, fixed at the Lean end and measured per axis
 
 Rio's α-chain prompt (version 2), Phase A framing + Phase B measurement.
