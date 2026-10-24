@@ -156,7 +156,18 @@ real-valued tuple `(αP, αNP, αRH, αNS, αYM, αBSD, αHodge, αQG,
 αPoincare)` satisfying the relevant invariants algebraically forces
 `α_YM = 2`, `α_RH = 3/2`, and `α_Poincare = 1`. This is the
 framework's INTERNAL OVER-DETERMINATION: the chosen constants are
-not free parameters but algebraically forced. -/
+not free parameters but algebraically forced.
+
+STATUS 2026-10-24 (retirement applied). The "not free parameters"
+phrasing above was RETIRED on 2026-09-07 as misleading -- see
+codex/LABEL_RETIREMENT_PATCH_LIST_2026-09-07.md -- because the parameters
+were spent on the constraints. Per the 2026-10-01 accounting in
+codex/ALPHA_SUPPLIED_VS_DERIVED_2026-10-01.md, every canonical alpha is a
+literal definition in PF/CrossMillenniumSharedInvariants.lean and the
+invariants were read off the values they force. The uniqueness proved
+here is true, non-vacuous and axiom-free, but it is a COHERENCE result,
+not an independent derivation. No theorem or proof is changed by this
+note. -/
 
 /-- An abstract α-system: a tuple of real values plus the
     cross-Millennium algebraic invariants as hypotheses. We carry
@@ -183,7 +194,18 @@ structure AbstractAlphaSystem where
 
     Three independent values are uniquely algebraically determined
     by the system of invariants — they are not free parameters of
-    the framework but consequences of the algebraic skeleton. -/
+    the framework but consequences of the algebraic skeleton.
+
+    STATUS 2026-10-24 (retirement applied). The "not free parameters"
+    phrasing above was RETIRED on 2026-09-07 as misleading -- see
+    codex/LABEL_RETIREMENT_PATCH_LIST_2026-09-07.md -- because the parameters
+    were spent on the constraints. Per the 2026-10-01 accounting in
+    codex/ALPHA_SUPPLIED_VS_DERIVED_2026-10-01.md, every canonical alpha is a
+    literal definition in PF/CrossMillenniumSharedInvariants.lean and the
+    invariants were read off the values they force. The uniqueness proved
+    here is true, non-vacuous and axiom-free, but it is a COHERENCE result,
+    not an independent derivation. No theorem or proof is changed by this
+    note. -/
 theorem alpha_system_rigidity (S : AbstractAlphaSystem) :
     S.αYM = 2 ∧ S.αPoincare = 1 ∧ S.αRH = 3 / 2 := by
   -- Step 1: α_QG² = 2π and α_QG² = α_YM · π give α_YM · π = 2π,
@@ -274,7 +296,18 @@ structure ExtendedAbstractAlphaSystem extends AbstractAlphaSystem where
 
     NO free parameters. The framework's α-skeleton is algebraically
     rigid — every value is forced by the system of invariants + the
-    Perelman calibration anchor. -/
+    Perelman calibration anchor.
+
+    STATUS 2026-10-24 (retirement applied). The "not free parameters"
+    phrasing above was RETIRED on 2026-09-07 as misleading -- see
+    codex/LABEL_RETIREMENT_PATCH_LIST_2026-09-07.md -- because the parameters
+    were spent on the constraints. Per the 2026-10-01 accounting in
+    codex/ALPHA_SUPPLIED_VS_DERIVED_2026-10-01.md, every canonical alpha is a
+    literal definition in PF/CrossMillenniumSharedInvariants.lean and the
+    invariants were read off the values they force. The uniqueness proved
+    here is true, non-vacuous and axiom-free, but it is a COHERENCE result,
+    not an independent derivation. No theorem or proof is changed by this
+    note. -/
 theorem alpha_system_rigidity_extended (S : ExtendedAbstractAlphaSystem) :
     S.αYM = 2 ∧ S.αPoincare = 1 ∧ S.αRH = 3 / 2 ∧
     S.αP = Real.sqrt 2 ∧
