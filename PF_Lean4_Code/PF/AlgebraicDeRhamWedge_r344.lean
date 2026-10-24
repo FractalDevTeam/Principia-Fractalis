@@ -76,9 +76,12 @@ vanishes.
    proves the kernel of `⊕ₓ B dx ↠ Ω_{B/R}` is SPANNED by the image of the
    relations. With the wedge now in hand, that construction is expressible;
    it is not done here.
-2. Graded antisymmetry in general, i.e. `ω ∧ η = (-1)^{pq} η ∧ ω`. Only the
-   degree-1 square is proved. The general statement needs the graded-commutator
-   machinery and is a separate piece of work.
+2. Graded antisymmetry **in general**, i.e. `ω ∧ η = (-1)^{pq} η ∧ ω` for
+   arbitrary degrees. That needs the graded-commutator machinery and is a
+   separate piece of work. The DEGREE-1 case is proved
+   (`wedge_antisymm_degree_one`) — an earlier draft of this header listed it
+   here as unproved, which was true of the general statement and false of the
+   degree-1 one, the only case `d₁` needs.
 3. No complex, no cohomology, nothing global, nothing about the Hodge
    conjecture. Unchanged from r343, and for the same measured reasons:
    quasi-coherent sheaves, sheaf cohomology, hypercohomology and spectral
@@ -192,6 +195,43 @@ visible as an inhabited type rather than only as a definition. -/
 noncomputable def d0_wedge_d0 (a b : S) : Form R S 2 :=
   wedge R S (d0 R S a) (d0 R S b)
 
+/-- **★★ Antisymmetry in degree 1:** `ω ∧ η = -(η ∧ ω)`.
+
+This needs no new machinery — it falls out of `wedge_self_degree_one` and the
+bilinearity above, by expanding `(ω + η) ∧ (ω + η) = 0`:
+
+    0 = ω∧ω + ω∧η + η∧ω + η∧η = ω∧η + η∧ω .
+
+**Why this is the step-2 unblock and not a side lemma.** `Ω¹` is a quotient of
+the free module `⊕ₓ S·dx` by the Kähler relations, so a candidate `d₁` is
+defined on the free module by `a·dx ↦ d₀a ∧ d₀x` and must kill those
+relations. The additive relation dies because `d₀` is additive; the
+`algebraMap` relation dies because `d₀` kills constants. The LEIBNIZ relation
+`1·d(xy) - x·dy - y·dx` maps to
+
+    d₀ 1 ∧ d₀(xy) - d₀x ∧ d₀y - d₀y ∧ d₀x
+      = 0 - (d₀x ∧ d₀y + d₀y ∧ d₀x)
+
+using `d0_one`, and that vanishes **exactly** by this lemma. So degree-1
+antisymmetry is the obstruction that stood between the wedge and `d₁`, and it
+was already implied by what this file proves. -/
+theorem wedge_antisymm_degree_one (ω η : Form R S 1) :
+    wedge R S ω η = - wedge R S η ω := by
+  have h := wedge_self_degree_one R S (ω + η)
+  rw [wedge_add_left, wedge_add_right, wedge_add_right,
+      wedge_self_degree_one, wedge_self_degree_one, zero_add, add_zero] at h
+  exact eq_neg_of_add_eq_zero_left h
+
+/-- **The Leibniz obstruction vanishes.** The combination that the candidate
+`d₁` must send to zero on the Kähler Leibniz relation, shown to be zero.
+
+This is the computation spelled out in `wedge_antisymm_degree_one`'s docstring,
+stated as a theorem so the next file can cite it rather than reprove it. -/
+theorem d0_leibniz_obstruction_vanishes (x y : S) :
+    wedge R S (d0 R S x) (d0 R S y) + wedge R S (d0 R S y) (d0 R S x) = 0 := by
+  rw [wedge_antisymm_degree_one]
+  exact neg_add_cancel _
+
 /-! ## §4 — Capstone -/
 
 /-- **Step 2's infrastructure.** The wedge exists, is bilinear, and squares to
@@ -204,9 +244,13 @@ theorem affine_deRham_wedge_infrastructure :
     (∀ (p q : ℕ) (ω : Form R S p) (η₁ η₂ : Form R S q),
         wedge R S ω (η₁ + η₂) = wedge R S ω η₁ + wedge R S ω η₂) ∧
     (∀ ω : Form R S 1, wedge R S ω ω = 0) ∧
-    (∀ a : S, wedge R S (d0 R S a) (d0 R S a) = 0) :=
+    (∀ a : S, wedge R S (d0 R S a) (d0 R S a) = 0) ∧
+    (∀ ω η : Form R S 1, wedge R S ω η = - wedge R S η ω) ∧
+    (∀ x y : S, wedge R S (d0 R S x) (d0 R S y)
+        + wedge R S (d0 R S y) (d0 R S x) = 0) :=
   ⟨fun _ _ => wedge_add_left R S, fun _ _ => wedge_add_right R S,
-   wedge_self_degree_one R S, d0_wedge_self R S⟩
+   wedge_self_degree_one R S, d0_wedge_self R S,
+   wedge_antisymm_degree_one R S, d0_leibniz_obstruction_vanishes R S⟩
 
 end AlgebraicDeRhamAffine
 end PrincipiaTractalis
@@ -219,4 +263,6 @@ end PrincipiaTractalis
 #print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.exists_iota_of_degree_one
 #print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.wedge_self_degree_one
 #print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.d0_wedge_self
+#print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.wedge_antisymm_degree_one
+#print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.d0_leibniz_obstruction_vanishes
 #print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.affine_deRham_wedge_infrastructure
