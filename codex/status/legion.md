@@ -2,6 +2,90 @@
 
 **Updated:** 2026-10-24 · **Owner:** Legion session (march ownership, pipeline, research)
 
+## 2026-10-24 — r343/r344: the Grothendieck route, first two bricks BUILT
+
+Rule 7 is the spine, not the Clay list, and the spine terminates in
+Grothendieck gluing. After pricing that route twice today I stopped pricing it
+and built the first two steps, because both of the day's measurements on it
+overturned an estimate.
+
+### r343 — algebraic differential forms (step 1), green first build
+
+    Form R S n   := ⋀[S]^n (KaehlerDifferential R S)
+    formZeroEquiv : Form R S 0 ≃ₗ[S] S
+    formOneEquiv  : Form R S 1 ≃ₗ[S] KaehlerDifferential R S
+    d0 a         := (formOneEquiv).symm (D R S a)
+
+with `d0_add`, `d0_one`, `d0_leibniz`, `d0_algebraMap`, `formOneEquiv_d0`.
+Six declarations, three-axiom bar, no `sorryAx`.
+
+`d0` is deliberately NOT a `Derivation R S (Form R S 1)`: `LinearMap.compDer`
+needs `[IsScalarTower R S (⋀[S]^1 _)]`, i.e. an `R`-module structure on the
+exterior power, which mathlib does not propagate from the `S`-module structure
+at this pin. Transporting Leibniz needs only `S`-linearity. The obstruction is
+recorded in-file as a real item for whoever continues to `d_n`.
+
+### r344 — the wedge, and `ω ∧ ω = 0`
+
+    wedge : Form p → Form q → Form (p+q)        via graded multiplication
+    wedge_self_degree_one : ω ∧ ω = 0           from ExteriorAlgebra.ι_sq_zero
+    d0_wedge_self : d₀a ∧ d₀a = 0               degree-1 shadow of d∘d = 0
+
+Seven declarations, three-axiom bar, zero errors, zero `sorryAx`.
+
+### THREE corrections of mine in this one piece of work
+
+1. **"mathlib has no wedge-product map"** — WRONG. I greped
+   `Mathlib/LinearAlgebra/ExteriorPower/`; the graded structure is in
+   `ExteriorAlgebra/`: `Basic.lean:74` makes `⋀[R]^n M` a SUBMODULE of the
+   exterior algebra, and `Grading.lean:41` gives
+   `SetLike.GradedMonoid fun i ↦ ⋀[R]^i M`, so `SetLike.mul_mem_graded` IS the
+   wedge.
+2. **"I filed that false claim in the Grothendieck note"** — ALSO WRONG. The
+   note contains the string "wedge" zero times; checked, not recalled. The
+   claim never left the session.
+3. **r344's own header asserted (2)** before I checked. That would have put a
+   false statement about one committed artifact inside another — exactly what
+   `H3CoxeterDiagramDerivation`'s header warns about. Caught pre-commit.
+
+What the note got RIGHT and nothing today changes:
+`alternatingMapLinearEquiv` does not apply to `d` (yields `S`-linear; `d` is
+`R`-linear with Leibniz), and no `Derivation` into an exterior power exists in
+mathlib. **A wedge is not a `d`.** The missing object is the derivation
+extending `d₀`.
+
+### Two build failures, same shape — worth recognising on sight
+
+Both were a term DEFEQ to the pattern but not SYNTACTICALLY equal, so `rw`
+found no occurrence:
+
+* r342: `fin_cases` leaves `⟨0, ⋯⟩` where the lemma says `0`.
+* r344: `⋀[S]^1 M` is a constant application, not a literal `_ ^ 1`.
+
+Fix both times: restate the type with `show`/`have`, which typechecks up to
+defeq and then gives `rw` a syntactic match. Diagnosis written into both files.
+
+### Where step 2 stands now
+
+Expressible, not built. The route is unchanged and its lemma is named:
+`Mathlib/RingTheory/Kaehler/Basic.lean` (628, 654) proves the kernel of
+`⊕ₓ B dx ↠ Ω_{B/R}` is SPANNED by the image of the relations, so `d`'s
+well-definedness reduces to a check on generators. With the wedge in hand that
+construction can now be written down.
+
+Still absent and still measured at ZERO files: quasi-coherent sheaves, sheaf
+cohomology, hypercohomology, spectral sequences. So the gluing the spine
+actually names remains unpriced, and nothing here touches the Hodge
+conjecture — Chow groups and the cycle class map are absent.
+
+### Oleans
+
+r343 and r344 are built WITH `-o`, unlike everything else today. Safe: both
+files are new, nothing in the corpus imports them, and neither path collides
+with the march's `FourierPanels`/`PilotBoxes` oleans. r344 imports r343, which
+is why the olean was needed at all — the first r344 build failed on the missing
+import.
+
 ## 2026-10-24 — r342: the H₃ braid relations, and the GROUP behind the 10
 
 Pablo: "do the H3 operator proposition and continue with precission."
