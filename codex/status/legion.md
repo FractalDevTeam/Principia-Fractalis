@@ -2,6 +2,102 @@
 
 **Updated:** 2026-10-24 · **Owner:** Legion session (march ownership, pipeline, research)
 
+## 2026-10-24 — THE ARXIV GROUND STATE FORMULA IS FALSE (r346/r347/r348)
+
+**Read this before touching the P-vs-NP spectral route.** `λ₀(H_α) = π/(10α)`
+is refuted twice over, elementarily. Any session that re-derives it, or cites
+it, is working from a false premise.
+
+### What is false, and why
+
+`PF/Operators/VAlphaExplicit.lean` formalises the arxiv operator
+`H_α = T + V_α` on `ℓ²(ℕ)` with
+`v_alpha_coeff α n = π D₃(n)/(10α) + ν₂(n)/α + ν₃(n)/α²`.
+
+**(1) Wrong VALUE — wrong sign.** `r347`. That file already proved
+`h_alpha_basis_diag_zero : h_alpha_basis α 0 0 = 0`, calling `|0⟩` "the arxiv
+paper's variational-principle starting point". But the variational principle
+reads `inf ≤ ⟨Hφ,φ⟩` for ANY unit `φ`, so `|0⟩` gives `λ₀ ≤ H₀₀ = 0`, while
+`π/(10α) > 0`. **The lemma refutes the claim; the docstring read it as
+support.** The inference ran backwards.
+
+Quantitatively, `φ = (e₀+e₁)/√2` with `T` zero-diagonal and `V(0) = 0`:
+
+    ⟨Hφ,φ⟩ = (0 - ½ - ½ + π/(10α))/2 = -½ + π/(20α)
+
+**negative for every `α > ½`.** At `α = √2`: `-0.389` against a claimed
+`+0.222`.
+
+**(2) Wrong FORM — `V_α` is not confining.** `r348`.
+`v_alpha_coeff α (3^k + 2) = 3π/(10α)` for every `k ≥ 1`: adding 2 to an odd
+number keeps it odd (kills `ν₂`), and `3^k+2 ≡ 2 (mod 3)` (kills `ν₃`), leaving
+digit sum `2+1 = 3`. That level set meets every tail of `ℕ`, so `V_α` does not
+tend to infinity and the standard route to discrete spectrum is unavailable —
+`H_α` need not have a ground state as an eigenvalue AT ALL, independently of
+(1).
+
+Note for anyone reaching for the obvious family: **the substrate tower is NOT a
+bounded level set.** `v_alpha_coeff α (3^k) = π/(10α) + k/α² → ∞`. Likewise
+`2·3^k`. `3^k+1` works only for even `k` (needs `3^k ≡ 1 mod 4`). `3^k+2` is
+the clean one.
+
+**(3) The Prop meant to carry the claim never stated it.**
+`GroundStateVariationalInput α` concludes
+`∃ lam0, lam0 = groundStateValue α ∧ 0 < lam0` — no mention of
+`inf ⟨Hψ,ψ⟩`, `lam0` untied to `H`'s spectrum, witness `π/(10α)` itself. So
+`H_alpha_ground_state_eq_pi_10_alpha` is TRUE and says nothing about a ground
+state. Same vacuity shape as `MuonG2Prediction : Prop := True`.
+
+### What survives — and it is a theorem
+
+`r346`: **`π/(10α)` IS an invariant of this operator** — the minimum of
+`v_alpha_coeff α` over the COMPUTATIONAL SECTOR `n ≥ 1`, attained **uniquely**
+at `n = 1 = 3⁰`; `n = 0` is a zero mode. `D₃(n) = 1` says `n` is a power of 3,
+so the whole substrate tower achieves the minimal digit sum and the 3-adic term
+breaks the degeneracy to `k = 0`. The potential's floor on the computational
+sector is the base of the substrate tower.
+
+**Repair direction, forced:** state the spectral claims about
+`min diag V_α` on `n ≥ 1`, where they are theorems, not about `λ₀(H_α)`, where
+they are false. The α-separation then reads as potential floors,
+`π/(10√2) ≈ 0.2221` vs `π/(10(φ+¼)) ≈ 0.1682`, exact gap
+`(π/10)(1/√2 - 1/(φ+¼))`, strict because `φ+¼ > √2`.
+
+### SCOPE — do not overreach with this
+
+All of the above is the **arxiv `ℓ²(ℕ)` operator**. Chapter 21's operator is a
+DIFFERENT object — a fractal Hilbert–Schmidt convolution kernel on `L²(K,μ)`
+— and already carries its own independently recorded obstructions at
+`PF/Ch21CompactnessGapObstruction.lean` with a named repair there (compact
+RESOLVENT, not compact `H`). **Neither result subsumes the other.** ch21 is
+heavily and honestly corrected already, including the three-way numerical
+disagreement between `λ₀(H_NP) = 0.1330`, `π/(10(φ+¼)) = 0.1682`, and the
+ratio `√2/(φ+¼)`.
+
+Recorded at the source site too: `VAlphaExplicit.lean`'s header, comment-only,
+guard-proven (185 code lines / 71 declarations identical, delimiters 45/45).
+
+### Also landed: r345, the d₁ descent
+
+`d1Free : (S →₀ S) →+ Form R S 2` with
+`d1Free_kills_kerTotal` — since `Ω¹ ≅ (S →₀ S) ⧸ kerTotal`, that IS
+well-definedness of `d₁`. The induction had to be strengthened to
+`∀ s, d1Free (s • z) = 0` because `kerTotal` is an S-span while `d1Free` is only
+additive; the three generator cases are exactly r344's three lemmas, which is
+why those were stated S-multiplied. Remaining for `d₁`: the quotient lift
+(`Quotient.liftOn'` against `Submodule.quotientRel`, not `Submodule.liftQ`,
+the map being additive and not S-linear). Bureaucracy, not mathematics.
+
+### Method note, because it is the transferable part
+
+The refutation came from asking the question after r346 rather than from any
+instruction: `min diag V_α > 0`, `T` has zero diagonal, `V(0) = 0`, therefore
+`inf ≤ 0`. Two lines, sitting behind a Prop that looked like it said something.
+Three defeq/rewrite failures today all had one shape — a term defeq to the
+pattern but not syntactically equal (`fin_cases` leaving `⟨0,⋯⟩`;
+`⋀[S]^1 M` not literally `_ ^ 1`; `rw` hitting only the first of four
+occurrences). Restate the type with `show`/`have`, or use `simp only`.
+
 ## 2026-10-24 — r343/r344: the Grothendieck route, first two bricks BUILT
 
 Rule 7 is the spine, not the Clay list, and the spine terminates in
