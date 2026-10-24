@@ -777,7 +777,24 @@ is a five-term matrix product requiring repeated `φ² = φ + 1` reduction and
 has not been written out here. Until they exist, the sentence "the H₃
 icosahedral GROUP has Coxeter number 10" is supported at the level of the
 diagram and its Gram-matrix reflection representation, not at the level of
-the abstract group. -/
+the abstract group.
+
+**CLOSED 2026-10-24 by `PF/H3CoxeterBraidRelations_r342.lean`.** The
+paragraph above is kept as history; it is no longer the state of the
+corpus, and this file's own header warns about precisely the opposite
+error -- a self-description outliving the facts and then being believed by
+an audit. All three braid relations are proved there, the 5-fold one
+stepwise through explicit intermediate matrices `B², B³, B⁴`;
+`H3_isLiftable : CoxeterMatrix.H₃.IsLiftable H3_simple` covers all nine
+ordered pairs; and `H3_rep : CoxeterMatrix.H₃.Group →* Matrix (Fin 3) (Fin 3) ℝ`
+exists via `CoxeterSystem.lift`, with `H3_rep (H₃.simple i) = H3_simple i`.
+The abstract Coxeter element maps to `H3_coxeterElement`
+(`H3_rep_abstractCoxeterElement`), so
+`10 ∣ orderOf H3_abstractCoxeterElement`: the icosahedral 10 is now a fact
+about the GROUP H₃, not only about this matrix triple. Still open there,
+and stated as such: the representation is not shown FAITHFUL, so the
+transfer is divisibility and not equality. The element-ordering conjugacy
+noted above also remains unproved. -/
 theorem H3_coxeter_data_from_diagram :
     -- (1) the diagram
     (CoxeterMatrix.H₃ 0 1 = 3 ∧ CoxeterMatrix.H₃ 1 2 = 5 ∧ CoxeterMatrix.H₃ 0 2 = 2) ∧
