@@ -151,6 +151,11 @@ theorem wedge_smul_left {p q : ℕ} (c : S) (ω : Form R S p) (η : Form R S q) 
   apply Subtype.ext
   simp only [wedge_coe, Submodule.coe_smul_of_tower, smul_mul_assoc]
 
+theorem wedge_smul_right {p q : ℕ} (c : S) (ω : Form R S p) (η : Form R S q) :
+    wedge R S ω (c • η) = c • wedge R S ω η := by
+  apply Subtype.ext
+  simp only [wedge_coe, Submodule.coe_smul_of_tower, mul_smul_comm]
+
 /-! ## §3 — The alternating property in degree 1, and `d₀ a ∧ d₀ a = 0` -/
 
 /-- Every 1-form is `ι` of a Kähler differential: `⋀^1 = (range ι)^1 = range ι`.
@@ -252,6 +257,87 @@ theorem affine_deRham_wedge_infrastructure :
    wedge_self_degree_one R S, d0_wedge_self R S,
    wedge_antisymm_degree_one R S, d0_leibniz_obstruction_vanishes R S⟩
 
+/-! ## §5 — Well-definedness of the descent to `d₁`
+
+`Ω¹` is `(S →₀ S) ⧸ KaehlerDifferential.kerTotal R S`
+(`KaehlerDifferential.quotKerTotalEquiv`), where `kerTotal` is the **S-span**
+of three relation families (`KaehlerDifferential.kerTotal`). The candidate
+`d₁` sends the free generator `a · dy` to `d₀a ∧ d₀y`.
+
+That map is additive but **not** `S`-linear, because `d₀` is not: so it is not
+enough to kill the relations, it must kill every `s • (relation)`. The three
+lemmas below are exactly that check. Only the Leibniz one is non-obvious — its
+cross terms cancel pairwise, leaving `s •` times the antisymmetry obstruction,
+so it needs bilinearity and `d0_leibniz_obstruction_vanishes` together.
+
+With these, the remaining work for `d₁` is plumbing: build the additive map on
+`S →₀ S` via `Finsupp` and descend through the quotient. No further
+mathematical obstruction is known to me at this point. -/
+
+/-- **Descent, additive relation.** The image of `s • (1·dx + 1·dy - 1·d(x+y))`
+vanishes. Uses only `d0_add` and bilinearity in the right argument. -/
+theorem descent_additive_relation (s x y : S) :
+    wedge R S (d0 R S s) (d0 R S x) + wedge R S (d0 R S s) (d0 R S y)
+      = wedge R S (d0 R S s) (d0 R S (x + y)) := by
+  rw [d0_add, wedge_add_right]
+
+/-- **Descent, `algebraMap` relation.** The image of
+`s • (1·d(algebraMap r))` vanishes, because constants have zero differential. -/
+theorem descent_algebraMap_relation (s : S) (r : R) :
+    wedge R S (d0 R S s) (d0 R S (algebraMap R S r)) = 0 := by
+  rw [d0_algebraMap, wedge_zero_right]
+
+/-- **★★★ Descent, Leibniz relation — the non-obvious case.**
+
+The image of `s • (x·dy + y·dx - 1·d(xy))` vanishes:
+
+    d₀(sx) ∧ d₀y + d₀(sy) ∧ d₀x = d₀s ∧ d₀(xy) .
+
+Expanding each `d₀` of a product by Leibniz gives, on the left,
+
+    s•(d₀x ∧ d₀y) + x•(d₀s ∧ d₀y) + s•(d₀y ∧ d₀x) + y•(d₀s ∧ d₀x)
+
+and on the right `x•(d₀s ∧ d₀y) + y•(d₀s ∧ d₀x)`. The cross terms cancel
+pairwise, and the surviving `s • (d₀x ∧ d₀y + d₀y ∧ d₀x)` vanishes by
+degree-1 antisymmetry — applied directly as `wedge_antisymm_degree_one`, which
+turns the pair into `s • A` and `-(s • A)` and leaves an abelian-group
+identity. (`d0_leibniz_obstruction_vanishes` states the same fact in sum form
+and is kept because the next file's descent cites it in that shape.)
+
+This is the step that makes the descent possible, and it is why antisymmetry
+was the obstruction rather than a decoration. -/
+theorem descent_leibniz_relation (s x y : S) :
+    wedge R S (d0 R S (s * x)) (d0 R S y) + wedge R S (d0 R S (s * y)) (d0 R S x)
+      = wedge R S (d0 R S s) (d0 R S (x * y)) := by
+  -- Rewrite `d₀y ∧ d₀x` as `-(d₀x ∧ d₀y)` FIRST. The `s`-scaled pair then
+  -- appears as `s • A` and `-(s • A)`, so what is left is a pure abelian-group
+  -- rearrangement and `abel` finishes it — no manual regrouping, and the
+  -- obstruction lemma is not even needed once antisymmetry is applied directly.
+  --
+  -- `simp only` rather than `rw`: `rw` rewrites only the FIRST occurrence of
+  -- each pattern, which is what broke the previous attempt. The antisymmetry
+  -- rule is given as a SPECIALIZED instance so it cannot loop; the generic
+  -- lemma as a simp rule rewrites in both directions forever.
+  simp only [d0_leibniz, wedge_add_left, wedge_add_right,
+             wedge_smul_left, wedge_smul_right,
+             wedge_antisymm_degree_one R S (d0 R S y) (d0 R S x),
+             smul_neg]
+  abel
+
+/-- **Descent well-definedness, as one statement.** All three Kähler relation
+families are killed, in their `S`-multiplied form, by `a · dy ↦ d₀a ∧ d₀y`.
+
+What remains for `d₁` is the `Finsupp` plumbing and the quotient descent. -/
+theorem descent_well_defined :
+    (∀ s x y : S, wedge R S (d0 R S s) (d0 R S x) + wedge R S (d0 R S s) (d0 R S y)
+        = wedge R S (d0 R S s) (d0 R S (x + y))) ∧
+    (∀ (s : S) (r : R), wedge R S (d0 R S s) (d0 R S (algebraMap R S r)) = 0) ∧
+    (∀ s x y : S, wedge R S (d0 R S (s * x)) (d0 R S y)
+        + wedge R S (d0 R S (s * y)) (d0 R S x)
+        = wedge R S (d0 R S s) (d0 R S (x * y))) :=
+  ⟨descent_additive_relation R S, descent_algebraMap_relation R S,
+   descent_leibniz_relation R S⟩
+
 end AlgebraicDeRhamAffine
 end PrincipiaTractalis
 
@@ -266,3 +352,5 @@ end PrincipiaTractalis
 #print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.wedge_antisymm_degree_one
 #print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.d0_leibniz_obstruction_vanishes
 #print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.affine_deRham_wedge_infrastructure
+#print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.descent_leibniz_relation
+#print axioms PrincipiaTractalis.AlgebraicDeRhamAffine.descent_well_defined
