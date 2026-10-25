@@ -25,30 +25,45 @@ Concretely `Finset.univ_prod_mulSingle` — the identity
 `[Fintype I]`. The proof of `completeness` cannot be run for infinite `ι`; it
 is not that a shortcut is missing.
 
-### Where the real gap is, precisely
+### Where this sits relative to mathlib
 
-mathlib has **two** products-of-tprods lemmas and the distinction matters.
-`PiTensorProduct.tprod_prod` sits in the `CommSemiring` section because
-`Finset.prod` needs a commutative target, and our site algebra `M₃(ℂ)` is not
-commutative, so that one does not apply. But `PiTensorProduct.tprod_noncommProd`
-(`RingTheory/PiTensorProduct.lean:210`) is stated for `NonAssocSemiring`
-factors via `Finset.noncommProd`, and it **does** apply to us.
+mathlib already has more of this than a first pass suggests, and the file should
+say so precisely rather than claim novelty it does not have:
 
-What is genuinely absent is the *Pi-level* identity. `Finset.univ_prod_mulSingle`
-— `∏ i, Pi.mulSingle i (f i) = f` — exists only in commutative form; there is
-no `Finset.univ_noncommProd_mulSingle` anywhere in mathlib at this pin. So a
-`noncommProd` route would still have to prove that identity, and proving it is
-the same induction over sites that `tprod_restrictPi_mem` performs directly.
-The induction is not avoidable here, only relocatable — which is why the proof
-below keeps it, and uses only `tprod_mul_tprod` from the `NonAssocSemiring`
-section.
+* `PiTensorProduct.tprod_prod` is `CommSemiring`-only (`Finset.prod` needs a
+  commutative target), so it does **not** apply to `M₃(ℂ)`.
+* `PiTensorProduct.tprod_noncommProd` (`RingTheory/PiTensorProduct.lean:210`)
+  is stated for `NonAssocSemiring` factors via `Finset.noncommProd`, and it
+  **does** apply.
+* `Finset.noncommProd_mul_single` (`Data/Finset/NoncommProd.lean:420`, in a
+  `section FinitePi`) is the noncommutative form of
+  `∏ i, Pi.mulSingle i (f i) = f`.
 
-*Correction.* An earlier version of this header claimed no noncommutative
-products-of-tprods lemma existed. That was wrong. The greps behind it searched
-for `tprod_prod`, `tprod_one` and `tprod_mul_tprod` and never for
-`noncommProd`, so a lemma 45 lines away in the same file was reported absent.
-Asserting absence requires having searched for the thing, not for its
-neighbours. Corrected in place rather than left standing.
+Those last two together give `completeness` directly for `[Fintype ι]`, so the
+route below is longer than strictly necessary. It is kept because the theorem it
+passes through, `tprod_restrictPi_mem`, is **strictly more general than the
+mathlib lemma**: `noncommProd_mul_single` carries `[Fintype ι]`, whereas
+`tprod_restrictPi_mem` holds for arbitrary `ι` and finite regions. That extra
+generality is precisely what `net_eq_iSup_finite` rests on and what any attack
+on the infinite case will need, and it is not available from mathlib at this
+pin.
+
+What *is* absent from mathlib, checked across every naming convention:
+`singleAlgHom` occurs exactly twice in the whole library — its definition and
+`algHom_ext` — and `RingTheory/PiTensorProduct.lean` contains no occurrence of
+`adjoin`, `Subalgebra`, `Submodule.span`, `iSup` or `= ⊤`. The algebra
+structure on `⨂` has no generation API. `algHom_ext` already covers the common
+use (two algebra maps agreeing on single-slot elements are equal), so the gap
+is real but modest.
+
+*Two corrections, one defect.* Earlier versions of this header claimed first
+that no noncommutative products-of-tprods lemma existed, then that no
+noncommutative `univ_prod_mulSingle` existed. Both were false. Both came from
+grepping one guessed identifier — `tprod_prod`, then `noncommProd_mulSingle` —
+and reading the silence as absence. mathlib spells the second
+`noncommProd_mul_single`, with an underscore. A claim of absence has to
+enumerate the naming conventions; one spelling tried once is not a measurement,
+and a grep's silence is a fact about the grep.
 
 ## The infinite case is OPEN, not refuted
 
