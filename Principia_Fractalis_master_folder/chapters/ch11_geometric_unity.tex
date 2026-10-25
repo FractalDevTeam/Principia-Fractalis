@@ -372,7 +372,7 @@ At $z = 0$ (today), $\text{ch}_2 = 0.95$ and $\rho_\Phi / \rho_{\text{crit}} \ap
 H_{\text{eff}} = 67.4 \sqrt{1 + \frac{\pi}{10} \cdot 0.95 \cdot 0.7} = 67.4 \sqrt{1 + 0.209} = 67.4 \times 1.10 = 74.1 \text{ km/s/Mpc}
 \end{equation}
 
-This is within $1\sigma$ of the local measurement, resolving the tension. (See Chapter 26 for full cosmological analysis.)
+This is within $1\sigma$ of the local measurement, resolving the tension. (See Chapter 26 for full cosmological analysis.)\manuscriptcorrection{\textbf{``Within $1\sigma$'' does not hold at this section's own numbers: the agreement is $1.026\sigma$.} Flagged 2026-10-25; formalized at \texttt{PF\_Lean4\_Code/PF/Ch11PredictionsFormalized\_r349.lean} (\texttt{H\_eff\_exceeds\_local\_one\_sigma}). Carrying the arithmetic without rounding: $(\pi/10)\cdot 0.95\cdot 0.7 = 0.2089159\ldots$, $\sqrt{1.2089159\ldots} = 1.0995071\ldots$, so $H_{\text{eff}} = 67.4\times 1.0995071 = 74.1068\ldots$. The local measurement is $73.04 \pm 1.04$, so the $1\sigma$ band tops out at $74.08$ and $H_{\text{eff}}$ exceeds it; the displayed step reaches $74.1$ by rounding $\sqrt{1.209}$ to $1.10$ (which gives $74.14$) and the band is then not re-checked. \textbf{What survives:} the mechanism is unaffected and the discrepancy is small --- $1.026\sigma$ rather than $\leq 1\sigma$. The accurate sentence is ``$H_{\text{eff}}$ lands marginally outside the local $1\sigma$ band, reducing the $4.4\sigma$ tension to about $1.03\sigma$'', which is a substantial improvement and is not the same claim as resolving it.}
 
 \subsection{ANITA Ultra-High-Energy Events}
 
@@ -397,7 +397,7 @@ GU with RQG modifies nuclear reaction rates via:
 \end{equation}
 where $T_c = 10^9$ K is the consciousness temperature scale.
 
-At BBN epoch ($T \sim 10^9$ K), this gives $\Gamma_{\text{RQG}} / \Gamma_{\text{SM}} \approx 0.70$, reducing lithium production by factor 3, matching observations.
+At BBN epoch ($T \sim 10^9$ K), this gives $\Gamma_{\text{RQG}} / \Gamma_{\text{SM}} \approx 0.70$, reducing lithium production by factor 3, matching observations.\manuscriptcorrection{\textbf{The rate factor is correct; the step from it to a factor-3 abundance reduction is not arithmetic and is not supplied.} Flagged 2026-10-25; formalized at \texttt{PF\_Lean4\_Code/PF/Ch11PredictionsFormalized\_r349.lean} (\texttt{lithiumRateFactor\_bracket}, \texttt{lithium\_factor\_ne\_required\_ratio}). The factor is $1-(\pi/10)(0.95) = 0.70155\ldots$, machine-checked. But this section's own datum gives the required abundance ratio as $1.6/5.24 = 0.3053\ldots$, and $0.7016 \neq 0.3053$ --- they differ by more than a factor of two. A $30\%$ reduction in a reaction \emph{rate} does not entail a factor-3 reduction in the resulting \emph{abundance}: that is a statement about the response of the BBN reaction network, which neither this chapter nor the Lean corpus supplies. \textbf{Status:} the rate factor is a theorem; the match to observation is \textbf{ASSERTED}, and establishing it requires a BBN network calculation. The direction is right --- the correction suppresses production --- and the magnitude is not shown.}
 
 \subsection{XENON Experiment: Nuclear Transition Anomaly}
 
