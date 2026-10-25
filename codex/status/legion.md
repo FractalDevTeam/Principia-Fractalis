@@ -47,11 +47,16 @@ that IS reachable.
 
 ### Still unbuilt on this arrow, named so it is not re-scoped
 
-* **Isotony over regions**: `S ⊆ T ⇒ 𝒜(S) ⊆ 𝒜(T)` for subsets of ι — needs
-  region-indexed algebras `𝒜(S) = ⊗_{i∈S} M₃` and the inclusions between them.
-  `Algebra.TensorProduct.includeLeft_injective`
-  (`RingTheory/Flat/Basic.lean:439`) is available for the two-factor case and
-  is the natural starting point.
+* **Isotony over regions — DONE, r352.** `S ⊆ T ⇒ 𝒜(S) ≤ 𝒜(T)` for arbitrary
+  subsets of ι, plus `𝒜({i}) = (localAt i).range` and region locality for
+  disjoint regions. The region-indexed tensor products turned out to be the
+  wrong construction: defining `𝒜(S) = Algebra.adjoin ℂ (⋃ i ∈ S, range (localAt i))`
+  INSIDE the one ambient algebra makes isotony `Algebra.adjoin_mono` — one line
+  — and keeps every region's algebra a subalgebra of the same object, which is
+  what a net is. Region locality is two `Algebra.adjoin_le` passes through
+  `Subalgebra.centralizer`; it works because the centralizer is a SUBALGEBRA,
+  so commutation lifts from generators to the generated algebra with no
+  induction over words.
 * **Covariance**: needs a group acting on sites — for the full substrate this
   is the `Aut(T_∞)` problem above.
 * **Additivity**: absent.
