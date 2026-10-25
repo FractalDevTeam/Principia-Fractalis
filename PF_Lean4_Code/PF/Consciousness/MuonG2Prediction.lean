@@ -60,6 +60,7 @@ universal-coupling prescription applied at the corrected scale.
 Stage L26 — muon g-2 framework prediction with corrected M_X ~ TeV.
 -/
 
+import Mathlib.Analysis.Real.Pi.Bounds
 import Mathlib.Tactic
 
 namespace PrincipiaTractalis.Consciousness
@@ -115,11 +116,20 @@ theorem M_X_TeV_corrected_in_TeV_range :
 
 /-! ## The corrected prediction matches experiment -/
 
-/-- **Framework's prediction at M_X ~ TeV matches experiment**.
+/-- **Scale-range fact.** `M_X_TeV_corrected` lies in the TeV window.
 
-    Specifically: with M_X = 1161 GeV (the TeV-scale value reverse-engineered
-    from the observed Δa_μ), the framework's prediction is consistent with
-    the Fermilab measurement within 1σ.
+    ⚠ **AMENDED 2026-10-25.** This Prop is docstring'd below as the
+    framework's prediction "matching experiment", and it does NOT state that:
+    it asserts `M_X = 1161`, `250 < M_X < 10000`, and two positivity facts,
+    and never mentions `Delta_a_mu_prediction` or `Delta_a_mu_experiment`.
+    The claim it was named for is now a real theorem,
+    `muon_g2_prediction_within_one_sigma` below. This Prop is kept unchanged
+    (downstream files cite it) with its content stated honestly.
+
+    Historical docstring, retained: with M_X = 1161 GeV (the TeV-scale value
+    reverse-engineered from the observed Δa_μ), the framework's prediction is
+    consistent with the Fermilab measurement within 1σ — which is now
+    PROVED, separately, below.
 
     The Ch 11 manuscript specification of M_X = M_GU = 10¹⁶ GeV is
     a SCALE MISSPECIFICATION — same pattern as Ch 26 (cosmological
@@ -137,5 +147,50 @@ theorem muon_g2_framework_witness : MuonG2FrameworkPrediction :=
    M_X_TeV_corrected_in_TeV_range.left,
    M_X_TeV_corrected_in_TeV_range.right,
    muon_mass_pos, ch_2_threshold_pos⟩
+
+/-! ## The numerical match, proved
+
+The Prop above does not state the match its name claims. These theorems do.
+
+At the file's own inputs,
+
+    Δa_μ(1161) = (π/10)·(0.10566/1161)²·0.95 ≈ 2.4719 × 10⁻⁹
+
+against `Δa_μ^exp = 2.51 × 10⁻⁹` with `σ = 0.59 × 10⁻⁹`: agreement to about
+`0.065 σ`.
+
+**This is a one-parameter FIT, not a prediction**, and the file says so at
+`M_X_TeV_corrected`: the scale "comes from REQUIRING the framework's
+prediction to match the observed Δa_μ". With `M_X` back-solved from the datum
+the agreement is a consistency check with zero degrees of freedom, and it is
+recorded as such rather than as a confirmation. What the theorems below
+establish is that the formula, at that scale, really does reproduce the datum
+— which was asserted but never proved. -/
+
+/-- **Two-sided bracket on the prediction at the fitted scale.** -/
+theorem Delta_a_mu_prediction_bracket :
+    2.47e-9 < Delta_a_mu_prediction M_X_TeV_corrected ∧
+    Delta_a_mu_prediction M_X_TeV_corrected < 2.48e-9 := by
+  unfold Delta_a_mu_prediction muon_mass_GeV ch_2_threshold M_X_TeV_corrected
+  constructor <;>
+    nlinarith [Real.pi_gt_d6, Real.pi_lt_d6]
+
+/-- **★ The prediction at the fitted scale agrees with experiment within
+1σ.** This is the statement `MuonG2FrameworkPrediction` was named for and
+does not contain. -/
+theorem muon_g2_prediction_within_one_sigma :
+    |Delta_a_mu_prediction M_X_TeV_corrected - Delta_a_mu_experiment|
+      < Delta_a_mu_experiment_sigma := by
+  have h := Delta_a_mu_prediction_bracket
+  unfold Delta_a_mu_experiment Delta_a_mu_experiment_sigma
+  rw [abs_lt]
+  constructor <;> [linarith [h.1, h.2]; linarith [h.1, h.2]]
+
+/-- **The agreement is a FIT, recorded explicitly.** `M_X` was back-solved
+from the datum, so the scale is not independent of the measurement it
+reproduces. Stated as a theorem-adjacent fact so the conditionality travels
+with the result. -/
+theorem muon_g2_scale_is_fitted :
+    M_X_TeV_corrected = 1161 := rfl
 
 end PrincipiaTractalis.Consciousness
