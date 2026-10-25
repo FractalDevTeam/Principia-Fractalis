@@ -257,17 +257,40 @@ theorem rqg_implies_shiab_regularized
 
 /-! ## §5 — Four experimental predictions
 
-Ch 11 §6.1–§6.4 lists four experimental predictions. These are typed
-Props since they are empirical / observational, not Lean-formalisable.
-The numerical bracket content for muon g-2 and XENONnT lives in
-`MuonG2Prediction.lean` and `XENONExactMatch.lean` respectively. -/
+Ch 11 §6.1–§6.4 lists four experimental predictions.
+
+⚠ **CORRECTED 2026-10-25.** This section previously said the four are "not
+Lean-formalisable". That is false, and the muon clause below now demonstrates
+it: each of the four is an explicit numerical formula and each can be stated
+and bracketed in Lean exactly as `XENONExactMatch.lean` already does for the
+XENONnT ratio. The muon clause is repaired; `HubbleTensionResolution`,
+`ANITAUltraHighEnergyEvent` and `CosmologicalLithiumAbundance` remain
+`Prop := True` and are now labelled as UNFORMALISED STUBS rather than as
+unformalisable, with their formulas written out below so the work is specified
+rather than excused. -/
 
 /-- **Muon g-2 RQG prediction** (Ch 11 §6.1, line 344).
     The framework predicts `Δa_μ^RQG = (π/10) · (m_μ/M_X)² · ch_2`.
-    Numerical bracket content in `MuonG2Prediction.lean`. -/
-def MuonG2Prediction : Prop := True
 
-theorem muon_g2_prediction_holds : MuonG2Prediction := trivial
+    ★ **REPAIRED 2026-10-25.** This was `Prop := True`, discharged by
+    `trivial`, while `PF/Consciousness/MuonG2Prediction.lean` carried the real
+    formula all along — so the stub shadowed actual content. It now states the
+    numerical match and is discharged by that file's
+    `muon_g2_prediction_within_one_sigma`: at the framework's own inputs the
+    prediction brackets in `(2.47e-9, 2.48e-9)` against
+    `2.51e-9 ± 0.59e-9`, agreeing to about `0.065σ`.
+
+    **The agreement is a one-parameter FIT**, not a prediction: `M_X = 1161`
+    was reverse-engineered from the observed `Δa_μ`, as that file states at
+    `M_X_TeV_corrected`. Zero degrees of freedom. Recorded so the
+    conditionality travels with the clause. -/
+def MuonG2Prediction : Prop :=
+  |Consciousness.Delta_a_mu_prediction Consciousness.M_X_TeV_corrected
+      - Consciousness.Delta_a_mu_experiment|
+    < Consciousness.Delta_a_mu_experiment_sigma
+
+theorem muon_g2_prediction_holds : MuonG2Prediction :=
+  PrincipiaTractalis.Consciousness.muon_g2_prediction_within_one_sigma
 
 /-- **Hubble tension RQG resolution** (Ch 11 §6.2, line 354).
     `H_eff = H_0 · √(1 + (π/10) · ρ_RQG / ρ_crit)` at z = 0 gives
@@ -376,8 +399,12 @@ def WeinsteinGURescueHonestScope : Prop :=
    ANITAUltraHighEnergyEvent ∧ CosmologicalLithiumAbundance)
 
 theorem weinsteinGURescueHonestScope_holds : WeinsteinGURescueHonestScope := by
+  -- The muon clause is no longer `True`: it is the numerical 1σ match, proved
+  -- in `PF/Consciousness/MuonG2Prediction.lean`. It is supplied explicitly.
+  -- The remaining three ARE still `True` stubs and `trivial` closes them —
+  -- which is exactly the honest reading of their current status.
   refine ⟨rqg_inhabited, brst_H2_eq_78, shiab_operator_regularized_holds,
-    ?_, ?_, ?_, ?_⟩ <;> trivial
+    muon_g2_prediction_holds, ?_, ?_, ?_⟩ <;> trivial
 
 end WeinsteinGUResonantRescue
 end PrincipiaTractalis

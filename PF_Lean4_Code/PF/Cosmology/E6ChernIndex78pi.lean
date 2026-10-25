@@ -57,7 +57,17 @@ open Real
 
 /-! ## Arithmetic identities for E_6 dimensional analysis -/
 
-/-- **`dim(E_6) = 78`**. The exceptional simple Lie group's dimension. -/
+/-- **`78 = 78`**, the numeral `78` entered as data.
+
+⚠ **AMENDED 2026-10-25.** This was docstring'd "`dim(E_6) = 78`. The
+exceptional simple Lie group's dimension." The theorem is `rfl` on a numeral
+and establishes no Lie-theoretic fact: mathlib has no `E_6` Lie algebra and no
+dimension function for it at this pin, so `78` is entered as data here and the
+identification with `dim E_6` is a citation to the literature, not a
+computation. The name is kept because downstream files cite it; the docstring
+now says what the theorem says. What IS proved in this file is the arithmetic
+of the decompositions below (`78 = 3·8 + 2·27`, `27 = 3³`), which are real
+`decide`-checked identities. -/
 theorem dim_E6_eq_78 : (78 : ℕ) = 78 := rfl
 
 /-- **`78 = 3·8 + 2·27`** — decomposition under SU(3)³ trinification:
