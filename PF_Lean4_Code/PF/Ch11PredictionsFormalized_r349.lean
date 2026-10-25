@@ -147,6 +147,41 @@ theorem H_eff_exceeds_local_one_sigma :
   unfold H0_local H0_local_sigma
   linarith
 
+/-! ### The other framework value for `H_0`, and the conflict
+
+Chapter 27 Prop. `h0-tension` gives a DIFFERENT framework value for the same
+quantity: `H_0^modified = 69.8 ± 0.8` km/s/Mpc, by `ch₂(z)` evolution rather
+than RQG enhancement. Both sections claim to resolve the Hubble tension, and
+`|74.11 − 69.8| = 4.31`, which is `5.4σ` against ch 27's own stated `± 0.8`.
+
+Neither value is adjudicated here — choosing between the two mechanisms is an
+authorial matter, and each carries its own scope note already (ch 27's `69.8`
+is definitional, chosen to lie between the measurements; ch 11's `74.11` sits
+`1.026σ` from SH0ES). What these theorems establish is that the two are
+inconsistent with each other, which was stated nowhere in the corpus. -/
+
+/-- Chapter 27's framework value for `H_0` today (Prop. `h0-tension`). -/
+def H0_ch27 : ℝ := 69.8
+
+/-- Chapter 27's stated uncertainty on that value. -/
+def H0_ch27_sigma : ℝ := 0.8
+
+/-- **★★ `H_eff` is incompatible with Chapter 27's value**, exceeding even its
+upper `1σ` edge `70.6`. -/
+theorem H_eff_incompatible_with_ch27_value :
+    H0_ch27 + H0_ch27_sigma < H_eff := by
+  have h := H_eff_bracket.1
+  unfold H0_ch27 H0_ch27_sigma
+  linarith
+
+/-- **The disagreement exceeds `5σ`** in Chapter 27's own error bar:
+`|74.11 − 69.8| = 4.31 > 4.0 = 5 × 0.8`. -/
+theorem H_eff_ch27_disagreement_exceeds_five_sigma :
+    5 * H0_ch27_sigma < H_eff - H0_ch27 := by
+  have h := H_eff_bracket.1
+  unfold H0_ch27 H0_ch27_sigma
+  linarith
+
 /-! ## §3 — Primordial lithium (Ch 11 §6.4) -/
 
 /-- The RQG rate factor `1 − (π/10)·ch₂·(T/T_c)` at `T = T_c`. -/
@@ -218,9 +253,12 @@ None of this adjudicates the physics; see the header's "Not claimed". -/
 theorem ch11_three_predictions_formalized :
     H0_local + H0_local_sigma < H_eff ∧
     requiredAbundanceRatio < lithiumRateFactor ∧
-    E_ANITA_predicted = 3 * E_ANITA_observed :=
+    E_ANITA_predicted = 3 * E_ANITA_observed ∧
+    H0_ch27 + H0_ch27_sigma < H_eff ∧
+    5 * H0_ch27_sigma < H_eff - H0_ch27 :=
   ⟨H_eff_exceeds_local_one_sigma, lithium_factor_ne_required_ratio,
-   ANITA_ratio_eq_three⟩
+   ANITA_ratio_eq_three, H_eff_incompatible_with_ch27_value,
+   H_eff_ch27_disagreement_exceeds_five_sigma⟩
 
 end Ch11PredictionsFormalized
 end PrincipiaTractalis
@@ -233,4 +271,6 @@ end PrincipiaTractalis
 #print axioms PrincipiaTractalis.Ch11PredictionsFormalized.lithiumRateFactor_bracket
 #print axioms PrincipiaTractalis.Ch11PredictionsFormalized.lithium_factor_ne_required_ratio
 #print axioms PrincipiaTractalis.Ch11PredictionsFormalized.ANITA_ratio_eq_three
+#print axioms PrincipiaTractalis.Ch11PredictionsFormalized.H_eff_incompatible_with_ch27_value
+#print axioms PrincipiaTractalis.Ch11PredictionsFormalized.H_eff_ch27_disagreement_exceeds_five_sigma
 #print axioms PrincipiaTractalis.Ch11PredictionsFormalized.ch11_three_predictions_formalized
