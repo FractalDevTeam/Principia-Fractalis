@@ -25,21 +25,30 @@ Concretely `Finset.univ_prod_mulSingle` — the identity
 `[Fintype I]`. The proof of `completeness` cannot be run for infinite `ι`; it
 is not that a shortcut is missing.
 
-### A measured obstruction worth recording
+### Where the real gap is, precisely
 
-mathlib *does* have `PiTensorProduct.tprod_prod`, exactly the lemma
-`tprod (∏ k ∈ s, x k) = ∏ k ∈ s, tprod (x k)` one would reach for. It sits in
-the `CommSemiring` section, because `Finset.prod` needs a commutative target.
-Our site algebra is `M₃(ℂ)`, which is **not** commutative — the substrate is a
-noncommutative ring and `Finset.prod` is not available in it at all. The lemma
-is present and does not apply to us.
+mathlib has **two** products-of-tprods lemmas and the distinction matters.
+`PiTensorProduct.tprod_prod` sits in the `CommSemiring` section because
+`Finset.prod` needs a commutative target, and our site algebra `M₃(ℂ)` is not
+commutative, so that one does not apply. But `PiTensorProduct.tprod_noncommProd`
+(`RingTheory/PiTensorProduct.lean:210`) is stated for `NonAssocSemiring`
+factors via `Finset.noncommProd`, and it **does** apply to us.
 
-The route that does work is `Finset` induction through `tprod_mul_tprod`, which
-lives in the `NonAssocSemiring` section and needs no commutativity. The
-induction peels off one site at a time and uses `r352`'s isotony to re-seat the
-inductive hypothesis in the larger region. So noncommutativity — the thing that
-makes the net physically nontrivial — is also what forces the proof to be an
-induction over sites rather than a rewrite.
+What is genuinely absent is the *Pi-level* identity. `Finset.univ_prod_mulSingle`
+— `∏ i, Pi.mulSingle i (f i) = f` — exists only in commutative form; there is
+no `Finset.univ_noncommProd_mulSingle` anywhere in mathlib at this pin. So a
+`noncommProd` route would still have to prove that identity, and proving it is
+the same induction over sites that `tprod_restrictPi_mem` performs directly.
+The induction is not avoidable here, only relocatable — which is why the proof
+below keeps it, and uses only `tprod_mul_tprod` from the `NonAssocSemiring`
+section.
+
+*Correction.* An earlier version of this header claimed no noncommutative
+products-of-tprods lemma existed. That was wrong. The greps behind it searched
+for `tprod_prod`, `tprod_one` and `tprod_mul_tprod` and never for
+`noncommProd`, so a lemma 45 lines away in the same file was reported absent.
+Asserting absence requires having searched for the thing, not for its
+neighbours. Corrected in place rather than left standing.
 
 ## The infinite case is OPEN, not refuted
 
