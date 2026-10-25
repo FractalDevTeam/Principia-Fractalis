@@ -2,6 +2,74 @@
 
 **Updated:** 2026-10-24 · **Owner:** Legion session (march ownership, pipeline, research)
 
+## 2026-10-25 — EMERGENT LOCALITY IS NO LONGER EMPTY (r350, r351)
+
+The spine arrow with zero formal content now has the locality axiom proved.
+Before today: "emergent locality" appeared **once** in the whole corpus
+(`codex/COSMOLOGY_DE_ROUTE_MAP_2026-10-11.md:16`, a one-line spine sketch),
+**zero** times in the 36 manuscript chapters, **zero** times in Lean.
+
+### What is proved
+
+    r350  disjoint_regions_commute       Commute (a ⊗ₜ 1) (1 ⊗ₜ b)
+          within_region_not_commutative  ¬ Commute E₀₁ E₁₁   (non-vacuity)
+    r351  SubstrateNet ι = ⨂[ℂ] (_ : ι), M₃(ℂ)
+          local_commute                  i ≠ j → Commute (localAt i a) (localAt j b)
+          localAt_range_commute          same, between the local subalgebras
+
+`r350.disjoint_regions_commute` is on `[propext, Quot.sound]` — **no
+Classical.choice**, below the usual bar. The rest are on the three-axiom bar.
+
+### The substantive point
+
+In algebraic QFT locality IS the net — disjoint regions commute — and spacetime
+is recovered FROM the net, not presupposed. So the net is logically prior to
+the `M⁴ = Aut/Aut₀` route, and it is what the ternary substrate supplies
+directly: `M_{3^k} ≅ ⊗_{i<k} M₃`, one factor per site, and
+`singleAlgHom i a = tprod (mulSingle i a)`. For `i ≠ j` the pointwise check is
+`a·1 = 1·a`, `1·b = b·1`, `1·1`. **Locality is a consequence of the tensor
+structure, not an axiom imposed on it** — the proof is short because the
+structure already contains it. The index set is arbitrary, so the whole tower
+is covered uniformly rather than level by level.
+
+### ⚠ Out(T_∞) IS NOT EXPRESSIBLE AT THIS PIN — do not spend a session on it
+
+ch04:461's correction names the live candidate for stage 1 after the
+`Aut₀ = Aut` collapse (r113 unique trace ⇒ r333 `trace_preserved` ⇒ quotient is
+a single point; r334 trace-blind inner automorphism; r335 kills the K-theoretic
+repair): **`M⁴ = Aut(T_∞)/Inn(T_∞) = Out(T_∞)`**.
+
+Measured at this mathlib pin: `UHF` = **0 files**, `ApproximatelyFinite` = 0,
+`AFAlgebra` = 0, `InnerAutomorphism` = 0. There is no inductive-limit
+C\*-algebra theory to quotient. Attempting `Out(T_∞)` in Lean now produces a
+stub, not a theorem. That is why r350/r351 build the net instead — the part
+that IS reachable.
+
+### Still unbuilt on this arrow, named so it is not re-scoped
+
+* **Isotony over regions**: `S ⊆ T ⇒ 𝒜(S) ⊆ 𝒜(T)` for subsets of ι — needs
+  region-indexed algebras `𝒜(S) = ⊗_{i∈S} M₃` and the inclusions between them.
+  `Algebra.TensorProduct.includeLeft_injective`
+  (`RingTheory/Flat/Basic.lean:439`) is available for the two-factor case and
+  is the natural starting point.
+* **Covariance**: needs a group acting on sites — for the full substrate this
+  is the `Aut(T_∞)` problem above.
+* **Additivity**: absent.
+* **Non-vacuity inside the net**: r350 has it at the site level; lifting it
+  needs `singleAlgHom` injectivity, not available, not assumed.
+
+### Build-process note worth keeping
+
+r351 took four builds, errors `11 → 5 → 1 → 0`, **none mathematical**. The
+first eleven cascaded from one parse failure: `⨂[R]` for `PiTensorProduct` is
+`scoped[TensorProduct]` (`LinearAlgebra/PiTensorProduct.lean:106`) and needs
+`open scoped TensorProduct` — a fix already made in r350 the same session and
+not carried forward. Then a guessed implicit-argument name, twice; then a
+`show _ * _ = _ * _` leaving metavariables; then one benign "no goals" where
+`rw` had closed a branch by `rfl`. r346 and r349 went green first time because
+their signatures were read before the calls were written. Read the declaration
+before writing the call.
+
 ## 2026-10-24 — THE ARXIV GROUND STATE FORMULA IS FALSE (r346/r347/r348)
 
 **Read this before touching the P-vs-NP spectral route.** `λ₀(H_α) = π/(10α)`
