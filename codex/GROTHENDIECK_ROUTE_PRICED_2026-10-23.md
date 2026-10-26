@@ -262,3 +262,119 @@ unpriced and sits behind four absent layers.
 
 As before: Chow groups, the cycle class map and intersection theory remain
 absent, so no part of the Hodge conjecture is touched by any of this.
+
+---
+
+## STEP 2c PRICED — and the "viable route" does NOT extend past `d₁`
+
+**Legion, 2026-10-25,** after landing r355 (`d₁` + `d∘d = 0`) and r356 (`d₁` is
+`R`-linear and `S`-Leibniz). This section corrects this note's own step-2
+prescription, measured at the pin with the sanity check passing
+(`LinearMap` = 1031 files).
+
+### What this note prescribed, and where it holds
+
+The "viable route" above says:
+
+> "define `d` on the FREE module `⊕ₓ B dx`, where it is unproblematic; prove it
+> annihilates the spanning set of the kernel; descend. A kernel **spanned** by
+> an explicit family is the good case."
+
+**That was correct, and it worked — for `d₁` only.** r345 defined `d` on
+`S →₀ S`, proved it annihilates `KaehlerDifferential.kerTotal`, and r355
+descended it and read off `d ∘ d = 0`. The route did exactly what this note
+said it would.
+
+### Why it does not extend to `d_n`, `n ≥ 2`
+
+The prescription is about the **Kähler** presentation, whose relations are
+additive, Leibniz and `algebraMap` — and `d` kills all three (that is r345).
+For `n ≥ 2` the object is `Ωⁿ = ⋀[S]ⁿ Ω¹`, and its presentation is a
+*different* one whose relations `d` does **not** kill:
+
+    inductive exteriorPower.Rels
+      | add  (m : ι → M) (i : ι) (x y : M)
+      | smul (m : ι → M) (i : ι) (r : R) (x : M)     ← this one
+      | alt  (m : ι → M) (i j : ι) (hm : m i = m j) (hij : i ≠ j)
+
+The `.smul` relation is
+`single (update m i (r • x)) 1 - r • single (update m i x) 1`. The candidate
+differential `d(m₀ ∧ ⋯ ∧ m_{n-1}) = Σᵢ (-1)ⁱ m₀ ∧ ⋯ ∧ d₁(mᵢ) ∧ ⋯ ∧ m_{n-1}`
+fails it: scaling slot `k` by `c` gives, via r356's Leibniz,
+
+    c • d(m₀ ∧ ⋯ ∧ m_k ∧ ⋯) + (-1)^k m₀ ∧ ⋯ ∧ (d₀c ∧ m_k) ∧ ⋯
+
+and the second term does not vanish. So `d` is not `S`-multilinear in the
+slots, and the spanned kernel is not annihilated.
+
+**And the two routes are the same object.** `exteriorPower.alternatingMapLinearEquiv`
+is constructed from `exteriorPower.presentation` via `isPresentationCore`
+(`ExteriorPower/Basic.lean`, `presentation` then `alternatingMapLinearEquiv`
+immediately after). So this note's "viable route" and the route it refutes are
+the **same universal property** when applied to `⋀ⁿ`. The distinction that made
+the route viable was never presentation-vs-equivalence; it was *which module*
+is being presented. Kähler presentation: `d` kills the relations. Exterior-power
+presentation: `d` does not.
+
+This note should not be read as offering a general route to `d_n`. It offers a
+route to `d₁`, which has been taken.
+
+### What `d_n` would actually cost, measured
+
+| ingredient | files at pin | verdict |
+|---|---|---|
+| `GradedDerivation` | **0** | absent |
+| `SuperDerivation` | **0** | absent |
+| `AntiDerivation` / `antiderivation` | **0** | absent |
+| `IsAntiderivation` | **0** | absent |
+| `Derivation` in `ExteriorPower/` or `ExteriorAlgebra/` | **0** | absent |
+| `ExteriorPower/` total | 2 | thin |
+| `ExteriorAlgebra/` total | 3 | thin |
+| `deRham` / `DeRham` | **0** | absent |
+
+The concept `d` *is* — a graded (odd) anti-derivation of degree `+1` — does not
+exist in mathlib at this pin, under any of six spellings. `ExteriorAlgebra.lift`
+does not substitute: it requires `f m * f m = 0` and produces an **algebra
+homomorphism**, and `d` is not one.
+
+So `d_n` requires building the anti-derivation concept and its well-definedness
+machinery from nothing, because the one prepared tool for mapping out of `⋀ⁿ`
+is precisely the tool whose hypothesis `d` fails. That is mathlib-infrastructure
+work, not PF assembly. **Weeks, not days** — and unlike the earlier "multi-year"
+claim, that estimate now rests on a specific named absence rather than on
+unfamiliarity.
+
+### Even the TRUNCATED complex is blocked, for a separate reason
+
+`S → Ω¹ → Ω²` with `d ∘ d = 0` is already in hand, so packaging a three-term
+cochain complex looks free. It is not. `d₁` is **not** `S`-linear (r356), so the
+complex is not a complex of `S`-modules; it is a complex of `R`-modules. But
+r343 recorded that mathlib **does not propagate an `R`-module structure onto the
+exterior power at this pin** — which is why `d₀` was not packaged as
+`Derivation R S (Form R S 1)` in the first place. So the category the truncated
+complex lives in is not available either.
+
+Two independent blockers, then, and neither is about effort:
+
+1. `d_n` for `n ≥ 2` — no anti-derivation concept, and the only universal
+   property for `⋀ⁿ` rejects non-`S`-linear maps.
+2. packaging anything as a complex — no `R`-module structure on `Form`.
+
+### Revised price table
+
+| step | verdict |
+|---|---|
+| 1. `Ωⁿ`, `d₀`, wedge | **DONE** — r343, r344 |
+| 2a. `d₁`, `d ∘ d = 0` | **DONE** — r345, r355 |
+| 2b. `d₁` is `R`-linear, `S`-Leibniz | **DONE** — r356 |
+| 2c. `d_n`, `n ≥ 2` | **BLOCKED** — anti-derivation concept is 0 files; `⋀ⁿ`'s universal property rejects `d` |
+| 3. `CochainComplex` | **BLOCKED** — no `R`-module structure on `Form` |
+| 4. `Hⁿ_dR` | blocked behind 3 |
+| gluing to a variety | unpriced, five pillars at 0 files |
+
+### What this does NOT change
+
+Everything this note refused to claim, it still refuses. Chow groups, the cycle
+class map and intersection theory remain absent, the Hodge conjecture is still
+not stateable, and none of r343–r356 touches its content. The affine local
+block is real and is now four-sevenths built; the rest is named, not estimated.
