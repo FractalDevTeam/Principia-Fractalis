@@ -19,8 +19,29 @@ import io
 import os
 import sys
 
-TSV = ("/Storage 2TB/home/xluxx/Principia-Fractalis-ACTIVE/"
-       "codex/PRISTINE_SWEEP_2026-10-06.tsv")
+CODEX = "/Storage 2TB/home/xluxx/Principia-Fractalis-ACTIVE/codex"
+
+
+def _newest_sweep():
+    """Pick the NEWEST sweep, never a hardcoded one.
+
+    This file used to hardcode PRISTINE_SWEEP_2026-10-06.tsv. That sweep ran a
+    BROKEN criterion (e) -- one theorem named `*_holds` anywhere in a module
+    satisfied (e) for every Prop in it -- and was re-run the next day into a
+    fresh TSV. gate_sweep_1007.py's docstring names the 70.2 percent the old
+    file yields as "the cumulative ... from 1452 rows the BROKEN gate
+    produced". Reading the stale file silently reported 1022 PRISTINE instead
+    of 909, and that figure reached the published title page before it was
+    caught. Dates here are ISO, so lexical order is chronological.
+    """
+    import glob
+    cands = sorted(glob.glob(os.path.join(CODEX, "PRISTINE_SWEEP_*.tsv")))
+    if not cands:
+        return None
+    return cands[-1]
+
+
+TSV = sys.argv[1] if len(sys.argv) > 1 else _newest_sweep()
 TOTAL_CLOSURE = 1452
 
 
@@ -50,7 +71,7 @@ def classify(decl):
 
 
 def main():
-    if not os.path.exists(TSV):
+    if TSV is None or not os.path.exists(TSV):
         print("MISS: %s absent" % TSV)
         return 1
     rows = []
