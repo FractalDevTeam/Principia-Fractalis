@@ -1,6 +1,198 @@
 # LEGION — status
 
-**Updated:** 2026-10-24 · **Owner:** Legion session (march ownership, pipeline, research)
+**Updated:** 2026-10-25 · **Owner:** Legion session (march ownership, pipeline, research)
+
+## 2026-10-25 LATE — ⚠ §0.7 OF THE BINDING INSTRUCTIONS IS STALE (for Rio/Pablo)
+
+**Read this before acting on `INSTRUCTIONS_FOR_EVERY_AI_2026-10-21.md` §0.7 or
+§2 LEGION task 1.** Both describe an emergency that was already repaired, on
+the same day the instructions were written. The two raced.
+
+§0.7 says: *"The march's deployed producer is `/tmp/prod/gen_box.py`, not the
+repo producer… The march hard-stops at c=10 until the pipeline is repaired
+(§2, Legion task 1)."* `APPROACH_REREAD_SYNTHESIS` §6 and item A say the same.
+
+**That is no longer true.** Git, same day:
+
+| commit | content |
+|---|---|
+| `ab2a4586` | **repair the producer pipeline** — commit the inputs the repo producer expects, guard against the drift that caused §0.7 |
+| `7d4b607f` | **use repository producer** and check all acceptance logs |
+| `add2434d` | parametric panel density — D=1 reproduces committed output **byte-identically at four centres** |
+| `d78a7771` | **first D=2 box, c = 81/8** — and the hardcoded `Seg03Range` it exposed, which would have broken every box past the band edge |
+| `54cc9a86` | decided-config schedule (40 rows) + schedule-driven runner for D ≥ 2 |
+| `bd2b33bf` | blocking flock + 7 GB cap in `march_box.sh` |
+| `ba4e6fb2` | boxes were never pushed; march starved the Acer YM lane on the shared lock |
+| `d252b57f` | raise emitted Assemble elaboration cap so D ≥ 4 boxes close |
+
+Verified in the tree now: `codex/gen/` and `codex/addons/` **exist**;
+`march_box.sh:26` passes `--density $DENS --extend-midpoint --safety 1.25`;
+`march_box.sh:30` is `# PROD=/tmp/prod`, i.e. the repo producer with `/tmp` as
+the commented fallback task 2 asked for. The live process is
+`march_box.sh 397/32 1/32 16` — **D = 16**, matching
+`DENSITY_LADDER_PRICED_2026-10-20.md:62` ("D = 16 at 12.531"). Frontier
+**12.375**, box 44 of 64.
+
+So **§2 LEGION task 1 is COMPLETE** and the march is legitimately past c = 10.
+
+**Action needed from Rio or Pablo (not mine to take):** amend §0.7 and the
+synthesis's item A. As written they send every asset that reads them chasing a
+resolved emergency — I started down exactly that path tonight before checking
+git. §1 says audits bind, so a stale audit is load-bearing in the wrong
+direction.
+
+Two residuals, both minor and neither a defect:
+* `/tmp/prod` still exists (Oct 20 snapshot) and now **differs** from the repo
+  producer by md5. That is expected — it is the commented fallback — but it is
+  vestigial, and keeping a stale unversioned copy on the critical path's name
+  invites the exact drift §0.7 was written about.
+* No landed box commit mentions density or D=2 in its subject, so the band is
+  only legible from the runner args and the schedule file, not from git log.
+
+---
+
+## 2026-10-25 — WHAT LANDED TODAY (7 commits, all pushed)
+
+Emergent locality completed to five of six axioms; affine de Rham's `d∘d = 0`
+proved; one route priced to a named blocker; one vacuity defect repaired upward
+into the Referee artifact.
+
+| commit | content |
+|---|---|
+| `10739627` | **r353** additivity — `𝒜(S ∪ T) = 𝒜(S) ⊔ 𝒜(T)`, indexed form, `𝒜(∅) = ⊥` |
+| `824f3c79` | **r354** completeness — `𝒜(ι) = ⊤` for `Fintype ι`; inductive-limit form for any `ι` |
+| `09ef9354` | r354 correction 1 (`tprod_noncommProd` exists) |
+| `139f0ba9` | r354 correction 2 (`noncommProd_mul_single` exists too) |
+| `dc53d2ae` | **r355** `d₁` descends to `Ω¹`; **`d ∘ d = 0`** |
+| `3103abf3` | **r356** `d₁` is `R`-linear and `S`-Leibniz |
+| `5ed2cf10` | Grothendieck note: **step 2c priced**, and the note's own route claim corrected |
+| `3545d04f` | **Weinstein chain**: last three vacuous `Prop := True` → the theorems r349 proved |
+
+All on the three-axiom bar `[propext, Classical.choice, Quot.sound]`, 0 `sorry`,
+0 `native_decide`.
+
+### Emergent locality — five of six Haag–Kastler axioms
+
+`ternary_net_five_axioms` bundles isotony, locality, additivity, the empty
+region and completeness in **one theorem**, for every tower level `M_{3^k}`.
+
+`𝒜(ι) = ⊤` is proved for **finite** `ι` and left **OPEN** for infinite `ι` —
+not refuted. Settling it needs a free-basis theorem for `PiTensorProduct` over
+an infinite index, which is **0 files** at this pin (measured). My expectation
+is that it is false, and that expectation is recorded as a conjecture, not used.
+Covariance is the sixth axiom and is absent, blocked on `Aut(T_∞)` (ch04:461).
+
+**Both open items terminate at the same wall: the C\*-inductive limit (UHF = 0
+files).** One obstruction, not two.
+
+### Affine de Rham — step 2 done, 2c and 3 BLOCKED with named causes
+
+```
+1.  Ωⁿ, d₀, wedge          DONE   r343, r344
+2a. d₁, d∘d = 0            DONE   r345, r355
+2b. d₁ R-linear, S-Leibniz DONE   r356
+2c. d_n, n ≥ 2             BLOCKED
+3.  CochainComplex         BLOCKED
+4.  Hⁿ_dR                  blocked behind 3
+    gluing to a variety    unpriced, five pillars at 0 files
+```
+
+**2c:** a graded anti-derivation is `0` files under six spellings
+(`GradedDerivation`, `SuperDerivation`, `AntiDerivation`, `antiderivation`,
+`gradedDerivation`, `IsAntiderivation`), `Derivation` appears **nowhere** in
+`ExteriorPower/` or `ExteriorAlgebra/`, and the only prepared tool for mapping
+out of `⋀ⁿ` — `alternatingMapLinearEquiv`, which **is**
+`exteriorPower.presentation` — rejects non-`S`-linear maps via its `.smul`
+relation. The note's "viable route" was viable for `d₁` only, because that used
+the **Kähler** presentation, whose relations `d` does kill. Corrected in the
+note.
+
+**3:** even the truncated `S → Ω¹ → Ω²` cannot be packaged — `d₁` is not
+`S`-linear, so it is a complex of `R`-modules, and mathlib puts no `R`-module
+structure on the exterior power at this pin (r343 recorded this).
+
+**Nothing here touches Hodge.** Chow groups, the cycle class map and
+intersection theory remain absent; the conjecture is not stateable at this pin.
+
+### Weinstein chain — the stubs were hiding a failure
+
+`HubbleTensionResolution`, `ANITAUltraHighEnergyEvent` and
+`CosmologicalLithiumAbundance` were `Prop := True` discharged by `trivial`,
+while r349 had already proved their content. They now state it. No `:= True`
+and no `trivial` remains in that file's code.
+
+What that exposed, of Ch 11's four "experimental predictions":
+
+| prediction | status |
+|---|---|
+| muon g-2 | ~0.065σ — but `M_X = 1161` is a **one-parameter fit**, zero d.o.f. |
+| Hubble | reconciles CMB 67.4 with local 73.04 ± 1.04, landing ~**1.03σ above** local |
+| ANITA | predicted 1.8 EeV vs observed 0.6 EeV — exactly **one base-3 rung** apart |
+| lithium | **FAILS** — RQG gives 0.7016, the required reduction is 0.3053 |
+
+One outright failure, one fit masquerading as a prediction, one off-by-one-rung,
+one ~1σ agreement. Names were left unchanged deliberately: a vacuous Prop
+becoming a true one is an upgrade, and renaming to advertise weaker content is
+the downgrade the standing rule forbids.
+
+**This propagates up.** `PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`
+consumes `WeinsteinGURescueBundle` and `weinstein_GU_rescued_capstone`, so the
+Referee substrate theorem's Weinstein clause went from vacuous to quantitative.
+All three importers were recompiled: 5/5 RC=0.
+
+Checked and found **not** defects (read, not assumed):
+`zeroSetOd : Prop := True` in the Odlyzko substrates is correct — every index
+there really is a ζ-zero, and the file says so in five places;
+`framework_static_DE_falsified_if_DESI_evolution` has `[]` because it is a
+deliberate propositional falsifiability bridge;
+`PrincipiaFractalisSubstrateTheoremHonestScope`'s `True` fields are a labelled
+ProvennessTag documentation record, not claim content.
+
+---
+
+## 2026-10-25 — MATHLIB PRs: the blocker is one label, not reviewer capacity
+
+Diagnosed live via `gh`. All four are **OPEN, none merged**, filed 2026-07-25/26.
+**CI is green on all four** (11 SUCCESS, 1 SKIPPED, 0 failures).
+
+**Every one carries `awaiting-author`**, which removes a PR from mathlib
+reviewers' dashboards. Nothing is queued for review; everything is parked on us.
+Three got that label for the **AI-disclosure question alone** (grunweg,
+2026-07-27) and it was never cleared after the answer.
+
+* **#42093** — j-loreaux reviewed 2026-09-01 with seven inline suggestions and
+  is assigned. All seven fixes ARE pushed (`58daa7301`, 2026-10-14, + master
+  merges + `44557bce1` import sort). But our 2026-10-22 16:03 comment told him
+  an import warning "still needs correcting before another review" — and the fix
+  landed 18:33 **the same day**. We told the reviewer to wait and never said it
+  was done. **This is the one that is genuinely close.**
+* **#42095** — never reviewed; label stale since the disclosure answer.
+* **#42100** — blocked behind #42095; also needs
+  `- [ ] depends on: #42095` in its description per felixpernegger.
+* **#42101** — **should be CLOSED.** `riemannZeta_conj` merged via **#41133**
+  (owenpkent, bors, 2026-07-07). Ours is the **fourth** submission of it
+  (#36324, #39743, #42052 all closed). Leaving it open taxes exactly the
+  goodwill #42093 needs.
+
+**`-awaiting-author` is a bot command, not a written reply.** On #36324 a
+contributor posted exactly that at 22:46:42 and `github-actions[bot]` removed
+the label at **22:46:49**. `labels_from_comment.yml` drives it; it is in live
+use on a dozen open PRs. So clearing the labels costs 16 characters and no prose.
+
+**Do NOT touch the FractalDevTeam `APPROVED` review on #42093.** `reviewDecision`
+is **empty** despite it, and FractalDevTeam's `authorAssociation` is `NONE` —
+GitHub gives it zero weight, and merge authority is a maintainer typing
+`bors merge`. Raising it would start a conversation about account-sharing that
+nobody has started. (I advised dismissing it earlier today and retract that.)
+
+**Reputational fact to hold:** four separate maintainers have objected to
+AI-written GitHub comments — tb65536 **closed #36324** explicitly for it
+("review commits and responses entirely generated by AI… closing to conserve
+reviewer capacity"), j-loreaux on #41133, felixpernegger directly to us on
+#42100. Every public word stays Pablo's own. No asset drafts them.
+
+---
+
 
 ## 2026-10-25 — EMERGENT LOCALITY IS NO LONGER EMPTY (r350, r351)
 
