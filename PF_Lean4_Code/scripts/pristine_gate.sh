@@ -418,7 +418,16 @@ else
     # 2026-10-06 sweep passed (e) on the bare token alone, between them
     # holding 716 Prop definitions with no witness naming them. Each token
     # is now bound to the predicate.
-    if grep -qE "(∃[^,]*,[^\n]*\b$p\b|example[[:space:]]*:[[:space:]]*$p\b|\b${p}_(nonvacuous|nonempty|satisfiable|holds|witness)\b)" "$STRIPPED" \
+    # 2026-10-26: added the fourth alternative -- a theorem/lemma/example
+    # whose STATED TYPE is the Prop. The design note above asks for an
+    # authored, kernel-checkable witness; `theorem foo : P := proof` is
+    # exactly that, and was invisible unless it happened to be named
+    # `P_holds`. Measured over the closure before the change: 941 Prop
+    # defs, 270 found by the first three alternatives, 307 more witnessed
+    # by a differently-named declaration of type P, 364 with no witness at
+    # all. Restricted to theorem/lemma/example so a `def` cannot witness
+    # itself.
+    if grep -qE "(∃[^,]*,[^\n]*\b$p\b|example[[:space:]]*:[[:space:]]*$p\b|\b${p}_(nonvacuous|nonempty|satisfiable|holds|witness)\b|^[[:space:]]*(@\[[^]]*\][[:space:]]*)?(protected[[:space:]]+|private[[:space:]]+|noncomputable[[:space:]]+)*(theorem|lemma|example)[[:space:]][^:]*:[[:space:]]*([A-Za-z0-9_.']*\.)?$p[[:space:]]*:=)" "$STRIPPED" \
        && grep -qE "\b$p\b" "$STRIPPED"; then
       :
     else
