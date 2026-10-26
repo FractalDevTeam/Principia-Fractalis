@@ -51,6 +51,45 @@ Two residuals, both minor and neither a defect:
 
 ---
 
+## 2026-10-25 LATE — ⚠ §0.9 IS ALSO STALE: THE MARCH AXIOM GATE IS SOUND
+
+§0.9 says "march_box.sh's axiom gate checks only the unconditional pilot's
+log", and §2 LEGION task 1.5 asks for it to be extended. **Both are already
+done** (`7d4b607f`, "use repository producer and check all acceptance logs").
+
+`march_box.sh:96-109` iterates `Assemble_*.lean`, the gate pilot AND the
+unconditional pilot, each matched to its own log, with the in-file comment
+"A clean pilot log cannot substitute for missing or contaminated gate/assemble
+evidence."
+
+**And the gate is now PROVEN reachable, not just read.** `codex/check_march_axioms.py`
+was run against nine doctored source/log pairs (`codex/gate_negative_control.sh`,
+committed so anyone can re-run it):
+
+| case | verdict |
+|---|---|
+| well-formed clean pair | **accepted** (rc 0) |
+| extra axiom in the set | rejected |
+| `sorryAx` in the log | rejected |
+| `ofReduceBool` (native_decide residue) | rejected |
+| a missing `#print` | rejected |
+| clean log for the WRONG declaration | rejected |
+| only 2 of the 3 axioms | rejected |
+| source with no directives at all | rejected |
+| extra/contaminating print in the log | rejected |
+
+9 of 9 as intended. It uses **set equality** on the axiom list, matches print
+count to directive count in both directions, and checks declaration names in
+source order — none of which can pass vacuously.
+
+**This matters because the project has two axiom gates and they are opposites.**
+The CI gate uses `grep -v` as an allowlist, which deletes every line, so its
+`exit 2` is unreachable: 0 successes in 400 runs and it has **never been able to
+fail** on axiom content (`codex/CI_GATE_VACUOUS_2026-10-17.md`; fix proposed,
+not applied, Pablo's call). The march's "kernel-clean, three-axiom bar" on 44
+boxes rests on the SOUND gate. Do not cite CI as authority; do cite the march
+gate, and re-run the negative control if anyone doubts it.
+
 ## 2026-10-25 — WHAT LANDED TODAY (7 commits, all pushed)
 
 Emergent locality completed to five of six axioms; affine de Rham's `d∘d = 0`
