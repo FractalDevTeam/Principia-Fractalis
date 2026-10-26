@@ -91,6 +91,7 @@ import Mathlib.Tactic
 import PF.Consciousness.XENONExactMatch
 import PF.Consciousness.MuonG2Prediction
 import PF.Cosmology.E6ChernIndex78pi
+import PF.Ch11PredictionsFormalized_r349
 
 set_option autoImplicit false
 
@@ -259,15 +260,28 @@ theorem rqg_implies_shiab_regularized
 
 Ch 11 §6.1–§6.4 lists four experimental predictions.
 
-⚠ **CORRECTED 2026-10-25.** This section previously said the four are "not
-Lean-formalisable". That is false, and the muon clause below now demonstrates
-it: each of the four is an explicit numerical formula and each can be stated
-and bracketed in Lean exactly as `XENONExactMatch.lean` already does for the
-XENONnT ratio. The muon clause is repaired; `HubbleTensionResolution`,
-`ANITAUltraHighEnergyEvent` and `CosmologicalLithiumAbundance` remain
-`Prop := True` and are now labelled as UNFORMALISED STUBS rather than as
-unformalisable, with their formulas written out below so the work is specified
-rather than excused. -/
+⚠ **CORRECTED 2026-10-25, then COMPLETED the same day.**
+
+This section once said the four predictions are "not Lean-formalisable". That
+was false. All four are explicit numerical formulas, and **all four are now
+formalised** — the muon clause from
+`PF/Consciousness/MuonG2Prediction.lean`, the other three from
+`PF/Ch11PredictionsFormalized_r349.lean`. No `Prop := True` remains in this
+section and no clause is discharged by `trivial`.
+
+**What formalising them revealed — two of the four do not confirm the
+framework:**
+
+| prediction | status |
+|---|---|
+| muon g-2 | agrees to ~0.065σ, but `M_X = 1161` is a one-parameter FIT, zero d.o.f. |
+| Hubble | reconciles CMB with local, landing ~1.03σ *above* the local value |
+| ANITA | predicted and observed differ by exactly one base-3 rung (×3) |
+| lithium | **FAILS** — RQG gives 0.7016, the required reduction is 0.3053 |
+
+That is the point of formalising rather than excusing: the stubs were hiding
+one outright failure and two heavily qualified agreements. Ch 11 carries the
+corresponding corrections (r349). -/
 
 /-- **Muon g-2 RQG prediction** (Ch 11 §6.1, line 344).
     The framework predicts `Δa_μ^RQG = (π/10) · (m_μ/M_X)² · ch_2`.
@@ -293,26 +307,61 @@ theorem muon_g2_prediction_holds : MuonG2Prediction :=
   PrincipiaTractalis.Consciousness.muon_g2_prediction_within_one_sigma
 
 /-- **Hubble tension RQG resolution** (Ch 11 §6.2, line 354).
-    `H_eff = H_0 · √(1 + (π/10) · ρ_RQG / ρ_crit)` at z = 0 gives
-    H_eff ≈ 74.1 km/s/Mpc, resolving the 4.4σ Hubble tension. -/
-def HubbleTensionResolution : Prop := True
 
-theorem hubble_tension_resolution_holds : HubbleTensionResolution := trivial
+    `H_eff = H_0 · √(1 + (π/10) · ch₂ · ρ_RQG/ρ_crit)` at `z = 0` brackets
+    `H_eff ∈ (74.106, 74.108)`, against the local `73.04 ± 1.04`.
+
+    **Honest scope.** This does reconcile the CMB value `67.4` with the local
+    measurement — that is the content of the resolution claim — but it lands
+    *slightly outside* 1σ of the local value:
+    `H0_local + σ < H_eff` (74.08 < 74.107, about 1.03σ). Ch 11 was corrected
+    to state 1.026σ rather than "resolved" (r349). This Prop carries both the
+    bracket and the 1σ overshoot, so neither travels without the other. -/
+def HubbleTensionResolution : Prop :=
+  ((74.106 : ℝ) < PrincipiaTractalis.Ch11PredictionsFormalized.H_eff ∧
+      PrincipiaTractalis.Ch11PredictionsFormalized.H_eff < (74.108 : ℝ)) ∧
+    PrincipiaTractalis.Ch11PredictionsFormalized.H0_local + PrincipiaTractalis.Ch11PredictionsFormalized.H0_local_sigma < PrincipiaTractalis.Ch11PredictionsFormalized.H_eff
+
+theorem hubble_tension_resolution_holds : HubbleTensionResolution :=
+  ⟨PrincipiaTractalis.Ch11PredictionsFormalized.H_eff_bracket,
+   PrincipiaTractalis.Ch11PredictionsFormalized.H_eff_exceeds_local_one_sigma⟩
 
 /-- **ANITA ultra-high-energy event prediction** (Ch 11 §6.3, line 368).
-    Fractal neutrinos at resonance energies `E_ν = 10¹⁸ eV · 3^n` have
-    enhanced Earth-traversal penetration. -/
-def ANITAUltraHighEnergyEvent : Prop := True
 
-theorem anita_uhe_event_holds : ANITAUltraHighEnergyEvent := trivial
+    Fractal neutrinos sit at resonance energies `E_ν = 10¹⁸ eV · 3ⁿ`.
+
+    **Honest scope.** The predicted energy is `1.8 EeV`; the observed ANITA
+    event is `0.6 EeV`. They differ by *exactly one rung* of the base-3
+    ladder, `E_pred = 3 · E_obs`. That is structural consistency with base 3,
+    **not** a hit on the observed value, and this Prop states the ratio —
+    which is what r349 actually proves. -/
+def ANITAUltraHighEnergyEvent : Prop :=
+  PrincipiaTractalis.Ch11PredictionsFormalized.E_ANITA_predicted = 3 * PrincipiaTractalis.Ch11PredictionsFormalized.E_ANITA_observed
+
+theorem anita_uhe_event_holds : ANITAUltraHighEnergyEvent :=
+  PrincipiaTractalis.Ch11PredictionsFormalized.ANITA_ratio_eq_three
 
 /-- **Cosmological lithium abundance** (Ch 11 §6.4, line 380).
-    RQG modifies BBN nuclear reaction rates by factor
-    `1 - (π/10)·ch_2·T/T_c ≈ 0.70` at T ~ 10⁹ K, reducing lithium
-    production by factor 3 to match observations. -/
-def CosmologicalLithiumAbundance : Prop := True
 
-theorem cosmological_lithium_abundance_holds : CosmologicalLithiumAbundance := trivial
+    RQG modifies BBN reaction rates by `1 - (π/10)·ch₂ ≈ 0.7016`.
+
+    **THIS PREDICTION FAILS, AND THE PROP SAYS SO.** Matching observations
+    requires the abundance reduced to
+    `Li/H_obs / Li/H_BBN = 1.6/5.24 ≈ 0.3053` of the BBN value. The RQG
+    factor is `0.7016` — a reduction of about 1.43×, not the factor 3 the
+    chapter claimed. The measured fact is
+    `requiredAbundanceRatio < lithiumRateFactor`: the mechanism does **not**
+    reach the required reduction (r349). Ch 11 carries the corrected bridge.
+
+    The name is unchanged deliberately. A vacuous `True` becoming a true
+    statement is an upgrade; renaming a declaration to advertise weaker
+    content is the downgrade the standing rule forbids. The failure is stated
+    here and in the honest-scope marker instead. -/
+def CosmologicalLithiumAbundance : Prop :=
+  PrincipiaTractalis.Ch11PredictionsFormalized.requiredAbundanceRatio < PrincipiaTractalis.Ch11PredictionsFormalized.lithiumRateFactor
+
+theorem cosmological_lithium_abundance_holds : CosmologicalLithiumAbundance :=
+  PrincipiaTractalis.Ch11PredictionsFormalized.lithium_factor_ne_required_ratio
 
 /-! ## §6 — XENONnT 30%-enhancement cross-reference
 
@@ -386,9 +435,25 @@ theorem weinstein_GU_rescued_capstone : WeinsteinGURescueBundle where
 A typed Prop separating Wave 58 concrete-witness content from honest
 open content. -/
 
-/-- **Wave 58 standard discriminator** — clauses (1)-(3), (6) carry
-    Lean-axiom-free structural content; clauses (4), (5) are typed
-    Props with `True` discharges. -/
+/-- **Wave 58 standard discriminator** — which clause carries what.
+
+    Clauses (1)–(3) and (6) are Lean-axiom-free structural content.
+
+    Clauses (4)–(5) are **no longer `True` stubs.** All four experimental
+    Props now carry quantitative content, from
+    `PF/Consciousness/MuonG2Prediction.lean` and
+    `PF/Ch11PredictionsFormalized_r349.lean`. **Two of the four record a
+    mismatch rather than a confirmation:**
+
+    * **muon g-2** — agrees to ~0.065σ, but `M_X = 1161` is a one-parameter
+      FIT with zero degrees of freedom, not a prediction
+    * **Hubble** — reconciles CMB with local, landing ~1.03σ above local
+    * **ANITA** — predicted and observed differ by exactly one base-3 rung
+    * **lithium** — **FAILS**: the RQG factor 0.7016 does not reach the
+      required 0.3053
+
+    `ShiabOperatorRegularized` is now the only typed Prop in this file
+    without quantitative content. -/
 def WeinsteinGURescueHonestScope : Prop :=
   -- Concrete-witness side: RQG inhabited, BRST = 78, projection real.
   Nonempty ResonantQuantumGeometryCorrection ∧
@@ -398,13 +463,12 @@ def WeinsteinGURescueHonestScope : Prop :=
   (MuonG2Prediction ∧ HubbleTensionResolution ∧
    ANITAUltraHighEnergyEvent ∧ CosmologicalLithiumAbundance)
 
-theorem weinsteinGURescueHonestScope_holds : WeinsteinGURescueHonestScope := by
-  -- The muon clause is no longer `True`: it is the numerical 1σ match, proved
-  -- in `PF/Consciousness/MuonG2Prediction.lean`. It is supplied explicitly.
-  -- The remaining three ARE still `True` stubs and `trivial` closes them —
-  -- which is exactly the honest reading of their current status.
-  refine ⟨rqg_inhabited, brst_H2_eq_78, shiab_operator_regularized_holds,
-    muon_g2_prediction_holds, ?_, ?_, ?_⟩ <;> trivial
+theorem weinsteinGURescueHonestScope_holds : WeinsteinGURescueHonestScope :=
+  -- No `trivial` remains: every experimental clause is discharged by a
+  -- quantitative theorem. Two of them record a mismatch; see the docstring.
+  ⟨rqg_inhabited, brst_H2_eq_78, shiab_operator_regularized_holds,
+   muon_g2_prediction_holds, hubble_tension_resolution_holds,
+   anita_uhe_event_holds, cosmological_lithium_abundance_holds⟩
 
 end WeinsteinGUResonantRescue
 end PrincipiaTractalis
