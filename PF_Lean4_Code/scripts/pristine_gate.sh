@@ -36,6 +36,20 @@ set -uo pipefail
 TREE="${PF_TREE:-/Storage 2TB/home/xluxx/Principia-Fractalis-ACTIVE/PF_Lean4_Code}"
 ALLOWED_AXIOMS=("propext" "Classical.choice" "Quot.sound")
 CPU="${PF_GATE_CPU:-1}"          # keep off core 0 (panel build)
+
+# Memory -- not CPU -- is the binding constraint on this machine: two concurrent
+# Lean builds OOM at 15 GB whichever cores they sit on, and the march itself
+# takes `taskset -c 0,1`, so pinning this gate to core 1 does not separate them.
+# INSTRUCTIONS_FOR_EVERY_AI section 1 requires every Lean build here to be
+# serialized under one shared flock (march runner, YM session and this gate
+# alike). Added 2026-10-26: the gate had CPU pinning and no lock, so a full
+# gate_sweep.py run (1452 modules) alongside a live march would have OOMed the
+# box. Set PF_GATE_NOLOCK=1 only where nothing else builds.
+if [ "${PF_GATE_NOLOCK:-0}" = "1" ]; then
+  LK=""
+else
+  LK="flock -w 7200 /tmp/pf_lean_build.lock"
+fi
 PREMISE_AUDIT=0
 QUIET=0
 
@@ -135,7 +149,7 @@ done
 
 # --- build once, capture output for (b) and (d) -------------------------------
 BUILD_OUT="$(mktemp)"; trap 'rm -f "$STRIPPED" "$BUILD_OUT" "$PROBE" "$PROBE_OUT" 2>/dev/null' EXIT
-taskset -c "$CPU" nice -n 5 env LEAN_NUM_THREADS=1 \
+$LK taskset -c "$CPU" nice -n 5 env LEAN_NUM_THREADS=1 \
   lake build "$MOD" > "$BUILD_OUT" 2>&1
 BUILD_RC=$?
 if [ $BUILD_RC -ne 0 ] || grep -qE '^error:' "$BUILD_OUT"; then
@@ -224,7 +238,7 @@ if [ -f "PF/Audit/PremiseAudit.lean" ] && [ "${#AUDIT_DECLS[@]}" -gt 0 ]; then
     echo "import PF.Audit.PremiseAudit"
     for d in "${AUDIT_DECLS[@]}"; do printf '#audit_all "%s"\n' "$d"; done
   } > "$AP"
-  taskset -c "$CPU" nice -n 5 env LEAN_NUM_THREADS=1 \
+  $LK taskset -c "$CPU" nice -n 5 env LEAN_NUM_THREADS=1 \
     lake env lean "$AP" > "$AO" 2>&1
   rm -f "$AP"
   AUDIT_HITS="$(grep -E '^[[:space:]]*(DEAD|CONTAINED|VACUOUS)[[:space:]]' "$AO" || true)"
@@ -306,7 +320,7 @@ else
   } > "$PROBE"
   PROBE_MOD="$(basename "${PROBE%.lean}")"
   PROBE_OUT="$(mktemp)"
-  taskset -c "$CPU" nice -n 5 env LEAN_NUM_THREADS=1 \
+  $LK taskset -c "$CPU" nice -n 5 env LEAN_NUM_THREADS=1 \
     lake env lean "$PROBE" > "$PROBE_OUT" 2>&1
   rm -f "$PROBE"
 
