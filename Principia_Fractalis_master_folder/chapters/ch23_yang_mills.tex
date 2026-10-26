@@ -6,8 +6,8 @@ In this chapter, we address the Yang-Mills existence and mass gap problem, provi
 \begin{itemize}
 \item Understand the Yang-Mills problem and its physical significance for the strong nuclear force
 \item Construct quantum Yang-Mills theory via fractal resonance at $\alpha = 2$ (gauge duality)
-\item Present empirically measured mass gap $\Delta = 420.43 \pm 0.05$ MeV
-\item Show how confinement emerges from resonance zeros at $\omega_c = 2.13198462$
+\item Present the chapter's mass-gap construction $\Delta = \hbar c\,\omega_c\,\pi/10$ \emph{together with its refutation}: the resonance zero $\omega_c$ does not exist, the displayed arithmetic gives $132.148$ rather than $420.43$, and the formula caps at $62.3$~MeV over every $\alpha$ (Verification updates 2026-08-06 and 2026-08-08, below)
+\item Examine how confinement was argued from resonance zeros at $\omega_c = 2.13198462$, and why that argument fails --- $\mathcal{R}_f(2,s)=\zeta(s)$ has no positive real zero
 \item Connect the universal factor $\pi/10$ across all millennium problems
 \item Demonstrate the duality principle: $\alpha = 2$ encodes observer-observed symmetry
 \end{itemize}
@@ -380,9 +380,9 @@ The mass gap has three components:
 \item \textbf{$\pi/10$}: Universal factor connecting \textit{all} millennium problems (Riemann, P vs NP, Navier-Stokes, etc.)
 \end{enumerate}
 
-Computing: $197.3 \times 2.13198462 \times 0.314159 = 420.43$ MeV
+Computing: $197.3 \times 2.13198462 \times 0.314159 = 420.43$ MeV\manuscriptcorrection{\textbf{This product is $\mathbf{132.148}$, not $420.43$; the displayed identity is false as arithmetic, independently of everything else wrong here.} Recorded in the Verification update (2026-08-08) below. The quoted value is $197.3\times 2.1309$ --- i.e.\ $\hbar c \times \omega$ \emph{with the $\pi/10$ factor simply absent}, and with $\omega$ differing from the stated $\omega_c$ in the fourth decimal. Two deeper defects compound it: $\omega_c$ does not exist at all ($\mathcal{R}_f(2,s)=\zeta(s)$, whose only real zeros are the trivial ones at $s=-2,-4,\dots$), and the corrected form of the resonance condition caps this chapter's own gap formula at $\Delta_{\max}=62.3$~MeV over \emph{every} $\alpha$. Reaching $420.43$ would need $\omega=6.783$, unattainable by a factor of $6.8$.}
 
-This matches lattice QCD predictions for the lightest glueball mass within experimental uncertainty!
+\emph{The sentence that stood here --- that this matches lattice QCD for the lightest glueball within experimental uncertainty --- is withdrawn.} It cannot be corroboration: the quantity it compares has no input, and the Verification update (2026-08-08) shows the two-decade agreement with the $400$--$500$~MeV window is coincidental.
 \end{keyidea}
 
 \begin{remark}[Empirical Validation]
@@ -603,7 +603,7 @@ statement is untouched.
 \begin{itemize}
 \item \textbf{OPEN (Clay-hard)} --- constructing the continuum theory (the sharpened residual in \texttt{YMContinuumLiftAttempt.lean}, plus the four Wave~47B gaps in \texttt{YM\_WightmanReconstructionScaffold.lean}: continuum $SU(3)$ Euclidean measure, reflection positivity, Wightman reconstruction, mass-gap propagation) \emph{is} the Clay problem, bucket-3. The Minlos-measure construction (Theorem~\ref{thm:ym-measure-exists}) is flagged in-text as requiring machinery beyond scope; it is not machine-checked.
 \item \textbf{PROVEN (kernel-verified), but strictly weaker than the prose} --- the literal Lean proposition \texttt{fractalYMLevel1LiftsToContinuum} (\texttt{fractalYMLevel1SpectrumGap} $\to$ $\exists\,\Delta_{YM}>0$) is discharged axiom-free, but with a trivial witness $\Delta=1$; this is \emph{not} the continuum lift. Finite-dimensional OS reflection-positivity (\texttt{YM\_OSRPInteractionScaffold}, Wave~57) is genuinely closed but does not lift to the continuum.
-\item \textbf{EMPIRICAL HYPOTHESIS --- not a proof} --- the mass gap $\Delta=420.43$~MeV, the resonance zero $\omega_c=2.13198462$, the string tension, and the glueball ratios are numerical values compared against lattice QCD; agreement with lattice is empirical corroboration, not a rigorous continuum-limit proof.
+\item \textbf{EMPIRICAL HYPOTHESIS --- not a proof} --- the mass gap $\Delta=420.43$~MeV, the resonance zero $\omega_c=2.13198462$, the string tension, and the glueball ratios are numerical values compared against lattice QCD; agreement with lattice is empirical corroboration, not a rigorous continuum-limit proof.\manuscriptcorrection{\textbf{THIS BULLET IS SUPERSEDED. Read the two updates below before citing it.} The 2026-08-06 update states plainly that this classification ``is still too generous: $\omega_c$ is not an unproved value, it is not a value at all.'' The governing verdict on $\omega_c$ and on $\Delta=420.43$~MeV is \textbf{REFUTED}, not \emph{empirical hypothesis} --- and the 2026-08-08 update adds that the displayed arithmetic is false ($132.148$) and that no $\alpha$ can reach the quoted gap ($\Delta_{\max}=62.3$~MeV). This amendment is made because the ledger is the layer that governs: a reader who consults only the ledger must not come away with the weaker verdict. Nothing about the Clay problem proper changes --- it was open before and is open now.}
 \end{itemize}
 
 \paragraph{Verification update (2026-08-06): the resonance zero
@@ -698,18 +698,47 @@ $0.8948$.) Where the digits $2.13198462$ came from could not be determined.
 
 \section{Conclusion}
 
-We have provided computational evidence for Yang-Mills existence and mass gap through fractal resonance:
+\emph{Scope note (2026-10-25).} This conclusion previously summarised the
+chapter's numerical claims as established results. Three of them are refuted by
+this chapter's own Verification updates (2026-08-06, 2026-08-08), which appear
+above it, and the summary has been brought into line with them. The Clay
+problem --- existence of continuum quantum $SU(3)$ Yang--Mills with a mass gap
+--- is untouched and remains open, exactly as the ledger has always said.
 
 \begin{itemize}
 \item \textbf{Framework}: Gauge duality at $\alpha = 2$ with fractal modulation
-\item \textbf{Mass Gap}: $\Delta = 420.43$ MeV from resonance zero at $\omega_c = 2.13198462$
-\item \textbf{Confinement}: Area law with string tension $\sqrt{\sigma} = 440$ MeV
+\item \textbf{Mass Gap --- REFUTED}: the construction
+$\Delta = \hbar c\,\omega_c\,\pi/10$ yields no number. The resonance zero
+$\omega_c = 2.13198462$ does not exist ($\mathcal{R}_f(2,s)=\zeta(s)$ has no
+positive real zero); the displayed product is $132.148$, not $420.43$; and the
+corrected resonance condition caps the formula at $62.3$~MeV over every
+$\alpha$. \emph{No mass-gap value is claimed by this chapter.}
+\item \textbf{Confinement}: area law with string tension
+$\sqrt{\sigma} \approx 440$~MeV --- an \emph{independent lattice input}, not a
+quantity this chapter derives. The relation $\sigma = \Delta^2/(4\pi\hbar c)$
+printed above does not evaluate and is not dimensionally consistent
 \item \textbf{Universal Factor}: $\pi/10$ connects all millennium problems
 \item \textbf{Consciousness}: Perfect crystallization (ch$_2 = 1.0$) at observer-observed duality
-\item \textbf{Validation}: Matches lattice QCD within 5-10\%
+\item \textbf{Validation --- WITHDRAWN}: the reported agreement with lattice
+QCD cannot be evidence, because the quantity compared has no input. The
+2026-08-08 update shows the apparent match to the $400$--$500$~MeV window is
+coincidental, and the lattice $0^{++}$ glueball at ${\sim}1475$~MeV is a factor
+of $24$ from the chapter's own ceiling.
 \end{itemize}
 
-The emergence of confinement from resonance zeros provides a new perspective: quarks are confined not by a "force" but by \textit{destructive interference} in the gauge field vacuum. The mass gap is the frequency where this interference is perfect.
+The \emph{picture} this chapter advances --- that confinement is destructive
+interference in the gauge-field vacuum rather than a force --- is a physical
+proposal and is not withdrawn. What is withdrawn is the claim that a resonance
+zero realises it: there is no such zero, so ``the mass gap is the frequency
+where this interference is perfect'' identifies the gap with a frequency that
+does not exist. A repair needs a mechanism whose zero survives
+$\mathcal{R}_f(2,s)=\zeta(s)$.
+
+\textbf{What survives, and it is not small.} The finite-dimensional
+Osterwalder--Schrader reflection-positivity work is independently
+kernel-verified and is untouched by any of the above
+(\texttt{YM\_OSRPInteractionScaffold}); it simply does not lift to the
+continuum.
 
 \textbf{Future Work}: The complete analytical construction using Minlos theorem, verification of Osterwalder-Schrader axioms, and proof of continuum limit convergence remain open problems requiring advanced measure theory and functional analysis.
 
@@ -718,9 +747,29 @@ The emergence of confinement from resonance zeros provides a new perspective: qu
 \begin{enumerate}
 \item \textbf{(Digital Sum)} Compute $D(n)$ for $n = 10, 27, 100$ in base-3. Verify that $D(27) = 0$ (since $27 = 3^3$).
 
-\item \textbf{(Resonance Zero)} Numerically compute $\rho(\omega)$ for $\omega \in [2.0, 2.3]$ using the first 1000 terms. Locate the zero near $\omega_c = 2.132$.
+\item \textbf{(Resonance Zero --- a corrected exercise)} Show that
+$D(n)\in\mathbb{Z}$ for every $n$, hence $e^{2\pi i D(n)}\equiv 1$ and
+$\mathcal{R}_f(2,s)=\zeta(s)$, so that $\rho(\omega)=\zeta(1/\omega)$. Conclude
+that $\rho$ has \emph{no} zero for $\omega>0$. Then evaluate
+$\rho(2.13198462)=\zeta(0.469047)$ and verify it equals $-1.3462$, not $0$.
+Finally, explain why a root-finder swept across $\omega=1$ without a pole guard
+reports a spurious crossing there: $\rho>0$ on $(0,1)$ and $\rho<0$ on
+$(1,\infty)$, but the sign change is through the pole of $\zeta$ at $s=1$, and a
+sign change across a pole is not a root. \emph{This exercise replaces one that
+asked the reader to locate a zero that does not exist.}
 
-\item \textbf{(Mass Gap)} Using $\hbar c = 197.3$ MeV·fm, $\omega_c = 2.13198462$, and $\pi/10 = 0.314159$, verify that $\Delta = 420.43$ MeV.
+\item \textbf{(Mass Gap --- a corrected exercise)} Using
+$\hbar c = 197.3$~MeV$\cdot$fm, $\omega_c = 2.13198462$ and
+$\pi/10 = 0.314159$, form the product $\hbar c\,\omega_c\,(\pi/10)$ and show it
+equals $\mathbf{132.148}$~MeV --- \emph{not} the $420.43$~MeV this chapter once
+quoted. Then identify what was actually computed: verify that
+$197.3 \times 2.1309 = 420.43$, i.e.\ $\hbar c \times \omega$ with the $\pi/10$
+factor absent and $\omega$ altered in the fourth decimal. Finally, given that
+the corrected resonance condition forces $s^*\ge 0.9954$ and hence
+$\omega \le 1.0046$, show that this chapter's gap formula cannot exceed
+$62.3$~MeV for any $\alpha$, and that $420.43$~MeV would require
+$\omega = 6.783$. \emph{This exercise replaces one the chapter's own
+Verification update (2026-08-08) records as impossible to complete as set.}
 
 \item \textbf{(String Tension)} Compute the string tension $\sigma = \Delta^2/(4\pi\hbar c)$ and express in units of GeV$^2$.
 
@@ -738,7 +787,13 @@ The emergence of confinement from resonance zeros provides a new perspective: qu
 \begin{enumerate}
 \item \textbf{(Measure Construction)} Complete the rigorous construction of the Yang-Mills measure using Minlos theorem. Prove nuclearity of $\mathcal{S}_A$ and positive definiteness of the characteristic functional.
 
-\item \textbf{(Continuum Limit)} Prove that the mass gap persists as the UV cutoff $\Lambda \to \infty$. Show that $\lim_{\Lambda \to \infty} \Delta(\Lambda) = \Delta_{\text{phys}} = 420.43$ MeV.
+\item \textbf{(Continuum Limit)} Prove that a mass gap persists as the UV
+cutoff $\Lambda \to \infty$, i.e.\ that
+$\lim_{\Lambda \to \infty}\Delta(\Lambda) = \Delta_{\text{phys}} > 0$. \emph{No
+target value is set.} The figure $420.43$~MeV previously printed here is
+refuted (Verification updates 2026-08-06, 2026-08-08), and this chapter
+supplies no replacement; establishing positivity of the limit is the Clay
+mass-gap clause and is open.
 
 \item \textbf{(Higher Zeros)} Compute the second and third zeros of $\rho(\omega)$. Do they correspond to excited glueball states?
 
