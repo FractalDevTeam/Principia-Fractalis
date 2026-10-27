@@ -427,7 +427,20 @@ else
     # by a differently-named declaration of type P, 364 with no witness at
     # all. Restricted to theorem/lemma/example so a `def` cannot witness
     # itself.
-    if grep -qE "(∃[^,]*,[^\n]*\b$p\b|example[[:space:]]*:[[:space:]]*$p\b|\b${p}_(nonvacuous|nonempty|satisfiable|holds|witness)\b|^[[:space:]]*(@\[[^]]*\][[:space:]]*)?(protected[[:space:]]+|private[[:space:]]+|noncomputable[[:space:]]+)*(theorem|lemma|example)[[:space:]][^:]*:[[:space:]]*([A-Za-z0-9_.']*\.)?$p[[:space:]]*:=)" "$STRIPPED" \
+    # 2026-10-27, SECOND correction. The fourth alternative added on
+    # 2026-10-26 was INERT: it was validated in Python (where \s matches
+    # newlines, so 307 two-line witnesses were found) and implemented in
+    # grep -E, which is line-based. Real witnesses wrap:
+    #     theorem foo_holds :
+    #         SomeProp := ...
+    # so it could never fire, and the sweep moved (e) only 372 -> 358
+    # modules instead of the ~87 predicted. The negative control used
+    # single-line probes and so could not catch it. The fourth alternative
+    # now runs against a newline-FLATTENED view; [^:]* cannot bridge two
+    # declarations because it cannot cross the previous colon, which was
+    # tested before this patch.
+    if { grep -qE "(∃[^,]*,[^\n]*\b$p\b|example[[:space:]]*:[[:space:]]*$p\b|\b${p}_(nonvacuous|nonempty|satisfiable|holds|witness)\b)" "$STRIPPED" \
+         || grep -qE "(theorem|lemma|example)[[:space:]][^:]*:[[:space:]]*([A-Za-z0-9_.']*\.)?$p[[:space:]]*:=" <(tr '\n' ' ' < "$STRIPPED"); } \
        && grep -qE "\b$p\b" "$STRIPPED"; then
       :
     else
