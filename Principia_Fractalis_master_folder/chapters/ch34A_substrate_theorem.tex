@@ -318,13 +318,38 @@ identities).
 \subsubsection*{The $\alpha$-Substrate Reference Table (post-2026-09-25)}
 \label{subsubsec:alpha-substrate-reference-table}
 
-Under the two settled external anchors (Perelman 2002--2003 anchoring
-$\alpha_{\text{Poincar\'e}} = 1$; the C\'ordoba--Mart\'inez-Zoroa
-finite-time-blowup mathematics for Navier--Stokes, formally verified in
-Lean by Buckmaster--Alp\"oge 2026-08-22 and independently by OpenAI
-2026-09-08 in \texttt{openai/NavierStokesAndEuler}, anchoring
-$\alpha_{\text{NS}} = 3\pi/2$; see
-\S\ref{sec:two-anchor-cascade}), the framework's nine $\alpha$-values
+\paragraph{Amendment (2026-10-21): there is ONE settled external anchor, not
+two.} This table and the cascade sections below were written under a
+``two-anchor'' reading. Audited against primary sources, that reading is
+retired, and the correction applies everywhere ``settled'' qualifies
+Navier--Stokes in this chapter.
+
+\begin{itemize}
+\item \textbf{Poincar\'e --- settled.} Perelman's proof, verified by three
+independent expositions, Clay-awarded 2010. The two Lean formalizations claimed
+in September--October 2026 are cited as \emph{claimed}, not established.
+\item \textbf{Navier--Stokes --- NOT settled.} Clay lists it \emph{Active}. The
+only Clay-aimed claim (OpenAI, September 2026) is contested and unverified, and
+its Lean artifact's correspondence to its manuscript is disputed in print
+(arXiv:2610.08144). The rest of the chain concerns model equations, weak
+solutions, or the forced regime --- not the Clay statement. The unforced
+problem is open.
+\end{itemize}
+
+\noindent \textbf{Consequence for this table.} $\alpha_{\text{NS}} = 3\pi/2$ is
+\emph{asserted framework structure}, not an externally anchored value. Every
+row below derived ``from the two anchors'' is therefore conditional on one
+settled anchor plus one framework assertion. That is a materially weaker
+cascade than the one the surrounding prose describes, and the rows are
+annotated accordingly.
+
+Under one settled external anchor (Perelman 2002--2003 anchoring
+$\alpha_{\text{Poincar\'e}} = 1$) together with the framework's
+\emph{asserted} $\alpha_{\text{NS}} = 3\pi/2$ --- for which the
+C\'ordoba--Mart\'inez-Zoroa finite-time-blowup mathematics, Lean-verified by
+Buckmaster--Alp\"oge 2026-08-22 and by OpenAI 2026-09-08 in
+\texttt{openai/NavierStokesAndEuler}, is cited as context and not as an anchor;
+see \S\ref{sec:two-anchor-cascade} --- the framework's nine $\alpha$-values
 have the following status:
 
 \begin{center}
@@ -333,8 +358,8 @@ have the following status:
 \toprule
 \textbf{Constant} & \textbf{Value} & \textbf{Anchor status} & \textbf{Refutable by} \\
 \midrule
-$\alpha_{\text{Poincar\'e}}$ & $1$                       & \emph{External} (Perelman 2003) & \textit{settled} \\
-$\alpha_{\text{NS}}$         & $3\pi/2$                  & \emph{External, settled} (C\'ordoba--Mart\'inez-Zoroa; Buckmaster--Alp\"oge 2026; OpenAI-formalized 2026-09-08) & \textit{settled} \\
+$\alpha_{\text{Poincar\'e}}$ & $1$                       & \emph{External, settled} (Perelman 2003; three expositions; Clay-awarded 2010) & \textit{settled} \\
+$\alpha_{\text{NS}}$         & $3\pi/2$                  & \emph{Asserted} --- NOT anchored; Clay NS open and listed Active (external chain cited as context only) & Navier--Stokes \\
 $\alpha_{\text{YM}}$         & $2$                       & Forced by I7 \& Perelman & Yang-Mills mass gap \\
 $\alpha_{\text{RH}}$         & $3/2$                     & Forced by I9 \& $\alpha_{\text{YM}} = 2$ & Riemann hypothesis \\
 $\alpha_{\text{BSD}}$        & $3\pi/4$                  & Forced by I6 \& $\alpha_{\text{NS}}$ & Birch--Swinnerton-Dyer \\
@@ -346,8 +371,10 @@ $\alpha_{\text{NP}}$         & $\varphi + 1/4$           & Forced by Hodge-NP li
 \end{tabular}
 \end{center}
 
-\noindent The two \emph{External} rows are established by
-independently verified proofs outside Principia Fractalis. The seven
+\noindent \textbf{One} row is \emph{External, settled} --- Poincar\'e, by
+independently verified proofs outside Principia Fractalis. The
+$\alpha_{\text{NS}}$ row is \emph{asserted} (see the Amendment above). The
+seven
 \emph{Forced} rows are consequences of the two external anchors plus
 the structural identities I6, I7, I8, I9, QG-bridge, Wave-22, and the
 Hodge-NP link (each proved kernel-clean in the Lean corpus). Any
@@ -2176,8 +2203,10 @@ Under this single anchor, the framework's structural identities
 Hodge-NP link) derive every remaining $\alpha$-value---but the
 derivation is internal to the framework.
 
-In summer--fall 2026 the Navier--Stokes / Euler blow-up problem was
-settled. C\'ordoba and Mart\'inez-Zoroa established the underlying
+In summer--fall 2026 the Navier--Stokes / Euler blow-up problem was the
+subject of major external progress, though it was not settled (see the
+Amendment at the $\alpha$-substrate reference table). C\'ordoba and
+Mart\'inez-Zoroa established the underlying
 finite-time-blowup mathematics~\cite{cordoba-martinezzoroa2026ipm,%
 cordoba-martinezzoroa-zheng2026hns} for which Buckmaster publicly
 stated Mart\'inez-Zoroa deserves Fields-Medal recognition. Buckmaster
@@ -2191,21 +2220,24 @@ is deliberately unhurried and OpenAI declined to claim the prize on
 the basis that the formalized statements address the (C)/(D)
 alternatives rather than the primary Clay conjecture; those are
 questions about the prize award, not about the mathematics, which
-the framework consumes as settled. Combined with the framework's
-asserted $\alpha_{\text{NS}} = 3\pi/2$, this yields a second settled
-external anchor. (Chapter~\ref{ch:navier-stokes},
+the framework cites as substantial external work but does \textbf{not}
+consume as settled. Combined with the framework's asserted
+$\alpha_{\text{NS}} = 3\pi/2$, this yields \textbf{no} second external anchor:
+the value stays an assertion of the framework, and the Clay problem stays
+open. (Chapter~\ref{ch:navier-stokes},
 \S\ref{sec:openai-2026-corroboration} carries the full analytic
 citation ledger.)
 
 \subsection{The Forced Values}
 
 \begin{keyidea}
-Under the two external anchors and the framework's structural
+Under the one settled external anchor (Perelman), the framework's
+\emph{asserted} $\alpha_{\text{NS}}$, and the framework's structural
 identities, the remaining seven $\alpha$-values in the substrate
 are \emph{uniquely forced}:
 \begin{align*}
 \alpha_{\text{Poincar\'e}} &= 1 &&\text{(anchored: Perelman 2003)} \\
-\alpha_{\text{NS}} &= 3\pi/2 &&\text{(anchored: C\'ordoba--Mart\'inez-Zoroa \& Buckmaster--Alp\"oge 2026; OpenAI-formalized 2026-09-08)} \\
+\alpha_{\text{NS}} &= 3\pi/2 &&\text{(\emph{asserted}, not anchored; external chain cited as context --- Clay NS open)} \\
 \alpha_{\text{YM}} &= 2 &&\text{(forced by I7)} \\
 \alpha_{\text{RH}} &= 3/2 &&\text{(forced by I9 with $\alpha_{\text{YM}}=2$)} \\
 \alpha_{\text{BSD}} &= 3\pi/4 &&\text{(forced by I6)} \\
@@ -2230,11 +2262,12 @@ $\alpha_X$ for $X \in \{\text{RH}, \text{YM}, \text{Hodge},
 \text{BSD}, \text{P/NP}\}$ refutes at least one anchor or one
 structural identity of the substrate cascade.
 
-With two settled external anchors now pinning the cascade (Perelman
-for $\alpha_{\text{Poincar\'e}} = 1$; C\'ordoba--Mart\'inez-Zoroa /
-Buckmaster--Alp\"oge / OpenAI 2026 for $\alpha_{\text{NS}} = 3\pi/2$)
-and every structural identity kernel-clean, the five remaining
-$\alpha$-values are \emph{derived}, not conjectured. The framework
+With one settled external anchor pinning the cascade (Perelman for
+$\alpha_{\text{Poincar\'e}} = 1$) plus the framework's \emph{asserted}
+$\alpha_{\text{NS}} = 3\pi/2$, and every structural identity kernel-clean, the
+five remaining $\alpha$-values are \emph{derived from those inputs} --- which
+makes them conditional on one external result and one framework assertion, not
+on two external results. The framework
 predicts them; a literal Clay-statement discharge for each remaining
 axis is the sole downstream mathlib-carrier task. Each cascade link
 is a chain of kernel-verified equalities from settled premises to
@@ -2247,15 +2280,20 @@ $\alpha_{\text{YM}} = 2$. Kernel-clean.
 anchor. Kernel-clean.
 \item $\alpha_{\text{Hodge}} = \varphi = (1+\sqrt{5})/2$ --- derived
 via I8 from positivity. Kernel-clean.
-\item $\alpha_{\text{BSD}} = 3\pi/4$ --- derived via I6 from the
-now-settled $\alpha_{\text{NS}} = 3\pi/2$ anchor. Kernel-clean.
+\item $\alpha_{\text{BSD}} = 3\pi/4$ --- derived via I6 from the framework's
+\emph{asserted} $\alpha_{\text{NS}} = 3\pi/2$. The derivation is kernel-clean;
+its input is not external, so this row inherits an assertion rather than an
+anchor.
 \item $\alpha_P = \sqrt{2}$ (with $\alpha_{\text{NP}} = \varphi +
 1/4$) --- derived via Wave-22 and the Hodge--NP link. Kernel-clean.
 \end{enumerate}
 
 Read literally: the framework has \emph{proved} each of these five
-$\alpha$-values conditional on (i) the two settled external anchors
-and (ii) the kernel-clean structural identities that connect them.
+$\alpha$-values conditional on (i) one settled external anchor (Perelman) plus
+the framework's own asserted $\alpha_{\text{NS}}$, and (ii) the kernel-clean
+structural identities that connect them. Conditionality on an assertion is
+weaker than conditionality on an anchor, and the $\alpha_{\text{BSD}}$ row in
+particular depends on it.
 The remaining downstream task per axis is not to determine the
 value---which the cascade already does---but to formalize the
 mathlib-carrier statement of the corresponding Clay problem and
