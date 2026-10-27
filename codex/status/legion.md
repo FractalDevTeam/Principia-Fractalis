@@ -1,6 +1,150 @@
 # LEGION — status
 
-**Updated:** 2026-10-25 · **Owner:** Legion session (march ownership, pipeline, research)
+**Updated:** 2026-10-27 · **Owner:** Legion session (march ownership, pipeline, research)
+
+## 2026-10-27 — PROGRESS REPORT (15 commits; read the four FLAGS first)
+
+### ⚠ FLAGS — things that will mislead you if you don't know them
+
+1. **`codex/PRISTINE_SWEEP_2026-10-06.tsv` IS BROKEN.** It ran a defective
+   criterion (e) — one theorem named `*_holds` anywhere in a module satisfied
+   (e) for *every* Prop in it — and was re-run the next day. `gate_sweep_1007.py`
+   names the 70.2% it yields as "the cumulative … from 1452 rows the BROKEN gate
+   produced". `group_findings.py` hardcoded that file and so reported 1022
+   PRISTINE instead of 909; the figure reached the published title page before
+   it was caught (`54aa5223` → corrected `b86be927`). The tool now auto-selects
+   the newest sweep (`31ddf2e2`). **Never quote 1022 or 70.2%.**
+
+2. **The 2026-10-26 sweep's (e) column is itself stale.** The (e) widening in
+   `ebf4123a` was *inert*: it was validated in Python, where `\s` matches
+   newlines, and implemented in `grep -E`, which is line-based. Real Lean
+   witnesses wrap:
+
+       theorem cohen2025_hodgeMainTheorem_anchor_holds :
+           Cohen2025_HodgeMainTheorem_Anchor := ...
+
+   so it could never fire. (e) moved only 372 → 358 where ~87 modules were
+   predicted. Fixed 2026-10-27 (`9083e0ed`) by matching against a flattened
+   view. **So 933 PRISTINE understates; a re-gate is needed for the real
+   figure.**
+
+3. **§0.7 and §0.9 of `INSTRUCTIONS_FOR_EVERY_AI` are STALE** — both describe
+   emergencies repaired on 2026-10-21, the same day the instructions were
+   written. Producer-pipeline divergence: fixed (`ab2a4586`, `7d4b607f`,
+   `add2434d`, `d78a7771`). Axiom-gate scope: fixed (`7d4b607f`), and the gate
+   is now *proven* reachable — 9 doctored pairs, 8 attack shapes rejected,
+   control committed at `codex/gate_negative_control.sh`. Amending §0 is
+   Rio's/Pablo's call; I only recorded it.
+
+4. **`pristine_gate.sh` now takes the shared flock** (`1166059d`). It had CPU
+   pinning and no lock, so a 1452-module sweep beside a live march was 1452
+   unlocked concurrent builds on a 15 GB box. A full sweep is now safe but holds
+   the lock ~6 h — coordinate before starting one.
+
+### THE SWEEP, COMPLETE
+
+`codex/PRISTINE_SWEEP_2026-10-26.tsv` — 1477 of 1477 gated:
+
+| | |
+|---|---|
+| PRISTINE | **933** |
+| FAILED | **537** |
+| (f) semantic hygiene | 470 |
+| (e) non-vacuity witnesses | 358 ← stale, see FLAG 2 |
+| (d2) dead/contained premises | 277 |
+| (d) unused binders | 68 |
+
+Baseline 10-07 was 909/546 of 1455. **Escape hatches are genuinely closed**: 0
+`sorry`, 0 `sorryAx`, 0 `native_decide`, 0 `ofReduceBool`, 0 `axiom` at code
+level across all **8591** `.lean` files, verified two independent ways with a
+working control. The raw greps that report 434 and 207 files are pure docstring
+prose.
+
+Also measured: of 941 code-level `def _ : Prop :=` in the closure, 270 were
+already witnessed, **307 have a proved witness that is merely named differently**,
+and **364 have no witness at all**. The real (e) deficit is the 364, not the 358
+modules.
+
+### THE MARCH — D=16 WALL FIXED
+
+It died 2026-10-26 10:32 on the FIRST D=16 box, c=397/32, rc=137 (OOM) on the
+assemble. Diagnosis, with two refuted hypotheses recorded:
+
+* `-M 7000 → -M 12000`: rc=137, peak **13.68 GB** *with* the 12 GB cap, so `-M`
+  is a soft check this workload outruns.
+* `LEAN_NUM_THREADS=1`: rc=137, peak **13.61 GB** — 0.5%. Both changes reverted
+  rather than left encoding a disproven belief.
+* D=8 is **not** an option there: the producer refuses it at ratio 1.19× against
+  the decided 1.25× safety margin. D=16 is required, so the module had to shrink.
+
+**Fix (`fb59677d`): the assemble splits per block above D=8.** 6 partials
+(largest 4261 lines) + a 1039-line final, where the single module was 16601.
+Measured: peaks 4.35 / 4.37 / 4.23 / 3.20 / 3.19 / 3.22 GB and 4.21 GB for the
+final — **max 4.37 GB against 13.6**, ~13 min against a 50-min OOM, 0 errors, 0
+`sorryAx`, all three headline theorems on the three-axiom bar.
+
+**Byte-identity preserved**: the split triggers only above 48 blocks, and
+c=395/32 at D=8 regenerates *byte-identical* to the committed assemble with zero
+partials. Every landed box reproduces exactly as before.
+
+Box c=397/32 is building now (frontier 12.375 → 12.4375); `commit_box.sh` gates
+the landing on `DONE` + `axiom-bar OK`, and the scheduler restarts automatically
+only **if** it lands.
+
+### §2 BOOK WORK — 5 of 5 COMPLETE
+
+| item | commit |
+|---|---|
+| ch23 stops printing the refuted Δ = 420.43; ledger carries the verdict | `db5519e8` |
+| ch20/21/25 conclusions aligned to their own ledgers | `47ad1392` |
+| title page banner scoped; NS anchor retired | `54aa5223`, `b86be927` |
+| ch22 + ch34A: NS "settled/community-accepted" retired | `36d74140` |
+| ch34: the re-read addendum, including our own two errors | `5acd4664` |
+
+Plus `025d2d15` (ch04 gains emergent locality) and `cbacf72b` —
+**`revision2_changes.tex` is now current and WIRED INTO `main.tex`** at ToC page
+xxix, with new sections for results found rather than only corrections made.
+
+### SPINE ADVANCES (the priority, per §7 of the standing rules)
+
+* **Emergent locality: 0 files → five of six Haag–Kastler axioms** (r350–r354),
+  uniformly over an arbitrary site set, hence every tower level `M_{3^k}`.
+  Completeness proved for finite ι, **open** for infinite ι (needs an
+  infinite-index `PiTensorProduct` free basis: 0 files). Covariance absent,
+  blocked on `Aut(T_∞)`.
+* **Affine algebraic de Rham: `d ∘ d = 0`** (r355), and `d₁` is `R`-linear and
+  `S`-Leibniz (r356), over an arbitrary commutative `R`-algebra. `d_n` for
+  `n ≥ 2` **blocked**: graded anti-derivation is 0 files under six spellings,
+  and `⋀ⁿ`'s only universal property rejects non-`S`-linear maps. The
+  Grothendieck note's step-2 route was corrected accordingly (`5ed2cf10`) — it
+  was viable for `d₁` only.
+* **Both arrows terminate at the same wall**: the C\*-inductive limit, `UHF` =
+  0 files. One obstruction, not two.
+
+### MATHLIB — the blocker is a label, not reviewer capacity
+
+All four PRs OPEN, none merged, **CI green on all four**. Every one carries
+`awaiting-author`, which removes it from reviewers' dashboards — three got it
+for the AI-disclosure question alone and it was never cleared. #42093 is
+genuinely close: all seven of j-loreaux's fixes are pushed, but our own comment
+told him to wait and never said it was done. #42101 should be closed
+(`riemannZeta_conj` merged via #41133; ours is the fourth submission).
+`-awaiting-author` is a bot command — 16 characters, no prose. **Do not touch
+the FractalDevTeam APPROVED review**: `reviewDecision` is empty, it carries zero
+weight, and raising it starts a conversation nobody has started.
+
+### STILL OPEN
+
+1. A re-gate for the authoritative (e) figure (~2.4 h for the 358, vs 6 h full).
+2. Goal-line condition 2 is **further from met**: three gate changes in two days
+   (flock, (e), (e) again). The condition is that the gate has stopped changing.
+3. `/tmp/prod` is vestigial and now differs from the repo producer by md5 —
+   stale unversioned copy on the critical path's name.
+4. 537 non-pristine modules: 364 unwitnessed Props, 237 dead fields over 79
+   structures, plus (f) and (d).
+
+---
+
 
 ## 2026-10-25 LATE — ⚠ §0.7 OF THE BINDING INSTRUCTIONS IS STALE (for Rio/Pablo)
 
