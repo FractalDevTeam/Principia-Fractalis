@@ -869,8 +869,10 @@ def main():
     assert panels[0][4] - panels[0][3] == PANEL_WIDTH, "panel width disagrees"
     for i in range(len(panels) - 1):
         assert panels[i][4] == panels[i + 1][3], f"panel gap at {i}"
-    ap, tots, marg2 = P2.emit_assemble(c, tag, lean_frac, dec, args.out,
-                                       panels, PER, MBY)
+    ap, tots, marg2, aparts = P2.emit_assemble(c, tag, lean_frac, dec, args.out,
+                                               panels, PER, MBY)
+    if aparts:
+        print(f"  assemble  : SPLIT over {len(aparts)} partial-block modules")
     print(f"  assemble  : {os.path.basename(ap)}  (margin {float(marg2):+.8f})")
     assert abs(marg2 - margin) < F(1, 10**9), "assemble margin disagrees with the sweep"
 
@@ -902,7 +904,9 @@ def main():
                 f"ResidueBoundTight_{t}_2026_10_20",
                 f"AnalyticTailBound_{t}_2026_10_20",
                 f"OmegaTailBound_{t}_2026_10_20",
-                f"Assemble_{t}_threehalves_HYBRID_2026_10_20"])
+               ]
+             + aparts
+             + [f"Assemble_{t}_threehalves_HYBRID_2026_10_20"])
     needed = [m for m in order if m in imported or m.startswith("Assemble_")]
     dead = [m for m in order if m not in needed]
     io.open(os.path.join(args.out, "_buildorder.txt"), "w", encoding="utf-8").write(
