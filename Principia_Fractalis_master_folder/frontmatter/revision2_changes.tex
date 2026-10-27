@@ -1,8 +1,13 @@
 % Revision 2 front matter — "What Changed, and What Is and Is Not Established."
-% Staged 2026-10-09. Grounded in the Lean/Coq corpus state at HEAD aa79d403,
+% Staged 2026-10-09; brought current 2026-10-27 and wired into main.tex on the
+% author's instruction. Grounded in the Lean/Rocq corpus state at HEAD fb59677d,
 % the per-chapter verification ledgers, codex/BOOK_LEAN_SUPERSESSION_MAP and
-% codex/SEMANTIC_PARITY_MAP. NOT yet \input into main.tex — awaiting author review
-% of the framing (this is the page that states what the book claims).
+% codex/SEMANTIC_PARITY_MAP.
+%
+% This page is DATED and will move. The formalization is active research: the
+% 2026-10-21 through 2026-10-27 entries below were all added after the page was
+% first staged, and several of them are new mathematics rather than repairs.
+% Re-date it whenever the corpus state it quotes changes.
 
 \chapter*{Revision 2 --- What Changed, and What Is and Is Not Established}
 \addcontentsline{toc}{chapter}{Revision 2 --- What Changed and What Is Established}
@@ -74,6 +79,109 @@ base-3 abscissa $\sigma(\alpha)=\log_3\lvert 1+2\cos(\pi\alpha)\rvert$. The
 consciousness threshold $\mathrm{ch}_2 \ge 0.95$, the clinical accuracy figures,
 and all consciousness quantifications are \textbf{empirical hypotheses --- untested}:
 they await experiment and are not established by any computation in this book.
+
+\section*{New results in this revision}
+
+Revision 2 is not only a scope repair. The formalization effort produced
+mathematics the first edition did not contain, and two spine arrows advanced
+from nothing to machine-checked content. Each result below depends on exactly
+the three kernel axioms, with no \texttt{sorry} and no \texttt{native\_decide}.
+
+\paragraph{Emergent locality: five of the six structural axioms of a local net.}
+Before this revision, ``emergent locality'' appeared nowhere in the manuscript
+and nowhere in the formal corpus. It now carries a net of algebras over an
+arbitrary set of sites,
+$\mathcal{A}(S) = \mathrm{alg}\langle \bigcup_{i \in S} \mathrm{ran}\,\lambda_i \rangle$
+inside $\bigotimes_{i \in \iota} M_3(\mathbb{C})$, satisfying \emph{isotony},
+\emph{locality}, \emph{additivity} and the \emph{empty-region} condition
+unconditionally, and \emph{completeness} for a finite site set. Because the
+index set is arbitrary, this holds uniformly at every tower level
+$M_{3^k} \cong \bigotimes_{i<k} M_3$ rather than level by level.
+
+The substantive point is that locality is a \emph{consequence} of the substrate
+being a tensor product over sites, not an axiom imposed on it: for $i \neq j$
+the proof reduces to $a\cdot 1 = 1 \cdot a$ at one slot and $1 \cdot b =
+b \cdot 1$ at the other. In algebraic quantum field theory the net is logically
+prior to spacetime, which is recovered from it --- so this is the structure the
+$\mathcal{M}^4 = \mathrm{Aut}/\mathrm{Aut}_0$ route needed and did not have.
+\textbf{No spacetime is produced}: regions are subsets of an index set, with no
+metric, no causal order and no dimension count. Covariance, the sixth axiom, is
+absent and is blocked on the $\mathrm{Aut}(\mathcal{T}_\infty)$ classification
+this book already records as open. Completeness for an \emph{infinite} site set
+is open --- neither proved nor refuted --- and is recorded as open.
+See Chapter~\ref{ch:timeless-field}, \S\ref{sec:emergent-locality}.
+
+\paragraph{Affine algebraic de Rham: $d \circ d = 0$.}
+For an arbitrary commutative $R$-algebra $S$, with no smoothness, finiteness or
+regularity hypothesis: the forms $\Omega^n = \bigwedge^n_S \Omega[S/R]$, the
+universal derivation $d_0$, a wedge product that is $S$-bilinear and
+antisymmetric in degree one, a differential $d_1 : \Omega^1 \to \Omega^2$
+obtained by descending across the Kähler presentation's spanned kernel, the
+classical formula $d_1(a \cdot dy) = d_0a \wedge d_0y$, and
+$d_1(d_0 a) = 0$. The differential is $R$-linear and $S$-Leibniz, which is
+precisely why the obvious route through the exterior power's universal property
+cannot define it --- that equivalence produces an $S$-linear map.
+
+\textbf{There is no de Rham complex here and no de Rham cohomology.} The
+general $d_n$ for $n \ge 2$ does not exist: a graded anti-derivation is absent
+from the formal library under every spelling searched, and the only prepared
+tool for mapping out of $\bigwedge^n$ rejects exactly the maps $d$ is. Nor can
+the three-term complex be packaged, because $d_1$ is not $S$-linear and no
+$R$-module structure is available on the exterior power at this pin. This work
+is the \emph{local} building block of algebraic de Rham cohomology; gluing it to
+a variety is unpriced, with the sheaf-cohomology layers it needs absent
+entirely. \textbf{It does not touch the Hodge conjecture.}
+
+\section*{Negative results, which are also results}
+
+Several of this revision's findings are refutations, and they are entered as
+findings rather than buried as caveats.
+
+\begin{itemize}
+\item \textbf{A ceiling over every $\alpha$ in the Yang--Mills chapter.} The
+mass gap $\Delta = 420.43$~MeV is refuted three independent ways by this
+book's own analysis: the resonance zero $\omega_c$ does not exist, because
+$\mathcal{R}_f(2,s) = \zeta(s)$ has no positive real zero; the displayed
+product is $132.148$, not $420.43$; and the corrected resonance condition caps
+the chapter's own gap formula at $\Delta_{\max} = 62.3$~MeV \emph{over every}
+$\alpha$. That ceiling is the finding: the failure is not a poor choice of
+$\alpha$, and no choice rescues the mechanism.
+\item \textbf{Three of four experimental predictions do not confirm the
+framework.} Formalising Chapter~\ref{ch:geometric-unity}'s predictions showed
+the cosmological lithium prediction \emph{fails} (the mechanism gives
+$0.7016$ where $0.3053$ is required); the muon $g-2$ agreement is a
+one-parameter fit with zero degrees of freedom, the scale having been
+reverse-engineered from the observed value; and the ANITA energies differ by
+exactly one rung of the base-3 ladder rather than agreeing. Only the Hubble
+reconciliation survives, and it lands about $1.03\sigma$ above the local value.
+\item \textbf{Navier--Stokes is not a settled anchor.} Clay lists the problem
+\emph{Active}; the one Clay-aimed claim is contested, with its formal
+artifact's correspondence to its manuscript disputed in print; and the rest of
+the external chain concerns model equations, weak solutions or the forced
+regime. The framework therefore has \textbf{one} settled external anchor
+(Poincaré), not two, $\alpha_{\mathrm{NS}}$ is asserted rather than anchored,
+and every value derived ``from the two anchors'' is conditional on one external
+result plus one assertion of the framework. The ``settled anchor'' framing was
+an error of ours, not of the cited authors.
+\end{itemize}
+
+\section*{The state of the formal corpus, stated as a number}
+
+The companion corpus contains 8591 Lean files, of which 1477 lie in the
+transitive import closure of the root module --- those are the ones this book
+cites. Across all 8591, at code level, there are \textbf{zero} occurrences of
+\texttt{sorry}, \texttt{sorryAx}, \texttt{native\_decide},
+\texttt{ofReduceBool} and \texttt{axiom}, established two independent ways
+after a first measurement was found to have been reported from a broken search.
+
+Of the 1477, \textbf{933 pass the full gate} --- olean currency, the
+three-axiom bar, no escape hatches, no dead binders, no dead or vacuous
+premises, non-vacuity witnesses, and semantic hygiene --- and \textbf{537 do
+not}, failing on the semantic criteria rather than on soundness. That gap is the
+honest remaining distance of the formalization, it is not hidden, and the
+figure above understates it in one direction: the non-vacuity check was found on
+2026-10-27 to have been unable to see witnesses whose statements wrap across
+lines, so more modules satisfy it than the count credits.
 
 \section*{Principal corrections in this revision}
 
