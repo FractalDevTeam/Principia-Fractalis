@@ -11,7 +11,11 @@ In this chapter, we provide \textbf{rigorous mathematical foundations and comput
 \item Present conjectures connecting these values to closed forms: $\frac{\pi}{10\sqrt{2}}$ and $\frac{\pi(\sqrt{5}-1)}{30\sqrt{2}}$
 \item Introduce \textbf{fractal analytic continuation} as a conjectural framework for branch selection
 \item Show fractal dimension separation: $\dim_{\text{frac}}(P) = \sqrt{2} < \varphi + 1/4 = \dim_{\text{frac}}(NP)$
-\item Validate framework across 143 problems (100\% empirical coherence)
+\item Validate framework across 143 problems (100\% empirical coherence)%
+\manuscriptcorrection{\textbf{This objective was not met, and the cited run
+cannot meet it.} See the correction at Theorem~\ref{thm:universal-coherence}:
+the 100\% is a saturated clamp over all 142 database entries and is unchanged
+when every framework parameter in the run is randomised.}
 \end{itemize}
 
 \textbf{Status}: We establish rigorous foundations and provide strong numerical evidence, accompanied by deep conjectures requiring further proof. The research program outlined in Section 11 identifies key open problems for establishing these conjectures rigorously.
@@ -1094,7 +1098,29 @@ with critical values consistently measured as:
 \alpha_P &= \sqrt{2} \approx 1.41421356 \\
 \alpha_{NP} &= \varphi + \frac{1}{4} \approx 1.86803399
 \end{align}
-\end{theorem}\manuscriptcorrection{\textbf{The ``100\% coherence across 143 problems'' is a local-simulator run of a classical formula, not a quantum-hardware experiment.} Added 2026-10-08; provenance \texttt{pablo\_context/scientific\_work/python\_code/143~Problems~Solved~On~IBM.py}, recorded at \texttt{codex/SCIENTIFIC\_WORK\_PROVENANCE\_2026-10-08.md}. The source establishes: (i) the backend is \texttt{AerSimulator} --- the real-hardware path requires a token and falls back to the local simulator, so ``on IBM'' is a local Aer simulation; (ii) the problem database holds \textbf{142} entries, not 143; (iii) the ``coherence'' is a deterministic classical sum $\sum_n (\cos+i\sin)(\pi\alpha D_3(n)(1+f/50))/n^x$, into which the simulator result does not enter; (iv) the perfect score is $\min(1,\,\text{base}+\tfrac12)$, added only when a problem's \texttt{known\_result} string contains ``solved'' --- so the $1.0$ values are assigned by string match to problems already known solved (Poincar\'e); and (v) the dimensions used there ($\alpha_P{=}1.618$, $\alpha_{\text{NS}}{=}5/3$) are not this chapter's $\alpha$-skeleton. The verification ledger below already records the Lean side of this as \textsc{circular}. Read the boxed $100\%$ as the output of that clamp, not as a measured success rate.}
+\end{theorem}\manuscriptcorrection{\textbf{The ``100\% coherence across 143 problems'' is a local-simulator run of a classical formula, not a quantum-hardware experiment.} Added 2026-10-08; provenance \texttt{pablo\_context/scientific\_work/python\_code/143~Problems~Solved~On~IBM.py}, recorded at \texttt{codex/SCIENTIFIC\_WORK\_PROVENANCE\_2026-10-08.md}. The source establishes: (i) the backend is \texttt{AerSimulator} --- the real-hardware path requires a token and falls back to the local simulator, so ``on IBM'' is a local Aer simulation; (ii) the problem database holds \textbf{142} entries, not 143; (iii) the ``coherence'' is a deterministic classical sum $\sum_n (\cos+i\sin)(\pi\alpha D_3(n)(1+f/50))/n^x$, into which the simulator result does not enter; (iv) the perfect score is $\min(1,\,\text{base}+\tfrac12)$, added only when a problem's \texttt{known\_result} string contains ``solved'' --- so the $1.0$ values are assigned by string match to problems already known solved (Poincar\'e); and (v) the dimensions used there ($\alpha_P{=}1.618$, $\alpha_{\text{NS}}{=}5/3$) are not this chapter's $\alpha$-skeleton. The verification ledger below already records the Lean side of this as \textsc{circular}. Read the boxed $100\%$ as the output of that clamp, not as a measured success rate.
+
+\textbf{Re-measured 2026-10-27; the defect is larger than item (iv) alone
+describes.} \emph{Every} one of the 142 entries scores exactly $100.000$, and
+the figure does not depend on any parameter of the framework. Two different
+clamps produce it. The string-match branch in (iv) accounts for only the
+\textbf{29} entries whose \texttt{known\_result} contains ``solved''; for the
+remaining \textbf{113} --- every open problem in the database, this chapter's P
+versus NP among them, together with the Riemann Hypothesis, Navier--Stokes,
+Hodge, Yang--Mills and Birch--Swinnerton-Dyer --- the score is clipped by the
+$\max(0,\min(1,\cdot))$ in \texttt{evaluate\_quantum\_coherence} from unclamped
+values measured to run from $8.33$ to $115.31$, so the ceiling binds for $113$
+of $113$. The script's \texttt{determine\_status} then labels all $142$
+``Solved'', which is the origin of the file's title. Two controls settle what
+the number measures: re-running the scoring path with every
+\texttt{fractal\_dimension} replaced by a random value in $(0.6,3.4)$, and again
+with every \texttt{resonance\_frequency} randomised, moves no entry by any
+amount --- $\max\lvert\Delta\rvert = 0$ in both controls, across all 142
+entries. A quantity that is constant under randomisation of its own inputs
+carries no information about them. The 143-problem set is therefore not evidence
+for the framework, and not evidence against it; it is not evidence. It is cited
+as validation in four places in this chapter, and each of those citations is
+withdrawn by the corrections accompanying them.}
 
 \begin{intuitive}
 Think of this as a physics experiment: we measured 143 different physical systems, and \textbf{every single one} exhibited the same mathematical signature. Just as the Michelson-Morley experiment's null result (repeated 100+ times) revolutionized physics, our 100\% success rate suggests we've discovered something fundamental about computation itself.\manuscriptcorrection{\textbf{The analogy does not hold, because there was no experiment.} Scoped 2026-10-26, on the provenance established in the correction to Theorem~\ref{thm:universal-coherence} (2026-10-08). Michelson--Morley was a physical measurement whose outcome could have come out otherwise. Here the ``measurement'' is one deterministic classical sum evaluated on a problem list, and the perfect scores are produced by a clamp $\min(1,\,\text{base}+\tfrac12)$ applied whenever a problem's stored description contains the word ``solved''. Nothing could have returned a value below the ceiling for those entries, so the uniformity is an artefact of the formula rather than a null result about computation. The database holds $142$ entries, not $143$. Read this paragraph as motivation for the framework's shape, not as empirical support.}
@@ -1139,7 +1165,28 @@ However, empirical measurements from 143 problems show:
 \lambda_0(H_P) - \lambda_0(H_{NP}) = 0.0891219046 > 0
 \end{equation}
 
-This persistent spectral gap across all tested problems suggests P $\neq$ NP.
+This persistent spectral gap across all tested problems suggests P $\neq$ NP.%
+\manuscriptcorrection{\textbf{This gap is not a measurement from the
+143-problem set, and the framework's three routes to it provably disagree.}
+Added 2026-10-27. \emph{(a)~Provenance.} The cited 143-problem program computes
+no eigenvalue --- its only \texttt{lambda} is a Python sort key, and the value
+$0.0891219046$ does not occur anywhere in that file. The number's origin is the
+polylogarithmic eigenvalue computation, not that run, so ``empirical
+measurements from 143 problems'' misattributes it; and by the correction at
+Theorem~\ref{thm:universal-coherence} that run yields a saturated constant in
+any case. \emph{(b)~Internal inconsistency, machine-checked.}
+\texttt{PF/TuringEncoding/SpectralGapInconsistencyAnalysis.lean} records a
+three-way disagreement in this very quantity and proves, axiom-free, that the
+three candidates are mutually distinct real numbers:
+$\Delta_{\mathrm{lcf}} \approx 0.054$, the Lean closed form; $<
+\Delta_{\mathrm{emp}} \approx 0.0891$, the value quoted here; $<
+\Delta_{\mathrm{gm}} \approx 0.131$, this manuscript's own golden-modulation
+estimate. That file states explicitly that it ``does NOT discharge the
+inconsistency.'' So the framework computes this gap three ways and obtains three
+different answers, and the positivity of any one of them cannot carry the weight
+placed on it here. What is in question is not the sign of the inequality but its
+provenance and its agreement with the framework's own other derivations;
+until the three routes are reconciled, this is not evidence for P $\neq$ NP.}
 
 \textbf{Evidence 2: Via Fractal Dimensions}
 
@@ -1153,7 +1200,19 @@ Homeomorphic metric spaces have equal fractal dimensions\cite{falconer2003fracta
 \dim_{\text{frac}}(\text{P}) = \sqrt{2} \approx 1.414 < \varphi + 1/4 \approx 1.868 = \dim_{\text{frac}}(\text{NP})
 \end{equation}
 
-This geometric separation (Δdim ≈ 0.454) is consistently observed across all 143 problems.
+This geometric separation (Δdim ≈ 0.454) is consistently observed across all 143 problems.%
+\manuscriptcorrection{\textbf{Not observed --- assigned.} Added 2026-10-27. In
+the 143-problem program the per-problem \texttt{fractal\_dimension} is a
+hand-entered field of the problem database --- $1.0$ for the Riemann Hypothesis,
+$2.0$ for Poincar\'e, $1.618$ for P versus NP, $1.667$ for Navier--Stokes,
+$2.1$ for Hodge --- and not a quantity the program measures. Those entries are
+also not this chapter's $\alpha$-skeleton, which uses $\sqrt2$ and
+$\varphi+\tfrac14$. Nothing in that run observes a dimension separation, and the
+controls recorded at Theorem~\ref{thm:universal-coherence} show its output is
+bit-for-bit unchanged when every one of those fields is randomised. The
+$\Delta\dim \approx 0.454$ figure is simply the difference of the two
+\emph{chosen} constants $\varphi+\tfrac14$ and $\sqrt2$, which this chapter's
+own ledger already lists as \textsc{asserted}.}
 
 \textbf{Evidence 3: Via Consciousness Crystallization}
 
