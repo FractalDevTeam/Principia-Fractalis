@@ -41,6 +41,56 @@
    unlocked concurrent builds on a 15 GB box. A full sweep is now safe but holds
    the lock ~6 h — coordinate before starting one.
 
+5. **The ``143 problems / 100% coherence'' figure is a SATURATED CONSTANT and
+   must not be cited as validation anywhere.** Measured 2026-10-27 two
+   independent ways. First a reimplementation (`codex/audit_143_problem_set.py`,
+   database parsed out of the source rather than retyped). Then — because a
+   reimplementation is only as good as whoever read the source — the author's
+   own `FractalResonanceFramework` was exec'd **verbatim**: 31115 bytes, source
+   sha256 `24d69b74efeb…`, slice sha256 `d4abc2113e9e…`, no edits. Both agree:
+
+   * **142** entries, not 143.
+   * **All 142 score exactly 100.000000** — *one* distinct value in the file.
+   * The 29 whose `known_result` contains "solved": `min(1, base+1/2)` where
+     `base = 1/2 + xi/2 >= 1/2`, hence identically 1.
+   * The other **113 — every open problem in the database**, RH / P-vs-NP / NS /
+     Hodge / YM / BSD among them — are clipped by the `max(0,min(1,.))` in
+     `evaluate_quantum_coherence` from unclamped values **8.33 … 115.31**. The
+     ceiling binds **113 of 113**.
+   * The script's own `determine_status` then labels all 142 **"Solved"**. That
+     is where the file's title comes from.
+   * **Controls.** Every `fractal_dimension := U(0.6,3.4)` → max|Δ| = 0, **0 of
+     142 moved**. Every `resonance_frequency := U(1,99)` → max|Δ| = 0, 0 moved.
+
+   A quantity that is constant under randomisation of its own inputs carries no
+   information about them. The 2026-10-08 correction explained 29 of 142 and
+   implied the rest were unsaturated; it understated. Four ch21 citations
+   withdrawn in `6748b075`.
+
+6. **The P/NP spectral gap is quoted from the wrong source, and the corpus
+   already proves the framework disagrees with itself about it.** ch21's
+   "Evidence 1" attributed Δ = 0.0891219046 to "empirical measurements from 143
+   problems". That program computes **no eigenvalue** — its only `lambda` is a
+   Python sort key at line 488 — and the number does not occur in the file at
+   all. Worse: `PF/TuringEncoding/SpectralGapInconsistencyAnalysis.lean`
+   (2026-06-06) proves **axiom-free** that the framework's three routes to this
+   one quantity are mutually distinct reals —
+   Δ_lcf ≈ 0.054 < Δ_emp ≈ 0.0891 < Δ_gm ≈ 0.131 — and states in its own header
+   that it "does NOT discharge the inconsistency." Three routes, one gap, three
+   answers. Corrected in `6748b075`. **The reconciliation is open and is not
+   mine to pick** — which of the three is right is a mathematical question for
+   Pablo, not a labelling one.
+
+   Related, same commit: `frontmatter/revision2_changes.tex` called the base-3
+   abscissa the framework's "one non-circular selection mechanism". It is
+   non-circular but it is **not a selector**: `sigma_eq_zero_or_one_imp_rational`
+   (r212:364) proves only that σ(α) ∈ {0,1} forces α *rational* — an infinite
+   family. Its real content is negative: it **proves six of the nine canonical
+   values out**, α_Hodge = φ and α_NP = φ+1/4 included, and
+   `canonical_alphas_fail_bare_route` (r123:515) agrees independently. r212:27-31
+   also states the modulus→abscissa analytic step is unformalized, so "kernel-
+   verified" did not hold of the abscissa claim itself.
+
 ### THE SWEEP, COMPLETE
 
 `codex/PRISTINE_SWEEP_2026-10-26.tsv` — 1477 of 1477 gated:
