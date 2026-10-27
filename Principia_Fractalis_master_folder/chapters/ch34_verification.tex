@@ -929,3 +929,105 @@ enclosures do \textbf{not} close, the true values $0.7056609$ and $0.5312805$
 lie strictly inside them, and the sharp values require
 Ruelle--Perron--Frobenius theory that is not started. Neither arc changes the
 status of any Millennium statement.
+
+\paragraph{Verification update (2026-10-21): the approach re-read --- what was
+audited, what it falsified, and what it confirmed.}
+This entry records an audit of the project's own practice rather than of a
+result. It was ordered on the premise that the approach itself might be wrong,
+and carried out by three independent readers --- the manuscript chapters, the
+Python pipeline, and the project's prior audit files --- together with primary-
+source audits of the two external anchors the framework leans on. It is entered
+here because this program records its failures in the book and not only its
+results.
+
+\noindent\textbf{The single root cause.} Every major error of the preceding two
+weeks had the same shape, and naming it is more useful than the list:
+\textbf{practice ran on the layer above the verified layer.} Chapter prose was
+read over the ledgers that govern it; commit messages were read over build
+evidence; a file in version control was read over the pipeline actually
+deployed; a 2026 press claim was read over this project's own audit of it. The
+corrective is not a new method. It is obedience to the one already written
+down: \emph{the ledgers govern, audits bind, deployed artifacts outrank
+committed ones, and no status is reported from a layer above the evidence for
+it.}
+
+\noindent\textbf{What was falsified.}
+\begin{itemize}
+\item \textbf{The Navier--Stokes ``settled anchor'' framing.} Clay lists the
+problem \emph{Active}. The only Clay-aimed claim is contested and unverified,
+and the correspondence between its Lean artifact and its manuscript is disputed
+in print (arXiv:2610.08144); the remainder of the external chain concerns model
+equations, weak solutions, or the forced regime rather than the Clay statement.
+So $\alpha_{\text{NS}} = 3\pi/2$ is \emph{asserted} framework structure, not an
+anchored value, and the framework has one settled external anchor rather than
+two. The error was ours and not the cited authors', whose mathematics is
+substantial and stands as cited. Repaired in
+Chapter~\ref{ch:navier-stokes} and Chapter~\ref{ch:substrate-theorem}.
+\item \textbf{A divergence between the committed and the deployed pipeline.}
+The Riemann march was executing an unversioned snapshot of its producer rather
+than the one in the repository, and the repository's producer could not run from
+the tree at all. ``Parametric density landed'' was true of a file and false of
+the pipeline landing boxes. \emph{This one has since been repaired, and the
+audit entry recording it is itself now stale} --- the pipeline was fixed on the
+same day the audit was written, and the march has since run the repository
+producer through the $D \ge 2$ bands. Both facts belong here: the divergence was
+real, and the record of it outlived the defect.
+\item \textbf{``Six mathlib gaps filled.''} One was. The absence claims behind
+the other five had been checked against a stale dependency pin rather than
+against upstream master. The title page carries this correction.
+\item \textbf{Several quoted march figures.} The scripted price is $232.5$
+hours, not $241$; the module count is $1924$, not $1860$; the $c = 13$ margin on
+the emitted proof's scale is about $1.06\times$, not $1.12\times$; and the
+deployed march applies no $1.25\times$ safety factor. The verdicts those figures
+supported survive; the figures did not.
+\end{itemize}
+
+\noindent\textbf{What was confirmed.} The audit was not uniformly negative, and
+the surviving items are the load-bearing ones.
+\begin{itemize}
+\item \textbf{The kernel-verified core is real.} The Riemann march boxes
+1--20 are valid proofs on the parameterised route, diff-verified for $D = 1$
+equivalence across both producer copies; the Yang--Mills lattice chain is real;
+one exact Birch--Swinnerton-Dyer rank is real; the substrate operator-algebra
+content is real.
+\item \textbf{Poincar\'e is a sound external anchor.} Perelman's proof, verified
+by three independent expositions and Clay-awarded in 2010. The two Lean
+formalizations announced in September--October 2026 are cited as \emph{claimed},
+not established.
+\item \textbf{The $S$-route refutation stands.} It was measured with the
+shipped arithmetic, using hardcoded choices that favoured the route being
+tested, so the kill is conservative.
+\item \textbf{The governing layer is the strongest part of the project.} The
+preface rule and the per-chapter verification ledgers state the honest status of
+every problem. Where this manuscript has erred, it has erred in the prose layer
+above them --- and the ledgers were right first.
+\end{itemize}
+
+\noindent\textbf{Repairs landed 2026-10-25/26.} The findings above were not left
+as flags. Chapter~\ref{ch:yang-mills} stopped printing a refuted mass-gap value
+in its conclusion and exercises, and its ledger now carries the governing
+verdict; the conclusions of Chapters~\ref{ch:riemann-hypothesis},
+\ref{ch:p-vs-np} and~\ref{ch:hodge-conjecture} were aligned to their own
+ledgers; the title-page banner was scoped to what the page itself discloses; the
+Navier--Stokes framing was retired in two chapters; and
+Chapter~\ref{ch:timeless-field} gained the local-net result that the substrate
+does deliver, with four numbered refusals of what it does not.
+
+\noindent\textbf{Two errors made during the repair itself.} Recording these is the
+point of the entry.
+\begin{itemize}
+\item A figure placed on the title page was taken from a gate sweep that had
+been superseded the following day because one of its criteria was broken. The
+figure was flattering by roughly eight percentage points. It stood for about an
+hour before being corrected, and the tool that supplied it --- which still read
+the superseded file --- was fixed so it cannot select a stale source again.
+\item A claim that a formal-library lemma was absent was published in a module
+header after a search for the wrong spelling. The lemma existed forty-five lines
+from one that had been cited correctly. A grep's silence is a fact about the
+grep.
+\end{itemize}
+
+\noindent Scope of this entry. It records practice, not mathematics: no
+theorem, no $\alpha$-value, and no Millennium status changes anywhere in it. The
+Clay problems open before this audit are open after it. What changed is which
+layer of this project is allowed to report status.
