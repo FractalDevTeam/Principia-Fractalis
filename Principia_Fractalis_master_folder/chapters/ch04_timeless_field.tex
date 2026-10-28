@@ -597,7 +597,13 @@ exactly the wall the previous subsection describes. Covariance requires a group
 acting on the sites, and for the full substrate that is the
 $\text{Aut}(\mathcal{T}_\infty)$ classification already recorded as open. So the
 net route does not evade the chapter's open problem; it \emph{localises} it, to
-one axiom out of six, and leaves the other five unconditional.
+one axiom out of six, and leaves the other five unconditional. Read precisely:
+what collapses at Theorem~\ref{thm:spacetime-emergence} is the
+\emph{trace-preserving} quotient $\mathrm{Aut}/\mathrm{Aut}_0$, because $\tau$
+is the unique tracial state; $\mathrm{Inn}(\mathcal{T}_\infty)$ is
+machine-verified nontrivial (r334) and $\mathrm{Out} =
+\mathrm{Aut}/\mathrm{Inn}$ is untouched by those results. Covariance is blocked
+on an open \emph{classification}, not on a proved obstruction.
 \item \textbf{Completeness for an infinite site set is open}, neither proved nor
 refuted. Deciding it needs a free-basis theorem for infinite-index tensor
 products, which does not exist in the formal library at the pin used here. The
@@ -606,9 +612,41 @@ the algebraic tensor product contains elements differing from the identity at
 infinitely many sites, which no finite product of one-site observables reaches
 --- but that expectation is a conjecture and nothing above depends on it. The
 standard remedy is to pass to the C*-inductive limit, where completeness holds
-by construction; that object is likewise not expressible at this pin.
-\item \textbf{Both open items terminate at the same obstruction:} the
-C*-inductive limit of the finite-region algebras. One wall, not two.
+by construction.
+\item \textbf{On the carrier the framework actually uses, completeness now
+holds (2026-10-28).} Two carriers must be kept apart here. The item above
+concerns $\bigotimes_{i \in \iota} M_3$ for infinite $\iota$, which is
+untouched. On $\mathcal{T}_\infty$ itself --- the inductive limit of the
+matrix tower, which is what the framework uses --- \texttt{substrate\_completeness}
+(\texttt{PF/TernaryNetInfiniteCompleteness\_r359.lean}, r359) proves that every
+$z \in \mathcal{T}_\infty$ is the image of an element of the region algebra of a
+\emph{finite} site set $\mathrm{Fin}\,k$: the substrate is exhausted by the local
+algebras of finite regions, which is completeness in the inductive-limit sense.
+The step is that $\mathcal{T}_\infty$ is a quotient of $\Sigma_k\, M_{3^k}$, so
+every element already lives at a finite stage, where the finite-$\iota$ case of
+Theorem~\ref{thm:ternary-net-axioms} applies. r359 carries a
+\texttt{scope\_tensor\_carrier\_untouched} marker to record that it does
+\emph{not} settle the tensor-carrier question, and it must not be cited as
+doing so.
+\item \textbf{What makes that available is the net--tower bridge.} r357--r358
+prove that the ternary net \emph{is} the matrix tower: \texttt{netAlgEquivLevel}
+is an \textbf{algebra} isomorphism $\mathcal{N}(k) \simeq M_{3^k}(\mathbb{C})$,
+not merely a linear one (\texttt{PF/TernaryNetMatrixAlgBridge\_r358.lean}). The
+two descriptions of a region's observables --- generated subalgebra of the net,
+and matrix level of the tower --- are the same object, so results transport
+between them.
+\item \textbf{What remains open is narrower than this entry previously
+stated.} Until 2026-10-28 this read that both open items terminate at the
+C*-inductive limit, ``one wall, not two'', and that the limit is not
+expressible at the pin used here. \textbf{That is withdrawn as wrong}: the
+metric completion of $\mathcal{T}_\infty$ is constructed in this corpus and
+carries a mathlib-native \texttt{CStarAlgebra} instance
+(\texttt{instCStarAlgebraTimelessFieldCompletion}, r54--r59,
+\texttt{PF/SubstrateTimelessFieldCompletion.lean}), exactly as this chapter's
+own formalization inventory above states. The open questions are therefore two
+separate and narrower ones --- completeness on the \emph{completion} rather
+than on the algebraic limit, and the infinite-index tensor free basis --- and
+neither is blocked on the existence of the C*-algebra.
 \end{itemize}
 
 \noindent Prior to this entry the manuscript contained no treatment of emergent
