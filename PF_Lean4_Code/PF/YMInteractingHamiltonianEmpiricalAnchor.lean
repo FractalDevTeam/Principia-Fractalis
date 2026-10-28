@@ -29,7 +29,11 @@ connects Wave 55C's structural object to the IBM-Quantum empirical
 anchor stack. Specifically:
 
 * `evidence_base_audit.md §4` (IBM 143-problem CSV reanalysis):
-  **8 problems cluster at peak_alpha = 2.0000**, matching α_YM.
+  **8 problems lie within ±0.05 of peak_alpha = 2**, of which exactly one
+  (Casimir Force Optimization) is `2.0000` to four decimals. Counted directly
+  against both copies of the CSV on 2026-10-28. The source note's figure at
+  `evidence_base_audit.md:199` is a ±0.05 window count, and is recorded here
+  as a window count rather than as a four-decimal match.
 * `evidence_base_audit.md §3 Anchor 1+3` records the 2-context IBM
   empirical evidence pattern (RH peak 1.5 EXACT, NP peak 1.868 to 4
   decimals) that we mirror here for α_YM at the structural-coincidence
@@ -150,8 +154,9 @@ The framework encodes the YM canonical α-value in two independent places:
   (Wave 37B 9-class IBM-empirical-anchor α-table, indexed by `Fin 9`).
 
 Both reduce to the same rational `(2 : ℝ)`. The IBM empirical evidence
-for this value is the 8-problem cluster at `peak_alpha = 2.0000` in the
-143-problem CSV (`evidence_base_audit.md §4`). -/
+for this value is the 8-problem ±0.05 window around `peak_alpha = 2` in the
+143-problem CSV (`evidence_base_audit.md §4`), of which one row is exactly
+`2.0000`. -/
 
 /-- **(A1) α_YM = 2 canonical value** (Wave 22 cross-Millennium catalogue). -/
 theorem alpha_YM_canonical_value : α_YM = 2 := by
