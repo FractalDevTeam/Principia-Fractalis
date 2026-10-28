@@ -17,6 +17,17 @@ The result, `substrateModularAut`, is a **ring endomorphism of
 automorphism. It is the first object in this corpus that is an automorphism of
 the substrate *constructed from a dynamics* rather than classified abstractly.
 
+## ⚠ VACUITY FINDING — this automorphism is the IDENTITY
+
+`r369` (`TowerCompatibleIsScalar_r369.lean`) proves that `TowerCompatible`
+admits only scalar weights, and hence that **`substrateModularAut` below is the
+identity map on `T_∞`** (`substrateModularAut_eq_id_of_towerCompatible`). The
+construction and every proof in this file are correct; the hypothesis feeding
+them is too strong to admit anything else.
+
+The descent machinery here is **reusable unchanged** — see r369's header for the
+product-type replacement. What has to change is the hypothesis, not the lift.
+
 ## What is proved
 
 * `substrateLevelToTimelessField_eq_of` — the project's level embedding is
