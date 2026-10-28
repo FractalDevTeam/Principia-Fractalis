@@ -2,6 +2,124 @@
 
 **Updated:** 2026-10-28 · **Owner:** Legion session (march ownership, pipeline, research)
 
+## 2026-10-28 LATE — THE KMS BUILD (r363–r366), and the submitted paper's core REVERIFIED
+
+### ⚠ READ FIRST: the trace UHF chain is independently verified
+
+Pablo has **submitted a paper on trace UHF to the Journal of Automated
+Reasoning**. Its formal core was therefore rebuilt from source on Legion — a
+second machine, different OS and architecture, mathlib pin verified to match
+Acer rev for rev before use.
+
+**Build completed successfully, 3266 jobs, 0 errors, 0 `sorryAx`, 0
+`native_decide`, 0 `ofReduceBool`.** Every headline declaration on
+`[propext, Classical.choice, Quot.sound]`:
+
+| declaration | file |
+|---|---|
+| `substrate_UHF_trace_unique` | `SubstrateTraceUniqueness.lean:300` |
+| `uhf_trace_isTracialState` | `SubstrateTraceUniqueness.lean:301` |
+| `UHF_trace_faithful` | `SubstrateCompletionFaithful.lean:440` |
+| `UHF_trace_faithful_of_simple` | `SubstrateUHFTraceNullIdeal.lean:371` |
+| `UHF_trace_faithful_of_traceDetects` | `SubstrateCompletionSimplicity.lean:622` |
+| `substrate_completion_simple_unconditional` | `SubstrateCompletionFaithful.lean:445` |
+| `T_infinity_rigidity` | `SubstrateRigidity.lean:1600` |
+
+This is the first time that chain has been reproduced **off Acer**. For a
+formalization venue that is the relevant claim: the artifact builds clean on a
+machine that never built it before, from committed sources, at a pinned
+toolchain.
+
+**Scope note, stated so nobody misreads the TOE pricing against the paper.**
+`codex/TOE_GATE_PRICED_2026-10-28.md` concludes that the σ-**dictionary** is
+saturated. That document concerns the *empirical bridge* (labelled EMPIRICAL
+HYPOTHESIS from the start in `THE_MAP`), and it explicitly records that the
+proven foundation — rigidity, trace uniqueness, faithfulness, simplicity, the
+K-theoretic obstruction, the ℤ[1/3] law — stands untouched. **Nothing in gate
+(B)'s saturation reaches the trace UHF result.** Do not cite the one against
+the other.
+
+### The KMS build: four files, finite level complete
+
+Gate (A) of `THE MAP` §5 needs a dynamics / KMS state on `T_∞`, measured at
+**0 files in PF and 0 in mathlib**. Started on Pablo's directive. All four on
+the three-axiom bar, verified on Legion.
+
+| | content |
+|---|---|
+| **r363** `fded89c0` | the KMS identity `ω_X(ab) = ω_X(b σ_X(a))`; and **`modularAut_of_scalar`** — a scalar weight generates the *identity* automorphism |
+| **r364** `a0031c0f` | `PosDef` weight ⟹ a genuine **state**: unital, positive, KMS (`gibbs_kms_state`) |
+| **r365** `83aeb4da` | **`posDef_exp_of_isHermitian`** — absent from mathlib; so `exp(-βH)` is a weight and the Gibbs KMS state exists at **every** β |
+| **r366** `663058b9` | **`modularAut_eq_heisenbergFlow_imaginaryTime`** — the modular automorphism IS the real-time flow at imaginary time `iβ`. The KMS condition proper |
+
+**Why finite level is the right place to start, and not a toy.** `T_∞` is the
+inductive limit of `M_{3^k}` and r359 proves every element already lives at a
+finite level, so every level of the substrate *is* a matrix algebra. And in
+finite dimensions `exp(cH)` is entire in `c`, so the whole analytic apparatus of
+KMS — strong continuity, analytic elements, strip boundary conditions — is
+unnecessary and the identification is bare computation. That is exactly why
+this stretch was cheap and why the tower limit will not be.
+
+**The arc closes on the trace.** Three facts now agree, from three directions:
+`modularAut_of_scalar` (r363) says a scalar weight gives the identity;
+`gibbsWeight_zero` (r365) says the weight at `β = 0` *is* scalar;
+`modularAut_gibbsWeight_zero` (r366) says the identification degenerates to the
+identity there. **So the substrate's unique tracial state sits at `β = 0`,
+generates no dynamics, and the KMS family moves off it exactly as `β` moves off
+zero.** `THE MAP` §0 asserted that in prose; it is now proved. This is the
+structural reason gate (A) requires a non-tracial state — and it means the KMS
+work and the submitted paper's subject are the *same object* seen at different
+temperatures.
+
+### One mathlib candidate fell out
+
+`posDef_exp_of_isHermitian` — "`H` Hermitian ⟹ `exp H` positive definite" — is
+**not in mathlib** (measured: `IsHermitian.exp` gives only Hermitian; `PosDef`
+of an exponential returns nothing). Proved without the spectral theorem:
+`exp A = (exp(A/2))²` via `Matrix.exp_nsmul`, `exp(A/2)` is Hermitian so that
+square is `SᴴS` hence PosSemidef, `exp` is always a unit
+(`Matrix.isUnit_exp`), and PosSemidef + unit = PosDef. Halving is the whole
+trick. Clean and general; a reasonable upstream contribution. **Submission is
+Pablo's call and Pablo's keyboard** — nothing drafted.
+
+### Practical notes for whoever extends the KMS files
+
+* `NormedSpace.exp_add_of_commute` is **not** usable on matrices: it needs
+  `NormedRing`/`NormedAlgebra`/`CompleteSpace`, which mathlib keeps behind
+  **scoped** instances because no matrix norm is canonical. Use the
+  **matrix-namespace** versions (`Matrix.exp_nsmul`,
+  `Matrix.exp_add_of_commute`, `Matrix.isUnit_exp`), which carry the instance
+  choice internally. `Matrix.exp_add_of_commute` takes its two matrices
+  **explicitly**, and with both `Matrix` and `NormedSpace` open the bare name is
+  **ambiguous**.
+* `𝕂` is explicit on the `Matrix` exponential lemmas — `hH.exp (𝕂 := ℂ)`.
+* `open scoped ComplexOrder` does not cross an import; repeat it wherever
+  `0 ≤ z` on `ℂ` or `Matrix.PosSemidef` is used.
+
+### An error of mine, recorded
+
+My first draft of r362 claimed `wilsonBaseMeasure_integral_split` existed
+nowhere in the tree. **False** — it is at
+`WilsonSectorMeasureSplit_2026_10_20.lean:104`. The sweep behind the claim was
+truncated at 12 results and the hit was past the cut. The compiler caught it
+("already been declared") before it reached a commit. **A truncated sweep is not
+an absence.** Any absence claim in this corpus is unproven until the sweep is
+shown untruncated.
+
+### Still open on the KMS line
+
+Step 5 is the tower: product-type dynamics on `M_{3^k}` compatible with the
+inductive limit, then a non-tracial KMS state on `T_∞` itself. Step 6 (GNS +
+Murray–von Neumann type classification, the Connes-invariant route) is priced
+at **mathlib-scale**: `GNS` is absent (the 246 grep hits are substrings of
+"signs"/"assigns" plus `SobolevInequality`'s Gagliardo–Nirenberg–Sobolev, a
+different GNS entirely), `IsFactor` likewise absent (hits are substrings of
+"satisfactory"), `Connes` 0 files. `VonNeumannAlgebra H` exists as a structure
+with essentially no theory. Steps 2–5 may suffice for gate (A), since `THE MAP`
+§5(A) asks for *spectral data*, not a type classification.
+
+---
+
 ## 2026-10-28 — r361 LANDED: `hΦ_integrable` DISCHARGED, and the Legion lane is live again
 
 ### r361 — one of the two remaining RP hypotheses is gone
