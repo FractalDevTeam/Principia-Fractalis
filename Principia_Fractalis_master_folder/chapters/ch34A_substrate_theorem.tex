@@ -304,9 +304,24 @@ The following eleven identities hold simultaneously:
 \end{align}
 These eleven invariants are NOT eleven independent facts: each
 follows from the rigidity skeleton (A2) plus
-$\alpha_{\text{Hodge}} = \varphi$, $\alpha_{\text{NS}} = 2$,
-$\alpha_{\text{BSD}} = 1$, $\alpha_{\text{NP}} = \varphi + 1/4$,
-and $\alpha_{\text{QG}}^2 = 2\pi$. They are bundled
+$\alpha_{\text{Hodge}} = \varphi$, $\alpha_{\text{BSD}} = 3\pi/4$,
+$\alpha_{\text{NP}} = \varphi + 1/4$,
+and $\alpha_{\text{QG}}^2 = 2\pi$ --- with
+$\alpha_{\text{NS}} = 3\pi/2$ following from
+$\alpha_{\text{NS}} = 2\alpha_{\text{BSD}}$ rather than being supplied
+separately.%
+\manuscriptcorrection{\textbf{Two stale numerals corrected 2026-10-28.} This
+sentence previously named $\alpha_{\text{NS}} = 2$ and
+$\alpha_{\text{BSD}} = 1$, which contradict both this chapter's own
+$\alpha$-table and \texttt{PF/CrossMillenniumSharedInvariants.lean}, where the
+canonical values are $3\pi/2$ and $3\pi/4$. They are most likely survivors of
+the table version in which Navier--Stokes read $5/3$, corrected on 2026-10-07
+(Chapter~\ref{ch:constants}). Correcting them also removes a redundancy the
+stale pair concealed: once $\alpha_{\text{BSD}}$ is given,
+$\alpha_{\text{NS}}$ is not an independent input but a consequence of the
+invariant $\alpha_{\text{NS}} = 2\alpha_{\text{BSD}}$ listed immediately
+above, so the generating set is one item shorter than was printed. No
+$\alpha$-value changes anywhere else.} They are bundled
 because the framework's structural content is that the
 $\alpha$-values are \emph{not} algebraically independent; the
 cross-Millennium invariants make that interdependence
