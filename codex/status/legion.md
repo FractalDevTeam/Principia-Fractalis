@@ -2,6 +2,130 @@
 
 **Updated:** 2026-10-28 · **Owner:** Legion session (march ownership, pipeline, research)
 
+## 2026-10-28 — r361 LANDED: `hΦ_integrable` DISCHARGED, and the Legion lane is live again
+
+### r361 — one of the two remaining RP hypotheses is gone
+
+`17435afa`. `wilson_reflection_positivity` carried exactly two hypotheses;
+**`hΦ_integrable` is now proved rather than assumed**, and `hFubini` is the last
+one standing.
+
+r360's header named the two missing pieces, and both are supplied:
+
+1. **a boundedness hypothesis on `F`** — answered by *continuity* of `F`, which
+   is strictly what was asked: on the compact `GaugeField L` a continuous
+   function is automatically bounded, so no separate bound is carried;
+2. **measurability of the parametric integral** `U ↦ wilsonReducedPhiR β F U`,
+   "a separate problem about `Measure.pi`" — answered by recognising that `Φ` is
+   a partial Bochner integral over the `Λ_+` component, so this is *exactly* the
+   hypothesis of `MeasureTheory.continuous_of_dominated`, **and r360's own
+   bounds are its dominating function**.
+
+The chain: the glued field is continuous in each variable separately (proved
+pointwise via `gaugeFieldGluePlus_apply_plus` / `_apply_pnot`, so no
+product-topology machinery is needed) → `F` times the refined Boltzmann factor
+is continuous via r360's `wilsonActionPlusR_continuous` → that composite is
+bounded by compactness, r360's own `isCompact_range` + `IsCompact.bddAbove`
+idiom → the dominating function is a **constant**, integrable because
+`Measure.pi` of Haar probability measures is finite.
+
+`wilson_reflection_positivity_withReducedPhiR_of_continuous` is the headline
+with the hypothesis discharged. **This does not prove reflection positivity** —
+it removes one of the two assumptions under which the headline already proved it.
+
+Three errors on the way, all mine, all instructive:
+
+* `simp only [wilsonReducedPhiR_eq_integral]` "made no progress" — the lemma is
+  `rfl`, so there is nothing syntactic to rewrite, and `simp` cannot act under
+  the binder anyway. `show` is the right tool for a definitional change of goal.
+* `failed to synthesize PartialOrder ℂ` — **not** where I first assumed. I spent
+  a cycle suspecting `Integrable.mono'` and reading its signature; the real
+  cause was that `Matrix.PosSemidef` over `ℂ` needs `open scoped ComplexOrder`,
+  and **a scoped open does not cross an import**. The headline file has it; mine
+  did not. Reading the actual error line, rather than theorising about the
+  lemma, is what found it.
+* The `mono'` route was replaced anyway by
+  `Continuous.integrable_of_hasCompactSupport` + `HasCompactSupport.of_compactSpace`,
+  which is the honest statement: on a compact space continuity alone suffices.
+
+### The Legion verify lane is live and the recipe still works
+
+Tree: `D:\CLAUDE-i9\_tmp\pf-ym-rp-20261028`. The
+`infrastructure_legion_lean_verify_tree` recipe worked unchanged — junction to
+the shared prebuilt `.lake/packages` (6866 mathlib oleans), `vendor/interval`
+copied, `.lake/build` seeded (1746 PF oleans), fresh sources tarred from Acer
+with the panel directories excluded.
+
+**Compatibility was measured, not assumed**: the tree's `lake-manifest.json`
+matches Acer's rev for rev, mathlib `c205f530395b57b520d3d78d975293f0c69b65ce`
+included, on toolchain `v4.24.0-rc1`.
+
+**r360 was rebuilt there first as a control** — 2528 jobs, 0 errors, clean on
+the three-axiom bar. That is r360's **first reproduction on a second machine**;
+it had only ever been checked on Acer. r361 then built in 2563 jobs, 0 errors,
+0 `sorryAx`, 0 `native_decide`, 0 `ofReduceBool`, all nine declarations on
+`[propext, Classical.choice, Quot.sound]`.
+
+This matters for scheduling: **Lean work no longer has to queue behind the
+march.** Acer's lock is held continuously once the scheduler chains boxes, and
+it is on c=399/32 now.
+
+### The march
+
+Box **c=397/32 landed** at 03:43:37 Acer time (`8a5048a8`) — box 45 of 64,
+frontier 12.375 → 12.4375, `axiom-bar OK` on all three logs (assemble 3
+declarations, gate 4, unconditional 25). 97 modules, every one `rc=0`, peak RAM
+never above 8 GB against the 13.6 GB that OOMed it on 10-26. **The D=16 wall is
+beaten in production**, and the `fb59677d` split is what did it. The chain
+restarted on c=399/32 unattended.
+
+### Legion's system drive was at ZERO bytes free
+
+Not a research finding, but it was corrupting work silently and is worth
+recording as an infrastructure fact.
+
+`C:` was at **0.00 GB free of 951.6 GB**. It had already caused one failure: a
+source tarball streamed to `/tmp` (which is on C: under Git Bash) came back
+**empty**, and I first diagnosed that as a binary-streaming problem over ssh. It
+was not — the write had failed for lack of space. **A zero-byte output is a
+fact about the destination before it is a fact about the pipe.**
+
+Cause: `C:\ProgramData\bitmonero\lmdb\data.mdb`, **243.2 GB**, last written
+**2025-11-17** — an abandoned Monero node, `monerod` not running, log silent
+since 2026-02-20.
+
+Resolved on Pablo's explicit instruction (copy first, then delete):
+
+| step | evidence |
+|---|---|
+| copied to `D:\bitmonero` | robocopy 6/6 files, **0 FAILED**, 0 mismatch, 243.217 GB in 4:05 |
+| verified by name | all 6 files, totals identical at 261,153,000,986 bytes both sides |
+| verified by content | SHA256 `2C7782E0874D83FB1C18E1404A4E328894C08B85482B485CE445F283EBF373DD` on **both** copies |
+| source deleted | `C:` free went 0.01 GB → **243.22 GB** |
+
+One check caught itself: the first file-by-file comparison was *index*-aligned,
+so with one file not yet copied every later row shifted and three files were
+reported as mismatches that were fine. Re-run keyed by relative path, it was
+clean. **Compare by name, never by position.**
+
+Remaining bloat on `C:`, for information only — nothing here was touched:
+
+* `.elan` **30 GB** across 11 Lean toolchains. Four unused since 2025
+  (v4.24.0, v4.25.0-rc2, v4.25.1, v4.25.2) plus a `v4.31.tmp` artifact are
+  ~11.8 GB and are re-downloadable. **`v4.24.0-rc1` is the PF pin — keep it.**
+* `AppData\Local` 88.7 GB — Packages 14.4, Google 8.9, Arduino15 7.8,
+  Docker 7.3, FortniteGame 5.4, OpenClawTray 5.2, `npm-cache` 5.0 (that last is
+  safely clearable).
+* `AppData\Roaming` 48.5 GB — Propellerhead 17.6, Claude 14.3 (of which
+  `vm_bundles` 9.3), Ableton 6.9.
+* `ProgramData` now ~72 GB, essentially all audio libraries — legitimate.
+
+On `D:`: 35 PF verify trees across `_tmp` and `tmp` total only **35.9 GB**.
+Cheap, and one of them is what made tonight's verification possible — not worth
+pruning.
+
+---
+
 ## 2026-10-28 EARLY — SESSION RECOVERY, and two corrections to the 10-27 report
 
 The Legion terminal died ~02:22, immediately after `2b5fa82b` (r360). Context
