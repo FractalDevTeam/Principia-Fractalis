@@ -34,6 +34,20 @@ come along for free. The analysis only re-enters when one asks for `exp` of a
 tower-compatible generator, which needs `φ ∘ exp = exp ∘ φ` and hence
 continuity of `φ` — deliberately avoided here.
 
+## ⚠ VACUITY FINDING — read `r369` before using `TowerCompatible`
+
+`r369` (`TowerCompatibleIsScalar_r369.lean`) proves that the condition defined
+below **forces every `X k` to be a scalar multiple of the identity**, because it
+determines the whole family from `X 0`, which lives in a `1×1` matrix algebra.
+So every theorem here is correct but applies only to scalar weights — the
+tracial case, which by `modularAut_of_scalar` generates the identity
+automorphism and no dynamics.
+
+The repair is the **product-type** condition, stated in r369's header: a new
+factor at each level, `X_{k+1} = embed(X_k) · newFactor(x_k)`. The intertwining
+survives because the new factor commutes with the embedded image. The results
+below are the right shape; the hypothesis is what needs replacing.
+
 ## What is proved
 
 * `modularAutHom` — `modularAut X` bundled as a `RingHom`, using r363's
