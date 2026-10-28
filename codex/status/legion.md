@@ -1,6 +1,102 @@
 # LEGION — status
 
-**Updated:** 2026-10-27 · **Owner:** Legion session (march ownership, pipeline, research)
+**Updated:** 2026-10-28 · **Owner:** Legion session (march ownership, pipeline, research)
+
+## 2026-10-28 EARLY — SESSION RECOVERY, and two corrections to the 10-27 report
+
+The Legion terminal died ~02:22, immediately after `2b5fa82b` (r360). Context
+rebuilt from the machines, not from memory. **Nothing was lost:** `master` is
+level with `origin/master`, **0 unpushed**, and r357–r360 are all committed and
+pushed. The only untracked files in the live lane are the c=397/32 panel
+sources the running march is generating, which is their normal state.
+
+### The march is healthy and unattended-safe
+
+Box **c = 397/32** (frontier 12.375 → 12.4375), `D = 16`, started 15:13:20.
+
+| | |
+|---|---|
+| module lines | 94, **every one `rc=0`** |
+| Range | 53 done (geometry needs 52) — complete |
+| Midpoint | 40 of 44 done; `Seg41Midpoint` building now |
+| free RAM | 7–11 GB throughout, **no OOM** |
+| oleans | 109 |
+| `axiom-bar OK` | 0 so far — expected; the gate runs on the assembles at the end |
+
+Remaining: 4 midpoints (~8 min each), 4 bound modules, then the 6 assemble
+partials + final, which measured ~13 min total after the `fb59677d` split.
+The split is doing its job — this is the first D=16 box past the 10-26 OOM.
+
+`land_397.sh` → `commit_box.sh` gates the landing on `DONE` + an `axiom-bar OK`
+line, and `chain_scheduler.sh` restarts `march_run_schedule.sh` **only if the
+box lands**, proceeding to 399/32. No babysitting required.
+
+**Lock discipline:** the (e) re-gate (STILL OPEN item 1) must **not** start
+until this chain is idle. `pristine_gate.sh` now takes the shared flock
+(FLAG 4) and would either block or starve the march.
+
+### CORRECTION 1 — r359 does *not* close r354's open question
+
+The 10-27 report lists infinite-ι completeness as open, needing an infinite-index
+`PiTensorProduct` free basis (0 files). **That remains true as posed.** r359
+proves completeness on a *different carrier* — `T_∞`, the inductive limit of the
+matrix tower, which is what the framework actually uses — and says so in its own
+header: every `z : T_∞` already lives at a finite stage, where r354's
+`completeness` applies. It even carries `scope_tensor_carrier_untouched`.
+
+So: the **framework's** completeness is proved; the **tensor-carrier** question
+is untouched. Anyone citing r359 as having closed r354 is overclaiming, and the
+two carriers must not be collapsed into one sentence.
+
+Consequently the 10-25 line **"both open items terminate at the same wall: the
+C\*-inductive limit (UHF = 0 files) — one obstruction, not two"** needs re-
+measuring, not re-asserting. r358 supplies an *algebra isomorphism* between the
+net and the matrix tower, which is exactly the kind of bridge that could route
+around UHF the way r359 routed around `PiTensorProduct`. Unmeasured as of now.
+
+### CORRECTION 2 — the covariance blocker may be worse than "absent"
+
+The 10-25 entry says covariance (the sixth Haag–Kastler axiom) is "absent,
+blocked on `Aut(T_∞)` (ch04:461)". But `09d97ea0` merged r333–r336, which
+machine-check that **`Aut_0 = Aut` on `T_∞`, so the ch04:461 quotient collapses
+to a point**, with `Inn` nontriviality (r334), the idempotent trace blind
+(r335) and gauge subgroups collapsing (r336).
+
+A collapsed automorphism group is not a missing file — it is a candidate
+*obstruction* to the covariance route. **Not asserted here:** proving that
+would need its own theorem, and "the quotient collapses" is not yet "covariance
+is impossible". Flagged as the next thing to measure on that arrow.
+
+### r360 — and the two pieces the Wilson RP chain still needs
+
+r360 closes the boundedness layer both remaining reflection-positivity pieces
+depend on: the three *refined* sector actions (`wilsonActionPlusR`,
+`wilsonActionZero`, `wilsonActionMinusR`) are continuous, measurable, and their
+Boltzmann factors `exp(-β·S)` are `BddAbove` — via compact range, the same
+argument `WilsonActionContinuity` already used for the *total* action. Zero
+project axioms.
+
+It does **not** discharge `hΦ_integrable`, and names its own two next steps:
+
+1. a **boundedness hypothesis on `F`** — the headline carries
+   `supportedOnPlusZero`, which is a support condition, not a bound;
+2. **measurability of the parametric integral** `U ↦ wilsonReducedPhiR β F U`,
+   a separate `Measure.pi` problem.
+
+Those two are the live frontier of the operator-algebra/YM lane.
+
+### Housekeeping — a decoy tree on Legion
+
+`D:\Principia-Fractalis-Repo` is an **Oct-2 clone**, last fetched 2026-10-02,
+sitting on a detached HEAD at `origin/r331b-aut-quotient-collapse` with 4
+commits not on master. They are not lost (the branch is on origin) and they are
+**superseded** by the merged r333–r336 chain. Its untracked
+`VortexCavitation*` / `pf_vortex_cavitation_calc.py` files are all **present in
+the live lane**, so nothing unique lives there. It is 20 commits behind and
+contains nothing to rescue — do not mistake it for a Legion mirror of the live
+tree. Deleting it is Pablo's call, not mine.
+
+---
 
 ## 2026-10-27 — PROGRESS REPORT (15 commits; read the four FLAGS first)
 
