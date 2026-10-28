@@ -54,18 +54,30 @@ measuring, not re-asserting. r358 supplies an *algebra isomorphism* between the
 net and the matrix tower, which is exactly the kind of bridge that could route
 around UHF the way r359 routed around `PiTensorProduct`. Unmeasured as of now.
 
-### CORRECTION 2 — the covariance blocker may be worse than "absent"
+### CORRECTION 2 (self-corrected same session) — covariance is blocked on an
+### open classification, not on a proved obstruction
 
-The 10-25 entry says covariance (the sixth Haag–Kastler axiom) is "absent,
-blocked on `Aut(T_∞)` (ch04:461)". But `09d97ea0` merged r333–r336, which
-machine-check that **`Aut_0 = Aut` on `T_∞`, so the ch04:461 quotient collapses
-to a point**, with `Inn` nontriviality (r334), the idempotent trace blind
-(r335) and gauge subgroups collapsing (r336).
+My first pass at this entry said covariance "may be worse than absent" because
+r333–r336 collapse the ch04:461 quotient. **I had it imprecise, and ch04 already
+handles it correctly** — read the `manuscriptcorrection` at ch04:461 before
+repeating my version.
 
-A collapsed automorphism group is not a missing file — it is a candidate
-*obstruction* to the covariance route. **Not asserted here:** proving that
-would need its own theorem, and "the quotient collapses" is not yet "covariance
-is impossible". Flagged as the next thing to measure on that arrow.
+What collapses is the **trace-preserving** quotient `Aut/Aut_0`: `trace_preserved`
+(r333) proves every continuous unital endomorphism preserves `τ`, because r113
+made `τ_UHF` the *unique* tracial state — uniqueness is what makes the trace
+useless here. So `Aut_0 = Aut` and that quotient is one point.
+
+But the **group is not trivial**: `trace_blind_to_nontrivial_endo` (r334)
+exhibits a non-identity inner automorphism — conjugation by the unipotent unit
+`1 + E₀₁` — inducing the same trace functional. The trace is *blind*, not
+vacuous. ch04's corrected reading is `M⁴ = Aut/Inn = Out(T_∞)`, with `Inn`
+machine-verified nontrivial, and **`Out` is untouched by r333–r336 and remains
+the live candidate**.
+
+So covariance is blocked on the open *classification* of `Out(T_∞)`, which is
+what ch04 and `revision2_changes` already say. Nothing to repair there; the
+correction is to my own 02:xx wording, left visible rather than deleted because
+a stale flag sends readers down a wrong path — the §0.7 failure mode.
 
 ### r360 — and the two pieces the Wilson RP chain still needs
 
