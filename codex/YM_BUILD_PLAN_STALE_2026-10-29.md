@@ -112,3 +112,34 @@ from `sectorSwapEquiv` and must appear in the headline.
 its ingredients and was *right* about them; the gap was in the glue between
 them, which no ingredient list can show. Checking a plan's named parts against
 the tree says nothing about whether the parts compose.
+
+---
+
+## Second addendum, same day: the plan's seven tasks are all done
+
+Written when step 5 (`hFubini`) was the live frontier. It no longer is.
+
+| # | state as of end of 2026-10-29 |
+|---|---|
+| 0-4 | done (10-18 to 10-22), as this note first recorded |
+| 5 | **done** -- r380, r381, r382, r383, r384, r385 |
+| 6 | **done** -- `wilson_reflection_positivity_of_continuous` (r385) |
+
+`hFubini` is discharged. The headline carries no Fubini and no integrability
+hypothesis; it carries `Even L`, continuity, and support in `Λ_+ ∪ Λ_0`, the
+last being RP's own premise. That is short of the scoping document's "empty
+hypothesis list" phrasing, and is not claimed to meet it.
+
+Closing step 5 turned up a defect this note's first version could not have seen:
+`wilsonReducedPhiR` carries no boundary weight, so the two sides of `hFubini`
+differ by `exp(-β S_0)`. r385 proves the corrected identity and supplies
+`wilsonReducedPhiRCorrected`. The repair is additive; nothing deployed was
+weakened, and whether to restate
+`wilson_reflection_positivity_withReducedPhiR` is the author's call.
+
+**The lesson this note opened with held twice more.** It said: checking a plan's
+named parts against the tree says nothing about whether the parts compose. r380
+then found the step-4 gap was in the glue between two ingredients the roadmap
+named correctly; and r385 found the obstacle that r383 and r384 had both
+recorded as remaining -- a nested-subtype split -- never needed to be built. A
+recorded obstacle is a fact about who recorded it.
