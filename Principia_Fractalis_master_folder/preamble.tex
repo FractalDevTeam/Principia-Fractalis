@@ -224,14 +224,14 @@
 % both work cleanly.
 
 % Helper: append optional descriptive title after the default box title
-\newcommand{\pf@boxtitle}[2]{\ifx\relax#1\relax #2\else #2: #1\fi}
+\newcommand{\pfboxtitle}[2]{\ifx\relax#1\relax #2\else #2: #1\fi}
 
 % Blue Box - Definitions
 \newtcolorbox{definition}[1][\relax]{
   colback=defblue!5,
   colframe=defblue,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Definition}},
+  title={\pfboxtitle{#1}{Definition}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -243,7 +243,7 @@
   colback=thmgreen!5,
   colframe=thmgreen,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Theorem}},
+  title={\pfboxtitle{#1}{Theorem}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -255,7 +255,7 @@
   colback=exampleyellow!10,
   colframe=exampleyellow!80!black,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Example}},
+  title={\pfboxtitle{#1}{Example}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -267,7 +267,7 @@
   colback=warnred!5,
   colframe=warnred,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Warning}},
+  title={\pfboxtitle{#1}{Warning}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -279,7 +279,7 @@
   colback=histpurple!5,
   colframe=histpurple,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Historical Context}},
+  title={\pfboxtitle{#1}{Historical Context}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -290,7 +290,7 @@
   colback=histpurple!5,
   colframe=histpurple,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Historical Note}},
+  title={\pfboxtitle{#1}{Historical Note}},
   breakable,
   enhanced,
 }
@@ -306,7 +306,7 @@
   colback=level1green!15,
   colframe=level1green!80!black,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Understanding Intuitively}},
+  title={\pfboxtitle{#1}{Understanding Intuitively}},
   breakable,
   enhanced,
 }
@@ -316,7 +316,7 @@
   colback=cyan!5,
   colframe=cyan!60!black,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Key Idea}},
+  title={\pfboxtitle{#1}{Key Idea}},
   breakable,
   enhanced,
 }
@@ -326,7 +326,7 @@
   colback=orange!10,
   colframe=orange!80!black,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Try It Yourself}},
+  title={\pfboxtitle{#1}{Try It Yourself}},
   breakable,
   enhanced,
 }
@@ -336,7 +336,7 @@
   colback=gray!10,
   colframe=gray!70!black,
   fonttitle=\bfseries\Large,
-  title={\pf@boxtitle{#1}{Chapter Objectives}},
+  title={\pfboxtitle{#1}{Chapter Objectives}},
   breakable,
   enhanced,
 }
@@ -346,7 +346,7 @@
   colback=level1green!10,
   colframe=level1green!80!black,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{[L1] Level 1: Intuitive Understanding}},
+  title={\pfboxtitle{#1}{[L1] Level 1: Intuitive Understanding}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -357,7 +357,7 @@
   colback=level2yellow!10,
   colframe=level2yellow!80!black,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{[L2] Level 2: Technical Details}},
+  title={\pfboxtitle{#1}{[L2] Level 2: Technical Details}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -368,7 +368,7 @@
   colback=level3red!10,
   colframe=level3red!80!black,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{[L3] Level 3: Research \& Verification}},
+  title={\pfboxtitle{#1}{[L3] Level 3: Research \& Verification}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -380,7 +380,7 @@
   colback=level3red!10,
   colframe=level3red!80!black,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{[L3] Advanced Topic}},
+  title={\pfboxtitle{#1}{[L3] Advanced Topic}},
   breakable,
   enhanced,
 }
@@ -395,7 +395,7 @@
   colback=thmgreen!5,
   colframe=thmgreen,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Note}},
+  title={\pfboxtitle{#1}{Note}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -406,7 +406,7 @@
   colback=histpurple!5,
   colframe=histpurple,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Conjecture}},
+  title={\pfboxtitle{#1}{Conjecture}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -418,7 +418,7 @@
   colback=cyan!5,
   colframe=cyan!60!black,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Protocol}},
+  title={\pfboxtitle{#1}{Protocol}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -430,7 +430,7 @@
   colback=orange!5,
   colframe=orange!80!black,
   fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Open Problem}},
+  title={\pfboxtitle{#1}{Open Problem}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
@@ -442,47 +442,47 @@
 % Each delegates to a tcolorbox styled like the closest semantic kin.
 \newtcolorbox{construction}[1][\relax]{
   colback=defblue!5, colframe=defblue, fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Construction}}, breakable, enhanced,
+  title={\pfboxtitle{#1}{Construction}}, breakable, enhanced,
   before skip=10pt plus 2pt, after skip=10pt plus 2pt,
 }
 \newtcolorbox{comparison}[1][\relax]{
   colback=gray!10, colframe=gray!70!black, fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Comparison}}, breakable, enhanced,
+  title={\pfboxtitle{#1}{Comparison}}, breakable, enhanced,
   before skip=10pt plus 2pt, after skip=10pt plus 2pt,
 }
 \newtcolorbox{observation}[1][\relax]{
   colback=cyan!5, colframe=cyan!60!black, fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Observation}}, breakable, enhanced,
+  title={\pfboxtitle{#1}{Observation}}, breakable, enhanced,
   before skip=10pt plus 2pt, after skip=10pt plus 2pt,
 }
 \newtcolorbox{chapterabstract}[1][\relax]{
   colback=gray!5, colframe=gray!60!black, fonttitle=\bfseries\Large,
-  title={\pf@boxtitle{#1}{Chapter Abstract}}, breakable, enhanced,
+  title={\pfboxtitle{#1}{Chapter Abstract}}, breakable, enhanced,
   before skip=10pt plus 2pt, after skip=15pt plus 2pt,
 }
 \newtcolorbox{experiment}[1][\relax]{
   colback=orange!10, colframe=orange!80!black, fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Experiment}}, breakable, enhanced,
+  title={\pfboxtitle{#1}{Experiment}}, breakable, enhanced,
   before skip=10pt plus 2pt, after skip=10pt plus 2pt,
 }
 \newtcolorbox{principle}[1][\relax]{
   colback=defblue!5, colframe=defblue, fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Principle}}, breakable, enhanced,
+  title={\pfboxtitle{#1}{Principle}}, breakable, enhanced,
   before skip=10pt plus 2pt, after skip=10pt plus 2pt,
 }
 \newtcolorbox{mechanism}[1][\relax]{
   colback=cyan!5, colframe=cyan!60!black, fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Mechanism}}, breakable, enhanced,
+  title={\pfboxtitle{#1}{Mechanism}}, breakable, enhanced,
   before skip=10pt plus 2pt, after skip=10pt plus 2pt,
 }
 \newtcolorbox{heuristic}[1][\relax]{
   colback=exampleyellow!10, colframe=exampleyellow!80!black, fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Heuristic}}, breakable, enhanced,
+  title={\pfboxtitle{#1}{Heuristic}}, breakable, enhanced,
   before skip=10pt plus 2pt, after skip=10pt plus 2pt,
 }
 \newtcolorbox{evidence}[1][\relax]{
   colback=thmgreen!5, colframe=thmgreen, fonttitle=\bfseries,
-  title={\pf@boxtitle{#1}{Evidence}}, breakable, enhanced,
+  title={\pfboxtitle{#1}{Evidence}}, breakable, enhanced,
   before skip=10pt plus 2pt, after skip=10pt plus 2pt,
 }
 % `prop` is sometimes used in chapters as shorthand for proposition;
