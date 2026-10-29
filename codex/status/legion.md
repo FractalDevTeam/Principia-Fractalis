@@ -2843,3 +2843,66 @@ the only real index work left in the chain.
 2026-10-22 board. Acer is in fact on the Riemann panel march; the last nine
 commits touching `PF/YangMills/` are Legion's. No collision, nothing
 overwritten, but Acer's board wants a refresh and the ownership call is Pablo's.
+
+## YM: hFubini discharged, 2026-10-29 (Legion) -- r385 closes the lane's analytic debt
+
+`r385` `73f8a65b`. Eleven declarations, all on
+`[propext, Classical.choice, Quot.sound]`, no sorry, zero linter warnings. Full
+`lake build`: 2583 jobs, completed successfully on the Legion verify tree.
+
+**`hFubini` is discharged**, and with it the two hypotheses that stood in for
+unfinished work. `wilson_reflection_positivity_of_continuous` carries **no
+Fubini hypothesis and no integrability hypothesis**.
+
+What it does carry, said plainly: `Even L`; continuity of the test functions;
+and their support in `Λ_+ ∪ Λ_0`. The support condition is reflection
+positivity's own premise -- the statement is false without it. `Even L` is a
+genuine lattice restriction. So this does **not** meet the scoping document's
+"empty hypothesis list" phrasing and is not claimed to; I named the theorem
+`_of_continuous` rather than `_unconditional` for exactly that reason.
+
+### The boundary-weight finding resolved
+
+r383 predicted and r384 isolated a missing `exp(-β S_0)`. r385 proves the
+identity with it:
+
+    ∫ star(F_i(θU)) · F_j(U) dμ_Gibbs
+      = ∫ exp(-β S_0 U) · star(Φ_R β F_i U) · Φ_R β F_j U dμ_base
+
+So the discrepancy was real, and it was a defect in the **placement** of the
+boundary weight, not in the mathematics. `Φ_i := exp(-β S_0 / 2) · Φ_R β F_i`
+makes the two half-weights reassemble `exp(-β S_0)`, and `hFubini` then holds in
+its exact deployed shape.
+
+**Still not claimed:** that `hFubini` with `Φ := Φ_R` is false. That would
+additionally require `S_0 ≡ 0`, which is not settled here. Per the standing rule
+an impossibility needs its own theorem. `wilson_reflection_positivity_withReducedPhiR`
+is left exactly as it stands, untouched and unweakened; the repair was additive.
+
+### The nested split was avoidable
+
+r383 and r384 both named a `¬Λ_- ≃ Λ_+ × Λ_0` nested-subtype split as the
+remaining work. It is not needed. An integral over the `¬Λ_-` component of a
+function **blind** to `Λ_-` equals that function's integral over the whole base
+measure -- split the base over `Λ_-` and the inner integral is a constant
+against a probability measure. That returns a subtype integral to the full base
+measure, where the already-landed `Λ_+` split applies directly. The two splits
+compose through the full space instead of nesting.
+
+Worth keeping: twice in this run the recorded "remaining obstacle" was harder
+than the actual one. r380 found the gap was not in the roadmap's ingredient list
+but in the glue between the ingredients; r385 found the obstacle both previous
+files had named did not have to be built at all.
+
+### Also landed, both absent from the tree and both needed
+
+* `restrictNonPlus_gaugeFieldGluePlus` -- the plus-side glue round trip;
+* `wilsonActionZero_congr_of_zero` -- `S_0` reads only `Λ_0`, sharper than
+  r382's `Λ_-`-blindness, and the sharper form is what `Λ_+`-blindness needs.
+
+### Lane state
+
+The 10-17 audit's seven-task build order is **complete**. Its acceptance target
+for the lane is reached modulo the three hypotheses listed above. The next steps
+(transfer matrix, thermodynamic limit, spectral gap) are separately scoped and
+untouched -- and nothing here is a mass gap or any Clay statement.
