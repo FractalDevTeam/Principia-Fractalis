@@ -695,9 +695,68 @@ neither is blocked on the existence of the C*-algebra.
 \end{itemize}
 
 \noindent Prior to this entry the manuscript contained no treatment of emergent
-locality, and the formal corpus contained none either. What is claimed is five
-of the six structural axioms of a local net, uniformly across the tower, machine
+locality, and the formal corpus contained none either. What is claimed is
+\textbf{all six} structural axioms of a local net --- five from
+Theorem~\ref{thm:ternary-net-axioms}, uniformly across the tower, and
+covariance from r375 for the site-permutation group --- every one machine
 checked. What is not claimed is spacetime.
+
+\paragraph{Addendum, 2026-10-29 --- a dynamics and a non-tracial state on
+\texorpdfstring{$\mathcal{T}_\infty$}{T-infinity} (r363--r379).}
+The substrate supplies no time evolution: §0 of the substrate-to-observable map
+records that the modular group of a trace is trivial, so $(\mathcal{T}_\infty,
+\tau)$ determines no dynamics. That obstruction is now a \emph{theorem} rather
+than a remark, and a dynamics has been built around it. Status labels follow the
+project's four-label ledger; every item below is \textbf{PROVEN
+(kernel-verified)} on $[\texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound}]$ with no \texttt{sorry} and no \texttt{native\_decide},
+built and checked on a second machine.
+
+\begin{itemize}
+\item \textbf{A trace generates no dynamics} (r363). For an invertible weight
+$X$, conjugation $\sigma_X$ satisfies the KMS identity
+$\omega_X(ab) = \omega_X(b\,\sigma_X(a))$; and
+\texttt{modularAut\_of\_scalar} proves that a \emph{scalar} weight generates
+the identity automorphism. The prose claim is discharged.
+\item \textbf{The Gibbs state exists at every inverse temperature} (r364--r366).
+A positive-definite weight gives a unital, positive functional satisfying the
+KMS identity; $\exp(-\beta H)$ is such a weight for every Hermitian $H$ and
+every real $\beta$; and the modular automorphism is the real-time flow continued
+to imaginary time $i\beta$ --- which is what makes the identity KMS rather than
+a bare conjugation relation.
+\item \textbf{One condition was found vacuous, and repaired} (r369--r371). The
+first tower-compatibility condition tried forced every weight to be a scalar
+multiple of the identity, hence the trace, hence the identity automorphism ---
+machine-checked, and recorded as a defect in the definition rather than
+quietly replaced. The repair is the product-type family, one new tensor factor
+per level, which is non-scalar and positive definite with explicit witnesses.
+\item \textbf{A dynamics, a non-tracial state, and the KMS identity on
+$\mathcal{T}_\infty$ itself} (r372, r377--r379). The level-wise modular
+automorphisms descend to a ring automorphism of $\mathcal{T}_\infty$; the level
+states are compatible with the tower, because the new factor's trace cancels
+between numerator and denominator; the limit functional is constructed, unital,
+level-wise positive, and \textbf{not tracial}; and
+$\Omega(AB) = \Omega(B\,\Sigma A)$ holds for all $A, B \in
+\mathcal{T}_\infty$.
+\end{itemize}
+
+\noindent \textbf{What this does not establish, stated at the same strength.}
+(i) It does \emph{not} contradict the uniqueness of the tracial state
+(r113): that is a theorem about \emph{tracial} states, and $\Omega$ is not
+one. The unique tracial state remains unique and remains kernel-clean.
+(ii) $\Omega$ is not shown to be a state in the full $C^*$ sense --- unital and
+level-wise positive are proved, positivity on all of $\mathcal{T}_\infty$ is
+not --- and it lives on the algebraic limit, not the completion.
+(iii) Whether the descended automorphism is \emph{non-identity as a map}
+remains conditional on injectivity of the level embedding, which mathlib's
+direct-limit API does not supply.
+(iv) \textbf{Most importantly:} the substrate-to-observable map asks for a
+dynamics \emph{whose spectral data forces the physical dictionary}. Nothing
+here computes a spectral datum, and nothing connects this KMS pair to the
+$\alpha$-skeleton. The \emph{object} that was wanted now exists; the
+\emph{derivation} it was wanted for does not follow. That distance is the whole
+remaining content of the question, and this addendum narrows the gap by exactly
+one object and no inches of inference.
 
 \subsection{Force Unification}
 
