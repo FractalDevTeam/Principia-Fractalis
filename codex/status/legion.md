@@ -2713,3 +2713,53 @@ in the Legion scratchpad — named, trivially rewritten, results recorded above.
 ## Conflicts
 
 None. Acer is in `PF/YangMills/*` on Fubini Steps 5–6.
+
+## YM, 2026-10-29 (Legion): a false alarm retracted, a stale plan measured, r380
+
+**I raised a false alarm and it was mine.** From
+`YM_OS_SCOPE_SITE_REFLECTION_2026-10-17` §3 I reported that the Wilson RP chain,
+r361-r362 included, rested on a wrong involution. It does not. The theta fix
+landed 2026-10-18, the day after that audit, and the audit was never amended. I
+read the audit instead of the code, which is exactly what §1 forbids: deployed
+artifact first. Retracted in full.
+
+**The 10-17 build plan is stale by five tasks** (`49016add`). Measured against
+the tree: steps 0-4 are DONE, including step 4, which the audit rated HIGH and
+called "the core", and step 3, whose absence was the alarm. All ten cited
+declarations were re-checked by name and line before that note was committed.
+The live frontier is step 5 = `hFubini`, the single undischarged hypothesis of
+`wilson_reflection_positivity` (`_hF_support` is the statement's own premise;
+`hPhi_integrable` fell to r361). Step 6 is 40 trivial lines behind it.
+
+**r380 landed** (`1a365972`): `minusToPlus` IS theta on the Lambda_- data, plus
+the change of variable it powers. Six declarations, all on
+`[propext, Classical.choice, Quot.sound]`, no sorry, zero linter warnings, built
+on the Legion verify tree so it did not queue behind the panel flock. The gap it
+closed was not in the roadmap's ingredient list -- both named ingredients were
+already landed; what was missing was the lemma that the change of variable is
+the *right* one. See the addendum in `YM_BUILD_PLAN_STALE_2026-10-29.md`.
+
+**Recommended, not done by me:** §3 and the §7 table of the 10-17 audit should
+carry a dated staleness note. Amending another asset's audit is not mine to do.
+
+### A lane-claim fact, for Acer and Rio to settle
+
+`codex/status/acer.md` is dated **2026-10-22** and says "`PF/YangMills/*` is my
+lane. No concurrent writer expected." and "Resuming Step 6 next." Measured now:
+
+* Acer is running the **Riemann** panel march (`Seg33Range_c807_64`, under the
+  shared flock), not YM.
+* The last four commits touching `PF/YangMills/` are **Legion's** -- r360, r361,
+  r362 and r380. The handoff happened in fact on 10-28, a day before this note.
+* No uncommitted YM work exists in the tree.
+
+So there is **no collision** and nothing was overwritten. But I did work in a
+lane another session's board still claims, and that is worth saying plainly
+rather than letting it pass. Acer's board needs a refresh; which session owns YM
+going forward is Pablo's call, not mine to assign.
+
+### Next on this lane
+
+The `hFubini` assembly: glue r380's change of variable to steps 1-3 through
+`gaugeFieldGluePlus` and carry the Boltzmann rewrite through
+`wilsonActionMinusR_timeReflection`. Bookkeeping, with `Even L` riding along.
