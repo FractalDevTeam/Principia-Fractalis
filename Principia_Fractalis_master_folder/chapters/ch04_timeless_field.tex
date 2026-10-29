@@ -603,7 +603,39 @@ what collapses at Theorem~\ref{thm:spacetime-emergence} is the
 is the unique tracial state; $\mathrm{Inn}(\mathcal{T}_\infty)$ is
 machine-verified nontrivial (r334) and $\mathrm{Out} =
 \mathrm{Aut}/\mathrm{Inn}$ is untouched by those results. Covariance is blocked
-on an open \emph{classification}, not on a proved obstruction.
+on an open \emph{classification}, not on a proved obstruction.\manuscriptcorrection{\textbf{Covariance
+is no longer absent: it is PROVED, for the site-permutation group.} Added
+2026-10-29; formalized at \texttt{PF\_Lean4\_Code/PF/KMS/NetCovariance\_r375.lean}
+(r375), kernel-clean on $[\texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound}]$. The paragraph above looks for the symmetry group
+\emph{inside} $\text{Aut}(\mathcal{T}_\infty)$, which is the right obstruction
+for the $\mathcal{M}^4 = \text{Aut}/\text{Aut}_0$ route of
+Theorem~\ref{thm:spacetime-emergence} but \emph{not} for the net. The
+Haag--Kastler covariance axiom asks for a group acting on the \emph{index} --- on
+regions --- with algebra automorphisms intertwining the two,
+$\alpha_g(\mathcal{A}(S)) = \mathcal{A}(g\cdot S)$. The net is indexed by a bare
+site set, and the group acting on a bare index set is its permutation group, which
+carries no classification problem. \texttt{sitePermAlgEquiv\_regionAlgebra} proves
+exactly that identity; \texttt{sitePermAlgEquiv\_one} and
+\texttt{\_trans} make it a genuine group action rather than a single
+automorphism, which is what the axiom requires. The one real cost was that
+mathlib's \texttt{PiTensorProduct.reindex} is \emph{linear} only, and covariance
+is a statement about subalgebras: the upgrade to an \texttt{AlgEquiv} is supplied
+in r375 by the same method r358 used for the net--tower bridge.
+\textbf{So the ternary net satisfies all six structural Haag--Kastler axioms.}
+\textbf{Three limits, and none of them is weakened by this.} (i) The group is
+$\text{Perm}(\iota)$ --- it permutes labels. It is not Poincar\'e, not Lorentz,
+not Galilean, and the first bullet of this list stands word for word: no
+spacetime is produced, no metric, no causal order, no dimension count, and
+nothing here yields $3+1$. (ii) Six of six axioms is not a physical theory; many
+structures with no physics in them satisfy this axiom list. What is established
+is that the object \emph{is} a local net --- a precondition for a geometric
+reconstruction, not the reconstruction. (iii) It does \emph{not} resolve
+$\text{Out}(\mathcal{T}_\infty)$. That classification remains open and the
+$\mathcal{M}^4$ route remains blocked exactly where the correction on
+Theorem~\ref{thm:spacetime-emergence} leaves it; r375 routes around that question
+rather than answering it. Also not claimed: that the KMS dynamics of r363--r374
+is covariant for this action.}
 \item \textbf{Completeness for an infinite site set is open}, neither proved nor
 refuted. Deciding it needs a free-basis theorem for infinite-index tensor
 products, which does not exist in the formal library at the pin used here. The
