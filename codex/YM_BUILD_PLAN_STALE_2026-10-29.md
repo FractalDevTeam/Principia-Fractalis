@@ -82,3 +82,33 @@ is proven in this repo.
 dated note that steps 0–4 landed 10-18 through 10-22, so the next reader does
 not raise the alarm I raised. **Amending another asset's audit is not mine to
 do** — this note records the measurement and the recommendation.
+
+---
+
+## Addendum, same day: r380 took step 4's structural payload
+
+Written before `r380` landed (`1a365972`). The section "The frontier, named"
+above says the remaining analytic work is step 4's change of variable. **That
+piece is now done**, and the reason it had not been done is worth recording,
+because it was not the reason the roadmap gave.
+
+The roadmap named two ingredients for step 4 and both were already landed
+(`minusToPlus_measurePreserving`, `wilsonActionMinusR_timeReflection`). What was
+missing was never named anywhere: the lemma that `minusToPlus` is not merely
+*a* measure-preserving map `Λ_- → Λ_+` but is exactly **θ's own action on the
+`Λ_-` data**. Without it the change of variable lands on the `Λ_+` Pi Haar with
+an integrand still mentioning θ, which is no progress. It is true because
+`linkTheta`, introduced for sector *counting* with a docstring saying it
+"forgets the inverse", is precisely θ's base-site half, and the forgotten
+inverse is precisely `condInvAtMinus`. Three constructions, built separately for
+separate purposes, are the same map.
+
+So the frontier moves inward: `hFubini` now needs the **assembly** of steps 1-4
+through `gaugeFieldGluePlus` plus the `exp(-β S_-) → exp(-β S_+)` rewrite, and
+that is ordinary bookkeeping rather than a missing idea. `Even L` rides along
+from `sectorSwapEquiv` and must appear in the headline.
+
+**A lesson that generalises past this lane.** The roadmap's step-4 note listed
+its ingredients and was *right* about them; the gap was in the glue between
+them, which no ingredient list can show. Checking a plan's named parts against
+the tree says nothing about whether the parts compose.
