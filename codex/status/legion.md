@@ -2763,3 +2763,83 @@ going forward is Pablo's call, not mine to assign.
 The `hFubini` assembly: glue r380's change of variable to steps 1-3 through
 `gaugeFieldGluePlus` and carry the Boltzmann rewrite through
 `wilsonActionMinusR_timeReflection`. Bookkeeping, with `Even L` riding along.
+
+## YM hFubini run, 2026-10-29 (Legion): r380-r384, and a boundary-weight finding
+
+**Where the lane stands.** `hFubini` was the single undischarged hypothesis of
+`wilson_reflection_positivity` (`_hF_support` is the statement's own premise;
+`hPhi_integrable` fell to r361). Its chain has four steps. **Step 4 is now
+closed** and the other three are assembled; what is left is one nested-subtype
+split, plus a decision that is Pablo's.
+
+Five commits, all pushed to origin, every declaration on
+`[propext, Classical.choice, Quot.sound]`, no sorry, zero linter warnings, all
+built on the Legion verify tree so none of it queued behind Acer's panel flock:
+
+* **r380** `1a365972` — `minusToPlus` IS theta on the `Lambda_-` data, plus the
+  change of variable. The roadmap named two ingredients for step 4 and was right
+  about both; the gap was the glue between them, which no ingredient list shows.
+* **r381** `debb1204` — **step 4**: the `Lambda_-` inner integral IS `star Phi`.
+  Needs only `Even L` -- no support condition, no continuity, though the
+  roadmap's sketch invokes `F`'s support.
+* **r382** `b6137895` — the `W`-side ingredients, including
+  `wilsonActionZero_congr`, which
+  `WilsonSectorRefinedGaugeDependence_2026_10_22`'s own header lists and which
+  **was declared nowhere in the tree**. Also: it needs no `Even L` (the header
+  says it does), and the obvious proof route via `no_straddling` FAILS at the
+  `L/2` boundary -- worth recording, since a reader who tried that route would
+  conclude the lemma was false.
+* **r383** `7d28782f` — the Gibbs cross-theta integral reduced to a single
+  `not-Lambda_-` integral with `Phi_R` already in the integrand. Steps 1-3
+  assembled onto step 4.
+* **r384** `4e6dc033` — theta is the **identity** on `Lambda_0`, and `Phi_R` is
+  theta-invariant.
+
+### The finding, and it needs Pablo
+
+r383's reduction, carried one step further, says the two sides of `hFubini`
+differ by exactly `exp(-beta S_0)`:
+
+    LHS  =  integral over W_0 of  exp(-beta S_0) * star(Phi_R F_i) * Phi_R F_j
+    RHS  =  integral over W_0 of                   star(Phi_R F_i) * Phi_R F_j
+
+The Gibbs weight carries three refined factors `e_+R * e_0 * e_-R`;
+`e_-R(U) = e_+R(theta U)` supplies the second `e_+R`, so both sides account for
+`e_+R` twice -- and `e_0` appears on the left and nowhere on the right, because
+`wilsonReducedPhiR` is built on `S_+R` alone. The zero sector is not empty
+(`isZeroPlaquette` wants a purely spatial plaquette at base time `0` or `L/2`,
+and `LatticeDir = Fin 4` gives three spatial directions).
+
+r384 converted the two load-bearing claims of that accounting into theorems, and
+in particular **ruled out** the rival explanation that theta scrambles the
+boundary data.
+
+**NOT claimed: that `hFubini` is false.** Per the standing rule, an
+impossibility needs its own theorem and is never inferred from a construction's
+failure to deliver. `hFubini` quantifies over `Phi`, so the question is which
+`Phi` satisfies it, and the candidate is `Phi_i := exp(-beta S_0 / 2) * Phi_R`.
+The headline `wilson_reflection_positivity` is untouched either way: it
+quantifies over `Phi` and `gramMatrix_bochner_posSemidef` takes an arbitrary
+measure. What the correction reaches is the **specialisation**
+`wilson_reflection_positivity_withReducedPhiR`, whose `Phi` carries no boundary
+weight.
+
+Nothing deployed was changed. Whether that specialisation gets restated is
+Pablo's call, not mine -- it is a deployed statement, and the no-downgrade rule
+means the move is to ADD the corrected `Phi` and prove the identity for it,
+never to weaken what stands.
+
+### The one next action
+
+The `not-Lambda_- =~ Lambda_+ x Lambda_0` sub-split, which closes the accounting
+either way (it is needed for the `Phi_j` identification whichever `Phi` is
+targeted). mathlib's `Equiv.subtypeSubtypeEquivSubtype` plus
+`MeasurableEquiv.piCongrLeft` is the route, the same shape r380 used. That is
+the only real index work left in the chain.
+
+### Lane note
+
+`codex/status/acer.md` still claims `PF/YangMills/*` as Acer's lane on a
+2026-10-22 board. Acer is in fact on the Riemann panel march; the last nine
+commits touching `PF/YangMills/` are Legion's. No collision, nothing
+overwritten, but Acer's board wants a refresh and the ownership call is Pablo's.
