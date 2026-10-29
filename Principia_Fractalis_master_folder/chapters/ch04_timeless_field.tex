@@ -565,6 +565,19 @@ $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ with no
 $[\texttt{propext}, \texttt{Quot.sound}]$.
 \end{proof}
 
+\begin{remark}[The sixth axiom is proved separately]
+Theorem~\ref{thm:ternary-net-axioms} states \emph{five} axioms because that is
+what it proves. The sixth, \textbf{covariance}, is proved in r375
+(\texttt{PF\_Lean4\_Code/PF/KMS/NetCovariance\_r375.lean}) for the
+site-permutation group $\mathrm{Perm}(\iota)$: $\alpha_g(\mathcal{A}(S)) =
+\mathcal{A}(g\cdot S)$, with $\alpha_g$ an algebra automorphism and the
+assignment $g \mapsto \alpha_g$ a group action. So the net satisfies all six
+structural Haag--Kastler axioms. See the scope discussion after this
+subsection for what that does and does not mean --- in particular it produces
+no spacetime, and it does not resolve
+$\mathrm{Out}(\mathcal{T}_\infty)$.
+\end{remark}
+
 \begin{level2}[Why locality is free here]
 For $i \neq j$ the proof of locality reduces, after one rewrite, to a pointwise
 check in $\prod_i M_3$: at slot $i$ it reads $a\cdot 1 = 1 \cdot a$, at slot $j$
