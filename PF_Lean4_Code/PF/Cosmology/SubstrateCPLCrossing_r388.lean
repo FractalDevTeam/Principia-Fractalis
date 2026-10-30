@@ -73,6 +73,37 @@ this header, matching r219's discipline.
 
 The Binet remark below is flagged as suggestive and is not used in any proof.
 
+## Addendum, 2026-10-30: this header overstated the agreement
+
+The section above calls the `0.4472` vs `0.40 ± 0.03` comparison "a genuine
+prediction/measurement pair". **That was checked on one component of the
+measurement and not the other, and the full comparison is worse for the
+ansatz.** Corrected here rather than by editing the claim away.
+
+The same `g` inversion that locates the zero at `z ≈ 0.40` also yields
+`g₀/H₀ ∈ [0.74, 1.05]`. Through r219's bridge at `a = 1`, `g₀/H₀ = 3(1 + w₀)`,
+so the ansatz **requires** `g₀/H₀ = 3(2 − φ)/2 ≈ 0.5729` — below that interval's
+floor. Equivalently the measured `g₀` implies `w₀ ∈ [−0.753, −0.650]`, and
+`−φ/2 ≈ −0.8090` is below all of it. So the ansatz matches the measured zero's
+*location* while missing the measured *amplitude*: it crosses `−1` in nearly the
+right place with the wrong slope and offset. One agreeing component was reported
+as if it were the whole comparison.
+
+Worse for the ansatz, and found the same day: PF's **own action derivation**
+(`codex/COSMOLOGY_DE_DERIVATION_2026-10-11.md`) reduces the ch08 action on its
+derived `Q = 0` branch to exponential quintessence and proves
+`w = (½φ̇² − V)/(½φ̇² + V) ≥ −1` — a register-A theorem that **forbids** phantom
+crossing outright, with `w₀ ∈ [−0.99, −0.93]`. A crossing at `z = 1/√5` is
+exactly what that theorem excludes. See r389, which records the arithmetic half.
+
+**What survives from this file.** The closed forms are theorems and stand
+unchanged: `a* = (3 − φ)/2` and `z* = 1/√5` are what the golden-ratio pair
+*forces*, exactly, and the uniqueness result stands. What does not survive is the
+reading of `1/√5` as an endorsed PF prediction in agreement with measurement. It
+is the crossing redshift of an **ansatz that PF's own derived dynamics
+excludes** — so the right use of `z* = 1/√5` is as the sharp consequence that
+makes the ansatz falsifiable, and it is already in tension on two fronts.
+
 ## Three-axiom bar
 
 Every top-level declaration prints `[propext, Classical.choice, Quot.sound]`.
