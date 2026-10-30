@@ -245,6 +245,125 @@ w_{\text{DE}}(z) = -1 + 0.15 \cdot e^{-(z/0.5)^2} \approx -1 + \epsilon(z) \cdot
 \end{equation}
 \end{proof}
 
+\subsection{The dark-energy \texorpdfstring{$\alpha$}{alpha}-row: assignment to
+the quantum-gravity class}
+\label{subsec:de-alpha-row}
+
+\begin{remark}[Added 2026-10-30. Status: the $\sigma$-values are
+machine-verified; the class assignment is a \textbf{posit}; the reading of
+$\sigma$ as a scaling exponent is an \textbf{empirical hypothesis}]
+\label{rem:de-alpha-row}
+The framework assigns each sector an $\alpha$-value and reads a physical scaling
+exponent off it through
+\begin{equation}
+\sigma(\alpha) \;=\; \log_3\bigl|\,1 + 2\cos(\pi\alpha)\,\bigr|,
+\label{eq:sigma-abscissa}
+\end{equation}
+whose exact values are kernel-verified in the formal corpus
+(\texttt{PF\_Lean4\_Code/PF/SigmaAbscissa\_r212.lean} and the r225--r239 arc).
+This remark fills that row for dark energy. Three ingredients, in the order the
+framework requires: the measured quantity, the variable it scales in, and the
+law.
+
+\paragraph{The quantity, the variable, the law.}
+Take $Q_{\text{DE}} = \rho_{\text{DE}}$ and $v = a$, with
+$\rho_{\text{DE}} \propto a^{\sigma(\alpha_{\text{DE}})}$. The standard
+parametrisation of a dark-energy fluid is
+$\rho_{\text{DE}} \propto a^{-3(1+w)}$, so the law \emph{identifies}
+\begin{equation}
+\sigma(\alpha_{\text{DE}}) = -3\,(1+w),
+\qquad\text{equivalently}\qquad
+\boxed{\,w_0 = -1 - \tfrac{1}{3}\,\sigma(\alpha_{\text{DE}})\,}
+\label{eq:w0-of-sigma}
+\end{equation}
+No freedom is taken here: $-3(1+w)$ is \emph{the} exponent of $a$ in
+$\rho_{\text{DE}}$, exactly as $n_s - 1$ is \emph{the} exponent of $k$ in the
+primordial spectrum $\mathcal{P}(k)$ of Chapter~\ref{ch:early-universe}.
+
+\paragraph{The assignment, and why this class and no other.}
+The nine $\alpha$-values exhaust the combinations the substrate permits over its
+four-element basis $\{1, \pi, \varphi, \sqrt{2}\}$, so a sector does not receive
+a fresh $\alpha$ --- it receives one by \emph{classification} into an existing
+class. Dark energy is assigned the \textbf{quantum-gravity class},
+\begin{equation}
+\alpha_{\text{DE}} \;=\; \alpha_{\text{QG}} \;=\; \sqrt{2\pi}.
+\end{equation}
+The rationale is internal to this book and discriminates between classes rather
+than being true of all of them: \textbf{the cosmological-constant mechanism of
+Chapter~\ref{ch:cosmological-constant} is already built at this $\alpha$-value.}
+Its master equation evaluates the resonance kernel at $\sqrt{2\pi}$,
+\[
+\Lambda_{\text{eff}}(\mathcal{C}) = \Lambda_0 \exp\Bigl[-\int_\Sigma d^3x\,
+  \text{ch}_2(\mathcal{C}(x))\cdot R_f(\sqrt{2\pi},|x|)\Bigr],
+\]
+and so do its weight function, its algorithm and its fine-structure prediction.
+The dark sector was constructed at the quantum-gravity $\alpha$ before this row
+was posed; the assignment makes explicit what the mechanism already assumed.
+
+\paragraph{The prediction.}
+Numerically, $\sigma(\sqrt{2\pi}) = -0.0387176$ --- a \emph{numeric} value, not
+a closed form, since $\sqrt{2\pi}$ is irrational; its \emph{sign} is
+kernel-proven (\texttt{sigma\_alphaQG\_lt\_zero}, r230), and the sign is what
+admissibility requires. Equation~\eqref{eq:w0-of-sigma} then gives
+\begin{equation}
+w_0 \;=\; -0.98709 .
+\end{equation}
+This is strictly above $-1$, hence never phantom, consistent with the
+non-phantom result this chapter already carries
+(Remark~\ref{rem:wDE-today-2026-10-03}) and with the action-level reduction of
+the field equations, whose window is $w_0 \in [-0.99,\,-0.93]$.
+
+\paragraph{What the assignment commits the framework to --- a hard link between
+two measured numbers.}
+Dark energy and quantum gravity now share one sector, hence one $\sigma$. That
+$\sigma$ is the primordial tilt $n_s - 1$ on the quantum-gravity reading and
+$-3(1+w_0)$ on this one, so the two are locked together:
+\begin{equation}
+\boxed{\,n_s - 1 \;=\; -3\,(1 + w_0)\,}
+\label{eq:tilt-w0-link}
+\end{equation}
+Both sides are independently measured, which makes this the sharpest falsifiable
+statement the $\alpha$-skeleton produces. With the value quoted in
+Chapter~\ref{ch:early-universe}, $n_s = 0.965 \pm 0.004$, it reads
+$w_0 = -0.9883 \pm 0.0013$.
+
+\paragraph{Three tensions, recorded at full strength.}
+\begin{enumerate}
+\item \textbf{It contradicts this chapter's own boxed equation of state.} The
+formula of Theorem~\ref{thm:total-dark-energy-eos} with $\epsilon(0) = 0.15$ gives
+$w_{\text{DE}}(0) = -0.85$, as this chapter's own
+Remark~\ref{rem:wDE-today-2026-10-03} establishes. The row gives $-0.98709$.
+Both cannot be the framework's value for the same quantity. \textbf{Neither is
+withdrawn here} --- that is an authorial choice between a posited
+$\text{ch}_2(z)$ profile and a posited class assignment, and it is recorded in
+the same way this chapter records its two incompatible $H_0$ values
+(Proposition~\ref{prop:h0-tension}).
+\item \textbf{It is in sharp tension with the CPL-based data.} Fits in the
+$w_0 w_a$ parametrisation prefer $w_0 \approx -0.67$; this row predicts
+near-$\Lambda$CDM. A measured $w_0$ outside roughly $[-1.00,\,-0.97]$ refutes
+the row. That is the falsification condition, stated in advance.
+\item \textbf{It puts a second observable on a row that previously had one.} The
+quantum-gravity class had one filled observable, the primordial tilt, agreeing
+with Planck at $0.86\sigma$. It now has two, and a single $\sigma$ cannot equal
+both $-0.0351 \pm 0.0042$ and $-3(1+w_0)$ with $w_0 \approx -0.67$ --- the
+latter would require $\sigma \approx -0.99$. So the assignment makes the
+framework \emph{more} exposed, not less. Whether the CPL determinations survive
+is a separate question (it has been argued that their apparent evolution is an
+artifact of holding the dark-matter mass fixed), and the framework does not get
+to assume they do not.
+\end{enumerate}
+
+\noindent \textbf{What is not claimed.} Not a derivation: the classification is
+a posit, $\alpha_{\text{QG}} = \sqrt{2\pi}$ is itself a postulate, and the
+reading of $\sigma$ as a physical scaling exponent is an untested empirical
+hypothesis. Chapter~\ref{ch:cosmological-constant}'s use of $\sqrt{2\pi}$ makes
+the assignment non-arbitrary; it does not derive it. The row is formalised at
+\texttt{PF\_Lean4\_Code/PF/Cosmology/DarkEnergyAlphaRow\_r390.lean} and
+\texttt{DarkEnergyQGClass\_r391.lean}, where the admissibility gate, the
+non-phantom consequence and the link~\eqref{eq:tilt-w0-link} are kernel-checked
+on $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{remark}
+
 \section{Hubble Parameter Evolution}
 
 \subsection{Modified Hubble Law}
