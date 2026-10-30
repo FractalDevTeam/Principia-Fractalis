@@ -457,6 +457,71 @@ k_* &= 0.05 \, \text{Mpc}^{-1} && \text{(pivot scale)}
 Nearly scale-invariant ($n_s \approx 1$) as predicted by slow-roll inflation.
 \end{defn}
 
+\begin{remark}[Added 2026-10-30: the spectral tilt as the quantum-gravity
+\texorpdfstring{$\alpha$}{alpha}-row --- one agreement, and the joint test it
+belongs to]
+\label{rem:qg-tilt-row}
+The exponent $n_s - 1$ in Definition~\ref{def:primordial-power} is a measured
+scaling exponent, which makes this spectrum the natural place to fill the
+quantum-gravity row of the framework's substrate-to-observable map. The map
+sends a sector's $\alpha$-value to the abscissa
+$\sigma(\alpha) = \log_3|1 + 2\cos(\pi\alpha)|$ of
+Eq.~\eqref{eq:sigma-abscissa}, introduced in
+\S\ref{subsec:de-alpha-row}; here $Q = \mathcal{P}_\mathcal{R}(k)$, $v = k$, and
+the law is $\mathcal{P}_\mathcal{R}(k) \propto k^{\sigma(\alpha_{\text{QG}})}$,
+so that
+\begin{equation}
+n_s - 1 \;=\; \sigma(\alpha_{\text{QG}}) \;=\; \sigma(\sqrt{2\pi}).
+\label{eq:tilt-is-sigma}
+\end{equation}
+
+\paragraph{Prediction against measurement.}
+Numerically $\sigma(\sqrt{2\pi}) = -0.0387176$. Against this chapter's own
+quoted $n_s = 0.965 \pm 0.004$, i.e.\ $n_s - 1 = -0.035 \pm 0.004$, the
+residual is $0.93\sigma$; against the Planck 2018 TT,TE,EE+lowE+lensing value
+$n_s - 1 = -0.0351 \pm 0.0042$ it is $0.86\sigma$. A red tilt ($n_s < 1$) is a
+small \emph{negative} power of $k$, which is what $\sigma(\alpha_{\text{QG}}) <
+0$ supplies --- and that sign is the one part of this row that is kernel-proven
+(\texttt{sigma\_alphaQG\_lt\_zero},
+\texttt{PF\_Lean4\_Code/PF/AlphaQGSigmaNegative\_r230.lean}). The value itself is
+\emph{numeric}, not a closed form, because $\sqrt{2\pi}$ is irrational.
+
+\paragraph{This closes the link asserted in Chapter~\ref{ch:dark-energy-expansion}.}
+Dark energy is assigned the same quantum-gravity class
+(\S\ref{subsec:de-alpha-row}), so it shares this one $\sigma$. Equation
+\eqref{eq:tilt-is-sigma} and the dark-energy reading
+$\sigma = -3(1 + w_0)$ together give the link
+\eqref{eq:tilt-w0-link}, $n_s - 1 = -3(1+w_0)$, whose two ends now both appear
+in this book: the tilt here, the equation of state there. Read forward, the
+value above fixes $w_0 = -0.9883 \pm 0.0013$.
+
+\paragraph{The joint test, stated whole --- one hit and one clear miss.}
+A single agreement is weak evidence, and a framework with several posited
+dictionaries can hit one measured number by chance; the real test is whether
+several rows agree \emph{together}. As of this writing the scoreboard is:
+\begin{center}
+\begin{tabular}{llll}
+\textbf{sector} & \textbf{observable} & \textbf{predicted $\sigma$} &
+\textbf{result} \\
+\hline
+QG & tilt $n_s - 1$ & $-0.0387$ & hit, $0.86\sigma$ \\
+NS & Kolmogorov $E(k)$ exponent & $-1.308$ & \textbf{miss}, $0.36$ off \\
+\end{tabular}
+\end{center}
+The Navier--Stokes row is recorded in Chapter~\ref{ch:navier-stokes}. \textbf{Two
+rows, one hit, one clear miss: the joint test does not support the map, and the
+lone agreement here reads more as a coincidence than a signal.} That is the
+honest verdict and it is not softened by the fact that the agreement is this
+chapter's.
+
+\noindent \textbf{Status.} The $\sigma$ closed forms are kernel-verified
+(r212--r239) and the sign here is kernel-proven; $\alpha_{\text{QG}} =
+\sqrt{2\pi}$ is an \textbf{asserted postulate}, not derived; and the reading of
+$\sigma$ as a physical scaling exponent is an \textbf{empirical hypothesis ---
+untested}. What this row buys is falsifiability: a future CMB determination of
+$n_s - 1$ outside roughly $[-0.045,\,-0.025]$ refutes it.
+\end{remark}
+
 \subsection{Linear Growth}
 
 \begin{theorem}[Linear Perturbation Growth]\label{thm:linear-growth}
