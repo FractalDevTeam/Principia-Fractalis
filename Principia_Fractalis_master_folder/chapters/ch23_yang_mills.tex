@@ -696,6 +696,73 @@ $0.8948$.) Where the digits $2.13198462$ came from could not be determined.
 
 \noindent Record: \texttt{codex/STEELMAN\_2026-08-06.md} \S6.
 
+\paragraph{Verification update (2026-10-30): Wilson reflection positivity on the
+finite lattice is now machine-checked, with no Fubini and no integrability
+hypothesis --- and the Clay gap is untouched.}
+The $\sigma$-sign ledger above lists reflection positivity among the open
+Wave~47B items. That listing is \textbf{correct and stands}: the open item is
+\emph{continuum} $SU(3)$ reflection positivity on the real field space. What has
+changed is one level below it, and the distinction is the whole content of this
+update.
+
+\begin{itemize}
+\item \textbf{PROVEN (kernel-verified)} --- Wilson reflection positivity for the
+lattice gauge theory, as
+\texttt{wilson\_reflection\_positivity\_of\_continuous}
+(\texttt{PF\_Lean4\_Code/PF/YangMills/WilsonFubiniClosed\_r385.lean}): the Gram
+matrix $\bigl[\int \overline{F_i(\theta U)}\,F_j(U)\,d\mu_\beta\bigr]_{ij}$ is
+positive semidefinite. Eleven declarations on
+$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$, no
+\texttt{sorry}, no \texttt{native\_decide}. The two hypotheses that previously
+stood in for unfinished analysis --- a Fubini identity and an integrability
+condition --- are \textbf{both discharged}.
+\item \textbf{The hypotheses that remain, stated so the result cannot be read as
+more than it is} --- gauge group $SU(2)$, \emph{not} $SU(3)$; a finite periodic
+lattice of \emph{even} side length, \emph{not} the continuum; test functions
+continuous and supported on the non-negative-time half $\Lambda_+ \cup
+\Lambda_0$. The support condition is reflection positivity's own premise, not a
+gap --- the statement is false without it. \textbf{Even side length is a genuine
+restriction} on the lattice, inherited from the sector-swap bijection, and it is
+part of the theorem.
+\item \textbf{NOT the Clay gap, and not a step toward claiming it} --- continuum
+$SU(3)$ Euclidean measure, reflection positivity on the real field space,
+Wightman reconstruction and mass-gap propagation all remain open exactly as the
+$2026$-$08$-$06$ ledger's \emph{NOT IN DISPUTE} bullet says. Lattice
+reflection positivity is the standard \emph{first} step of the
+Osterwalder--Seiler programme; the continuum limit, the group, and the gap are
+the hard remainder, and nothing here touches them.
+\item \textbf{Distinct from the Wave~57 scaffold} --- the ledger's second bullet
+already records finite-dimensional OS reflection positivity
+(\texttt{YM\_OSRPInteractionScaffold}) as closed. That is a different object:
+this result is for the Wilson action against its own Gibbs measure on the gauge
+field space, and it consumes the sector decomposition of the plaquette sum
+rather than a finite-dimensional quadratic form.
+\end{itemize}
+
+\noindent \textbf{One mathematical point worth recording, because it was a
+defect and not merely a gap.} Discharging the Fubini identity exposed that the
+reduced test function built on the refined plus-sector action carries \emph{no
+boundary weight}, while the Gibbs weight factorises into three refined pieces.
+The two sides of the identity therefore differ by exactly $\exp(-\beta S_0)$,
+the zero-sector (boundary-plaquette) factor. The repair is to attach half that
+weight to each side, $\Phi_i := \exp(-\beta S_0/2)\,\Phi_{R,i}$, after which the
+identity holds; the positive-semidefiniteness lemma consumed downstream takes an
+arbitrary measure, so the headline is unaffected by the correction. Recorded
+because a reader reconstructing the chain would otherwise meet the discrepancy
+with no warning: see
+\texttt{WilsonFubiniLHSReduction\_r383.lean} for the reduction that exposed it
+and \texttt{WilsonFubiniClosed\_r385.lean} for the repair.
+
+\noindent A second point, for whoever continues the lane: $\theta$ acts as the
+\emph{identity} on the boundary links $\Lambda_0$ --- those links are spatial at
+time $0$ or $L/2$, and the time reflection negates the time coordinate, which
+fixes both --- so no reflection of the boundary data occurs
+(\texttt{WilsonPhiThetaInvariant\_r384.lean}).
+
+\noindent Record: \texttt{codex/YM\_BUILD\_PLAN\_STALE\_2026-10-29.md}, which
+also notes that the $2026$-$10$-$17$ build order for this lane was stale by five
+tasks when re-measured against the deployed tree.
+
 \section{Conclusion}
 
 \emph{Scope note (2026-10-25).} This conclusion previously summarised the
