@@ -1052,19 +1052,28 @@ D_3(23) &= 3 + 2 = 5
 % LEVEL 1: INTUITIVE (🟢) - Graphical representation
 % ============================================================
 
-If we plot $D_3(n)$ versus $n$, we get a fractal staircase:
-
-\begin{center}
-\textit{[Figure 1.4: Plot of $D_3(n)$ for $n = 1$ to 81, showing self-similar structure]}
-
-\textit{[This figure would show:]}
-\begin{itemize}
-\item \textit{X-axis: $n$ from 1 to 81}
-\item \textit{Y-axis: $D_3(n)$ from 0 to 8}
-\item \textit{The characteristic "fractal staircase" pattern}
-\item \textit{Annotations showing the three main "blocks" that repeat}
-\end{itemize}
-\end{center}
+If we plot $D_3(n)$ versus $n$, we get the fractal staircase of
+Figure~\ref{fig:fractalstaircase}: the horizontal axis runs over $n = 1$ to
+$81$, the vertical axis over the attained values $D_3(n) \in \{1, \ldots, 8\}$,
+and the three dashed blocks mark the ranges $[1,27]$, $[28,54]$, $[55,81]$ whose
+shapes recur with shifted baselines.\manuscriptcorrection{\textbf{This
+subsection previously printed a bracketed prose description in place of a
+figure, while the figure it described was already drawn, captioned and
+cross-referenceable $160$ lines earlier in this same section.}
+Repaired 2026-10-31. The placeholder was committed and uncommented and raised no
+\LaTeX{} error, so it survived every clean build and printed across two pages of
+the published PDF. \textbf{A harder defect was found underneath it:}
+\texttt{figures/ch01\_fractal\_staircase.tex} did not plot $D_3$. Its
+\texttt{\textbackslash addplot} body was a hand-rolled modular expression ---
+its own comment conceding that it merely ``approximated'' the digit sum --- which
+disagrees with $D_3$ at $72$ of the $81$ plotted points. It returned $3$ at
+$n = 9$ and $9$ at $n = 27$, where $D_3(9) = D_3(27) = 1$; so the plotted curve
+did the opposite of the reset at the powers of $3$ asserted in its own caption,
+and contradicted this chapter's own row table above in its ninth entry. The
+figure now plots the exact base-3 digit sums, and the block-maximum rectangles
+were corrected from $(5,7,9)$ to the true $(6,7,8)$. The caption needed no
+change: it was always a true statement about $D_3$, and it was the figure that
+disagreed with it.}
 
 Notice how the pattern from $n=1$ to $n=27$ repeats (shifted) in the ranges $[1,27]$, $[28,54]$, and $[55,81]$.
 
