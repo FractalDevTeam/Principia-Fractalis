@@ -6,7 +6,9 @@
   % Base-2 (Binary)
   \node[font=\Large\bfseries] at (0,5) {Base-2};
   \node[font=\ttfamily\Large] at (0,4.2) {11011};
-  \node[font=\small, align=center] at (0,3.5) {$1 \cdot 16 + 1 \cdot 8 +$\\$1 \cdot 4 + 0 \cdot 2 + 1 \cdot 1$};
+  % corrected 2026-10-31: the expansion printed here was 1*16+1*8+1*4+0*2+1*1
+  % = 29, which is 11101, not the 11011 shown above it. 11011 = 27.
+  \node[font=\small, align=center] at (0,3.5) {$1 \cdot 16 + 1 \cdot 8 +$\\$0 \cdot 4 + 1 \cdot 2 + 1 \cdot 1$};
   \draw[thick, draw=blue!50] (-1.5,3.0) rectangle (1.5,5.5);
 
   % Base-3 (Ternary) - highlighted
@@ -14,7 +16,11 @@
   \node[font=\ttfamily\Large, red] at (4,4.2) {1000};
   \node[font=\small, align=center, red] at (4,3.5) {$\mathbf{1 \cdot 27 + 0 \cdot 9 +}$\\$\mathbf{0 \cdot 3 + 0 \cdot 1}$};
   \draw[thick, draw=red, line width=1.5pt] (2.5,3.0) rectangle (5.5,5.5);
-  \node[font=\small, red] at (4,2.6) {\textbf{Most Compact!}};
+  % corrected 2026-10-31: "Most Compact!" was false of this figure's own
+  % panels -- base-3 uses FOUR digits here against two for base-8, base-10 and
+  % base-16 and one for base-60. The true and actually relevant property is that
+  % 27 = 3^3, so its ternary form is a single 1 followed by zeros.
+  \node[font=\small, red, align=center] at (4,2.5) {\textbf{$27 = 3^3$}\\\textbf{an exact power of 3}};
 
   % Base-8 (Octal)
   \node[font=\Large\bfseries] at (8,5) {Base-8};

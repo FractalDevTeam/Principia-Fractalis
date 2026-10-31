@@ -476,9 +476,18 @@ Turbulence transitions occur when $\text{Re}_c$ exceeds a critical value.
 \label{thm:critical_reynolds}
 The transition from laminar to turbulent flow occurs at:
 \begin{equation}
-\text{Re}_c^{\text{crit}} = \frac{10}{\pi} \cdot \omega_c \cdot 10^5 = 2.13198 \times 10^5
+\text{Re}_c^{\text{crit}} = \frac{10}{\pi} \cdot \omega_c \cdot 10^5
+   = \frac{10}{\pi} \cdot \frac{\pi}{10} \cdot 10^5 = 1.00000 \times 10^5
 \end{equation}
-where $\omega_c = \pi/10$ is the consciousness frequency.
+where $\omega_c = \pi/10$ is the consciousness frequency, so that the factors
+$10/\pi$ and $\omega_c$ cancel exactly. \textbf{This statement printed
+$2.13198 \times 10^5$ until 2026-10-31}, the value its own \emph{Numerical
+correction, 2026-05-18} below already identified as arithmetically impossible
+here; the correction was written into the proof and the statement was never
+brought into line with it. The cancellation and the inequality are both
+machine-checked --- \texttt{ch10\_pi\_cancellation} and
+\texttt{ch10\_re\_c\_crit\_arithmetic\_error} at
+\texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean:2510,2516}.
 \end{theorem}
 
 \begin{proof}
