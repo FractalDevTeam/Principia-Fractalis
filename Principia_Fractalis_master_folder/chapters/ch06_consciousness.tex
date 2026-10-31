@@ -570,33 +570,81 @@ $K_0(\mathcal{T}_\infty) = \mathbb{Z}[1/3]$ is proved.
 \emph{Sign}: $\mathrm{Tr}(F_\nabla \wedge F_\nabla)$ is not sign-definite --- at
 rank $1$, $F = i\theta$ gives $\mathrm{Tr}(F\wedge F) = -\theta\wedge\theta$, and
 $\theta = e_{12} \pm e_{34}$ yields $\pm 2\,e_{1234}$
-(\texttt{wedge\_square\_sign\_indefinite}) --- so $[0,1]$ requires
+--- so $[0,1]$ requires
 $\mathrm{Ch}_2 \ge 0$ as a \emph{hypothesis}, which Remark~\ref{rem:range-rigorous}
-does not supply. \emph{Normalisation}: $\text{ch}_2^{\max}$ is a supremum over a
-class fixing neither the rank $r$ nor the dimension $2n$, and since
-$|\mathrm{Tr}(F\wedge F)| \lesssim C r M^2$ grows with $r$ that supremum is
-$+\infty$ (\texttt{normalizer\_unbounded\_in\_rank}), making the quotient
-identically zero. \textbf{Two repairs}: fix $r$ in the admissible class, and
-either establish $\mathrm{Ch}_2 \ge 0$ on it or normalise by $\sup|\mathrm{Ch}_2|$
-over that fixed class.
+does not supply. This sign fact is standard exterior algebra and is
+\textbf{prose only}: it is \emph{not} formalized, and the scalar inequalities a
+previous draft cited for it ($2 > 0$ and $-2 < 0$) did not establish it.
+\emph{Normalisation}: $\text{ch}_2^{\max}$ is a supremum over a class fixing
+neither the rank $r$ nor the dimension $2n$, and the \emph{estimate}
+$|\mathrm{Tr}(F\wedge F)| \lesssim C r M^2$ is unbounded in $r$. An unbounded
+upper bound does not show the supremum itself is infinite --- that needs an
+explicit admissible family whose $\mathrm{Ch}_2$ grows with rank, which is not
+supplied --- so what survives is only that the normalizer is \emph{not shown to
+be finite}. That is enough to block a numerical threshold, and it is weaker than
+the quotient vanishing. \textbf{Two repairs}: fix $r$ in the admissible class,
+and either establish $\mathrm{Ch}_2 \ge 0$ on it or normalise by
+$\sup|\mathrm{Ch}_2|$ over that fixed class.
 
 \textbf{(B) The threshold $0.95$ belongs to the entanglement form}
 $1 - \mathrm{Tr}(\rho_A^2)$ of Proposition~\ref{prop:quantum-consciousness},
 because it is the only one of the five that is simultaneously rigorously
 defined, genuinely valued in $[0,1]$, and able to attain $0.95$ as written. And
-this makes the threshold a \emph{statement} rather than a tuned value:
+this converts the threshold into a dimension statement:
 \[
   \text{ch}_2 \ge \tfrac{19}{20} \iff d \ge 20,
 \]
-where $d$ is the subsystem dimension (\texttt{threshold\_iff\_dimension}). In the
-substrate's own $3^k$ tower that is \textbf{first crossed at $k = 3$}, since
-$3^2 = 9 < 20 \le 27 = 3^3$ (\texttt{threshold\_first\_crossed\_at\_level\_three}):
-levels $1$ and $2$ give $2/3$ and $8/9$, below, and level $3$ gives
-$26/27 = 0.963$, above (\texttt{tower\_level\_values},
-\texttt{levels\_two\_and\_three\_straddle}). So $0.95$ is not a free parameter ---
-it says a subsystem admits at least twenty distinguishable states, i.e.\ has
-reached the third level of the tower. That is falsifiable: nothing below
-$d = 20$ can cross it, however prepared.
+where $d$ is the subsystem dimension
+(\texttt{ceiling\_threshold\_iff\_dimension}). The tower's own values are
+$1 - 3^{-k}$, namely $2/3$, $8/9$, $26/27$, $80/81$ (\texttt{tower\_values}), so
+$d \ge 20$ is first met at $k = 3$. \textbf{But the tower does not select
+$0.95$, and this is the part that must be stated.} First, $19/20$ is \emph{not}
+one of the tower's values (\texttt{nineteen\_twentieths\_not\_a\_tower\_value})
+--- $20$ is not a ternary number. Second, \emph{every} threshold in the interval
+$(8/9,\,26/27]$ has first-crossing level $3$, an interval of width $2/27$,
+witnessed at $9/10$, $19/20$ and $24/25$ alike
+(\texttt{threshold\_interval\_gives\_same\_level}). So the tower
+\emph{constrains $0.95$ to an interval; it does not pin it}, and the claim that
+$0.95$ ``is not a free parameter'' is \textbf{withdrawn as overstated}. Third,
+a level-$3$ subsystem \emph{alone}, in a pure state, cannot cross the threshold
+at all: both factors need $d \ge 20$
+(\texttt{bipartite\_needs\_both\_factors}), hence $d \ge 400$ for the total, and
+$3^5 = 243 < 400 \le 729 = 3^6$, so the total system must sit at level
+\textbf{six} or above (\texttt{tower\_total\_level\_at\_least\_six}). The
+reading that the threshold is ``first crossed at $k=3$'' for the system as a
+whole is therefore superseded. Finally, ``falsifiable'' was the wrong word:
+\emph{nothing below $d = 20$ can cross it} is a theorem, which no experiment can
+contradict. A falsifiable claim would have to say what systems above threshold
+\emph{do} that systems below do not, and this selection makes no such
+prediction.\manuscriptcorrection{\textbf{Repaired 2026-10-31. This remark
+previously cited six Lean declarations, none of which exists, and drew from them
+three conclusions that the cited file's own scope notes withdraw.} Measured by
+sweeping the whole \texttt{PF\_Lean4\_Code} tree for
+\texttt{theorem}/\texttt{lemma}/\texttt{def} of each name:
+\texttt{wedge\_square\_sign\_indefinite},
+\texttt{normalizer\_unbounded\_in\_rank},
+\texttt{threshold\_iff\_dimension},
+\texttt{threshold\_first\_crossed\_at\_level\_three},
+\texttt{tower\_level\_values} and
+\texttt{levels\_two\_and\_three\_straddle} returned \textbf{zero declarations
+each}. Two had been renamed
+(\texttt{threshold\_iff\_dimension} $\to$
+\texttt{ceiling\_threshold\_iff\_dimension};
+\texttt{tower\_level\_values} $\to$ \texttt{tower\_values}); four were withdrawn.
+\texttt{PF/Ch2ThresholdSelection.lean}~\S0 records, in its own words, that
+\texttt{normalizer\_unbounded\_in\_rank} ``was mislabelled'' and the conclusion
+``the quotient is identically zero'' is ``withdrawn'' (item 4); that
+\texttt{wedge\_square\_sign\_indefinite} ``was decoration'' and the
+exterior-algebra fact is ``not formalized here'' (item 5); that the claim
+$0.95$ ``is not a free parameter'' ``was overstated'' because ``the tower
+constrains it to an interval; it does not pin it'' (item 3); and that
+``falsifiable'' was the wrong word (item 6). \textbf{Why this one matters
+more than a prose slip}: \S0 of the project's standing instructions says status
+is reported from this layer and never from prose, so a remark that cites nothing
+and concludes what its source retracts cannot govern. The entanglement form
+remains the only one of the five that is rigorously defined, valued in $[0,1]$
+and able to attain $0.95$ --- that part of (B) is unchanged. What is withdrawn
+is the inference that the substrate's ternary tower \emph{selects} the number.}
 
 \textbf{(C) The other three keep their content under their own names.} The
 matrix formula is a rotation-versus-strain balance, whose real content is
