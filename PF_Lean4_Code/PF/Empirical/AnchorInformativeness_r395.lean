@@ -8,11 +8,18 @@
 ch21's verification ledger (`ch21_p_vs_np.tex:1527`) records:
 
 > **CIRCULAR — the "IBM empirical validation"** —
-> `framework_alpha_NP_matches_IBM_empirical_peak`, whose docstring says the
+> `framework_α_NP_matches_IBM_empirical_peak`, whose docstring says the
 > value "matches the IBM Quantum hardware-measured NP peak EXACTLY," is proved
 > by `:= rfl`. … No measurement enters the theorem; it is a definition compared
 > with itself. The audit flags this as **the single highest referee risk in the
 > corpus**.
+
+(The quoted bullet cited this theorem in ASCII as
+`framework_alpha_NP_matches_IBM_empirical_peak` until 2026-10-31; the identifier
+contains a literal Greek `α`, so the ASCII spelling matched no declaration
+anywhere in the corpus. This file was the only place in `PF_Lean4_Code` that
+carried the bad spelling, having quoted the ledger verbatim. Both are repaired;
+the finding itself is unchanged.)
 
 That flag is correct, and it has a **twin that is flagged nowhere**. Searched
 across `codex/*.md`, `MISSION_INVENTORY/*.md` and every chapter: `ibm_peak_RH`,
