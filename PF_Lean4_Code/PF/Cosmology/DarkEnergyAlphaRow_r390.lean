@@ -233,3 +233,6 @@ end PrincipiaTractalis.Cosmology.DarkEnergyAlphaRow
 #print axioms PrincipiaTractalis.Cosmology.DarkEnergyAlphaRow.hodge_class_excluded_for_dark_energy
 #print axioms PrincipiaTractalis.Cosmology.DarkEnergyAlphaRow.flat_classes_give_cosmological_constant
 #print axioms PrincipiaTractalis.Cosmology.DarkEnergyAlphaRow.decay_classes_survive_gate
+
+-- Axiom-check coverage completed 2026-10-30 (declarations the in-file check had omitted)
+#print axioms PrincipiaTractalis.Cosmology.DarkEnergyAlphaRow.wOfSigma

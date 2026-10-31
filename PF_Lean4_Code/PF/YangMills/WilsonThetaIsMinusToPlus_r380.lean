@@ -245,3 +245,9 @@ end PF.YangMills
 #print axioms PF.YangMills.minusCondInv_involutive
 #print axioms PF.YangMills.minusToPlusMeasurableEquiv
 #print axioms PF.YangMills.integral_minusToPlus
+
+-- Axiom-check coverage completed 2026-10-30 (declarations the in-file check had omitted)
+#print axioms PF.YangMills.restrictMinus
+#print axioms PF.YangMills.minusCondInv_measurable
+#print axioms PF.YangMills.minusCondInvMeasurableEquiv
+#print axioms PF.YangMills.minusToPlusMeasurableEquiv_apply

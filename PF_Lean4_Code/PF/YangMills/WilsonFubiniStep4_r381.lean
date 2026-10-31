@@ -282,3 +282,7 @@ end PF.YangMills
 #print axioms PF.YangMills.star_integral_complex
 #print axioms PF.YangMills.star_mul_ofReal
 #print axioms PF.YangMills.integral_minus_eq_star_reducedPhiR
+
+-- Axiom-check coverage completed 2026-10-30 (declarations the in-file check had omitted)
+#print axioms PF.YangMills.restrictPlus
+#print axioms PF.YangMills.restrictNonMinus

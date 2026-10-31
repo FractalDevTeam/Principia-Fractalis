@@ -87,7 +87,10 @@ arithmetic.
 
 ## Three-axiom bar
 
-Every top-level declaration prints `[propext]` or the three-axiom set.
+Every top-level declaration prints at or under the three-axiom bar: the
+general results print `[propext, Classical.choice, Quot.sound]`, and the
+concrete dimension counts print `does not depend on any axioms`, since
+`decide` on concrete naturals is axiom-free.
 No sorry, no native_decide, no project axioms.
 
 SPDX-License-Identifier: Apache-2.0
@@ -192,3 +195,8 @@ end PrincipiaTractalis.Chaos.RotationPlanes
 #print axioms PrincipiaTractalis.Chaos.RotationPlanes.rotationPlanes_eq_self_iff
 #print axioms PrincipiaTractalis.Chaos.RotationPlanes.rotationPlanes_trichotomy
 #print axioms PrincipiaTractalis.Chaos.RotationPlanes.three_unique_positive_match
+
+-- Axiom-check coverage completed 2026-10-30 (declarations the in-file check had omitted)
+#print axioms PrincipiaTractalis.Chaos.RotationPlanes.rotationPlanes
+#print axioms PrincipiaTractalis.Chaos.RotationPlanes.rotationPlanes_zero
+#print axioms PrincipiaTractalis.Chaos.RotationPlanes.rotationPlanes_one

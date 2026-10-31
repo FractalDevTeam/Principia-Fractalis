@@ -129,3 +129,6 @@ end PF.KMS
 #print axioms PF.KMS.levelCells_succ
 #print axioms PF.KMS.levelCells_ratio
 #print axioms PF.KMS.levelCells_fraction_tendsto_zero
+
+-- Axiom-check coverage completed 2026-10-30 (declarations the in-file check had omitted)
+#print axioms PF.KMS.levelCells

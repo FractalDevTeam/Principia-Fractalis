@@ -192,3 +192,8 @@ end PrincipiaTractalis.Cosmology.DarkEnergyQGClass
 #print axioms PrincipiaTractalis.Cosmology.DarkEnergyQGClass.w0_of_tilt
 #print axioms PrincipiaTractalis.Cosmology.DarkEnergyQGClass.below_ch27_of_sigma_gt
 #print axioms PrincipiaTractalis.Cosmology.DarkEnergyQGClass.wDE_ch27_nonphantom
+
+-- Axiom-check coverage completed 2026-10-30 (declarations the in-file check had omitted)
+#print axioms PrincipiaTractalis.Cosmology.DarkEnergyQGClass.sigmaDE
+#print axioms PrincipiaTractalis.Cosmology.DarkEnergyQGClass.wDE
+#print axioms PrincipiaTractalis.Cosmology.DarkEnergyQGClass.wDE_ch27
