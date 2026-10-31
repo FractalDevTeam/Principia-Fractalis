@@ -203,3 +203,6 @@ end PrincipiaTractalis.Cosmology.SubstrateCPLCrossing
 #print axioms PrincipiaTractalis.Cosmology.SubstrateCPLCrossing.substrate_cpl_crossing_unique
 #print axioms PrincipiaTractalis.Cosmology.SubstrateCPLCrossing.substrate_cpl_crossing_redshift
 #print axioms PrincipiaTractalis.Cosmology.SubstrateCPLCrossing.crossing_redshift_is_binet_prefactor
+
+-- Axiom-check coverage completed 2026-10-30 (declarations the in-file check had omitted)
+#print axioms PrincipiaTractalis.Cosmology.SubstrateCPLCrossing.crossingScale

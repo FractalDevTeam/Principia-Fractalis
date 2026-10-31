@@ -444,3 +444,6 @@ end PF.YangMills
 #print axioms PF.YangMills.star_corrected_mul_corrected
 #print axioms PF.YangMills.wilsonFubini_corrected
 #print axioms PF.YangMills.wilson_reflection_positivity_of_continuous
+
+-- Axiom-check coverage completed 2026-10-30 (declarations the in-file check had omitted)
+#print axioms PF.YangMills.wilsonReducedPhiRCorrected_continuous
