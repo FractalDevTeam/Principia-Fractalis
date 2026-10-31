@@ -595,13 +595,25 @@ principia-fractalis/
 R1: Riemann zeros & 1 GB & 10 min & 10 MB \\
 R2: Spectral operator & 32 GB & 1 hour & 500 MB \\
 P1: Fractal operators (L12) & 8 GB & 10 min & 100 MB \\
-P1: Fractal operators (L16) & 128 GB & 4 hours & 5 GB\manuscriptcorrection{\textbf{These resource figures are the ones Chapter~35's own 2026-10-03 correction proves impossible, and this chapter was skipped by that pass.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch12Ch13Ch28Ch34PhysicsDefects.lean}. A dense \texttt{float64} operator at level 16 has $N = 3^{16} = 43\,046\,721$, hence needs $8N^2 = 14\,824\,161\,510\,814\,728$ bytes --- \textbf{14.8~PB}, exceeding the stated 128~GB by a factor above $115\,000$ (\texttt{level16\_memory\_exceeds\_claim}). The largest dimension that fits in 128~GB is $126\,491$ (\texttt{affordable\_dimension}), which is level 10, not 16; level 12 already needs 2.26~TB and level 14 needs 183~TB (\texttt{lower\_levels\_already\_exceed}), so the claim fails well before level 16. Chapter~35 additionally shows the ``4~GB sparse'' alternative is unavailable, because thresholding $\cos(\pi\alpha\|x-y\|)$ at $10^{-10}$ drops essentially no entries, and that the ``10 minutes / 4 hours'' runtimes --- the identical wording reused here --- are ``not of the right order''. \textbf{A \texttt{grep} for \texttt{2026-10-03} over this chapter returns zero matches} while the same grep over Chapters~33 and~35 returns several: the correction pass that fixed its siblings did not reach it, despite this chapter sharing the erroneous numbers. \textbf{The $\Delta = 0.089$ gap conclusion is unaffected} --- it is framed as an output of the corrected code path --- but the stated budget for \emph{reproducing} it is false, and this is the chapter a referee would follow. A repair must import Chapter~35's correction here or cross-reference it explicitly.} \\
+P1: Fractal operators (L16) & 128 GB & 4 hours & 5 GB\,\textsuperscript{\textbf{(1)}} \\
 P2: Polylog spectrum & 16 GB & 30 min & 200 MB \\
 C1: Neural $\text{ch}_2$ & 100 MB & 1 min & 1 MB \\
 C2: EEG analysis & 4 GB & 30 min & 2 GB \\
 \hline
 \end{tabular}
 \end{center}
+
+% SCOPE NOTES RELOCATED 2026-10-31
+\medskip
+\noindent\textbf{Scope notes on the table above.} These were
+written as footnotes inside the table body, where \LaTeX{}
+discards them, so they did not appear in the printed book;
+they are restored here as visible text (2026-10-31).
+\begin{footnotesize}
+
+\noindent\textbf{(1)} \textbf{These resource figures are the ones Chapter~35's own 2026-10-03 correction proves impossible, and this chapter was skipped by that pass.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch12Ch13Ch28Ch34PhysicsDefects.lean}. A dense \texttt{float64} operator at level 16 has $N = 3^{16} = 43\,046\,721$, hence needs $8N^2 = 14\,824\,161\,510\,814\,728$ bytes --- \textbf{14.8~PB}, exceeding the stated 128~GB by a factor above $115\,000$ (\texttt{level16\_memory\_exceeds\_claim}). The largest dimension that fits in 128~GB is $126\,491$ (\texttt{affordable\_dimension}), which is level 10, not 16; level 12 already needs 2.26~TB and level 14 needs 183~TB (\texttt{lower\_levels\_already\_exceed}), so the claim fails well before level 16. Chapter~35 additionally shows the ``4~GB sparse'' alternative is unavailable, because thresholding $\cos(\pi\alpha\|x-y\|)$ at $10^{-10}$ drops essentially no entries, and that the ``10 minutes / 4 hours'' runtimes --- the identical wording reused here --- are ``not of the right order''. \textbf{A \texttt{grep} for \texttt{2026-10-03} over this chapter returns zero matches} while the same grep over Chapters~33 and~35 returns several: the correction pass that fixed its siblings did not reach it, despite this chapter sharing the erroneous numbers. \textbf{The $\Delta = 0.089$ gap conclusion is unaffected} --- it is framed as an output of the corrected code path --- but the stated budget for \emph{reproducing} it is false, and this is the chapter a referee would follow. A repair must import Chapter~35's correction here or cross-reference it explicitly.
+\end{footnotesize}
+
 
 Recommended hardware:
 \begin{itemize}
@@ -690,7 +702,7 @@ Lean kernel axiom audit &
 \textbf{CLEAN} &
 \texttt{REFEREE\_\allowbreak{}PROOF\_\allowbreak{}LEAN\_\allowbreak{}AXIOM\_\allowbreak{}AUDIT\_\allowbreak{}2026-06-04.\allowbreak{}md}.
 535 \texttt{.lean} files in closure; 0 project axioms; 0
-\texttt{sorry}; 0 \texttt{admit}; 4044 jobs clean.\manuscriptcorrection{\textbf{These counts are four months stale, and every path in this column's ``repository root'' now points somewhere else.} Verified 2026-10-06 with \texttt{PF\_Lean4\_Code/scripts/goal\_line.py} and a path audit of every file this chapter cites. \textbf{(1) The counts.} The closure is no longer 535 files: the transitive import closure of \texttt{PF.lean} measured today is \textbf{1452} modules (of 6373 \texttt{.lean} files under \texttt{PF/}; the remaining 4921 are reachable from nothing and are not part of the submission), and the build is \textbf{5147 jobs}, not 4044. \textbf{(2) The verdicts, however, still hold, and were re-measured rather than assumed.} Across the whole closure, with Lean comments and docstrings stripped: \textbf{zero} \texttt{sorry}, \textbf{zero} \texttt{sorryAx}, \textbf{zero} \texttt{native\_decide}, \textbf{zero} project \texttt{axiom} declarations. So the \textsc{clean} verdict is confirmed on a corpus 2.7 times larger than the one audited in June --- it is the figures and the pointers that decayed, not the conclusion. \emph{A caution for anyone re-running this}: a plain \texttt{grep} reports 445 files containing \texttt{sorry} and 223 containing \texttt{native\_decide}. Both are artefacts --- every occurrence is documentation prose, overwhelmingly module headers stating ``no \texttt{sorry}, no \texttt{native\_decide}''. Comments must be stripped before counting. \textbf{(3) The path column.} This table's header reads ``Report (repository root)'', and \textbf{none of the nine files cited in this chapter is at the repository root}. The five \texttt{REFEREE\_PROOF\_*\_2026-06-04.md} reports were moved to \texttt{ARCHIVE/2026-06-08-cleanup/root\_docs/} --- by a cleanup dated four days \emph{after} the audits themselves, which nothing propagated back here. Three others (\texttt{BSD\_UNIVERSAL\_SECANT\_2026-08-05.md}, \texttt{FRACTAL\_DIMENSION\_2026-08-05.md}, \texttt{RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}) live in \texttt{codex/}, where this chapter does cite them correctly elsewhere. And \texttt{riemann\_zeros\_150digits.txt} is \textbf{absent from the repository entirely} --- a data file a referee would need to reproduce a numeric claim. \textbf{(4) Same defect in the module paths.} The five \texttt{PF\_L4L} paths named in the Lean4Lean discussion below --- \texttt{PF\_L4L/Core/}, \texttt{PF\_L4L/Ch20/RH.lean}, \texttt{PF\_L4L/Ch23/YM.lean}, \texttt{PF\_L4L/Ch24/BSD.lean}, \texttt{PF\_L4L/Core/AxiomAudit.lean} --- are all real files but all live under \texttt{PF\_Lean4Lean/}, so none resolves as written. \textbf{One root cause covers (3) and (4)}: every path this chapter writes \emph{without} a top-level directory prefix is now wrong, and every path written \emph{with} one (\texttt{codex/\ldots}, \texttt{PF\_Lean4\_Code/\ldots}) is right. The repair is to prefix them, and to restore or withdraw the missing zeros file. \textbf{What is not affected}: the four clean \texttt{PF\_L4L} declarations listed below are declaration names in current files, and the ``six of eight original L4L modules'' are legacy source files --- disjoint sets, so there is no arithmetic inconsistency between them, and an earlier reading of this passage that suspected one was wrong.} \\
+\texttt{sorry}; 0 \texttt{admit}; 4044 jobs clean.\,\textsuperscript{\textbf{(1)}} \\
 \hline
 Coq cross-prover axiom audit &
 \textbf{CLEAN} &
@@ -698,7 +710,7 @@ Coq cross-prover axiom audit &
 All 18 Wave~58 \texttt{.v} files build clean under Rocq~9.1.0;
 0 \texttt{Admitted}; 0 \texttt{admit}; every capstone's
 transitive axiom set is a subset of the Rocq Stdlib.Reals
-classical baseline. \\
+classical baseline.\,\textsuperscript{\textbf{(2)}} \\
 \hline
 Manuscript cover-to-cover review (V2.0.0) &
 \textbf{$8.7 \to 10$/10 after fixes} &
@@ -728,6 +740,44 @@ independently re-verified. \\
 \hline
 \end{tabular}
 \end{center}
+
+% SCOPE NOTES RELOCATED 2026-10-31
+\medskip
+\noindent\textbf{Scope notes on the table above.} These were
+written as footnotes inside the table body, where \LaTeX{}
+discards them, so they did not appear in the printed book;
+they are restored here as visible text (2026-10-31).
+\begin{footnotesize}
+
+\noindent\textbf{(1)} \textbf{These counts are four months stale, and every path in this column's ``repository root'' now points somewhere else.} Verified 2026-10-06 with \texttt{PF\_Lean4\_Code/scripts/goal\_line.py} and a path audit of every file this chapter cites. \textbf{(1) The counts.} The closure is no longer 535 files: the transitive import closure of \texttt{PF.lean} measured today is \textbf{1452} modules (of 6373 \texttt{.lean} files under \texttt{PF/}; the remaining 4921 are reachable from nothing and are not part of the submission), and the build is \textbf{5147 jobs}, not 4044. \textbf{(2) The verdicts, however, still hold, and were re-measured rather than assumed.} Across the whole closure, with Lean comments and docstrings stripped: \textbf{zero} \texttt{sorry}, \textbf{zero} \texttt{sorryAx}, \textbf{zero} \texttt{native\_decide}, \textbf{zero} project \texttt{axiom} declarations. So the \textsc{clean} verdict is confirmed on a corpus 2.7 times larger than the one audited in June --- it is the figures and the pointers that decayed, not the conclusion. \emph{A caution for anyone re-running this}: a plain \texttt{grep} reports 445 files containing \texttt{sorry} and 223 containing \texttt{native\_decide}. Both are artefacts --- every occurrence is documentation prose, overwhelmingly module headers stating ``no \texttt{sorry}, no \texttt{native\_decide}''. Comments must be stripped before counting. \textbf{(3) The path column.} This table's header reads ``Report (repository root)'', and \textbf{none of the nine files cited in this chapter is at the repository root}. The five \texttt{REFEREE\_PROOF\_*\_2026-06-04.md} reports were moved to \texttt{ARCHIVE/2026-06-08-cleanup/root\_docs/} --- by a cleanup dated four days \emph{after} the audits themselves, which nothing propagated back here. Three others (\texttt{BSD\_UNIVERSAL\_SECANT\_2026-08-05.md}, \texttt{FRACTAL\_DIMENSION\_2026-08-05.md}, \texttt{RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}) live in \texttt{codex/}, where this chapter does cite them correctly elsewhere. And \texttt{riemann\_zeros\_150digits.txt} is \textbf{absent from the repository entirely} --- a data file a referee would need to reproduce a numeric claim. \textbf{(4) Same defect in the module paths.} The five \texttt{PF\_L4L} paths named in the Lean4Lean discussion below --- \texttt{PF\_L4L/Core/}, \texttt{PF\_L4L/Ch20/RH.lean}, \texttt{PF\_L4L/Ch23/YM.lean}, \texttt{PF\_L4L/Ch24/BSD.lean}, \texttt{PF\_L4L/Core/AxiomAudit.lean} --- are all real files but all live under \texttt{PF\_Lean4Lean/}, so none resolves as written. \textbf{One root cause covers (3) and (4)}: every path this chapter writes \emph{without} a top-level directory prefix is now wrong, and every path written \emph{with} one (\texttt{codex/\ldots}, \texttt{PF\_Lean4\_Code/\ldots}) is right. The repair is to prefix them, and to restore or withdraw the missing zeros file. \textbf{What is not affected}: the four clean \texttt{PF\_L4L} declarations listed below are declaration names in current files, and the ``six of eight original L4L modules'' are legacy source files --- disjoint sets, so there is no arithmetic inconsistency between them, and an earlier reading of this passage that suspected one was wrong.
+
+\noindent\textbf{(2)} \textbf{This verdict is true and
+\emph{vacuous} for the tree it audits, and must not be read as cross-prover
+verification.} Scope note added 2026-10-31; the long note on the Lean row above
+had no counterpart here. The Wave~58 files this row cites live under
+\texttt{PF\_Coq\_Code/PF/}, and that tree is measured, on the deployed bytes, at
+\textbf{761} \texttt{.v} files carrying \textbf{9867} \texttt{Qed.} of which
+\textbf{8158} are the one-liner \texttt{Proof.\ exact I.\ Qed.}\ proving
+\texttt{True}. An axiom audit of such a proof reports no axioms because there is
+no mathematics in it to depend on any. \textbf{The project's own Coq README
+withdrew this claim on 2026-07-26}, in its own words: it ``previously claimed
+`independent cross-prover verification of the same theorems'\,'' and ``That
+claim was false and is withdrawn''; and ``Any citation of cross-prover
+verification must point at \texttt{PF\_Real/}, never at \texttt{PF/}.'' \textbf{What
+Coq does genuinely certify}: \texttt{PF\_Coq\_Code/PF\_Real/} --- measured today
+at $5$ files and $141$ \texttt{Qed.}, with \textbf{zero} \texttt{exact I},
+\textbf{zero} \texttt{Axiom} and zero live \texttt{Admitted} (its one
+\texttt{Admitted} hit is a header comment listing what the file avoids, not
+code). That is real, elementary, finite-dimensional mathematics, and it has
+\emph{grown} since the README was written, which is stale in the conservative
+direction. \textbf{What it cannot certify}: Rocq/mathcomp has no
+C\*-algebra theory, so the completion-tier results --- faithfulness of
+$\tau_{\mathrm{UHF}}$ on $\mathcal{T}_\infty$, Glimm simplicity, uniqueness of
+the trace --- are, in the README's words, ``not mirrored there and must not be
+claimed.'' The Lean substrate verdict is unaffected and stands at full strength;
+it is the \emph{cross-prover} reading of this row that is withdrawn.
+\end{footnotesize}
+
 
 \begin{remark}[How to use the certification stack]
 A referee reproducing the framework's verification posture should
@@ -762,10 +812,29 @@ Expected \texttt{\#print axioms} output on the flagship theorem:
   [propext, Classical.choice, Quot.sound]
 \end{verbatim}
 No project-level axioms, no \texttt{sorry}, no \texttt{native\_decide}.
-The four files together establish that under the two external anchors
-(Perelman $\alpha_{\text{Poincar\'e}} = 1$; OpenAI-corroborated
-$\alpha_{\text{NS}} = 3\pi/2$) and the framework's structural
-identities, all seven remaining $\alpha$-values are uniquely forced.
+The four files together establish that under \emph{one} settled
+external anchor (Perelman, $\alpha_{\text{Poincar\'e}} = 1$), the asserted
+framework value $\alpha_{\text{NS}} = 3\pi/2$ taken as a \emph{hypothesis}, and
+the framework's structural identities, the seven remaining $\alpha$-values are
+determined.\manuscriptcorrection{\textbf{This sentence previously read ``under
+the two external anchors $\ldots$ OpenAI-corroborated
+$\alpha_{\text{NS}} = 3\pi/2$''. That framing is falsified by this chapter's own
+addendum below.} Repaired 2026-10-31. The addendum states that
+``$\alpha_{\text{NS}} = 3\pi/2$ is \emph{asserted} framework structure, not an
+anchored value, and the framework has one settled external anchor rather than
+two'', and records the repair as landed in
+Chapter~\ref{ch:navier-stokes} and Chapter~\ref{ch:substrate-theorem}. Both were
+repaired; \textbf{this site, in the same chapter as the addendum, was the
+survivor} --- the recurring repair-one-site-miss-the-restatement pattern. The
+Lean artifact agrees with the corrected reading:
+\texttt{PF/FiveWayFalsifiability.lean} carries
+\texttt{hNS : aNS = 3 * Real.pi / 2} as a \emph{hypothesis} of the theorem, not
+as a derived or anchored quantity. \textbf{Nothing is withdrawn from the
+mathematics}: the solve is still exact and the seven values still follow from the
+stated inputs. What changes is that one of those inputs is an assertion of this
+framework rather than an external result --- which also means the system is
+exactly determined and carries \emph{no} over-determination to cite as
+corroboration.}
 
 \section{Summary}
 \label{sec:summary-ch30}
@@ -819,7 +888,7 @@ Because this chapter is titled ``Verification,'' it is essential to state precis
 \item \textbf{ASSERTED (not derived) --- the framework constants.} Values such as $\alpha_P=\sqrt2$ and the NP constant ($\varphi+\tfrac14$, or $\pi/3$ as coded in Protocol~P1) are \emph{chosen}, not derived from first principles. The cross-Millennium algebraic identities among them are true \emph{as arithmetic about these chosen values} and say nothing about the Millennium problems themselves.
 \item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED --- the consciousness and clinical claims.} The $\text{ch}_2\!\geq\!0.95$ threshold, the 97.3\,\% EEG classification accuracy (Protocol~C2), and all consciousness quantifications are physical/clinical claims that only experiment can settle; no proof assistant can establish them, and they are not independently validated here.
 \end{itemize}
-\noindent In short: the Lean and Coq axiom audits and the partial Lean4Lean re-verification (Sections~\ref{sec:lean4lean-reverification}--\ref{sec:referee-proof-certifications}) certify the \emph{substrate}, with zero project axioms; the Python protocols in this chapter provide \emph{reproducibility of numerical outputs}, not proofs of the Millennium, consciousness, or cosmological claims.
+\noindent In short: the \emph{Lean} axiom audit and the partial Lean4Lean re-verification (Sections~\ref{sec:lean4lean-reverification}--\ref{sec:referee-proof-certifications}) certify the \emph{substrate}, with zero project axioms; the Coq audit does \emph{not} --- see the scope note on that row of Section~\ref{sec:referee-proof-certifications} --- and the Python protocols in this chapter provide \emph{reproducibility of numerical outputs}, not proofs of the Millennium, consciousness, or cosmological claims.\manuscriptcorrection{\textbf{This sentence previously credited ``the Lean and Coq axiom audits'' jointly with certifying the substrate. The Coq half is withdrawn.} Repaired 2026-10-31. The substrate content is the first bullet of this ledger: faithfulness of the canonical trace on $\mathcal{T}_\infty$, $C^*$-simplicity, and uniqueness of the trace. Those are precisely the three results \texttt{PF\_Coq\_Code/README.md} says are ``not mirrored'' in the real Coq tree and ``must not be claimed'', Rocq/mathcomp having no C\*-algebra theory. \textbf{Why this one is treated as serious}: the sentence sits in the governing ledger, and \S0 of the project's standing instructions reports status from this layer and never from prose --- so a ledger crediting a prover with results that prover cannot express cannot govern. The Lean certification is unchanged and unqualified.}
 
 \paragraph{Verification update (2026-08-04): kernel-verified results added since the 2026-07-23 ledger (arc r183--r192).}
 The ledger above describes the corpus as of its date; its scope sentence
@@ -936,7 +1005,9 @@ This entry records an audit of the project's own practice rather than of a
 result. It was ordered on the premise that the approach itself might be wrong,
 and carried out by three independent readers --- the manuscript chapters, the
 Python pipeline, and the project's prior audit files --- together with primary-
-source audits of the two external anchors the framework leans on. It is entered
+source audits of the two values the framework was at that time
+treating as external anchors --- one of which, $\alpha_{\text{NS}} = 3\pi/2$,
+this audit reclassified as asserted framework structure. It is entered
 here because this program records its failures in the book and not only its
 results.
 
