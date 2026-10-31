@@ -22,12 +22,16 @@ The Principia Fractalis framework predicts a 9-class α-table:
 
 The 2026-05-22 IBM-Quantum hardware experiment recorded TWO peak α-values:
 
-* `peak_alpha_RH = 1.5` (EXACT, matching `α_RH = 3/2`)
+* `peak_alpha_RH = 1.5` (agreeing with `α_RH = 3/2` at the 4-decimal
+  reporting precision; the apparent *exactness* is a property of `3/2`'s
+  decimal form, not extra evidence — see `ibm_peak_RH`)
 * `peak_alpha_PNP = 1.868` (4-decimal, matching `α_NP = φ + 1/4 ≈ 1.86803…`)
 
 This file formalizes the **empirical ↔ formal correspondence**:
 
-  (E1) `ibm_peak_RH = α_RH` (literal equality, exact identity 3/2 = 3/2).
+  (E1) `ibm_peak_RH = α_RH` — `rfl`; both sides are `3/2` by construction, so
+        this carries NO measurement. Repaired 2026-10-30; see the docstring on
+        `ibm_peak_RH` and `PF/Empirical/AnchorInformativeness_r395.lean`.
   (E2) `|ibm_peak_PNP − α_NP| ≤ 10⁻⁴` (numerical proximity within
         4-decimal IBM hardware reporting precision).
   (E3) The arxiv `FractalDevTeam/turing` paper's `CH2 = 0.95398...`
@@ -102,10 +106,34 @@ open PrincipiaTractalis.MillenniumSix
 
 /-! ## Section 1 — Empirical anchors (IBM hardware-measured peaks) -/
 
-/-- **IBM-Quantum hardware-measured RH peak**: `1.5` (EXACT 4-decimal value).
+/-- **Reported RH peak**, recorded as `3/2`.
 
     Source: 2026-05-22 IBM Quantum hardware measurement of the universal
-    fractal resonance Hamiltonian's spectral peak on the RH fibre. -/
+    fractal resonance Hamiltonian's spectral peak on the RH fibre, reported at
+    4-decimal precision as `1.5000`.
+
+    **Docstring repaired 2026-10-30. Read this before citing (E1).** This
+    constant is defined as the *framework* value `3/2`, not as an independently
+    recorded numeral, so `ibm_peak_RH_eq_alpha_RH` below is closed by `rfl` and
+    **carries no measurement**. What the experiment can support is agreement at
+    the reporting precision, `±5·10⁻⁵`. Because `3/2` has an exact 4-decimal
+    representation (`1.5000`), that agreement happens to come out as a literal
+    equality of reals — but that is a fact about the decimal expansion of
+    `3/2`, not additional evidence. **The evidential content of (E1) is the
+    same kind as (E2)'s: agreement at about `10⁻⁴`, and no stronger.**
+
+    Why the two anchors are not equally repairable:
+    `α_RH = 3/2` is rational, so a reported decimal *can* equal it exactly and
+    an exact-match claim is available without evidence; `α_NP = φ + 1/4` is
+    irrational, so no decimal can ever equal it and only a bracket can be
+    stated. Proved at
+    `PF/Empirical/AnchorInformativeness_r395.lean`.
+
+    Provenance note: the 2026-05-22 run's record is not cited in this file and
+    should be. Separately, `ch21`'s verification ledger records that the
+    *143-problem coherence* run behind the surrounding labels was a local
+    `AerSimulator` execution of a classical formula; that finding concerns a
+    different experiment and is **not** asserted of this peak measurement. -/
 noncomputable def ibm_peak_RH : ℝ := 3 / 2
 
 /-- **IBM-Quantum hardware-measured P/NP peak**: `1.868` (4-decimal value).
@@ -126,9 +154,14 @@ theorem ibm_peak_PNP_value : ibm_peak_PNP = (1.868 : ℝ) := by
 
 /-! ## Section 2 — Empirical ↔ formal numerical match theorems -/
 
-/-- **(E1) Exact RH match**: the IBM-measured RH peak is *literally* the
-    framework's `α_RH = 3/2`. Both sides are the same rational, so `rfl`
-    after unfolding. -/
+/-- **(E1) RH match, at the reporting precision.**
+
+    Both sides are the same rational by construction, so this is `rfl` after
+    unfolding and **contributes nothing to the empirical case** — see the
+    repaired docstring on `ibm_peak_RH`. Retained because `3/2 = 3/2` is true
+    and is used downstream for table indexing; **do not cite it as an exact
+    empirical match**, which would read as stronger than (E2)'s bracket when it
+    is in fact weaker, carrying no measurement at all. -/
 theorem ibm_peak_RH_eq_alpha_RH : ibm_peak_RH = alpha_RH := by
   unfold ibm_peak_RH alpha_RH; rfl
 
