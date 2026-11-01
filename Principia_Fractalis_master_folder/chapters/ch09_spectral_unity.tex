@@ -252,7 +252,27 @@ Note the universal factor $\pi/10$ appearing in different forms:
 \item Consciousness correction: $\Psi_{RQG}(n) = \exp(-\pi/10 \cdot \ldots)$
 \end{itemize}
 
-This factor $\pi/10 \approx 0.314159$ is the natural frequency of the Timeless Field, arising from the interplay between the transcendental constant $\pi$ and the fractal base-3 structure ($10_3 = 3_{10}$ in base-3).
+This factor $\pi/10 \approx 0.314159$ is the natural frequency of the Timeless
+Field. Its ``$10$'' is the icosahedral Coxeter number $h(H_3) = 10$, with
+$\pi/10$ the half-argument of the primitive Coxeter eigenvalue
+$\exp(2\pi i/h)$ --- see Theorem~\ref{thm:universal_frequency} and
+equation~\eqref{eq:pi-ten-golden}.\manuscriptcorrection{\textbf{A base-3 origin
+claimed here has been corrected; it was inconsistent with the value printed in
+the same sentence.} This passage read that $\pi/10$ arises ``from the interplay
+between the transcendental constant $\pi$ and the fractal base-3 structure
+($10_3 = 3_{10}$ in base-3)''. The numeral $10$ in base $3$ does denote $3$ ---
+but were that the $10$ in $\pi/10$, the factor would be $\pi/3 = 1.047198$,
+whereas this very sentence prints $0.314159$, which is $\pi/10$ in
+\emph{decimal}. The stated origin therefore contradicted the stated value by a
+factor of $10/3$, and also contradicted the framework's actual account, in which
+the $10$ is decimal: the Coxeter number of the icosahedral group $H_3$. That
+account is machine-checked and axiom-free in \texttt{PF/H3CoxeterOrigin.lean}.
+The three $\pi/10$ expressions listed immediately above are unaffected and were
+recomputed exactly: $\lambda_0(H_P) = \pi/(10\sqrt2) = 0.2221441469$ and
+$\lambda_0(H_{NP}) = \pi/(10(\varphi+\tfrac14)) = 0.1681764182$, both matching
+the kernel constants \texttt{lambda\_0\_P} and \texttt{lambda\_0\_NP}, and
+$\lambda_0(T) = \pi/15 = \tfrac23(\pi/10) = 0.2094395102$. Corrected
+2026-11-01.}
 
 \section{Critical Line Constraint: The Consciousness Mechanism}
 
@@ -425,11 +445,66 @@ Fractal dimension coupling & $d_{\text{coupling}} = 3 - \pi/10 \approx 2.686$ \\
 
 \begin{theorem}[Universal Frequency]
 \label{thm:universal_frequency}
-The factor $\pi/10$ is the natural oscillation frequency of the Timeless Field $\mathcal{T}_\infty$, arising from:
+The factor $\pi/10$ is an \emph{asserted} constant of the framework, not a derived
+one, exactly as this chapter's verification ledger records it. It is not
+arbitrary, however. The ``$10$'' is the Coxeter number $h(H_3) = 10$ of the
+icosahedral group; $\pi/10$ is the half-argument of the primitive Coxeter
+eigenvalue $\exp(2\pi i/h)$; and the resulting scale obeys, exactly,
 \begin{equation}
-\omega_c = \frac{\pi}{10} = \frac{1}{2} \int_0^1 R_f(\sqrt{2}, 1/2 + ix) \, dx
+\label{eq:pi-ten-golden}
+\sin\frac{\pi}{10} \;=\; \frac{1}{2\varphi} \;=\; \frac{\sqrt{5}-1}{4}
+\;=\; 0.3090169943749474\ldots
 \end{equation}
-where $R_f$ is evaluated at the P-class fractal dimension $\alpha = \sqrt{2}$ on the critical line.
+tying the oscillation scale to the golden ratio on which the $\alpha$-skeleton is
+built ($\alpha_{\text{Hodge}} = \varphi$, $\alpha_{NP} = \varphi + \tfrac14$).
+Equation~\eqref{eq:pi-ten-golden} and the Coxeter half-argument are machine-checked
+and axiom-free in \texttt{PF/H3CoxeterOrigin.lean}
+(\texttt{sin\_pi\_div\_ten\_eq\_inv\_two\_phi}, \texttt{H3\_Coxeter\_half\_arg},
+bundled as \texttt{H3\_icosahedral\_origin\_capstone}). What would be required to
+call $\pi/10$ \emph{derived} --- that the evolution operator inherit $H_3$
+structure at the operator level --- remains open.\manuscriptcorrection{\textbf{An
+integral identity offered here has been withdrawn as false. The constant
+$\pi/10$ is unaffected, and a machine-checked structural account replaces the
+withdrawn one.} This theorem previously asserted that $\pi/10$ ``arises from''
+$\omega_c = \tfrac{1}{2}\int_0^1 R_f(\sqrt2, 1/2+ix)\,dx$, with $R_f$ taken at
+$\alpha = \sqrt2$ on the critical line. That integral is well defined, but its
+value is $-0.369763 - 0.176066\,i$: not $\pi/10$, not real, not positive. It was
+the only integral derivation of $\pi/10$ offered in the book.
+\emph{The evaluation is legitimate, not a convergence or truncation artifact.}
+The character sum obeys $\sum_{n<3^k}e^{i\pi\alpha D_3(n)} = (1 + e^{i\pi\alpha}
++ e^{2i\pi\alpha})^k$, verified against direct summation at $k = 4, 6, 8$, so
+partial sums grow like $N^{\sigma(\alpha)}$ with $\sigma(\alpha) = \log_3|1 +
+2\cos\pi\alpha|$ and $\sigma(\sqrt2) = -0.692127 < 0$: the sums \emph{decay} and
+$\operatorname{Re}(s) = 1/2$ lies deep inside convergence. Power-of-$3$ cutoffs,
+where base-$3$ digit structure is periodic, interleave smoothly with
+non-power-of-$3$ cutoffs, successive changes shrinking from $8.2\times10^{-4}$
+to $3.3\times10^{-5}$; and the value was obtained without quadrature, each term
+integrated exactly by $\int_0^1 n^{-(1/2+ix)}dx = n^{-1/2}(1-n^{-i})/(i\log n)$.
+\emph{No nearby reading rescues it}, which is why it is withdrawn rather than
+re-ingredient-ed: ten post-processings of the printed integral all miss;
+$\alpha = 1$, where $R_f(1,s) = -\eta(s)$ has a closed form and would be the
+natural transcription slip, gives $-0.308282 - 0.048454\,i$; all nine of the
+framework's own $\alpha$-skeleton values miss; and a scan of $\alpha$ over
+$(0,4]$ finds no $\alpha$ whatever making the integral real and near $\pi/10$.
+\emph{This brings the theorem into line with its own ledger rather than
+weakening it.} The verification ledger of this chapter already classifies
+$\pi/10$ as \textbf{ASSERTED (not derived)} and cites this very theorem in doing
+so; ch.~7 does the same for its $\pi/10$ scaling law, whose polylogarithm
+derivation that chapter's ledger likewise calls heuristic. The corpus recorded
+the integral as open on 2026-10-07 --- ``the integral is well-defined
+($\sigma(\sqrt2)\approx-0.69$) but the identity is NOT checked. TO DO'' --- and
+this discharges that item. \emph{Provenance of the replacement}, measured rather
+than assumed: \texttt{PF/H3CoxeterOrigin.lean} is 472 lines with no
+\texttt{sorry} and no \texttt{axiom}, imported at \texttt{PF.lean:267} with a
+compiled artefact present, and proves \texttt{H3\_Coxeter\_number = 10},
+\texttt{H3\_Coxeter\_half\_arg}, \texttt{sin\_pi\_div\_ten} and
+\texttt{sin\_pi\_div\_ten\_eq\_inv\_two\_phi} on top of mathlib's
+\texttt{Real.cos\_pi\_div\_five}. That file's own limits are carried here and not
+inflated: it states that the agreements $\alpha_{RH} = 15/10$ and $\alpha_{NP} =
+\varphi + \tfrac14$ with $H_3$ Coxeter integers are ``a consistency check\ldots
+not a group-theoretic derivation'', which is why $\pi/10$ remains asserted
+above. Every quantity in the table and list that consume $\pi/10$ was recomputed
+and is exact. Withdrawn 2026-11-01.}
 \end{theorem}
 
 This frequency is the "heartbeat" of mathematical reality, governing the oscillations between discrete (base-3, computation) and continuous (analytic, zeta) regimes. The universality of this factor across all Millennium Problems is documented in \cite{cohen2025spectralpi10}.
