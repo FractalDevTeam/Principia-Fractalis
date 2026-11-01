@@ -93,11 +93,42 @@ As we explored the fractal resonance function in Chapter \ref{ch:resonance}, a m
 \end{itemize}
 
 \begin{intuitive}[Why $\pi/10$?]
-Imagine you're translating between two languages: the discrete language of integers (1, 2, 3, ...) and the continuous language of geometry (circles, curves, flows). 
+Imagine you're translating between two languages: the discrete language of
+integers (1, 2, 3, \ldots) and the continuous language of geometry (circles,
+curves, flows).
 
-The factor $\pi$ appears because circles are the fundamental objects in the complex plane---where our resonance function lives. The factor $1/10$ appears because we use decimal notation, which naturally splits information into 10 bins (digits 0--9).
+The factor $\pi$ is earned rather than chosen. Our resonance function is built
+out of phases on the unit circle, $e^{i\pi\alpha D_3(n)}$, and differentiating in
+$\alpha$ pulls out exactly $i\pi$ --- that is the content of
+equation~\eqref{eq:pi-ten-scaling-exact}.
 
-Together, $\pi/10$ is the ``exchange rate'' between discrete counting and continuous geometry.
+The $10$ is the Coxeter number $h(H_3) = 10$ of the icosahedron. The angle
+$\pi/10$ is the half-argument of the primitive Coxeter eigenvalue
+$e^{2\pi i/10}$, and $\sin(\pi/10) = 1/(2\varphi)$ holds exactly, tying the
+factor to the same golden ratio the resonance values are built from
+(Theorem~\ref{thm:universal_frequency}).
+
+Together, $\pi/10$ is the ``exchange rate'' between discrete counting and
+continuous geometry.\manuscriptcorrection{\textbf{A decimal-notation explanation
+offered here has been replaced; it contradicted this chapter's own theorem.} The
+box read: ``The factor $1/10$ appears because we use decimal notation, which
+naturally splits information into 10 bins (digits 0--9).'' Two things are wrong
+with that. First, this framework's notation is \emph{ternary}, so a
+decimal-notation account of one of its constants contradicts the framework it is
+explaining. Second, and decisively, Theorem~\ref{thm:base-3-optimal} in this same
+chapter proves that base ten is the \emph{least} efficient of the bases it
+compares: the radix economy $Q[b] = (\log b)/b$ gives $Q[10] \approx 0.230$
+against $Q[3] \approx 0.366$, with $Q[2] = Q[4] \approx 0.347$. I recomputed all
+four and they reproduce the chapter's printed values exactly
+($0.3465735903$, $0.3662040962$, $0.3465735903$, $0.2302585093$), so the box and
+the theorem disagreed by a factor of $1.59$ in the chapter's own figure of merit.
+\emph{The $\pi$ half of the box was sound and is now precise instead of
+gestural}: the factor $i\pi$ is produced by the chain rule on
+$e^{i\pi\alpha D_3(n)}$, which is proved at
+equation~\eqref{eq:pi-ten-scaling-exact}. \emph{The $10$ now points where it is
+actually verified}: $h(H_3) = 10$ with $\sin(\pi/10) = 1/(2\varphi)$,
+machine-checked and axiom-free in \texttt{PF/H3CoxeterOrigin.lean}. Corrected
+2026-11-01.}
 \end{intuitive}
 
 \subsection{Formal Statement}
@@ -198,14 +229,46 @@ point carries no $1/10$ whatever. Corrected 2026-11-01.}
 \end{level2}
 
 \begin{level3}[Information-Theoretic Interpretation]
-From an information-theoretic perspective, the $1/10$ factor represents the natural chunking of continuous information into decimal bins. When consciousness processes information from the Timeless Field, it must discretize continuous values.
+The genuine information-theoretic content here concerns three, not ten.
+Theorem~\ref{thm:base-3-optimal} establishes that the radix economy
+$Q[b] = (\log b)/b$ is maximised at $b = e \approx 2.718$ and, among integers, at
+$b = 3$ --- which is why this framework is built on $D_3$ in the first place. The
+same theorem evaluates $Q[10] \approx 0.230$ against $Q[3] \approx 0.366$, so
+base ten is the \emph{least} efficient of the bases compared there.
 
-The optimal discretization (maximizing Shannon entropy) for values in $[0,1]$ is the decimal system, giving exactly 10 bins. This is why $\pi/10$, not $\pi/2$ or $\pi/16$, appears as the universal constant.
+Where $\log 3$ legitimately enters is the ternary digit entropy. For $n$ uniform
+on $[0, 3^k)$ the $k$ ternary digits are independent and uniform on
+$\{0, 1, 2\}$, so the expansion carries Shannon entropy exactly $k \log 3$, and
+$D_3(n)$ --- the sum of those digits --- has mean $k$ and variance $2k/3$.
 
-More precisely, the mutual information between discrete base-3 structures and continuous complex structures is:
-\begin{equation}
-I(D_3; \mathbb{C}) = \frac{\pi}{10} \log 3 + O(1/n)
-\end{equation}
+None of this yields a factor of $1/10$, and it is not meant to. The ``$10$'' in
+$\pi/10$ is the icosahedral Coxeter number
+(Theorem~\ref{thm:universal_frequency}), not the output of a discretisation
+argument.\manuscriptcorrection{\textbf{Two claims in this box were false and one
+was ill-defined; all three are replaced by results this book already proves.}
+\emph{(a)} The box asserted that ``the optimal discretization (maximizing Shannon
+entropy) for values in $[0,1]$ is the decimal system, giving exactly 10 bins''.
+A uniform distribution on $k$ bins has entropy $\log k$, which is strictly
+increasing and unbounded, so no maximiser exists at any $k$: measured,
+$\log 10 = 2.3026 < \log 16 = 2.7726 < \log 100 = 4.6052 < \log 10^6 = 13.816$.
+The claim's own foil also defeats it --- it argued ``this is why $\pi/10$, not
+$\pi/2$ or $\pi/16$'', yet by the criterion it states $16$ bins carry
+\emph{more} entropy than $10$, so its reasoning would select $\pi/16$.
+\emph{(b)} It gave $I(D_3; \mathbb{C}) = (\pi/10)\log 3 + O(1/n)$. Mutual
+information requires a joint distribution over two random variables; the complex
+numbers are not a random variable, no joint law is specified anywhere, and the
+$n$ in $O(1/n)$ is never introduced. \emph{(c)} The framing of $1/10$ as ``the
+natural chunking of continuous information into decimal bins'' rests on (a).
+\emph{What replaces them is already in this book.}
+Theorem~\ref{thm:base-3-optimal}, later in this chapter, proves the real optimality
+result and selects $b = 3$, not $10$; I verified its four printed values
+independently as $0.3465735903$, $0.3662040962$, $0.3465735903$ and
+$0.2302585093$, with $1/e = 0.3678794412$ the real maximum and $3$ the nearest
+integer to $e$. Chapters~15 and~31 already rely on that same base-3 radix
+optimum, so this box had been the one place contradicting it. The ternary digit
+entropy $k\log 3$ and the moments of $D_3$ were checked by exhaustive enumeration
+over all $n < 3^4$: mean $4.0$ and variance $2.6666667$, matching $k$ and $2k/3$
+exactly. Corrected 2026-11-01.}
 \end{level3}
 
 \subsection{Physical Interpretations}
