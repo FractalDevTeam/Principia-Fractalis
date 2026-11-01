@@ -363,12 +363,23 @@ where $t_n$ are Riemann zero heights and $N_{\text{eff}} \approx 3$ is an effect
 \textbf{Check}:
 \begin{align}
 \sum_{n=1}^3 \frac{1}{|t_n|} &= \frac{1}{14.135} + \frac{1}{21.022} + \frac{1}{25.011}\\
-&= 0.0708 + 0.0476 + 0.0400 = 0.1584
+&= 0.0707 + 0.0476 + 0.0400 = 0.1583
 \end{align}
+
+\noindent\emph{Arithmetic correction, 2026-11-01: the first term and the sum
+were each one unit high in the fourth decimal.} $1/14.135 = 0.070746\ldots$,
+which rounds to $0.0707$, not $0.0708$; the sum is then $0.158346\ldots$, i.e.\
+$0.1583$, not $0.1584$. \textbf{The equation below was updated to consume the
+corrected sum}, and its conclusion is unchanged: multiplying by $4\pi^2$ gives
+$6.2494$ from the corrected sum against $6.2534$ from the printed one, so the
+``$\approx 6.25$'' and the ``off by a factor of ${\sim}20$'' comparison after it
+both stand as written. (An earlier version of this note said ``nothing
+downstream changes'' and left that equation using the old sum --- the same
+corrections-do-not-reach-restatements failure it was correcting.)
 
 Thus:
 \begin{equation}
-\alpha^{-1} \approx 4\pi^2 \cdot 0.1584 \approx 6.25
+\alpha^{-1} \approx 4\pi^2 \cdot 0.1583 \approx 6.25
 \end{equation}
 
 This is off by a factor of $\sim 20$. Clearly the simple sum is wrong, but including corrections from:
