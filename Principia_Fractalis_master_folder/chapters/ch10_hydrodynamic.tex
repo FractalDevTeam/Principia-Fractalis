@@ -476,18 +476,31 @@ Turbulence transitions occur when $\text{Re}_c$ exceeds a critical value.
 \label{thm:critical_reynolds}
 The transition from laminar to turbulent flow occurs at:
 \begin{equation}
-\text{Re}_c^{\text{crit}} = \frac{10}{\pi} \cdot \omega_c \cdot 10^5
-   = \frac{10}{\pi} \cdot \frac{\pi}{10} \cdot 10^5 = 1.00000 \times 10^5
+\text{Re}_c^{\text{crit}} \approx 3.28 \times 10^5
 \end{equation}
-where $\omega_c = \pi/10$ is the consciousness frequency, so that the factors
-$10/\pi$ and $\omega_c$ cancel exactly. \textbf{This statement printed
-$2.13198 \times 10^5$ until 2026-10-31}, the value its own \emph{Numerical
-correction, 2026-05-18} below already identified as arithmetically impossible
-here; the correction was written into the proof and the statement was never
-brought into line with it. The cancellation and the inequality are both
-machine-checked --- \texttt{ch10\_pi\_cancellation} and
+as derived in equation~\eqref{eq:re-c-crit-correct} below, from
+$10^6 \exp(-10 \cdot 0.35/\pi)$. \textbf{The history of this number is worth
+stating, because two different formulas have been attached to it and both
+earlier printed values were wrong.} Until 2026-10-02 the statement read
+$2.13198 \times 10^5$, which the \emph{Numerical correction, 2026-05-18} in the
+proof below shows cannot follow from either formula. On 2026-10-31 it was
+changed here to $1.00000 \times 10^5$ --- the value of the \emph{second}
+derivation $(10/\pi)\cdot\omega_c\cdot10^5$, whose factors do cancel exactly
+with $\omega_c = \pi/10$. That was also wrong, and is corrected on 2026-11-01:
+the 2026-05-18 correction identifies that second derivation as superseded, not
+merely mis-evaluated, and fixes the chapter's value from the exponential form
+instead. $3.28 \times 10^5$ is what this chapter uses at its opening paragraph,
+its summary table, its conclusion and its own propagation note, and
+$1.00000 \times 10^5$ appeared nowhere else in this chapter. It did appear
+once in the numerical-validation appendix, installed there by the same
+2026-10-31 pass and corrected on 2026-11-01 for the same reason, so the appendix
+and this chapter now agree. \emph{The cancellation itself
+remains machine-checked} --- \texttt{ch10\_pi\_cancellation} and
 \texttt{ch10\_re\_c\_crit\_arithmetic\_error} at
-\texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean:2510,2516}.
+\texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean:2510,2516} --- but what
+those theorems establish is that the \emph{superseded} formula yields $10^5$ and
+not $2.13198\times10^5$; they say nothing about which formula the chapter should
+use.
 \end{theorem}
 
 \begin{proof}

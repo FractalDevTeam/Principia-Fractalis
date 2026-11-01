@@ -241,9 +241,21 @@ where $z_* \approx 0.5$ is the consciousness emergence redshift.
 
 Combining yields:
 \begin{equation}
-w_{\text{DE}}(z) = -1 + 0.15 \cdot e^{-(z/0.5)^2} \approx -1 + \epsilon(z) \cdot (\text{ch}_2/0.95)^3
+w_{\text{DE}}(z) = -1 + 0.15 \cdot e^{-3(z/0.5)^2} \approx -1 + \epsilon(z) \cdot (\text{ch}_2/0.95)^3
 \end{equation}
 \end{proof}
+
+\noindent\emph{Arithmetic correction, 2026-11-01: the exponent above was missing
+its factor of~3.} Since $\text{ch}_2(z) = 0.95\,e^{-(z/z_*)^2}$, the right-hand
+side equals $-1 + \epsilon(z)\,e^{-3(z/z_*)^2}$, so the left-hand side must carry
+the same factor. Recomputed at 25-digit precision with $\epsilon = 0.15$: as
+printed, the two sides gave $-0.88318$ against $-0.92915$ at $z = 0.25$ and
+$-0.94482$ against $-0.99253$ at $z = 0.5$; with the~3 they agree exactly at
+every~$z$. \textbf{The repair is what this chapter's own 2026-10-03 remark
+already assumes} --- its $w_{\text{DE}}(0.5) = -0.9925$ is the corrected form's
+value, not the printed form's --- so no number elsewhere changes, and
+$w_{\text{DE}}(0) = -0.85$ is unaffected because the exponent vanishes at
+$z = 0$.
 
 \subsection{The dark-energy \texorpdfstring{$\alpha$}{alpha}-row: assignment to
 the quantum-gravity class}
