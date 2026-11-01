@@ -155,10 +155,10 @@ $f$ ``a structure-specific function that depends on the particular problem being
 studied'' --- that is, unconstrained. An unconstrained factor absorbs any
 constant, so the equation defined $f$ and said nothing about $\pi/10$. Concretely,
 at $\alpha_c = 3/2$ and $s = 2$ the limit is
-$2.85254131436 - 1.89089334935\,i$, and the choice of constant merely fixes which
-$f$ is forced: $\pi/10$ forces $9.079921011 - 6.018900468\,i$, $\pi/2$ forces
-$1.815984202 - 1.203780094\,i$, $1$ forces the limit itself, and $42$ forces
-$0.06791765034 - 0.04502127022\,i$. Each is an equally valid reading, so the
+$2.852541315 - 1.890893345\,i$, and the choice of constant merely fixes which
+$f$ is forced: $\pi/10$ forces $9.079921013 - 6.018900453\,i$, $\pi/2$ forces
+$1.815984203 - 1.203780091\,i$, $1$ forces the limit itself, and $42$ forces
+$0.06791765036 - 0.04502127011\,i$. Each is an equally valid reading, so the
 statement would have read identically with any nonzero constant.
 \emph{What is actually true is stronger}, and is now what the theorem says:
 differentiating $e^{i\pi\alpha D_3(n)}$ term by term gives the displayed identity
@@ -858,7 +858,15 @@ There is only one universe, because there is only one mathematics. We inhabit th
 \paragraph{Verification status (2026-07-23).}
 To hold this chapter to the standard of the machine-checked corpus, here is the honest status of its principal claims:
 \begin{itemize}
-\item \textbf{ASSERTED (not derived)} --- the universal factor $\pi/10$ (Theorem~\ref{thm:pi-ten-scaling}) and the ``sacred'' resonance values $\alpha_P=\sqrt{2}$, $\alpha_{NP}=\varphi+\tfrac14$, $\alpha=3/2$, etc.\ (Theorem~\ref{thm:sacred-necessity}, Table~\ref{tab:sacred-alpha}). These are \emph{chosen/definitional} constants of the framework, not consequences of first principles; the ``derivation from polylogarithms'' and the necessity arguments are heuristic. See \texttt{codex/DERIVATION\_ANALYSIS\_alpha\_NP.md}: the value $\varphi+1/4$ is a conjecture supported by numerics, with four named derivation gaps still open.
+\item \textbf{ASSERTED (not derived)} --- the universal factor $\pi/10$ (Theorem~\ref{thm:pi-ten-scaling}) and the ``sacred'' resonance values $\alpha_P=\sqrt{2}$, $\alpha_{NP}=\varphi+\tfrac14$, $\alpha=3/2$, etc.\ (Theorem~\ref{thm:sacred-necessity}, Table~\ref{tab:sacred-alpha}). These are \emph{chosen/definitional} constants of the framework, not consequences of first principles; the former polylogarithm derivation is not merely heuristic but \emph{false in
+form}, and was withdrawn on 2026-11-01: the expansion it rested on cannot hold,
+because $\text{Li}_1$ carries a logarithmic singularity at the expansion point
+where the claimed Taylor form tends to zero (see
+equation~\eqref{eq:li1-closed-form}). What \emph{is} derived in
+Theorem~\ref{thm:pi-ten-scaling} is the factor $\pi$, by the chain rule on
+$e^{i\pi\alpha D_3(n)}$; only the ``$10$'' remains structural, being the
+icosahedral Coxeter number $h(H_3) = 10$. The necessity arguments remain
+heuristic. See \texttt{codex/DERIVATION\_ANALYSIS\_alpha\_NP.md}: the value $\varphi+1/4$ is a conjecture supported by numerics, with four named derivation gaps still open.
 \item \textbf{ASSERTED (not derived)} --- the spectral gap $\Delta = 0.0891219046\ldots$ (Theorem~\ref{thm:p-np-gap}). It is arithmetic about the two asserted values $\alpha_P,\alpha_{NP}$; it does \emph{not} establish $\mathbf{P}\neq\mathbf{NP}$, which remains an open Millennium problem (the identification of $\Delta$ with a complexity separation is a conditional reduction; see Ch~\ref{ch:spectral_unity}).
 \item \textbf{PROVEN-as-arithmetic (only)} --- base-3 radix optimality (Theorem~\ref{thm:base-3-optimal}): $Q[b]=(\ln b)/b$ is maximised at $b=e$ and, among integers, at $b=3$. This is an elementary calculus fact and is true. It is \emph{not} a proof that physical reality is ternary; that reading is framework-internal.
 \item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED} --- the consciousness threshold $\text{ch}_2=0.95$ and its ``four independent derivations.'' The percolation route is admitted in-text to require a sign reinterpretation, the information-theoretic and spectral routes assume the conclusion, and the EEG figure awaits independent replication. No proof assistant can settle this.

@@ -253,8 +253,10 @@ printed, the two sides gave $-0.88318$ against $-0.92915$ at $z = 0.25$ and
 $-0.94482$ against $-0.99253$ at $z = 0.5$; with the~3 they agree exactly at
 every~$z$. \textbf{The repair is what this chapter's own 2026-10-03 remark
 already assumes} --- its $w_{\text{DE}}(0.5) = -0.9925$ is the corrected form's
-value, not the printed form's --- so no number elsewhere changes, and
-$w_{\text{DE}}(0) = -0.85$ is unaffected because the exponent vanishes at
+value, not the printed form's. \textbf{An earlier version of this note added
+that ``no number elsewhere changes''; that was wrong} --- the Hubble-tension
+proof later in this chapter substitutes the un-tripled exponent and is flagged
+at that site. $w_{\text{DE}}(0) = -0.85$ is unaffected because the exponent vanishes at
 $z = 0$.
 
 \subsection{The dark-energy \texorpdfstring{$\alpha$}{alpha}-row: assignment to
@@ -415,7 +417,28 @@ Integrating:
 \ln \rho_{\text{DE}}(z) - \ln \rho_{\text{DE},0} = 3 \int_0^z \frac{1 + w_{\text{DE}}(z')}{1+z'} dz'
 \end{equation}
 
-Substituting $w_{\text{DE}}(z) = -1 + 0.15 e^{-(z/0.5)^2}$:
+Substituting $w_{\text{DE}}(z) = -1 + 0.15 e^{-(z/0.5)^2}$:%
+\manuscriptcorrection{\textbf{This step and the three that follow rest on the
+superseded exponent, and are flagged rather than rewritten.} The form
+substituted here lacks the factor of~$3$ that this chapter's own
+\emph{Arithmetic correction, 2026-11-01} establishes for $w_{\text{DE}}$: since
+$\text{ch}_2(z) = 0.95\,e^{-(z/z_*)^2}$, the canonical form is
+$-1 + 0.15\,e^{-3(z/z_*)^2}$, and the two differ by $0.0477$ at $z = 0.5$
+($-0.944818$ as substituted here against $-0.992532$). That correction's claim
+that ``no number elsewhere changes'' did not account for this site; the claim has
+been withdrawn where it was made. \emph{Why this line is not simply re-tripled}:
+the three steps below were derived from the form as printed and are internally
+consistent with one another, so correcting only this line would leave a proof
+whose steps no longer follow. Re-deriving the chain is a modelling decision for
+the author, not a numeral repair. \emph{Two further defects in those steps},
+both verified at 25 digits and independent of the exponent: the Gaussian
+antiderivative is $\int_0^z e^{-(z'/0.5)^2}dz' = \tfrac14\sqrt{\pi}\,
+\text{erf}(2z)$, so the prefactor below should be $\tfrac14\sqrt\pi$ rather than
+the printed $\tfrac12\sqrt\pi$ --- the printed value is exactly twice the true
+one at every~$z$ ($0.461281$ against $0.230641$ at $z = 0.25$); and the final
+logarithmic step does not follow from the one above it, the two having
+\emph{opposite signs} for $z < z_*$ ($+0.009868$ against $-0.046523$ at
+$z = 0.1$). Flagged 2026-11-01.}
 \begin{align}
 \int_0^z \frac{0.15 e^{-(z'/0.5)^2}}{1+z'} dz' &\approx 0.15 \int_0^z \frac{e^{-(z'/0.5)^2}}{1+z_*} dz' \\
 &\approx \frac{0.15}{1+z_*} \times 0.5 \sqrt{\pi} \, \text{erf}(z/0.5) \\
