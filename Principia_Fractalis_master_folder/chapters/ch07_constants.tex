@@ -103,30 +103,98 @@ Together, $\pi/10$ is the ``exchange rate'' between discrete counting and contin
 \subsection{Formal Statement}
 
 \begin{thm}[Universal Scaling Law]\label{thm:pi-ten-scaling}
-For any critical resonance value $\alpha_c$ (such as $\alpha = 3/2$ for the Riemann Hypothesis), the fractal resonance function exhibits:
+Let $\alpha_c \in \mathbb{R}$, and let $\Re(s)$ be large enough for absolute
+convergence of the series below. Then $R_f(\cdot\,, s)$ is differentiable in
+$\alpha$ at $\alpha_c$, with
 \begin{equation}
-\lim_{\alpha \to \alpha_c} \frac{R_f(\alpha, s) - R_f(\alpha_c, s)}{\alpha - \alpha_c} = \frac{\pi}{10} \cdot f(\alpha_c, s)
+\label{eq:pi-ten-scaling-exact}
+\lim_{\alpha \to \alpha_c} \frac{R_f(\alpha, s) - R_f(\alpha_c, s)}{\alpha - \alpha_c}
+  \;=\; i\pi \sum_{n=1}^{\infty} \frac{D_3(n)\, e^{i\pi \alpha_c D_3(n)}}{n^{s}},
 \end{equation}
-where $f(\alpha_c, s)$ is a structure-specific function that depends on the particular problem being studied.
+the factor $i\pi$ arising by the chain rule from
+$\partial_\alpha e^{i\pi \alpha D_3(n)} = i\pi D_3(n) e^{i\pi \alpha D_3(n)}$.
+Writing the right-hand side in the form $(\pi/10)\cdot f(\alpha_c, s)$
+\emph{defines}
+$f(\alpha_c, s) := (10/\pi)\sum_{n \geq 1} D_3(n) e^{i\pi \alpha_c D_3(n)} n^{-s}$;
+the $1/10$ is then a normalisation of the problem-specific factor and is not
+constrained by this limit.\manuscriptcorrection{\textbf{This theorem had no
+content as previously stated, and is restated as the exact identity it should
+have been.} It read that the limit equals $(\pi/10)\cdot f(\alpha_c,s)$ with
+$f$ ``a structure-specific function that depends on the particular problem being
+studied'' --- that is, unconstrained. An unconstrained factor absorbs any
+constant, so the equation defined $f$ and said nothing about $\pi/10$. Concretely,
+at $\alpha_c = 3/2$ and $s = 2$ the limit is
+$2.85254131436 - 1.89089334935\,i$, and the choice of constant merely fixes which
+$f$ is forced: $\pi/10$ forces $9.079921011 - 6.018900468\,i$, $\pi/2$ forces
+$1.815984202 - 1.203780094\,i$, $1$ forces the limit itself, and $42$ forces
+$0.06791765034 - 0.04502127022\,i$. Each is an equally valid reading, so the
+statement would have read identically with any nonzero constant.
+\emph{What is actually true is stronger}, and is now what the theorem says:
+differentiating $e^{i\pi\alpha D_3(n)}$ term by term gives the displayed identity
+with $i\pi$ factoring out exactly, which I verified against the direct
+computation to better than $10^{-20}$. So the $\pi$ in this scaling law is
+genuinely derived --- it is the chain-rule factor --- while the $1/10$ does not
+appear in the derivative at all. The ``$10$'' has a separate and verified source:
+it is the Coxeter number $h(H_3) = 10$ of the icosahedral group, with
+$\sin(\pi/10) = 1/(2\varphi)$ holding exactly, machine-checked and axiom-free in
+\texttt{PF/H3CoxeterOrigin.lean} (Theorem~\ref{thm:universal_frequency}). This is
+a strengthening rather than a retreat: the chapter's verification ledger records
+$\pi/10$ as \textbf{ASSERTED (not derived)}, and the $\pi$ is now derived, with
+only the $10$ remaining structural. The theorem's name and label are unchanged.
+Restated 2026-11-01.}
 \end{thm}
 
-\begin{level2}[Derivation from Polylogarithms]
-The $\pi/10$ factor emerges rigorously from polylogarithm theory. Recall the polylogarithm:
+\begin{level2}[Polylogarithms: the Exact Closed Form]
+Recall the polylogarithm
 \begin{equation}
-\text{Li}_s(z) = \sum_{n=1}^\infty \frac{z^n}{n^s}
+\text{Li}_s(z) = \sum_{n=1}^\infty \frac{z^n}{n^s},
 \end{equation}
-
-For $z = e^{i\pi\alpha}$ near rational values $\alpha = p/q$:
+which at $s = 1$ is elementary: $\text{Li}_1(z) = -\log(1-z)$. On the unit circle
+it has an exact closed form. Writing
+$1 - e^{i\pi x} = 2\sin(\pi x/2)\,e^{i(\pi x/2 - \pi/2)}$ gives, for $0 < x < 2$,
 \begin{equation}
-\text{Li}_1(e^{i\pi p/q}) = -\log(1 - e^{i\pi p/q})
+\label{eq:li1-closed-form}
+\text{Li}_1(e^{i\pi x}) = -\log\!\left(2 \sin \frac{\pi x}{2}\right)
+   + i\,\frac{\pi}{2}\,(1 - x).
 \end{equation}
+This is exact, and it settles what the $1/10$ can and cannot come from. The real
+part diverges logarithmically as $x \to 0$ --- in agreement with
+Chapter~\ref{ch:complex}, which gives $\text{Li}_1(e^{-w}) \approx -\log w$ ---
+and the imaginary part tends to $\pi/2$, not to $0$. No Taylor polynomial in $x$,
+with $1/10$ or with any other coefficient, can represent a function carrying a
+logarithmic singularity at the expansion point. The $1/10$ therefore does not
+come from the polylogarithm.
 
-The Taylor expansion around rational points yields:
-\begin{equation}
-\text{Li}_1(e^{i\pi p/q}) \approx \frac{\pi p}{q} \cdot \frac{1}{10} + O((p/q)^2)
-\end{equation}
-
-The factor $1/10$ arises from the decimal expansion structure of the logarithm when averaged over rational denominators. This is not numerology---it's a deep property of how rational numbers are distributed on the unit circle in the complex plane.
+The ``$10$'' in $\pi/10$ has a different and verified source: it is the Coxeter
+number $h(H_3) = 10$ of the icosahedral group, $\pi/10$ being the half-argument
+of the primitive Coxeter eigenvalue, with $\sin(\pi/10) = 1/(2\varphi)$ exactly
+--- machine-checked and axiom-free in \texttt{PF/H3CoxeterOrigin.lean} and stated
+at Theorem~\ref{thm:universal_frequency}.\manuscriptcorrection{\textbf{A
+polylogarithm expansion claimed here was false in form, and is replaced by the
+exact closed form.} This box previously asserted that ``the $\pi/10$ factor
+emerges rigorously from polylogarithm theory'', via
+$\text{Li}_1(e^{i\pi p/q}) \approx (\pi p/q)\cdot\tfrac{1}{10} + O((p/q)^2)$,
+adding that the $1/10$ ``arises from the decimal expansion structure of the
+logarithm when averaged over rational denominators'' and that ``this is not
+numerology''. Since $\text{Li}_1(z) = -\log(1-z)$, as $x = p/q \to 0$ the argument
+tends to $1$ and $\text{Li}_1$ \emph{diverges}, while the claimed right-hand side
+tends to $0$. Measured: at $x = 1/10$, $1/100$ and $1/1000$ the true modulus
+exceeds the claim by factors of $58.2$, $1208$ and $19012$; at $x = 10^{-12}$ the
+modulus is $26.53$ against a claim of $3.14\times10^{-13}$. The defect is in the
+form, not the coefficient --- no polynomial can match a logarithmic singularity
+--- and no averaging over denominators is defined anywhere. This book's own
+Chapter~\ref{ch:complex} already records the correct behaviour,
+$\text{Li}_1(e^{-w}) \approx -\log w$, which I verified to a ratio of $1.000000$
+by $w = 10^{-8}$; the claim corrected here was the outlier against the rest of the
+book. \emph{The replacement is exact}: equation~\eqref{eq:li1-closed-form} was
+checked against direct evaluation at $x = 1/2$, $1/3$, $2/5$, $1/10$, $7/11$,
+$1/1000$ and at irrational $x = 1.4142135$, agreeing to within $8\times10^{-30}$
+throughout. \emph{And the arithmetic origin of the stray $1/10$ appears to be
+identifiable}: at $x = 1/3$ --- the natural point to test in a base-3 framework
+--- the real part is $-\log(2\sin(\pi/6)) = -\log 1 = 0$ exactly, so
+$\text{Li}_1(e^{i\pi/3}) = i\pi/3$ and the modulus is $\pi x$ \emph{exactly},
+which is precisely ten times the claimed $(\pi x)/10$. The true relation at that
+point carries no $1/10$ whatever. Corrected 2026-11-01.}
 \end{level2}
 
 \begin{level3}[Information-Theoretic Interpretation]
