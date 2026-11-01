@@ -445,11 +445,27 @@ The extrapolated limit is:
 \begin{observation}[Golden Ratio Emergence]\label{obs:golden-ratio}
 The ratio of ground state energies equals:
 \begin{equation}
-\frac{\lambda_0(H_{NP})}{\lambda_0(H_P)} = \frac{0.1330222423}{0.2221441469} \approx 0.5988854382
+\frac{\lambda_0(H_{NP})}{\lambda_0(H_P)} = \frac{0.1330222423}{0.2221441469} \approx 0.5988104758
 \end{equation}
 
 \noindent\emph{Numerical correction, 2026-05-18: Prior editions claimed this ratio $\approx (\sqrt{5}-1)/3$, but $(\sqrt{5}-1)/3 \approx 0.4120$, not $0.5988$. Similarly, the closed form $\pi(\sqrt{5}-1)/(30\sqrt{2}) \approx 0.0915$, not $0.1330$. Both errors formally certified at \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} theorems \texttt{manuscript\_sqrt5\_minus\_one\_div\_three\_bracket} and \texttt{manuscript\_lambda\_NP\_golden\_bracket}. The empirical ratio $0.5988$ remains the authoritative measurement; the closed-form predictions that fail to match it are catalogued as open derivation problems.}
 \end{observation}
+
+\noindent\textbf{Arithmetic correction, 2026-11-01: the quotient displayed above
+was mis-evaluated.} It read $0.5988854382$; the quotient of the two numbers shown
+in it is $0.598810475793814\ldots$, so the printed value was correct to five
+decimals while being shown to ten. \textbf{The note inside the observation stands
+unchanged}: it calls the empirical ratio $0.5988$ the authoritative measurement,
+and the corrected value rounds to $0.5988$ as well. \textbf{Provenance.} The
+digits $0.5988854382$ are a stranded literal from the pre-correction edition,
+where they sat on the \emph{sine-ratio} display rather than this one --- the
+archived copy at \texttt{ARCHIVE/2026-05-XX-historical/\ldots/ch21\_p\_vs\_np.tex}
+preserves $|0.798635510/0.847127424| \approx 0.5988854382$. The 2026-05-18 pass
+repaired that site and these digits were left behind here. They are condemned
+twice in the formal corpus, by \texttt{manuscript\_sine\_ratio\_ne\_5988} and
+\texttt{manuscript\_sqrt5\_identity\_ne\_5988}. All $6{,}084$ ordered quotients of
+this chapter's $78$ decimal literals were tested and none produces
+$0.5988854382$, so it is not the ratio of any other pair printed here.
 
 \subsection{The Irreducible Gap}
 
@@ -983,7 +999,9 @@ These values are consistent with the closed forms:
 \lambda_0(H_P) &\stackrel{?}{=} \frac{\pi}{10\sqrt{2}} \approx 0.2221441469079\ldots \\
 \lambda_0(H_{NP}) &\stackrel{?}{=} \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.0915
 \end{align}
-matching to within numerical precision.
+The $H_P$ value matches its closed form to within numerical precision
+$\bigl(7.92\times10^{-12}\bigr)$. \textbf{The $H_{NP}$ value does not}: the
+discrepancy is $4.1494\times10^{-2}$, as the correction below records.
 
 \noindent\emph{Corrected 2026-05-18: prior $0.1330222423419$ was arithmetically wrong; the closed form does NOT match the empirical $\lambda_0(H_{NP}) \approx 0.1330$.}
 \end{theorem}
@@ -994,9 +1012,25 @@ Follows from the convergence studies in Experiments \ref{exp:hp-convergence} and
 The closed form agreement is established by direct numerical comparison:
 \begin{align}
 \left|0.2221441469 - \frac{\pi}{10\sqrt{2}}\right| &< 10^{-10} \\
-\left|0.1330222423 - \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}}\right| &< 10^{-10}
+\left|0.1330222423 - \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}}\right| &= 4.1494\times10^{-2}
 \end{align}
 \end{proof}
+
+\noindent\textbf{Correction, 2026-11-01: the second line of that comparison was
+false, and by a wide margin.} It displayed
+$\left|0.1330222423 - \pi(\sqrt{5}-1)/(30\sqrt{2})\right| < 10^{-10}$. The closed
+form evaluates to $0.091528422127\ldots$, so the quantity is
+$4.1494\times10^{-2}$ --- larger than the asserted bound by a factor of
+$4.15\times10^{8}$. The $H_P$ line is correct, at $7.92\times10^{-12}$, and is
+unchanged. \textbf{Why it survived:} this theorem's own 2026-05-18 note already
+records that ``the closed form does NOT match the empirical'', but that note is
+the last thing inside the \texttt{theorem} environment, and this display sits in
+the \texttt{proof}, which is outside it --- so the note never reached here.
+\textbf{No value is withdrawn.} The empirical $0.1330222423$ and the
+golden-modulation closed form are both retained; the failure of the second to
+reproduce the first is this chapter's stated open derivation problem
+(Remark~\ref{rem:alpha-P-NP-derivation-status}), not a defect in either
+number.
 
 \begin{remark}[Status of Analytical Derivations]
 The conjectural framework (Conjectures \ref{conj:polylog-spectrum} and \ref{conj:golden-modulation}) provides a \textit{heuristic explanation} for the closed forms:
@@ -1425,13 +1459,49 @@ Think of the ground state energies as the \textit{minimum energy required} to pe
 
 \textbf{$H_{NP}$: Fractal Spectrum Twisted by Golden Ratio}
 \begin{itemize}
-\item $\lambda_0(H_{NP}) = \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.133$ is the energy cost for certificate verification
+\item $\lambda_0(H_{NP}) \approx 0.133$ is the energy cost for certificate verification --- the \emph{empirical} value; the golden-modulation conjecture predicts the closed form $\pi(\sqrt{5}-1)/(30\sqrt{2}) \approx 0.0915$ instead, which this chapter records as \emph{not} matching it
 \item This is a "twisted harmonic" — the deterministic vibration modulated by the golden angle $\varphi = \frac{\sqrt{5}-1}{2}\pi$
 \item The golden ratio encodes \textit{non-perturbative effects}: certificate branching creates optimal packing of quantum states on the fractal
 \end{itemize}
 
 The energy gap $\Delta = 0.089$ is like the mass gap in quantum field theory—an irreducible barrier between two phases of matter. Here, the "phases" are deterministic versus nondeterministic computation.
 \end{intuitive}
+
+\noindent\textbf{On the box above, 2026-11-01 --- one correction, and one defect
+recorded rather than repaired.}
+
+\emph{(i) Corrected.} The $\lambda_0(H_{NP})$ bullet read
+$\lambda_0(H_{NP}) = \pi(\sqrt{5}-1)/(30\sqrt{2}) \approx 0.133$, asserting the
+empirical value as an identity with the golden closed form. That expression
+evaluates to $0.0915284221\ldots$, and this chapter says so twice already --- in
+Remark~\ref{rem:alpha-P-NP-derivation-status} (``the closed form
+$\pi(\sqrt{5}-1)/(30\sqrt{2}) \approx 0.0915$, not $0.1330$'') and in the
+2026-05-18 note on the gap display, where the companion site was repaired. This
+one sat $977$ lines away and was missed. \textbf{The numeral was not simply
+replaced}: the box is valued on the empirical triple --- $0.222$, then $0.133$,
+then $\Delta = 0.089$ --- so writing $0.0915$ in would have falsified the gap
+line, since $0.222 - 0.0915 = 0.131$. The empirical value is kept and the false
+identity removed, which leaves both neighbouring bullets correct and untouched.
+
+\emph{(ii) Recorded, not repaired --- a symbol collision.} The following bullet
+calls $\varphi = \frac{\sqrt{5}-1}{2}\pi = 1.9416\ldots$ ``the golden angle''.
+Two things are true at once. The \emph{value} is definitional and
+self-consistent: $\varphi$ is the rotation parameter of the operator $R_\varphi$
+fixed in this chapter's kernel definition, and the same stipulation is repeated
+at the golden-modulation conjecture, so within that construction $\varphi$ is an
+angle by choice. But the chapter also uses $\varphi$ for the golden \emph{ratio}
+$1.618\ldots$ in twenty places, including $\varphi + \tfrac14 \approx 1.868$, and
+the formal corpus requires that second reading:
+$\pi/\bigl(10(\varphi+\tfrac14)\bigr)$ is $0.1681764182$ under
+$\varphi = 1.618$ but $0.1433462689$ under $1.9416$, which fails
+\texttt{lambda\_0\_NP\_precise}. One symbol therefore carries two incompatible
+meanings across this chapter, four sites against twenty. \textbf{Repairing it
+means renaming one of the two uses consistently throughout}, which is a
+chapter-wide authorial change, not a local correction --- editing any single site
+in isolation would put that site at odds with its own operator definition.
+Separately and more narrowly: $(\sqrt{5}-1)\pi/2 = \pi/\varphi = 111.25^\circ$ is
+not what the literature calls the golden angle, which is
+$2\pi/\varphi^{2} = 2.39996\ldots$ rad $= 137.51^\circ$.
 
 \subsection{Why These Dimensions?}
 
