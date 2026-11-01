@@ -217,7 +217,66 @@ Remark~\ref{rem:nu-eff-postulate-2026-10-03}, and not derived from the stress
 tensor:} the consciousness field would act like an extra viscosity that's always
 present but usually very small. The factor $\pi/10 \approx 0.314$ would mean consciousness adds about 31\% extra damping when $\nu_c = \nu$. This small amount is enough to prevent blow-up without significantly changing laminar flow.
 
-\textbf{🟡 Technical insight:} The $\pi/10$ factor comes from the fractal self-similarity scale of $\Phi$. This is the same universal constant appearing in P vs NP and Riemann—it's the natural frequency of the Timeless Field coupling to physical processes. The universality of this factor across Navier-Stokes, Riemann Hypothesis, Hodge Conjecture, and Yang-Mills is documented in \cite{cohen2025spectralpi10}.
+\textbf{🟡 Technical insight:} \emph{Conditional on the same postulate, and not
+derived here:} the $\pi/10$ above is an \emph{input} to this chapter rather than
+a result of it. It enters as the stipulated self-similarity scale
+$\ell_{\Phi} = \pi/10$ in Step~3 of the proof of
+Lemma~\ref{lem:consciousness_regularization} --- asserted there, not derived ---
+and it inherits the units difficulty already recorded in
+Remark~\ref{rem:ell-c-units-2026-10-03}: $\pi/10$ is supplied as a pure number,
+and ``in units where $\nu = 1$'' fixes only one combination of length and time,
+not both. Under the closure that scale supplies, the stress contributes no
+dissipation at all (Remark~\ref{rem:nu-eff-postulate-2026-10-03}, Step~3). What
+is true independently of this chapter is that $\pi/10$ is the same constant
+carried by the P vs NP and Riemann operators, where $\lambda_0 = \pi/(10\alpha)$
+gives $\pi/(10\sqrt{2}) = 0.2221441469$ and
+$\pi/(10(\varphi + \tfrac14)) = 0.1681764182$; and that its ``$10$'' is the
+icosahedral Coxeter number $h(H_3) = 10$, with $\sin(\pi/10) = 1/(2\varphi)$
+holding exactly --- both machine-checked and axiom-free in
+\texttt{PF/H3CoxeterOrigin.lean} (see
+Theorem~\ref{thm:universal_frequency}). The appearance of the factor across
+Navier-Stokes, the Riemann Hypothesis, the Hodge Conjecture and Yang-Mills is
+catalogued in \cite{cohen2025spectralpi10}.\manuscriptcorrection{\textbf{A
+derivation claimed in this box has been corrected to a stipulation; the
+conditional carried by the green paragraph above was missing from this one.}
+This passage read that ``the $\pi/10$ factor comes from the fractal
+self-similarity scale of $\Phi$'' and that the constant is ``the natural
+frequency of the Timeless Field coupling to physical processes'' --- present
+tense, three lines below a remark whose own words are that readers ``should not
+treat the $\pi/10$ damping figure below as derived''. The correction of
+2026-10-03 reached the green paragraph of this box, which carries its conditional
+explicitly and uses the subjunctive throughout, and did not reach this one.
+\emph{Three findings already in this chapter bear on what the sentence pointed
+at.} First, $\pi/10$ is an input: Step~3 of the lemma's proof \emph{asserts} the
+self-similarity scale $\ell_{\Phi} = \pi/10$, so ``comes from'' relocated the
+assumption rather than sourcing it. Second,
+Remark~\ref{rem:ell-c-units-2026-10-03} already establishes for the twin
+quantity $\ell_c$ that $\pi/10$ is supplied as a pure number with no unit
+attached, and that working in units where $\nu = 1$ fixes only one combination of
+length and time; $\ell_{\Phi} = \pi/10$ equates a \emph{length} to a
+dimensionless number under that same convention and inherits the difficulty.
+Third, Remark~\ref{rem:nu-eff-postulate-2026-10-03} shows the chain it feeds does
+not hold: under the lemma's own closure the force is a pure gradient, which does
+zero work on a divergence-free field, so the claimed bound fails for every flow
+with $\nabla\mathbf{u} \neq 0$ and $\nu_c > 0$. That remark's Step-4 arithmetic
+was re-verified independently at 25 digits and is exact as printed --- the left
+side rises from $0$ to $2.87275$ while the right falls from $0.298451$ to $0$,
+they coincide only at $\text{ch}_2 = 0.0894075$, and $10/\pi$ divided by $\pi/10$
+is $10.132118$, the reciprocal pair the remark names as the source of the slip.
+\emph{What is retained because it is true}: $\pi/10$ is genuinely the constant of
+the P vs NP and Riemann operators, and $\pi/(10\sqrt2) = 0.2221441469$ and
+$\pi/(10(\varphi+\tfrac14)) = 0.1681764182$ reproduce the kernel constants
+\texttt{lambda\_0\_P} and \texttt{lambda\_0\_NP} exactly. \emph{And the origin is
+now stated where it actually is}, as in ch.~9: the ``$10$'' is the Coxeter number
+of the icosahedral group, $\pi/10$ is the half-argument of the primitive Coxeter
+eigenvalue, and $\sin(\pi/10) = 1/(2\varphi)$ --- proved in
+\texttt{PF/H3CoxeterOrigin.lean}, measured at 472 lines with no \texttt{sorry}
+and no \texttt{axiom} and imported at \texttt{PF.lean:267}. The cited reference
+documents where the factor appears, which is what it is cited for here. The
+stipulation at Step~3 is left as it stands: it is honestly worded as an
+assumption, the two remarks govern its consequences, and altering an input the
+whole lemma rests on would be a change of content rather than a correction.
+Corrected 2026-11-01.}
 \end{greenbox}
 
 \section{Enhanced Energy Inequality}
