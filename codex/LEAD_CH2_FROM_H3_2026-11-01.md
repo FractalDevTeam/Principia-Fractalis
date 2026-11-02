@@ -1,102 +1,179 @@
-# A non-circular candidate route to deriving ch₂ = 0.95 from H₃
+# CLOSED 2026-11-02 — the ch₂-from-H₃ route, and the false absence claim it rested on
 
-Written 2026-11-01. This is a **research lead with a named obstruction**, not a
-result. It is recorded because it is the first candidate source for the `20` in
-`ch₂ = 19/20` that is not back-solved from `0.95` itself.
+**Status: route CLOSED. One claim in the original was false and had propagated
+into the manuscript. Four independent attacks returned; all four closed it.**
 
-## What the corpus already proves
+The original lead (2026-11-01, commit `9b139eff`) proposed that the `20` in
+`ch₂ = 19/20` might come from the icosahedral group H₃ independently of `0.95`,
+which would have collapsed the consciousness threshold and the universal
+coupling `π/10` into one group-theoretic fact. It set its own closing condition:
+*"if the saturation value provably is not 20, the route closes and that is also
+progress."* That condition was met, and more.
 
-`PF/FrameworkCrossDomainAnchors.lean`
+## The false claim, and how I made it
 
-```
-:155  noncomputable def Phi_threshold : ℝ := 2 * Real.log 20
-:167  theorem Phi_threshold_eq_log_400 : Phi_threshold = Real.log 400
-:223  theorem iit_saturation_at_threshold :
-        (1 - Real.exp (-Phi_threshold / 2)) = 19 / 20
-```
+The lead stated: *"nothing in the Lean corpus connects 20, 400 or
+Phi_threshold to H₃ or to the icosahedron."*
 
-The saturation identity is exact, and the mechanism is elementary:
-`exp(-log(400)/2) = 400^(-1/2) = 1/20`, so `1 - 1/20 = 19/20` with no
-approximation anywhere. Verified independently at 30 dps.
+**The load-bearing half is false.** `PF/HodgeCrystallizationH3Discharge.lean:168`
 
-## Why it is NOT currently a derivation of 0.95
-
-The same file's docstring, `:222`, states the direction of reasoning:
-
-> "Phi = 2·log 20: **solving 0.95 = 1 − e^{−Φ/2} gives Φ = 2·log 20**"
-
-So `Phi_threshold` was obtained by inverting the very equation the theorem
-proves. The identity is a faithful reparametrisation of `0.95`, not an
-independent route to it. **Any claim that the IIT saturation identity derives
-ch₂ = 0.95 is circular**, and the corpus is honest about this in its own
-docstring. It must not be cited as a derivation.
-
-## The lead: the 20 is an icosahedral invariant
-
-`20` is a genuine invariant of the same group that already supplies `π/10`:
-
-| quantity | value |
-|---|---|
-| icosahedron faces | **20** |
-| dodecahedron vertices (dual) | **20** |
-| `2·h(H₃)` | **20** |
-| `\|W(H₃)\|/d₂ = 120/6` | **20** |
-
-and it is **not** equal to the other H₃ counts — roots 30, reflections 15,
-`\|W\|` 120, `rank·h` 30 — so the identification is specific rather than a
-free choice among invariants.
-
-The corpus already proves, kernel-only and axiom-free, in
-`PF/H3CoxeterOrigin.lean`:
-
-```
-:87   H3_Coxeter_number : ℕ := 10
-:111  H3_Coxeter_half_arg : (2π / h(H₃)) / 2 = π/10
-:211  sin_pi_div_ten_eq_inv_two_phi : sin(π/10) = 1/(2·goldenRatio)
+```lean
+theorem hodge_rank_witness_H3 :
+    (20 : ℕ) = 2 * H3_Coxeter_number := by
+  show (20 : ℕ) = 2 * 10
+  norm_num
 ```
 
-So `h(H₃) = 10` already carries the universal coupling `π/10 = π/h(H₃)`.
+dated **2026-05-24**, importing `PF.H3CoxeterOrigin`, bundled at `:211`, carried
+in the master manifest at `PF.lean:733`.
 
-**If the `20` can be obtained from H₃ independently of `0.95`, then
-`ch₂ = 1 - 1/(2h(H₃))` and `π/10 = π/h(H₃)` collapse into ONE group-theoretic
-fact, and two of the framework's asserted constants become structural at once.**
+**How the error happened, exactly.** My verification script grepped for
+`2 \* H3_Coxeter_number` and *printed the matching filename*. The script's next
+line was a hardcoded label reading `(empty = no such link found)`. I read the
+label instead of the data directly above it. This is not a grep-scope failure —
+the grep worked. It is a reading failure, and the lesson is narrower and worse
+than "try several namings": **never pair a search with a pre-written conclusion
+about its result.** The label must be computed from the output or omitted.
 
-Measured: nothing in the Lean corpus connects `20`, `400`, or `Phi_threshold`
-to H₃ or to the icosahedron. The grep for `2 * H3_Coxeter_number` and for
-`400` near `Coxeter|H3|icosa` returns nothing. This connection is absent.
+The `400` and `Phi_threshold` halves of the absence claim are true — no file
+connects those to H₃.
 
-## The obstruction, stated precisely
+## And the existing identity runs backwards
 
-What is missing is a reason the integrated-information saturation value should be
-the icosahedral face count. Specifically, to close this one needs:
+`HodgeCrystallizationH3Discharge.lean:166` documents its own direction: *"The
+Hankel-rank ceiling `20 = 1/(1 − σ_c) = 1/(1 − 19/20)`"*, and
+`PF/MillenniumSixReductions.lean:761` proves
+`low_rank_bound_at_sigma_c : 1/(1 − sigma_c) = 20` with `sigma_c := 19/20`. So
+the corpus's `20 = 2h(H₃)` takes its 20 **from** 0.95 — the identical
+circularity the lead correctly diagnosed for `Phi_threshold`. The ground was
+already walked, already committed, and already circular.
 
-> **Target.** An argument, independent of `ch₂ = 0.95`, that the saturation
-> value of the integrated-information measure on the substrate equals `20`
-> (equivalently: that `Φ_threshold = 2 log(2h(H₃))`), derived from the
-> icosahedral structure rather than fitted to the threshold.
+## The four refutations
 
-Until that exists this is a numerical identification, and the framework already
-carries too many of those. It is logged as a lead, not as support.
+**1. The measure has no saturation value.** `Phi_IIT := 2 * vNEntropy`
+(`PF/Consciousness/Ch2PhiBridgeDischarge.lean:116`) on `SchmidtSpectrum n` has
+supremum `2 log n` at fixed `n`, attained at the uniform spectrum, and `+∞`
+overall. The corpus's own link theorem `:413` fixes the 20 as
+`uniformSchmidt 19` — the Hilbert-space **dimension input**. What saturates is
+the bridge `1 − exp(−Φ/2)`, and it saturates at **1**, not 0.95. The lead's
+target had no referent.
 
-## Why it is still worth having
+**2. The groups don't permit the collapse.** The substrate's only canonical
+action is `A₅ ⊂ SO(3) ⊂ SU(3)` on `M₃(ℂ)` by conjugation, which factors through
+`PO(3)` and kills the central `{±I}`. So the substrate sees only
+`A₅ = W(H₃)/{±I}`. The Coxeter element of H₃ is **improper** (det = −1), and
+**A₅ has no element of order 10** — verified by exhaustive enumeration: orders
+are exactly `{1,2,3,5}`. So the substrate-visible half-argument is `π/5`, not
+`π/10`. The 20 is an A₅ index (`[A₅ : Sylow₃] = 20`, while
+`[W(H₃) : Sylow₃] = 40`); the 10 of π/10 needs W(H₃)'s improper element. They
+sit on opposite sides of the centre and cannot collapse.
 
-The book's current justification of `0.95` is weaker than this lead.
-`ch26:580` reads:
+**3. The specificity test was the wrong test.** Twelve H₃/icosahedral/A₅
+invariants lie in `[10,100]` — 10, 12, 15, 18, 20, 24, 30, 31, 32, 59, 60, 62 —
+each giving an exact `1 − 1/N`, covering `[0.900, 0.9839]` with maximum gap
+**0.0167**. Verified: every two-decimal threshold from 0.90 to 0.99 is within
+0.01 of one. And 0.90 would have been *cleaner* — `1 − 1/h(H₃)`, no factor of
+two. Separately, 16 depth-1 expressions over the corpus's own published H₃
+integer pool hit 20 exactly, and 978 at depth 2. `codex/ADVERSARIAL_ALPHA_2026-10-02.md:116-132`
+had already published that pool *including 20*, with the verdict *"individually
+correct and carry essentially no information."* The lead contradicted a
+month-old ruling of its own corpus.
 
-> **ASSERTED (numerology)** --- ch₂ = 0.95 = 6/π² + ε_quantum
+**4. The supporting table was one fact.** `|W| = d₁d₂d₃` with `d₁ = 2` always,
+so `|W|/d₂ = d₁d₃ = 2h` for **every** rank-3 Coxeter group — verified: A₃
+`24/3 = 8 = 2·4`, B₃ `48/4 = 12 = 2·6`, H₃ `120/6 = 20 = 2·10`. Zero
+H₃-specific content. Faces = dual vertices is duality. Four rows read as four
+corroborations; it was one.
 
-`6/π² = 0.60793`, so that account needs `ε_quantum = 0.34207` — a correction
-amounting to **36% of the value being explained**, with no source. The H₃ route
-needs no fudge term at all; it needs one theorem. A target that is one statement
-away is a better position than a fitted remainder, and it is falsifiable: if the
-saturation value provably is not `20`, the route closes and that is also
-progress.
+Also: other groups supply 20 more canonically. `I₂(10)` has `|W| = 20 = 2h` with
+`h = 10`, and `|W| = 2h` is a *theorem* for every rank-2 dihedral group. `A₄`
+has `|roots| = nh = 20`. `H₄` and `E₈` carry 20 as a **degree** with 19 as its
+matching exponent, so `19/20 = mᵢ/dᵢ` directly, with no saturation functional
+form required at all.
 
-## Do not overclaim this
+## Two corrections against the lead's own framing
 
-Three things that are NOT established and must not be written into the book:
+**The exactness comparison was invalid.** `Φ = 2 log X` gives
+`1 − e^{−Φ/2} = 1 − 1/X` identically — the `2` and the `/2` cancel. So **400 is
+never a quantity in the framework**, the whole IIT layer is a reparametrisation
+of "20", and exactness is automatic for any terminating decimal. The lead's
+"needs no fudge term where 6/π² needs 36%" compared a rational-hitting integer
+family against an irrational constant. It was not a comparison of evidential
+quality, and it was the sentence used to argue the route beat the book's
+account.
 
-1. that `ch₂ = 0.95` is derived — it is not;
-2. that the IIT saturation identity supports `0.95` — it is circular by its own
-   docstring;
-3. that `20 = 2h(H₃)` is a mechanism — it is an identification awaiting one.
+**One claim was understated.** `h(H₃) = 10` is genuinely **derived**:
+`PF/H3CoxeterDiagramDerivation.lean:519` proves
+`orderOf H3_coxeterElement = H3_Coxeter_number` from mathlib's
+`CoxeterMatrix.H₃` via the Gram matrix, with exponents `{1,5,9}` from the
+characteristic polynomial. So the asymmetry is sharp, not symmetric: **the 10
+has a derivation chain; the 20 has `norm_num` on a back-solved number.**
+
+## What survives — on the other side of the framework
+
+`PF/IBMPeaksGaloisPair.lean:89`
+
+```lean
+theorem NP_fibre_squared : (4 * alpha_NP - 3) ^ 2 = 20
+```
+
+Exact, kernel-proved, and **0.95-free**: `4(φ + 1/4) − 3 = 2(2φ − 1) = 2√5`, so
+`20 = 4·5 = 4·disc ℚ(√5)`. Verified at 30 dps. It is the completed-square
+constant of ch.21's own self-adjointness quadratic, with
+`disc = 1280 = 16²·5`. It inherits α_NP's open provenance — `r122 §6` proves
+α_NP is independent of every non-definitional postulate — but it does not come
+from 0.95. **The circle is breakable from the α-skeleton side, not the
+icosahedral side this lead chose.**
+
+Three further 0.95-free factorisations of 20 exist (`10·α_YM`, the polylog
+`2·10`, the α_QG multiplier), and 400 appears 0.95-free as `λ₀(YM)² = π²/400`.
+
+## What a real attempt would require
+
+1. **Direction**: diagram → parabolic index → saturation gap, never the reverse.
+   It may not cite `low_rank_bound_at_sigma_c`. Drop the IIT/400 layer entirely.
+2. **Selectivity** — the real bar. The canonical description of 20 is
+   `[W(H₃) : W_{A₂}] = 120/6`, the index of the maximal parabolic stabilising a
+   triangular face. The other two maximal parabolics give **12** and **30**. The
+   theorem must say why A₂ is forced, and must be *unable* to output 12, 15,
+   24, 30 or 60 — all available, each fitting a plausible threshold to within
+   0.0167.
+3. **Falsifiability**: it must predict one number besides 0.95 from the same
+   structure.
+
+## Collateral findings, logged for separate repair
+
+* **`MinimalRigidityForcesLambdaEffExponentProduct.lean` forces nothing.** Its
+  six hypotheses are all underscore-prefixed — Lean's marker for unused — and
+  the proof term is the unconditional global numeral identity. Provable with the
+  rigidity set deleted. Its own docstring concedes "the parametric lift of the
+  global-constant identity." The discriminating control: the IIT-Φ-threshold
+  file binds and consumes its hypotheses without underscores.
+* **The IIT bridge carries two incompatible conventions**, differing by exactly
+  2: `8.644` bits in Lean against `4.32` bits at `ch31:182`, where only the
+  un-doubled form lands in the cited 4–6 bit band. Repaired in the manuscript
+  on 2026-11-02.
+* **`Ch2PhiBridgeContinuousSchmidt`** is `∀ μ, nonneg → True` — a vacuous named
+  placeholder.
+* **An impossibility overclaim**: `codex/SUBSTRATE_FORCES_WHAT_2026-07-26.md:219-220`
+  says the 5-fold icosahedral structure *"cannot live inside the substrate
+  K-theoretically"*, inferring it from `not_memZ13_one_fifth` (no trace-1/5
+  projection, hence no unital `M₅(ℂ) ↪ T∞`). That does not follow: icosahedral
+  symmetry needs a 3-dimensional representation, which exists. The
+  impossibility-vs-absence pattern.
+* **13 routes to 0.95 adjudicated, zero exact**: 4 circular by construction or
+  definition, 2 circular by docstring, 1 fitted to an interval of width 2/27
+  that does not distinguish 19/20, 4 refuted, 1 withdrawn, 1 unreplicated
+  empirical claim about a different observable, 1 sufficient-only theorem.
+  `ε_quantum` is defined exactly once, as `σ_c − 6/π²`.
+
+## The one honest next action
+
+The strongest statement available here is **negative, and it is one theorem away
+from being machine-checked**: formalise that the ternary tower's distinguishable
+thresholds are exactly `ℤ[1/3] ∩ [0,1]`, and that `19/20 ∉` that set. It needs
+only the `not_memZ13_*` lemmas the corpus already holds. It converts
+`ch06:679`'s and `ch07:817`'s prose — *"20 is not a ternary number"* — into a
+kernel fact, and permanently closes "0.95 is forced by the substrate" in both
+directions. No downgrade is involved: `ch06:464` already files 0.95 as
+EMPIRICAL HYPOTHESIS — UNTESTED.
