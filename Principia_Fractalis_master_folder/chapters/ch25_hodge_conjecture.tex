@@ -635,6 +635,42 @@ from spectral concentration to algebraicity is stated as a \emph{conjecture}
 \item \textbf{OPEN (Clay-hard)} --- algebraicity of rational Hodge classes in codimension $\geq 2$ (e.g.\ the $(2,2)$ classes on the quintic threefold discussed here) is the hard range of the conjecture; in the corpus this is the named \emph{open} proposition \texttt{VoisinObstructionAtCodimTwoCY3} (Voisin 2007), bucket-3. The classical Lefschetz $(1,1)$ theorem for general surfaces is standard but blocked on absent mathlib (Chow groups, cycle-class map, Hodge decomposition).
 \item \textbf{PROVEN (kernel-verified), within declared substrate scope only} --- the low-dimensional/substrate discharges (dim~1 curves, general surfaces, CY3/CY4 $(1,1)$ and $(2,2)$/$(3,3)$ on the substrate, Dwork pencil) are genuine within their declared scope; on the substrate the geometric predicate \texttt{isAlgebraic} is trivialised exactly where the hard content lives, so these do \emph{not} amount to the Hodge conjecture. The 2026-05-18 $\mathrm{ch}_2(\text{Hodge})$ correction is machine-certified (\texttt{ch\_2\_Hodge\_bracket}).
 \item \textbf{ASSERTED / CONDITIONAL} --- Theorem~\ref{thm:hodge-concentration} ($\sigma(\xi)\geq 0.95$ for all Hodge classes) is supported by a proof \emph{sketch} and numerics, not a complete machine-checked proof; the $0.95$ threshold, $\alpha=\varphi$, and the crystallization dynamics are asserted framework structure.
+\item \textbf{ASSERTED (numerology)} --- the threshold decomposition
+  $\sigma_c = 6/\pi^2 + \epsilon_{\text{quantum}}$ stated earlier in this
+  chapter. \textbf{This label is propagated from
+  \texttt{ch26\_cosmological\_constant.tex}}, whose verification-status section
+  has carried it since 2026-07-23 while this chapter's did not --- so the same
+  identity read as a Theorem here and as acknowledged numerology there. The
+  defect was diagnosed on 2026-10-05, at the equation itself and in
+  \texttt{PF/Ch20Ch25NumericObstructions.lean}, and the propagation is landed
+  here on 2026-11-02. $\epsilon_{\text{quantum}}$ is \emph{defined as the
+  remainder}: $6/\pi^2 = 0.607927101854$, so the printed $0.3421$ is exactly
+  $0.95 - 6/\pi^2 = 0.342072898146$, a correction amounting to $36.0\%$ of the
+  value being explained. That it is the remainder is kernel-bracketed, not a
+  matter of opinion --- \texttt{epsilon\_quantum\_is\_the\_remainder} proves
+  $0.3420 < 0.95 - 6/\pi^2 < 0.3421$ axiom-free. Nothing in this chapter or in
+  ch.~26 independently derives either the correction or the target.%
+\manuscriptcorrection{\textbf{One named research target now exists for this
+entry, and it is a target rather than support.} Recorded 2026-11-02; full
+statement in \texttt{codex/LEAD\_CH2\_FROM\_H3\_2026-11-01.md}. A second route
+to $0.95$ is exact and kernel-proved --- $1 - e^{-\Phi/2} = 19/20$ at
+$\Phi = \log 400$, since $400^{-1/2} = 1/20$ --- but it is \emph{circular as a
+derivation}, because $\Phi_{\text{threshold}} := 2\log 20$ was obtained by
+solving that same equation for $\Phi$, as its defining file's own commentary
+states. It must not be cited as deriving $0.95$. What is new is that the $20$ is
+a specific invariant of the icosahedral group $H_3$: it is the icosahedron's
+face count, equivalently the dodecahedron's vertex count, equivalently
+$2h(H_3)$ and $|W(H_3)|/d_2$, and it is \emph{not} any of the other $H_3$ counts
+(roots $30$, reflections $15$, $|W(H_3)| = 120$, $\text{rank}\cdot h = 30$). The
+same Coxeter number $h(H_3) = 10$ is already kernel-proved to carry the
+framework's universal coupling, $\pi/10$ being the half-argument of the
+primitive Coxeter eigenvalue. \emph{So if the $20$ can be obtained from $H_3$
+independently of $0.95$, then the consciousness threshold and the universal
+coupling collapse into one group-theoretic fact and two asserted constants
+become structural together.} What is missing is exactly one statement: an
+argument, independent of $0.95$, that the integrated-information saturation
+value equals the icosahedral face count. Until that exists this is a numerical
+identification and is logged as such; nothing in this chapter depends on it.}
 \end{itemize}
 
 \section{Conclusion}
