@@ -701,16 +701,16 @@ are presented here as a single table for citation convenience:
 Lean kernel axiom audit &
 \textbf{CLEAN} &
 \texttt{REFEREE\_\allowbreak{}PROOF\_\allowbreak{}LEAN\_\allowbreak{}AXIOM\_\allowbreak{}AUDIT\_\allowbreak{}2026-06-04.\allowbreak{}md}.
-535 \texttt{.lean} files in closure; 0 project axioms; 0
-\texttt{sorry}; 0 \texttt{admit}; 4044 jobs clean.\,\textsuperscript{\textbf{(1)}} \\
+\textbf{2026-11-02}: $1{,}479$ of $9{,}492$ in closure,
+$100.0\%$ gate-eligible, zero
+\texttt{sorry}.\,\textsuperscript{\textbf{(1)}} \\
 \hline
 Coq cross-prover axiom audit &
-\textbf{CLEAN} &
+\textbf{CLEAN} for \texttt{PF\_Real/}; \mbox{\textbf{VACUOUS}} for \texttt{PF/} &
 \texttt{REFEREE\_\allowbreak{}PROOF\_\allowbreak{}COQ\_\allowbreak{}AXIOM\_\allowbreak{}AUDIT\_\allowbreak{}2026-06-04.\allowbreak{}md}.
-All 18 Wave~58 \texttt{.v} files build clean under Rocq~9.1.0;
-0 \texttt{Admitted}; 0 \texttt{admit}; every capstone's
-transitive axiom set is a subset of the Rocq Stdlib.Reals
-classical baseline.\,\textsuperscript{\textbf{(2)}} \\
+\textbf{Split; see note (2).} \texttt{PF\_Real/}: $141$
+\texttt{Qed.}, zero \texttt{exact I}. \texttt{PF/}: $77.7\%$ \texttt{exact
+I}.\,\textsuperscript{\textbf{(2)}} \\
 \hline
 Manuscript cover-to-cover review (V2.0.0) &
 \textbf{$8.7 \to 10$/10 after fixes} &
@@ -749,7 +749,22 @@ discards them, so they did not appear in the printed book;
 they are restored here as visible text (2026-10-31).
 \begin{footnotesize}
 
-\noindent\textbf{(1)} \textbf{These counts are four months stale, and every path in this column's ``repository root'' now points somewhere else.} Verified 2026-10-06 with \texttt{PF\_Lean4\_Code/scripts/goal\_line.py} and a path audit of every file this chapter cites. \textbf{(1) The counts.} The closure is no longer 535 files: the transitive import closure of \texttt{PF.lean} measured today is \textbf{1452} modules (of 6373 \texttt{.lean} files under \texttt{PF/}; the remaining 4921 are reachable from nothing and are not part of the submission), and the build is \textbf{5147 jobs}, not 4044. \textbf{(2) The verdicts, however, still hold, and were re-measured rather than assumed.} Across the whole closure, with Lean comments and docstrings stripped: \textbf{zero} \texttt{sorry}, \textbf{zero} \texttt{sorryAx}, \textbf{zero} \texttt{native\_decide}, \textbf{zero} project \texttt{axiom} declarations. So the \textsc{clean} verdict is confirmed on a corpus 2.7 times larger than the one audited in June --- it is the figures and the pointers that decayed, not the conclusion. \emph{A caution for anyone re-running this}: a plain \texttt{grep} reports 445 files containing \texttt{sorry} and 223 containing \texttt{native\_decide}. Both are artefacts --- every occurrence is documentation prose, overwhelmingly module headers stating ``no \texttt{sorry}, no \texttt{native\_decide}''. Comments must be stripped before counting. \textbf{(3) The path column.} This table's header reads ``Report (repository root)'', and \textbf{none of the nine files cited in this chapter is at the repository root}. The five \texttt{REFEREE\_PROOF\_*\_2026-06-04.md} reports were moved to \texttt{ARCHIVE/2026-06-08-cleanup/root\_docs/} --- by a cleanup dated four days \emph{after} the audits themselves, which nothing propagated back here. Three others (\texttt{BSD\_UNIVERSAL\_SECANT\_2026-08-05.md}, \texttt{FRACTAL\_DIMENSION\_2026-08-05.md}, \texttt{RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}) live in \texttt{codex/}, where this chapter does cite them correctly elsewhere. And \texttt{riemann\_zeros\_150digits.txt} is \textbf{absent from the repository entirely} --- a data file a referee would need to reproduce a numeric claim. \textbf{(4) Same defect in the module paths.} The five \texttt{PF\_L4L} paths named in the Lean4Lean discussion below --- \texttt{PF\_L4L/Core/}, \texttt{PF\_L4L/Ch20/RH.lean}, \texttt{PF\_L4L/Ch23/YM.lean}, \texttt{PF\_L4L/Ch24/BSD.lean}, \texttt{PF\_L4L/Core/AxiomAudit.lean} --- are all real files but all live under \texttt{PF\_Lean4Lean/}, so none resolves as written. \textbf{One root cause covers (3) and (4)}: every path this chapter writes \emph{without} a top-level directory prefix is now wrong, and every path written \emph{with} one (\texttt{codex/\ldots}, \texttt{PF\_Lean4\_Code/\ldots}) is right. The repair is to prefix them, and to restore or withdraw the missing zeros file. \textbf{What is not affected}: the four clean \texttt{PF\_L4L} declarations listed below are declaration names in current files, and the ``six of eight original L4L modules'' are legacy source files --- disjoint sets, so there is no arithmetic inconsistency between them, and an earlier reading of this passage that suspected one was wrong.
+\noindent\textbf{(1)} \textbf{These counts are four months stale, and every path in this column's ``repository root'' now points somewhere else.} \textbf{Re-measured 2026-11-02} by running the
+project's own \texttt{PF\_Lean4\_Code/scripts/goal\_line.py} unmodified
+(sha256 \texttt{cb631a8e\allowbreak{}77cfd684}): of $9{,}492$ \texttt{.lean}
+files under \texttt{PF/}, \textbf{$1{,}479$} lie in the transitive import
+closure of \texttt{PF.lean} --- that closure is the submission --- and $8{,}013$
+are imported by nothing and are therefore not re-verified by \texttt{lake
+build} at all. Inside the closure, with comments and docstrings stripped so the
+word is not counted inside prose, there are \textbf{zero} occurrences of
+\texttt{sorry}, \texttt{sorryAx}, \texttt{native\_decide}, \texttt{ofReduceBool}
+and \texttt{axiom} at real code positions, and $1{,}479$ of $1{,}479$ modules
+are gate-eligible ($100.0\%$). The earlier figure of $535$ files was the closure
+as it stood in June. \emph{Gate-eligible is necessary and not sufficient}: the
+script's own note records that PRISTINE additionally requires current
+\texttt{olean}s, axioms a subset of the three, no unused binders, a clean
+premise audit and non-vacuity witnesses, and that only a gate run can assert
+it. Verified 2026-10-06 with \texttt{PF\_Lean4\_Code/scripts/goal\_line.py} and a path audit of every file this chapter cites. \textbf{(1) The counts.} The closure is no longer 535 files: the transitive import closure of \texttt{PF.lean} measured today is \textbf{1452} modules (of 6373 \texttt{.lean} files under \texttt{PF/}; the remaining 4921 are reachable from nothing and are not part of the submission), and the build is \textbf{5147 jobs}, not 4044. \textbf{(2) The verdicts, however, still hold, and were re-measured rather than assumed.} Across the whole closure, with Lean comments and docstrings stripped: \textbf{zero} \texttt{sorry}, \textbf{zero} \texttt{sorryAx}, \textbf{zero} \texttt{native\_decide}, \textbf{zero} project \texttt{axiom} declarations. So the \textsc{clean} verdict is confirmed on a corpus 2.7 times larger than the one audited in June --- it is the figures and the pointers that decayed, not the conclusion. \emph{A caution for anyone re-running this}: a plain \texttt{grep} reports 445 files containing \texttt{sorry} and 223 containing \texttt{native\_decide}. Both are artefacts --- every occurrence is documentation prose, overwhelmingly module headers stating ``no \texttt{sorry}, no \texttt{native\_decide}''. Comments must be stripped before counting. \textbf{(3) The path column.} This table's header reads ``Report (repository root)'', and \textbf{none of the nine files cited in this chapter is at the repository root}. The five \texttt{REFEREE\_PROOF\_*\_2026-06-04.md} reports were moved to \texttt{ARCHIVE/2026-06-08-cleanup/root\_docs/} --- by a cleanup dated four days \emph{after} the audits themselves, which nothing propagated back here. Three others (\texttt{BSD\_UNIVERSAL\_SECANT\_2026-08-05.md}, \texttt{FRACTAL\_DIMENSION\_2026-08-05.md}, \texttt{RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}) live in \texttt{codex/}, where this chapter does cite them correctly elsewhere. And \texttt{riemann\_zeros\_150digits.txt} is \textbf{absent from the repository entirely} --- a data file a referee would need to reproduce a numeric claim. \textbf{(4) Same defect in the module paths.} The five \texttt{PF\_L4L} paths named in the Lean4Lean discussion below --- \texttt{PF\_L4L/Core/}, \texttt{PF\_L4L/Ch20/RH.lean}, \texttt{PF\_L4L/Ch23/YM.lean}, \texttt{PF\_L4L/Ch24/BSD.lean}, \texttt{PF\_L4L/Core/AxiomAudit.lean} --- are all real files but all live under \texttt{PF\_Lean4Lean/}, so none resolves as written. \textbf{One root cause covers (3) and (4)}: every path this chapter writes \emph{without} a top-level directory prefix is now wrong, and every path written \emph{with} one (\texttt{codex/\ldots}, \texttt{PF\_Lean4\_Code/\ldots}) is right. The repair is to prefix them, and to restore or withdraw the missing zeros file. \textbf{What is not affected}: the four clean \texttt{PF\_L4L} declarations listed below are declaration names in current files, and the ``six of eight original L4L modules'' are legacy source files --- disjoint sets, so there is no arithmetic inconsistency between them, and an earlier reading of this passage that suspected one was wrong.
 
 \noindent\textbf{(2)} \textbf{This verdict is true and
 \emph{vacuous} for the tree it audits, and must not be read as cross-prover
@@ -775,7 +790,20 @@ C\*-algebra theory, so the completion-tier results --- faithfulness of
 $\tau_{\mathrm{UHF}}$ on $\mathcal{T}_\infty$, Glimm simplicity, uniqueness of
 the trace --- are, in the README's words, ``not mirrored there and must not be
 claimed.'' The Lean substrate verdict is unaffected and stands at full strength;
-it is the \emph{cross-prover} reading of this row that is withdrawn.
+it is the \emph{cross-prover} reading of this row that is withdrawn. \textbf{Re-measured 2026-11-02, comments stripped}:
+\texttt{PF/} holds $761$ \texttt{.v} files carrying $9{,}866$ \texttt{Qed.}, of
+which $7{,}668$ ($77.7\%$) are the one-liner \texttt{exact I} proving
+\texttt{True} and $5{,}447$ are \texttt{:= True} declarations. Its single
+\texttt{Axiom} is
+\texttt{P5\_holds\_\allowbreak{}LpNat\allowbreak{}Substrate\_\allowbreak{}is\_\allowbreak{}open},
+which its own comment states is an \texttt{Axiom} rather than \texttt{Admitted}
+precisely in order to mark an \emph{open} status --- an honest marker, not a
+concealed premise. \texttt{PF\_Real/} holds $5$ files and $141$ \texttt{Qed.}
+with zero \texttt{exact I}, zero \texttt{:= True}, zero \texttt{Admitted} and
+zero \texttt{Axiom}, so it has \emph{grown} since the README recorded $110$
+theorems across $4$ files. One of those files is \texttt{WeylAveraging.v}: the
+genuinely clean Coq tier formalises the same discrete Weyl averaging identity
+that drives the Lean substrate's trace uniqueness.
 \end{footnotesize}
 
 
