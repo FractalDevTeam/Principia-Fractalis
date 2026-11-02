@@ -4,7 +4,18 @@
 
 \subsection{Complete Convergence Analysis}
 
-The Riemann Hypothesis proof via consciousness-modified transfer operator demonstrates exponential convergence to the critical line $\sigma = 0.5$.
+The consciousness-modified transfer operator shows a finite-dimensional
+truncation whose computed real part approaches $\sigma = 0.5$ as the basis
+dimension grows, at a rate of order $1/N$.\manuscriptcorrection{\textbf{This
+sentence claimed a proof and an exponential rate; it had neither.} Corrected
+2026-11-01. \emph{(a)} The Riemann Hypothesis is not proven in this book ---
+ch.~20's verification ledger records that ``the literal Riemann Hypothesis is
+NOT proven here and remains open'', and this appendix establishes nothing
+beyond it. \emph{(b)} The convergence is \emph{algebraic}, not exponential: on
+this appendix's own table, $N \times (\text{deviation})$ is constant at $0.81$
+for every row --- $0.812$, $0.812$, $0.813$, $0.812$, $0.810$, $0.810$, $0.808$,
+$0.810$ at $N = 10$ to $100$ --- so the deviation is $0.812/N = O(1/N)$. An
+$O(1/N)$ sequence reaches $10^{-10}$ only near $N \approx 8\times10^9$.}
 
 \textbf{Source Dataset:} \texttt{complete\_riemann\_proof\_results.json}
 
@@ -27,27 +38,53 @@ $N$ (Basis Dim) & Real Part $\sigma$ & Imaginary Part $t$ & Deviation from 0.5 \
 \end{tabular}
 \end{table}
 
-\textbf{Limiting Spectral Gap:} $\Delta = 0.08127$
+\textbf{Deviation at the smallest basis dimension tested:}
+$0.08127$ at $N = 10$\manuscriptcorrection{\textbf{This figure was labelled
+``Limiting Spectral Gap''; it is the first entry of the table above, not a
+limit.} Corrected 2026-11-01. $0.08127$ is the $N = 10$ row's deviation from
+$0.5$. The sequence it heads decreases like $0.812/N$ and its limit is $0$, so
+there is no nonzero limiting gap here to report. The figure is retained under an
+accurate label because it is the table's own first data point.}
 
 \textbf{High-Precision Verification:} 100-digit precision confirms eigenvalue-zero correspondence across all tested basis dimensions.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.95\textwidth]{figures/millennium_problems/complete_riemann_analysis.png}
-\caption{Complete Riemann Analysis: Convergence to critical line $\sigma = 0.5$ as basis dimension $N$ increases. Shows exponential decay of deviation from critical line.}
+\caption{Complete Riemann Analysis: Convergence to critical line $\sigma = 0.5$ as basis dimension $N$ increases. Shows $O(1/N)$ decay of deviation from critical line.}
 \label{fig:riemann_analysis}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.95\textwidth]{figures/millennium_problems/high_precision_verification.png}
-\caption{High-Precision Verification: 100-digit computation confirms spectral rigidity forces all zeros to $\sigma = 0.5$.}
+\caption{High-precision computation of the finite-dimensional truncation. The
+$100$-digit arithmetic fixes the computed eigenvalues of each truncation; it does
+not establish any statement about all zeros of $\zeta$.\protect\manuscriptcorrection{\textbf{This
+caption claimed that a finite computation ``forces all zeros'' to the critical
+line.} Corrected 2026-11-01. No finite-dimensional calculation can force a
+property of the full zero set, and ch.~20 records the corresponding spectral
+surjectivity statement as an open conjecture. Note also that the imaginary part
+in the table above is \emph{constant} at $14.2267$ for every $N$ and never
+approaches the true first ordinate $14.134725$, from which it differs by
+$0.65\%$ --- so the table does not exhibit convergence to a zeta zero in its
+second coordinate at all.}}
 \label{fig:riemann_precision}
 \end{figure}
 
 \section{P vs NP: Spectral Gap Analysis}
 
-\textbf{Key Result:} Spectral gap $\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) = 0.0891219046 > 0$ proves P $\neq$ NP.
+\textbf{Computed quantity:} $\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) =
+0.0891219046 > 0$ for the operators as defined in
+ch.~21.\manuscriptcorrection{\textbf{This was headed ``Key Result'' and said the
+gap ``proves P $\neq$ NP''. It does not.} Corrected 2026-11-01. Chapter~21's
+verification ledger classifies this gap as \textbf{ASSERTED / EMPIRICAL} and the
+P-versus-NP argument as a \textbf{CONDITIONAL REDUCTION (not a proof)}, and
+records that any genuine derivation of $\alpha_{NP}$ is itself
+P-versus-NP-equivalent. The subtraction is exact ---
+$0.2221441469 - 0.1330222423 = 0.0891219046$ --- but a positive difference
+between two asserted ground-state energies is not a separation of complexity
+classes.}
 
 \begin{table}[h]
 \centering
@@ -94,13 +131,25 @@ Unified Threshold & 0.4696 \\
 Test Cases & 6 \\
 Algebraic Cases & 5 \\
 Success Rate & 83.33\% \\
-Mean Concentration & \textbf{0.6310} \\
-Max Concentration & \textbf{0.9893} \\
+Mean Concentration & \textbf{0.999999855} \\
+Max Concentration & \textbf{0.999999944} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{All 4 Spectral Concentrations:}
+\textbf{The four spectral concentrations recorded:}\manuscriptcorrection{\textbf{This
+table was internally impossible: every one of the four values listed below
+exceeded the maximum it printed.} Corrected 2026-11-01. The table gave Mean
+Concentration $0.6310$ and Max Concentration $0.9893$, while the four listed
+$\sigma_i$ are $0.9999996945$, $0.9999999443$, $0.9999998620$ and
+$0.9999999210$ --- mean $0.999999855$, maximum $0.999999944$, each above the
+stated ceiling. Both table entries now carry the values computed from the list.
+Two further inconsistencies are left as printed because they concern the
+underlying dataset rather than its arithmetic: this heading says ``4'' while the
+table above says ``Test Cases 6'', and ch.~25 records its own Hodge validation
+as \textbf{WITHDRAWN} and the conjecture as open, so the ``$\checkmark$'' below
+should not be read as establishing algebraicity. The Success Rate
+$83.33\% = 5/6$ is arithmetically correct and is unchanged.}
 \begin{itemize}
 \item $\sigma_1 = 0.9999996945287803$
 \item $\sigma_2 = 0.9999999443241283$
@@ -145,7 +194,18 @@ Status & VALIDATED \\
 
 \section{Navier-Stokes: Critical Reynolds Number}
 
-\textbf{Key Result:} Global regularity proven via Consciousness Regularization Lemma.
+\textbf{Computed quantity:} the critical Reynolds number below, under the
+postulate of ch.~10.\manuscriptcorrection{\textbf{This was headed ``Key Result''
+and said global regularity is ``proven''. It is not, and the Lemma it credits
+does not hold.} Corrected 2026-11-01. Chapter~22 records global regularity of
+3D Navier--Stokes as open. More sharply, ch.~10's \emph{Correction, 2026-10-03}
+proves that under the Lemma's own closure the consciousness force is a
+\emph{pure gradient}, which does zero work on a divergence-free field, so the
+left-hand side of the Lemma's inequality is $0$ and the bound
+$\leq -(\pi/10)\nu_c\|\nabla\mathbf{u}\|^2$ fails for \emph{every} flow with
+$\nabla\mathbf{u} \neq 0$ and $\nu_c > 0$ --- ``the stress adds no
+dissipation''. That remark also relabels $\nu_{\text{eff}}$ a
+\textbf{postulate}, not a consequence of the stated stress tensor.}
 
 \textbf{Critical Reynolds Number:}
 \[
@@ -172,10 +232,17 @@ value with $\times10^5$ appended, and the $\omega_c$ that would actually yield
 $2.13198\times10^5$ from the superseded formula is $0.66978$, which is claimed
 nowhere in this book.}
 
-\textbf{Consciousness Regularization Lemma:}
+\textbf{Consciousness Regularization Lemma, as stated in ch.~10:}
 \[
 \int_{\mathbb{R}^3} u_i \frac{\partial C_{ij}}{\partial x_j} \, d\mathbf{x} \leq -\frac{\pi}{10} \cdot \nu_c \|\nabla \mathbf{u}\|_{L^2}^2
-\]
+\]\manuscriptcorrection{\textbf{Reproduced here for reference only: ch.~10
+proves this inequality fails.} Flagged 2026-11-01. It is retained rather than
+deleted because it is the object that chapter's \emph{Correction, 2026-10-03}
+discusses, and a reader of this appendix needs to see what was corrected. Under
+the closure the Lemma itself supplies, the left-hand side is identically $0$,
+so the bound fails for every flow with $\nabla\mathbf{u} \neq 0$ and
+$\nu_c > 0$. Nothing in this appendix should be read as numerical support for
+it.}
 
 \chapter{Weinstein Geometric Unity: Experimental Validation}
 
@@ -399,7 +466,16 @@ Statistical Significance & $>5\sigma$ \\
 \textbf{Topological Properties:}
 \begin{itemize}
 \item Vortex quantization: $\Gamma = n \pi/10$, $n \in \mathbb{Z}$
-\item Core size: $\xi_0 \approx \ell_P \cdot 10^{16}$ (micron scale)
+\item Core size: $\xi_0 \approx \ell_P \cdot 10^{16} = 1.6 \times 10^{-19}$ m%
+\manuscriptcorrection{\textbf{This was labelled ``(micron scale)'' and is off by
+about thirteen orders of magnitude.} Corrected 2026-11-01. With
+$\ell_P = 1.616255 \times 10^{-35}$ m, $\ell_P \cdot 10^{16} = 1.616 \times
+10^{-19}$ m, whereas a micron is $10^{-6}$ m --- a ratio of $6.19 \times
+10^{12}$. Reaching micron scale would require $\ell_P \cdot 10^{28.8}$. The
+computed value is now printed and the scale label removed; which of the two the
+surrounding model intends is an authorial question, since $1.6\times10^{-19}$ m
+is far below any neural length scale and the bullet below refers to fMRI
+observables.}
 \item Stability: Protected by topological charge
 \item Observable: Neural coherence patterns in fMRI
 \end{itemize}
@@ -415,8 +491,14 @@ Statistical Significance & $>5\sigma$ \\
 
 \textbf{Contents:}
 \begin{itemize}
-\item Riemann Hypothesis: Complete proof with N-series convergence
-\item Hodge Conjecture: 1800-line formal proof + 4 variety validation
+\item Riemann Hypothesis: $N$-series convergence data for the truncations
+\item Hodge Conjecture: an 1800-line computational development, with data for 4 varieties%
+\manuscriptcorrection{\textbf{These two entries read ``Complete proof with
+N-series convergence'' and ``1800-line formal proof''.} Corrected 2026-11-01.
+Neither is a proof: ch.~20 records the literal Riemann Hypothesis as not proven
+and open, and ch.~25 records the Hodge conjecture as open with its numerical
+validation withdrawn. The file this list describes contains convergence data and
+a computational development, which is what the entries now say.}
 \item Universal framework metadata
 \item Figure references and duplicate tracking
 \end{itemize}
@@ -458,7 +540,13 @@ Statistical Significance & $>5\sigma$ \\
 
 \section{SHA256 Hash Verification}
 
-All 210 research files have been cryptographically verified:
+The research files enumerated below have been cryptographically
+verified:\manuscriptcorrection{\textbf{This line said ``All 210 research
+files''; the list beneath it enumerates $140$.} Corrected 2026-11-01.
+$34 + 106 = 140$, from ``EVIDENCE folder: 34 files'' and ``Proofs folder: 106
+files''. Whether a further $70$ files exist outside those two folders is not
+established anywhere in this appendix, so the count is now tied to what the list
+actually shows.}
 \begin{itemize}
 \item EVIDENCE folder: 34 files (25 canonical + 9 duplicates identified)
 \item Proofs folder: 106 files (81 canonical + 25 duplicates identified)
@@ -467,12 +555,55 @@ All 210 research files have been cryptographically verified:
 
 \section{Cross-Reference Validation}
 
-\textbf{Status:} All cross-references validated $\checkmark$
+\textbf{Status:} the correspondences below are chapter-to-dataset pointers, not
+validated cross-references.\manuscriptcorrection{\textbf{This read ``All
+cross-references validated'' directly above a list whose first entry is
+wrong.} Corrected 2026-11-01. Chapter~9 is \emph{Spectral Unity}; the P-versus-NP
+material is Chapter~21, and the Riemann material is Chapter~20 rather than
+Chapter~9. The remaining four pointers are correct as written
+(ch.~10 Navier--Stokes, ch.~11 Weinstein/XENON, ch.~20 Riemann convergence,
+ch.~25 Hodge). A status line asserting that every reference is validated, placed
+above a list containing an incorrect one, is a ledger falsified by its own body
+--- which is the defect class this appendix exhibited throughout before
+2026-11-01.}
 
 \begin{itemize}
-\item Chapter 9 $\leftrightarrow$ P vs NP proof data
+\item Chapters 20 and 21 $\leftrightarrow$ Riemann and P vs NP datasets
 \item Chapter 10 $\leftrightarrow$ Navier-Stokes CR Lemma
 \item Chapter 11 $\leftrightarrow$ Weinstein GU + XENON data
 \item Chapter 20 $\leftrightarrow$ Riemann convergence analysis
 \item Chapter 25 $\leftrightarrow$ Hodge numerical validation
+\end{itemize}
+
+
+\paragraph{Verification status (added 2026-11-01).}
+This appendix had no verification-status ledger until this revision, and no
+chapter ledger quoted any of its sentences. That is why twelve defects survived
+here --- including claims that two Clay Millennium Prize Problems are proven ---
+while their counterparts in the chapters were corrected. The ledger is added so
+that this appendix is inside the scope of future sweeps.
+
+\begin{itemize}
+\item \textbf{NUMERICALLY REPRODUCED} --- the convergence tables, the spectral
+  concentrations, the critical Reynolds number
+  $10^6 e^{-3.5/\pi} = 328\,215.6$, and the file inventories. ``Reproduced''
+  here means recomputed to the stated precision; per ch.~34 it does
+  \emph{not} mean proved.
+\item \textbf{ASSERTED / EMPIRICAL} --- every consciousness-field quantity in
+  this appendix, the $\text{ch}_2$ values, and the XENON and fMRI comparisons.
+  None is machine-verified and none has been independently reproduced.
+\item \textbf{NOT PROVEN, AND OPEN} --- the Riemann Hypothesis, P versus NP,
+  global regularity of 3D Navier--Stokes, and the Hodge conjecture. This
+  appendix establishes nothing about any of them. Statements to the contrary
+  were corrected on 2026-11-01 and each carries a note at its site.
+\item \textbf{REFUTED} --- the Consciousness Regularization Lemma's inequality,
+  which ch.~10 proves fails for every flow with $\nabla\mathbf{u} \neq 0$ and
+  $\nu_c > 0$; it is reproduced above for reference only.
+\item \textbf{SUPERSEDED} --- $\text{Re}_c = 2.13198\times10^5$ and
+  $1.00000\times10^5$, both recorded in the note at the critical-Reynolds entry.
+\item \textbf{OUTSTANDING} --- the $\text{ch}_2 \approx 0.6$ figure given here
+  for normal waking consciousness sits inside the band that
+  appendix~C classifies as a vegetative state warranting palliative
+  consultation. The two appendices use incompatible band schemes and the
+  discrepancy is not resolved in this revision.
 \end{itemize}
