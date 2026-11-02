@@ -15,13 +15,48 @@ ch_2 = 19/20 times the resonance modulus |R_f(√(2π), 1)| = 19/16
 the Q(√5)-substrate connection (19 = 4φ - 1 from φ ≈ 1.618 via the
 golden-ratio rational approximation chain).
 
-This file LIFTS the Λ_eff exponent rational form parametrically under
-substrate-rigidity. The 78π Chern–Weil anchor is already forced under
-the `MinimalRigidityForcesCosmologicalSuppression` substrate; the
-ch_2 = 19/20 threshold is forced via the consciousness chain; the
-resonance modulus |R_f| = 19/16 is forced by the Wave 55B/E
-substrate. Composing all three under substrate-rigidity forces the
-Λ_eff exponent rational form parametrically.
+This file states the Λ_eff exponent rational form with the
+substrate-rigidity hypothesis set in scope. The three theorems below are
+TRUE and are unchanged.
+
+CORRECTED 2026-11-02 — THE PROVENANCE CLAIM THIS PARAGRAPH USED TO MAKE
+WAS WRONG, and the correction is additive: see
+`PF/Referee/LambdaEffExponentProvenance.lean`, which proves all of it.
+
+It read: "the 78π Chern–Weil anchor is already forced ...; the
+ch_2 = 19/20 threshold is forced via the consciousness chain; the resonance
+modulus |R_f| = 19/16 is forced by the Wave 55B/E substrate. Composing all
+three under substrate-rigidity forces the Λ_eff exponent rational form
+parametrically." What is actually the case:
+
+* `Lambda_eff_exponent_product` is a NULLARY CONSTANT
+  (`LambdaEffParameterFreeCapstone.lean:93`), so no hypothesis about any
+  α-assignment can affect its value. The six hypotheses on each of the two
+  base theorems below are all underscore-prefixed — Lean's own marker for
+  unused — and both proof terms are the hypothesis-free identities. This is
+  exhibited as a proof term by `rigidity_hypotheses_are_inert`. They are inert,
+  not vacuous: the carrier is inhabited by `framework_alpha_unified`.
+* TWO OF THE THREE FACTORS ARE HARDCODED DECIMALS, each proved by `rfl`:
+  `consciousness_threshold_capstone := 0.95 = 19/20` and
+  `Rf_QG_unit_modulus_capstone := 1.1875 = 19/16`. `UnifiedAlphaAssignment`
+  carries nine α-values and no field for either, so the rigidity set is
+  structurally incapable of determining them.
+* ch_2 = 19/20 IS NOT FORCED, and the corpus already said so: ch26:580 files it
+  ASSERTED (numerology) since 2026-07-23, ch06:464 as EMPIRICAL HYPOTHESIS —
+  UNTESTED, and ch06's "Settled, 2026-10-05" remark withdraws "0.95 is not a
+  free parameter" as overstated. As of 2026-11-02 it is stronger than that:
+  19/20 is not in Z[1/3] at all (`not_memZ13_nineteen_twentieths`), so it is
+  not a substrate trace value at ANY tower level. Neither is 19/16, at the
+  prime 2.
+* So the exponent is (78π) · (361/320) with 361 = 19² and 320 = 2⁶·5, and only
+  the 78π factor carries geometric provenance. The multiplier 361/320 was
+  SUPPLIED, not derived.
+
+For contrast, `MinimalRigidityForcesCosmologicalSuppression` in this directory
+binds its hypotheses without underscores, destructures `hM`, and concludes
+about `u.sector2.a_NP` — that is what a load-bearing rigidity theorem looks
+like here. The pattern is not systemic: across 45 `MinimalRigidityForces*`
+files and 142 declarations, 118 declarations carry no underscored binder.
 
 ## What this file establishes
 
@@ -33,7 +68,19 @@ holds parametrically. The "120 orders of magnitude suppression"
 prediction `Λ_eff/Λ_0 = 10^{-120}` reduces (via the closed-form
 identity `cosmological_suppression_required_eq_log_pow`) to the
 condition that 14079π/160 ≈ 120·log 10 within Dirichlet-truncation
-precision — a 0.04% numerical match.
+precision. CORRECTED 2026-11-02: that is a 0.047% EXCESS, not a 0.04% match.
+The product strictly exceeds the target —
+`exponent_product_exceeds_cosmological_target` — and the excess is bracketed
+strictly between 0.04% and 0.06% by `excess_bracket`, which excludes 0.04%
+from below. Recomputed at 50 dps: product 276.44051856181686878, target
+276.31021115928548208, relative excess 0.0471598%. The target side had never
+been bracketed in the kernel at all — `LambdaEffCalibration.lean:89` records
+the `120·log 10` bound as "claimed; rigorous bracket deferred" — and
+`log_ten_bracket` now supplies it. The multiplier needed for 78π to hit
+120·log 10 exactly is 1.1275932290452734; the one supplied by the two
+hardcoded decimals is 361/320 = 1.128125. The agreement is the residual of a
+multiplier that was SUPPLIED, not derived, so it is a fit — now a measured
+one.
 
 ZERO project axioms. Kernel-only `[propext, Classical.choice, Quot.sound]`.
 
