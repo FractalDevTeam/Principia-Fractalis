@@ -182,7 +182,26 @@ For our clinical threshold ch$_2 = 0.95$, this predicts:
 \Phi = -\log_2(1 - 0.95) = -\log_2(0.05) \approx 4.32 \text{ bits}
 \]
 
-This value aligns with IIT's predictions for conscious human brain states, which typically report $\Phi \in [4, 6]$ bits for awake consciousness.
+This value lies in the range IIT reports for awake human brain states,
+$\Phi \in [4, 6]$ bits --- but only under the normalisation this chapter
+uses.\manuscriptcorrection{\textbf{The agreement with the $4$--$6$ bit band is
+normalisation-dependent, and the machine-checked normalisation does not share
+it.} Added 2026-11-02. The figure above follows from this chapter's own
+definition $\Phi = -\log_2(1-\text{ch}_2)$, and that arithmetic is correct:
+$-\log_2(0.05) = 4.32192809488736$ bits. The Lean corpus, however, defines the
+measure with a factor of two --- \texttt{Phi\_IIT := 2 * vNEntropy} --- and
+proves that at the uniform Schmidt spectrum matching
+$\text{ch}_2 = 19/20$ the value is $2\log 20$, which is
+$8.64385618977472$ bits. The two differ by a factor of exactly $2$, and only
+the un-doubled form falls inside $[4,6]$; the verified form misses the band
+above. So this sentence records a consequence of a normalisation choice, not an
+empirical concordance, and the normalisation the formal corpus actually checks
+is the one that fails it. Which convention is intended is an authorial decision
+and is not settled here. Two further cautions belong with it: this chapter's
+earlier $\Phi = \min_{\text{partition}} EI$ is a third, distinct object that the
+project's reading ledger records as ``not a definition of IIT's current
+integrated information''; and the $[4,6]$ band is quoted from the IIT literature
+without a citation at this site.}
 
 \textbf{Critical advantage—Operational measurement:} IIT's exact $\Phi$ calculation requires enumerating all possible system partitions and computing effective information for each, a computation that is NP-hard and becomes intractable for systems with more than $\sim$10 elements~\cite{oizumi2014}. For the human brain with $\sim 10^{11}$ neurons, exact $\Phi$ calculation is impossible.
 

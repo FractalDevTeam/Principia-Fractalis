@@ -650,27 +650,56 @@ from spectral concentration to algebraicity is stated as a \emph{conjecture}
   matter of opinion --- \texttt{epsilon\_quantum\_is\_the\_remainder} proves
   $0.3420 < 0.95 - 6/\pi^2 < 0.3421$ axiom-free. Nothing in this chapter or in
   ch.~26 independently derives either the correction or the target.%
-\manuscriptcorrection{\textbf{One named research target now exists for this
-entry, and it is a target rather than support.} Recorded 2026-11-02; full
-statement in \texttt{codex/LEAD\_CH2\_FROM\_H3\_2026-11-01.md}. A second route
-to $0.95$ is exact and kernel-proved --- $1 - e^{-\Phi/2} = 19/20$ at
-$\Phi = \log 400$, since $400^{-1/2} = 1/20$ --- but it is \emph{circular as a
-derivation}, because $\Phi_{\text{threshold}} := 2\log 20$ was obtained by
-solving that same equation for $\Phi$, as its defining file's own commentary
-states. It must not be cited as deriving $0.95$. What is new is that the $20$ is
-a specific invariant of the icosahedral group $H_3$: it is the icosahedron's
-face count, equivalently the dodecahedron's vertex count, equivalently
-$2h(H_3)$ and $|W(H_3)|/d_2$, and it is \emph{not} any of the other $H_3$ counts
-(roots $30$, reflections $15$, $|W(H_3)| = 120$, $\text{rank}\cdot h = 30$). The
-same Coxeter number $h(H_3) = 10$ is already kernel-proved to carry the
-framework's universal coupling, $\pi/10$ being the half-argument of the
-primitive Coxeter eigenvalue. \emph{So if the $20$ can be obtained from $H_3$
-independently of $0.95$, then the consciousness threshold and the universal
-coupling collapse into one group-theoretic fact and two asserted constants
-become structural together.} What is missing is exactly one statement: an
-argument, independent of $0.95$, that the integrated-information saturation
-value equals the icosahedral face count. Until that exists this is a numerical
-identification and is logged as such; nothing in this chapter depends on it.}
+\manuscriptcorrection{\textbf{A research target recorded here on 2026-11-02 is
+withdrawn the same day: it rested on a false absence claim, and four
+independent lines of attack closed the route.} \emph{What the note claimed}:
+that the $20$ in $19/20$ is a specific invariant of the icosahedral group
+$H_3$, that nothing in the formal corpus connected $20$ to $H_3$, and that
+obtaining the $20$ from $H_3$ independently of $0.95$ would collapse the
+threshold and the universal coupling $\pi/10$ into one group-theoretic fact.
+\emph{Each part fails.} \textbf{(i)} The connection was not absent. The theorem
+$20 = 2h(H_3)$ has been in the corpus since 2026-05-24
+(\texttt{hodge\_rank\_witness\_H3}), bundled and carried in the master
+manifest. \textbf{(ii)} Worse, it runs the wrong way: its own commentary derives
+that $20$ as $1/(1-\sigma_c) = 1/(1-19/20)$, so the existing identity takes its
+$20$ \emph{from} $0.95$ --- the same circularity the note had correctly
+diagnosed elsewhere. \textbf{(iii)} The specificity test was the wrong test.
+Twelve $H_3$, icosahedral and $A_5$ invariants lie in $[10,100]$, each giving an
+exact $1 - 1/N$, and they cover $[0.900, 0.9839]$ with maximum gap $0.0167$ ---
+so every two-decimal threshold from $0.90$ to $0.99$ sits within $0.01$ of such
+an ``identity'', and $0.90$ would have been cleaner still, being
+$1 - 1/h(H_3)$ with no factor of two. \textbf{(iv)} The supporting table was one
+fact in four disguises: since $|W| = d_1d_2d_3$ with $d_1 = 2$ always,
+$|W|/d_2 = 2h$ for \emph{every} rank-3 Coxeter group ($A_3$: $24/3 = 8$;
+$B_3$: $48/4 = 12$; $H_3$: $120/6 = 20$), and faces $=$ dual vertices is
+duality. \textbf{(v)} Other groups supply $20$ more canonically: $I_2(10)$ has
+$|W| = 20 = 2h$ with $h = 10$, and $|W| = 2h$ is a theorem for every rank-2
+dihedral group; $H_4$ and $E_8$ carry $20$ as a \emph{degree} with $19$ its
+matching exponent, giving $19/20 = m_i/d_i$ with no saturation form needed.
+\textbf{(vi)} And the quantity the target named does not exist: the corpus's
+integrated-information measure is twice a von Neumann entropy, whose supremum is
+$2\log n$ at fixed dimension and unbounded overall, so it has no finite
+saturation value; the $20$ is the Hilbert-space dimension \emph{input}, and what
+saturates is the bridge function, at $1$ rather than at $0.95$.
+\emph{Two corrections in the other direction, for the record.} The note's
+comparison --- that this route needs no fitted remainder where $6/\pi^2$ needs
+$36\%$ --- was invalid: $\Phi = 2\log X$ gives $1 - e^{-\Phi/2} = 1 - 1/X$
+identically, so exactness is automatic for any terminating decimal and no
+evidential comparison was being made. And one claim was \emph{understated}:
+$h(H_3) = 10$ is genuinely derived, from the Coxeter diagram through the Gram
+matrix and characteristic polynomial, whereas the $20$ is \texttt{norm\_num} on
+a back-solved number --- the asymmetry is sharp, not symmetric.
+\emph{What survives is on the other side of the framework.}
+$(4\alpha_{NP} - 3)^2 = 20$ holds exactly and independently of $0.95$, since
+$4(\varphi + \tfrac14) - 3 = 2\sqrt5$, so $20 = 4\cdot\operatorname{disc}
+\mathbb{Q}(\sqrt5)$; it is the completed-square constant of ch.~21's own
+self-adjointness quadratic. It inherits that chapter's open provenance for
+$\alpha_{NP}$, but it does not come from $0.95$. Any future attempt must run
+diagram $\to$ parabolic index $\to$ saturation gap and never the reverse, must
+explain why one maximal parabolic is forced when the other two give $12$ and
+$30$, and must predict some number besides $0.95$. The $\textbf{ASSERTED
+(numerology)}$ classification above is unaffected: it was correct before this
+note and remains correct after it.}
 \end{itemize}
 
 \section{Conclusion}
