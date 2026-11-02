@@ -1692,7 +1692,28 @@ The \textbf{Principia Fractalis Conjectures} (Conjectures \ref{conj:polylog-spec
 \begin{itemize}
 \item \textbf{100\% Fractal Coherence}: All 143 problems achieve $\chi_P = \chi_{NP} = 1.0000$\manuscriptcorrection{\textbf{Scope:} the ``100\% / 143'' figures restate the local-simulator clamp described at Theorem~\ref{thm:universal-coherence} (correction added 2026-10-08); they are not independent measurements.}
 \item \textbf{Spectral Gap Universality}: Measured $\Delta = 0.0891219046$ consistent across all problem types\manuscriptcorrection{\textbf{Scope (2026-10-26).} Under the four operator properties as stated in Theorem~\ref{thm:spectral-properties}, $\Delta = 0$ identically (\texttt{gap\_vanishes\_under\_chapter\_hypotheses}, \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}): compactness plus a non-decreasing enumeration from $0$ forces every eigenvalue to vanish. So this quoted nonzero value cannot be a consequence of the operators as defined; it is a numerical result for whichever operator was actually diagonalised, and the text does not record which. The ``consistent across all problem types'' clause restates the coherence diagnostic corrected at Theorem~\ref{thm:universal-coherence}, not an independent measurement of $\Delta$.}
-\item \textbf{Fractal Dimension Separation}: $\sqrt{2} < \varphi + 1/4$ validated geometrically
+\item \textbf{Fractal Dimension Separation}: $\sqrt{2} < \varphi + \tfrac14$ ---
+an exact inequality between two constants the framework assigns, with separation
+$\varphi + \tfrac14 - \sqrt{2} = 0.453820426377$%
+\manuscriptcorrection{\textbf{This bullet read ``validated geometrically''. The
+inequality is true; the validation claim is not.} Corrected 2026-11-01.
+$\sqrt2 = 1.41421356237$ is indeed less than $\varphi + \tfrac14 =
+1.86803398875$, and nothing here is withdrawn. But the claim fails twice over.
+\emph{First}, both sides are constants this framework \emph{assigns} rather than
+measures --- the chapter's own verification ledger records
+``\textbf{ASSERTED (it is a definition, not a theorem)} --- $\alpha_{NP} :=
+\varphi + \tfrac14$ is a Lean \texttt{def}'' --- and comparing two assigned
+numbers validates neither of them. \emph{Second}, no geometry enters: this is an
+inequality between a quadratic irrational and a quadratic irrational plus a
+rational, settled by arithmetic alone.
+\emph{This bullet is also not independent of the one below it.} The separation
+stated here is $\varphi + \tfrac14 - \sqrt2 = 0.453820426377$, and the
+crystallization gap in the next bullet is
+$\Delta\text{ch}_2 = (\varphi + \tfrac14 - \sqrt2)/10 = 0.045382042638$ --- a
+ratio of exactly $10$, verified at $30$ digits, because $\Delta\text{ch}_2$ is
+by construction $(\alpha_{NP} - \alpha_P)/10$. Two of the four figures in this
+list are therefore one quantity stated twice, a decimal place apart, and should
+not be counted as separate support.}
 \item \textbf{Consciousness Thresholds}: Certificate branching requires a
 crystallization gap of
 $\Delta\text{ch}_2 = \frac{\varphi + 1/4 - \sqrt{2}}{10} \approx 0.0454$%
