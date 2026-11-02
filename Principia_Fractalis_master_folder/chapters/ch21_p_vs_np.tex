@@ -1693,7 +1693,28 @@ The \textbf{Principia Fractalis Conjectures} (Conjectures \ref{conj:polylog-spec
 \item \textbf{100\% Fractal Coherence}: All 143 problems achieve $\chi_P = \chi_{NP} = 1.0000$\manuscriptcorrection{\textbf{Scope:} the ``100\% / 143'' figures restate the local-simulator clamp described at Theorem~\ref{thm:universal-coherence} (correction added 2026-10-08); they are not independent measurements.}
 \item \textbf{Spectral Gap Universality}: Measured $\Delta = 0.0891219046$ consistent across all problem types\manuscriptcorrection{\textbf{Scope (2026-10-26).} Under the four operator properties as stated in Theorem~\ref{thm:spectral-properties}, $\Delta = 0$ identically (\texttt{gap\_vanishes\_under\_chapter\_hypotheses}, \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}): compactness plus a non-decreasing enumeration from $0$ forces every eigenvalue to vanish. So this quoted nonzero value cannot be a consequence of the operators as defined; it is a numerical result for whichever operator was actually diagonalised, and the text does not record which. The ``consistent across all problem types'' clause restates the coherence diagnostic corrected at Theorem~\ref{thm:universal-coherence}, not an independent measurement of $\Delta$.}
 \item \textbf{Fractal Dimension Separation}: $\sqrt{2} < \varphi + 1/4$ validated geometrically
-\item \textbf{Consciousness Thresholds}: Certificate branching requires $\Delta\chi^2 \approx 0.0054$ crystallization gap
+\item \textbf{Consciousness Thresholds}: Certificate branching requires a
+crystallization gap of
+$\Delta\text{ch}_2 = \frac{\varphi + 1/4 - \sqrt{2}}{10} \approx 0.0454$%
+\manuscriptcorrection{\textbf{This bullet printed
+$\Delta\chi^2 \approx 0.0054$: wrong by a factor of $8.40$, and with the wrong
+symbol.} Corrected 2026-11-01. The quantity is the gap between the two
+consciousness thresholds this chapter displays earlier, namely
+$\text{ch}_2(\text{P}) = 0.95 + (\sqrt2-\sqrt2)/10 = 0.95$ and
+$\text{ch}_2(\text{NP}) = 0.95 + ((\varphi+\tfrac14)-\sqrt2)/10 =
+0.995382042638$, so the gap is $0.0453820426377$ and not $0.0054$. The
+$0.95$ baseline cancels identically, which gives the exact closed form
+$(\varphi + \tfrac14 - \sqrt2)/10$ now displayed above --- verified at $30$
+digits by two independent routes agreeing to better than $10^{-28}$. The
+symbol was also wrong: $\Delta\chi^2$ denotes a chi-squared difference, whereas
+this is a difference of consciousness thresholds, $\Delta\text{ch}_2$.
+\emph{This chapter had already diagnosed the defect}: the prose at
+Evidence~3 carries ``$\Delta\text{ch}_2 \approx 0.0454$, corrected 2026-10-03
+--- the chapter's own two displayed values give $0.99538 - 0.95 = 0.04538$; the
+previously printed $0.0054$ appears to drop a digit''. That 2026-10-03
+correction reached the prose and not this summary bullet, which is the same
+corrections-do-not-reach-restatements failure recorded throughout this chapter.
+The two sites now agree digit for digit.}
 \end{itemize}
 
 \subsection{Why the Evidence Suggests \texorpdfstring{P $\neq$ NP}{P != NP}}
