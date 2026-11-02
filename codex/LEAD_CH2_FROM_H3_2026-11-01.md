@@ -167,7 +167,7 @@ Three further 0.95-free factorisations of 20 exist (`10·α_YM`, the polylog
   empirical claim about a different observable, 1 sufficient-only theorem.
   `ε_quantum` is defined exactly once, as `σ_c − 6/π²`.
 
-## The one honest next action
+## The one honest next action — DONE 2026-11-02
 
 The strongest statement available here is **negative, and it is one theorem away
 from being machine-checked**: formalise that the ternary tower's distinguishable
@@ -177,3 +177,98 @@ only the `not_memZ13_*` lemmas the corpus already holds. It converts
 kernel fact, and permanently closes "0.95 is forced by the substrate" in both
 directions. No downgrade is involved: `ch06:464` already files 0.95 as
 EMPIRICAL HYPOTHESIS — UNTESTED.
+
+---
+
+## Resolution — `PF/Ch2ThresholdZ13Exclusion.lean`, gated
+
+Written and gated the same day the lead closed. **Gate (Legion verification
+tree, never `lake` on Acer):** `lake` exit 0, 3 264 jobs, 16 declarations, zero
+`sorryAx`, zero errors, zero warnings in the file, all 16 at
+`[propext, Classical.choice, Quot.sound]`, zero project axioms.
+
+**What the corpus actually had.** `Ch2ThresholdSelection.lean:326`
+`nineteen_twentieths_not_a_tower_value` proves four `norm_num` disequalities —
+`19/20 ≠ 2/3, 8/9, 26/27, 80/81`. Its own docstring, plus `ch06:603`,
+`ch06:679` and `ch07:817`, all assert the far stronger *"20 is not a ternary
+number."* Four disequalities exclude four values and settle nothing about a
+fifth, let alone about every level. The prose was right and the citation
+over-attributed. A 14-naming sweep across all 9 490 `PF/*.lean` sources
+confirmed `MemZ13` occurred in exactly five files, all α-skeleton, none
+mentioning `19/20`.
+
+**What is now proved.**
+
+| theorem | content |
+|---|---|
+| `not_memZ13_of_prime_den` | the general engine: any prime `p ∤ 3` in the denominator excludes the value |
+| `not_memZ13_nineteen_twentieths` | `19/20 ∉ ℤ[1/3]`, by **two** independent proofs (parity; the engine at `p = 5`) |
+| `not_memZ13_one_half` | `1/2 ∉ ℤ[1/3]` — the "no unital qubit in the substrate" claim asserted at `SUBSTRATE_FORCES_WHAT_2026-07-26.md:216` and never formalized |
+| `nineteen_twentieths_not_any_tower_value` | `19/20 ≠ 1 − 3^{−k}` for **every** `k` |
+| `nineteen_twentieths_not_a_level_trace` | the normalized trace of no level projection, at any level |
+| `nineteen_twentieths_level_separation` | **`|19/20 − m/3^k| ≥ 1/(20·3^k)`** for every `k` and every integer `m` |
+| `separation_constant_is_optimal` | the constant `20` cannot be improved — attained at `k = 0` and `k = 4` |
+| `tower_approximates_nineteen_twentieths` | **and yet `ℤ[1/3]` is dense at `19/20`** |
+
+The engine also subsumes the corpus's existing `not_memZ13_three_halves` and
+`not_memZ13_one_fifth`, recorded as `three_halves_via_engine` and
+`one_fifth_via_engine` — subsumption shown, nothing replaced or deleted.
+
+**Three negative controls, all rejected.** Claiming `26/27` (a real tower
+value) is excluded → rejected. Tightening the separation constant `20 → 19` →
+rejected. Falsifying the optimality witness `1/20 → 2/20` → rejected. The
+pristine module then rebuilt green at identical md5. A green build alone would
+have proved nothing.
+
+**Arithmetic independently verified in exact rationals**, 15/15 claims, every
+verdict computed from a residual rather than printed as a pre-written label —
+including the mod-4 cycle `[1, 3, 9, 7]` of `min |19·3^k − 20m|`, which is why
+the bound is attained exactly when `k ≡ 0 (mod 4)`.
+
+**Both directions, deliberately.** The density theorem sits in the capstone
+beside the exclusion because the one-directional reading would be a fresh
+instance of the overclaim this very file logged at
+`SUBSTRATE_FORCES_WHAT_2026-07-26.md:219-220`, where `not_memZ13_one_fifth` was
+stretched into *"the 5-fold icosahedral structure cannot live inside the
+substrate K-theoretically"* — which does not follow, icosahedral symmetry
+needing a 3-dimensional representation that exists.
+
+**Net result.** The ternary tower **neither forces `0.95` nor forbids it.**
+`0.95` is simply not one of the tower's values, at a measured and optimal
+distance from every one of them, and reachable only in the limit. This closes
+*"0.95 is forced by the substrate"* in both directions, which is what the lead
+set out to settle — from the arithmetic side, not the icosahedral side it
+originally proposed.
+
+No framework constant enters any proof. No `σ_c`, no `Phi_threshold`, no
+`low_rank_bound_at_sigma_c`. The only inputs are `19/20` and the powers of `3`.
+
+**Nothing is downgraded.** One prose assertion became a theorem. `ch06:464`
+already filed `0.95` as EMPIRICAL HYPOTHESIS — UNTESTED, and `ch06`'s *Settled,
+2026-10-05* remark had already withdrawn *"0.95 is not a free parameter"*; both
+stand, now on a stronger footing.
+
+### Landed
+
+* `PF/Ch2ThresholdZ13Exclusion.lean` — new, 16 declarations.
+* `PF.lean` — registered beside `PF.Ch2ThresholdSelection`. Imports 1 235 →
+  1 236, every pre-existing import verified intact. `PF.lean:960` records that
+  the file this module imports *"was previously imported by nothing, so `lake
+  build` never re-verified it"*; leaving this one unregistered would have
+  repeated a defect the manifest itself documents.
+* `chapters/ch06_consciousness.tex` — the over-attributing citation at `:603`
+  corrected and `:679` cross-referenced, both notes carrying the density
+  counterweight. Book gate on Legion.
+
+### Two items left standing, reported not acted on
+
+1. **`ch07:817` carries the same prose** and `ch07_constants.tex` is
+   AUTHOR-RESERVED (`INSTRUCTIONS` §2). Read, not touched. It needs the same
+   one-line citation correction `ch06:603` received.
+2. **`PF.lean:1393`'s manifest comment for `Ch2ThresholdSelection` is stale.**
+   It still cites `wedge_square_sign_indefinite`,
+   `normalizer_unbounded_in_rank`, `threshold_iff_dimension`,
+   `threshold_first_crossed_at_level_three`, `tower_level_values` and
+   `levels_two_and_three_straddle`, and still asserts *"the quotient is
+   identically 0"* — all of which that file's own §0 withdrew or renamed in its
+   rev 2. The comment describes the superseded first attempt.
