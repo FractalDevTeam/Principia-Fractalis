@@ -63,7 +63,24 @@ Pablo believes that:
 \item \textbf{Neurodivergence is valuable} --- different minds see different patterns
 \item \textbf{AI amplifies human creativity} --- it doesn't replace intuition, it accelerates formalization
 \item \textbf{Rigor and accessibility are compatible} --- clear explanation doesn't diminish mathematical precision
-\item \textbf{Computation is proof} --- high-precision numerical verification is as valuable as analytical proof
+\item \textbf{Formalization is proof; computation is evidence} --- a
+kernel-checked formal proof carries the same force as a hand proof, while
+high-precision numerical agreement is powerful evidence and a substitute for
+neither\manuscriptcorrection{\textbf{This principle read ``Computation is proof
+--- high-precision numerical verification is as valuable as analytical proof''
+until 2026-11-01.} It was changed because it is the one claim this book's own
+verification chapters were written to deny: Chapter~33 records that high
+precision ``does not by itself constitute a mathematical proof'' and that a
+150-digit agreement is ``strong numerical \emph{evidence}''; Chapter~34 states
+that such agreement ``is \textbf{not} a mathematical proof, and it is not
+machine verification'', and that in its protocols ``verified'' means
+\emph{numerically reproduced to high precision} and ``does \textbf{not} mean
+\emph{proved}''. The replacement keeps the three-way distinction those chapters
+draw, and it is the stronger position: the formal corpus accompanying this book
+is machine-checked, with no \texttt{sorry}, \texttt{admit},
+\texttt{native\_decide}, \texttt{ofReduceBool} or \texttt{axiom} declaration
+anywhere in the code of its import closure, so ``formalization is proof'' is a
+claim this project can actually support.}
 \end{itemize}
 
 \section*{Current Work}
