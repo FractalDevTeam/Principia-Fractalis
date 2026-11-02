@@ -600,7 +600,32 @@ $1 - 3^{-k}$, namely $2/3$, $8/9$, $26/27$, $80/81$ (\texttt{tower\_values}), so
 $d \ge 20$ is first met at $k = 3$. \textbf{But the tower does not select
 $0.95$, and this is the part that must be stated.} First, $19/20$ is \emph{not}
 one of the tower's values (\texttt{nineteen\_twentieths\_not\_a\_tower\_value})
---- $20$ is not a ternary number. Second, \emph{every} threshold in the interval
+--- $20$ is not a ternary number.\manuscriptcorrection{\textbf{This sentence
+was prose until 2026-11-02, and the theorem cited beside it does not prove it.}
+\texttt{nineteen\_twentieths\_not\_a\_tower\_value} proves four disequalities
+--- $19/20 \neq 2/3$, $8/9$, $26/27$, $80/81$ --- which excludes four values and
+settles nothing about a fifth, let alone about every level. It is now a theorem,
+and a stronger one than the prose claimed: $19/20 \notin \mathbb{Z}[1/3]$, the
+substrate's K-theoretic trace range $\tau_*(K_0(T_\infty))$
+(\texttt{not\_memZ13\_nineteen\_twentieths}, proved twice over --- by parity,
+and again through a general exclusion lemma at the prime $5$ which also subsumes
+this corpus's existing $3/2$ and $1/5$ exclusions and supplies the $1/2$ case
+that had been asserted but never formalised). Hence $19/20 \neq 1 - 3^{-k}$ for
+\emph{every} $k$ (\texttt{nineteen\_twentieths\_not\_any\_tower\_value}), and
+$19/20$ is the normalised trace of no level projection at any level --- which,
+set beside \texttt{substrate\_attains\_every\_Z13\_trace}, where every $m/3^k$
+with $m \leq 3^k$ \emph{is} attained by an explicit projection, places the
+threshold outside the \emph{attained} range and not merely outside a list. The
+obstruction is quantitative and sharp: every level-$k$ ternary value misses the
+threshold by at least $1/(20 \cdot 3^k)$, and the constant $20$ is optimal,
+being attained at $k = 0$ and $k = 4$. \emph{The converse is proved in the same
+module and carries equal weight}: $\mathbb{Z}[1/3]$ is dense, so the tower
+approaches $0.95$ arbitrarily closely. The exclusion is about \emph{exactness},
+never about reachability, and no impossibility is claimed. Together these
+sharpen this remark's own conclusion without altering it --- the tower neither
+forces $0.95$ nor forbids it, $0.95$ being simply not one of its values, at a
+measured distance from each. Sixteen declarations, zero project axioms, three
+negative controls rejected.} Second, \emph{every} threshold in the interval
 $(8/9,\,26/27]$ has first-crossing level $3$, an interval of width $2/27$,
 witnessed at $9/10$, $19/20$ and $24/25$ alike
 (\texttt{threshold\_interval\_gives\_same\_level}). So the tower
@@ -676,7 +701,17 @@ the first place.\manuscriptcorrection{\textbf{Narrowed the same day, after two i
 
 \emph{(2) The bipartite constraint was omitted.} For a pure state on $\mathcal{H}_A \otimes \mathcal{H}_B$, $\mathrm{rank}\,\rho_A \le \min(d_A, d_B)$, so effective dimension $\ge 20$ needs \textbf{both} factors $\ge 20$ and hence a total dimension $\ge 400$: in the ternary tower a level-3 subsystem inside a total system of level $\ge 6$, since $3^5 = 243 < 400 \le 729 = 3^6$. A level-3 system \emph{alone}, in a pure state, cannot cross.
 
-\emph{(3) The tower does not select $0.95$.} Every threshold in $(8/9,\,26/27]$ has the same first-crossing level $k=3$ --- an interval of width $2/27$ --- and the values the tower itself distinguishes are $1 - 3^{-k}$, among which $19/20$ does not appear, since $20$ is not a ternary number. The claim that $0.95$ ``is not a free parameter'' was wrong: the tower locates it in an interval and does not pin it. ``Falsifiable'' was also the wrong word --- ``nothing below $d=20$ can cross'' is a theorem, and no experiment can contradict a theorem.
+\emph{(3) The tower does not select $0.95$.} Every threshold in $(8/9,\,26/27]$ has the same first-crossing level $k=3$ --- an interval of width $2/27$ --- and the values the tower itself distinguishes are $1 - 3^{-k}$, among which $19/20$ does not appear, since $20$ is not a ternary
+number.\manuscriptcorrection{\textbf{Machine-checked at every level since
+2026-11-02.} When this remark was written the claim that $20$ is not a ternary
+number was prose, resting on a theorem that checked four values. It now rests on
+$19/20 \notin \mathbb{Z}[1/3]$: therefore $19/20 \neq 1 - 3^{-k}$ for every $k$,
+and every level-$k$ ternary value misses the threshold by at least
+$1/(20 \cdot 3^k)$, a constant shown optimal
+(\texttt{nineteen\_twentieths\_is\_not\_a\_ternary\_number}). The same module
+proves the counterweight --- that the tower nonetheless approaches $0.95$
+arbitrarily closely --- so this strengthens the conclusion already drawn here
+and asserts no impossibility.} The claim that $0.95$ ``is not a free parameter'' was wrong: the tower locates it in an interval and does not pin it. ``Falsifiable'' was also the wrong word --- ``nothing below $d=20$ can cross'' is a theorem, and no experiment can contradict a theorem.
 
 \emph{(4) Ground~3 of the naming argument was false.} It claimed the Chern--Weil form ``is the only one that touches the kernel-verified substrate, since the Chern character is $K_0 \to H^{\mathrm{even}}$ and $K_0(\mathcal{T}_\infty) = \mathbb{Z}[1/3]$ is proved''. Both halves fail. $K_0$ is \emph{not} formalized as operator K-theory: \texttt{PF/Consciousness/TimelessFieldKTheoryUpgrade.lean} builds a hand-rolled carrier of pairs $(n,k)$ with a multiply-by-three map and proves injectivity and nontriviality of that \emph{model}, not that $K_0$ of the C*-algebra is $\mathbb{Z}[1/3]$. And for a UHF algebra the Chern character's content is the \textbf{trace}, which is degree \emph{zero} --- there is no degree-2 component, so a degree-2 Chern character has no home on the substrate at all. \textbf{The naming decision now rests on two grounds, not three}: that it is what the name means, and that it is the only one of the five that is a functional of the $(E,\nabla)$ datum this chapter defines.
 
