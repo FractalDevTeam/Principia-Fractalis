@@ -902,7 +902,25 @@ Compute sensitivity, specificity, PPV, NPV. Verify they match Theorem \ref{thm:d
 \section*{Research Problems}
 
 \begin{enumerate}
-\item \textbf{(Optimal Threshold)} The consciousness threshold ch$_2 \geq 0.95$ is derived theoretically. Empirically optimize the threshold by ROC analysis. Does 0.95 maximize Youden's index $(J = \text{sensitivity} + \text{specificity} - 1)$?
+\item \textbf{(Optimal Threshold)} The consciousness threshold
+$\text{ch}_2 \geq 0.95$ is asserted rather than derived.%
+\manuscriptcorrection{\textbf{This problem's premise read ``is derived
+theoretically''; the book says otherwise in three places.} Corrected 2026-11-02.
+Ch.~26's verification-status section has recorded since 2026-07-23 that
+$\text{ch}_2 = 0.95 = 6/\pi^2 + \epsilon_{\text{quantum}}$ is
+\textbf{ASSERTED (numerology)} and that ``the remainder
+$\epsilon_{\text{quantum}}\approx0.342$ is chosen to reach $0.95$''; ch.~25's
+ledger now carries the same label; and ch.~6's \emph{Settled, 2026-10-05}
+remark withdraws ``$0.95$ is not a free parameter'' as overstated, recording
+that the tower constrains the threshold to an interval without pinning it.
+Recomputed: $6/\pi^2 = 0.607927101854$, so the remainder is
+$0.342072898146$ --- $36.0\%$ of the value it purports to explain --- and that
+it \emph{is} the remainder is kernel-bracketed axiom-free by
+\texttt{epsilon\_quantum\_is\_the\_remainder}. \emph{The question below is
+unchanged, and the correction strengthens it}: if $0.95$ is asserted rather than
+derived, then an ROC optimisation is a genuine test of the threshold rather than
+a confirmation of a settled value, and a negative answer would be a real
+finding about the framework rather than an experimental artefact.} Empirically optimize the threshold by ROC analysis. Does 0.95 maximize Youden's index $(J = \text{sensitivity} + \text{specificity} - 1)$?
 
 \item \textbf{(Minimal Channel Set)} Can we achieve comparable accuracy with fewer electrodes? Identify the optimal subset of $k < 64$ channels using channel importance analysis or information-theoretic methods.
 
