@@ -815,7 +815,25 @@ this book's own later correction. Chapter~\ref{ch:consciousness}
 records that the claim $0.95$ ``is not a free parameter'' \emph{was
 wrong}: the ternary tower locates that threshold inside the interval
 $(8/9,\,26/27]$ and does not pin it, since $19/20$ is not a ternary
-number. The four cases above are consistency checks --- each shows that
+number.\manuscriptcorrection{\textbf{That clause is now machine-checked, and no
+repair to this amendment was needed.} Added 2026-11-03. When this amendment was
+written on 2026-10-24, ``$19/20$ is not a ternary number'' was prose, and the
+theorem then available beside it checked only the four tower values $2/3$,
+$8/9$, $26/27$ and $80/81$ --- which excludes four values and settles nothing
+about a fifth, let alone about every level. As of 2026-11-02 it is a theorem at
+every level: $19/20 \notin \mathbb{Z}[1/3]$, the substrate's K-theoretic trace
+range $\tau_*(K_0(T_\infty))$, hence $19/20 \neq 1 - 3^{-k}$ for \emph{every}
+$k$, and $19/20$ is the normalised trace of no level projection
+(\texttt{nineteen\_twentieths\_not\_any\_tower\_value} in
+\texttt{PF/Ch2ThresholdZ13Exclusion.lean}; zero project axioms). The obstruction
+is quantitative and sharp: every level-$k$ ternary value misses the threshold by
+at least $1/(20 \cdot 3^k)$, and that constant is optimal, being attained at
+$k = 0$ and $k = 4$. \emph{The converse is proved in the same module, and it
+belongs here}: $\mathbb{Z}[1/3]$ is dense, so the tower approaches $0.95$
+arbitrarily closely --- the exclusion is about \emph{exactness}, never about
+reachability. So the tower neither forces $0.95$ nor forbids it, which is
+exactly what this amendment already said; it now rests on a kernel fact rather
+than on prose.} The four cases above are consistency checks --- each shows that
 a \emph{particular} alternative value is untenable --- and a family of
 such checks narrows a constant to a range; it does not reduce the range
 to a point. For the $\alpha$-values the corresponding statement is a
