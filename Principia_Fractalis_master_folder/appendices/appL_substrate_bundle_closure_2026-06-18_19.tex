@@ -133,10 +133,28 @@ literal mathlib carriers are exhibited as a single citable inventory:
     \texttt{ZetaCriticalLineFramework} encoding and mathlib's
     \texttt{Complex.riemannZeta} zero-locus claim restricted to the
     critical line.
-  \item \textbf{P vs NP bridge}: \texttt{Iff.rfl} between the
-    framework's operator-class separation under canonical $\alpha$-pair
-    pin and the corpus's typed
-    \texttt{P\_NEQ\_NP\_via\_alphaClassSeparation} encoding.
+  \item \textbf{P vs NP bridge} --- \textbf{the declaration this bullet
+    cited does not exist, and no bridge of the form described was
+    located.}\manuscriptcorrection{\textbf{Corrected 2026-11-03.} This bullet
+    claimed an \texttt{Iff.rfl} between the framework's operator-class
+    separation under the canonical $\alpha$-pair pin and ``the corpus's typed
+    \texttt{P\_NEQ\_NP\_via\_alphaClassSeparation} encoding''. That identifier
+    occurs in \emph{no} file of \texttt{PF\_Lean4\_Code},
+    \texttt{PF\_Lean4Lean} or \texttt{PF\_Coq\_Code}, and no \texttt{Iff.rfl}
+    bridge of the described form was found. \emph{What does exist}, named rather
+    than guessed: two theorems called \texttt{P\_NEQ\_NP}, and \textbf{both lie
+    outside} \texttt{PF.lean}'s transitive import closure, so no build
+    re-verifies either. \texttt{P\_NP\_Complete\_Proof.lean:340} proves
+    \texttt{P\_neq\_NP\_def} \emph{conditionally} on
+    \texttt{PolylogEigenvalueConjecture}, which this corpus declares as a Lean
+    axiom. \texttt{P\_NP\_Axiom\_Elimination.lean:316} states it with
+    \emph{no} hypothesis, and the project's own semantic-parity map lists that
+    one ``to retire for the project's own protection'', recording that its
+    proof would require $\pi/10/\sqrt{2} = \pi/10/(\varphi+\tfrac14)$, which is
+    false. The five sibling bridges in this list (RH, BSD, NS, YM, Hodge) all
+    resolve; this one did not. Nothing is asserted here beyond the measurement:
+    the cited name is absent, and the nearest real declarations are as
+    described.}
   \item \textbf{BSD bridge}: \texttt{Iff.rfl} between the framework's
     \texttt{BSDRank} predicate on \texttt{WeierstrassCurve }$\mathbb{Q}$
     and mathlib's analytic-rank/algebraic-rank equality.
