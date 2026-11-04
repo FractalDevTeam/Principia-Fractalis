@@ -151,7 +151,31 @@ literal mathlib carriers are exhibited as a single citable inventory:
     \emph{no} hypothesis, and the project's own semantic-parity map lists that
     one ``to retire for the project's own protection'', recording that its
     proof would require $\pi/10/\sqrt{2} = \pi/10/(\varphi+\tfrac14)$, which is
-    false. The five sibling bridges in this list (RH, BSD, NS, YM, Hodge) all
+    false. \textbf{Measured 2026-11-03, which settles it more plainly than that
+    inference does: the file cannot be built at the pinned mathlib at all.} Its
+    import \texttt{Mathlib.Analysis.SpecialFunctions.Gamma} does not exist at
+    this pin --- that module was split into \texttt{Gamma.Basic},
+    \texttt{Gamma.Beta}, \texttt{Gamma.BohrMollerup}, \texttt{Gamma.Deligne} and
+    \texttt{Gamma.Deriv} --- and it is the \emph{only} file among all $9{,}492$
+    \texttt{PF/*.lean} sources importing it, which is why no build has ever
+    surfaced this. Repairing that one import locally and rebuilding yields
+    \textbf{20 errors}, among them that
+    \texttt{spectral\_gap\_positive\_proof} is an \emph{unknown identifier} ---
+    and it is one of the two results its $P \neq NP$ proof cites --- together
+    with three declarations reported ``already declared'' because the file
+    duplicates what it imports. So the live
+    \texttt{\#print axioms P\_NEQ\_NP} command the file contains
+    \textbf{has never executed}, and that bare theorem has never been
+    kernel-checked. Nothing depends on it: zero importers, no \texttt{olean},
+    its uniquely-owned \texttt{spectral\_gap\_positive\_proof} occurs in no
+    other file, and its last content commit is 2025-11-29.
+    \emph{What the corpus does carry, by contrast, is conditional and says so
+    in its signature}: \texttt{P\_NP\_Complete\_Proof.lean:340} reads
+    \texttt{theorem P\_NEQ\_NP (hpoly : PolylogEigenvalueConjecture) :
+    P\_neq\_NP\_def}, its docstring recording ``Refactor 2026-05-20: now takes
+    the \texttt{PolylogEigenvalueConjecture} hypothesis explicitly'', and that
+    conjecture is a \texttt{def {\dots} : Prop} rather than an axiom --- the
+    same shape as the Riemann chain's two undischarged hypotheses. The five sibling bridges in this list (RH, BSD, NS, YM, Hodge) all
     resolve; this one did not. Nothing is asserted here beyond the measurement:
     the cited name is absent, and the nearest real declarations are as
     described.}
