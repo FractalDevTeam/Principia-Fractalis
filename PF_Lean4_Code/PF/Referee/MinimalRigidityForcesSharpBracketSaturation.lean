@@ -39,6 +39,7 @@ import PF.CrossMillenniumMoreInvariants
 import PF.FrameworkExperimentalWinsCapstone
 import PF.IBMPeaksGaloisPair
 import PF.Cosmology.LambdaEffParameterFreeCapstone
+import PF.Referee.MinimalRigidityForcesAlphaSkeletonBridge
 
 namespace PF.Referee.MinimalRigidityForcesSharpBracketSaturation
 
@@ -68,12 +69,12 @@ open PF.Referee.MinimalSubstrateRigidityUnified
 
     Eight clauses, all axiom-free at substrate-rigid threading. -/
 theorem unified_minimal_forces_sharp_bracket_saturation
-    (_u : UnifiedAlphaAssignment)
-    (_hM : UnifiedMinimalInvariants _u)
-    (_h_P : _u.sector1.a_Poincare = 1)
-    (_h_P_pos : 0 < _u.sector2.a_P)
-    (_h_Hodge_pos : 0 < _u.sector2.a_Hodge)
-    (_h_QG_pos : 0 < _u.sector2.a_QG) :
+    (u : UnifiedAlphaAssignment)
+    (hM : UnifiedMinimalInvariants u)
+    (h_P : u.sector1.a_Poincare = 1)
+    (h_P_pos : 0 < u.sector2.a_P)
+    (h_Hodge_pos : 0 < u.sector2.a_Hodge)
+    (h_QG_pos : 0 < u.sector2.a_QG) :
     -- (S1) XENON ultra-sharp
     ((1.2984 : ℝ) < XENON_prediction ∧
      XENON_prediction < (1.2985 : ℝ)) ∧
@@ -91,25 +92,33 @@ theorem unified_minimal_forces_sharp_bracket_saturation
     ((2.16 : ℝ) < (2 * Real.sqrt 5 - 3) ^ 2 ∧
      (2 * Real.sqrt 5 - 3) ^ 2 < (2.17 : ℝ)) ∧
     -- (S7) Σα sharp
-    ((18.97 : ℝ) < α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
-                    + α_Hodge + α_NP + α_QG ∧
-     α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
-        + α_Hodge + α_NP + α_QG < (18.98 : ℝ)) ∧
+    ((18.97 : ℝ) < u.sector1.a_Poincare + u.sector2.a_P + u.sector1.a_RH + u.sector1.a_YM + u.sector1.a_BSD + u.sector1.a_NS
+                    + u.sector2.a_Hodge + u.sector2.a_NP + u.sector2.a_QG ∧
+     u.sector1.a_Poincare + u.sector2.a_P + u.sector1.a_RH + u.sector1.a_YM + u.sector1.a_BSD + u.sector1.a_NS
+        + u.sector2.a_Hodge + u.sector2.a_NP + u.sector2.a_QG < (18.98 : ℝ)) ∧
     -- (S8) Σα² sharp
-    ((49.39 : ℝ) < α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2
-                    + α_BSD ^ 2 + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2
-                    + α_QG ^ 2 ∧
-     α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
-        + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2 < (49.41 : ℝ)) :=
-  ⟨XENON_prediction_ultra_sharp_bracket,
-   Hubble_H_eff_sharp_bracket,
-   M_1_glueball_ultra_sharp_bracket,
-   IBM_peaks_gap_sharp_bracket,
-   Lambda_eff_exponent_product_sharp_bracket,
-   P_discriminant_bracket,
-   PrincipiaTractalis.CrossMillenniumMoreInvariants.α_skeleton_sum_sharp_bracket,
-   PrincipiaTractalis.CrossMillenniumMoreInvariants.sum_α_sq_skeleton_sharp_bracket⟩
-
+    ((49.39 : ℝ) < u.sector1.a_Poincare ^ 2 + u.sector2.a_P ^ 2 + u.sector1.a_RH ^ 2 + u.sector1.a_YM ^ 2
+                    + u.sector1.a_BSD ^ 2 + u.sector1.a_NS ^ 2 + u.sector2.a_Hodge ^ 2 + u.sector2.a_NP ^ 2
+                    + u.sector2.a_QG ^ 2 ∧
+     u.sector1.a_Poincare ^ 2 + u.sector2.a_P ^ 2 + u.sector1.a_RH ^ 2 + u.sector1.a_YM ^ 2 + u.sector1.a_BSD ^ 2
+        + u.sector1.a_NS ^ 2 + u.sector2.a_Hodge ^ 2 + u.sector2.a_NP ^ 2 + u.sector2.a_QG ^ 2 < (49.41 : ℝ))
+    := by
+  have hA_Poincare : u.sector1.a_Poincare = α_Poincare := by
+    rw [h_P]; unfold α_Poincare; ring
+  obtain ⟨hA_RH, hA_YM, hA_BSD, hA_NS, hA_P, hA_Hodge, hA_NP, hA_QG⟩ :=
+    PF.Referee.MinimalRigidityForcesAlphaSkeletonBridge.unified_minimal_forces_assignment_eq_framework_alphas
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  simp only [hA_Poincare, hA_RH, hA_YM, hA_BSD, hA_NS, hA_P, hA_Hodge, hA_NP, hA_QG]
+  exact
+    ⟨XENON_prediction_ultra_sharp_bracket,
+     Hubble_H_eff_sharp_bracket,
+     M_1_glueball_ultra_sharp_bracket,
+     IBM_peaks_gap_sharp_bracket,
+     Lambda_eff_exponent_product_sharp_bracket,
+     P_discriminant_bracket,
+     PrincipiaTractalis.CrossMillenniumMoreInvariants.α_skeleton_sum_sharp_bracket,
+     PrincipiaTractalis.CrossMillenniumMoreInvariants.sum_α_sq_skeleton_sharp_bracket⟩
+  
 /-! ## §2 — Moment-sum hierarchy SHARP as substrate theorem -/
 
 /-- **★★★★★★★★ MOMENT-SUM HIERARCHY SHARP IS A SUBSTRATE THEOREM ★★★★★★★★** —
@@ -120,39 +129,47 @@ theorem unified_minimal_forces_sharp_bracket_saturation
     Π_{7}α, Π_{9}α — each with referee-checkable numerical bracket
     at parts-per-thousand precision. -/
 theorem unified_minimal_forces_moment_sum_hierarchy_sharp
-    (_u : UnifiedAlphaAssignment)
-    (_hM : UnifiedMinimalInvariants _u)
-    (_h_P : _u.sector1.a_Poincare = 1)
-    (_h_P_pos : 0 < _u.sector2.a_P)
-    (_h_Hodge_pos : 0 < _u.sector2.a_Hodge)
-    (_h_QG_pos : 0 < _u.sector2.a_QG) :
-    ((18.97 : ℝ) < α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
-                    + α_Hodge + α_NP + α_QG ∧
-     α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
-        + α_Hodge + α_NP + α_QG < (18.98 : ℝ)) ∧
-    ((49.39 : ℝ) < α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2
-                    + α_BSD ^ 2 + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2
-                    + α_QG ^ 2 ∧
-     α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
-        + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2 < (49.41 : ℝ)) ∧
-    ((159.3 : ℝ) < α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3
-                    + α_BSD ^ 3 + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3
-                    + α_QG ^ 3 ∧
-     α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3 + α_BSD ^ 3
-        + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3 + α_QG ^ 3 < (159.5 : ℝ)) ∧
-    ((608.4 : ℝ) < α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4
-                    + α_BSD ^ 4 + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4
-                    + α_QG ^ 4 ∧
-     α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4 + α_BSD ^ 4
-        + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4 + α_QG ^ 4 < (608.7 : ℝ)) ∧
-    ((118.07 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG ∧
-     α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG < (118.09 : ℝ)) ∧
-    ((350 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
-                   * α_Hodge * α_NP ∧
-     α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
-                   * α_Hodge * α_NP < (365 : ℝ)) :=
-  PrincipiaTractalis.CrossMillenniumMoreInvariants.moment_sum_hierarchy_sharp_capstone
-
+    (u : UnifiedAlphaAssignment)
+    (hM : UnifiedMinimalInvariants u)
+    (h_P : u.sector1.a_Poincare = 1)
+    (h_P_pos : 0 < u.sector2.a_P)
+    (h_Hodge_pos : 0 < u.sector2.a_Hodge)
+    (h_QG_pos : 0 < u.sector2.a_QG) :
+    ((18.97 : ℝ) < u.sector1.a_Poincare + u.sector2.a_P + u.sector1.a_RH + u.sector1.a_YM + u.sector1.a_BSD + u.sector1.a_NS
+                    + u.sector2.a_Hodge + u.sector2.a_NP + u.sector2.a_QG ∧
+     u.sector1.a_Poincare + u.sector2.a_P + u.sector1.a_RH + u.sector1.a_YM + u.sector1.a_BSD + u.sector1.a_NS
+        + u.sector2.a_Hodge + u.sector2.a_NP + u.sector2.a_QG < (18.98 : ℝ)) ∧
+    ((49.39 : ℝ) < u.sector1.a_Poincare ^ 2 + u.sector2.a_P ^ 2 + u.sector1.a_RH ^ 2 + u.sector1.a_YM ^ 2
+                    + u.sector1.a_BSD ^ 2 + u.sector1.a_NS ^ 2 + u.sector2.a_Hodge ^ 2 + u.sector2.a_NP ^ 2
+                    + u.sector2.a_QG ^ 2 ∧
+     u.sector1.a_Poincare ^ 2 + u.sector2.a_P ^ 2 + u.sector1.a_RH ^ 2 + u.sector1.a_YM ^ 2 + u.sector1.a_BSD ^ 2
+        + u.sector1.a_NS ^ 2 + u.sector2.a_Hodge ^ 2 + u.sector2.a_NP ^ 2 + u.sector2.a_QG ^ 2 < (49.41 : ℝ)) ∧
+    ((159.3 : ℝ) < u.sector1.a_Poincare ^ 3 + u.sector2.a_P ^ 3 + u.sector1.a_RH ^ 3 + u.sector1.a_YM ^ 3
+                    + u.sector1.a_BSD ^ 3 + u.sector1.a_NS ^ 3 + u.sector2.a_Hodge ^ 3 + u.sector2.a_NP ^ 3
+                    + u.sector2.a_QG ^ 3 ∧
+     u.sector1.a_Poincare ^ 3 + u.sector2.a_P ^ 3 + u.sector1.a_RH ^ 3 + u.sector1.a_YM ^ 3 + u.sector1.a_BSD ^ 3
+        + u.sector1.a_NS ^ 3 + u.sector2.a_Hodge ^ 3 + u.sector2.a_NP ^ 3 + u.sector2.a_QG ^ 3 < (159.5 : ℝ)) ∧
+    ((608.4 : ℝ) < u.sector1.a_Poincare ^ 4 + u.sector2.a_P ^ 4 + u.sector1.a_RH ^ 4 + u.sector1.a_YM ^ 4
+                    + u.sector1.a_BSD ^ 4 + u.sector1.a_NS ^ 4 + u.sector2.a_Hodge ^ 4 + u.sector2.a_NP ^ 4
+                    + u.sector2.a_QG ^ 4 ∧
+     u.sector1.a_Poincare ^ 4 + u.sector2.a_P ^ 4 + u.sector1.a_RH ^ 4 + u.sector1.a_YM ^ 4 + u.sector1.a_BSD ^ 4
+        + u.sector1.a_NS ^ 4 + u.sector2.a_Hodge ^ 4 + u.sector2.a_NP ^ 4 + u.sector2.a_QG ^ 4 < (608.7 : ℝ)) ∧
+    ((118.07 : ℝ) < u.sector1.a_Poincare * u.sector2.a_P * u.sector1.a_RH * u.sector1.a_YM * u.sector1.a_BSD * u.sector1.a_NS * u.sector2.a_QG ∧
+     u.sector1.a_Poincare * u.sector2.a_P * u.sector1.a_RH * u.sector1.a_YM * u.sector1.a_BSD * u.sector1.a_NS * u.sector2.a_QG < (118.09 : ℝ)) ∧
+    ((350 : ℝ) < u.sector1.a_Poincare * u.sector2.a_P * u.sector1.a_RH * u.sector1.a_YM * u.sector1.a_BSD * u.sector1.a_NS * u.sector2.a_QG
+                   * u.sector2.a_Hodge * u.sector2.a_NP ∧
+     u.sector1.a_Poincare * u.sector2.a_P * u.sector1.a_RH * u.sector1.a_YM * u.sector1.a_BSD * u.sector1.a_NS * u.sector2.a_QG
+                   * u.sector2.a_Hodge * u.sector2.a_NP < (365 : ℝ))
+    := by
+  have hA_Poincare : u.sector1.a_Poincare = α_Poincare := by
+    rw [h_P]; unfold α_Poincare; ring
+  obtain ⟨hA_RH, hA_YM, hA_BSD, hA_NS, hA_P, hA_Hodge, hA_NP, hA_QG⟩ :=
+    PF.Referee.MinimalRigidityForcesAlphaSkeletonBridge.unified_minimal_forces_assignment_eq_framework_alphas
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  simp only [hA_Poincare, hA_RH, hA_YM, hA_BSD, hA_NS, hA_P, hA_Hodge, hA_NP, hA_QG]
+  exact
+    PrincipiaTractalis.CrossMillenniumMoreInvariants.moment_sum_hierarchy_sharp_capstone
+  
 end PF.Referee.MinimalRigidityForcesSharpBracketSaturation
 
 #print axioms
