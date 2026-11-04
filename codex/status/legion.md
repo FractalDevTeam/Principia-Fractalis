@@ -1,6 +1,160 @@
 # LEGION — status
 
-**Updated:** 2026-10-28 · **Owner:** Legion session (march ownership, pipeline, research)
+**Updated:** 2026-11-04 · **Owner:** Legion session (march ownership, pipeline, research)
+
+## 2026-11-04 — SIX DAYS OFF THE BOARD: the manuscript defect campaign, and the O-CIRC closure sweep
+
+**This entry closes a gap, not a work item.** The last board write was
+`d09e4635` (2026-10-29, the r380–r384 hFubini run). **70 commits** landed
+between that write and `1f3c2c3d`; 66 of them were never recorded here. Rio and
+Acer have been coordinating off a board that stopped at r384. What follows is
+the digest. Every claim below is a commit subject or a measured number, not a
+recollection.
+
+### 1. The Lean march finished two chains and continued a third
+
+| run | result | commit |
+|---|---|---|
+| r385 (YM) | `hFubini` **DISCHARGED** — Wilson reflection positivity needs no Fubini hypothesis | `73f8a65b` |
+| — | the 2026-10-17 seven-task plan is **COMPLETE** | `27856275` |
+| r386 (KMS) | `LevelMapInjective` **DISCHARGED** — the substrate dynamics is not the identity | `292b7576` |
+| r392 (KMS) | the substrate tower **NEVER STABILIZES** — "no end", formalized | `efd60a59` |
+| r393 (KMS) | every level is 1/9 of the next, and a vanishing fraction of the whole | `8ff10d77` |
+| r394 + ch05 | why three dimensions, formalized — and two defects in the chapter | `20b96d02` |
+
+Riemann finite-rect march: boxes 46→47 of 64, frontier **12.59375 → 12.71875**,
+every step kernel-clean on the three-axiom bar (`7230271f`, `f53b6b68`,
+`6ff5b9bd`, `9551e2f9`).
+
+### 2. Cosmology / dark energy: the run that closed by exclusion
+
+r387–r391 (`e569cdcd`, `e1e23d0f`, `ffb78c60`, `f08c29fa`, `1fe592ba`). The
+load-bearing results are negative and they are **theorems**:
+
+* the substrate CPL ansatz is **phantom** and fails r219's own antecedent;
+* the ratios **CANNOT** be derived — PF's own action derivation excludes them;
+* the dark-energy α-row is filled and **four of nine classes die by theorem**;
+* the golden-ratio pair crosses `w = -1` at exactly `z = 1/√5`.
+
+Dark energy is assigned the QG class, and that decision is in ch27. KM3 /
+dark-dimension assessed against the corpus: one touch-point, one defect, one
+threat (`4d5c0987`).
+
+### 3. The manuscript defect campaign (Oct 31 – Nov 3) — this was the bulk
+
+A chapter-by-chapter sweep of the printed book against the corpus's own
+adjudications. The pattern that recurred, and the reason this had to happen
+before anything else ships:
+
+* **ch04** was printing **negative-control residue in the book** (`1963e397`);
+* the **printed bibliography** carried the Clay-solve claims the front matter
+  forbids (`accaf109`);
+* **appH**, titled "Numerical Validation", claimed **two Clay problems proven** —
+  twelve defects (`2d0a0e94`);
+* the **glossary/epilogue** said on page four that the book solves no Clay
+  problem and in the back matter that it solves six (`9ac38a37`);
+* **author.tex** asserted "Computation is proof" — the one claim this book's
+  verification chapters exist to deny (`a4733605`);
+* **ch06** carried 6 dead Lean citations and 3 withdrawn conclusions (`2b9ffb29`);
+* the **143-problem IBM set** is cited as validation **22 times, not four**; five
+  live claims corrected (`ecc77f95`);
+* the **pi/10 origin story** was refuted at four separate book sites by this
+  corpus's own Ternary Optimality theorem; pi is now actually derived at ch07:105
+  (`7494655c`, `765c1d78`, `c8aaabe5`, `2eec28d3`);
+* **13 wrong numbers** replaced with the correct ones (`9384c7d3`); a
+  **factor-of-8.40** error ch21 had already diagnosed 429 lines earlier
+  (`b410961e`);
+* the manuscript **did not compile** — one stray `@` in preamble.tex (`4154d374`);
+* LaTeX was silently **discarding 5 corrections**, now rescued (`09b46e0f`).
+
+**Four self-corrections are in this span and they are the honest part of the
+record:** `1d576fd9` retracts the "8 invisible tcolorbox notes" claim made in
+`e9eaaa6a` (there are zero); `e666686f` repairs 4 regressions introduced the
+same day; `0c69ba80` repairs ten defects an eight-agent sweep found in my own
+five commits; `3c514a65` records that my own citation audit **overstated the
+defect rate by 7x** (2 real defects of 7 alleged). `03b05e15` RETRACTS the H3
+route to ch2 = 0.95 including a false claim put in the book an hour earlier.
+
+New positive results from the same sweep: `Z[1/3]` — "20 is not a ternary
+number" is now a theorem **in both directions** (`32b4c104`); the substrate
+clock-shift family **IS a Heisenberg group**, relation named (`0cc61ea5`); the
+deferred `120*log10` bracket is proved and the MinimalRigidity hypotheses are
+measured **inert** (`e912d955`).
+
+### 4. Closure: the book's Lean citations now sit inside what `lake build` re-verifies
+
+`1b3c24c9`. The sweep's first finding was that one of them **does not compile** —
+`FujitaKato`, which had not compiled for **five months**. Repaired and registered
+(`36168114`). `PF.lean`'s Ch2ThresholdSelection manifest comment cited **six
+theorems that do not exist** (`bd32971b`).
+
+### 5. Clay-axis honesty, stated as measurements
+
+* **NS** — the "literal Clay statement" is now a **proved theorem**, and that is
+  precisely the proof that it is **not** the Clay problem (`2c953d96`).
+* **P/NP** — the bare `P_NEQ_NP` has **never been kernel-checked and cannot be**;
+  measured, not inferred (`2a6c07e9`). `P_NP_Axiom_Elimination.lean` retired out
+  of `PF/` byte-for-byte, nothing deleted (`1bfc6ccc`).
+
+### 6. O-CIRC re-sweep over the FULL closure (`92c62ea8`, corrected by `1f3c2c3d`)
+
+`PremiseAudit` (r337, fixed cone) run over `import PF` — the **1,552-module
+closure**. Lean exit 0, zero errors, zero `sorryAx`. **Every prior O-CIRC sweep
+imported two modules**, so the `OCIRC_FAMILY_RESWEEP_2026-09-30` figure of "34
+targets" was never a closure measurement: `3/34 -> 20/93` is not a trend, the
+denominators are different objects.
+
+**24 flagged theorems reduce to 4 facts.** Counts cross-check exactly
+(DEAD = 18x2+3 = 39, CONTAINED = 2).
+
+| class | n | verdict |
+|---|---|---|
+| dead minimal-rigidity hypothesis | 19 | real — 1 repaired, 1 declined, **17 doctrine** |
+| `TestProblem` fields | 1 | instrument artifact, diagnosed |
+| conjunct of its own conclusion | 1 | real, already declared in its docstring |
+| Fefferman bridge | 1 | found by hand the same day; the sweep corroborates |
+
+Repaired with a gate and a negative control:
+`unified_minimal_forces_alpha_AC_eq_a_Poincare` — §2 and §3 of its own file
+already routed through the forced skeleton, §1 was missed. Build exit 0,
+`sorryAx` 0, three-axiom bar, `#audit_premises -> CLEAN`, module
+`targets=4 clean=4 DEAD=0`. **Negative control: rebinding to the wrong skeleton
+conjunct is rejected** (`rewrite failed`, exit 1). Acer and Legion hold the same
+bytes at matching sha.
+
+**One reachable repair was DECLINED.** `W_entropy_ceilings_at_all_clay_axes`
+could be routed through the skeleton, but its content is
+`∑' n, W_alpha_level a n = a*3`, true for *every* real `a`. Routing it would turn
+the auditor green without making minimal rigidity do one unit of work — ceremony
+that makes the instrument lie.
+
+### READ THIS: two things the instrument cannot see — do not read its green as clean
+
+1. **`VACUOUS=0` has never meant anything.** `isTrivialProp` tests
+   `isConstOf True` and nothing else, so the Fefferman clauses whose vacuity was
+   *proved* on 2026-11-03 are invisible to it.
+2. **The `TestProblem` finding is a `forallTelescope` artifact, and the obvious
+   fix is wrong.** `∀ p ∈ s, P p` desugars to `∀ p, p ∈ s → P p`, so the
+   telescope walks past the hypotheses and collects the **conclusion's** own
+   quantified variable as a premise. Proof: auditing
+   `universal_fractal_coherence`, which has **zero** structure-valued
+   hypotheses, emits the identical three DEAD fields. A `Prop` filter would mask
+   this *and* stop auditing `u : UnifiedAlphaAssignment` — the carrier of the one
+   real finding class. `92c62ea8` named the cause wrong; `1f3c2c3d` corrects it.
+
+### OPEN — PABLO'S DECISION, and the only thing blocking this lane
+
+The **17** closed-conclusion theorems are **one decision, not 17 defects.** The
+mathematics is fine — `M_1_glueball_bracket` is a true unconditional theorem.
+What is wrong is restating it with six decorative hypotheses under a name that
+claims substrate forcing. Two moves exist:
+
+* **restate** so the conclusion mentions `u` — a material change to content; or
+* **rename** — a downgrade, which the standing rules forbid.
+
+This is the same question raised against `LambdaEffExponentProduct`, now measured
+at **17 instances instead of 1**, which is why it is worth deciding once rather
+than per-theorem. Nothing else in the O-CIRC lane is blocked.
 
 ## 2026-10-28 LATE — THE KMS BUILD (r363–r366), and the submitted paper's core REVERIFIED
 
