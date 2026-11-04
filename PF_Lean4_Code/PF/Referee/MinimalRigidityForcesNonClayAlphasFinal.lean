@@ -42,14 +42,21 @@ open PF.Referee.MinimalSubstrateRigidityUnified
 
 theorem unified_minimal_forces_alpha_AC_eq_a_Poincare
     (u : UnifiedAlphaAssignment)
-    (_hM : UnifiedMinimalInvariants u)
+    (hM : UnifiedMinimalInvariants u)
     (h_P : u.sector1.a_Poincare = 1)
-    (_h_P_pos : 0 < u.sector2.a_P)
-    (_h_Hodge_pos : 0 < u.sector2.a_Hodge)
-    (_h_QG_pos : 0 < u.sector2.a_QG) :
+    (h_P_pos : 0 < u.sector2.a_P)
+    (h_Hodge_pos : 0 < u.sector2.a_Hodge)
+    (h_QG_pos : 0 < u.sector2.a_QG) :
     PF.NumberTheory.AndrewsCurtisFrameworkAttack.alpha_AC
       = u.sector1.a_Poincare := by
-  rw [h_P]; rfl
+  -- Route through the forced skeleton so minimal rigidity is what establishes
+  -- this, matching the name. Proving it from `h_P` alone left `hM` dead
+  -- (PremiseAudit, 2026-11-03). Same repair as §2/§3 below and as
+  -- MinimalRigidityForcesNonClayAlphasExtended.lean:114 (2026-10-01).
+  obtain ⟨h_Poin, _, _, _, _, _, _, _, _, _⟩ :=
+    unified_alpha_skeleton_forced_by_minimal_invariants
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  rw [h_Poin]; rfl
 
 /-! ## §2 — Inverse Galois Problem: α_IGP = α_RH − α_Poincaré = 1/2 -/
 
