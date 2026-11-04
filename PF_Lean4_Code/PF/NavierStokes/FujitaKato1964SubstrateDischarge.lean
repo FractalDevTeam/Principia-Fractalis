@@ -154,6 +154,30 @@ import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.Calculus.ContDiff.Bounds
 import Mathlib.Analysis.Distribution.SchwartzSpace
 
+/-! ## REPAIRED 2026-11-03 -- this module did not compile for five months
+
+`fee6d414` ("Remove the tautologies the ground-truth review flagged",
+2026-06-08 01:03) strengthened `smoothness u` to genuine pointwise
+boundedness, nine hours after this file was written at `76bbb15a`
+(2026-06-07 15:39). That correctly de-tautologised the clause and broke two
+proofs here, which had closed `smoothness` with `trivial` and
+`forwardTimeDomain` with `le_or_gt 0 t`. Because nothing imports this module it
+sat outside every build closure, so no build noticed; and its `olean` is dated
+18 seconds after its source and *before* the break, so it looked verified.
+
+The two proofs now use the corpus's own
+`FujitaKato1964LocalExistenceDischarge.forwardTimeDomain_any` (`:196`) and
+`smoothness_any` (`:203`). The definitions stay strengthened; `smoothness_any`
+discharges boundedness honestly via the Schwartz `(0,0)` seminorm.
+
+**What this module proves is true and weak**, and the corpus already says why.
+`PF/NavierStokesTypedContent_r215.lean` proves `forwardTimeDomain_iff_true`,
+`smoothness_iff_true` and `divergenceFreePreserved_independent_of_solution`
+inside the closure, and this appendix's own scope note states that the
+Gaussian-damping lift *"is **not** a Navier--Stokes solution."* Nothing here
+claims otherwise.
+-/
+
 set_option autoImplicit false
 set_option maxHeartbeats 400000
 
@@ -421,10 +445,9 @@ theorem fujitaKato1964Theorem_substrate_axiom_free
   · -- divergenceFreePreserved
     exact hu
   · -- forwardTimeDomain
-    intro t
-    exact le_or_gt 0 t
+    exact forwardTimeDomain_any _
   · -- smoothness
-    trivial
+    exact smoothness_any _
 
 /-- **★★ At the trivial initial datum**, the substrate discharge is
     UNCONDITIONALLY AXIOM-FREE (the decay bound holds trivially for the
@@ -443,8 +466,8 @@ theorem fujitaKato1964Theorem_substrate_at_zero :
     show NS3DSchwartzInitialData.zero.isDivFree
     show NS3DSchwartzInitialData.zero.divFree
     trivial
-  · intro t; exact le_or_gt 0 t
-  · trivial
+  · exact forwardTimeDomain_any _
+  · exact smoothness_any _
 
 /-! ## §8 — Bridges to existing Wave 58 contracts -/
 
