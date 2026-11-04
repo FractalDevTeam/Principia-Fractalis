@@ -168,7 +168,17 @@ literal mathlib carriers are exhibited as a single citable inventory:
     \textbf{has never executed}, and that bare theorem has never been
     kernel-checked. Nothing depends on it: zero importers, no \texttt{olean},
     its uniquely-owned \texttt{spectral\_gap\_positive\_proof} occurs in no
-    other file, and its last content commit is 2025-11-29.
+    other file, and its last content commit is 2025-11-29. \textbf{Accordingly it was
+    retired out of \texttt{PF/} on 2026-11-03}, byte-for-byte, with
+    \texttt{sha256} asserted identical on both sides of the move
+    (\texttt{1349156c0a71}\dots), into
+    \texttt{ARCHIVE/2026-11-03-pnp-\allowbreak{}axiom-\allowbreak{}elimination-\allowbreak{}retired/},
+    where a \texttt{README} records the full measurement and the single
+    \texttt{git mv} that restores it. \emph{Nothing was deleted.} The complete
+    \texttt{lake build PF} after the move finished with $5{,}262$ jobs, zero
+    errors and no synthetic sorries, confirming the zero-importer measurement.
+    This was the last hypothesis-free \texttt{P\_NEQ\_NP} in the live Lean tree
+    --- the five others in the repository were already archived.
     \emph{What the corpus does carry, by contrast, is conditional and says so
     in its signature}: \texttt{P\_NP\_Complete\_Proof.lean:340} reads
     \texttt{theorem P\_NEQ\_NP (hpoly : PolylogEigenvalueConjecture) :
