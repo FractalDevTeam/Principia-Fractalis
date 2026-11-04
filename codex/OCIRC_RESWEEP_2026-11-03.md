@@ -109,12 +109,42 @@ consumes `hM` correctly**, through the skeleton, exactly as prescribed.
 
 The flagged fields belong to a **`Type`-valued data record** in the 143-problem
 dataset, bound by `∀ p ∈ the143Problems`. The theorem concerns `p.alphaMeasured`
-only, so the other three fields are necessarily unread. A dataset record's
-unused fields are not a dead premise. The dead-field check should apply to
-`Prop`-valued hypothesis bundles, not to `Type`-valued data.
+only, so the other three fields are necessarily unread.
 
-**Removal condition:** restrict `PremiseAudit`'s dead-field analysis to `Prop`
-binders; this finding must then disappear and no other finding may change.
+**The root cause, measured not inferred.** `∀ p ∈ s, P p` desugars to
+`∀ p, p ∈ s → P p`, so `forallTelescope` does not stop at the theorem's
+hypotheses — it keeps walking and collects **the conclusion's own quantified
+variable** as if it were a premise. The decisive test is to audit the underlying
+`PrincipiaTractalis.Empirical.universal_fractal_coherence`, which has **no
+structure-valued hypothesis at all**; its only binders are `p` and the membership
+proof, both from its own conclusion:
+
+```
+O-CIRC audit of PrincipiaTractalis.Empirical.universal_fractal_coherence: 3 finding(s)
+  DEAD  …TestProblem.name
+  DEAD  …TestProblem.classLabel
+  DEAD  …TestProblem.lambdaMeasured
+(cone: 74 constants, boundary = PrincipiaTractalis)
+```
+
+Identical three fields, zero premises. Confirmed.
+
+**So the obvious fix is the wrong one.** Restricting the dead-field check to
+`Prop` binders would mask this, but it would also stop auditing
+`u : UnifiedAlphaAssignment` — a genuine data-valued premise, and the carrier of
+Class 1, the sharpest real finding in the sweep. Worse, the distinction is **not
+recoverable from the type**: `∀ u, Inv u → C u` and `∀ p, p ∈ s → C p` are the
+same shape. Which binders are premises is authorial intent, not a formal
+property of the statement.
+
+**Removal condition** (a design decision, not a one-line patch — and therefore
+Pablo's, since it changes every number the instrument will ever report): either
+mark conclusion-quantified data binders explicitly, or bound the telescope to a
+declaration's stated hypothesis count, or filter dataset-record structures by
+name at report time. Whichever is chosen, this finding must disappear and no
+other finding may change. Note that the auditor's own output line is already
+literally true as written — *"DEAD means no proof under that boundary mentions
+the field"* — it is the reading of DEAD as a premise defect that fails here.
 
 ### Class 3 — the H3 capstone's restated conjunct
 
