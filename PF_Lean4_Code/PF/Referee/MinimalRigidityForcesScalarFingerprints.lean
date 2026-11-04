@@ -33,6 +33,7 @@ Author: Pablo Cohen + Claude Opus 4.7. 2026-06-16.
 
 import PF.Referee.MinimalSubstrateRigidityUnified
 import PF.CrossMillenniumMoreInvariants
+import PF.Referee.MinimalRigidityForcesAlphaSkeletonBridge
 
 namespace PF.Referee.MinimalRigidityForcesScalarFingerprints
 
@@ -47,44 +48,52 @@ open PF.Referee.MinimalSubstrateRigidityUnified
     Under the substrate-rigidity hypothesis set, the four scalar
     fingerprints + three numerical brackets hold parametrically. -/
 theorem unified_minimal_forces_scalar_fingerprint_bundle
-    (_u : UnifiedAlphaAssignment)
-    (_hM : UnifiedMinimalInvariants _u)
-    (_h_P : _u.sector1.a_Poincare = 1)
-    (_h_P_pos : 0 < _u.sector2.a_P)
-    (_h_Hodge_pos : 0 < _u.sector2.a_Hodge)
-    (_h_QG_pos : 0 < _u.sector2.a_QG) :
+    (u : UnifiedAlphaAssignment)
+    (hM : UnifiedMinimalInvariants u)
+    (h_P : u.sector1.a_Poincare = 1)
+    (h_P_pos : 0 < u.sector2.a_P)
+    (h_Hodge_pos : 0 < u.sector2.a_Hodge)
+    (h_QG_pos : 0 < u.sector2.a_QG) :
     -- (S1) Additive sum
-    (α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
-       + α_Hodge + α_NP + α_QG
-     = (19/4) + α_P + (9 * Real.pi / 4) + 2 * α_Hodge + α_QG) ∧
+    (u.sector1.a_Poincare + u.sector2.a_P + u.sector1.a_RH + u.sector1.a_YM + u.sector1.a_BSD + u.sector1.a_NS
+       + u.sector2.a_Hodge + u.sector2.a_NP + u.sector2.a_QG
+     = (19/4) + u.sector2.a_P + (9 * Real.pi / 4) + 2 * u.sector2.a_Hodge + u.sector2.a_QG) ∧
     -- (S2) Squared sum
-    (α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
-       + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2
-     = (5/2) * α_Hodge + 2 * Real.pi
+    (u.sector1.a_Poincare ^ 2 + u.sector2.a_P ^ 2 + u.sector1.a_RH ^ 2 + u.sector1.a_YM ^ 2 + u.sector1.a_BSD ^ 2
+       + u.sector1.a_NS ^ 2 + u.sector2.a_Hodge ^ 2 + u.sector2.a_NP ^ 2 + u.sector2.a_QG ^ 2
+     = (5/2) * u.sector2.a_Hodge + 2 * Real.pi
        + (45/16) * Real.pi ^ 2 + 181/16) ∧
     -- (P1) Elementary-7 product
-    (α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+    (u.sector1.a_Poincare * u.sector2.a_P * u.sector1.a_RH * u.sector1.a_YM * u.sector1.a_BSD * u.sector1.a_NS * u.sector2.a_QG
      = 27 * Real.pi ^ 2 * Real.sqrt Real.pi / 4) ∧
     -- (P2) Full 9-product
-    (α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
-        * α_Hodge * α_NP
-     = 27 * Real.pi ^ 2 * Real.sqrt Real.pi * (5 * α_Hodge + 4) / 16) ∧
+    (u.sector1.a_Poincare * u.sector2.a_P * u.sector1.a_RH * u.sector1.a_YM * u.sector1.a_BSD * u.sector1.a_NS * u.sector2.a_QG
+        * u.sector2.a_Hodge * u.sector2.a_NP
+     = 27 * Real.pi ^ 2 * Real.sqrt Real.pi * (5 * u.sector2.a_Hodge + 4) / 16) ∧
     -- (B1) Additive sum bracket
-    ((18.9 : ℝ) < α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
-                    + α_Hodge + α_NP + α_QG ∧
-     α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
-        + α_Hodge + α_NP + α_QG < (19.0 : ℝ)) ∧
+    ((18.9 : ℝ) < u.sector1.a_Poincare + u.sector2.a_P + u.sector1.a_RH + u.sector1.a_YM + u.sector1.a_BSD + u.sector1.a_NS
+                    + u.sector2.a_Hodge + u.sector2.a_NP + u.sector2.a_QG ∧
+     u.sector1.a_Poincare + u.sector2.a_P + u.sector1.a_RH + u.sector1.a_YM + u.sector1.a_BSD + u.sector1.a_NS
+        + u.sector2.a_Hodge + u.sector2.a_NP + u.sector2.a_QG < (19.0 : ℝ)) ∧
     -- (B2) Squared sum bracket
-    ((49 : ℝ) < α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2
-                  + α_BSD ^ 2 + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2
-                  + α_QG ^ 2 ∧
-     α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
-        + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2 < (50 : ℝ)) ∧
+    ((49 : ℝ) < u.sector1.a_Poincare ^ 2 + u.sector2.a_P ^ 2 + u.sector1.a_RH ^ 2 + u.sector1.a_YM ^ 2
+                  + u.sector1.a_BSD ^ 2 + u.sector1.a_NS ^ 2 + u.sector2.a_Hodge ^ 2 + u.sector2.a_NP ^ 2
+                  + u.sector2.a_QG ^ 2 ∧
+     u.sector1.a_Poincare ^ 2 + u.sector2.a_P ^ 2 + u.sector1.a_RH ^ 2 + u.sector1.a_YM ^ 2 + u.sector1.a_BSD ^ 2
+        + u.sector1.a_NS ^ 2 + u.sector2.a_Hodge ^ 2 + u.sector2.a_NP ^ 2 + u.sector2.a_QG ^ 2 < (50 : ℝ)) ∧
     -- (B3) Elementary product bracket
-    ((117 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG ∧
-     α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG < (119 : ℝ)) :=
-  PrincipiaTractalis.CrossMillenniumMoreInvariants.α_skeleton_scalar_fingerprint_bundle
-
+    ((117 : ℝ) < u.sector1.a_Poincare * u.sector2.a_P * u.sector1.a_RH * u.sector1.a_YM * u.sector1.a_BSD * u.sector1.a_NS * u.sector2.a_QG ∧
+     u.sector1.a_Poincare * u.sector2.a_P * u.sector1.a_RH * u.sector1.a_YM * u.sector1.a_BSD * u.sector1.a_NS * u.sector2.a_QG < (119 : ℝ))
+    := by
+  have hA_Poincare : u.sector1.a_Poincare = α_Poincare := by
+    rw [h_P]; unfold α_Poincare; ring
+  obtain ⟨hA_RH, hA_YM, hA_BSD, hA_NS, hA_P, hA_Hodge, hA_NP, hA_QG⟩ :=
+    PF.Referee.MinimalRigidityForcesAlphaSkeletonBridge.unified_minimal_forces_assignment_eq_framework_alphas
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  simp only [hA_Poincare, hA_RH, hA_YM, hA_BSD, hA_NS, hA_P, hA_Hodge, hA_NP, hA_QG]
+  exact
+    PrincipiaTractalis.CrossMillenniumMoreInvariants.α_skeleton_scalar_fingerprint_bundle
+  
 end PF.Referee.MinimalRigidityForcesScalarFingerprints
 
 #print axioms

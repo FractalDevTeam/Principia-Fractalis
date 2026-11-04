@@ -42,7 +42,22 @@ between number theory and hadron physics.
 
 ZERO project axioms. Kernel-only `[propext, Classical.choice, Quot.sound]`.
 
+## ⚠ 2026-11-04 — RESTATED SO THE CONCLUSIONS MENTION `u`
+
+As written, both theorems below asserted facts about the **closed constant**
+`M_1_glueball` and were proved by the corresponding unconditional theorems,
+leaving the six substrate hypotheses inert (`_u`, `_hM`, …).
+`OCIRC_RESWEEP_2026-11-03.md` flagged both.
+
+Restated on Pablo's decision of 2026-11-04: the literal `2` in
+`M_1 = (2·t_1·Λ_QCD)/π` **is** the Yang-Mills axis, which minimal rigidity
+forces to equal 2. Writing `u.sector1.a_YM` in its place makes the
+hypotheses load-bearing — for an assignment with any other YM axis the
+statements are false, not merely unproved. Same device as
+`MinimalRigidityForcesCrossDomainExperimentalWins.lean` §2.
+
 Author: Pablo Cohen + Claude Opus 4.7. 2026-06-16.
+Restated: Pablo Cohen + Claude Opus 5. 2026-11-04.
 -/
 
 import PF.Referee.MinimalSubstrateRigidityUnified
@@ -69,27 +84,36 @@ open PF.Referee.MinimalSubstrateRigidityUnified
     the structural appearance of t_1 in the lattice-QCD glueball
     prediction, connecting the framework's RH axis to its YM axis. -/
 theorem unified_minimal_forces_M1_glueball_closed_form
-    (_u : UnifiedAlphaAssignment)
-    (_hM : UnifiedMinimalInvariants _u)
-    (_h_P : _u.sector1.a_Poincare = 1)
-    (_h_P_pos : 0 < _u.sector2.a_P)
-    (_h_Hodge_pos : 0 < _u.sector2.a_Hodge)
-    (_h_QG_pos : 0 < _u.sector2.a_QG) :
-    M_1_glueball = (2 * 14.134725 * 197.2) / Real.pi :=
-  M_1_glueball_closed_form
+    (u : UnifiedAlphaAssignment)
+    (hM : UnifiedMinimalInvariants u)
+    (h_P : u.sector1.a_Poincare = 1)
+    (h_P_pos : 0 < u.sector2.a_P)
+    (h_Hodge_pos : 0 < u.sector2.a_Hodge)
+    (h_QG_pos : 0 < u.sector2.a_QG) :
+    M_1_glueball = (u.sector1.a_YM * 14.134725 * 197.2) / Real.pi := by
+  obtain ⟨_, _, h_YM, _, _, _, _, _, _, _⟩ :=
+    unified_alpha_skeleton_forced_by_minimal_invariants
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  rw [h_YM]
+  exact M_1_glueball_closed_form
 
 /-- **M_1 glueball numerical bracket** parametric under substrate-rigidity:
     1770 < M_1_glueball < 1780 MeV. Lattice QCD measurement: 1710 MeV
     (3.8% framework agreement). -/
 theorem unified_minimal_forces_M1_glueball_bracket
-    (_u : UnifiedAlphaAssignment)
-    (_hM : UnifiedMinimalInvariants _u)
-    (_h_P : _u.sector1.a_Poincare = 1)
-    (_h_P_pos : 0 < _u.sector2.a_P)
-    (_h_Hodge_pos : 0 < _u.sector2.a_Hodge)
-    (_h_QG_pos : 0 < _u.sector2.a_QG) :
-    (1770 : ℝ) < M_1_glueball ∧ M_1_glueball < (1780 : ℝ) :=
-  M_1_glueball_bracket
+    (u : UnifiedAlphaAssignment)
+    (hM : UnifiedMinimalInvariants u)
+    (h_P : u.sector1.a_Poincare = 1)
+    (h_P_pos : 0 < u.sector2.a_P)
+    (h_Hodge_pos : 0 < u.sector2.a_Hodge)
+    (h_QG_pos : 0 < u.sector2.a_QG) :
+    (1770 : ℝ) < (u.sector1.a_YM * 14.134725 * 197.2) / Real.pi ∧
+    (u.sector1.a_YM * 14.134725 * 197.2) / Real.pi < (1780 : ℝ) := by
+  obtain ⟨_, _, h_YM, _, _, _, _, _, _, _⟩ :=
+    unified_alpha_skeleton_forced_by_minimal_invariants
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  rw [h_YM, ← M_1_glueball_closed_form]
+  exact M_1_glueball_bracket
 
 /-! ## §2 — M_1 glueball substrate capstone -/
 
@@ -106,10 +130,11 @@ theorem M1_glueball_substrate_capstone
     (h_P_pos : 0 < u.sector2.a_P)
     (h_Hodge_pos : 0 < u.sector2.a_Hodge)
     (h_QG_pos : 0 < u.sector2.a_QG) :
-    -- (M1) Closed-form: M_1 = (2·t_1·Λ_QCD)/π
-    M_1_glueball = (2 * 14.134725 * 197.2) / Real.pi ∧
+    -- (M1) Closed-form: M_1 = (α_YM·t_1·Λ_QCD)/π
+    M_1_glueball = (u.sector1.a_YM * 14.134725 * 197.2) / Real.pi ∧
     -- (M2) Numerical bracket: 1770 < M_1 < 1780
-    ((1770 : ℝ) < M_1_glueball ∧ M_1_glueball < (1780 : ℝ)) ∧
+    ((1770 : ℝ) < (u.sector1.a_YM * 14.134725 * 197.2) / Real.pi ∧
+     (u.sector1.a_YM * 14.134725 * 197.2) / Real.pi < (1780 : ℝ)) ∧
     -- (M3) Positivity.
     0 < M_1_glueball :=
   ⟨unified_minimal_forces_M1_glueball_closed_form

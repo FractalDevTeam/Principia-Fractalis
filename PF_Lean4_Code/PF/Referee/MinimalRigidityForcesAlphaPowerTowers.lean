@@ -32,11 +32,45 @@ Author: Pablo Cohen + Claude Opus 4.7. 2026-06-16.
 
 import PF.Referee.MinimalSubstrateRigidityUnified
 import PF.CrossMillenniumMoreInvariants
+import PF.Referee.MinimalRigidityForcesAlphaSkeletonBridge
 
 namespace PF.Referee.MinimalRigidityForcesAlphaPowerTowers
 
 open PrincipiaTractalis.CrossMillenniumSharedInvariants
 open PF.Referee.MinimalSubstrateRigidityUnified
+
+/-! ## ⚠ DECLARED REDUNDANCY — one tower-4 clause is a hypothesis
+
+Restating this file's conclusions in terms of `u` (2026-11-04) had a
+consequence worth stating plainly rather than leaving for a referee to find.
+Two of the algebraic clauses below are, once predicated of `u`, **literally
+fields of the `UnifiedMinimalInvariants` hypothesis**:
+
+  `u.sector2.a_Hodge ^ 2 = u.sector2.a_Hodge + 1`  is  `hM.sector2_minimal.inv_Hodge_quad`
+  `u.sector2.a_QG ^ 2 = 2 * Real.pi`               is  `hM.sector2_minimal.inv_QG_sq_two_pi`
+
+Under the OLD global-constant statements these were substantive facts about
+`φ` and `√(2π)`. Under the new substrate statements they are hypotheses, and
+`#audit_premises` reports them CONTAINED. **That report is correct.**
+
+They are kept, not deleted, for one reason: the clauses are true, and these
+bundles are cited elsewhere as complete layer enumerations, so dropping two
+of nine squares would shrink published content to quiet an instrument. The
+unconditional global-constant forms remain proved in
+`PF/CrossMillenniumMoreInvariants.lean`; nothing is withdrawn.
+
+**Removal condition.** Either (a) the bundles are re-cut so that each layer
+states only what is *downstream* of the invariants, with the invariant
+clauses cited separately, or (b) `#audit_premises` grows a notion of
+`DECLARED` so a deliberate re-statement is distinguishable from an accidental
+one. Until one of those lands, this note is the declaration — it is not a
+resolution.
+
+Affects `unified_minimal_forces_tower_of_power` (Tower 4, the
+`a_QG ^ 2 = 2π` rung). The Hodge tower states `a_Hodge ^ 2 = 1 * a_Hodge + 1`,
+which is not syntactically the invariant and is not flagged.
+-/
+
 
 /-! ## §1 — Power towers parametric under substrate-rigidity -/
 
@@ -53,75 +87,87 @@ open PF.Referee.MinimalSubstrateRigidityUnified
     α-skeleton is a downstream consequence of the same minimal
     hypothesis set that forces the skeleton — not a free addition. -/
 theorem unified_minimal_forces_tower_of_power
-    (_u : UnifiedAlphaAssignment)
-    (_hM : UnifiedMinimalInvariants _u)
-    (_h_P : _u.sector1.a_Poincare = 1)
-    (_h_P_pos : 0 < _u.sector2.a_P)
-    (_h_Hodge_pos : 0 < _u.sector2.a_Hodge)
-    (_h_QG_pos : 0 < _u.sector2.a_QG) :
-    -- Tower 1: α_Hodge Fibonacci
-    (α_Hodge ^ 1 = α_Hodge ∧
-     α_Hodge ^ 2 = 1 * α_Hodge + 1 ∧
-     α_Hodge ^ 3 = 2 * α_Hodge + 1 ∧
-     α_Hodge ^ 4 = 3 * α_Hodge + 2 ∧
-     α_Hodge ^ 5 = 5 * α_Hodge + 3 ∧
-     α_Hodge ^ 6 = 8 * α_Hodge + 5 ∧
-     α_Hodge ^ 7 = 13 * α_Hodge + 8 ∧
-     α_Hodge ^ 8 = 21 * α_Hodge + 13) ∧
-    -- Tower 2: α_NP Q(φ)
-    (α_NP ^ 1 = α_Hodge + 1/4 ∧
-     α_NP ^ 2 = (3/2) * α_Hodge + 17/16 ∧
-     α_NP ^ 3 = (47/16) * α_Hodge + 113/64 ∧
-     α_NP ^ 4 = (87/16) * α_Hodge + 865/256 ∧
-     α_NP ^ 5 = (2605/256) * α_Hodge + 6433/1024 ∧
-     α_NP ^ 6 = (9729/512) * α_Hodge + 48113/4096) ∧
-    -- Tower 3: α_P Q(√2)
-    (α_P ^ 1 = α_P ∧
-     α_P ^ 2 = 2 ∧
-     α_P ^ 3 = 2 * α_P ∧
-     α_P ^ 4 = 4 ∧
-     α_P ^ 5 = 4 * α_P ∧
-     α_P ^ 6 = 8 ∧
-     α_P ^ 7 = 8 * α_P ∧
-     α_P ^ 8 = 16) ∧
-    -- Tower 4: α_QG parity-graded
-    (α_QG ^ 1 = α_QG ∧
-     α_QG ^ 2 = 2 * Real.pi ∧
-     α_QG ^ 3 = 2 * Real.pi * α_QG ∧
-     α_QG ^ 4 = 4 * Real.pi ^ 2 ∧
-     α_QG ^ 5 = 4 * Real.pi ^ 2 * α_QG ∧
-     α_QG ^ 6 = 8 * Real.pi ^ 3 ∧
-     α_QG ^ 7 = 8 * Real.pi ^ 3 * α_QG ∧
-     α_QG ^ 8 = 16 * Real.pi ^ 4) :=
-  PrincipiaTractalis.CrossMillenniumMoreInvariants.tower_of_power_capstone
-
+    (u : UnifiedAlphaAssignment)
+    (hM : UnifiedMinimalInvariants u)
+    (h_P : u.sector1.a_Poincare = 1)
+    (h_P_pos : 0 < u.sector2.a_P)
+    (h_Hodge_pos : 0 < u.sector2.a_Hodge)
+    (h_QG_pos : 0 < u.sector2.a_QG) :
+    -- Tower 1: u.sector2.a_Hodge Fibonacci
+    (u.sector2.a_Hodge ^ 1 = u.sector2.a_Hodge ∧
+     u.sector2.a_Hodge ^ 2 = 1 * u.sector2.a_Hodge + 1 ∧
+     u.sector2.a_Hodge ^ 3 = 2 * u.sector2.a_Hodge + 1 ∧
+     u.sector2.a_Hodge ^ 4 = 3 * u.sector2.a_Hodge + 2 ∧
+     u.sector2.a_Hodge ^ 5 = 5 * u.sector2.a_Hodge + 3 ∧
+     u.sector2.a_Hodge ^ 6 = 8 * u.sector2.a_Hodge + 5 ∧
+     u.sector2.a_Hodge ^ 7 = 13 * u.sector2.a_Hodge + 8 ∧
+     u.sector2.a_Hodge ^ 8 = 21 * u.sector2.a_Hodge + 13) ∧
+    -- Tower 2: u.sector2.a_NP Q(φ)
+    (u.sector2.a_NP ^ 1 = u.sector2.a_Hodge + 1/4 ∧
+     u.sector2.a_NP ^ 2 = (3/2) * u.sector2.a_Hodge + 17/16 ∧
+     u.sector2.a_NP ^ 3 = (47/16) * u.sector2.a_Hodge + 113/64 ∧
+     u.sector2.a_NP ^ 4 = (87/16) * u.sector2.a_Hodge + 865/256 ∧
+     u.sector2.a_NP ^ 5 = (2605/256) * u.sector2.a_Hodge + 6433/1024 ∧
+     u.sector2.a_NP ^ 6 = (9729/512) * u.sector2.a_Hodge + 48113/4096) ∧
+    -- Tower 3: u.sector2.a_P Q(√2)
+    (u.sector2.a_P ^ 1 = u.sector2.a_P ∧
+     u.sector2.a_P ^ 2 = 2 ∧
+     u.sector2.a_P ^ 3 = 2 * u.sector2.a_P ∧
+     u.sector2.a_P ^ 4 = 4 ∧
+     u.sector2.a_P ^ 5 = 4 * u.sector2.a_P ∧
+     u.sector2.a_P ^ 6 = 8 ∧
+     u.sector2.a_P ^ 7 = 8 * u.sector2.a_P ∧
+     u.sector2.a_P ^ 8 = 16) ∧
+    -- Tower 4: u.sector2.a_QG parity-graded
+    (u.sector2.a_QG ^ 1 = u.sector2.a_QG ∧
+     u.sector2.a_QG ^ 2 = 2 * Real.pi ∧
+     u.sector2.a_QG ^ 3 = 2 * Real.pi * u.sector2.a_QG ∧
+     u.sector2.a_QG ^ 4 = 4 * Real.pi ^ 2 ∧
+     u.sector2.a_QG ^ 5 = 4 * Real.pi ^ 2 * u.sector2.a_QG ∧
+     u.sector2.a_QG ^ 6 = 8 * Real.pi ^ 3 ∧
+     u.sector2.a_QG ^ 7 = 8 * Real.pi ^ 3 * u.sector2.a_QG ∧
+     u.sector2.a_QG ^ 8 = 16 * Real.pi ^ 4)
+    := by
+  obtain ⟨_, _, _, _, hA_P, hA_Hodge, hA_NP, hA_QG⟩ :=
+    PF.Referee.MinimalRigidityForcesAlphaSkeletonBridge.unified_minimal_forces_assignment_eq_framework_alphas
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  simp only [hA_P, hA_Hodge, hA_NP, hA_QG]
+  exact
+    PrincipiaTractalis.CrossMillenniumMoreInvariants.tower_of_power_capstone
+  
 /-! ## §2 — Hodge-power brackets parametric -/
 
 /-- **★★★★★★ α_Hodge POWER BRACKETS ARE SUBSTRATE THEOREMS ★★★★★★** —
     `unified_minimal_forces_α_Hodge_power_brackets`. Seven numerical
     brackets on α_Hodge^k for k ∈ {2,...,8} hold parametrically. -/
 theorem unified_minimal_forces_α_Hodge_power_brackets
-    (_u : UnifiedAlphaAssignment)
-    (_hM : UnifiedMinimalInvariants _u)
-    (_h_P : _u.sector1.a_Poincare = 1)
-    (_h_P_pos : 0 < _u.sector2.a_P)
-    (_h_Hodge_pos : 0 < _u.sector2.a_Hodge)
-    (_h_QG_pos : 0 < _u.sector2.a_QG) :
-    ((2.61 : ℝ) < α_Hodge ^ 2 ∧ α_Hodge ^ 2 < (2.62 : ℝ)) ∧
-    ((4.23 : ℝ) < α_Hodge ^ 3 ∧ α_Hodge ^ 3 < (4.24 : ℝ)) ∧
-    ((6.85 : ℝ) < α_Hodge ^ 4 ∧ α_Hodge ^ 4 < (6.86 : ℝ)) ∧
-    ((11.09 : ℝ) < α_Hodge ^ 5 ∧ α_Hodge ^ 5 < (11.10 : ℝ)) ∧
-    ((17.94 : ℝ) < α_Hodge ^ 6 ∧ α_Hodge ^ 6 < (17.95 : ℝ)) ∧
-    ((29.03 : ℝ) < α_Hodge ^ 7 ∧ α_Hodge ^ 7 < (29.04 : ℝ)) ∧
-    ((46.97 : ℝ) < α_Hodge ^ 8 ∧ α_Hodge ^ 8 < (46.99 : ℝ)) :=
-  ⟨PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_sq_bracket,
-   PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_cubed_bracket,
-   PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_fourth_bracket,
-   PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_fifth_bracket,
-   PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_sixth_bracket,
-   PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_seventh_bracket,
-   PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_eighth_bracket⟩
-
+    (u : UnifiedAlphaAssignment)
+    (hM : UnifiedMinimalInvariants u)
+    (h_P : u.sector1.a_Poincare = 1)
+    (h_P_pos : 0 < u.sector2.a_P)
+    (h_Hodge_pos : 0 < u.sector2.a_Hodge)
+    (h_QG_pos : 0 < u.sector2.a_QG) :
+    ((2.61 : ℝ) < u.sector2.a_Hodge ^ 2 ∧ u.sector2.a_Hodge ^ 2 < (2.62 : ℝ)) ∧
+    ((4.23 : ℝ) < u.sector2.a_Hodge ^ 3 ∧ u.sector2.a_Hodge ^ 3 < (4.24 : ℝ)) ∧
+    ((6.85 : ℝ) < u.sector2.a_Hodge ^ 4 ∧ u.sector2.a_Hodge ^ 4 < (6.86 : ℝ)) ∧
+    ((11.09 : ℝ) < u.sector2.a_Hodge ^ 5 ∧ u.sector2.a_Hodge ^ 5 < (11.10 : ℝ)) ∧
+    ((17.94 : ℝ) < u.sector2.a_Hodge ^ 6 ∧ u.sector2.a_Hodge ^ 6 < (17.95 : ℝ)) ∧
+    ((29.03 : ℝ) < u.sector2.a_Hodge ^ 7 ∧ u.sector2.a_Hodge ^ 7 < (29.04 : ℝ)) ∧
+    ((46.97 : ℝ) < u.sector2.a_Hodge ^ 8 ∧ u.sector2.a_Hodge ^ 8 < (46.99 : ℝ))
+    := by
+  obtain ⟨_, _, _, _, _, hA_Hodge, _, _⟩ :=
+    PF.Referee.MinimalRigidityForcesAlphaSkeletonBridge.unified_minimal_forces_assignment_eq_framework_alphas
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  simp only [hA_Hodge]
+  exact
+    ⟨PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_sq_bracket,
+     PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_cubed_bracket,
+     PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_fourth_bracket,
+     PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_fifth_bracket,
+     PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_sixth_bracket,
+     PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_seventh_bracket,
+     PrincipiaTractalis.CrossMillenniumMoreInvariants.α_Hodge_eighth_bracket⟩
+  
 /-! ## §3 — Power-tower substrate capstone -/
 
 /-- **★★★★★★★ POWER-TOWER SUBSTRATE CAPSTONE ★★★★★★★** —
@@ -136,14 +182,14 @@ theorem tower_of_power_substrate_capstone
     (h_Hodge_pos : 0 < u.sector2.a_Hodge)
     (h_QG_pos : 0 < u.sector2.a_QG) :
     -- (T) Full power-tower bundle
-    (α_Hodge ^ 1 = α_Hodge ∧
-     α_Hodge ^ 8 = 21 * α_Hodge + 13 ∧
-     α_NP ^ 6 = (9729/512) * α_Hodge + 48113/4096 ∧
-     α_P ^ 8 = 16 ∧
-     α_QG ^ 8 = 16 * Real.pi ^ 4) ∧
+    (u.sector2.a_Hodge ^ 1 = u.sector2.a_Hodge ∧
+     u.sector2.a_Hodge ^ 8 = 21 * u.sector2.a_Hodge + 13 ∧
+     u.sector2.a_NP ^ 6 = (9729/512) * u.sector2.a_Hodge + 48113/4096 ∧
+     u.sector2.a_P ^ 8 = 16 ∧
+     u.sector2.a_QG ^ 8 = 16 * Real.pi ^ 4) ∧
     -- (B) Selected Hodge-power brackets (endpoints)
-    ((2.61 : ℝ) < α_Hodge ^ 2 ∧ α_Hodge ^ 2 < (2.62 : ℝ)) ∧
-    ((46.97 : ℝ) < α_Hodge ^ 8 ∧ α_Hodge ^ 8 < (46.99 : ℝ)) := by
+    ((2.61 : ℝ) < u.sector2.a_Hodge ^ 2 ∧ u.sector2.a_Hodge ^ 2 < (2.62 : ℝ)) ∧
+    ((46.97 : ℝ) < u.sector2.a_Hodge ^ 8 ∧ u.sector2.a_Hodge ^ 8 < (46.99 : ℝ)) := by
   have h_full := unified_minimal_forces_tower_of_power
       u hM h_P h_P_pos h_Hodge_pos h_QG_pos
   have h_bracket := unified_minimal_forces_α_Hodge_power_brackets
