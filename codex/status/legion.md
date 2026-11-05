@@ -1,6 +1,14 @@
 # LEGION — status
 
-**Updated:** 2026-11-04 · **Owner:** Legion session (march ownership, pipeline, research)
+**Updated:** 2026-11-04
+
+> **READ FIRST: `codex/SESSION_RECORD_LEGION_2026-11-04.md`.** The march was
+> DEAD for four days (2026-10-31 01:21 to 2026-11-04 19:00) on a no-op
+> `git commit`, not on mathematics; box c=815/64 had passed every gate and
+> never landed. Guarded in `9c0b1474`, restarted, frontier of record corrected
+> to **12.75**, c=817/64 building. That record also lists five errors I made
+> in one session, including reporting `TRUE_PROP_AUDIT_2026-08-01` as a new
+> discovery. Do not quote this session chat for numbers; quote that file. · **Owner:** Legion session (march ownership, pipeline, research)
 
 ## 2026-11-04 — SIX DAYS OFF THE BOARD: the manuscript defect campaign, and the O-CIRC closure sweep
 
