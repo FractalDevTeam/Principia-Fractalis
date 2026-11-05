@@ -77,7 +77,21 @@ cd "$REPO" || exit 1
 BOXFILES=( "PF_Lean4_Code/PF/Analytic/FourierPanels/"*_${TAG}_*.lean \
            "PF_Lean4_Code/PF/Analytic/PilotBoxes/R1_${TAG}_"*.lean )
 git add "${BOXFILES[@]}" || exit 1
-git commit -q -F "$MSG" -- "${BOXFILES[@]}" || exit 1
+if ! git commit -q -F "$MSG" -- "${BOXFILES[@]}"; then
+  # A non-zero exit here is ambiguous: either the commit genuinely failed, or
+  # there was nothing to commit because these files are already published.
+  # 2026-10-31 the second case killed the march for four days -- a book commit
+  # 63 minutes before this one had swallowed box c=815/64 under a broad
+  # `git add`. Distinguish by asking the index, and only fail on the real case.
+  if git ls-files --error-unmatch \
+       "PF_Lean4_Code/PF/Analytic/PilotBoxes/R1_${TAG}_"*.lean >/dev/null 2>&1; then
+    echo "ALREADY LANDED: $TAG sources are tracked; nothing new to commit."
+    echo "  (another commit published them first -- not a march failure)"
+  else
+    echo "REFUSING: git commit failed and $TAG is NOT tracked"
+    exit 1
+  fi
+fi
 git log --oneline -1
 # Push every box as it lands. Rio's push discipline: landed work stays local
 # only while a build is running, never across a handoff. The unattended runner
