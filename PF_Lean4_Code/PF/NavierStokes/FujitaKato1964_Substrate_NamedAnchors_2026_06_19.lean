@@ -193,10 +193,9 @@ framework's substrate-level NS closure (Fujita-Kato-typed) on the canonical
 PF encoding `PF_NS3DEncodingV2` is unchanged; this file crystallizes the
 named-anchor citation pattern for explicit referee-readable provenance.
 
-The 2026-06-19 `ns_phase1_named_anchors_honest_scope : True := trivial` marker
-was removed 2026-11-05: `True := trivial` carries no mathematical content, and
-the paragraph above records the scope statement without needing a free theorem
-on the record. -/
+The 2026-06-19 trailing `True := trivial` marker theorem was removed 2026-11-05.
+`True := trivial` carries no mathematical content, and the paragraph above
+records the scope statement without needing a free theorem on the record. -/
 
 end PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19
 
