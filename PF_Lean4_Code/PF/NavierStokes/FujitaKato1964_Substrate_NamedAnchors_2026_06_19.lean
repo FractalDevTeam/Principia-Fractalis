@@ -34,7 +34,7 @@ docstring naming the published source. Inhabited at substrate tier
 via `trivial`. Bundle them into a single citable `Prop` plus an
 audit-trail capstone.
 
-## Honest scope
+## Scope statement
 
 Substrate-level audit-trail improvement for referee-readability of
 the typed NS bridge. NOT a literal Clay NS discharge: the literal
@@ -184,17 +184,19 @@ theorem ns_phase1_named_anchors_audit_trail_capstone :
    five_published_ns_anchors_disjunction_holds,
    five_published_ns_anchors_conjunction_holds⟩
 
-/-! ## §5 — Honest-scope marker -/
+/-! ## §5 — Scope statement
 
-/-- **Honest-scope marker.** Substrate-level audit-trail improvement
-    for referee-readability of the typed NS bridge. NOT a literal
-    Clay NS discharge. NOT a proof that the Navier-Stokes PDE is
-    satisfied on every admissible divergence-free initial datum.
-    The framework's substrate-level NS closure (Fujita-Kato-typed)
-    on the canonical PF encoding `PF_NS3DEncodingV2` is unchanged;
-    this file crystallizes the named-anchor citation pattern for
-    explicit referee-readable provenance. -/
-theorem ns_phase1_named_anchors_honest_scope : True := trivial
+Substrate-level audit-trail improvement for referee-readability of the typed
+NS bridge. NOT a literal Clay NS discharge. NOT a proof that the Navier-Stokes
+PDE is satisfied on every admissible divergence-free initial datum. The
+framework's substrate-level NS closure (Fujita-Kato-typed) on the canonical
+PF encoding `PF_NS3DEncodingV2` is unchanged; this file crystallizes the
+named-anchor citation pattern for explicit referee-readable provenance.
+
+The 2026-06-19 `ns_phase1_named_anchors_honest_scope : True := trivial` marker
+was removed 2026-11-05: `True := trivial` carries no mathematical content, and
+the paragraph above records the scope statement without needing a free theorem
+on the record. -/
 
 end PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19
 
@@ -202,4 +204,3 @@ end PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19
 #print axioms PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19.five_published_ns_anchors_disjunction_holds
 #print axioms PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19.five_published_ns_anchors_conjunction_holds
 #print axioms PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19.ns_phase1_named_anchors_audit_trail_capstone
-#print axioms PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19.ns_phase1_named_anchors_honest_scope
