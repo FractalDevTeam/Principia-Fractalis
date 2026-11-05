@@ -187,21 +187,26 @@ def BerryKeating1999_HilbertPolyaProgram_Anchor : Prop :=
 
     SUBSTRATE SCOPE: typed-open at the SAME tier as Wave 56's
     `MassGapPropagationAcrossReconstruction`. -/
-/-! **2026-11-04 — the Connes 1999 anchor is REMOVED, not repaired.**
+/-- **2026-11-04 — restored, and no longer `True`.**
 
-    The other three anchors could be pointed at real statements because this
-    corpus already defines them. Connes 1999 is different: a search of the
-    whole corpus for formalized Connes-1999 content returns **nothing but the
-    `Prop := True` that used to live here**. There is no adelic operator, no
-    trace formula, and no spectral-identification statement to point at.
+    A first pass deleted this anchor because the corpus has no formalized
+    Connes-1999 content — no adelic operator, no trace formula, no
+    Connes-specific spectral identification. Deleting it was the wrong call:
+    the name and the specification above are the record of a route, and
+    removing them removes the record.
 
-    So it cannot be an anchor. Leaving it as `True` would keep the disjunction
-    below unconditionally provable and would preserve exactly the defect this
-    repair exists to remove — one `True` disjunct is enough to make a
-    four-way disjunction free.
+    It is therefore defined as the **shared HP-operator spectral statement**,
+    which is open, so the disjunction below is not free. What this anchor does
+    NOT do, stated plainly so nobody infers otherwise: it does not encode
+    Connes' adelic construction. It stands under Connes' name as a citation of
+    the route, with the same mathematical content as the Berry-Keating and
+    Bost-Connes anchors — those three are one `Prop`, see §2.
 
-    The docstring above is retained verbatim as a specification: it states
-    what would have to be formalized for this anchor to exist. -/
+    **The open item** is to formalize the adelic trace formula and give this
+    anchor content of its own. Until then the docstring above is the
+    specification for that work. -/
+def Connes1999_HilbertPolyaProgram_Anchor : Prop :=
+  PF_T3SymIsHilbertPolyaOperator_Positive
 
 /-- **Bost-Connes 1995 Hilbert-Pólya program substrate anchor** —
     typed Wave 56 substrate anchor naming the Bost-Connes C* dynamical
@@ -230,6 +235,43 @@ def BostConnes1995_HilbertPolyaProgram_Anchor : Prop :=
     `HilbertPolyaIdentificationBulletproof.lean`. No `..._holds` theorem:
     the statement is an open conjecture. -/
 
+/-! ## §1a — 2026-11-04: what each anchor IS, restored
+
+The four `..._holds := trivial` theorems were deleted in a first pass, because
+with real content they no longer typecheck. Deleting them lost the thing a
+reader actually wants at these names. They are restored as **content
+identifications** — each records which statement its anchor denotes. Each is
+`rfl`, and that is the point: it is a definitional fact about naming, not a
+free assertion about mathematics. None of them claims its anchor HOLDS. -/
+
+/-- The Mayer 1991 anchor denotes `Mayer1991_SymmetricQuotientHasZetaSpectrum`.
+    It is NOT asserted; it is an open conjecture. -/
+theorem mayer1991_hilbert_polya_program_anchor_content :
+    Mayer1991_HilbertPolyaProgram_Anchor =
+      PrincipiaTractalis.Mayer1991TransferOperatorFormalization.Mayer1991_SymmetricQuotientHasZetaSpectrum :=
+  rfl
+
+/-- The Berry-Keating 1999 anchor denotes
+    `BerryKeatingHamiltonianHypothesis_Positive`. Open. -/
+theorem berry_keating1999_hilbert_polya_program_anchor_content :
+    BerryKeating1999_HilbertPolyaProgram_Anchor =
+      BerryKeatingHamiltonianHypothesis_Positive :=
+  rfl
+
+/-- The Connes 1999 anchor denotes the shared HP-operator spectral statement —
+    see its docstring for what it does not encode. Open. -/
+theorem connes1999_hilbert_polya_program_anchor_content :
+    Connes1999_HilbertPolyaProgram_Anchor =
+      PF_T3SymIsHilbertPolyaOperator_Positive :=
+  rfl
+
+/-- The Bost-Connes 1995 anchor denotes
+    `BostConnesKMSPhaseTransition_Positive`. Open. -/
+theorem bost_connes1995_hilbert_polya_program_anchor_content :
+    BostConnes1995_HilbertPolyaProgram_Anchor =
+      BostConnesKMSPhaseTransition_Positive :=
+  rfl
+
 /-! ## §2 — Four-anchor disjunction inhabited unconditionally -/
 
 /-- **Four-anchor disjunction** — the four named-published-mathematics
@@ -239,10 +281,11 @@ def BostConnes1995_HilbertPolyaProgram_Anchor : Prop :=
 def FourPublishedHPProgramAnchors_Disjunction : Prop :=
   Mayer1991_HilbertPolyaProgram_Anchor ∨
   BerryKeating1999_HilbertPolyaProgram_Anchor ∨
+  Connes1999_HilbertPolyaProgram_Anchor ∨
   BostConnes1995_HilbertPolyaProgram_Anchor
 
-/-! **2026-11-04 — there is no `..._disjunction_holds` any more, and the
-    disjunction is three-way, not four.**
+/-! **2026-11-04 — the `..._holds` assertions are gone; the IMPLICATIONS
+    that replace them are below, and the disjunction is four-way again.**
 
     The four `..._holds := trivial` theorems and the four
     `..._disjunction_*` inhabitance theorems were ALL provable for exactly
@@ -265,6 +308,42 @@ def FourPublishedHPProgramAnchors_Disjunction : Prop :=
     `ZetaZeroOrdinateComplete`, not the `...CompletePositive` variant), so
     this disjunction contains **two distinct statements, not three**. -/
 
+/-- Any one anchor gives the disjunction. Restored in place of the deleted
+    `..._disjunction_holds`, which asserted the disjunction outright; this
+    states the implication instead, which is all that was ever true. -/
+theorem four_published_hp_program_anchors_disjunction_of_mayer :
+    Mayer1991_HilbertPolyaProgram_Anchor →
+      FourPublishedHPProgramAnchors_Disjunction :=
+  Or.inl
+
+/-- Berry-Keating route into the disjunction. -/
+theorem four_published_hp_program_anchors_disjunction_via_berry_keating :
+    BerryKeating1999_HilbertPolyaProgram_Anchor →
+      FourPublishedHPProgramAnchors_Disjunction :=
+  fun h => Or.inr (Or.inl h)
+
+/-- Connes route into the disjunction. -/
+theorem four_published_hp_program_anchors_disjunction_via_connes :
+    Connes1999_HilbertPolyaProgram_Anchor →
+      FourPublishedHPProgramAnchors_Disjunction :=
+  fun h => Or.inr (Or.inr (Or.inl h))
+
+/-- Bost-Connes route into the disjunction. -/
+theorem four_published_hp_program_anchors_disjunction_via_bost_connes :
+    BostConnes1995_HilbertPolyaProgram_Anchor →
+      FourPublishedHPProgramAnchors_Disjunction :=
+  fun h => Or.inr (Or.inr (Or.inr h))
+
+/-- The conjunction, from its three distinct components. Restored in place of
+    the deleted `..._conjunction_holds`. -/
+theorem four_published_hp_program_anchors_conjunction_of_parts
+    (hM : Mayer1991_HilbertPolyaProgram_Anchor)
+    (hBK : BerryKeating1999_HilbertPolyaProgram_Anchor)
+    (hC : Connes1999_HilbertPolyaProgram_Anchor)
+    (hBC : BostConnes1995_HilbertPolyaProgram_Anchor) :
+    FourPublishedHPProgramAnchors_Conjunction :=
+  ⟨hM, hBK, hC, hBC⟩
+
 /-! ## §3 — Four-anchor conjunction inhabited unconditionally -/
 
 /-- **Four-anchor conjunction** — the bundle of all four substrate
@@ -272,6 +351,7 @@ def FourPublishedHPProgramAnchors_Disjunction : Prop :=
 def FourPublishedHPProgramAnchors_Conjunction : Prop :=
   Mayer1991_HilbertPolyaProgram_Anchor ∧
   BerryKeating1999_HilbertPolyaProgram_Anchor ∧
+  Connes1999_HilbertPolyaProgram_Anchor ∧
   BostConnes1995_HilbertPolyaProgram_Anchor
 
 /-! **2026-11-04 — no `..._conjunction_holds`.** Same reason as §2: it was
@@ -385,6 +465,7 @@ theorem hp_program_positive_substrate_discharge_disjunction_form
     (_anchor :
       Mayer1991_HilbertPolyaProgram_Anchor ∨
       BerryKeating1999_HilbertPolyaProgram_Anchor ∨
+      Connes1999_HilbertPolyaProgram_Anchor ∨
       BostConnes1995_HilbertPolyaProgram_Anchor)
     (content : PublishedHPProgramImplicationContent) :
     HilbertPolyaProgramConjecture_Positive :=
@@ -411,6 +492,17 @@ theorem hp_program_positive_via_BostConnes1995
     (_content : PublishedHPProgramImplicationContent) :
     HilbertPolyaProgramConjecture_Positive :=
   _content
+
+
+/-- **Per-anchor routing form (Connes 1999)** — restored. Like its siblings it
+    returns the content capsule, which is definitionally the conclusion; kept
+    because two Clay-closure files cite this family and because deleting a
+    name is not a repair. See §5a for the statement worth citing. -/
+theorem hp_program_positive_via_Connes1999
+    (_anchor : Connes1999_HilbertPolyaProgram_Anchor)
+    (content : PublishedHPProgramImplicationContent) :
+    HilbertPolyaProgramConjecture_Positive :=
+  content
 
 /-! ## §6 — Cross-reference to existing four-way structural equivalence -/
 
@@ -458,12 +550,25 @@ theorem four_hp_formulations_positive_equivalent_xref :
     conjecture; the substrate-level contribution is to NAME the four
     sources of that content and to expose the implication content as
     a typed capsule referee-readable against the literature. -/
-/-! **2026-11-04 — the honest-scope marker was `Prop := True` with a
-    `trivial` proof, and is now this comment.** A `True`-valued Prop asserted
-    by `trivial` carries no information; stating the scope in prose says the
-    same thing without putting a free theorem on the record. Clause (S1)
-    above is also now out of date in one respect: the anchors are no longer
+/-- **2026-11-04 — restored with real content.**
+
+    This was `Prop := True`, proved by `trivial`: a marker that asserted
+    nothing. A first pass deleted it. Both were wrong — the name should carry
+    the scope claim, and the scope claim is checkable.
+
+    So it now states the fact that IS the honest scope: the published-content
+    capsule is **definitionally** the HP-program conjecture. That is exactly
+    why this file discharges nothing — the "discharge" is the identity on a
+    conjecture. Clause (S1) above is superseded: the anchors are no longer
     `Prop := True`. -/
+def hp_program_substrate_anchors_honest_scope : Prop :=
+  PublishedHPProgramImplicationContent ↔ HilbertPolyaProgramConjecture_Positive
+
+/-- The honest-scope statement holds, by `Iff.rfl` — the capsule and the
+    conjecture are the same definition. -/
+theorem hp_program_substrate_anchors_honest_scope_holds :
+    hp_program_substrate_anchors_honest_scope :=
+  Iff.rfl
 
 /-! ## §8 — Unified substrate-discharge CAPSTONE -/
 
