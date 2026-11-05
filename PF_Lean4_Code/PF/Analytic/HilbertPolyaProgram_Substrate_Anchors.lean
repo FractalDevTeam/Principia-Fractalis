@@ -45,7 +45,7 @@ This is the framework's ESTABLISHED MECHANISM for substrate-level
 discharge of typed-Prop contracts via named-published-mathematics
 anchors. It is NOT a hedge.
 
-## Honest scope
+## Scope statement
 
 This file does NOT prove the Hilbert-Pólya program. It does NOT prove
 the Riemann Hypothesis. It delivers a SUBSTRATE-LEVEL DISCHARGE of the
@@ -68,7 +68,7 @@ The discharge is delivered in TWO complementary forms:
        → HilbertPolyaProgramConjecture_Positive` is axiom-free.
 
 Form (A) is what the framework's substrate-level discharge convention
-asks for at the citation-anchor tier. Form (B) is the honest-scope
+asks for at the citation-anchor tier. Form (B) is the scope-statement
 capsule explicitly carrying the published implication content that the
 four anchors NAME but do not REPLACE.
 
@@ -408,12 +408,12 @@ discharges the conjecture axiom-free. -/
     published-content capsule that is LITERALLY equal to the
     HP-program-positive conjecture.
 
-    HONEST SCOPE: this is the framework's substrate-level discharge
-    of the typed-Prop contract via named-published-mathematics
-    anchors. It is NOT a proof of the Hilbert-Pólya program; it is
-    NOT a proof of the Riemann Hypothesis. The published implication
-    content remains a published conjecture whose content is named
-    against the four sources cited in §1. -/
+    SCOPE: this is the framework's substrate-level discharge of the
+    typed-Prop contract via named-published-mathematics anchors. It is
+    NOT a proof of the Hilbert-Pólya program; it is NOT a proof of the
+    Riemann Hypothesis. The published implication content remains a
+    published conjecture whose content is named against the four
+    sources cited in §1. -/
 theorem hp_program_positive_substrate_discharge
     (_anchor : FourPublishedHPProgramAnchors_Disjunction)
     (content : PublishedHPProgramImplicationContent) :
@@ -526,10 +526,10 @@ theorem four_hp_formulations_positive_equivalent_xref :
        PF_T3SymIsHilbertPolyaOperator_Positive) :=
   hilbert_polya_formulations_equivalent_positive
 
-/-! ## §7 — Honest-scope marker -/
+/-! ## §7 — Scope statement -/
 
-/-! **Honest-scope marker** — the substrate-anchor discharge of
-    atomic fact (c) `HilbertPolyaProgramConjecture_Positive` is:
+/-! **Scope statement** — the substrate-anchor discharge of atomic fact
+    (c) `HilbertPolyaProgramConjecture_Positive` is:
 
       (S1) a four-way disjunction of NAMED PUBLISHED-MATHEMATICS
            typed substrate anchors, each at the Wave 56 typed-open
@@ -544,30 +544,29 @@ theorem four_hp_formulations_positive_equivalent_xref :
     anchors in the same typed-open tier as the Wave 56 OS-reconstruction
     anchors. This file delivers that discharge for atomic fact (c).
 
-    HONEST SCOPE: this is NOT a proof of the Hilbert-Pólya program. It
-    is NOT a proof of the Riemann Hypothesis. It is NOT a Clay
-    discharge. The published implication content remains a published
-    conjecture; the substrate-level contribution is to NAME the four
-    sources of that content and to expose the implication content as
-    a typed capsule referee-readable against the literature. -/
+    SCOPE: this is NOT a proof of the Hilbert-Pólya program. It is NOT
+    a proof of the Riemann Hypothesis. It is NOT a Clay discharge. The
+    published implication content remains a published conjecture; the
+    substrate-level contribution is to NAME the four sources of that
+    content and to expose the implication content as a typed capsule
+    referee-readable against the literature. -/
 /-- **2026-11-04 — restored with real content.**
 
     This was `Prop := True`, proved by `trivial`: a marker that asserted
     nothing. A first pass deleted it. Both were wrong — the name should carry
     the scope claim, and the scope claim is checkable.
 
-    So it now states the fact that IS the honest scope: the published-content
-    capsule is **definitionally** the HP-program conjecture. That is exactly
-    why this file discharges nothing — the "discharge" is the identity on a
-    conjecture. Clause (S1) above is superseded: the anchors are no longer
-    `Prop := True`. -/
-def hp_program_substrate_anchors_honest_scope : Prop :=
+    It now states the scope: the published-content capsule is
+    **definitionally** the HP-program conjecture. That is exactly why this
+    file discharges nothing — the "discharge" is the identity on a conjecture.
+    Clause (S1) above is superseded: the anchors are no longer `Prop := True`. -/
+def hp_program_substrate_anchors_scope_statement : Prop :=
   PublishedHPProgramImplicationContent ↔ HilbertPolyaProgramConjecture_Positive
 
-/-- The honest-scope statement holds, by `Iff.rfl` — the capsule and the
-    conjecture are the same definition. -/
-theorem hp_program_substrate_anchors_honest_scope_holds :
-    hp_program_substrate_anchors_honest_scope :=
+/-- The scope-statement holds, by `Iff.rfl` — the capsule and the conjecture
+    are the same definition. -/
+theorem hp_program_substrate_anchors_scope_statement_holds :
+    hp_program_substrate_anchors_scope_statement :=
   Iff.rfl
 
 /-! ## §8 — Unified substrate-discharge CAPSTONE -/
@@ -591,7 +590,7 @@ theorem hp_program_substrate_anchors_honest_scope_holds :
            `hilbert_polya_formulations_equivalent_positive`.
       (C9) Conditional discharge: disjunction + published-content
            capsule ⇒ `HilbertPolyaProgramConjecture_Positive`.
-      (C10) Honest-scope marker inhabited.
+      (C10) Scope statement inhabited.
 
     All clauses are axiom-free at the Lean kernel level
     (`[propext, Classical.choice, Quot.sound]`). The named-published-
@@ -599,10 +598,10 @@ theorem hp_program_substrate_anchors_honest_scope_holds :
     the YM OS-reconstruction anchors in Bridge 5 and the
     `BochnerMinlosOnNuclearSpaces` family of Wave 56 lift attempts.
 
-    HONEST SCOPE: substrate-level discharge of the typed-Prop contract
-    via named-published-mathematics anchors. NOT a Clay discharge.
-    NOT a proof of the Hilbert-Pólya program. NOT a proof of the
-    Riemann Hypothesis. -/
+    SCOPE: substrate-level discharge of the typed-Prop contract via
+    named-published-mathematics anchors. NOT a Clay discharge. NOT a
+    proof of the Hilbert-Pólya program. NOT a proof of the Riemann
+    Hypothesis. -/
 theorem hp_program_unified_substrate_discharge_capstone :
     -- (C7) Published-content capsule ↔ conjecture. Iff.rfl: same definition.
     (PublishedHPProgramImplicationContent ↔
