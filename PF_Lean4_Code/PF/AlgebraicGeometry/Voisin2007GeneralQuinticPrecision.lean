@@ -574,36 +574,6 @@ theorem pf_discharge_on_voisin_algebraic_sublocus
 
 /-! ## §8 — Scope-statement theorem and capstone -/
 
-/-- **★ SCOPE THEOREM ★** — encodes the precise status of
-    PF's Hodge-axis Clay-precision after this upgrade:
-
-      * PF's `Clay_Hodge_Standard` discharge on `PF_HodgeUnifiedEncoding`
-        (from `Hodge_ClayDischargeAttempt.lean`) holds on the tagged-sum
-        substrate matrix; the Voisin-algebraic-sublocus correspondence
-        established in §5 shows that this substrate corresponds
-        precisely to the Dwork + CM + special-fiber loci of the
-        general moduli space.
-
-      * The general-quintic case (Voisin 2007 obstruction) is the
-        PRECISE remaining open content — pinned at the type level
-        by `Voisin2007GeneralCodimTwoNonAlgebraic` and isolated by
-        `hodge_clay_gap_isolated_to_voisin_2007`.
-
-      * Discharging `Clay_Hodge_Standard PF_HodgeEncoding_FullGeneral`
-        universally requires settling Voisin's conjecture in EITHER
-        direction:
-
-          - POSITIVE: prove all (p,p) classes on every smooth quintic
-            CY3 are algebraic (would close the Hodge conjecture on
-            the quintic family);
-          - NEGATIVE: produce an explicit non-algebraic (2,2)-class
-            on some smooth quintic CY3 (would refute the Hodge
-            conjecture on the quintic family).
-
-    This file does NEITHER. It NARROWS the gap by encoding the exact
-    open content at the type level, so the gap is now pinned to a
-    SINGLE typed predicate (`Voisin2007GeneralCodimTwoNonAlgebraic`)
-    rather than dispersed across the tagged-sum substrate. -/
 /-- **★ VOISIN 2007 GENERAL QUINTIC PRECISION CAPSTONE ★** —
     `voisin2007_general_quintic_precision_capstone`.
 

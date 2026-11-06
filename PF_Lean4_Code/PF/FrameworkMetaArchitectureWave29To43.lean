@@ -473,11 +473,6 @@ theorem cite_pnp_class_separation_carrier_V3_capstone :
 
 /-! ## Section 5 — Scope statement cuts (structural remarks) -/
 
-/-- **Scope statement**: this file is META-AGGREGATION OF
-    META-AGGREGATIONS. Bundling² ≠ discharge. NO Millennium
-    problem is discharged by `framework_meta_architecture_capstone`.
-    The capstone provides ONLY a single-citation surface for the
-    complete cross-Millennium structural skeleton. -/
 /-- The meta-architecture has 12 named structural components:
     4 primary axes + 6 supporting connections + 2 conditional /
     leverage capstones. -/

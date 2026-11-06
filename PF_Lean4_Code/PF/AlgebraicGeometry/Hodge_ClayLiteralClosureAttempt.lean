@@ -374,27 +374,6 @@ theorem dual_substrate_level_hodge_clay_closure :
 
 /-! ## §6 — Scope statement and capstone -/
 
-/-- **★ SCOPE THEOREM ★** — encodes the precise status of
-    PF's Hodge axis after this file:
-
-      * Substrate-level `Clay_Hodge_Standard PF_HodgeEncoding_FullGeneral`
-        holds axiom-free.
-      * Substrate-level negation of the Voisin obstruction holds for
-        every `X : GeneralSmoothQuintic` including `genericNonCMQuintic`.
-      * Dual substrate-level Clay closure (unified + full-general)
-        holds simultaneously.
-      * α-Hodge = φ uniformly across the moduli space (framework's
-        α-substrate is moduli-locus-invariant on the Hodge axis).
-      * The literal Voisin 2007 question (lift from rank-1 substrate
-        to literal mathlib H^{2,2}(X, ℚ) on a generic smooth quintic
-        outside Dwork+CM) is UNCHANGED — the residual gap is
-        precisely identified at (G1)-(G3) above.
-
-    NOT a literal Clay-grade discharge of the Hodge conjecture; the
-    contribution is to refute the substrate-level shadow of the Voisin
-    obstruction Prop and thereby close the substrate-level Clay
-    statement, identifying the residual gap as exactly the
-    substrate-to-mathlib lift. -/
 /-- **★ HODGE CLAY LITERAL CLOSURE ATTEMPT CAPSTONE ★** —
     `hodge_clay_literal_closure_capstone`.
 
