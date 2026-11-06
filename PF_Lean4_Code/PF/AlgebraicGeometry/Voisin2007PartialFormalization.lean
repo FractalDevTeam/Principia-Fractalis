@@ -394,27 +394,6 @@ theorem Voisin2007_CombinedPartialStatus_substrate :
 
 /-! ## §6 — Scope statement and capstone -/
 
-/-- **★ SCOPE THEOREM ★** —
-    precise status of this file:
-
-      * (R1) Voisin 2007 abelian codim-2 result — substrate-level
-        DISCHARGED axiom-free on 3 named instances (abelian 3-fold +
-        CM abelian 4-fold + CM abelian 5-fold).
-      * (R2) Voisin 2007 Dwork pencil codim-2 result — substrate-level
-        DISCHARGED axiom-free uniformly across `λ : ℚ`, plus two
-        moduli-locus status Props.
-      * (R3) Voisin 2007 general quintic OPEN content — encoded at
-        type level as `Voisin2007_GeneralQuinticOpenContent` Prop;
-        substrate-level shadow refutable; LITERAL geometric content
-        UNCHANGED (resolving it remains Fields-medal-grade).
-      * Precise iff `¬ Voisin2007_GeneralQuinticOpenContent ↔
-        Clay_Hodge_Standard PF_HodgeEncoding_FullGeneral` HOLDS
-        axiom-free at the substrate-level encoding.
-
-    NOT a literal Clay-grade discharge of the Hodge conjecture; full
-    mathlib formalization requires Chow groups + cycle class map +
-    Hodge theory infrastructure (see `LiftSubstrateToLiteralChowH22`
-    for the precise residual gap). -/
 /-- **★ VOISIN 2007 PARTIAL FORMALIZATION CAPSTONE ★** —
     `voisin2007_partial_formalization_capstone`.
 

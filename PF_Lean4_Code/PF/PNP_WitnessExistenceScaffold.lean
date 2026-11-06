@@ -213,20 +213,6 @@ The Wave 57-PNP scaffold does NOT advance Clay P vs NP. It documents
 the SHARPEST framework-internal structural position: the open Prop IS
 P vs NP modulo the recorded biconditional. -/
 
-/-- **Wave 57-PNP scope-statement marker** — the witness-existence
-    scaffold makes EXPLICIT the framework's structural admission:
-    `PvsNP_via_Hodge_disc5_Bridge_Open` is propositionally equivalent
-    to the Clay P-vs-NP statement, and no axiom-free framework-internal
-    progress is possible without simultaneously settling Clay P vs NP.
-
-    The scaffold's content is the EXPLICIT biconditional + the
-    constructive witness consequence under the class distinction +
-    the no-go preserving the sharpness boundary. -/
-/-! ## Section 5 — Single-citation capstone
-
-A flat conjunction bundling: the equivalence, the constructive
-witness consequence, the no-go, and the scope statement. -/
-
 /-- **★★★ WAVE 57-PNP WITNESS-EXISTENCE SCAFFOLD CAPSTONE ★★★**
 
     Six clauses formalising the sharpest framework-internal structural
