@@ -191,14 +191,6 @@ theorem hodge_phase1_named_anchors_audit_trail_capstone :
 
 /-! ## §5 — Scope statement -/
 
-/-- **Scope-statement marker.** Substrate-level audit-trail improvement
-    for referee-readability of the typed Hodge bridge. NOT a literal
-    Clay Hodge discharge. NOT a proof that every rational Hodge
-    class on every smooth projective complex variety is algebraic.
-    The framework's substrate-level Hodge closure on `PF_HodgeEncoding`
-    via the three-conjunct `HodgeAlgebraicRepresentation` is
-    unchanged; this file crystallizes the named-anchor citation
-    pattern for explicit referee-readable provenance. -/
 end PF.AlgebraicGeometry.Hodge_Substrate_NamedAnchors_2026_06_19
 
 -- Axiom check. Expected: no axioms.

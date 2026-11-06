@@ -424,26 +424,6 @@ theorem bare_route_at_alphaNP_forces_cos_branch
 
 /-! ## §8 — Scope-statement capstone -/
 
-/-- **What this file does and does not establish.**
-
-    DOES (all axiom-free):
-    1. the universal coupling constrains nothing (§1);
-    2. the π/10 ↔ H₃ thread yields `φ` uniquely and excludes `φ + 1/4` (§2);
-    3. `α_NP` follows from `α_Hodge`, `α_RH`, `α_Poincaré` plus the two
-       structural postulates (unit φ-modulation, Galois trace) with **no
-       NP-specific free parameter** (§3);
-    4. `16x² − 24x − 11` is exactly `(2x − α_RH)² = 5` (§4);
-    5. `φ + 1/4 ∉ ℤ[φ]`, so no ℤ-combination of H₃ data reaches it (§5);
-    6. **the stated postulates do not determine `α_NP`: every `r > 0`,
-       `r ≠ √2`, extends to a full model** (§6);
-    7. the bare-GF reality route's sin-branch is dead at `α_NP` (§7).
-
-    DOES NOT:
-    * derive `α_NP` from self-adjointness, trace-class, or any spectral
-      property of a Hamiltonian;
-    * supply an independent motivation for the trace law (S2);
-    * over-determine `α_NP` (S1 + S2 are exactly 2 conditions on 2 degrees
-      of freedom). -/
 end PrincipiaFractalis.AlphaNPDerivationAttempt_r122
 
 -- Axiom checks. Expected: `[propext, Classical.choice, Quot.sound]`.
