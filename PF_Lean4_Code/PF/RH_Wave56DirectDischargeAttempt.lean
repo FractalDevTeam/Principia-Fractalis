@@ -122,9 +122,6 @@ remains open is whether `RHShortestChain` itself holds.
   9. `rh_wave56_direct_discharge_attempt_capstone` — the
      final referee-citable capstone bundling all above.
 
- 10. `rh_wave56_direct_discharge_attempt_honest_scope` — the
-     deliberately-trivial scope-statement marker.
-
 ## Axiom budget
 
 ZERO project axioms. ZERO `sorry`. ZERO `admit`. All theorems
