@@ -291,14 +291,6 @@ theorem alpha_of_class_no_go_single_citation_capstone :
 The capstone is META about the framework's binding constraint. The
 following theorem makes the meta-claim explicit and citable. -/
 
-/-- **Scope statement of the single-citation capstone.** This file
-    bundles a structural NO-GO; it does **NOT** discharge any
-    Millennium problem.
-
-    The intended use is referee / chapter-21 citation: when
-    explaining why the framework's algebraic α-content is bounded
-    by P-vs-NP, cite `alpha_of_class_no_go_single_citation_capstone`
-    as the single referee-grade statement of that bound. -/
 end AlphaOfClassNoGoSingleCitation
 end PrincipiaTractalis
 

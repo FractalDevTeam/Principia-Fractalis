@@ -205,15 +205,6 @@ theorem ym_phase1_named_anchors_audit_trail_capstone :
 
 /-! ## §5 — Scope statement -/
 
-/-- **Scope-statement marker.** Substrate-level audit-trail improvement
-    for referee-readability of the typed YM bridge. NOT a literal
-    Clay YM discharge. NOT a construction of the required
-    four-dimensional quantum field theory with a mass gap. The
-    framework's substrate-level YM closure on Bridge 5 (SU(2)
-    substrate via literal mathlib `Matrix.specialUnitaryGroup (Fin
-    2) C` carrier) is unchanged; this file crystallizes the named-
-    anchor citation pattern for explicit referee-readable
-    provenance. -/
 end PF.YangMills.YM_Substrate_NamedAnchors_2026_06_19
 
 -- Axiom check. Expected: no axioms.

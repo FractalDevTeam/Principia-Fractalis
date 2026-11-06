@@ -334,16 +334,6 @@ theorem four_published_hp_program_anchors_disjunction_via_bost_connes :
       FourPublishedHPProgramAnchors_Disjunction :=
   fun h => Or.inr (Or.inr (Or.inr h))
 
-/-- The conjunction, from its three distinct components. Restored in place of
-    the deleted `..._conjunction_holds`. -/
-theorem four_published_hp_program_anchors_conjunction_of_parts
-    (hM : Mayer1991_HilbertPolyaProgram_Anchor)
-    (hBK : BerryKeating1999_HilbertPolyaProgram_Anchor)
-    (hC : Connes1999_HilbertPolyaProgram_Anchor)
-    (hBC : BostConnes1995_HilbertPolyaProgram_Anchor) :
-    FourPublishedHPProgramAnchors_Conjunction :=
-  ⟨hM, hBK, hC, hBC⟩
-
 /-! ## §3 — Four-anchor conjunction inhabited unconditionally -/
 
 /-- **Four-anchor conjunction** — the bundle of all four substrate
@@ -353,6 +343,16 @@ def FourPublishedHPProgramAnchors_Conjunction : Prop :=
   BerryKeating1999_HilbertPolyaProgram_Anchor ∧
   Connes1999_HilbertPolyaProgram_Anchor ∧
   BostConnes1995_HilbertPolyaProgram_Anchor
+
+/-- The conjunction, from its four distinct components. Restored in place of
+    the deleted `..._conjunction_holds` free theorem. -/
+theorem four_published_hp_program_anchors_conjunction_of_parts
+    (hM : Mayer1991_HilbertPolyaProgram_Anchor)
+    (hBK : BerryKeating1999_HilbertPolyaProgram_Anchor)
+    (hC : Connes1999_HilbertPolyaProgram_Anchor)
+    (hBC : BostConnes1995_HilbertPolyaProgram_Anchor) :
+    FourPublishedHPProgramAnchors_Conjunction :=
+  ⟨hM, hBK, hC, hBC⟩
 
 /-! **2026-11-04 — no `..._conjunction_holds`.** Same reason as §2: it was
     `⟨trivial, trivial, trivial, trivial⟩`. -/

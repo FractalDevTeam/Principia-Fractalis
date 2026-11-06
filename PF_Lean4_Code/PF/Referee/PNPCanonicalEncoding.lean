@@ -116,14 +116,6 @@ theorem Clay_PvsNP_Standard_at_canonical_iff_classes_distinct :
 
 /-! ## §3 — Scope statement -/
 
-/-- **Scope statement marker.** This file exhibits the canonical Cook
-    1971 / Karp 1972 encoding of `Clay_PvsNP_Standard` using the
-    framework's existing canonical `ClassP` / `ClassNP` infrastructure
-    from `PrincipiaTractalis.TuringEncoding.Complexity`. The canonical
-    encoding is the literal mathlib-canonical Cook 1971 form, replacing
-    the ad-hoc carrier of the prior PNP bridges. The Clay-statement
-    target on this canonical encoding is logically equivalent to the
-    canonical `PvsNP_Question : ClassP = ClassNP`. -/
 end PF.Referee.PNPCanonicalEncoding
 
 -- Axiom checks.
