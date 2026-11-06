@@ -54,9 +54,6 @@ the V3 route's scope content.
   * `six_axis_scope_accountability_suite` — single citable theorem
     bundling all six per-axis accountability capstones.
 
-  * `six_axis_scope_accountability_suite_honest_scope` — explicit
-    non-discharge marker.
-
 No new mathematical content; this file is purely a consolidation point.
 What is new is one-citation referee-readability of the framework's
 six-axis substrate-vs-literal-Clay scope architecture.

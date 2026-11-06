@@ -130,9 +130,6 @@ The cascade composition with Wave 56-RH yields a SINGLE referee-citable
  13. `rh_wave57_mayer_n_to_infinity_scaffold_capstone` — final
      referee-citable capstone.
 
- 14. `rh_wave57_mayer_n_to_infinity_scaffold_honest_scope` — the
-     deliberately-trivial scope-statement marker.
-
 ## Axiom budget
 
 ZERO project axioms. ZERO `sorry`. ZERO `admit`. All theorems depend

@@ -87,8 +87,6 @@ This file scaffolds:
      `ContinuousSpectralSurjectivityConjecture`.
   8. `wave57_hardy_to_full_strip_scaffold_status` — bundled status.
   9. `wave57_hardy_to_full_strip_scaffold_capstone` — the capstone.
- 10. `wave57_hardy_to_full_strip_scaffold_honest_scope` — scope-statement
-     marker.
 
 ## Axiom budget
 
