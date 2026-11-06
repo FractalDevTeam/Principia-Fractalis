@@ -147,3 +147,4 @@ probe_audit_*.lean
 # first ignore covered only one, and a probe_gate_ artifact showed up
 # untracked on the very next commit. Glob both.
 probe_gate_*.lean
+*.bak-*
