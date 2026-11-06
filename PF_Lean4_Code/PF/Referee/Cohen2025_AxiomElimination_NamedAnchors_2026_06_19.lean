@@ -1,213 +1,74 @@
 /-
 # PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19
 
-★★★★★ 2026-06-19 — Cohen 2025 axiom-elimination named-anchor file.
-Incorporates Pabs's November 2025 axiom-elimination prior work into
-the substrate's named-anchor citation set as additional anchors for
-the framework's axiom-budget closure.
+2026-06-19 — Six bibliographic citation markers naming results from
+Pablo Cohen's November 2025 axiom-elimination work. Rewritten 2026-11-06
+to remove the free-discharge pattern — see Hodge NamedAnchors cleanup
+`c98e5b90` for method and rationale.
 
-## What this file does
+## What this file is
 
-Names the framework's prior axiom-elimination content as substrate-
-tier typed anchors:
+Six `Prop := True` definitions that NAME specific results from the
+prior-work manuscripts archived at
+`Papers/PriorWork_AxiomElimination_Nov2025/`. Bibliographic provenance
+markers only.
 
-  - Cohen 2025 elimination of axiom `p_eq_np_spectrum_collapse`
-    (the critical complexity-to-spectral connector).
-  - Cohen 2025 elimination of axiom `operator_collapse_under_p_eq_np`
-    (P=NP → α_NP = α_P).
-  - Cohen 2025 elimination of axiom `shell_has_natural_frequency`
-    (toroidal quantization).
-  - Cohen 2025 elimination of axiom `embedding_strictly_monotone`
-    (spectral embedding monotonicity via r²/(1+r²)).
-  - Cohen 2025 certificate-elimination strategy: P=NP eliminates
-    certificates → operator forms converge → α converges → λ₀
-    converges.
-  - Cohen 2025 four-axiom-replacement audit-trail certificate.
+  - Elimination of axiom `p_eq_np_spectrum_collapse`.
+  - Elimination of axiom `operator_collapse_under_p_eq_np`.
+  - Elimination of axiom `shell_has_natural_frequency`.
+  - Elimination of axiom `embedding_strictly_monotone`.
+  - Certificate-elimination strategy (P=NP eliminates certificates →
+    operator forms converge → α converges → λ₀ converges).
+  - Four-axiom-replacement audit-trail certificate.
 
-The prior-work artifacts are preserved at
-`Papers/PriorWork_AxiomElimination_Nov2025/` in the corpus
-(AXIOM_ANALYSIS_AND_ELIMINATION_PLAN.md, AXIOM_ELIMINATION_COMPLETE_REPORT.md).
+Historical precedent for the 2026 corpus's zero-project-axioms posture
+(milestone commit 72c0137, 2026-05-20).
 
-## Substrate position
+## What was removed on 2026-11-06
 
-The substrate's axiom-budget closure at HEAD reports zero project
-axioms across all 2026 Lean files (every theorem reports only
-`propext, Classical.choice, Quot.sound`). Cohen 2025's November
-2025 axiom-elimination work is the historical precedent that
-PROVED the four-axiom path from `p_eq_np_spectrum_collapse` down
-to embedding monotonicity could be retired via certificate-
-elimination + self-adjointness uniqueness + explicit construction.
-The substrate's current zero-axiom posture inherits the lineage
-of Cohen 2025's elimination strategy, which was subsequently
-generalized in the 2026 Lean-codebase axiom-elimination arc
-ending at the 2026-05-20 ZERO PROJECT AXIOMS milestone (commit
-72c0137).
+  `theorem cohen2025_*_anchor_holds := trivial` × 6
+  disjunction + conjunction bundles with `_holds` theorems
+  audit-trail capstone
+
+0 external references. Removed.
+
+## Scope
+
+Bibliographic provenance for the November 2025 prior-work.
 
 ## Axiom budget
 
-Zero project axioms. Every theorem reports no dependencies.
+Zero project axioms. The file now contains no theorems.
 -/
 
 namespace PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19
 
-/-! ## §1 — Cohen 2025 axiom-elimination typed anchors -/
-
-/-- **Cohen 2025 elimination of `p_eq_np_spectrum_collapse` anchor.**
-    The most critical axiom (formerly:
-    `ClassP = ClassNP → lambda_0_P = lambda_0_NP`) is eliminated by
-    deriving it from operator construction: H_P uses phase factor
-    e^(iπ√2·D(x)); H_NP uses e^(iπ(φ+1/4)·D(x,c)) with certificate
-    c. If P = NP, certificates are unnecessary → NP operator
-    reduces to P form → self-adjointness uniquely fixes α →
-    λ₀ = π/(10α) gives equality. Published source: Cohen, P.,
-    "Axiom Elimination Complete: P≠NP Proof Now Fully Justified"
-    (2025-11-17), prior work preserved at
-    `Papers/PriorWork_AxiomElimination_Nov2025/`. -/
+/-- **Cohen 2025 p_eq_np_spectrum_collapse elimination citation marker.**
+    Prior-work artifact at `Papers/PriorWork_AxiomElimination_Nov2025/`.
+    Bibliographic reference. -/
 def Cohen2025_EliminationOfPEqNPSpectrumCollapse_Anchor : Prop := True
 
-theorem cohen2025_eliminationOfPEqNPSpectrumCollapse_anchor_holds :
-    Cohen2025_EliminationOfPEqNPSpectrumCollapse_Anchor := trivial
-
-/-- **Cohen 2025 elimination of `operator_collapse_under_p_eq_np`
-    anchor.** The axiom P=NP → α_NP = α_P is eliminated by
-    certificate-elimination: the energy functional E_NP[x,c] =
-    Σᵢ i · D₃(cᵢ) collapses to E_P[x] when all cᵢ = 0; the
-    generating-function structure is fixed by the energy
-    functional; the self-adjointness Reality(G_α) = 0 condition
-    has a UNIQUE solution per operator form; therefore α converges
-    when forms converge. Follows from the same first-principles
-    chain as Axiom 1 of the elimination plan. -/
+/-- **Cohen 2025 operator_collapse_under_p_eq_np elimination citation marker.**
+    P=NP → α_NP = α_P. Same prior-work. Bibliographic reference. -/
 def Cohen2025_EliminationOfOperatorCollapseUnderPEqNP_Anchor : Prop := True
 
-theorem cohen2025_eliminationOfOperatorCollapseUnderPEqNP_anchor_holds :
-    Cohen2025_EliminationOfOperatorCollapseUnderPEqNP_Anchor := trivial
-
-/-- **Cohen 2025 elimination of `shell_has_natural_frequency`
-    anchor.** The toroidal-quantization axiom
-    (∀ shell, ∃ k : ℕ, shell.alpha.value = k.succ) is eliminated
-    via standard quantum mechanics on the torus T²: periodic
-    boundary conditions force k ∈ ℤ; energy quantization restricts
-    resonance frequencies to ℕ. This is textbook QM on compact
-    manifolds, not a framework-specific assumption. -/
+/-- **Cohen 2025 shell_has_natural_frequency elimination citation marker.**
+    Toroidal quantization. Same prior-work. Bibliographic reference. -/
 def Cohen2025_EliminationOfShellHasNaturalFrequency_Anchor : Prop := True
 
-theorem cohen2025_eliminationOfShellHasNaturalFrequency_anchor_holds :
-    Cohen2025_EliminationOfShellHasNaturalFrequency_Anchor := trivial
-
-/-- **Cohen 2025 elimination of `embedding_strictly_monotone`
-    anchor.** The axiom (r₁ > r₂ → embedding(r₁) > embedding(r₂))
-    is eliminated by an EXPLICIT construction: embedding(r) =
-    r²/(1+r²), which is a composition of strictly monotone
-    functions on ℝ_+; strict monotonicity follows directly from
-    the definition. Pure mathematics with closed-form formula. -/
+/-- **Cohen 2025 embedding_strictly_monotone elimination citation marker.**
+    Spectral embedding monotonicity via r²/(1+r²). Same prior-work.
+    Bibliographic reference. -/
 def Cohen2025_EliminationOfEmbeddingStrictlyMonotone_Anchor : Prop := True
 
-theorem cohen2025_eliminationOfEmbeddingStrictlyMonotone_anchor_holds :
-    Cohen2025_EliminationOfEmbeddingStrictlyMonotone_Anchor := trivial
-
-/-- **Cohen 2025 certificate-elimination strategy anchor.** The
-    common engine driving Axioms 1 and 2 of the elimination plan:
-    (i) P = NP → no certificates needed; (ii) no certificates →
-    operator forms identical between H_P and H_NP; (iii) self-
-    adjointness uniqueness → same operator form forces same α;
-    (iv) λ₀ = π/(10α) → same α forces same ground-state energy.
-    The chain is closed: complexity-class equality forces
-    spectral-value equality. -/
+/-- **Cohen 2025 certificate-elimination strategy citation marker.**
+    P=NP eliminates certificates → operator forms converge → α converges
+    → λ₀ converges. Same prior-work. Bibliographic reference. -/
 def Cohen2025_CertificateEliminationStrategy_Anchor : Prop := True
 
-theorem cohen2025_certificateEliminationStrategy_anchor_holds :
-    Cohen2025_CertificateEliminationStrategy_Anchor := trivial
-
-/-- **Cohen 2025 four-axiom-replacement audit certificate anchor.**
-    The November 2025 audit certifies that all four prior P≠NP
-    axioms (`p_eq_np_spectrum_collapse`,
-    `operator_collapse_under_p_eq_np`,
-    `shell_has_natural_frequency`, `embedding_strictly_monotone`)
-    are replaced by theorems with explicit justifications. Files
-    structured as `PF_AXIOM_FREE/{TuringEncoding/Operators_PROVEN,
-    P_NP_Complete_Proof_PROVEN, SpectralEmbedding_PROVEN}.lean`.
-    Remaining content is computational constants
-    (phi = 1.6180339887…, pi_10 = π/10) and standard mathematical
-    framework (Hilbert spaces, self-adjoint operators, spectral
-    theorem), NOT framework-specific axioms. -/
+/-- **Cohen 2025 four-axiom-replacement audit citation marker.** The
+    audit-trail certificate for the four-axiom elimination path.
+    Same prior-work. Bibliographic reference. -/
 def Cohen2025_FourAxiomReplacementAudit_Anchor : Prop := True
 
-theorem cohen2025_fourAxiomReplacementAudit_anchor_holds :
-    Cohen2025_FourAxiomReplacementAudit_Anchor := trivial
-
-/-! ## §2 — Six-anchor disjunction -/
-
-def SixCohen2025AxiomEliminationAnchors_Disjunction : Prop :=
-  Cohen2025_EliminationOfPEqNPSpectrumCollapse_Anchor ∨
-  Cohen2025_EliminationOfOperatorCollapseUnderPEqNP_Anchor ∨
-  Cohen2025_EliminationOfShellHasNaturalFrequency_Anchor ∨
-  Cohen2025_EliminationOfEmbeddingStrictlyMonotone_Anchor ∨
-  Cohen2025_CertificateEliminationStrategy_Anchor ∨
-  Cohen2025_FourAxiomReplacementAudit_Anchor
-
-theorem six_cohen2025_axiomElimination_anchors_disjunction_holds :
-    SixCohen2025AxiomEliminationAnchors_Disjunction :=
-  Or.inl trivial
-
-/-! ## §3 — Six-anchor conjunction -/
-
-def SixCohen2025AxiomEliminationAnchors_Conjunction : Prop :=
-  Cohen2025_EliminationOfPEqNPSpectrumCollapse_Anchor ∧
-  Cohen2025_EliminationOfOperatorCollapseUnderPEqNP_Anchor ∧
-  Cohen2025_EliminationOfShellHasNaturalFrequency_Anchor ∧
-  Cohen2025_EliminationOfEmbeddingStrictlyMonotone_Anchor ∧
-  Cohen2025_CertificateEliminationStrategy_Anchor ∧
-  Cohen2025_FourAxiomReplacementAudit_Anchor
-
-theorem six_cohen2025_axiomElimination_anchors_conjunction_holds :
-    SixCohen2025AxiomEliminationAnchors_Conjunction :=
-  ⟨trivial, trivial, trivial, trivial, trivial, trivial⟩
-
-/-! ## §4 — Audit-trail capstone -/
-
-/-- **★★★ COHEN 2025 AXIOM-ELIMINATION PRIOR-WORK AUDIT-TRAIL
-    CAPSTONE ★★★** — single citable bundle exhibiting Pabs's
-    November 2025 axiom-elimination prior work as six typed
-    substrate anchors for the framework's axiom-budget closure:
-    four specific axioms eliminated (`p_eq_np_spectrum_collapse`,
-    `operator_collapse_under_p_eq_np`,
-    `shell_has_natural_frequency`, `embedding_strictly_monotone`)
-    via certificate-elimination + self-adjointness uniqueness +
-    explicit constructions, plus the unified four-axiom replacement
-    audit certificate. -/
-theorem cohen2025_axiomElimination_priorWork_audit_trail_capstone :
-    Cohen2025_EliminationOfPEqNPSpectrumCollapse_Anchor ∧
-    Cohen2025_EliminationOfOperatorCollapseUnderPEqNP_Anchor ∧
-    Cohen2025_EliminationOfShellHasNaturalFrequency_Anchor ∧
-    Cohen2025_EliminationOfEmbeddingStrictlyMonotone_Anchor ∧
-    Cohen2025_CertificateEliminationStrategy_Anchor ∧
-    Cohen2025_FourAxiomReplacementAudit_Anchor ∧
-    SixCohen2025AxiomEliminationAnchors_Disjunction ∧
-    SixCohen2025AxiomEliminationAnchors_Conjunction :=
-  ⟨trivial, trivial, trivial, trivial, trivial, trivial,
-   six_cohen2025_axiomElimination_anchors_disjunction_holds,
-   six_cohen2025_axiomElimination_anchors_conjunction_holds⟩
-
-/-! ## §5 — Substrate-position marker -/
-
-/-- **Substrate-position marker.** The substrate's current zero-
-    axiom posture (verified via `#print axioms` reporting only
-    `propext, Classical.choice, Quot.sound` across all 2026 Lean
-    files) inherits the lineage of Cohen 2025's November 2025
-    axiom-elimination work. Pabs's prior work demonstrated the
-    elimination path for four critical P≠NP axioms via
-    certificate-elimination + self-adjointness uniqueness +
-    explicit constructions; this path was subsequently generalized
-    in the 2026 Lean-codebase axiom-elimination arc culminating at
-    the 2026-05-20 ZERO PROJECT AXIOMS milestone (commit 72c0137).
-    The substrate's axiom-budget closure and the framework's
-    canonical first-principles posture are anchored historically
-    by Cohen 2025's four specific eliminations. -/
-theorem cohen2025_axiomElimination_substrate_position : True := trivial
-
 end PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19
-
-#print axioms PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19.six_cohen2025_axiomElimination_anchors_disjunction_holds
-#print axioms PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19.six_cohen2025_axiomElimination_anchors_conjunction_holds
-#print axioms PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19.cohen2025_axiomElimination_priorWork_audit_trail_capstone
-#print axioms PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19.cohen2025_axiomElimination_substrate_position
