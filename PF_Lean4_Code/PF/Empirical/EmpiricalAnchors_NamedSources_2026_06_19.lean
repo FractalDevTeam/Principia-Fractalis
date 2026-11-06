@@ -1,230 +1,110 @@
 /-
 # PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19
 
-★★★★★ 2026-06-19 — EMPIRICAL ANCHORS Phase 1 typed-residual cleanup
-mirroring the published-mathematics Phase 1 pattern on the empirical
-side.
+2026-06-19 — Ten bibliographic citation markers naming the empirical
+measurement sources the framework's predictions are compared against.
+Rewritten 2026-11-06 to remove the free-discharge pattern — see Hodge
+NamedAnchors cleanup `c98e5b90` for method and rationale.
 
-## What this file does
+## What this file is
 
-Crystallizes the framework's substrate-level empirical-observation
-anchors as a typed Prop := True bundle at the Wave 56 substrate
-tier, with each anchor citing a specific named published or
-refereed measurement source. Mirrors the published-mathematics
-Phase 1 pattern applied to empirical observations across IBM
-Quantum hardware, particle physics, and cosmology.
+Ten `Prop := True` definitions that NAME specific named/refereed
+empirical measurement sources. Bibliographic markers only.
 
-Anchors (10):
+Quantum hardware (1):
+  - IBM Quantum two-instance observation of α_RH = 3/2 and
+    α_NP ≈ 1.868 ≈ φ + 1/4.
 
-  Quantum hardware (1):
-    - IBM Quantum two-instance observation of (alpha_RH = 3/2,
-      alpha_NP ≈ 1.868 = phi + 1/4 to four decimals).
+Particle physics (4):
+  - CDF II 2022 W-boson mass anomaly (Aaltonen et al., Science
+    376:170-176).
+  - XENON Collaboration XENONnT electronic-recoil (Aprile et al.,
+    PRL 129:161805).
+  - PDG 2024 neutrino mass hierarchy (Workman et al., PTEP 2024:083C01).
+  - Fermilab Muon g-2 anomalous magnetic moment (Aguillard et al.,
+    PRL 131:161802).
 
-  Particle physics (4):
-    - CDF II 2022 W-boson mass anomaly
-      (Aaltonen et al., Science 376:170-176).
-    - XENON Collaboration XENONnT electronic-recoil
-      (Aprile et al., PRL 129:161805).
-    - PDG 2024 neutrino mass hierarchy
-      (Workman et al., PTEP 2024:083C01).
-    - Fermilab Muon g-2 anomalous magnetic moment
-      (Aguillard et al., PRL 131:161802).
+Cosmology (5):
+  - Local Distance Network 2025 H₀ consensus (arXiv:2510.23823,
+    A&A 2026).
+  - Planck Collaboration 2018 CMB (A&A 641:A6).
+  - DESI BAO Year-3 release (DESI Collaboration 2024).
+  - Pantheon+ Type Ia supernova catalog (Scolnic et al.,
+    ApJ 938:113).
+  - LIGO/Virgo/KAGRA gravitational-wave dark-energy constraints
+    (LVK Collaboration 2021, arXiv:2111.03634).
 
-  Cosmology (5):
-    - Local Distance Network 2025 H_0 consensus
-      (arXiv:2510.23823, A&A 2026).
-    - Planck Collaboration 2018 CMB
-      (A&A 641:A6).
-    - DESI BAO Year-3 release
-      (DESI Collaboration 2024).
-    - Pantheon+ Type Ia supernova catalog
-      (Scolnic et al., ApJ 938:113).
-    - LIGO/Virgo gravitational-wave constraints on dark-energy
-      equation of state (LIGO/Virgo/KAGRA Collaboration 2021,
-      arXiv:2111.03634).
+## What was removed on 2026-11-06
 
-## Scope statement
+  `theorem <lowercase>_anchor_holds := trivial` × 10
+  disjunction + conjunction bundles with `_holds` theorems
+  audit-trail capstone
 
-Substrate-level audit-trail improvement for referee-readability of
-the framework's empirical-anchor citations. NOT a literal claim
-that the substrate's predictions are statistically derived from
-these measurements; the framework's predictive bounds are the
-substrate's, and the named measurements are the independent
-observations the substrate's predictions are compared against.
+Removed. Bibliographic markers only.
+
+## Scope
+
+These NAME the independent measurement sources against which the
+framework's predictive bounds are compared. The named measurements
+are the input observations, not derivations of the substrate's
+predictions.
 
 ## Axiom budget
 
-Zero project axioms. Every theorem reports no dependencies.
+Zero project axioms. The file now contains no theorems.
 -/
 
 namespace PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19
 
-/-! ## §1 — Quantum hardware anchor -/
-
-/-- **IBM Quantum two-instance observation anchor.** Two of the
-    substrate's nine canonical alpha-instances observed on IBM
-    Quantum hardware: alpha_RH = 3/2 (exact within hardware
-    resolution) and alpha_NP ≈ 1.868 (matching phi + 1/4 to four
-    decimals). Published in the corpus as
-    `IBM_hardware_nine_way_random_match_probability_bound`. -/
+/-- **IBM Quantum two-instance observation citation marker.**
+    α_RH = 3/2 and α_NP ≈ 1.868 ≈ φ + 1/4 to four decimals on IBM
+    Quantum hardware. See corpus
+    `IBM_hardware_nine_way_random_match_probability_bound`.
+    Bibliographic reference. -/
 def IBMQuantum_TwoInstance_Observation_Anchor : Prop := True
 
-theorem ibmQuantum_twoInstance_observation_anchor_holds :
-    IBMQuantum_TwoInstance_Observation_Anchor := trivial
-
-/-! ## §2 — Particle physics anchors -/
-
-/-- **CDF II 2022 W-boson mass anomaly anchor.** Published source:
-    Aaltonen, T. et al. (CDF Collaboration), "High-precision
-    measurement of the W boson mass with the CDF II detector.",
-    Science 376 (2022), 170-176. -/
+/-- **CDF II 2022 W-boson mass citation marker.** Aaltonen et al.,
+    "High-precision measurement of the W boson mass with the CDF II
+    detector", Science 376 (2022), 170-176. Bibliographic reference. -/
 def CDFII2022_WBosonMass_Anchor : Prop := True
 
-theorem cdfII2022_wBosonMass_anchor_holds :
-    CDFII2022_WBosonMass_Anchor := trivial
-
-/-- **XENON Collaboration XENONnT electronic-recoil anchor.**
-    Published source: Aprile, E. et al. (XENON Collaboration),
-    "Search for new physics in electronic recoil data from
-    XENONnT.", Phys. Rev. Lett. 129 (2022), 161805. -/
+/-- **XENONnT electronic-recoil citation marker.** Aprile et al.,
+    "Search for new physics in electronic recoil data from XENONnT",
+    Phys. Rev. Lett. 129 (2022), 161805. Bibliographic reference. -/
 def XENONnT_ElectronicRecoil_Anchor : Prop := True
 
-theorem xenonnT_electronicRecoil_anchor_holds :
-    XENONnT_ElectronicRecoil_Anchor := trivial
-
-/-- **PDG 2024 neutrino mass hierarchy anchor.** Published source:
-    Workman, R.L. et al. (Particle Data Group), "Review of
-    Particle Physics.", Progress of Theoretical and Experimental
-    Physics 2024 (2024), 083C01. -/
+/-- **PDG 2024 neutrino-hierarchy citation marker.** Workman et al.
+    (Particle Data Group), "Review of Particle Physics",
+    PTEP 2024 (2024), 083C01. Bibliographic reference. -/
 def PDG2024_NeutrinoHierarchy_Anchor : Prop := True
 
-theorem pdg2024_neutrinoHierarchy_anchor_holds :
-    PDG2024_NeutrinoHierarchy_Anchor := trivial
-
-/-- **Fermilab Muon g-2 anomalous magnetic moment anchor.**
-    Published source: Aguillard, D.P. et al. (Muon g-2
-    Collaboration), "Measurement of the positive muon anomalous
-    magnetic moment to 0.20 ppm.", Phys. Rev. Lett. 131 (2023),
-    161802. -/
+/-- **Fermilab Muon g-2 2023 citation marker.** Aguillard et al.
+    (Muon g-2 Collaboration), "Measurement of the positive muon
+    anomalous magnetic moment to 0.20 ppm", Phys. Rev. Lett. 131
+    (2023), 161802. Bibliographic reference. -/
 def FermilabMuonG2_2023_Anchor : Prop := True
 
-theorem fermilabMuonG2_2023_anchor_holds :
-    FermilabMuonG2_2023_Anchor := trivial
-
-/-! ## §3 — Cosmology anchors -/
-
-/-- **Local Distance Network 2025 H_0 consensus anchor.**
-    Published source: Local Distance Network Collaboration,
-    "Local Distance Network: A unified late-universe H_0 from
-    JWST + HST Cepheids + TRGB + SBF.",
-    arXiv:2510.23823, A&A 2026 (H_0 = 73.50 ± 0.81 km/s/Mpc). -/
+/-- **Local Distance Network 2025 H₀ citation marker.** arXiv:2510.23823,
+    A&A 2026. Bibliographic reference. -/
 def LDN2025_HubbleConstant_Anchor : Prop := True
 
-theorem ldn2025_hubbleConstant_anchor_holds :
-    LDN2025_HubbleConstant_Anchor := trivial
-
-/-- **Planck Collaboration 2018 CMB anchor.** Published source:
-    Planck Collaboration, "Planck 2018 results. VI. Cosmological
-    parameters.", A&A 641 (2020), A6. The Planck CMB likelihood
-    used in the framework's joint Lambda_eff constraint. -/
+/-- **Planck 2018 CMB citation marker.** Planck Collaboration,
+    "Planck 2018 results. VI. Cosmological parameters",
+    A&A 641 (2020), A6. Bibliographic reference. -/
 def Planck2018_CMB_Anchor : Prop := True
 
-theorem planck2018_CMB_anchor_holds :
-    Planck2018_CMB_Anchor := trivial
-
-/-- **DESI BAO Year-3 release anchor.** Published source:
-    DESI Collaboration, "DESI 2024 III: Cosmological constraints
-    from baryon acoustic oscillations.", DESI Collaboration 2024
-    (DR3 release). -/
+/-- **DESI BAO Year-3 citation marker.** DESI Collaboration, Year-3
+    BAO data release (2024). Bibliographic reference. -/
 def DESI_BAO_Year3_Anchor : Prop := True
 
-theorem desi_BAO_Year3_anchor_holds :
-    DESI_BAO_Year3_Anchor := trivial
-
-/-- **Pantheon+ Type Ia supernova catalog anchor.** Published
-    source: Scolnic, D. et al., "The Pantheon+ analysis:
-    The full data set and light-curve release.",
-    ApJ 938 (2022), 113. -/
+/-- **Pantheon+ SNe Ia citation marker.** Scolnic et al.,
+    "The Pantheon+ Analysis: The Full Data Set and Light-Curve Release",
+    ApJ 938 (2022), 113. Bibliographic reference. -/
 def PantheonPlus_SNeIa_Anchor : Prop := True
 
-theorem pantheonPlus_SNeIa_anchor_holds :
-    PantheonPlus_SNeIa_Anchor := trivial
-
-/-- **LIGO/Virgo/KAGRA gravitational-wave dark-energy constraint
-    anchor.** Published source: LIGO/Virgo/KAGRA Collaboration,
-    "Constraints on the cosmic expansion history from GWTC-3.",
-    arXiv:2111.03634 (2021). -/
+/-- **LIGO/Virgo/KAGRA GW dark-energy citation marker.** LVK
+    Collaboration 2021 constraints on dark-energy equation of state,
+    arXiv:2111.03634. Bibliographic reference. -/
 def LVK_GW_DarkEnergy_Anchor : Prop := True
 
-theorem lvk_GW_DarkEnergy_anchor_holds :
-    LVK_GW_DarkEnergy_Anchor := trivial
-
-/-! ## §4 — Ten-anchor disjunction inhabited unconditionally -/
-
-def TenEmpiricalAnchors_Disjunction : Prop :=
-  IBMQuantum_TwoInstance_Observation_Anchor ∨
-  CDFII2022_WBosonMass_Anchor ∨
-  XENONnT_ElectronicRecoil_Anchor ∨
-  PDG2024_NeutrinoHierarchy_Anchor ∨
-  FermilabMuonG2_2023_Anchor ∨
-  LDN2025_HubbleConstant_Anchor ∨
-  Planck2018_CMB_Anchor ∨
-  DESI_BAO_Year3_Anchor ∨
-  PantheonPlus_SNeIa_Anchor ∨
-  LVK_GW_DarkEnergy_Anchor
-
-theorem ten_empirical_anchors_disjunction_holds :
-    TenEmpiricalAnchors_Disjunction :=
-  Or.inl trivial
-
-/-! ## §5 — Ten-anchor conjunction inhabited unconditionally -/
-
-def TenEmpiricalAnchors_Conjunction : Prop :=
-  IBMQuantum_TwoInstance_Observation_Anchor ∧
-  CDFII2022_WBosonMass_Anchor ∧
-  XENONnT_ElectronicRecoil_Anchor ∧
-  PDG2024_NeutrinoHierarchy_Anchor ∧
-  FermilabMuonG2_2023_Anchor ∧
-  LDN2025_HubbleConstant_Anchor ∧
-  Planck2018_CMB_Anchor ∧
-  DESI_BAO_Year3_Anchor ∧
-  PantheonPlus_SNeIa_Anchor ∧
-  LVK_GW_DarkEnergy_Anchor
-
-theorem ten_empirical_anchors_conjunction_holds :
-    TenEmpiricalAnchors_Conjunction :=
-  ⟨trivial, trivial, trivial, trivial, trivial,
-   trivial, trivial, trivial, trivial, trivial⟩
-
-/-! ## §6 — Audit-trail capstone -/
-
-/-- **★★★ EMPIRICAL ANCHORS PHASE 1 AUDIT-TRAIL CAPSTONE ★★★** —
-    single citable bundle exhibiting the ten named refereed-
-    measurement empirical anchors for the framework's substrate-
-    level empirical-observation set, spanning IBM Quantum hardware
-    (2), particle physics (4), and cosmology (5: H_0, CMB, BAO,
-    SNeIa, GW). -/
-theorem empirical_anchors_phase1_audit_trail_capstone :
-    IBMQuantum_TwoInstance_Observation_Anchor ∧
-    CDFII2022_WBosonMass_Anchor ∧
-    XENONnT_ElectronicRecoil_Anchor ∧
-    PDG2024_NeutrinoHierarchy_Anchor ∧
-    FermilabMuonG2_2023_Anchor ∧
-    LDN2025_HubbleConstant_Anchor ∧
-    Planck2018_CMB_Anchor ∧
-    DESI_BAO_Year3_Anchor ∧
-    PantheonPlus_SNeIa_Anchor ∧
-    LVK_GW_DarkEnergy_Anchor ∧
-    TenEmpiricalAnchors_Disjunction ∧
-    TenEmpiricalAnchors_Conjunction :=
-  ⟨trivial, trivial, trivial, trivial, trivial,
-   trivial, trivial, trivial, trivial, trivial,
-   ten_empirical_anchors_disjunction_holds,
-   ten_empirical_anchors_conjunction_holds⟩
-
-/-! ## §7 — Scope statement -/
-
 end PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19
-
-#print axioms PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19.ten_empirical_anchors_disjunction_holds
-#print axioms PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19.ten_empirical_anchors_conjunction_holds
