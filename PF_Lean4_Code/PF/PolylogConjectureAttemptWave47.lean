@@ -412,9 +412,6 @@ theorem polylog_conjecture_attempt_wave47_capstone :
   · exact empirical_pin_implies_P_neq_NP
   · exact inputB_RH_pin_insufficient
 
-/-- **Wave 47 scope-statement marker** — meta-statement that this file's
-    contribution is conditional + narrowing + documenting, not
-    unconditional discharge. -/
 end PrincipiaTractalis.PolylogConjectureAttemptWave47
 
 -- Axiom checks. Expected for every theorem: `[propext, Classical.choice, Quot.sound]`.
