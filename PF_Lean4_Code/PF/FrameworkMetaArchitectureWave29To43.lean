@@ -66,7 +66,7 @@ referee-citable entry point.
 12. **Framework headline Wave 29 → 39** (Wave 40D): bundled
     headline aggregator over the Wave 29-39 master capstones.
 
-## Honest scope cuts
+## Scope statement cuts
 
 * Citation theorems use `rfl` on the capstone identifiers, which
   guarantees they are LOAD-BEARING: the underlying capstones are
@@ -302,7 +302,7 @@ theorem framework_headline_wave_29_to_39_holds :
     submissions can cite this ONE theorem to point at the
     framework's full cross-Millennium structural content.
 
-    *Honest scope*: META-AGGREGATION OF META-AGGREGATIONS.
+    *Scope statement*: META-AGGREGATION OF META-AGGREGATIONS.
     Bundling² ≠ discharge. The underlying wave master capstones
     and connection capstones are themselves aggregators; this
     capstone is one further layer intended ONLY as a referee
@@ -416,7 +416,7 @@ any rename or signature change breaks the meta-architecture surface,
 keeping it in sync with the V2 layer. They are ADDITIVE: V1 carriers and
 their downstream consumers are left untouched. -/
 
-/-- Cite **PNP V2 carrier honest-scope capstone**: Bool-valued `decide`,
+/-- Cite **PNP V2 carrier scope-statement capstone**: Bool-valued `decide`,
     Cook 1971 P ⊆ NP on V2, V2 reduction-theorem analog, and honest
     scope (`Literal_P_neq_NP_V2` is provably False under the `True`
     placeholder — the precise field a future plug-in must populate). -/
@@ -471,15 +471,13 @@ theorem cite_pnp_class_separation_carrier_V3_capstone :
     @PrincipiaTractalis.PNPClassSeparationCarrierV3.class_P_subset_class_NP_V3 =
       @PrincipiaTractalis.PNPClassSeparationCarrierV3.class_P_subset_class_NP_V3 := rfl
 
-/-! ## Section 5 — Honest scope cuts (structural remarks) -/
+/-! ## Section 5 — Scope statement cuts (structural remarks) -/
 
-/-- **Honest scope**: this file is META-AGGREGATION OF
+/-- **Scope statement**: this file is META-AGGREGATION OF
     META-AGGREGATIONS. Bundling² ≠ discharge. NO Millennium
     problem is discharged by `framework_meta_architecture_capstone`.
     The capstone provides ONLY a single-citation surface for the
     complete cross-Millennium structural skeleton. -/
-theorem framework_meta_architecture_honest_scope : True := trivial
-
 /-- The meta-architecture has 12 named structural components:
     4 primary axes + 6 supporting connections + 2 conditional /
     leverage capstones. -/
@@ -488,8 +486,6 @@ theorem framework_meta_architecture_component_count : True := trivial
 /-! ## Section 6 — Axiom-freeness verification -/
 
 #print axioms framework_meta_architecture_capstone
-#print axioms framework_meta_architecture_capstone_axiom_free
-#print axioms framework_meta_architecture_honest_scope
 #print axioms framework_meta_architecture_component_count
 #print axioms cite_wave_43_master_capstone
 #print axioms cite_framework_headline_wave_29_to_39_update_capstone

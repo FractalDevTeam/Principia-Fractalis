@@ -5,7 +5,7 @@
 
 The framework's NS discharge satisfies a typed 7-conjunct `Clay_Standard`-
 encoded predicate, not the literal Clay Navier–Stokes statement. The
-honest scope was previously documented in prose comments inside
+scope statement was previously documented in prose comments inside
 `NSPDETypedUpgradeV2.lean`; this file lifts the substrate-vs-literal-Clay
 distinction to typed Lean theorems so a referee can mechanically read
 what is and is not claimed.
@@ -227,15 +227,7 @@ theorem PF_substrate_NS_scope_capstone :
    NS_spacetime_lift_is_existence_only_holds,
    NS_mathlib_gap_conjuncts_at_substrate_hold⟩
 
-/-! ## §4 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file lifts the substrate-vs-literal-
-    Clay NS distinction from `NSPDETypedUpgradeV2.lean`'s prose
-    comments to typed Lean theorems. The framework's V2 NS discharge
-    is unchanged; the substrate-restriction (Schwartz datum) and the
-    non-PDE-satisfying nature of the spacetime-lift conjuncts are now
-    mechanically readable at the typed-Prop level. -/
-theorem PF_substrate_NS_scope_honest_scope : True := trivial
+/-! ## §4 — Scope statement -/
 
 end PF.Referee.NSSubstrateScopeAccountability
 
@@ -250,5 +242,3 @@ end PF.Referee.NSSubstrateScopeAccountability
   PF.Referee.NSSubstrateScopeAccountability.NS_mathlib_gap_conjuncts_at_substrate_hold
 #print axioms
   PF.Referee.NSSubstrateScopeAccountability.PF_substrate_NS_scope_capstone
-#print axioms
-  PF.Referee.NSSubstrateScopeAccountability.PF_substrate_NS_scope_honest_scope

@@ -209,16 +209,7 @@ theorem PF_substrate_PNP_route_scope_capstone :
    PNP_enum_mirror_unconditional_holds,
    PNP_set_level_sharpness_iff_P_neq_NP_holds⟩
 
-/-! ## §4 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file consolidates the PNP route's
-    sharpness structure into a referee-reading point parallel to the
-    Hodge, NS, YM, BSD, and RH accountability files. The polylog
-    typed upgrade content is unchanged; the conditional discharge,
-    Iff.rfl-decomposition, unconditional enum-mirror, and
-    iff-with-ClassP-≠-ClassNP sharpness certificate are now
-    mechanically readable in a single citation point. -/
-theorem PF_substrate_PNP_route_scope_honest_scope : True := trivial
+/-! ## §4 — Scope statement -/
 
 end PF.Referee.PNPRouteScopeAccountability
 
@@ -233,5 +224,3 @@ end PF.Referee.PNPRouteScopeAccountability
   PF.Referee.PNPRouteScopeAccountability.PNP_set_level_sharpness_iff_P_neq_NP_holds
 #print axioms
   PF.Referee.PNPRouteScopeAccountability.PF_substrate_PNP_route_scope_capstone
-#print axioms
-  PF.Referee.PNPRouteScopeAccountability.PF_substrate_PNP_route_scope_honest_scope

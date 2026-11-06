@@ -34,7 +34,7 @@ In particular, the **IBM measurement bundle + algebraic identities**
 force `EmpiricalAlphaIdentificationHypothesis`, discharging Wave 47G's
 hypothesis from EXPLICIT, REFEREE-REPRODUCIBLE numerical inputs.
 
-## Honest scope (read this!)
+## Scope statement (read this!)
 
 This file does NOT discharge `PolylogEigenvalueConjecture`
 unconditionally. By the Wave 41B no-go
@@ -362,7 +362,7 @@ theorem P_half_and_IBM_NP_bracketed_quadratic_imply_polylog
   polylog_conjecture_iff_half_decomposition.mpr
     ⟨h_P, IBM_NP_bracket_and_quadratic_imply_NP_half h_NP_quad h_ibm⟩
 
-/-! ## Section 7 — Honest-scope: empirical pin is still P-vs-NP-equivalent
+/-! ## Section 7 — Scope-statement: empirical pin is still P-vs-NP-equivalent
 
 By the Wave 41B no-go, the empirical pin is propositionally
 equivalent to `ClassP ≠ ClassNP`. Hence the IBM-data discharge,
@@ -375,7 +375,7 @@ algebraic P-quadratic, the algebraic NP-quadratic, the IBM-NP
 bracket), all of which a referee can verify INDEPENDENTLY against
 the manuscript + the IBM-Quantum experiment record. -/
 
-/-- **★ Honest-scope statement: IBM data discharge implies P ≠ NP ★** —
+/-- **★ Scope-statement statement: IBM data discharge implies P ≠ NP ★** —
     propositional cascade through the Wave 47G hypothesis. -/
 theorem ibm_data_discharge_implies_P_neq_NP
     (h_P : (alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP)
@@ -456,7 +456,7 @@ theorem ibm_measurement_NP_close_to_alpha_NP :
     (D7) **Cross-cite to Wave 37B bridge**: the IBM measurement defs
          here are LITERALLY EQUAL to the Wave 37B `ibm_peak_*` defs.
 
-    (D8) **Honest scope**: the IBM-data discharge implies
+    (D8) **Scope statement**: the IBM-data discharge implies
          `ClassP ≠ ClassNP` propositionally (per Wave 41B no-go); the
          contribution is REFEREE-REPRODUCIBILITY, not weakening of
          propositional strength.
@@ -490,7 +490,7 @@ theorem polylog_ibm_empirical_pin_discharge_capstone :
     -- (D7) Cross-cite to Wave 37B bridge
     (ibm_measurement_RH_peak = ibm_peak_RH ∧
      ibm_measurement_NP_peak_4dec = ibm_peak_PNP) ∧
-    -- (D8) Honest scope: cascade implies P ≠ NP propositionally
+    -- (D8) Scope statement: cascade implies P ≠ NP propositionally
     ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP →
        16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0 →
        IBMNPBracketCompatible alpha_of_class →
@@ -506,13 +506,6 @@ theorem polylog_ibm_empirical_pin_discharge_capstone :
   · exact ibm_data_plus_algebraic_identities_discharge_polylog
   · exact ⟨ibm_measurement_RH_eq_bridge, ibm_measurement_NP_eq_bridge⟩
   · exact ibm_data_discharge_implies_P_neq_NP
-
-/-- **Honest-scope marker** — this file's contribution is to make the
-    Wave 47G empirical pin REFEREE-REPRODUCIBLE from explicit IBM
-    measurement data + algebraic identities, NOT to weaken the
-    propositional strength of the conditional discharge. By the
-    Wave 41B no-go, the IBM-NP bracket is P-vs-NP-equivalent. -/
-theorem polylog_ibm_empirical_pin_discharge_honest_scope : True := trivial
 
 end PrincipiaTractalis.PolylogIBMEmpiricalPinDischarge
 
@@ -551,5 +544,3 @@ end PrincipiaTractalis.PolylogIBMEmpiricalPinDischarge
   PrincipiaTractalis.PolylogIBMEmpiricalPinDischarge.ibm_measurement_NP_close_to_alpha_NP
 #print axioms
   PrincipiaTractalis.PolylogIBMEmpiricalPinDischarge.polylog_ibm_empirical_pin_discharge_capstone
-#print axioms
-  PrincipiaTractalis.PolylogIBMEmpiricalPinDischarge.polylog_ibm_empirical_pin_discharge_honest_scope

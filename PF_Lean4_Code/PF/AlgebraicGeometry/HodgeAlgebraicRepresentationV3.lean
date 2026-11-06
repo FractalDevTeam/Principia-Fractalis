@@ -95,7 +95,7 @@ not require any condition on `H`.
 
 ZERO project axioms. ZERO sorries. Additive — preserves all V2 content.
 
-## Honest scope
+## Scope statement
 
 NOT a Clay discharge of the Hodge conjecture. All NEW closed sub-cases
 added in V3 (K3, abelian surface, CY4 quintic substrate, CM abelian
@@ -632,15 +632,7 @@ theorem hodgeV3_residual_is_voisin2007_generic_non_cm :
     HodgeV3_GenericNonCMQuintic_Residual =
     Voisin2007GeneralCodimTwoNonAlgebraic genericNonCMQuintic := rfl
 
-/-! ## §8 — Honest-scope marker and capstone -/
-
-/-- **Honest-scope marker** — V3 is an ADDITIVE EXTENSION of V2
-    composing existing axiom-free content across surface (dim 2) +
-    codim-2 (dim 4, dim 5) + Voisin-algebraic-sublocus branches. All
-    NEW closed sub-cases are CLASSICALLY KNOWN or substrate-level
-    encodings. The RESIDUAL is precisely the generic non-CM quintic
-    Voisin 2007 obstruction. NOT a Clay discharge. -/
-theorem hodgeAlgebraicRepresentationV3_honest_scope : True := trivial
+/-! ## §8 — Scope statement and capstone -/
 
 /-- **★ HodgeAlgebraicRepresentationV3 CAPSTONE ★** —
     `hodgeAlgebraicRepresentationV3_capstone`.
@@ -670,7 +662,7 @@ theorem hodgeAlgebraicRepresentationV3_honest_scope : True := trivial
         Voisin 2007 open content for the codim-2 Hodge conjecture
         on the quintic family.
 
-    **HONEST SCOPE**: NOT a Clay discharge of the Hodge conjecture.
+    **SCOPE**: NOT a Clay discharge of the Hodge conjecture.
     All NEW closed sub-cases are classically known (K3 Lefschetz (1,1),
     Rosati on abelian surfaces, Mumford/Künneth on CM products,
     Schoen 1985, 121-family small resolution) or substrate-level

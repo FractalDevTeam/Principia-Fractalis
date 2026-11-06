@@ -68,12 +68,12 @@ remains open about) general smooth quintic CY3s in ℙ⁴ where the
      locating the EXACT Clay-acceptance gap precisely at the Voisin
      2007 obstruction.
 
-  7. Bundles all of (1)-(6) with an honest-scope theorem stating that
+  7. Bundles all of (1)-(6) with an scope-statement theorem stating that
      PF's discharge holds on the Voisin-algebraic-sublocus, and that
      resolving `Clay_Hodge_Standard` universally requires settling
      Voisin's conjecture (either direction).
 
-## What this file is NOT (HONEST SCOPE — non-negotiable)
+## What this file is NOT (SCOPE — non-negotiable)
 
   * NOT a discharge of Clay_Hodge_Standard universally — the
     typed Prop `Voisin2007GeneralCodimTwoNonAlgebraic` ENCODES the
@@ -258,7 +258,7 @@ conjecture on the quintic family. -/
     `X` is OPAQUE at this encoding level) that admits NO algebraic
     1-cycle witness with matching coefficient.
 
-    HONEST SCOPE: this Prop ENCODES the open content; it is not
+    SCOPE: this Prop ENCODES the open content; it is not
     proven (Voisin 2007 isolates the obstruction but does not
     establish non-algebraicity). -/
 def Voisin2007GeneralCodimTwoNonAlgebraic (_X : GeneralSmoothQuintic) : Prop :=
@@ -572,9 +572,9 @@ theorem pf_discharge_on_voisin_algebraic_sublocus
   unfold QuinticAlgebraicCycleRealisesHodgeClass
   rfl
 
-/-! ## §8 — Honest-scope theorem and capstone -/
+/-! ## §8 — Scope-statement theorem and capstone -/
 
-/-- **★ HONEST SCOPE THEOREM ★** — encodes the precise status of
+/-- **★ SCOPE THEOREM ★** — encodes the precise status of
     PF's Hodge-axis Clay-precision after this upgrade:
 
       * PF's `Clay_Hodge_Standard` discharge on `PF_HodgeUnifiedEncoding`
@@ -604,8 +604,6 @@ theorem pf_discharge_on_voisin_algebraic_sublocus
     open content at the type level, so the gap is now pinned to a
     SINGLE typed predicate (`Voisin2007GeneralCodimTwoNonAlgebraic`)
     rather than dispersed across the tagged-sum substrate. -/
-theorem voisin2007_precision_honest_scope : True := trivial
-
 /-- **★ VOISIN 2007 GENERAL QUINTIC PRECISION CAPSTONE ★** —
     `voisin2007_general_quintic_precision_capstone`.
 
@@ -648,7 +646,7 @@ theorem voisin2007_precision_honest_scope : True := trivial
         `X` in the Voisin-algebraic sublocus, `isAlgebraic` holds
         on `PF_HodgeEncoding_FullGeneral`.
 
-    **HONEST SCOPE**: NOT a Clay discharge of the codim ≥ 2 Hodge
+    **SCOPE**: NOT a Clay discharge of the codim ≥ 2 Hodge
     conjecture. The Voisin 2007 obstruction Prop ENCODES the open
     content; discharging `Clay_Hodge_Standard` universally requires
     settling Voisin's conjecture in EITHER direction. The contribution
@@ -727,7 +725,5 @@ end PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision
   PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.hodge_clay_gap_isolated_to_voisin_2007
 #print axioms
   PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.pf_discharge_on_voisin_algebraic_sublocus
-#print axioms
-  PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.voisin2007_precision_honest_scope
 #print axioms
   PrincipiaTractalis.AlgebraicGeometry.Voisin2007GeneralQuinticPrecision.voisin2007_general_quintic_precision_capstone

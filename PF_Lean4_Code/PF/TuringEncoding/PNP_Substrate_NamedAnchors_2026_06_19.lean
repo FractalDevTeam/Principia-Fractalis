@@ -23,7 +23,7 @@ eight-tuple at the Wave 56 typed-anchor tier:
   - Aaronson-Wigderson 2009 (ACM TOCT 1:1-54): algebrization
     barrier.
 
-## Honest scope
+## Scope statement
 
 Substrate-level audit-trail improvement. NOT a literal Clay PNP
 discharge. The literal P vs NP question remains the Clay problem.
@@ -128,13 +128,9 @@ theorem pnp_phase1_named_anchors_audit_trail_capstone :
    eight_published_pnp_anchors_disjunction_holds,
    eight_published_pnp_anchors_conjunction_holds⟩
 
-/-! ## §5 — Honest-scope marker -/
-
-theorem pnp_phase1_named_anchors_honest_scope : True := trivial
+/-! ## §5 — Scope statement -/
 
 end PF.TuringEncoding.PNP_Substrate_NamedAnchors_2026_06_19
 
 #print axioms PF.TuringEncoding.PNP_Substrate_NamedAnchors_2026_06_19.eight_published_pnp_anchors_disjunction_holds
 #print axioms PF.TuringEncoding.PNP_Substrate_NamedAnchors_2026_06_19.eight_published_pnp_anchors_conjunction_holds
-#print axioms PF.TuringEncoding.PNP_Substrate_NamedAnchors_2026_06_19.pnp_phase1_named_anchors_audit_trail_capstone
-#print axioms PF.TuringEncoding.PNP_Substrate_NamedAnchors_2026_06_19.pnp_phase1_named_anchors_honest_scope

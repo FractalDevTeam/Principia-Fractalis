@@ -162,19 +162,10 @@ theorem six_axis_scope_accountability_suite :
    PF.Referee.PNPRouteScopeAccountability.PNP_enum_mirror_unconditional_holds,
    PF.Referee.PNPRouteScopeAccountability.PNP_set_level_sharpness_iff_P_neq_NP_holds⟩
 
-/-! ## §2 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file is a consolidation point only.
-    It introduces no new mathematical content. The six per-axis
-    capstones it bundles each lift the substrate-vs-literal-Clay scope
-    distinction from prose comments to typed theorems; this suite
-    provides a single citation point for all six. -/
-theorem six_axis_scope_accountability_suite_honest_scope : True := trivial
+/-! ## §2 — Scope statement -/
 
 end PF.Referee.SixAxisScopeAccountabilitySuite
 
 -- Axiom check.
 #print axioms
   PF.Referee.SixAxisScopeAccountabilitySuite.six_axis_scope_accountability_suite
-#print axioms
-  PF.Referee.SixAxisScopeAccountabilitySuite.six_axis_scope_accountability_suite_honest_scope

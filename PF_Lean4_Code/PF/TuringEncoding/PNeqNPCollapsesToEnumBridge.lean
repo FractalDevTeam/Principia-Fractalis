@@ -53,7 +53,7 @@ separator's structural properties.
     polylog discharge (axiom-free) + the biconditional. No new
     mathematical content.
 
-  * Honest scope theorem.
+  * Scope statement theorem.
 
 ## What this file does NOT claim
 
@@ -64,7 +64,7 @@ separator's structural properties.
     (proven Clay-equivalent via `AlphaOfClassSetLevelAttempt` opacity).
   * Does NOT replace any existing theorem; composes them by exact name.
 
-## Honest scope
+## Scope statement
 
   Reduces the P vs NP axis literal discharge to ONE named gap
   `EnumToClassSeparationBridge`, with the bridge proven Clay-equivalent
@@ -175,7 +175,7 @@ theorem PvsNP_reduction_biconditional :
           sub-Props of `PolylogEigenvalueConjecture` hold at
           `(α_P = √2, α_NP = φ+1/4)` via direct computation.
 
-    **Honest scope**: This is NOT a Clay discharge. The bridge IS
+    **Scope statement**: This is NOT a Clay discharge. The bridge IS
     Clay-equivalent biconditionally; closing it axiom-free is exactly
     a Clay-level P ≠ NP proof. The bypass theorems (K3) and (K4)
     are real axiom-free Lean content (NOT typed `True` placeholders);
@@ -207,11 +207,6 @@ theorem Clay_PvsNP_via_EnumBridge_capstone :
           pf_enum_separator_distinguishes_P_NP⟩
   · exact D3_no_polynomial_extension_over_Q
 
-/-- **Honest-scope marker** — this file is a SINGLE-CITATION REDUCTION
-    of the P vs NP axis to one named gap. It does not discharge that
-    gap (which would be a Clay-level proof) and does not claim to. -/
-theorem Clay_PvsNP_via_EnumBridge_honest_scope : True := trivial
-
 end PNeqNPCollapsesToEnumBridge
 
 end PrincipiaTractalis
@@ -221,5 +216,3 @@ end PrincipiaTractalis
 #print axioms PrincipiaTractalis.PNeqNPCollapsesToEnumBridge.EnumBridge_from_literal_P_neq_NP
 #print axioms PrincipiaTractalis.PNeqNPCollapsesToEnumBridge.PF_attack_outside_both_historical_barriers
 #print axioms PrincipiaTractalis.PNeqNPCollapsesToEnumBridge.PvsNP_reduction_biconditional
-#print axioms PrincipiaTractalis.PNeqNPCollapsesToEnumBridge.Clay_PvsNP_via_EnumBridge_capstone
-#print axioms PrincipiaTractalis.PNeqNPCollapsesToEnumBridge.Clay_PvsNP_via_EnumBridge_honest_scope

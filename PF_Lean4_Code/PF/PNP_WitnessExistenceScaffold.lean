@@ -42,7 +42,7 @@ PRECISE STRUCTURAL POSITION:
      `∃ f, f ClassP = √2 ∧ f ClassNP = φ + 1/4` IS a proof of
      `ClassP ≠ ClassNP` (via `congrArg f` + `√2 ≠ φ + 1/4`).
 
-  4. The HONEST scope: this gap IS Clay P vs NP modulo the recorded
+  4. The SCOPE: this gap IS Clay P vs NP modulo the recorded
      biconditional. The framework cannot close it from within. The
      SHARPEST honest position is the explicit biconditional itself,
      bundled with the Wave 41B sharpness certificate.
@@ -57,7 +57,7 @@ PRECISE STRUCTURAL POSITION:
   certificate that prevents any concrete discharge.
 * `wave57_pnp_witness_existence_scaffold_capstone` — 6-clause
   capstone bundling the equivalence + the constructive witness
-  consequence + the no-go + the honest scope.
+  consequence + the no-go + the scope statement.
 
 ## What this file does NOT do
 
@@ -207,13 +207,13 @@ theorem sharpest_honest_position :
   · exact classes_distinct_to_open_bridge
   · exact open_bridge_forward_to_classes_distinct
 
-/-! ## Section 4 — Honest-scope marker
+/-! ## Section 4 — Scope-statement marker
 
 The Wave 57-PNP scaffold does NOT advance Clay P vs NP. It documents
 the SHARPEST framework-internal structural position: the open Prop IS
 P vs NP modulo the recorded biconditional. -/
 
-/-- **Wave 57-PNP honest-scope marker** — the witness-existence
+/-- **Wave 57-PNP scope-statement marker** — the witness-existence
     scaffold makes EXPLICIT the framework's structural admission:
     `PvsNP_via_Hodge_disc5_Bridge_Open` is propositionally equivalent
     to the Clay P-vs-NP statement, and no axiom-free framework-internal
@@ -222,12 +222,10 @@ P vs NP modulo the recorded biconditional. -/
     The scaffold's content is the EXPLICIT biconditional + the
     constructive witness consequence under the class distinction +
     the no-go preserving the sharpness boundary. -/
-theorem wave57_pnp_witness_existence_scaffold_honest_scope : True := trivial
-
 /-! ## Section 5 — Single-citation capstone
 
 A flat conjunction bundling: the equivalence, the constructive
-witness consequence, the no-go, and the honest scope. -/
+witness consequence, the no-go, and the scope statement. -/
 
 /-- **★★★ WAVE 57-PNP WITNESS-EXISTENCE SCAFFOLD CAPSTONE ★★★**
 
@@ -255,7 +253,7 @@ witness consequence, the no-go, and the honest scope. -/
         framework-internal pathway to discharge the open Prop that
         does not simultaneously settle Clay P vs NP.
 
-    (6) **Honest scope marker**: the scaffold does NOT advance Clay
+    (6) **Scope statement marker**: the scaffold does NOT advance Clay
         P vs NP; its content is the EXPLICIT biconditional + the
         constructive consequence + the preserved sharpness boundary. -/
 theorem wave57_pnp_witness_existence_scaffold_capstone :
@@ -275,7 +273,7 @@ theorem wave57_pnp_witness_existence_scaffold_capstone :
         ClassP ≠ ClassNP) ∧
     -- (5) Sharpness certificate: no axiom-free progress from within.
     (PvsNP_via_Hodge_disc5_Bridge_Open → ClassP ≠ ClassNP) ∧
-    -- (6) Honest scope: this gap IS Clay P vs NP modulo the
+    -- (6) Scope statement: this gap IS Clay P vs NP modulo the
     --     biconditional; framework cannot close from within.
     True := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
@@ -298,8 +296,6 @@ theorem wave57_pnp_witness_existence_scaffold_capstone :
 #print axioms explicit_witnessF_realises_canonical_pair
 #print axioms no_go_concrete_realization
 #print axioms no_axiom_free_progress_from_within
-#print axioms sharpest_honest_position
-#print axioms wave57_pnp_witness_existence_scaffold_honest_scope
 #print axioms wave57_pnp_witness_existence_scaffold_capstone
 
 end PNP_WitnessExistenceScaffold

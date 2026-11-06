@@ -48,7 +48,7 @@ conjecture along the THREE OPEN AVENUES that the no-go does NOT close:
       IBM RH-peak `3/2`, which is NOT a root of `α² = 2`) into a
       single referee-citable theorem.
 
-## Wave 47 honest scope
+## Wave 47 scope statement
 
 This file does NOT discharge `PolylogEigenvalueConjecture` unconditionally
 (the no-go forbids it). It does:
@@ -370,7 +370,7 @@ close-but-insufficient Input-B into a single referee-citable theorem. -/
             `f : Set Language → ℝ` satisfying one half and refuting
             the other.
 
-    (W47-5) **Honest scope**: the unconditional discharge of the
+    (W47-5) **Scope statement**: the unconditional discharge of the
             conjecture remains BLOCKED by the `alpha_of_class` no-go
             (Wave 41B `alpha_of_class_no_go_single_citation_capstone`).
             Even the conditional discharge under
@@ -398,7 +398,7 @@ theorem polylog_conjecture_attempt_wave47_capstone :
     ((∃ f : Set Language → ℝ, polylog_half_P_of f ∧ ¬ polylog_half_NP_of f) ∧
      (∃ f : Set Language → ℝ, polylog_half_NP_of f ∧ ¬ polylog_half_P_of f))
     ∧
-    -- (W47-5) Honest scope: even the conditional discharge implies P ≠ NP
+    -- (W47-5) Scope statement: even the conditional discharge implies P ≠ NP
     --         propositionally, and Input-B (pin α_P = 3/2) is
     --         insufficient at the abstract level.
     ((EmpiricalAlphaIdentificationHypothesis → ClassP ≠ ClassNP)
@@ -412,11 +412,9 @@ theorem polylog_conjecture_attempt_wave47_capstone :
   · exact empirical_pin_implies_P_neq_NP
   · exact inputB_RH_pin_insufficient
 
-/-- **Wave 47 honest-scope marker** — meta-statement that this file's
+/-- **Wave 47 scope-statement marker** — meta-statement that this file's
     contribution is conditional + narrowing + documenting, not
     unconditional discharge. -/
-theorem polylog_conjecture_attempt_wave47_honest_scope : True := trivial
-
 end PrincipiaTractalis.PolylogConjectureAttemptWave47
 
 -- Axiom checks. Expected for every theorem: `[propext, Classical.choice, Quot.sound]`.
@@ -442,5 +440,3 @@ end PrincipiaTractalis.PolylogConjectureAttemptWave47
   PrincipiaTractalis.PolylogConjectureAttemptWave47.inputB_RH_pin_insufficient
 #print axioms
   PrincipiaTractalis.PolylogConjectureAttemptWave47.polylog_conjecture_attempt_wave47_capstone
-#print axioms
-  PrincipiaTractalis.PolylogConjectureAttemptWave47.polylog_conjecture_attempt_wave47_honest_scope

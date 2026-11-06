@@ -71,7 +71,7 @@ by `norm_num`.
     `cascade_extension_k0_to_k19_bundle` covers k ∈ {0, ..., 19} on
     the SINGLE eigenvalue-sequence witness `eigenvalues_Odlyzko20`.
 
-## Honest scope
+## Scope statement
 
   * The discharge is at the level of a CONSTRUCTED witness
     `(α_unit, eigenvalues_Odlyzko20)`. Coincidence with the
@@ -422,7 +422,7 @@ theorem kth_atom_nineteen_at_Odlyzko20 :
 
     **(D19) k = 19 discharge** at t20_Odlyzko = 77.1448... .
 
-    HONEST SCOPE:
+    SCOPE:
       * Witness-level discharge on the single sequence
         `(α_unit, eigenvalues_Odlyzko20)`. Coincidence with the
         framework's canonical T₃^sym sequence is the preserved
@@ -478,13 +478,6 @@ theorem cascade_extension_k0_to_k19_bundle :
   kth_cascade_to_finite odlyzko20_oracle 19
     odlyzko20_oracle_positive_on_prefix
 
-/-- **Honest-scope marker** — the cascade extension to k ∈ {10, ..., 19}
-    is at the level of a constructed witness (`α_unit,
-    eigenvalues_Odlyzko20`); coincidence with the framework's canonical
-    T₃^sym eigenvalue sequence is the preserved spectral-realisation
-    open content. -/
-theorem cascade_extension_k10_to_k19_honest_scope : True := trivial
-
 end OnLineSurjectivityCascadeK10ToK19
 
 end PrincipiaTractalis
@@ -536,5 +529,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.OnLineSurjectivityCascadeK10ToK19.cascade_extension_k10_to_k19_capstone
 #print axioms
   PrincipiaTractalis.OnLineSurjectivityCascadeK10ToK19.cascade_extension_k0_to_k19_bundle
-#print axioms
-  PrincipiaTractalis.OnLineSurjectivityCascadeK10ToK19.cascade_extension_k10_to_k19_honest_scope

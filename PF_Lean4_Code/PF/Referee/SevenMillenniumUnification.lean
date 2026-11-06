@@ -7,8 +7,8 @@ unsolved axes via PF's typed-bridge infrastructure. The Perelman
 anchor manifests as `α_Poincare = 1`; the cross-Millennium α-rigidity
 forces `α_YM = 2` and `α_RH = 3/2` as algebraic consequences.
 
-Honest scope: bundling, not solving. Each unsolved axis retains its
-per-axis honest scope.
+Scope statement: bundling, not solving. Each unsolved axis retains its
+per-axis scope statement.
 -/
 
 import PF.Referee.RefereeIndex
@@ -97,13 +97,11 @@ theorem sevenMillenniumUnification_realized : SevenMillenniumUnification where
   alpha_skeleton_rigidity :=
     framework_alpha_values_match_rigidity
 
-/-- Honest scope marker. Bundling does not equal solving. Of the
+/-- Scope statement marker. Bundling does not equal solving. Of the
     seven: Poincaré is genuinely solved (Perelman 2003, external);
-    the other six retain their honest scope per-axis. What this
+    the other six retain their scope statement per-axis. What this
     theorem establishes: the seven are sub-stories of one
     framework. -/
-theorem sevenMillenniumUnification_honest_scope : True := trivial
-
 #check @SevenMillenniumUnification
 #check @sevenMillenniumUnification_realized
 #print axioms sevenMillenniumUnification_realized

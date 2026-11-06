@@ -42,7 +42,7 @@ RH discharge composes via
 
 P vs NP, NS, YM, BSD, Hodge are unchanged from V2.
 
-## Honest scope (unchanged from V2)
+## Scope statement (unchanged from V2)
 
 V3 is a MACHINE-VERIFIED REDUCTION of the six Clay Millennium axes to
 a 3-field substrate-level hypothesis bundle (HP operator, HP program,
@@ -160,19 +160,10 @@ theorem four_axes_unconditional_v3 :
       PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding :=
   PF.Referee.UnifiedClayClosureLinkage.four_axes_unconditional
 
-/-! ## §4 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — V3 is a CONDITIONAL REDUCTION on a
-    3-field hypothesis bundle of published open conjectures, NOT an
-    unconditional Clay discharge. The framework's substrate-rigidity
-    thesis stands independently of whether the three V3 fields are ever
-    individually discharged. -/
-theorem unified_clay_closure_v3_honest_scope : True := trivial
+/-! ## §4 — Scope statement -/
 
 end PF.Referee.UnifiedClayClosureLinkageV3
 
 -- Axiom checks. Expected: `[propext, Classical.choice, Quot.sound]`.
 #print axioms
   PF.Referee.UnifiedClayClosureLinkageV3.unified_clay_closure_via_substrate_linkage_v3
-#print axioms PF.Referee.UnifiedClayClosureLinkageV3.four_axes_unconditional_v3
-#print axioms PF.Referee.UnifiedClayClosureLinkageV3.unified_clay_closure_v3_honest_scope

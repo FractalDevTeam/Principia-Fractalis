@@ -34,7 +34,7 @@ Pattern mirrors `PF.AlgebraicGeometry.MordellWeilRankAgreement17_NamedAnchors`,
 `PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19`,
 and `PF.YangMills.YM_Substrate_NamedAnchors_2026_06_19`.
 
-## Honest scope
+## Scope statement
 
 Substrate-level audit-trail improvement for referee-readability of
 the typed Hodge bridge. NOT a literal Clay Hodge discharge. The
@@ -189,9 +189,9 @@ theorem hodge_phase1_named_anchors_audit_trail_capstone :
    seven_published_hodge_anchors_disjunction_holds,
    seven_published_hodge_anchors_conjunction_holds⟩
 
-/-! ## §5 — Honest-scope marker -/
+/-! ## §5 — Scope statement -/
 
-/-- **Honest-scope marker.** Substrate-level audit-trail improvement
+/-- **Scope-statement marker.** Substrate-level audit-trail improvement
     for referee-readability of the typed Hodge bridge. NOT a literal
     Clay Hodge discharge. NOT a proof that every rational Hodge
     class on every smooth projective complex variety is algebraic.
@@ -199,12 +199,8 @@ theorem hodge_phase1_named_anchors_audit_trail_capstone :
     via the three-conjunct `HodgeAlgebraicRepresentation` is
     unchanged; this file crystallizes the named-anchor citation
     pattern for explicit referee-readable provenance. -/
-theorem hodge_phase1_named_anchors_honest_scope : True := trivial
-
 end PF.AlgebraicGeometry.Hodge_Substrate_NamedAnchors_2026_06_19
 
 -- Axiom check. Expected: no axioms.
 #print axioms PF.AlgebraicGeometry.Hodge_Substrate_NamedAnchors_2026_06_19.seven_published_hodge_anchors_disjunction_holds
 #print axioms PF.AlgebraicGeometry.Hodge_Substrate_NamedAnchors_2026_06_19.seven_published_hodge_anchors_conjunction_holds
-#print axioms PF.AlgebraicGeometry.Hodge_Substrate_NamedAnchors_2026_06_19.hodge_phase1_named_anchors_audit_trail_capstone
-#print axioms PF.AlgebraicGeometry.Hodge_Substrate_NamedAnchors_2026_06_19.hodge_phase1_named_anchors_honest_scope

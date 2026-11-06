@@ -80,12 +80,7 @@ theorem power_tower_extension_wave_2026_06_17_capstone :
    PrincipiaTractalis.AlphaNSBSDHigherPowersBundle.α_NS_sixth,
    PrincipiaTractalis.AlphaNSBSDHigherPowersBundle.α_BSD_sixth⟩
 
-/-! ## §2 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file is a consolidation point only.
-    Each conjunct is a citable closed form proved in its dedicated
-    file; the wave capstone exposes them as one referee-reading point. -/
-theorem power_tower_extension_wave_2026_06_17_honest_scope : True := trivial
+/-! ## §2 — Scope statement -/
 
 end PowerTowerExtensionWave_2026_06_17
 end PrincipiaTractalis
@@ -93,5 +88,3 @@ end PrincipiaTractalis
 -- Axiom check.
 #print axioms
   PrincipiaTractalis.PowerTowerExtensionWave_2026_06_17.power_tower_extension_wave_2026_06_17_capstone
-#print axioms
-  PrincipiaTractalis.PowerTowerExtensionWave_2026_06_17.power_tower_extension_wave_2026_06_17_honest_scope

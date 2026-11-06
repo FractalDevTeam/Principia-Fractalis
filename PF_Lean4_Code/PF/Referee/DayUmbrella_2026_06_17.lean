@@ -112,17 +112,10 @@ theorem day_umbrella_2026_06_17_capstone :
     · exact PrincipiaTractalis.AllNineAxisUniquenessBundle.α_BSD_uniquely_three_pi_fourths
     · exact PrincipiaTractalis.AllNineAxisUniquenessBundle.α_NS_uniquely_three_pi_halves
 
-/-! ## §2 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file is a pure consolidation point
-    for the 2026-06-17 work day. No new mathematical content beyond
-    what the constituent files establish. -/
-theorem day_umbrella_2026_06_17_honest_scope : True := trivial
+/-! ## §2 — Scope statement -/
 
 end PF.Referee.DayUmbrella_2026_06_17
 
 -- Axiom check.
 #print axioms
   PF.Referee.DayUmbrella_2026_06_17.day_umbrella_2026_06_17_capstone
-#print axioms
-  PF.Referee.DayUmbrella_2026_06_17.day_umbrella_2026_06_17_honest_scope

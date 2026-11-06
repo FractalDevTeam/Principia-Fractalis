@@ -110,22 +110,10 @@ theorem unified_clay_closure_via_substrate_linkage_bulletproof
   · -- Hodge: unconditional
     exact PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_capstone_yields_Clay_Hodge_standard
 
-/-! ## §3 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — the bulletproof variant is a CONDITIONAL
-    REDUCTION on a 3-field hypothesis bundle of published open
-    conjectures (now conjugate-symmetry-compatible), NOT an unconditional
-    Clay discharge. The framework's substrate-rigidity thesis stands
-    independently of whether the three fields are ever individually
-    discharged. Bulletproofing fixes the inhabitability gap in the V3
-    encoding; it does not magically discharge the underlying open
-    mathematics. -/
-theorem unified_clay_closure_bulletproof_honest_scope : True := trivial
+/-! ## §3 — Scope statement -/
 
 end PF.Referee.UnifiedClayClosureLinkageBulletproof
 
 -- Axiom checks. Expected: `[propext, Classical.choice, Quot.sound]`.
 #print axioms
   PF.Referee.UnifiedClayClosureLinkageBulletproof.unified_clay_closure_via_substrate_linkage_bulletproof
-#print axioms
-  PF.Referee.UnifiedClayClosureLinkageBulletproof.unified_clay_closure_bulletproof_honest_scope

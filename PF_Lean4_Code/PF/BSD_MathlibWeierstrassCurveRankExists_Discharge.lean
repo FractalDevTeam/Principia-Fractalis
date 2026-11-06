@@ -31,7 +31,7 @@ construct a DIRECT trivial encoding using `trivialRankCertificate`
 (bypassing `Classical.choice`) so that both rank functions are
 provably the constant function `0` by `rfl`.
 
-## HONEST SCOPE (foregrounded — non-negotiable)
+## SCOPE (foregrounded — non-negotiable)
 
 This discharge is a **tautology** at the encoding level:
 
@@ -65,7 +65,7 @@ What this file **does** legitimately deliver:
     semantic-content upgrade of `RankCertificate`.
   * The composition with `trivialEncoding_clay_BSD_under_obstruction`
     is mechanically axiom-free.
-  * The honest scope statement — that the resulting Clay statement on
+  * The scope statement statement — that the resulting Clay statement on
     the trivial encoding is a tautology by construction — is
     foregrounded as an explicit theorem
     (`bsd_trivial_encoding_clay_is_tautological`).
@@ -120,7 +120,7 @@ theorem trivialRankCertificate_r_eq_zero (E : WeierstrassCurve ℚ) :
     This is an UNCONDITIONAL, AXIOM-FREE discharge — not a conditional
     or scaffolded one. The Prop is closed by direct construction.
 
-    HONEST SCOPE: the discharge is at the **shape** of `RankCertificate`
+    SCOPE: the discharge is at the **shape** of `RankCertificate`
     as currently typed (three `True`-shape fields + an unconstrained
     `r : ℕ`). It does NOT close the underlying BSD content; see
     `bsd_trivial_encoding_clay_is_tautological` for the
@@ -144,7 +144,7 @@ theorem mathlibWeierstrassCurveRankExists_discharged :
     `StandardBSDEncoding` whose underlying type is exactly
     `WeierstrassCurve ℚ`, and `Clay_BSD_Standard` holds on it.
 
-    HONEST SCOPE: the encoding's `algebraicRank` and `analyticRank`
+    SCOPE: the encoding's `algebraicRank` and `analyticRank`
     are both projections of `(Classical.choice _).r`. The Clay
     equality holds because both sides project the SAME chosen
     certificate's `r` (the equality is `rfl` after unfolding the
@@ -196,9 +196,9 @@ theorem clay_BSD_on_directTrivialBSDEncoding :
   intro E
   rfl
 
-/-! ## §5 — Foregrounded honest-scope theorem -/
+/-! ## §5 — Foregrounded scope-statement theorem -/
 
-/-- **★ HONEST SCOPE THEOREM ★** — the direct trivial-encoding Clay BSD
+/-- **★ SCOPE THEOREM ★** — the direct trivial-encoding Clay BSD
     discharge is a **tautology by construction**.
 
     Concretely: under `directTrivialBSDEncoding`, both rank functions
@@ -240,12 +240,12 @@ theorem bsd_trivial_encoding_clay_is_tautological :
     exhibits `Clay_BSD_Standard` axiom-free, with both rank functions
     provably constantly `0` (by `rfl`).
 
-    **(D4)** Honest-scope statement: under that direct encoding, BOTH
+    **(D4)** Scope-statement statement: under that direct encoding, BOTH
     ranks equal `0` for every curve, which is **false** for actual
     elliptic curves of positive rank — the Clay equality `0 = 0`
     is a tautology, NOT a discharge of the BSD conjecture.
 
-    **HONEST SCOPE** (foregrounded):
+    **SCOPE** (foregrounded):
 
     * `mathlibWeierstrassCurveRankExists_discharged` is an
       unconditional discharge of the NAMED Prop at its current type
@@ -271,7 +271,7 @@ theorem bsd_mathlibWeierstrassCurveRankExists_capstone :
     -- (D3) Direct trivial encoding with axiom-free Clay equality.
     Clay_BSD_Standard directTrivialBSDEncoding
     ∧
-    -- (D4) Honest-scope tautology: both ranks equal `0` constantly.
+    -- (D4) Scope-statement tautology: both ranks equal `0` constantly.
     (∃ E : StandardBSDEncoding,
         E.EllipticCurve = (WeierstrassCurve ℚ) ∧
         Clay_BSD_Standard E ∧
@@ -282,19 +282,6 @@ theorem bsd_mathlibWeierstrassCurveRankExists_capstone :
   · exact clay_BSD_on_trivial_encoding
   · exact clay_BSD_on_directTrivialBSDEncoding
   · exact bsd_trivial_encoding_clay_is_tautological
-
-/-- **Honest-scope marker** — the file delivers an unconditional
-    discharge of `MathlibWeierstrassCurveRankExists` at its current
-    type shape (via the trivial `r := 0` certificate per curve), the
-    composition with the existing conditional bridge to yield a
-    trivial-encoding Clay BSD discharge, a DIRECT trivial encoding
-    with both ranks provably constantly `0`, and the foregrounded
-    statement that this discharge is a TAUTOLOGY by construction:
-    `0 = 0` does not capture BSD content. The BSD content lives in
-    any future semantic upgrade of `RankCertificate.rankWitness`
-    from `True` to a Prop tying `r` to actual elliptic-curve
-    invariants. -/
-theorem bsd_mathlibWeierstrassCurveRankExists_honest_scope : True := trivial
 
 end PrincipiaTractalis.BSD_MathlibWeierstrassCurveRankExists_Discharge
 
@@ -319,5 +306,3 @@ end PrincipiaTractalis.BSD_MathlibWeierstrassCurveRankExists_Discharge
   PrincipiaTractalis.BSD_MathlibWeierstrassCurveRankExists_Discharge.bsd_trivial_encoding_clay_is_tautological
 #print axioms
   PrincipiaTractalis.BSD_MathlibWeierstrassCurveRankExists_Discharge.bsd_mathlibWeierstrassCurveRankExists_capstone
-#print axioms
-  PrincipiaTractalis.BSD_MathlibWeierstrassCurveRankExists_Discharge.bsd_mathlibWeierstrassCurveRankExists_honest_scope

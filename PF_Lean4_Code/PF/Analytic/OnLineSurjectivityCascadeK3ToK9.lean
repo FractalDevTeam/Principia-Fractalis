@@ -68,7 +68,7 @@ axiom-free, with each `t_{k+1} > 0` proved by `norm_num`.
     `cascade_extension_k3_to_k9_capstone` bundles all seven per-index
     discharges as one citable conjunction.
 
-## Honest scope
+## Scope statement
 
   * The discharge is at the level of a CONSTRUCTED witness
     `(α_unit, eigenvalues_Odlyzko10)`. Coincidence with the
@@ -320,7 +320,7 @@ theorem kth_atom_nine_at_Odlyzko10 :
 
     **(D9) k = 9 discharge** at t10_Odlyzko = 49.7738... .
 
-    HONEST SCOPE:
+    SCOPE:
       * Witness-level discharge on the single sequence
         `(α_unit, eigenvalues_Odlyzko10)`. Coincidence with the
         framework's canonical T₃^sym sequence is the preserved
@@ -389,13 +389,6 @@ theorem cascade_extension_k0_to_k9_bundle :
   kth_cascade_to_finite odlyzko10_oracle 9
     odlyzko10_oracle_positive_on_prefix
 
-/-- **Honest-scope marker** — the cascade extension to k ∈ {3, ..., 9}
-    is at the level of a constructed witness (`α_unit,
-    eigenvalues_Odlyzko10`); coincidence with the framework's canonical
-    T₃^sym eigenvalue sequence is the preserved spectral-realisation
-    open content. -/
-theorem cascade_extension_k3_to_k9_honest_scope : True := trivial
-
 end OnLineSurjectivityCascadeK3ToK9
 
 end PrincipiaTractalis
@@ -435,5 +428,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.OnLineSurjectivityCascadeK3ToK9.cascade_extension_k3_to_k9_capstone
 #print axioms
   PrincipiaTractalis.OnLineSurjectivityCascadeK3ToK9.cascade_extension_k0_to_k9_bundle
-#print axioms
-  PrincipiaTractalis.OnLineSurjectivityCascadeK3ToK9.cascade_extension_k3_to_k9_honest_scope

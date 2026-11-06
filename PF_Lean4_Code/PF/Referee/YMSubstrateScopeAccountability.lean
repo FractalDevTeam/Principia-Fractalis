@@ -9,7 +9,7 @@ The framework's Yang–Mills mass-gap discharge satisfies a typed 15-conjunct
 of `3/2`, NOT the literal Clay Yang–Mills statement on an arbitrary
 compact simple gauge group with a continuum-limit-derived mass gap.
 
-The honest scope is already partially documented in
+The scope statement is already partially documented in
 `Bridge5_YM_SubstrateDischarge.lean`'s 18-clause `PF_YM_Bridge5_honestScope`
 theorem. This file consolidates the substrate-vs-literal-Clay gap as
 three named typed Props and provides a single referee-readable scope
@@ -210,17 +210,7 @@ theorem PF_substrate_YM_scope_capstone :
    YM_wave56_typed_anchors_are_True_markers_hold,
    YM_mass_gap_is_structural_witness_value_holds⟩
 
-/-! ## §4 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file consolidates the
-    substrate-vs-literal-Clay YM scope distinction from Bridge 5's
-    18-clause `PF_YM_Bridge5_honestScope` into a tighter four-clause
-    referee-reading point parallel to the Hodge and NS accountability
-    files. The Bridge 5 substrate discharge is unchanged; the
-    SU(2) restriction, the Wave 56 typed-anchor pattern, and the
-    structural mass-gap-value status are now mechanically readable
-    at the typed-Prop level alongside the discharge itself. -/
-theorem PF_substrate_YM_scope_honest_scope : True := trivial
+/-! ## §4 — Scope statement -/
 
 end PF.Referee.YMSubstrateScopeAccountability
 
@@ -235,5 +225,3 @@ end PF.Referee.YMSubstrateScopeAccountability
   PF.Referee.YMSubstrateScopeAccountability.YM_mass_gap_is_structural_witness_value_holds
 #print axioms
   PF.Referee.YMSubstrateScopeAccountability.PF_substrate_YM_scope_capstone
-#print axioms
-  PF.Referee.YMSubstrateScopeAccountability.PF_substrate_YM_scope_honest_scope

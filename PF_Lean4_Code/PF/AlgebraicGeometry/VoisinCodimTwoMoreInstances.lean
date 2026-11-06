@@ -125,7 +125,7 @@ theorem quinticFourFoldInstance_complexDim :
     `representedCoefficient = c.rationalCoefficient` by construction,
     labelled `"QuinticFourfold_SubstrateLevelCycleClass"`.
 
-    Honest scope: this is the substrate-level typed-predicate
+    Scope statement: this is the substrate-level typed-predicate
     discharge, NOT a geometric resolution of the (2,2) Hodge conjecture
     on a general CY4. -/
 theorem quinticFourFold_VoisinCodimTwoCycleClassExistsHypothesis :
@@ -293,22 +293,7 @@ theorem exists_dim_three_four_five_VoisinCodimTwoCycleClassExistsHypothesis :
   · exact exists_dim_four_CY_with_VoisinCodimTwoCycleClassExistsHypothesis
   · exact exists_dim_five_abelian_with_VoisinCodimTwoCycleClassExistsHypothesis
 
-/-! ## §5 — Honest-scope marker and capstone -/
-
-/-- **Honest-scope marker** — the three new discharges are at the
-    substrate-level encoding of the typed predicate, identical in
-    pattern to the two prior discharges in `VoisinCodimTwoConcreteInstance`.
-
-      * `quinticFourFoldInstance` — substrate-level only; the geometric
-        (2,2) Hodge conjecture on a general CY4 is OPEN (Voisin 2007).
-      * `cmAbelianFourFoldInstance` — CLASSICALLY known via Mumford /
-        Künneth on a product of elliptic curves with CM.
-      * `cmAbelianFiveFoldInstance` — same classical Mumford / Künneth
-        argument extended to dim 5.
-
-    NONE of these resolve the open codim ≥ 2 Hodge conjecture on
-    general smooth projective varieties. -/
-theorem voisinCodimTwoMoreInstances_honest_scope : True := trivial
+/-! ## §5 — Scope statement and capstone -/
 
 /-- **★ VOISIN CODIM-2 MORE-INSTANCES DISCHARGE CAPSTONE ★** —
     `voisinCodimTwoMoreInstances_capstone`.
@@ -347,7 +332,7 @@ theorem voisinCodimTwoMoreInstances_honest_scope : True := trivial
         complexDim 5 (CM abelian 5-fold), each satisfying the typed
         Voisin codim ≥ 2 hypothesis axiom-free.
 
-    **HONEST SCOPE**: NOT a Clay discharge of the codim ≥ 2 Hodge
+    **SCOPE**: NOT a Clay discharge of the codim ≥ 2 Hodge
     conjecture. The CM abelian 4-fold and 5-fold cases are
     CLASSICALLY KNOWN (Mumford / Künneth on products of CM elliptic
     curves); the CY4 quintic-fourfold case is at the substrate level

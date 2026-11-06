@@ -156,14 +156,7 @@ theorem V2_to_V3_migration_capstone :
          PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding) :=
   ⟨V2_RH_bundle_field_is_obstructed, V3_supersedes_V2_on_clay_conjunction⟩
 
-/-! ## §4 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file does NOT remove the V2 closure
-    or its consumers. The V2 `unified_clay_closure_via_substrate_linkage`
-    theorem remains kernel-valid; what is documented here is the
-    structural uninhabitability of its hypothesis bundle on the RH field
-    and the V3 supersession providing an inhabitable alternative. -/
-theorem V2_to_V3_migration_honest_scope : True := trivial
+/-! ## §4 — Scope statement -/
 
 end PF.Referee.UnifiedClayClosureLinkageV2DeprecationNotice
 
@@ -174,5 +167,3 @@ end PF.Referee.UnifiedClayClosureLinkageV2DeprecationNotice
   PF.Referee.UnifiedClayClosureLinkageV2DeprecationNotice.V3_supersedes_V2_on_clay_conjunction
 #print axioms
   PF.Referee.UnifiedClayClosureLinkageV2DeprecationNotice.V2_to_V3_migration_capstone
-#print axioms
-  PF.Referee.UnifiedClayClosureLinkageV2DeprecationNotice.V2_to_V3_migration_honest_scope
