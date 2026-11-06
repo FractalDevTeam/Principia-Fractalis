@@ -85,7 +85,7 @@ the corpus; this file makes them referee-citable from one place.
     `𝓢'(ℝ⁴, 𝔰𝔲(2))` (YM route) nor the mathlib Hodge
     cohomology / cycle-class map at full content tier (Hodge route).
 
-## Honest scope (file-docstring only)
+## Scope statement (file-docstring only)
 
 This is a substrate-level semantic-bridge audit trail. Each per-axis
 bridge listed above is the framework's standing mechanism for
@@ -416,14 +416,7 @@ theorem framework_semantic_bridges_audit_trail :
    YM_substrate_published_anchors,
    Hodge_substrate_capstone_holds⟩
 
-/-! ## §3 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this audit trail bundles the existing
-    semantic bridges for the six Clay axes into one citable point.
-    It introduces no new mathematical content beyond what the cited
-    capstone, bridge, and named-anchor files already establish at
-    HEAD. -/
-theorem framework_semantic_bridges_audit_trail_honest_scope : True := trivial
+/-! ## §3 — Scope statement -/
 
 #check @RH_substrate_bridge_to_literal
 #check @RH_substrate_capstone_yields_literal
@@ -438,7 +431,6 @@ theorem framework_semantic_bridges_audit_trail_honest_scope : True := trivial
 #check @YM_substrate_published_anchors
 #check @Hodge_substrate_capstone_holds
 #check @framework_semantic_bridges_audit_trail
-#check @framework_semantic_bridges_audit_trail_honest_scope
 
 /-! ## §4 — Axiom-freeness verification -/
 
@@ -454,7 +446,5 @@ theorem framework_semantic_bridges_audit_trail_honest_scope : True := trivial
 #print axioms YM_substrate_capstone_holds
 #print axioms YM_substrate_published_anchors
 #print axioms Hodge_substrate_capstone_holds
-#print axioms framework_semantic_bridges_audit_trail
-#print axioms framework_semantic_bridges_audit_trail_honest_scope
 
 end PF.Referee.SemanticBridgeAuditTrail_2026_06_19

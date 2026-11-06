@@ -61,7 +61,7 @@ is an axiom or an empirical input, not a consequence.
 outright: `sin(π(φ+1/4)) ≠ 0`. So if the bare reality condition held at
 α_NP it could only be via `cos(π·α_NP) = −1/2`, which forces α_NP ∈ ℚ.
 
-## Honest scope
+## Scope statement
 
 §3 is a REDUCTION, not an elimination. It replaces one free rational (`1/4`)
 by one cross-sector postulate (T). The information content is the same real
@@ -422,7 +422,7 @@ theorem bare_route_at_alphaNP_forces_cos_branch
   · exact absurd hs sin_pi_alphaNP_ne_zero
   · exact hc
 
-/-! ## §8 — Honest-scope capstone -/
+/-! ## §8 — Scope-statement capstone -/
 
 /-- **What this file does and does not establish.**
 
@@ -444,8 +444,6 @@ theorem bare_route_at_alphaNP_forces_cos_branch
     * supply an independent motivation for the trace law (S2);
     * over-determine `α_NP` (S1 + S2 are exactly 2 conditions on 2 degrees
       of freedom). -/
-theorem alpha_NP_derivation_attempt_r122_honest_scope : True := trivial
-
 end PrincipiaFractalis.AlphaNPDerivationAttempt_r122
 
 -- Axiom checks. Expected: `[propext, Classical.choice, Quot.sound]`.

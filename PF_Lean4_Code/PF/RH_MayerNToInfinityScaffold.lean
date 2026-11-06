@@ -60,7 +60,7 @@ The literal Mayer kernel is constructed in
 integral against the kernel. We do NOT prove the operator is bounded /
 compact / nuclear — those are the mathlib Fredholm-theory gaps.
 
-## Honest scope (★ load-bearing disclaimer)
+## Scope statement (★ load-bearing disclaimer)
 
 This file is a SCAFFOLD, not a discharge:
 
@@ -131,7 +131,7 @@ The cascade composition with Wave 56-RH yields a SINGLE referee-citable
      referee-citable capstone.
 
  14. `rh_wave57_mayer_n_to_infinity_scaffold_honest_scope` — the
-     deliberately-trivial honest-scope marker.
+     deliberately-trivial scope-statement marker.
 
 ## Axiom budget
 
@@ -510,7 +510,7 @@ structure RH_Wave57_MayerNToInfinityScaffoldStatus : Prop where
           (Fredholm ∧ Mayer1991 ∧ shadow_lifts ∧ G2 ∧ G3) →
             RiemannHypothesis.
 
-    Honest scope:
+    Scope statement:
 
       * The cascade is axiom-free; what remains open is the conjunction
         `(Fredholm ∧ Mayer1991 ∧ shadow_lifts)` — the genuine
@@ -535,15 +535,7 @@ theorem rh_wave57_mayer_n_to_infinity_scaffold_capstone :
     full_cascade_to_G1 := mayer_full_cascade_discharges_injectivity_extension
     composed_cascade_to_RH := mayer_cascade_composed_with_wave56_discharges_RH }
 
-/-! ## §9 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — the Wave 57-RH-Mayer scaffold encodes
-    the literal Mayer 1991 §2 transfer-operator framework as a Lean
-    type and names the open analytic gaps; the cascade
-    `(Fredholm ∧ Mayer1991 ∧ shadow_lifts ∧ G2 ∧ G3) →
-    RiemannHypothesis` is axiom-free. The conjunction itself remains
-    OPEN at the genuine Clay frontier. -/
-theorem rh_wave57_mayer_n_to_infinity_scaffold_honest_scope : True := trivial
+/-! ## §9 — Scope statement -/
 
 /-! ## §10 — Wave 55B carrier reuse witness
 
@@ -590,8 +582,6 @@ end PrincipiaTractalis
   PrincipiaTractalis.RH_MayerNToInfinityScaffold.mayer_cascade_at_eigSeqMayer_discharges_G1
 #print axioms
   PrincipiaTractalis.RH_MayerNToInfinityScaffold.rh_wave57_mayer_n_to_infinity_scaffold_capstone
-#print axioms
-  PrincipiaTractalis.RH_MayerNToInfinityScaffold.rh_wave57_mayer_n_to_infinity_scaffold_honest_scope
 #print axioms
   PrincipiaTractalis.RH_MayerNToInfinityScaffold.mayerOperatorAtParameter_s
 #print axioms

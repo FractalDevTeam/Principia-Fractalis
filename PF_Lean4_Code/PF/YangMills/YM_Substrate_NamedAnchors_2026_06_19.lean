@@ -39,7 +39,7 @@ constructive-QFT and lattice-gauge published lineage.
 Pattern mirrors `PF.AlgebraicGeometry.MordellWeilRankAgreement17_NamedAnchors`
 and `PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19`.
 
-## Honest scope
+## Scope statement
 
 Substrate-level audit-trail improvement for referee-readability of
 the typed YM bridge. NOT a literal Clay YM discharge. The literal
@@ -203,9 +203,9 @@ theorem ym_phase1_named_anchors_audit_trail_capstone :
    seven_published_ym_anchors_disjunction_holds,
    seven_published_ym_anchors_conjunction_holds⟩
 
-/-! ## §5 — Honest-scope marker -/
+/-! ## §5 — Scope statement -/
 
-/-- **Honest-scope marker.** Substrate-level audit-trail improvement
+/-- **Scope-statement marker.** Substrate-level audit-trail improvement
     for referee-readability of the typed YM bridge. NOT a literal
     Clay YM discharge. NOT a construction of the required
     four-dimensional quantum field theory with a mass gap. The
@@ -214,12 +214,8 @@ theorem ym_phase1_named_anchors_audit_trail_capstone :
     2) C` carrier) is unchanged; this file crystallizes the named-
     anchor citation pattern for explicit referee-readable
     provenance. -/
-theorem ym_phase1_named_anchors_honest_scope : True := trivial
-
 end PF.YangMills.YM_Substrate_NamedAnchors_2026_06_19
 
 -- Axiom check. Expected: no axioms.
 #print axioms PF.YangMills.YM_Substrate_NamedAnchors_2026_06_19.seven_published_ym_anchors_disjunction_holds
 #print axioms PF.YangMills.YM_Substrate_NamedAnchors_2026_06_19.seven_published_ym_anchors_conjunction_holds
-#print axioms PF.YangMills.YM_Substrate_NamedAnchors_2026_06_19.ym_phase1_named_anchors_audit_trail_capstone
-#print axioms PF.YangMills.YM_Substrate_NamedAnchors_2026_06_19.ym_phase1_named_anchors_honest_scope

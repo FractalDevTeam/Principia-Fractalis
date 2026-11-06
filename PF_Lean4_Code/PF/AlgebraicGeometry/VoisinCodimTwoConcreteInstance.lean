@@ -271,14 +271,7 @@ theorem exists_quintic_with_Voisin2007GeneralQuinticCycleClassExistsHypothesis :
   ⟨dworkPencilConcrete 0,
    dworkPencil_Voisin2007GeneralQuinticCycleClassExistsHypothesis 0⟩
 
-/-! ## §6 — Honest-scope marker and capstone -/
-
-/-- **Honest-scope marker** — discharge is genuine at the substrate
-    level on TWO classically-known instances (abelian 3-fold via
-    Mumford / Künneth, Dwork-pencil quintic via Picard rank 1 +
-    Lefschetz). It does NOT touch the open Voisin 2007 obstruction
-    on a GENERAL smooth quintic or general smooth CY3. -/
-theorem voisinCodimTwoConcreteInstance_honest_scope : True := trivial
+/-! ## §6 — Scope statement and capstone -/
 
 /-- **★ VOISIN CODIM-2 CONCRETE-INSTANCE DISCHARGE CAPSTONE ★** —
     `voisinCodimTwoConcreteInstance_capstone`.
@@ -314,7 +307,7 @@ theorem voisinCodimTwoConcreteInstance_honest_scope : True := trivial
           * `∃ X, VoisinCodimTwoCycleClassExistsHypothesis X`
           * `∃ Q, Voisin2007GeneralQuinticCycleClassExistsHypothesis Q`
 
-    **HONEST SCOPE**: NOT a Clay discharge of the codim ≥ 2 Hodge
+    **SCOPE**: NOT a Clay discharge of the codim ≥ 2 Hodge
     conjecture. The two named instances are CLASSICALLY KNOWN cases
     (abelian by Mumford, Dwork pencil by Picard rank 1 + Lefschetz);
     the general-CY3 Voisin 2007 obstruction is unchanged. The

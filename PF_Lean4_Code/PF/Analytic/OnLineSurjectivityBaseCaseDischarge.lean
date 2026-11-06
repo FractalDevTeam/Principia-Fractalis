@@ -112,7 +112,7 @@ by the existential quantification over `(α, eigenvalues)` in this file.
     open content factors entirely through the oracle's
     completeness over the actual ζ-zero set.
 
-## Honest scope (per 2026-05-25 referee-proof feedback)
+## Scope statement (per 2026-05-25 referee-proof feedback)
 
   * The discharge holds for the CONSTRUCTED witness `α_unit +
     eigenvalues_anchoredAt`, NOT for the framework's canonical T₃^sym
@@ -414,7 +414,7 @@ theorem onLineSurjectivityClause_via_per_zero_cascade
        complete + all-positive oracle), and hence discharges
        `OnLineSurjectivityClause` on the constructed witness.
 
-    **HONEST SCOPE** (per 2026-05-25 referee-proof feedback):
+    **SCOPE** (per 2026-05-25 referee-proof feedback):
 
     * The discharge is at the LEVEL OF A CONSTRUCTED WITNESS
       `(α_unit, eigenvalues_anchoredAt _)` or
@@ -472,11 +472,6 @@ theorem base_case_discharge_capstone :
   · exact firstZetaZeroInEigenvalueImage_exists
   · exact onLineSurjectivityClause_at_positive_oracle_witness
 
-/-- **Honest-scope marker** — the base-case discharge is at the level
-    of a constructed witness; the open content is preserved as the
-    coincidence of the canonical T₃^sym sequence with the witness. -/
-theorem base_case_discharge_honest_scope : True := trivial
-
 end OnLineSurjectivityBaseCaseDischarge
 
 end PrincipiaTractalis
@@ -508,5 +503,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.OnLineSurjectivityBaseCaseDischarge.onLineSurjectivityClause_via_per_zero_cascade
 #print axioms
   PrincipiaTractalis.OnLineSurjectivityBaseCaseDischarge.base_case_discharge_capstone
-#print axioms
-  PrincipiaTractalis.OnLineSurjectivityBaseCaseDischarge.base_case_discharge_honest_scope

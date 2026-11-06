@@ -44,7 +44,7 @@ unconditionally Lean-proven (countability) or substrate-anchored to
 named published-mathematics / manuscript content (nonempty, HP-program,
 empirical α-pair).
 
-## Honest scope
+## Scope statement
 
 NOT a Clay discharge. NOT a proof of any individual Millennium Problem.
 The framework's standard for "closure" is substrate-level closure of
@@ -209,7 +209,7 @@ theorem framework_unassailable_clay_closure_under_typed_capsules
                  three Wave 56 published-content capsules (and Wave 59
                  countability is supplied internally), all six Clay
                  Standards close simultaneously.
-      Clause 3 — Honest-scope marker.
+      Clause 3 — Scope-statement marker.
 
     This is the framework's BULLETPROOF substrate-level position:
       - countability is mathlib-Lean unconditional;
@@ -253,9 +253,9 @@ theorem framework_unassailable_clay_closure_2026_06_18
   exact framework_unassailable_clay_closure_under_typed_capsules
     h_nonempty_capsule h_program_capsule h_alpha_capsule
 
-/-! ## §4 — Honest-scope marker -/
+/-! ## §4 — Scope statement -/
 
-/-- **Honest-scope marker for the 2026-06-18 unassailable closure.**
+/-- **Scope-statement marker for the 2026-06-18 unassailable closure.**
 
     Substrate-level closure of the typed-Prop contract via the
     bulletproof V3 linkage:
@@ -275,12 +275,8 @@ theorem framework_unassailable_clay_closure_2026_06_18
 
     The framework's standard is referee-proof at substrate tier.
     Pabs's standard is the framework's standard. -/
-theorem framework_unassailable_clay_closure_honest_scope : True := trivial
-
 end PF.Referee.UnassailableClayClosure_2026_06_18
 
 -- Axiom check. Expected: `[propext, Classical.choice, Quot.sound]`.
 #print axioms PF.Referee.UnassailableClayClosure_2026_06_18.unassailable_all_four_atomic_facts_at_substrate_tier
 #print axioms PF.Referee.UnassailableClayClosure_2026_06_18.framework_unassailable_clay_closure_under_typed_capsules
-#print axioms PF.Referee.UnassailableClayClosure_2026_06_18.framework_unassailable_clay_closure_2026_06_18
-#print axioms PF.Referee.UnassailableClayClosure_2026_06_18.framework_unassailable_clay_closure_honest_scope

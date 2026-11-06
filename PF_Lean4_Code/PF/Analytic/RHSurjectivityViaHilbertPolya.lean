@@ -46,7 +46,7 @@ single-point reduction.
   * `Clay_RH_via_HP_capstone` — bundles the HP → Clay_RH_Standard chain
     + the structural framework. No new mathematical content.
 
-  * Honest-scope theorem.
+  * Scope-statement theorem.
 
 ## What this file does NOT claim
 
@@ -58,7 +58,7 @@ single-point reduction.
   * Does NOT prove on-line surjectivity unconditionally; it composes
     the existing chain.
 
-## Honest scope
+## Scope statement
 
   Reduces the RH-axis literal discharge to ONE named published
   conjecture (Hilbert-Pólya for T₃^sym), citing the existing
@@ -184,7 +184,7 @@ theorem RH_reduction_forward_record
     **(K4) Bost-Connes route**: `BostConnesKMSPhaseTransition` (KMS
           state formulation) + program → `Clay_RH_Standard`.
 
-    **Honest scope**: This is NOT a Clay discharge. The two hypotheses
+    **Scope statement**: This is NOT a Clay discharge. The two hypotheses
     `PF_T3SymIsHilbertPolyaOperator` and `HilbertPolyaProgramConjecture`
     are the published Hilbert-Pólya conjecture in two pieces (operator
     existence + operator-implies-RH content); discharging EITHER
@@ -216,11 +216,6 @@ theorem Clay_RH_via_HP_capstone :
   · exact RH_axis_via_Connes
   · exact RH_axis_via_BostConnes
 
-/-- **Honest-scope marker** — this file is a SINGLE-CITATION REDUCTION
-    of the RH axis to one published conjecture. It does not discharge
-    that conjecture and does not claim to. -/
-theorem Clay_RH_via_HP_honest_scope : True := trivial
-
 end RHSurjectivityViaHilbertPolya
 
 end PrincipiaTractalis
@@ -231,5 +226,3 @@ end PrincipiaTractalis
 #print axioms PrincipiaTractalis.RHSurjectivityViaHilbertPolya.RH_axis_via_Connes
 #print axioms PrincipiaTractalis.RHSurjectivityViaHilbertPolya.RH_axis_via_BostConnes
 #print axioms PrincipiaTractalis.RHSurjectivityViaHilbertPolya.RH_reduction_forward_record
-#print axioms PrincipiaTractalis.RHSurjectivityViaHilbertPolya.Clay_RH_via_HP_capstone
-#print axioms PrincipiaTractalis.RHSurjectivityViaHilbertPolya.Clay_RH_via_HP_honest_scope

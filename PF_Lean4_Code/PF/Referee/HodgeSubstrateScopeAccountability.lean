@@ -5,7 +5,7 @@
 
 The framework's Hodge discharges are SUBSTRATE-LEVEL closures, not the
 literal Clay Hodge conjecture on arbitrary smooth projective complex
-varieties. The honest scope was previously documented only in comments
+varieties. The scope statement was previously documented only in comments
 inside `HodgeCapstoneTypedBridge.lean`; this file lifts that distinction
 to typed Lean theorems so a referee can mechanically read what is and
 is not claimed.
@@ -77,7 +77,7 @@ frontier.
 
 This file does NOT introduce new mathematical content beyond what is
 already proven in the framework's substrate discharges; it lifts the
-honest-scope distinction from comments to typed theorems.
+scope-statement distinction from comments to typed theorems.
 
 ZERO project axioms. Kernel-only `[propext, Classical.choice, Quot.sound]`
 for the discharge bundle; the scope-capstone is propositionally trivial
@@ -180,14 +180,7 @@ theorem PF_substrate_hodge_scope_capstone :
     Hodge_substrate_clay_gap :=
   ⟨PF_substrate_hodge_six_witness_bundle, rfl, Hodge_substrate_clay_gap_holds_at_substrate⟩
 
-/-! ## §4 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file LIFTS the substrate-vs-literal-
-    Clay distinction from `HodgeCapstoneTypedBridge.lean`'s prose
-    comments to typed Lean theorems. The framework's substrate-level
-    Hodge claim is unchanged; what is new is its mechanical readability
-    at the typed-Prop level. -/
-theorem PF_substrate_hodge_scope_honest_scope : True := trivial
+/-! ## §4 — Scope statement -/
 
 end PF.Referee.HodgeSubstrateScopeAccountability
 
@@ -198,5 +191,3 @@ end PF.Referee.HodgeSubstrateScopeAccountability
   PF.Referee.HodgeSubstrateScopeAccountability.Hodge_substrate_clay_gap_holds_at_substrate
 #print axioms
   PF.Referee.HodgeSubstrateScopeAccountability.PF_substrate_hodge_scope_capstone
-#print axioms
-  PF.Referee.HodgeSubstrateScopeAccountability.PF_substrate_hodge_scope_honest_scope

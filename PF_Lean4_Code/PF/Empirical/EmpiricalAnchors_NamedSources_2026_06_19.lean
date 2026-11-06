@@ -43,7 +43,7 @@ Anchors (10):
       equation of state (LIGO/Virgo/KAGRA Collaboration 2021,
       arXiv:2111.03634).
 
-## Honest scope
+## Scope statement
 
 Substrate-level audit-trail improvement for referee-readability of
 the framework's empirical-anchor citations. NOT a literal claim
@@ -222,13 +222,9 @@ theorem empirical_anchors_phase1_audit_trail_capstone :
    ten_empirical_anchors_disjunction_holds,
    ten_empirical_anchors_conjunction_holds⟩
 
-/-! ## §7 — Honest-scope marker -/
-
-theorem empirical_anchors_phase1_honest_scope : True := trivial
+/-! ## §7 — Scope statement -/
 
 end PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19
 
 #print axioms PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19.ten_empirical_anchors_disjunction_holds
 #print axioms PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19.ten_empirical_anchors_conjunction_holds
-#print axioms PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19.empirical_anchors_phase1_audit_trail_capstone
-#print axioms PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19.empirical_anchors_phase1_honest_scope

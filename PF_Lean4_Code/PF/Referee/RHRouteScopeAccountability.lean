@@ -229,17 +229,7 @@ theorem PF_substrate_RH_route_scope_capstone :
    RH_four_HP_formulations_collapse_holds,
    RH_HP_program_is_typed_implication_holds⟩
 
-/-! ## §4 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file consolidates the V3 RH route's
-    substrate-vs-literal-Clay distinctions into a referee-reading
-    point parallel to the Hodge, NS, YM, and BSD accountability files.
-    The V3 RH route is unchanged; the abstract-spectrum encoding, the
-    four-formulation collapse, and the HP-implies-RH typed implication
-    are now mechanically readable at the typed-Prop level alongside
-    the V2 obstruction file
-    (`RHSurjectivityArithmeticProgressionObstruction`). -/
-theorem PF_substrate_RH_route_scope_honest_scope : True := trivial
+/-! ## §4 — Scope statement -/
 
 end PF.Referee.RHRouteScopeAccountability
 
@@ -254,5 +244,3 @@ end PF.Referee.RHRouteScopeAccountability
   PF.Referee.RHRouteScopeAccountability.RH_HP_program_is_typed_implication_holds
 #print axioms
   PF.Referee.RHRouteScopeAccountability.PF_substrate_RH_route_scope_capstone
-#print axioms
-  PF.Referee.RHRouteScopeAccountability.PF_substrate_RH_route_scope_honest_scope

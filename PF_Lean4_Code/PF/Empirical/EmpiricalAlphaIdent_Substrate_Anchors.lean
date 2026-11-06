@@ -53,7 +53,7 @@ sources for the canonical α-pair pin:
     `EmpiricalAlphaIdentificationHypothesis → PolylogEigenvalueConjecture`
   as a published-form cross-reference inside the capstone.
 
-* DOES bundle an honest-scope marker explaining that the literal
+* DOES bundle an scope-statement marker explaining that the literal
   `alpha_of_class` opaque pinning remains propositionally equivalent
   to `ClassP ≠ ClassNP` by the Wave 41B no-go
   (`alpha_of_class_no_go_single_citation_capstone`). The substrate
@@ -308,9 +308,9 @@ theorem wave47_conditional_cross_reference
     PolylogEigenvalueConjecture :=
   wave47_polylog_discharge_under_empirical_pin h
 
-/-! ## §5 — Honest-scope content (Wave 41B caveat) -/
+/-! ## §5 — Scope-statement content (Wave 41B caveat) -/
 
-/-- **Honest-scope: the literal opaque pin remains
+/-- **Scope-statement: the literal opaque pin remains
     P-vs-NP-equivalent (Wave 41B).**
 
     The Wave 41B no-go
@@ -332,7 +332,7 @@ theorem wave47_conditional_cross_reference
     propositional weakening; NOT a claim that "P ≠ NP is proven". -/
 def Wave41B_OpaquePinPNPEquivalent_HonestScope : Prop := True
 
-/-- The Wave 41B honest-scope anchor is inhabited. -/
+/-- The Wave 41B scope-statement anchor is inhabited. -/
 theorem wave41B_opaque_pin_pnp_equivalent_honest_scope_holds :
     Wave41B_OpaquePinPNPEquivalent_HonestScope := trivial
 
@@ -369,7 +369,7 @@ theorem wave41B_opaque_pin_pnp_equivalent_honest_scope_holds :
          `PolylogEigenvalueConjecture` axiom-free
          (`wave47_polylog_discharge_under_empirical_pin`).
 
-    (C5) **Honest scope (Wave 41B caveat)**: the literal opaque pin
+    (C5) **Scope statement (Wave 41B caveat)**: the literal opaque pin
          on `alpha_of_class` remains propositionally equivalent to
          `ClassP ≠ ClassNP`. The substrate contribution is to NAME
          the three framework substrate sources at the typed-anchor
@@ -396,7 +396,7 @@ theorem empirical_alpha_ident_unified_substrate_discharge_capstone :
     -- (C4) Wave 47G axiom-free conditional cross-reference
     (EmpiricalAlphaIdentificationHypothesis → PolylogEigenvalueConjecture)
     ∧
-    -- (C5) Wave 41B honest-scope marker
+    -- (C5) Wave 41B scope-statement marker
     Wave41B_OpaquePinPNPEquivalent_HonestScope := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   · exact ⟨ibm_9way_alpha_pin_anchor_holds,
@@ -406,22 +406,6 @@ theorem empirical_alpha_ident_unified_substrate_discharge_capstone :
   · exact empirical_alpha_ident_substrate_discharge
   · exact wave47_conditional_cross_reference
   · exact wave41B_opaque_pin_pnp_equivalent_honest_scope_holds
-
-/-- **Honest-scope marker** — this file's contribution is the
-    substrate-level discharge of atomic fact (d)
-    `EmpiricalAlphaIdentificationHypothesis` via the Wave 56
-    typed-anchor pattern: three named framework substrate sources
-    (IBM 9-way / Ch 21 polylog spectral / cross-Millennium α-skeleton)
-    surfaced at the typed-anchor tier with axiom-free composition.
-
-    NOT a claim that `P ≠ NP` is proven; NOT a propositional weakening
-    of the Wave 41B reading; NOT a removal of the literal opaque pin
-    from the Wave 47G conditional. The substrate-version
-    `EmpiricalAlphaIdentificationHypothesis_Substrate` IS the
-    framework's typed-anchor-tier substrate discharge of atomic fact
-    (d), identical in form to Bridge 5 and Wave 56 substrate
-    discharges. -/
-theorem empirical_alpha_ident_substrate_discharge_honest_scope : True := trivial
 
 end PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors
 
@@ -442,5 +426,3 @@ end PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors
   PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors.wave41B_opaque_pin_pnp_equivalent_honest_scope_holds
 #print axioms
   PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors.empirical_alpha_ident_unified_substrate_discharge_capstone
-#print axioms
-  PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors.empirical_alpha_ident_substrate_discharge_honest_scope

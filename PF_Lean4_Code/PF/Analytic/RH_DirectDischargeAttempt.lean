@@ -93,7 +93,7 @@ it ALSO encodes RH itself.
     an RH-containing hypothesis, consistent with the
     `surjectivity_factoring_iff_on_line` structure.
 
-## Honest scope
+## Scope statement
 
   * The discharge is CONDITIONAL on the existence of a strip-complete
     positive oracle. Its existence is logically equivalent to RH;
@@ -427,15 +427,6 @@ theorem rh_direct_discharge_attempt_capstone :
   · exact Clay_RiemannHypothesis_Standard_via_SCPO
   · exact stripCompletePositiveOracleExists_iff
 
-/-- **Honest-scope marker** — the discharge is at the level of a
-    constructed witness AND is CONDITIONAL on
-    `StripCompletePositiveOracleExists`, which is logically equivalent
-    to RH itself. The cascade composition demonstrates the structural
-    coherence of the Wave 58 infrastructure but does NOT unconditionally
-    discharge RH; the residual is the precise off-line-zero exclusion
-    content that `surjectivity_factoring_iff_on_line` already isolates. -/
-theorem rh_direct_discharge_attempt_honest_scope : True := trivial
-
 end RH_DirectDischargeAttempt
 
 end PrincipiaTractalis
@@ -463,5 +454,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.RH_DirectDischargeAttempt.stripCompletePositiveOracleExists_iff
 #print axioms
   PrincipiaTractalis.RH_DirectDischargeAttempt.rh_direct_discharge_attempt_capstone
-#print axioms
-  PrincipiaTractalis.RH_DirectDischargeAttempt.rh_direct_discharge_attempt_honest_scope

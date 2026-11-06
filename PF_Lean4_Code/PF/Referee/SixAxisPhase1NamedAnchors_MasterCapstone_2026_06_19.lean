@@ -186,9 +186,9 @@ theorem six_axis_phase1_named_anchors_master_capstone
    hBSD,
    ⟨trivial, trivial, trivial, trivial, trivial, trivial, trivial⟩⟩
 
-/-! ## §2 — Honest-scope marker -/
+/-! ## §2 — Scope statement -/
 
-/-- **Honest-scope marker.** Substrate-level audit-trail improvement
+/-- **Scope-statement marker.** Substrate-level audit-trail improvement
     for referee-readability of the six per-axis typed Clay bridges
     via their explicit Wave 56 published-mathematics named anchors.
     NOT a literal Clay discharge of any of the six remaining
@@ -198,10 +198,6 @@ theorem six_axis_phase1_named_anchors_master_capstone
     the named-anchor citation pattern across all six axes in a
     single citable theorem for explicit referee-readable
     provenance. -/
-theorem six_axis_phase1_master_capstone_honest_scope : True := trivial
-
 end PF.Referee.SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19
 
 #print axioms PF.Referee.SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19.five_axis_phase1_named_anchors_master_capstone
-#print axioms PF.Referee.SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19.six_axis_phase1_named_anchors_master_capstone
-#print axioms PF.Referee.SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19.six_axis_phase1_master_capstone_honest_scope

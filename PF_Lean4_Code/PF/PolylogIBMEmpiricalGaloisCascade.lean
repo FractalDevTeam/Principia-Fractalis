@@ -61,7 +61,7 @@ Their conjunction propositionally implies the empirical pin
 `EmpiricalAlphaIdentificationHypothesis` of Wave 47G, which
 discharges `PolylogEigenvalueConjecture` axiom-free.
 
-## Honest scope
+## Scope statement
 
 This is a STRUCTURAL/PROPOSITIONAL cascade. It does NOT discharge
 `PolylogEigenvalueConjecture` unconditionally — by the Wave 41B
@@ -345,7 +345,7 @@ theorem. -/
          conditional discharge (which is at least as strong as
          P-vs-NP separation by Wave 41B).
 
-    Honest scope: this is the empirical-input → algebraic-conjecture
+    Scope statement: this is the empirical-input → algebraic-conjecture
     cascade. It does NOT discharge `PolylogEigenvalueConjecture`
     unconditionally — by the Wave 41B no-go, no such discharge is
     possible without implying `ClassP ≠ ClassNP`. The cascade's
@@ -391,14 +391,6 @@ theorem polylog_ibm_empirical_galois_cascade_capstone :
            sigma_sqrt5_conjugate_of_alpha_NP_distinct_from_canonical.2⟩
   · exact cascade_implies_P_neq_NP
 
-/-- **Honest-scope marker** — the cascade is the single-theorem
-    formalisation of the IBM-empirical-input → Galois-orbit
-    structural chain into `PolylogEigenvalueConjecture`. It does
-    not unconditionally discharge any Millennium problem; the
-    cascade hypotheses are conditional, and propositionally the
-    cascade is as strong as P ≠ NP. -/
-theorem polylog_ibm_empirical_galois_cascade_honest_scope : True := trivial
-
 end PrincipiaTractalis.PolylogIBMEmpiricalGaloisCascade
 
 -- Axiom checks. Expected for every theorem: `[propext, Classical.choice, Quot.sound]`.
@@ -422,5 +414,3 @@ end PrincipiaTractalis.PolylogIBMEmpiricalGaloisCascade
   PrincipiaTractalis.PolylogIBMEmpiricalGaloisCascade.IBM_hardware_input_implies_polylog_and_P_neq_NP
 #print axioms
   PrincipiaTractalis.PolylogIBMEmpiricalGaloisCascade.polylog_ibm_empirical_galois_cascade_capstone
-#print axioms
-  PrincipiaTractalis.PolylogIBMEmpiricalGaloisCascade.polylog_ibm_empirical_galois_cascade_honest_scope

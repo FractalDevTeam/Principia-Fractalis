@@ -88,7 +88,7 @@ goal.
       (4) explicit non-discharge marker;
       (5) framework-as-headline acknowledgment.
 
-  * Honest-scope marker.
+  * Scope-statement marker.
 
 ZERO project axioms. Kernel-only `[propext, Classical.choice, Quot.sound]`.
 -/
@@ -150,7 +150,7 @@ theorem framework_real_claim_2026_06_17_capstone :
           PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSDEncodingV5 ∧
         PF.Referee.StandardClayStatements.Clay_Hodge_Standard
           PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding) ∧
-    -- (4) Non-discharge marker (explicit `True`-tagged honest scope).
+    -- (4) Non-discharge marker (explicit `True`-tagged scope statement).
     True ∧
     -- (5) Framework-first marker (explicit `True`-tagged philosophy).
     True :=
@@ -164,25 +164,10 @@ theorem framework_real_claim_2026_06_17_capstone :
    trivial,
    trivial⟩
 
-/-! ## §2 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file makes the framework's actual
-    claim explicit at the typed-Prop level. It does NOT claim more
-    than the framework establishes:
-      * Substrate ToE forced-uniqueness ✓
-      * Cross-axis algebraic locus ✓
-      * Conditional six-axis Clay closure ✓
-      * Explicit non-Clay-discharge marker ✓
-
-    The framework's headline is the substrate ToE. The Clay results
-    are conditional sub-stories. Both are referee-proof at their
-    respective scopes. -/
-theorem framework_real_claim_2026_06_17_honest_scope : True := trivial
+/-! ## §2 — Scope statement -/
 
 end PF.Referee.FrameworkRealClaim_2026_06_17
 
 -- Axiom check.
 #print axioms
   PF.Referee.FrameworkRealClaim_2026_06_17.framework_real_claim_2026_06_17_capstone
-#print axioms
-  PF.Referee.FrameworkRealClaim_2026_06_17.framework_real_claim_2026_06_17_honest_scope

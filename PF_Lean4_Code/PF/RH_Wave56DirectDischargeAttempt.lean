@@ -65,7 +65,7 @@ so that the named-open shortest chain (G1) ∧ (G2) ∧ (G3) implies
 the load-bearing T₃^sym conjecture, and via the existing
 `riemann_hypothesis_via_named_surjectivity` implies `RiemannHypothesis`.
 
-## Honest scope (★ load-bearing disclaimer)
+## Scope statement (★ load-bearing disclaimer)
 
 This file is the framework's MOST AGGRESSIVE RH attack:
 
@@ -123,7 +123,7 @@ remains open is whether `RHShortestChain` itself holds.
      final referee-citable capstone bundling all above.
 
  10. `rh_wave56_direct_discharge_attempt_honest_scope` — the
-     deliberately-trivial honest-scope marker.
+     deliberately-trivial scope-statement marker.
 
 ## Axiom budget
 
@@ -350,7 +350,7 @@ theorem G1_iff_G3 (α : ScalingParameter) (eigenvalues : ℕ → ℝ) :
     `RHShortestChain ↔ G1` — the three named gaps collapse to ONE
     Clay-grade gap (the carrier-surjectivity claim).
 
-    Honest scope: the Wave 56 file names three gaps because they come
+    Scope statement: the Wave 56 file names three gaps because they come
     from three DIFFERENT framings (Wave 55B Mayer N→∞, Wave 54A Hardy
     discrete-Dirac, Wave 53A continuous-measure). At the Prop level
     they are the SAME content. This reduces the framework's named-RH-residual
@@ -518,7 +518,7 @@ theorem hundred_forty_three_problems_probability_bound_imported :
     * All six Wave 55 anchors (55B injectivity, 55B-emp IBM α_RH,
       54A discrete Dirac, 53A continuous, 55G discriminant,
       Ch 17 consciousness) are bundled as theorem-level imports.
-    * Honest scope: the chain ITSELF is open; each clause is
+    * Scope statement: the chain ITSELF is open; each clause is
       Clay-grade. -/
 structure RH_Wave56_DirectDischargeAttemptStatus : Prop where
   /-- Wave 55B Mayer carrier is injective. -/
@@ -586,7 +586,7 @@ structure RH_Wave56_DirectDischargeAttemptStatus : Prop where
     The 143-problem empirical capstone (universal fractal coherence
     + 10⁻⁴³ probability bound) is the empirical-backbone witness.
 
-    Honest scope:
+    Scope statement:
 
       * The cascade `RHShortestChain → RiemannHypothesis` is
         axiom-free; what remains open is whether `RHShortestChain`
@@ -617,16 +617,7 @@ theorem rh_wave56_direct_discharge_attempt_capstone :
     cascade_to_surjectivity := rh_shortest_chain_discharges_surjectivity
     cascade_to_RH := rh_shortest_chain_discharges_riemann_hypothesis }
 
-/-! ## §7 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — the Wave 56 direct-discharge attempt is
-    the framework's most aggressive RH attack via the 3-clause
-    shortest chain `RHShortestChain`. The cascade is axiom-free; the
-    chain itself remains OPEN, with each clause Clay-grade.
-
-    The Wave 52B Hardy-irrationality obstruction is UNCHANGED. The
-    Clay Riemann Hypothesis problem remains OPEN. -/
-theorem rh_wave56_direct_discharge_attempt_honest_scope : True := trivial
+/-! ## §7 — Scope statement -/
 
 /-! ## §8 — Axiom-freeness verification -/
 
@@ -666,5 +657,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.hundred_forty_three_problems_imported
 #print axioms
   PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.hundred_forty_three_problems_probability_bound_imported
-#print axioms
-  PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.rh_wave56_direct_discharge_attempt_honest_scope

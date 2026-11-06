@@ -80,7 +80,7 @@ analytic-real-period agreement axiom-free at the placeholder layer
 encoded; ∏c_p = 4 by LMFDB; #tors = 4 by Wave 55F; L(E,1) bracket
 by Wave 53F; Ω = literal LMFDB value encoded as a Prop).
 
-## Honest scope (foregrounded)
+## Scope statement (foregrounded)
 
 ### What this DOES
 
@@ -689,7 +689,7 @@ theorem bsdAnchorsRationalConsistency_holds : BSDAnchorsRationalConsistency := b
     **(C8)** The LMFDB anchors are mutually consistent at the
     rational level (Ω · ∏c_p ≈ L · #tors² to 9-decimal precision).
 
-    **HONEST SCOPE** (foregrounded):
+    **SCOPE** (foregrounded):
 
     * The rank-2 and rank-3 typed certificates are inhabited at
       the framework's PLACEHOLDER LAYER: the rank-witness/L-value/
@@ -771,15 +771,6 @@ theorem bsd_clay_literal_closure_attempt_capstone :
   · exact bsd_E5077a1_via_typed_certificate
   · exact bsdLeadingTermFormula_at_E32a3_holds
   · exact bsdAnchorsRationalConsistency_holds
-
-/-- **Honest-scope marker** — the file produces axiom-free typed
-    certificates on E_{389.a1} at rank 2 and E_{5077.a1} at rank 3
-    by composing explicit rational-point witnesses with the encoded
-    higher-rank BSD literature Props (Bhargava-Skinner-Zhang 2014,
-    higher-rank Kolyvagin), plus a typed leading-term shape on
-    E_{32.a3} via per-invariant LMFDB / Coates-Wiles anchors with
-    rational-level mutual consistency. NOT a Clay BSD discharge. -/
-theorem bsd_clay_literal_closure_attempt_honest_scope : True := trivial
 
 end BSD_ClayLiteralClosureAttempt
 end PrincipiaTractalis

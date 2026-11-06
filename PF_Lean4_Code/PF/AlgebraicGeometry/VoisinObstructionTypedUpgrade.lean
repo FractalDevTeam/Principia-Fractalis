@@ -282,19 +282,7 @@ def liftQuinticToSmoothProjVariety
   dim_ge_three := by norm_num
   varietyLabel := Q.equationLabel
 
-/-! ## §5 — Honest-scope marker and capstone -/
-
-/-- **Honest-scope marker** — the two typed hypotheses
-    `VoisinCodimTwoCycleClassExistsHypothesis` and
-    `Voisin2007GeneralQuinticCycleClassExistsHypothesis` encode the
-    genuine open content (Voisin 2007 obstruction); they are NOT
-    proven unconditionally. The conversion theorems to the original
-    `True`-shaped Props are trivial.
-
-    The contribution of this file is to expose the genuine geometric
-    statement at the type level, replacing two `True`-shaped
-    placeholders with typed Props that referees can pin. -/
-theorem voisinObstructionTypedUpgrade_honest_scope : True := trivial
+/-! ## §5 — Scope statement and capstone -/
 
 /-- **★ VOISIN OBSTRUCTION TYPED UPGRADE CAPSTONE ★** —
     `voisinObstructionTypedUpgrade_capstone`.
@@ -328,7 +316,7 @@ theorem voisinObstructionTypedUpgrade_honest_scope : True := trivial
     **(D6) Quintic-to-CY3 lift** — a `FermatQuinticConcrete` lifts
         to a `SmoothProjectiveVarietyDimGeqThree` at `complexDim = 3`.
 
-    **HONEST SCOPE**: NOT a Clay discharge of the codim ≥ 2 Hodge
+    **SCOPE**: NOT a Clay discharge of the codim ≥ 2 Hodge
     conjecture; the typed hypotheses ENCODE the open Voisin 2007
     content. The contribution is to replace the `True` placeholders
     with typed Props that name the genuine open statement at the
@@ -368,7 +356,5 @@ end PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade
   PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.voisin2007GeneralQuinticCycleClassExistsHypothesis_implies_original
 #print axioms
   PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.voisin2007_general_quintic_open_subprop_via_typed_upgrade
-#print axioms
-  PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.voisinObstructionTypedUpgrade_honest_scope
 #print axioms
   PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.voisinObstructionTypedUpgrade_capstone

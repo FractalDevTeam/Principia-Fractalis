@@ -82,7 +82,7 @@ witness eigenvalue n for each k < N ≤ 10.
     This is the finite-prefix structural shadow of
     `RHSpectralSurjectivityConjecture` — restricted to the N-prefix.
 
-  **P6 — Partial-Clay-RH bridge (honest scope)**
+  **P6 — Partial-Clay-RH bridge (scope statement)**
     A bridge theorem stating that IF the full SCPO is the colimit
     of partial SCPOs across all N AND a witness oracle is independent
     of N, then full SCPO → Clay RH (via
@@ -113,7 +113,7 @@ witness eigenvalue n for each k < N ≤ 10.
     with current Odlyzko precision; N → ∞ requires unbounded numerical
     oracle data (equivalent to RH).
 
-## Honest scope
+## Scope statement
 
   * The partial discharge is at the level of a CONSTRUCTED witness
     `(odlyzko10_oracle, α_unit, eigenvalues_Odlyzko10)`. Coincidence
@@ -306,7 +306,7 @@ theorem partial_RHSpectralSurjectivity_at_witness_for_N
       (⟨1/2, odlyzko10_oracle k⟩ : ℂ)
   exact eigenvalueToZero_anchoredAt_finite odlyzko10_oracle 9 k hk_le_9 h_pos
 
-/-! ## §7 — Partial-Clay-RH bridge (honest scope) (P6)
+/-! ## §7 — Partial-Clay-RH bridge (scope statement) (P6)
 
 Packaging theorem: the partial discharge at finite N is NOT a discharge
 of Clay RH. The full SCPO is the N → ∞ colimit (saturated with the
@@ -363,7 +363,7 @@ theorem full_SCPO_implies_Clay_RH
        RH via `Clay_RiemannHypothesis_Standard_via_SCPO`. Not an
        unconditional discharge.
 
-    **HONEST SCOPE**:
+    **SCOPE**:
       * Partial-SCPO at every finite N ≤ 10 is axiom-free.
       * Full-SCPO is the N → ∞ colimit, equivalent to RH (modulo
         on-line oracle existence). This file does NOT discharge full
@@ -409,13 +409,6 @@ theorem partial_strip_complete_discharge_capstone :
   · exact partial_RHSpectralSurjectivity_at_witness_for_N
   · exact full_SCPO_implies_Clay_RH
 
-/-- **Honest-scope marker** — the partial discharge holds at every
-    finite N ≤ 10 axiom-free; the full SCPO is the N → ∞ colimit
-    (equivalent to RH modulo on-line oracle existence). This file
-    does NOT discharge full SCPO or RH; it isolates the precise
-    finite-vs-colimit residual. -/
-theorem partial_strip_complete_discharge_honest_scope : True := trivial
-
 end RH_PartialStripCompleteDischarge
 
 end PrincipiaTractalis
@@ -435,5 +428,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.RH_PartialStripCompleteDischarge.full_SCPO_implies_Clay_RH
 #print axioms
   PrincipiaTractalis.RH_PartialStripCompleteDischarge.partial_strip_complete_discharge_capstone
-#print axioms
-  PrincipiaTractalis.RH_PartialStripCompleteDischarge.partial_strip_complete_discharge_honest_scope

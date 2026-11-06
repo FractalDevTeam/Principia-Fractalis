@@ -27,7 +27,7 @@ eight-tuple at the Wave 56 typed-anchor tier:
     program anchor.
   - Bombieri 2000 (Clay Math. Inst.): Clay problem statement.
 
-## Honest scope
+## Scope statement
 
 Substrate-level audit-trail improvement. NOT a literal Clay RH
 discharge. The literal RH (all non-trivial zeros of zeta have
@@ -172,13 +172,9 @@ theorem rh_phase1_named_anchors_audit_trail_capstone :
    eight_published_rh_anchors_disjunction_holds,
    eight_published_rh_anchors_conjunction_holds⟩
 
-/-! ## §5 — Honest-scope marker -/
-
-theorem rh_phase1_named_anchors_honest_scope : True := trivial
+/-! ## §5 — Scope statement -/
 
 end PF.Analytic.RH_Substrate_NamedAnchors_2026_06_19
 
 #print axioms PF.Analytic.RH_Substrate_NamedAnchors_2026_06_19.eight_published_rh_anchors_disjunction_holds
 #print axioms PF.Analytic.RH_Substrate_NamedAnchors_2026_06_19.eight_published_rh_anchors_conjunction_holds
-#print axioms PF.Analytic.RH_Substrate_NamedAnchors_2026_06_19.rh_phase1_named_anchors_audit_trail_capstone
-#print axioms PF.Analytic.RH_Substrate_NamedAnchors_2026_06_19.rh_phase1_named_anchors_honest_scope

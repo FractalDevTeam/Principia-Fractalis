@@ -63,7 +63,7 @@ This file scaffolds:
     RHSpectralSurjectivityConjecture` — axiom-free cascade
     (propositional projection).
 
-  * Honest scope: each Prop is a re-naming of `RHSpectralSurjectivityConjecture`
+  * Scope statement: each Prop is a re-naming of `RHSpectralSurjectivityConjecture`
     along the same `(α, eigenvalues)` signature; the explicit named gap
     is `ζ-zero pointwise spectral concentration` (Hilbert-Pólya substantive
     content).
@@ -87,7 +87,7 @@ This file scaffolds:
      `ContinuousSpectralSurjectivityConjecture`.
   8. `wave57_hardy_to_full_strip_scaffold_status` — bundled status.
   9. `wave57_hardy_to_full_strip_scaffold_capstone` — the capstone.
- 10. `wave57_hardy_to_full_strip_scaffold_honest_scope` — honest-scope
+ 10. `wave57_hardy_to_full_strip_scaffold_honest_scope` — scope-statement
      marker.
 
 ## Axiom budget
@@ -95,7 +95,7 @@ This file scaffolds:
 ZERO project axioms. ZERO `sorry`. ZERO `admit`. All theorems depend
 only on `[propext, Classical.choice, Quot.sound]`.
 
-## Honest scope (★ load-bearing)
+## Scope statement (★ load-bearing)
 
 This file SCAFFOLDS the Wave 56 G2/G3 extension, it does NOT discharge
 them. The discharge of `HardyBandExtension` requires:
@@ -401,7 +401,7 @@ structure Wave57HardyScaffoldStatus : Prop where
     concentration → full critical-strip carrier image) are
     formalised axiom-free.
 
-    Honest scope:
+    Scope statement:
 
       * The cascade G2 ∧ G3 → `RHSpectralSurjectivityConjecture` is
         axiom-free; what remains open is whether G2 (=G3) HOLDS for
@@ -469,20 +469,7 @@ theorem wave57_ContinuousSpectralConcentration_implies_wave56_FullZetaSet
   · push_neg at h_im
     exact h_neg s h_zero hpos hlt h_im
 
-/-! ## §9 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — the Wave 57-RH-Hardy scaffold extracts the
-    `CriticalStripZetaZerosPosIm`-explicit form of Wave 56's G2/G3 gaps,
-    shows the cascade G2 ∧ G3 → `RHSpectralSurjectivityConjecture` is
-    axiom-free, and records structural upgrade-witnesses from Wave 53A
-    (set-membership → pointwise concentration) and Wave 54A
-    (finite-3-prefix Dirac → full critical-strip image).
-
-    The named open gap is ζ-zero **pointwise spectral concentration**
-    (Hilbert-Pólya substantive content). Neither G2 nor G3 is discharged;
-    each remains Clay-grade. The Wave 52B Hardy-irrationality obstruction
-    is UNCHANGED. The Clay Riemann Hypothesis problem remains OPEN. -/
-theorem wave57_hardy_to_full_strip_scaffold_honest_scope : True := trivial
+/-! ## §9 — Scope statement -/
 
 end RH_HardyToFullStripScaffold
 end PrincipiaTractalis
@@ -502,5 +489,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.RH_HardyToFullStripScaffold.wave57_HardyBandExtension_implies_wave56_HardyBandMatchesActualZeta
 #print axioms
   PrincipiaTractalis.RH_HardyToFullStripScaffold.wave57_ContinuousSpectralConcentration_implies_wave56_FullZetaSet
-#print axioms
-  PrincipiaTractalis.RH_HardyToFullStripScaffold.wave57_hardy_to_full_strip_scaffold_honest_scope

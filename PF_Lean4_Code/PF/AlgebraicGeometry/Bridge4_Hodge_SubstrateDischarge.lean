@@ -66,7 +66,7 @@ state them as standalone theorems so the named-instance discharge
 on the OPEN residual carrier (`genericNonCMQuintic`) is citable
 without unfolding.
 
-## What Bridge 4 does NOT establish (HONEST SCOPE)
+## What Bridge 4 does NOT establish (SCOPE)
 
   * NOT a literal Clay discharge of the codim ≥ 2 Hodge conjecture.
     The substrate-level encoding uses a rank-1 ℚ-coefficient model
@@ -168,7 +168,7 @@ theorem bridge4_substrate_refutation_at_quintic121 :
     substrate-shadow refutation on this carrier a citable standalone
     theorem.
 
-    HONEST SCOPE: substrate-shadow encoding only (rank-1 ℚ + matching-
+    SCOPE: substrate-shadow encoding only (rank-1 ℚ + matching-
     coefficient witness); the literal geometric Voisin 2007 question
     on a generic non-CM smooth quintic remains the Fields-medal-grade
     open question (residual = `LiftSubstrateToLiteralChowH22`). -/
@@ -257,7 +257,7 @@ theorem bridge4_voisin2007_R1_R2_R3_combined_status :
     **(B4.4) V3 residual refuted at substrate-shadow level** —
         `¬ HodgeV3_GenericNonCMQuintic_Residual`.
 
-    **HONEST SCOPE**: NOT a literal Clay discharge. The substrate-level
+    **SCOPE**: NOT a literal Clay discharge. The substrate-level
     encoding uses a rank-1 ℚ-coefficient model of `H^{2,2}(X, ℚ)` with
     a matching-coefficient algebraic-cycle realisation predicate; the
     literal mathlib lift to higher-rank `H^{2,2}` + Chow cycle-class
@@ -302,15 +302,7 @@ theorem bridge4_hodge_substrate_discharge_capstone :
    bridge4_voisin2007_R1_R2_R3_combined_status,
    bridge4_substrate_refutation_at_generic_non_cm_quintic⟩
 
-/-! ## §8 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — Bridge 4 is a CONSOLIDATION of existing
-    axiom-free substrate-level theorems into a single citable Hodge-
-    axis discharge bundle. The substrate-level encoding is a rank-1
-    ℚ-coefficient shadow; the literal geometric Voisin 2007 question
-    is UNCHANGED (residual = `LiftSubstrateToLiteralChowH22`). NOT a
-    Clay discharge. -/
-theorem bridge4_hodge_substrate_discharge_honest_scope : True := trivial
+/-! ## §8 — Scope statement -/
 
 end PF.AlgebraicGeometry.Bridge4_Hodge_SubstrateDischarge
 
@@ -341,5 +333,3 @@ end PF.AlgebraicGeometry.Bridge4_Hodge_SubstrateDischarge
   PF.AlgebraicGeometry.Bridge4_Hodge_SubstrateDischarge.bridge4_voisin2007_R1_R2_R3_combined_status
 #print axioms
   PF.AlgebraicGeometry.Bridge4_Hodge_SubstrateDischarge.bridge4_hodge_substrate_discharge_capstone
-#print axioms
-  PF.AlgebraicGeometry.Bridge4_Hodge_SubstrateDischarge.bridge4_hodge_substrate_discharge_honest_scope
