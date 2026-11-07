@@ -322,31 +322,6 @@ identities).
 \subsubsection*{The $\alpha$-Substrate Reference Table (post-2026-09-25)}
 \label{subsubsec:alpha-substrate-reference-table}
 
-\paragraph{Amendment (2026-10-21): there is ONE settled external anchor, not
-two.} This table and the cascade sections below were written under a
-``two-anchor'' reading. Audited against primary sources, that reading is
-retired, and the correction applies everywhere ``settled'' qualifies
-Navier--Stokes in this chapter.
-
-\begin{itemize}
-\item \textbf{Poincar\'e --- settled.} Perelman's proof, verified by three
-independent expositions, Clay-awarded 2010. The two Lean formalizations claimed
-in September--October 2026 are cited as \emph{claimed}, not established.
-\item \textbf{Navier--Stokes --- NOT settled.} Clay lists it \emph{Active}. The
-only Clay-aimed claim (OpenAI, September 2026) is contested and unverified, and
-its Lean artifact's correspondence to its manuscript is disputed in print
-(arXiv:2610.08144). The rest of the chain concerns model equations, weak
-solutions, or the forced regime --- not the Clay statement. The unforced
-problem is open.
-\end{itemize}
-
-\noindent \textbf{Consequence for this table.} $\alpha_{\text{NS}} = 3\pi/2$ is
-\emph{asserted framework structure}, not an externally anchored value. Every
-row below derived ``from the two anchors'' is therefore conditional on one
-settled anchor plus one framework assertion. That is a materially weaker
-cascade than the one the surrounding prose describes, and the rows are
-annotated accordingly.
-
 Under one settled external anchor (Perelman 2002--2003 anchoring
 $\alpha_{\text{Poincar\'e}} = 1$) together with the framework's
 \emph{asserted} $\alpha_{\text{NS}} = 3\pi/2$ --- for which the
@@ -530,17 +505,6 @@ manuscript's claim that ``closing one axis forces the others'' is
 the View~2 reading, witnessed by
 \texttt{cascade\_\allowbreak{}parameterized\_\allowbreak{}capstone}.
 
-\emph{Amendment (2026-10-24).} View~2 is stated accurately above:
-the skeleton is forced \emph{by the invariant system together with} a
-pinning hypothesis. Two things that sentence does not say, and that a
-referee is entitled to hear said: the invariant system is a set of
-\emph{premises} with no independent derivation, and the pinning
-hypothesis is supplied, not proved. So View~2 is a genuine deduction
-over a generic carrier --- which is what
-\texttt{Cross\-Millennium\-Cascade\-Parameterized.lean} certifies ---
-and it is not a derivation of the $\alpha$-values from substrate
-structure. Both readings are compatible; conflating them is what the
-2026-10-01 accounting flagged.
 \end{keyidea}
 
 \begin{theorem}[The Parameterized Cascade Specializes to the
@@ -796,125 +760,6 @@ determines the consequences. The framework's headline is
 \emph{both}.
 \end{keyidea}
 
-\paragraph{Verification update (2026-08-08): the implication carries no
-information about the antecedents, so ``determine'' does not follow. The Lean
-source says this; the gloss above does not.}
-
-The Lean file is explicit. \texttt{PrincipiaFractalisSubstrateTheorem.lean:374-377}:
-
-\begin{quote}\small
-``\emph{The Lean implication is therefore vacuously true}: it does not derive the
-consequences FROM the antecedents in any deductive sense; it merely records that
-both are inhabitable in the same file.''
-\end{quote}
-
-\noindent and the proof sketch of
-Theorem~\ref{thm:pf-substrate-theorem} says the same: the antecedents ``are not
-\emph{consumed} \dots\ they are passed in as a record and discarded as
-\texttt{\_h\_antecedents}''. \textbf{This is not concealment.} The defect is that
-the theorem's one-line gloss and the KeyIdea above outran the disclosures
-already sitting beneath them.
-
-\begin{itemize}
-\item \textbf{THE LOGIC.} Let $A =$ \texttt{PFSubstrateAntecedents} and
-$C =$ \texttt{PFSubstrateConsequences}. The corpus proves $C$ outright
-(\texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally}).
-Once $C$ is a theorem, $A \to C$ is a theorem \emph{for every} $A$ --- for
-\texttt{True}, for $1=1$, for any unrelated proposition. So the implication
-distinguishes the framework's five antecedents from nothing at all. The word
-``Equivalently'' at the head of Theorem~\ref{thm:pf-substrate-theorem} is
-therefore incorrect: $A \to C$ is not equivalent to ``$A$ determines $C$'', and
-in this instance it is strictly weaker than $C$ alone.
-\item \textbf{THE KEYIDEA CLAIM DOES NOT FOLLOW.} A referee who accepts the
-implication form has accepted $A \to C$, which they could have derived from $C$
-without ever reading $A$. They have accepted nothing about determination. Read
-the sentence ``the framework's headline is \emph{both}'' as superseded: the
-currently-proved content is the unconditional form only, exactly as the second
-bullet of that KeyIdea states.
-\item \textbf{THE BAR FOR A REAL DERIVATION, stated so it cannot be met
-trivially.} The obvious test --- ``one consequence whose proof stops
-typechecking when the antecedent hypothesis is removed'' --- is mechanical, but
-it has a loophole, and the loophole is already inhabited. Several antecedent
-fields \emph{are} consequence fields: A3 and C7 are the same proposition, so
-\texttt{fun h => h.perelmanAlphaPoincareEqOne} consumes the antecedent
-syntactically while conveying nothing, since C7 is separately true by
-definitional unfolding. Recorded in the kernel as
-\texttt{C7\_from\_A3\_by\_projection}
-(\texttt{PF/SubstrateTheoremContent\_r216.lean}); the same trivial route exists
-for C20 from A5.
-
-The bar that is not met is therefore: \textbf{one consequence that is not
-itself an antecedent field, whose proof fails to elaborate when the antecedent
-hypothesis is deleted.} At present \textbf{zero of the twenty-five} meet it.
-This is not residual formalization labour --- it is a design question about
-whether the substrate does any deductive work.
-\item \textbf{NOW KERNEL-VISIBLE (r216).} The statements above are no longer
-prose. \texttt{PF/SubstrateTheoremContent\_r216.lean} proves, axioms exactly
-$[\texttt{propext},\texttt{Classical.choice},\texttt{Quot.sound}]$:
-\texttt{consequences\_hold\_under\_any\_hypothesis}, i.e.\ $P \to C$ for
-\emph{every} proposition $P$ --- witnessed concretely by
-\texttt{consequences\_hold\_under\_an\_unrelated\_hypothesis}, which derives all
-twenty-five consequences from $2+2=4$; and
-\texttt{substrate\_implication\_from\_conclusion}, i.e.\ the implication follows
-from its own conclusion. Both directions of the arrow typecheck vacuously
-(\texttt{converse\_implication\_holds\_by\_discarding\_its\_hypothesis}), so
-neither carries information.
-\item \textbf{FIELD CLASSIFICATION.} Of the twenty-five fields:
-one is an existential witnessed by the zero object (C4, Navier--Stokes);
-about seven are definitional or arithmetic;
-five are restricted carriers;
-about six are content-bearing;
-six are bundles that re-package the others. Specifics worth naming:
-\begin{itemize}
-\item \textbf{C4} --- the typed NS predicate contains no time derivative, no
-$\mathbf{u}\cdot\nabla\mathbf{u}$, no pressure, no Laplacian and no viscosity;
-its existential is witnessed by the zero field at the zero datum. Now
-kernel-visible: \texttt{PF/NavierStokesTypedContent\_r215.lean}. See the
-2026-08-08 entry in Ch.~\ref{ch:navier-stokes}.
-\item \textbf{C7} --- $\alpha_{\text{Poincar\'e}} = 1$, against
-\texttt{CrossMillenniumSharedInvariants.lean:64}, which \emph{defines}
-$\alpha_{\text{Poincar\'e}}$ to be the real number $1$. A definitional
-unfolding, not a derived fact.
-\item \textbf{C17} --- $78 = 48+26+4$. Arithmetic. No BRST complex and no
-$H^2$ computation stands behind it.
-\item \textbf{C20, which is also antecedent A5} --- the ``143-problem''
-dataset is \texttt{List.replicate 72 (canonicalEntry .P) ++ List.replicate 71
-(canonicalEntry .NP)} (\texttt{HundredFortyThreeProblems.lean:132-142}), and
-\texttt{canonicalEntry} sets \texttt{alphaMeasured := canonicalAlpha c}
-(\texttt{:127}). So ``every measured $\alpha$ is $\sqrt2$ or $\varphi+1/4$'' is
-true by construction from 143 copies of two hard-coded rows. It carries no
-empirical content, and \emph{the same tautology appears on both sides of the
-implication}.
-\item \textbf{C3, C5, C2} --- restricted carriers: BSD on
-\texttt{EllipticCurve := Fin 6}; Hodge with \texttt{isAlgebraic} reduced to
-three existentials, two of which are trivially inhabited; YM as one
-eigenvector of one map on $\ell^2$, with no gauge group. These are already
-recorded in Remark~\ref{rem:framework-first-scoping}'s 2026-08-02
-framework-first scoping correction, which stands.
-\end{itemize}
-\item \textbf{A CORRECTION TO AN EARLIER AUDIT OF THIS CHAPTER.} An external
-audit reported that fields of \texttt{PFSubstrateConsequences} are
-\texttt{Prop := True} markers. That is wrong: the record has \textbf{zero}
-such fields. The \texttt{True} fields live in the adjacent
-\texttt{...RefereeScope} record at
-\texttt{PrincipiaFractalisSubstrateTheorem.lean:496-516}, where four of four
-are \texttt{: True}, discharged by
-$\langle\texttt{trivial},\dots\rangle$. The distinction matters: the
-consequences record is populated by real propositions, several of them weak,
-none of them literally trivial.
-\item \textbf{WHAT IS NOT AFFECTED.} Not every field is hollow ---
-\texttt{phi\_iit\_lower\_bound\_at\_threshold},
-$\forall \Phi,\ \tfrac{19}{20} \le 1-e^{-\Phi/2} \to 2\log 20 \le \Phi$, is
-genuine real analysis. And the operator-algebra substrate is untouched by any
-of the above: the r102--r113 arc proves \texttt{UHF\_trace\_faithful} and
-\texttt{substrate\_completion\_simple\_unconditional} unconditionally,
-kernel-only, zero project axioms. Those results do not depend on this theorem
-and are not weakened by it. They are the part of the substrate programme a
-referee can check end to end today.
-\end{itemize}
-
-\noindent Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S4.2.
-
 \section{V2 Substrate Refactors (2026-06-05)}
 \label{sec:v2-substrate-refactors}
 
@@ -1115,55 +960,6 @@ machine-checked at a sharper bar than the
 Section~\ref{sec:substrate-antecedents} indicates. The minimum
 load-bearing invariant set is~\textbf{nine}, not eleven; the
 remaining two invariants are derived theorems.
-
-\paragraph{Amendment (2026-10-24): the rigidity is a conditional
-derivation.}
-The sentence above --- that the nine $\alpha$-values ``are not free
-parameters but are forced by the cross-Millennium algebraic
-invariants'' --- states the entailment correctly and its ORIGIN
-incorrectly, and the second half is withdrawn here. What is
-machine-checked is that \emph{given} the invariants, the values follow:
-\texttt{PF/Referee/Cross\-Millennium\-Cascade\-Parameterized.lean},
-theorem \texttt{cascade\_parameterized\_capstone}, whose entailment
-proofs genuinely consume their hypothesis rather than unfolding a
-definition. What is \emph{not} established is that the invariants
-themselves have an independent origin: each is a literal definition in
-\texttt{PF/Cross\-Millennium\-Shared\-Invariants.lean}, and the
-invariants were read off the values they force. Every $\alpha$-value in
-this book is unchanged; what changes is the label. The correct label is
-\emph{conditional derivation} --- a coherence structure, not a proof
-apparatus --- and the phrase ``no free parameters'' was retired on
-2026-09-07 for precisely this reason: the parameters were spent on the
-constraints.
-
-This is consistent with, and sharpened by,
-\S\ref{sec:substrate-antecedents}'s own statement that the anchor is
-\emph{not} forced. That the anchor is a postulate rather than a derived
-value is itself machine-checked:
-\texttt{PF/Poincare\-Anchor\-Forced\_r338.lean}, theorem
-\texttt{perelman\_anchor\_is\_strictly\_necessary} --- a different
-anchor propagates to a different consistent skeleton. The same file's
-\texttt{poincare\_forced} shows what the stronger standard looks like
-when it is met: the value $1$ is pinned by the equation
-$0 < a \wedge a^{2} = 1$, which does not mention $\alpha$ at all.
-Four axes now meet that standard --- $P$, Hodge, Poincar\'e and NS ---
-and the per-axis accounting is
-\texttt{codex/ALPHA\_CHAIN\_PER\_AXIS\_BAR\_2026-10-24.md}.
-
-This section records the formal certification of that sharper
-rigidity statement, landed at HEAD~\texttt{883ed58}. Three companion
-Lean files implement the chain:
-\begin{itemize}
-\item \texttt{PF.\allowbreak{}Referee.\allowbreak{}Minimal\allowbreak{}Substrate\allowbreak{}Rigidity} --- sector~1
-(the six-axis subset \{Poincar\'e, RH, YM, BSD, NS, $P$~vs~$NP$\}),
-showing that 5~of~7 sector-1 invariants are load-bearing.
-\item \texttt{PF.\allowbreak{}Referee.\allowbreak{}Minimal\allowbreak{}Substrate\allowbreak{}Rigidity\allowbreak{}Sector2} --- the
-extension to \{$\alpha_P$, $\alpha_{\text{Hodge}}$, $\alpha_{NP}$,
-$\alpha_{\text{QG}}$\}, showing that 4~of~5 sector-2 invariants are
-load-bearing.
-\item \texttt{PF.\allowbreak{}Referee.\allowbreak{}Minimal\allowbreak{}Substrate\allowbreak{}Rigidity\allowbreak{}Unified} --- the
-single citable capstone composing both sectors.
-\end{itemize}
 
 \subsection{The minimal invariant set}
 \label{subsec:minimal-invariants}
@@ -2406,77 +2202,6 @@ see the Lean file
 \texttt{PF/\allowbreak{}Referee/\allowbreak{}Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem.\allowbreak{}lean} at
 HEAD commit \texttt{42990ea}.
 
-\paragraph{Verification status (2026-10-03).}
-To hold this chapter to the standard of the machine-checked corpus, here is the
-honest status of its principal claims. The labels are those of the project's own
-rigor-ledger specification; this chapter was the last without such a block.
-
-\begin{itemize}
-
-\item \textbf{PROVEN (kernel-verified)} --- the operator-algebra substrate
-itself. $\mathcal{T}_\infty$ is the Glimm $3^\infty$ UHF factor: the canonical
-tracial state is faithful (\texttt{UHF\_trace\_faithful}), the completion is
-C\textsuperscript{*}-simple
-(\texttt{substrate\_completion\_simple\_unconditional}), and the trace is unique
-(\texttt{substrate\_UHF\_trace\_unique}), together
-\texttt{r113\_substrate\_UHF\_factor\_capstone}. Zero project axioms.
-
-\item \textbf{PROVEN (kernel-verified)} --- minimal substrate rigidity
-(Theorem~\ref{thm:minimal-substrate-rigidity} of this chapter, where labelled) and
-\texttt{T\_infinity\_rigidity}, the Glimm classification at supernatural
-$3^\infty$ over an arbitrary C\textsuperscript{*}-algebra carrying a
-\texttt{Substrate3Inf} witness. Audited 2026-10-03 by
-\texttt{\#audit\_premises}: \textbf{CLEAN} over a cone of 1{,}543 constants, i.e.\
-it consumes every hypothesis it assumes, so the $3^\infty$ structure is
-load-bearing in the proof rather than carried. Confirmed independently on
-\textbf{x86\_64 and aarch64} from byte-identical sources, axioms
-$\subseteq\{$\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}$\}$.
-
-\item \textbf{CONDITIONAL REDUCTION} --- the six Clay axes (C1--C6) and the
-``\emph{Substrate Consequences Hold Unconditionally}'' theorem as it bears on
-them. Per the project's own rule, a claim whose closure would resolve a
-Millennium problem is conditional and never proven: what is machine-checked is an
-\emph{implication} from the substrate antecedents, with the Clay-statement-form
-discharge at the literal Cook--Karp / Mayer-1991 / Voisin-2007 / continuum
-SU($N$) tier \emph{not} established. The word ``unconditionally'' in that theorem
-should be read as \emph{unconditionally given the substrate antecedents}, not as
-a discharge of the Clay statements.
-
-\item \textbf{ASSERTED (not derived)} --- the $\alpha$-substrate reference table
-and the values it is built from, $\alpha_P=\sqrt2$ and
-$\alpha_{NP}=\varphi+\tfrac14$. These are chosen constants of the framework;
-Chapter~\ref{ch:constants} records the same judgement, and the cross-Millennium
-identities among them are true \emph{as arithmetic about values the framework
-defines}. They say nothing about the Millennium problems.
-
-\item \textbf{ASSERTED (not derived), anchor-dependent} --- the
-$(\alpha_{\text{YM}},\alpha_{\text{Poincar\'e}},\alpha_{\text{RH}})$ triple.
-Conditional on the (A3) anchor $\alpha_{\text{Poincar\'e}}=1$ the other two are
-uniquely forced and this is machine-checked; the anchor itself is (A3)'s own
-postulate, and \texttt{perelman\_anchor\_is\_strictly\_necessary} shows a
-different anchor propagates to a different consistent skeleton. The system is
-\emph{exactly determined} --- ten relations in ten unknowns, no redundancy --- so
-there is no residual constraint that could have failed, and no over-determination
-to cite as corroboration.
-
-\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED}
---- the consciousness consequences (Group V, C13--C15), the IIT threshold
-linkage, and the cosmology group (C9--C12). Only experiment can settle these and
-a proof assistant cannot establish them. Two specific cautions, both
-machine-checked in the corpus: the one computable formula the book supplies for
-$\text{ch}_2$ has range $[-\tfrac12,\tfrac12]$, so the $0.95$ gate is satisfied
-by no real matrix (\texttt{ch2Matrix\_le\_half}); and the character space of the
-substrate is \emph{empty} (\texttt{gelfandSpectrum\_eq\_empty}), so any
-consciousness operator defined as an integral over
-$\text{Spec}(\mathcal{T}_\infty)$ is the zero operator. Neither fact bears on the
-\textbf{PROVEN} items above, which nowhere reference $\text{ch}_2$.
-
-\item \textbf{PROVEN-as-arithmetic (only)} --- the numerical brackets and
-orderings over the nine axes. These are elementary facts about the framework's
-own constants, correct as arithmetic, and framework-internal: they are not
-independent confirmation of anything outside the framework.
-
-\end{itemize}
 
 \noindent The separation worth carrying away from this chapter is that its
 \textbf{PROVEN} content --- the UHF substrate and its rigidity --- is independent
