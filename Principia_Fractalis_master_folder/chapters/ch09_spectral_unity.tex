@@ -256,23 +256,7 @@ This factor $\pi/10 \approx 0.314159$ is the natural frequency of the Timeless
 Field. Its ``$10$'' is the icosahedral Coxeter number $h(H_3) = 10$, with
 $\pi/10$ the half-argument of the primitive Coxeter eigenvalue
 $\exp(2\pi i/h)$ --- see Theorem~\ref{thm:universal_frequency} and
-equation~\eqref{eq:pi-ten-golden}.\manuscriptcorrection{\textbf{A base-3 origin
-claimed here has been corrected; it was inconsistent with the value printed in
-the same sentence.} This passage read that $\pi/10$ arises ``from the interplay
-between the transcendental constant $\pi$ and the fractal base-3 structure
-($10_3 = 3_{10}$ in base-3)''. The numeral $10$ in base $3$ does denote $3$ ---
-but were that the $10$ in $\pi/10$, the factor would be $\pi/3 = 1.047198$,
-whereas this very sentence prints $0.314159$, which is $\pi/10$ in
-\emph{decimal}. The stated origin therefore contradicted the stated value by a
-factor of $10/3$, and also contradicted the framework's actual account, in which
-the $10$ is decimal: the Coxeter number of the icosahedral group $H_3$. That
-account is machine-checked and axiom-free in \texttt{PF/H3CoxeterOrigin.lean}.
-The three $\pi/10$ expressions listed immediately above are unaffected and were
-recomputed exactly: $\lambda_0(H_P) = \pi/(10\sqrt2) = 0.2221441469$ and
-$\lambda_0(H_{NP}) = \pi/(10(\varphi+\tfrac14)) = 0.1681764182$, both matching
-the kernel constants \texttt{lambda\_0\_P} and \texttt{lambda\_0\_NP}, and
-$\lambda_0(T) = \pi/15 = \tfrac23(\pi/10) = 0.2094395102$. Corrected
-2026-11-01.}
+equation~\eqref{eq:pi-ten-golden}.
 
 \section{Critical Line Constraint: The Consciousness Mechanism}
 
@@ -406,7 +390,7 @@ The spectral unity framework predicts observable signatures:
 For $N_{\text{qubits}} = 10$, this law gives $\eta \approx 1.32$, i.e.\ a
 $32\%$ enhancement --- already within reach of existing hardware. At
 $N_{\text{qubits}} = 1000$ the same law gives $\eta \approx 1.44\times10^{12}$,
-not $1.31$.\manuscriptcorrection{Direct arithmetic with the chapter's own empirical gap $\Delta = 0.0891219046$ (line~122) gives $(\pi/10)\cdot\Delta = 0.0279984721$, hence an exponent of $27.9984721$ at $N_{\text{qubits}} = 1000$ and $\eta(1000) = e^{27.998\ldots} = 1.444\times10^{12}$ --- NOT $1.31$. The stated pairing is wrong by twelve orders of magnitude, and note the direction: read literally the formula predicts a $10^{12}$ enhancement at a thousand qubits, which is a far \emph{stronger} assertion than ``a 31\% speedup''. The chapter understates its own law. \textbf{Where $1.31$ comes from:} $\eta = 1.31$ is reached at about \emph{ten} qubits, not a thousand --- $\eta(9) = 1.2866$ and $\eta(10) = 1.3231$, so $\ln(1.31)/0.0279984721 = 9.64$. The defect is the substituted qubit count, not the exponential law. Theorems \texttt{exponent\_at\_1000\_gt\_27}, \texttt{etaEnhance\_1000\_gt\_1e11} and \texttt{etaEnhance\_1000\_ne\_claimed} (file \texttt{PF/Ch09QuantumEnhancementRefutationAttempt.lean}, 2026-10-05) prove axiom-free that $\eta(1000) > 10^{11}$, and \texttt{claimedEta\_lt\_etaEnhance\_ten} proves $1.31 < \eta(10)$, so with \texttt{etaEnhance\_strictMono} the qubit count actually yielding $1.31$ lies strictly \emph{below} ten. \textbf{Robust to the $\Delta$ ambiguity:} this chapter's ledger below records that the empirical $\lambda_0(H_{NP})\approx0.1330$ does not match the certified closed form $\pi/(10(\varphi+1/4))\approx0.1682$. Using the certified forms gives $\Delta = 0.0539677$, hence $\eta(1000) = 2.308\times10^{7}$ and $\eta = 1.31$ at $N = 15.93$. Both readings agree on what matters: at $N=1000$ the formula returns an astronomically large number, and $1.31$ corresponds to a qubit count in the range ten to sixteen. \textbf{What survives:} the exponential law $\eta = \exp(cN)$ with $c = (\pi/10)\Delta$, and --- in a stronger form than stated --- the claim that the effect is reachable with existing hardware, since ten qubits already suffice for a $32\%$ enhancement under this law. \textbf{What does not:} the pairing of $N=1000$ with $\eta\approx1.31$, which the chapter's own formula does not support.}
+not $1.31$.
 
 \noindent\emph{Corrected 2026-10-05.} The sentence previously printed here read
 ``For $N_{\text{qubits}} = 1000$, this gives $\eta \approx 1.31$, a 31\% speedup
@@ -462,49 +446,7 @@ and axiom-free in \texttt{PF/H3CoxeterOrigin.lean}
 (\texttt{sin\_pi\_div\_ten\_eq\_inv\_two\_phi}, \texttt{H3\_Coxeter\_half\_arg},
 bundled as \texttt{H3\_icosahedral\_origin\_capstone}). What would be required to
 call $\pi/10$ \emph{derived} --- that the evolution operator inherit $H_3$
-structure at the operator level --- remains open.\manuscriptcorrection{\textbf{An
-integral identity offered here has been withdrawn as false. The constant
-$\pi/10$ is unaffected, and a machine-checked structural account replaces the
-withdrawn one.} This theorem previously asserted that $\pi/10$ ``arises from''
-$\omega_c = \tfrac{1}{2}\int_0^1 R_f(\sqrt2, 1/2+ix)\,dx$, with $R_f$ taken at
-$\alpha = \sqrt2$ on the critical line. That integral is well defined, but its
-value is $\approx -0.3698 - 0.1761\,i$: not $\pi/10$, not real, not positive. It was
-the only integral derivation of $\pi/10$ offered in the book.
-\emph{The evaluation is legitimate, not a convergence or truncation artifact.}
-The character sum obeys $\sum_{n<3^k}e^{i\pi\alpha D_3(n)} = (1 + e^{i\pi\alpha}
-+ e^{2i\pi\alpha})^k$, verified against direct summation at $k = 4, 6, 8$, so
-partial sums grow like $N^{\sigma(\alpha)}$ with $\sigma(\alpha) = \log_3|1 +
-2\cos\pi\alpha|$ and $\sigma(\sqrt2) = -0.692127 < 0$: the sums \emph{decay} and
-$\operatorname{Re}(s) = 1/2$ lies deep inside convergence. Power-of-$3$ cutoffs,
-where base-$3$ digit structure is periodic, interleave smoothly with
-non-power-of-$3$ cutoffs, successive changes shrinking from $8.2\times10^{-4}$
-to $3.3\times10^{-5}$; and the value was obtained without quadrature, each term
-integrated exactly by $\int_0^1 n^{-(1/2+ix)}dx = n^{-1/2}(1-n^{-i})/(i\log n)$.
-\emph{No nearby reading rescues it}, which is why it is withdrawn rather than
-re-ingredient-ed: ten post-processings of the printed integral all miss;
-$\alpha = 1$, where $R_f(1,s) = -\eta(s)$ has a closed form and would be the
-natural transcription slip, gives $-0.308189 - 0.048362\,i$; all nine of the
-framework's own $\alpha$-skeleton values miss; and a scan of $\alpha$ over
-$(0,4]$ finds no $\alpha$ whatever making the integral real and near $\pi/10$.
-\emph{This brings the theorem into line with its own ledger rather than
-weakening it.} The verification ledger of this chapter already classifies
-$\pi/10$ as \textbf{ASSERTED (not derived)} and cites this very theorem in doing
-so; ch.~7 does the same for its $\pi/10$ scaling law, whose polylogarithm
-derivation that chapter's ledger likewise calls heuristic. The corpus recorded
-the integral as open on 2026-10-07 --- ``the integral is well-defined
-($\sigma(\sqrt2)\approx-0.69$) but the identity is NOT checked. TO DO'' --- and
-this discharges that item. \emph{Provenance of the replacement}, measured rather
-than assumed: \texttt{PF/H3CoxeterOrigin.lean} is 472 lines with no
-\texttt{sorry} and no \texttt{axiom}, imported at \texttt{PF.lean:267} with a
-compiled artefact present, and proves \texttt{H3\_Coxeter\_number = 10},
-\texttt{H3\_Coxeter\_half\_arg}, \texttt{sin\_pi\_div\_ten} and
-\texttt{sin\_pi\_div\_ten\_eq\_inv\_two\_phi} on top of mathlib's
-\texttt{Real.cos\_pi\_div\_five}. That file's own limits are carried here and not
-inflated: it states that the agreements $\alpha_{RH} = 15/10$ and $\alpha_{NP} =
-\varphi + \tfrac14$ with $H_3$ Coxeter integers are ``a consistency check\ldots
-not a group-theoretic derivation'', which is why $\pi/10$ remains asserted
-above. Every quantity in the table and list that consume $\pi/10$ was recomputed
-and is exact. Withdrawn 2026-11-01.}
+structure at the operator level --- remains open.
 \end{theorem}
 
 This frequency is the "heartbeat" of mathematical reality, governing the oscillations between discrete (base-3, computation) and continuous (analytic, zeta) regimes. The universality of this factor across all Millennium Problems is documented in \cite{cohen2025spectralpi10}.

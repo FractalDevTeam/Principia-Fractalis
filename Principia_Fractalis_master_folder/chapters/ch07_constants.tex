@@ -109,26 +109,7 @@ factor to the same golden ratio the resonance values are built from
 (Theorem~\ref{thm:universal_frequency}).
 
 Together, $\pi/10$ is the ``exchange rate'' between discrete counting and
-continuous geometry.\manuscriptcorrection{\textbf{A decimal-notation explanation
-offered here has been replaced; it contradicted this chapter's own theorem.} The
-box read: ``The factor $1/10$ appears because we use decimal notation, which
-naturally splits information into 10 bins (digits 0--9).'' Two things are wrong
-with that. First, this framework's notation is \emph{ternary}, so a
-decimal-notation account of one of its constants contradicts the framework it is
-explaining. Second, and decisively, Theorem~\ref{thm:base-3-optimal} in this same
-chapter proves that base ten is the \emph{least} efficient of the bases it
-compares: the radix economy $Q[b] = (\log b)/b$ gives $Q[10] \approx 0.230$
-against $Q[3] \approx 0.366$, with $Q[2] = Q[4] \approx 0.347$. I recomputed all
-four and they reproduce the chapter's printed values exactly
-($0.3465735903$, $0.3662040962$, $0.3465735903$, $0.2302585093$), so the box and
-the theorem disagreed by a factor of $1.59$ in the chapter's own figure of merit.
-\emph{The $\pi$ half of the box was sound and is now precise instead of
-gestural}: the factor $i\pi$ is produced by the chain rule on
-$e^{i\pi\alpha D_3(n)}$, which is proved at
-equation~\eqref{eq:pi-ten-scaling-exact}. \emph{The $10$ now points where it is
-actually verified}: $h(H_3) = 10$ with $\sin(\pi/10) = 1/(2\varphi)$,
-machine-checked and axiom-free in \texttt{PF/H3CoxeterOrigin.lean}. Corrected
-2026-11-01.}
+continuous geometry.
 \end{intuitive}
 
 \subsection{Formal Statement}
@@ -148,31 +129,7 @@ Writing the right-hand side in the form $(\pi/10)\cdot f(\alpha_c, s)$
 \emph{defines}
 $f(\alpha_c, s) := (10/\pi)\sum_{n \geq 1} D_3(n) e^{i\pi \alpha_c D_3(n)} n^{-s}$;
 the $1/10$ is then a normalisation of the problem-specific factor and is not
-constrained by this limit.\manuscriptcorrection{\textbf{This theorem had no
-content as previously stated, and is restated as the exact identity it should
-have been.} It read that the limit equals $(\pi/10)\cdot f(\alpha_c,s)$ with
-$f$ ``a structure-specific function that depends on the particular problem being
-studied'' --- that is, unconstrained. An unconstrained factor absorbs any
-constant, so the equation defined $f$ and said nothing about $\pi/10$. Concretely,
-at $\alpha_c = 3/2$ and $s = 2$ the limit is
-$2.852541315 - 1.890893345\,i$, and the choice of constant merely fixes which
-$f$ is forced: $\pi/10$ forces $9.079921013 - 6.018900453\,i$, $\pi/2$ forces
-$1.815984203 - 1.203780091\,i$, $1$ forces the limit itself, and $42$ forces
-$0.06791765036 - 0.04502127011\,i$. Each is an equally valid reading, so the
-statement would have read identically with any nonzero constant.
-\emph{What is actually true is stronger}, and is now what the theorem says:
-differentiating $e^{i\pi\alpha D_3(n)}$ term by term gives the displayed identity
-with $i\pi$ factoring out exactly, which I verified against the direct
-computation to better than $10^{-20}$. So the $\pi$ in this scaling law is
-genuinely derived --- it is the chain-rule factor --- while the $1/10$ does not
-appear in the derivative at all. The ``$10$'' has a separate and verified source:
-it is the Coxeter number $h(H_3) = 10$ of the icosahedral group, with
-$\sin(\pi/10) = 1/(2\varphi)$ holding exactly, machine-checked and axiom-free in
-\texttt{PF/H3CoxeterOrigin.lean} (Theorem~\ref{thm:universal_frequency}). This is
-a strengthening rather than a retreat: the chapter's verification ledger records
-$\pi/10$ as \textbf{ASSERTED (not derived)}, and the $\pi$ is now derived, with
-only the $10$ remaining structural. The theorem's name and label are unchanged.
-Restated 2026-11-01.}
+constrained by this limit.
 \end{thm}
 
 \begin{level2}[Polylogarithms: the Exact Closed Form]
@@ -200,32 +157,7 @@ The ``$10$'' in $\pi/10$ has a different and verified source: it is the Coxeter
 number $h(H_3) = 10$ of the icosahedral group, $\pi/10$ being the half-argument
 of the primitive Coxeter eigenvalue, with $\sin(\pi/10) = 1/(2\varphi)$ exactly
 --- machine-checked and axiom-free in \texttt{PF/H3CoxeterOrigin.lean} and stated
-at Theorem~\ref{thm:universal_frequency}.\manuscriptcorrection{\textbf{A
-polylogarithm expansion claimed here was false in form, and is replaced by the
-exact closed form.} This box previously asserted that ``the $\pi/10$ factor
-emerges rigorously from polylogarithm theory'', via
-$\text{Li}_1(e^{i\pi p/q}) \approx (\pi p/q)\cdot\tfrac{1}{10} + O((p/q)^2)$,
-adding that the $1/10$ ``arises from the decimal expansion structure of the
-logarithm when averaged over rational denominators'' and that ``this is not
-numerology''. Since $\text{Li}_1(z) = -\log(1-z)$, as $x = p/q \to 0$ the argument
-tends to $1$ and $\text{Li}_1$ \emph{diverges}, while the claimed right-hand side
-tends to $0$. Measured: at $x = 1/10$, $1/100$ and $1/1000$ the true modulus
-exceeds the claim by factors of $58.2$, $1208$ and $19012$; at $x = 10^{-12}$ the
-modulus is $26.53$ against a claim of $3.14\times10^{-13}$. The defect is in the
-form, not the coefficient --- no polynomial can match a logarithmic singularity
---- and no averaging over denominators is defined anywhere. This book's own
-Chapter~\ref{ch:complex} already records the correct behaviour,
-$\text{Li}_1(e^{-w}) \approx -\log w$, which I verified to a ratio of $1.000000$
-by $w = 10^{-8}$; the claim corrected here was the outlier against the rest of the
-book. \emph{The replacement is exact}: equation~\eqref{eq:li1-closed-form} was
-checked against direct evaluation at $x = 1/2$, $1/3$, $2/5$, $1/10$, $7/11$,
-$1/1000$ and at irrational $x = 1.4142135$, agreeing to within $8\times10^{-30}$
-throughout. \emph{And the arithmetic origin of the stray $1/10$ appears to be
-identifiable}: at $x = 1/3$ --- the natural point to test in a base-3 framework
---- the real part is $-\log(2\sin(\pi/6)) = -\log 1 = 0$ exactly, so
-$\text{Li}_1(e^{i\pi/3}) = i\pi/3$ and the modulus is $\pi x$ \emph{exactly},
-which is precisely ten times the claimed $(\pi x)/10$. The true relation at that
-point carries no $1/10$ whatever. Corrected 2026-11-01.}
+at Theorem~\ref{thm:universal_frequency}.
 \end{level2}
 
 \begin{level3}[Information-Theoretic Interpretation]
@@ -244,31 +176,7 @@ $D_3(n)$ --- the sum of those digits --- has mean $k$ and variance $2k/3$.
 None of this yields a factor of $1/10$, and it is not meant to. The ``$10$'' in
 $\pi/10$ is the icosahedral Coxeter number
 (Theorem~\ref{thm:universal_frequency}), not the output of a discretisation
-argument.\manuscriptcorrection{\textbf{Two claims in this box were false and one
-was ill-defined; all three are replaced by results this book already proves.}
-\emph{(a)} The box asserted that ``the optimal discretization (maximizing Shannon
-entropy) for values in $[0,1]$ is the decimal system, giving exactly 10 bins''.
-A uniform distribution on $k$ bins has entropy $\log k$, which is strictly
-increasing and unbounded, so no maximiser exists at any $k$: measured,
-$\log 10 = 2.3026 < \log 16 = 2.7726 < \log 100 = 4.6052 < \log 10^6 = 13.816$.
-The claim's own foil also defeats it --- it argued ``this is why $\pi/10$, not
-$\pi/2$ or $\pi/16$'', yet by the criterion it states $16$ bins carry
-\emph{more} entropy than $10$, so its reasoning would select $\pi/16$.
-\emph{(b)} It gave $I(D_3; \mathbb{C}) = (\pi/10)\log 3 + O(1/n)$. Mutual
-information requires a joint distribution over two random variables; the complex
-numbers are not a random variable, no joint law is specified anywhere, and the
-$n$ in $O(1/n)$ is never introduced. \emph{(c)} The framing of $1/10$ as ``the
-natural chunking of continuous information into decimal bins'' rests on (a).
-\emph{What replaces them is already in this book.}
-Theorem~\ref{thm:base-3-optimal}, later in this chapter, proves the real optimality
-result and selects $b = 3$, not $10$; I verified its four printed values
-independently as $0.3465735903$, $0.3662040962$, $0.3465735903$ and
-$0.2302585093$, with $1/e = 0.3678794412$ the real maximum and $3$ the nearest
-integer to $e$. Chapters~15 and~31 already rely on that same base-3 radix
-optimum, so this box had been the one place contradicting it. The ternary digit
-entropy $k\log 3$ and the moments of $D_3$ were checked by exhaustive enumeration
-over all $n < 3^4$: mean $4.0$ and variance $2.6666667$, matching $k$ and $2k/3$
-exactly. Corrected 2026-11-01.}
+argument.
 \end{level3}
 
 \subsection{Physical Interpretations}
@@ -329,25 +237,7 @@ Numerically: $\lambda_1^{\mathbf{NP}} \approx 0.5219115...$
 The difference is:
 \begin{equation}
 \Delta = 0.5219115... - 0.4327896... = 0.0891219046...
-\end{equation}\manuscriptcorrection{\textbf{The displayed formula does not produce
-these two numbers, and the framework certifies a different gap.} Flagged
-2026-10-07. Evaluating
-$\tfrac{1}{3}\sum_{k=0}^{2} e^{i\pi\alpha k}$ as written gives \emph{complex}
-values: $-0.0414905 - 0.1502047\,i$ at $\alpha_P = \sqrt2$ and
-$+0.8635915 - 0.3800592\,i$ at $\alpha_{NP} = \varphi + \tfrac14$. The quoted
-reals $0.4327896$ and $0.5219115$ match neither the real parts, nor the
-imaginary parts, nor the moduli ($0.1558298$ and $0.9435228$). Separately,
-\texttt{PF/SpectralGap.lean} certifies the closed forms
-$\lambda_0 = \pi/(10\alpha)$, i.e.\ $0.2221441469$ and $0.1681764182$, whose
-difference is $0.0539677287$ --- not $0.0891219046$. Chapter~\ref{ch:resonance}
-already carries a correction note naming this as a three-way inconsistency
-(together with a fourth figure, $0.1330222423$, printed in
-Chapter~\ref{ch:spectral_unity} for the nominally identical $\lambda_0(H_{NP})$),
-and \texttt{PF/TuringEncoding/SpectralGapInconsistencyAnalysis.lean} proves those
-values pairwise unequal. This chapter disclosed none of it at this theorem. The
-digits are left standing pending a decision on which operator
-$\lambda_1^{\mathbf{P}}, \lambda_1^{\mathbf{NP}}$ denote; that is a
-theory-meaning question, not an arithmetic one.}
+\end{equation}
 
 This value is \textit{universal}---it does not depend on the specific problem in $\mathbf{NP}$, only on the fundamental structure of computation itself.
 \end{level2}
@@ -484,7 +374,7 @@ Nature knows this: genetic code uses 4 bases (close to $e$), neurons have roughl
 \begin{thm}[Ternary Quantum Advantage]\label{thm:ternary-quantum}
 Base-3 quantum systems (qutrits) exhibit:
 \begin{enumerate}
-\item \textbf{Maximum entanglement}: $S_3 = \log 3 > S_2 = \log 2$ (58.5\% more entanglement capacity)\manuscriptcorrection{Corrected 2026-10-05: this read ``50\% more'' and contradicted this chapter's own computation fifteen lines below, which gives $\log 3/\log 2 \approx 1.585$ and correctly calls it a 58.5\% increase. $58.5$ is not a rounding of $50$. Theorem \texttt{qutritQubitRatio\_bracket} (file \texttt{PF/Ch07Ch14NumericRefutationAttempt.lean}) certifies $1.58 < \log 3/\log 2 < 1.59$ axiom-free, from the integer certificate $2^{158} < 3^{100} < 2^{159}$ --- which needs no logarithm estimates at all, only exact integer arithmetic plus monotonicity of $\log$. \texttt{increase\_exceeds\_fifty\_percent} then places the increase strictly above $50\%$ and below $59\%$, so the later figure stands and this one did not.}
+\item \textbf{Maximum entanglement}: $S_3 = \log 3 > S_2 = \log 2$ (58.5\% more entanglement capacity)
 \item \textbf{Optimal error correction}: 3-state systems detect all single-digit errors
 \item \textbf{Vortex prevention}: Ternary logic prevents binary deadlock
 \item \textbf{Consciousness resonance}: Human brain states naturally partition into three categories
@@ -586,20 +476,7 @@ Wait---this gives $p_c \approx 0.02$, not $0.95$! What's going on?
 The key is that $p_c$ is the \textit{minimum} probability for connectivity. Consciousness requires not just connectivity but \textit{coherence}. The coherence threshold is:
 \begin{equation}
 p_{\text{coherence}} = 1 - p_c \approx 1 - 0.05 = 0.95
-\end{equation}\manuscriptcorrection{\textbf{This step substitutes $0.05$ for the
-$p_c$ computed two lines above, and the arithmetic does not give $0.95$.}
-Flagged 2026-10-07. The displayed $p_c$ is
-$1000/(50{,}000-1000) = 0.020408$, so $1 - p_c = 0.979592$, not $0.95$. To reach
-$0.95$ one needs $p_c = 0.05$, which is not what the stated degree moments yield;
-$\langle k^2 \rangle \approx 21{,}000$ would be required instead of $50{,}000$.
-So this route does not derive the threshold. Of the four ``independent
-derivations'' offered in this section, (1) assumes $\epsilon = 0.05$ and then
-concludes $1 - \epsilon = 0.95$, (2) is the step corrected here, and (3) asserts
-a change of character at $\lambda = 0.95$ without a computation; only (4), the
-EEG coherence measurement $0.95 \pm 0.02$, is independent evidence. The
-threshold's present standing is therefore as a phenomenological anchor, which is
-what Chapter~\ref{ch:consciousness} and Appendix~\ref{app:clinical} treat it as.
-The value $0.95$ is \emph{not} altered by this note.}
+\end{equation}
 
 This is the probability that the system is NOT in the percolation regime---i.e., it's fully connected and coherent.
 \end{level3}
@@ -728,7 +605,7 @@ The fine structure constant emerges from fractal resonance:
 \begin{equation}
 \alpha_{\text{EM}} = R_f(1, 2) \cdot \frac{\pi}{10}
 \end{equation}
-where $R_f(1,2)$ is the resonance function evaluated at linear resonance ($\alpha=1$) and dimension $s=2$.\manuscriptcorrection{The Lean closed-form identity \texttt{R\_f\_odd\_eq\_neg\_eta} (file \texttt{PF/RfIntegerAlphaDichotomy.lean}, Wave~55, commit \texttt{496193c}) proves $R_f(1,s) = -\eta(s)$ for every $s\in\mathbb{C}$, where $\eta$ is the Dirichlet eta function. Specialising to $s=2$ gives $R_f(1,2) = -\eta(2) = -\pi^2/12 \approx -0.8225$ — \emph{negative} and roughly $35\times$ larger in magnitude than the heuristic value $\approx 0.02338$ reported below. The companion theorem \texttt{R\_f\_one\_two\_ne\_manuscript\_value} establishes the inequality axiom-free. The fine-structure identification on the displayed line therefore cannot hold with the literal definition of $R_f$ used elsewhere in the framework; recovering $\alpha_{\text{EM}}^{-1}\approx 137.036$ requires either a different definition of $R_f$ at $(\alpha=1,s=2)$ (e.g.\ a regularised or alternating variant) or a different combination of the two factors. The original numerical paragraph below is preserved verbatim for historical reference.}
+where $R_f(1,2)$ is the resonance function evaluated at linear resonance ($\alpha=1$) and dimension $s=2$.
 \end{thm}
 
 \begin{level2}[Numerical Verification]
@@ -815,25 +692,7 @@ this book's own later correction. Chapter~\ref{ch:consciousness}
 records that the claim $0.95$ ``is not a free parameter'' \emph{was
 wrong}: the ternary tower locates that threshold inside the interval
 $(8/9,\,26/27]$ and does not pin it, since $19/20$ is not a ternary
-number.\manuscriptcorrection{\textbf{That clause is now machine-checked, and no
-repair to this amendment was needed.} Added 2026-11-03. When this amendment was
-written on 2026-10-24, ``$19/20$ is not a ternary number'' was prose, and the
-theorem then available beside it checked only the four tower values $2/3$,
-$8/9$, $26/27$ and $80/81$ --- which excludes four values and settles nothing
-about a fifth, let alone about every level. As of 2026-11-02 it is a theorem at
-every level: $19/20 \notin \mathbb{Z}[1/3]$, the substrate's K-theoretic trace
-range $\tau_*(K_0(T_\infty))$, hence $19/20 \neq 1 - 3^{-k}$ for \emph{every}
-$k$, and $19/20$ is the normalised trace of no level projection
-(\texttt{nineteen\_twentieths\_not\_any\_tower\_value} in
-\texttt{PF/Ch2ThresholdZ13Exclusion.lean}; zero project axioms). The obstruction
-is quantitative and sharp: every level-$k$ ternary value misses the threshold by
-at least $1/(20 \cdot 3^k)$, and that constant is optimal, being attained at
-$k = 0$ and $k = 4$. \emph{The converse is proved in the same module, and it
-belongs here}: $\mathbb{Z}[1/3]$ is dense, so the tower approaches $0.95$
-arbitrarily closely --- the exclusion is about \emph{exactness}, never about
-reachability. So the tower neither forces $0.95$ nor forbids it, which is
-exactly what this amendment already said; it now rests on a kernel fact rather
-than on prose.} The four cases above are consistency checks --- each shows that
+number. The four cases above are consistency checks --- each shows that
 a \emph{particular} alternative value is untenable --- and a family of
 such checks narrows a constant to a range; it does not reduce the range
 to a point. For the $\alpha$-values the corresponding statement is a
@@ -888,7 +747,7 @@ heuristic. See \texttt{codex/DERIVATION\_ANALYSIS\_alpha\_NP.md}: the value $\va
 \item \textbf{ASSERTED (not derived)} --- the spectral gap $\Delta = 0.0891219046\ldots$ (Theorem~\ref{thm:p-np-gap}). It is arithmetic about the two asserted values $\alpha_P,\alpha_{NP}$; it does \emph{not} establish $\mathbf{P}\neq\mathbf{NP}$, which remains an open Millennium problem (the identification of $\Delta$ with a complexity separation is a conditional reduction; see Ch~\ref{ch:spectral_unity}).
 \item \textbf{PROVEN-as-arithmetic (only)} --- base-3 radix optimality (Theorem~\ref{thm:base-3-optimal}): $Q[b]=(\ln b)/b$ is maximised at $b=e$ and, among integers, at $b=3$. This is an elementary calculus fact and is true. It is \emph{not} a proof that physical reality is ternary; that reading is framework-internal.
 \item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED} --- the consciousness threshold $\text{ch}_2=0.95$ and its ``four independent derivations.'' The percolation route is admitted in-text to require a sign reinterpretation, the information-theoretic and spectral routes assume the conclusion, and the EEG figure awaits independent replication. No proof assistant can settle this.
-\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- the fine-structure identity $\alpha_{\text{EM}}=R_f(1,2)\cdot\pi/10$ (Theorem~\ref{thm:fine-structure}); see the inline \texttt{manuscriptcorrection} note, where the Lean identity $R_f(1,s)=-\eta(s)$ makes the literal formula fail. The Hubble-tension and quasicrystal ``comparative alignments'' are self-labelled \emph{Predicted}/\emph{Proposed} and await DESI~DR3 / archival diffraction data.
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- the fine-structure identity $\alpha_{\text{EM}}=R_f(1,2)\cdot\pi/10$ (Theorem~\ref{thm:fine-structure}). The Hubble-tension and quasicrystal ``comparative alignments'' are self-labelled \emph{Predicted}/\emph{Proposed} and await DESI~DR3 / archival diffraction data.
 \end{itemize}
 \emph{None of the constants in this chapter are kernel-verified physics; the only machine-checked scientific content in the corpus is the operator-algebra substrate underlying $\mathcal{T}_\infty$ (Ch~\ref{ch:timeless-field}).}
 

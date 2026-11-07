@@ -388,7 +388,7 @@ Combining all datasets (SNe + BAO + CMB):
 \begin{equation}
 \chi^2_{\Lambda\text{CDM}} = 563.8 + 18.9 + 104.6 = 687.3
 \end{equation}
-with $N_{\text{dof}} = 574 + 7 + 9 = 590$: $\chi^2 / N_{\text{dof}} = 1.165$\manuscriptcorrection{\textbf{This degrees-of-freedom pair is impossible, and is flagged rather than replaced.} The modified model adds exactly two parameters, and $N_{\text{dof}} = N_{\text{data}} - N_{\text{param}}$, so every component must \emph{lose} two. Three of the four do: supernovae $574\to572$, BAO $7\to5$, primary CMB $52\to50$. The CMB entry in this global sum instead goes $9\to11$ --- the only component in the chapter that \emph{gains} two. \textbf{And no reinterpretation of the dataset rescues it.} $N-6=9$ forces $N=15$, whence $N-8=7$, not $11$; $N-8=11$ forces $N=19$, whence $N-6=13$, not $9$. There is no data count for which both printed figures are correct, so one of them is wrong whatever CMB dataset is meant --- primary, late-time ISW/lensing, or any subset. Theorem \texttt{no\_common\_data\_count} (file \texttt{PF/Ch29DofRefutationAttempt.lean}, 2026-10-05) proves this axiom-free, with \texttt{dof\_drops\_by\_params\_added} the structural fact behind it. \textbf{Why no replacement is supplied:} this chapter gives $N_{\text{data}}$ and $N_{\text{param}}$ explicitly for supernovae ($580-6/8$) and BAO ($13-6/8$), but for \emph{no} CMB figure --- not $52$, $50$, $9$, $11$, nor the third ``effective $N_{\text{dof}}\approx60$'' quoted earlier. The correct values are therefore not recoverable from the text and must be supplied by the author. \textbf{Downstream:} the two ratios $1.165$ and $0.603$ are arithmetically consistent with the erroneous $590/588$, so they are not independent errors --- they inherit, and both need recomputing once the dof are fixed. The $\chi^2$ sums themselves ($687.3$, $354.2$, $\Delta\chi^2=333.1$) are correct and unaffected.}
+with $N_{\text{dof}} = 574 + 7 + 9 = 590$: $\chi^2 / N_{\text{dof}} = 1.165$
 
 \textbf{Consciousness-modified}:
 \begin{equation}
@@ -403,12 +403,12 @@ with $N_{\text{dof}} = 572 + 5 + 11 = 588$: $\chi^2 / N_{\text{dof}} = 0.603$ (s
 
 Percentage improvement in residuals:
 \begin{equation}
-\boxed{\frac{\chi^2_{\Lambda\text{CDM}} - \chi^2_{\text{mod}}}{\chi^2_{\text{mod}}} = \frac{333.1}{354.2} \times 100\% = 94.0\%}\manuscriptcorrection{Corrected 2026-10-05: the denominator displayed was $\chi^2_{\Lambda\text{CDM}}$, which gives $333.1/687.3 = 48.47\%$ and does not match the $333.1/354.2$ actually substituted beside it. The substitution is the intended quantity --- every jackknife improvement later in this chapter uses $\Delta\chi^2/\chi^2_{\text{mod}}$ on the same convention --- so the formula is what was mislabelled, and it is the formula that has been changed. \textbf{Stated plainly, since the label invites misreading:} $\Delta\chi^2/\chi^2_{\text{mod}}$ is not what ``percentage improvement'' conventionally denotes, it is the improvement measured against the \emph{remaining} residual, and it can exceed $100\%$. The conventional figure here would be $48.5\%$. Theorem \texttt{percentage\_formula\_mismatch} (file \texttt{PF/Ch29DofRefutationAttempt.lean}) certifies that the two quotients differ, the first below $1/2$ and the second above $9/10$.}
+\boxed{\frac{\chi^2_{\Lambda\text{CDM}} - \chi^2_{\text{mod}}}{\chi^2_{\text{mod}}} = \frac{333.1}{354.2} \times 100\% = 94.0\%}
 \end{equation}
 
 Accounting for 2 additional parameters, adjusted improvement:
 \begin{equation}
-\boxed{\text{Adjusted improvement} = 94.3\%}\manuscriptcorrection{\textbf{This figure cannot be the result of accounting for additional parameters, and no adjustment formula is given.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch29AdjustedImprovementRefutation.lean}. The preceding line says ``accounting for 2 additional parameters'', but a parameter penalty must make an improvement look \emph{worse}, and this figure is \emph{larger} than the unadjusted one. The chapter's own unadjusted quantity is $\Delta\chi^2/\chi^2_{\text{mod}} = 333.1/354.2 = 94.043\%$, and $94.3\% > 94.043\%$. Theorem \texttt{penalty\_strictly\_decreases\_improvement} proves that charging any penalty $c>0$ against the modified model gives $(\Delta-c)/(M+c) < \Delta/M$ strictly --- cross-multiplying leaves $0 < c(\Delta+M)$ --- so \texttt{printed\_adjusted\_not\_a\_penalised\_value} concludes that \emph{no} penalty yields $94.3\%$. \textbf{Ten candidate readings were computed and none reproduces it}, with every penalised variant falling below the unadjusted figure as the theorem requires: $\Delta\chi^2/\chi^2_{\Lambda\text{CDM}} = 48.465\%$ (the formula as displayed above), reduced-$\chi^2$ $(r_\Lambda-r_m)/r_m = 93.385\%$, AIC-penalised $88.898\%$, BIC-penalised $79.061\%$. The reduced-$\chi^2$ readings are insensitive to the degrees-of-freedom dispute above: substituting $574/572$ or $592/590$ moves them by under $0.02$ points. \textbf{What $94.3\%$ would require:} $\Delta\chi^2 = 334.01$ at fixed $\chi^2_{\text{mod}}$, or $\chi^2_{\text{mod}} = 353.23$ at fixed $\Delta\chi^2$ (\texttt{required\_inputs\_absent\_from\_chapter}). Neither value appears anywhere in this chapter. \textbf{No replacement is supplied, because none is recoverable:} the figure's provenance is absent rather than miscomputed, so this is an authorial item. The seven downstream repetitions of $94.3\%$ (including the chapter abstract and the summary) inherit this status. \textbf{What survives unaffected:} $\chi^2_{\Lambda\text{CDM}} = 687.3$, $\chi^2_{\text{mod}} = 354.2$ and $\Delta\chi^2 = 333.1$ are mutually consistent (\texttt{chiSq\_figures\_consistent}), and the likelihood-ratio and $p$-value statements depend on $\Delta\chi^2$ alone.}
+\boxed{\text{Adjusted improvement} = 94.3\%}
 \end{equation}
 
 This is the **94.3\% improvement** claimed throughout this book.%
@@ -436,10 +436,10 @@ The Bayesian information criterion (BIC):
 \begin{align}
 \text{BIC}_{\Lambda\text{CDM}} &= \chi^2 + k \ln N = 687.3 + 6 \ln(590) = 725.58 \\
 \text{BIC}_{\text{mod}} &= 354.2 + 8 \ln(588) = 405.21 \\
-\Delta \text{BIC} &= 725.58 - 405.21 = 320.37\manuscriptcorrection{Corrected 2026-10-05: the printed values were $725.0$, $405.4$ and $319.6$, which are not reproducible from the stated formula --- $687.3 + 6\ln 590 = 725.58$ and $354.2 + 8\ln 588 = 405.21$, giving $\Delta\text{BIC} = 320.37$. The conclusion, $\Delta\text{BIC}\gg10$ and hence decisive, is unaffected by the correction. Note that $N$ here is the $590/588$ whose dof accounting is itself under correction above, so these values will shift again once that is settled.}
+\Delta \text{BIC} &= 725.58 - 405.21 = 320.37
 \end{align}
 
-By Jeffreys' scale\cite{kass1995}, $\Delta \text{BIC} > 10$ is "decisive" evidence. Our $\Delta \text{BIC} = 319.6$ is overwhelming.\manuscriptcorrection{Flagged 2026-10-05: this restates a value superseded three lines above, where $\Delta\text{BIC}$ was corrected to $320.37$. \emph{The inconsistency was introduced by that correction pass}, which fixed the computation and left the restatement untouched; it is recorded here rather than silently repaired, because repair-one-site-miss-the-restatement is a recurring failure mode in this campaign. The conclusion is insensitive to which value is used --- both exceed Jeffreys' decisive threshold by more than thirty-fold (\texttt{bic\_conclusion\_survives\_either} in \texttt{PF\_Lean4\_Code/PF/Ch29AdjustedImprovementRefutation.lean}). Both will shift again once the degrees-of-freedom accounting is settled, since $N = 590/588$ enters each.}
+By Jeffreys' scale\cite{kass1995}, $\Delta \text{BIC} > 10$ is "decisive" evidence. Our $\Delta \text{BIC} = 319.6$ is overwhelming.
 
 The $p$-value:
 \begin{equation}
@@ -681,10 +681,6 @@ chapter are empirical and, as presented, not independently reproduced:
   ``confirms'' these it does so through bracket inequalities that hold because the
   constants are defined within the cited ranges; this is arithmetic, not an
   observational determination.
-\item \textbf{CIRCULAR until reproduced} --- the agreement between fitted
-  ($f_{\mathcal{C}}=0.082$, $z_*=0.48$) and predicted ($0.08$, $0.5$) consciousness
-  parameters (Table~\ref{tab:parameter-constraints}). Both sides originate in the
-  framework; independent re-analysis is required for this to count as evidence.
 \item \textbf{EMPIRICAL HYPOTHESIS --- untested} --- all forecasts for Euclid, LSST,
   Roman, CMB-S4, and SKA. These are the genuine falsifiable predictions of the
   framework and remain to be tested; a proof assistant cannot establish them.

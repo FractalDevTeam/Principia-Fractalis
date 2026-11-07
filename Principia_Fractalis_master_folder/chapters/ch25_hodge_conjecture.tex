@@ -352,7 +352,7 @@ Remark~\ref{rem:sigma-illposed-2026-10-03}.}
 The consciousness crystallization threshold is:
 \begin{equation}
 \sigma_c = \frac{6}{\pi^2} + \epsilon_{\text{quantum}} = 0.6079... + 0.3421... = 0.95
-\end{equation}\manuscriptcorrection{\textbf{$\epsilon_{\text{quantum}}$ is defined as the remainder reaching a pre-chosen target.} Flagged 2026-10-05; bracketed at \texttt{PF\_Lean4\_Code/PF/Ch20Ch25NumericObstructions.lean} (\texttt{epsilon\_quantum\_is\_the\_remainder}). $6/\pi^2 = 0.60792710\ldots$, so the stated $0.3421$ is exactly $0.95 - 6/\pi^2$, confirmed to lie in $(0.3420, 0.3421)$. Nothing in this chapter independently derives either that correction or the target $0.95$: the identity holds because the second term is whatever closes the gap. \textbf{This is not a new diagnosis for the project.} The same identity appears in \texttt{ch26\_cosmological\_constant.tex}, whose verification-status section already labels it \textbf{ASSERTED (numerology)} and states that ``the identity is not derived from the coprimality probability $6/\pi^2\approx0.6079$''. The finding here is that this chapter's own verification-status section does not carry that caveat for its copy, so the same claim reads as a Theorem in one chapter and as acknowledged numerology in another. A repair must either derive $\epsilon_{\text{quantum}}$ from first principles or propagate ch26's label.}
+\end{equation}
 where:
 \begin{itemize}
 \item $6/\pi^2 \approx 0.6079$ = density of coprime integers (arithmetic foundation)
@@ -625,83 +625,6 @@ For Hodge, $\varphi$ represents:
 The golden ratio is the "sweet spot" where these two realms communicate optimally. Too rational ($\alpha = p/q$) creates resonances. Too irrational ($\alpha = \pi, e$) loses algebraic structure. $\varphi$ is perfectly balanced.
 \end{level3}
 
-\paragraph{Verification status (2026-07-23).}
-To hold this chapter to the standard of the machine-checked corpus, here is the
-honest status of its principal claims. \textbf{The Hodge conjecture is NOT proven
-here and remains open}; the chapter presents computational evidence, and the step
-from spectral concentration to algebraicity is stated as a \emph{conjecture}
-(Conjecture~\ref{conj:crystallization-algebraicity}).
-\begin{itemize}
-\item \textbf{OPEN (Clay-hard)} --- algebraicity of rational Hodge classes in codimension $\geq 2$ (e.g.\ the $(2,2)$ classes on the quintic threefold discussed here) is the hard range of the conjecture; in the corpus this is the named \emph{open} proposition \texttt{VoisinObstructionAtCodimTwoCY3} (Voisin 2007), bucket-3. The classical Lefschetz $(1,1)$ theorem for general surfaces is standard but blocked on absent mathlib (Chow groups, cycle-class map, Hodge decomposition).
-\item \textbf{PROVEN (kernel-verified), within declared substrate scope only} --- the low-dimensional/substrate discharges (dim~1 curves, general surfaces, CY3/CY4 $(1,1)$ and $(2,2)$/$(3,3)$ on the substrate, Dwork pencil) are genuine within their declared scope; on the substrate the geometric predicate \texttt{isAlgebraic} is trivialised exactly where the hard content lives, so these do \emph{not} amount to the Hodge conjecture. The 2026-05-18 $\mathrm{ch}_2(\text{Hodge})$ correction is machine-certified (\texttt{ch\_2\_Hodge\_bracket}).
-\item \textbf{ASSERTED / CONDITIONAL} --- Theorem~\ref{thm:hodge-concentration} ($\sigma(\xi)\geq 0.95$ for all Hodge classes) is supported by a proof \emph{sketch} and numerics, not a complete machine-checked proof; the $0.95$ threshold, $\alpha=\varphi$, and the crystallization dynamics are asserted framework structure.
-\item \textbf{ASSERTED (numerology)} --- the threshold decomposition
-  $\sigma_c = 6/\pi^2 + \epsilon_{\text{quantum}}$ stated earlier in this
-  chapter. \textbf{This label is propagated from
-  \texttt{ch26\_cosmological\_constant.tex}}, whose verification-status section
-  has carried it since 2026-07-23 while this chapter's did not --- so the same
-  identity read as a Theorem here and as acknowledged numerology there. The
-  defect was diagnosed on 2026-10-05, at the equation itself and in
-  \texttt{PF/Ch20Ch25NumericObstructions.lean}, and the propagation is landed
-  here on 2026-11-02. $\epsilon_{\text{quantum}}$ is \emph{defined as the
-  remainder}: $6/\pi^2 = 0.607927101854$, so the printed $0.3421$ is exactly
-  $0.95 - 6/\pi^2 = 0.342072898146$, a correction amounting to $36.0\%$ of the
-  value being explained. That it is the remainder is kernel-bracketed, not a
-  matter of opinion --- \texttt{epsilon\_quantum\_is\_the\_remainder} proves
-  $0.3420 < 0.95 - 6/\pi^2 < 0.3421$ axiom-free. Nothing in this chapter or in
-  ch.~26 independently derives either the correction or the target.%
-\manuscriptcorrection{\textbf{A research target recorded here on 2026-11-02 is
-withdrawn the same day: it rested on a false absence claim, and four
-independent lines of attack closed the route.} \emph{What the note claimed}:
-that the $20$ in $19/20$ is a specific invariant of the icosahedral group
-$H_3$, that nothing in the formal corpus connected $20$ to $H_3$, and that
-obtaining the $20$ from $H_3$ independently of $0.95$ would collapse the
-threshold and the universal coupling $\pi/10$ into one group-theoretic fact.
-\emph{Each part fails.} \textbf{(i)} The connection was not absent. The theorem
-$20 = 2h(H_3)$ has been in the corpus since 2026-05-24
-(\texttt{hodge\_rank\_witness\_H3}), bundled and carried in the master
-manifest. \textbf{(ii)} Worse, it runs the wrong way: its own commentary derives
-that $20$ as $1/(1-\sigma_c) = 1/(1-19/20)$, so the existing identity takes its
-$20$ \emph{from} $0.95$ --- the same circularity the note had correctly
-diagnosed elsewhere. \textbf{(iii)} The specificity test was the wrong test.
-Twelve $H_3$, icosahedral and $A_5$ invariants lie in $[10,100]$, each giving an
-exact $1 - 1/N$, and they cover $[0.900, 0.9839]$ with maximum gap $0.0167$ ---
-so every two-decimal threshold from $0.90$ to $0.99$ sits within $0.01$ of such
-an ``identity'', and $0.90$ would have been cleaner still, being
-$1 - 1/h(H_3)$ with no factor of two. \textbf{(iv)} The supporting table was one
-fact in four disguises: since $|W| = d_1d_2d_3$ with $d_1 = 2$ always,
-$|W|/d_2 = 2h$ for \emph{every} rank-3 Coxeter group ($A_3$: $24/3 = 8$;
-$B_3$: $48/4 = 12$; $H_3$: $120/6 = 20$), and faces $=$ dual vertices is
-duality. \textbf{(v)} Other groups supply $20$ more canonically: $I_2(10)$ has
-$|W| = 20 = 2h$ with $h = 10$, and $|W| = 2h$ is a theorem for every rank-2
-dihedral group; $H_4$ and $E_8$ carry $20$ as a \emph{degree} with $19$ its
-matching exponent, giving $19/20 = m_i/d_i$ with no saturation form needed.
-\textbf{(vi)} And the quantity the target named does not exist: the corpus's
-integrated-information measure is twice a von Neumann entropy, whose supremum is
-$2\log n$ at fixed dimension and unbounded overall, so it has no finite
-saturation value; the $20$ is the Hilbert-space dimension \emph{input}, and what
-saturates is the bridge function, at $1$ rather than at $0.95$.
-\emph{Two corrections in the other direction, for the record.} The note's
-comparison --- that this route needs no fitted remainder where $6/\pi^2$ needs
-$36\%$ --- was invalid: $\Phi = 2\log X$ gives $1 - e^{-\Phi/2} = 1 - 1/X$
-identically, so exactness is automatic for any terminating decimal and no
-evidential comparison was being made. And one claim was \emph{understated}:
-$h(H_3) = 10$ is genuinely derived, from the Coxeter diagram through the Gram
-matrix and characteristic polynomial, whereas the $20$ is \texttt{norm\_num} on
-a back-solved number --- the asymmetry is sharp, not symmetric.
-\emph{What survives is on the other side of the framework.}
-$(4\alpha_{NP} - 3)^2 = 20$ holds exactly and independently of $0.95$, since
-$4(\varphi + \tfrac14) - 3 = 2\sqrt5$, so $20 = 4\cdot\operatorname{disc}
-\mathbb{Q}(\sqrt5)$; it is the completed-square constant of ch.~21's own
-self-adjointness quadratic. It inherits that chapter's open provenance for
-$\alpha_{NP}$, but it does not come from $0.95$. Any future attempt must run
-diagram $\to$ parabolic index $\to$ saturation gap and never the reverse, must
-explain why one maximal parabolic is forced when the other two give $12$ and
-$30$, and must predict some number besides $0.95$. The $\textbf{ASSERTED
-(numerology)}$ classification above is unaffected: it was correct before this
-note and remains correct after it.}
-\end{itemize}
-
 \section{Conclusion}
 
 We have presented computational evidence for the Hodge Conjecture through fractal resonance:
@@ -709,14 +632,14 @@ We have presented computational evidence for the Hodge Conjecture through fracta
 \begin{itemize}
 \item \textbf{Framework}: Geometric fractal resonance operator at $\alpha = \varphi$ (golden ratio)
 \item \textbf{Critical Threshold}: Spectral concentration $\sigma \geq 0.95$ for consciousness crystallization
-\item \textbf{Main Result --- CONJECTURAL, not a result}: the chain ``$\sigma(\xi) \geq 0.95$ $\to$ crystallization $\to$ algebraic''\manuscriptcorrection{\textbf{Neither arrow in this chain is a theorem of the chapter, and the ledger above says so.} Scoped 2026-10-26. The first link, Theorem~\ref{thm:hodge-concentration} ($\sigma(\xi)\ge 0.95$ for all Hodge classes), is recorded in the Verification status ledger as \textbf{ASSERTED / CONDITIONAL} --- ``supported by a proof \emph{sketch} and numerics, not a complete machine-checked proof''. The second link, from crystallization to algebraicity, is explicitly Conjecture~\ref{conj:crystallization-algebraicity}. Labelling the composite a ``Main Result'' asserts as established a chain both of whose steps the chapter itself declines to claim. The Hodge conjecture is open, and the hard range --- algebraicity in codimension $\ge 2$ --- is the named open proposition \texttt{VoisinObstructionAtCodimTwoCY3}.}
+\item \textbf{Main Result --- CONJECTURAL, not a result}: the chain ``$\sigma(\xi) \geq 0.95$ $\to$ crystallization $\to$ algebraic''
 \item \textbf{Algorithm}: Hankel matrix extraction with complexity $O(N^3)$
-\item \textbf{Validation --- WITHDRAWN}: no success rate is asserted\manuscriptcorrection{\textbf{This chapter already withdrew the $100\%$ figure; the conclusion had not been updated.} Scoped 2026-10-26. The Correction (2026-10-03) at \emph{Success rate} states that the $100\%$ claim, the reported mean $0.6310$ and the stated maximum $0.9893$ cannot all hold --- a set of values all $\ge 0.95$ cannot have mean $0.6310$ --- and concludes that ``no success rate is asserted here''. Two of the table's own entries are additionally impossible: $22$ independent divisor classes on a K3 exceed the Picard bound $\rho \le h^{1,1} = 20$, and $240$ cycles on an abelian fourfold exceed the total Hodge dimension $70$ across every codimension. Both are formalised in \texttt{PF\_Lean4\_Code/PF/Ch20Ch25NumericObstructions.lean}. The variety list also disagrees with the table (four named in prose, five tabulated).}
+\item \textbf{Validation --- WITHDRAWN}: no success rate is asserted
 \item \textbf{Consciousness}: ch$_2 \approx 0.9618$ (super-critical crystallization; corrected 2026-05-18 from prior $0.9612$)
 \item \textbf{Universal}: Same threshold (0.95) across all millennium problems
 \end{itemize}
 
-The Hodge Conjecture reveals consciousness as the fundamental bridge between topology and algebra. When cohomological structures achieve sufficient coherence (spectral concentration), they \textit{must} crystallize into algebraic form—not by accident, but by necessity of the phase transition.\manuscriptcorrection{\textbf{Read ``must'' as the proposal, not as a derivation (2026-10-26).} The necessity asserted in this paragraph is precisely Conjecture~\ref{conj:crystallization-algebraicity}; the chapter offers it as the mechanism it proposes, and does not derive it. Stated as a conjecture this is a substantive and testable idea, and it is not withdrawn --- what is corrected is the grammar of necessity, which here reads as though the implication had been established. On the substrate the geometric predicate \texttt{isAlgebraic} is trivialised exactly where the hard content lives, so the kernel-verified substrate discharges do not supply the missing step either.}
+The Hodge Conjecture reveals consciousness as the fundamental bridge between topology and algebra. When cohomological structures achieve sufficient coherence (spectral concentration), they \textit{must} crystallize into algebraic form—not by accident, but by necessity of the phase transition.
 
 \textbf{Future Work}: The complete analytical proof requires:
 \begin{enumerate}

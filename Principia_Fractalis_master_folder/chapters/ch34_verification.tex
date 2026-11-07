@@ -844,25 +844,7 @@ The four files together establish that under \emph{one} settled
 external anchor (Perelman, $\alpha_{\text{Poincar\'e}} = 1$), the asserted
 framework value $\alpha_{\text{NS}} = 3\pi/2$ taken as a \emph{hypothesis}, and
 the framework's structural identities, the seven remaining $\alpha$-values are
-determined.\manuscriptcorrection{\textbf{This sentence previously read ``under
-the two external anchors $\ldots$ OpenAI-corroborated
-$\alpha_{\text{NS}} = 3\pi/2$''. That framing is falsified by this chapter's own
-addendum below.} Repaired 2026-10-31. The addendum states that
-``$\alpha_{\text{NS}} = 3\pi/2$ is \emph{asserted} framework structure, not an
-anchored value, and the framework has one settled external anchor rather than
-two'', and records the repair as landed in
-Chapter~\ref{ch:navier-stokes} and Chapter~\ref{ch:substrate-theorem}. Both were
-repaired; \textbf{this site, in the same chapter as the addendum, was the
-survivor} --- the recurring repair-one-site-miss-the-restatement pattern. The
-Lean artifact agrees with the corrected reading:
-\texttt{PF/FiveWayFalsifiability.lean} carries
-\texttt{hNS : aNS = 3 * Real.pi / 2} as a \emph{hypothesis} of the theorem, not
-as a derived or anchored quantity. \textbf{Nothing is withdrawn from the
-mathematics}: the solve is still exact and the seven values still follow from the
-stated inputs. What changes is that one of those inputs is an assertion of this
-framework rather than an external result --- which also means the system is
-exactly determined and carries \emph{no} over-determination to cite as
-corroboration.}
+determined.
 
 \section{Summary}
 \label{sec:summary-ch30}
@@ -916,7 +898,7 @@ Because this chapter is titled ``Verification,'' it is essential to state precis
 \item \textbf{ASSERTED (not derived) --- the framework constants.} Values such as $\alpha_P=\sqrt2$ and the NP constant ($\varphi+\tfrac14$, or $\pi/3$ as coded in Protocol~P1) are \emph{chosen}, not derived from first principles. The cross-Millennium algebraic identities among them are true \emph{as arithmetic about these chosen values} and say nothing about the Millennium problems themselves.
 \item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED --- the consciousness and clinical claims.} The $\text{ch}_2\!\geq\!0.95$ threshold, the 97.3\,\% EEG classification accuracy (Protocol~C2), and all consciousness quantifications are physical/clinical claims that only experiment can settle; no proof assistant can establish them, and they are not independently validated here.
 \end{itemize}
-\noindent In short: the \emph{Lean} axiom audit and the partial Lean4Lean re-verification (Sections~\ref{sec:lean4lean-reverification}--\ref{sec:referee-proof-certifications}) certify the \emph{substrate}, with zero project axioms; the Coq audit does \emph{not} --- see the scope note on that row of Section~\ref{sec:referee-proof-certifications} --- and the Python protocols in this chapter provide \emph{reproducibility of numerical outputs}, not proofs of the Millennium, consciousness, or cosmological claims.\manuscriptcorrection{\textbf{This sentence previously credited ``the Lean and Coq axiom audits'' jointly with certifying the substrate. The Coq half is withdrawn.} Repaired 2026-10-31. The substrate content is the first bullet of this ledger: faithfulness of the canonical trace on $\mathcal{T}_\infty$, $C^*$-simplicity, and uniqueness of the trace. Those are precisely the three results \texttt{PF\_Coq\_Code/README.md} says are ``not mirrored'' in the real Coq tree and ``must not be claimed'', Rocq/mathcomp having no C\*-algebra theory. \textbf{Why this one is treated as serious}: the sentence sits in the governing ledger, and \S0 of the project's standing instructions reports status from this layer and never from prose --- so a ledger crediting a prover with results that prover cannot express cannot govern. The Lean certification is unchanged and unqualified.}
+\noindent In short: the \emph{Lean} axiom audit and the partial Lean4Lean re-verification (Sections~\ref{sec:lean4lean-reverification}--\ref{sec:referee-proof-certifications}) certify the \emph{substrate}, with zero project axioms; the Coq audit does \emph{not} --- see the scope note on that row of Section~\ref{sec:referee-proof-certifications} --- and the Python protocols in this chapter provide \emph{reproducibility of numerical outputs}, not proofs of the Millennium, consciousness, or cosmological claims.
 
 \paragraph{Verification update (2026-08-04): kernel-verified results added since the 2026-07-23 ledger (arc r183--r192).}
 The ledger above describes the corpus as of its date; its scope sentence

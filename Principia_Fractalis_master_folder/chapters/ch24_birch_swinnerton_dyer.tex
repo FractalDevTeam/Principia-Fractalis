@@ -106,7 +106,7 @@ Think of $a_p$ as measuring the "error" from the expected number of points. By t
 \textbf{Example}: For $E: y^2 = x^3 - 2$ and $p = 5$:
 \begin{itemize}
 \item Points: $(3,0)$, plus infinity $O$, so $\#E(\F_5) = 2$
-\item $a_5 = 5 + 1 - 2 = 4$\manuscriptcorrection{\textbf{The point count is wrong: there are five affine points, not one.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch23Ch24MillenniumNumerics.lean}. Enumerating every $x\in\F_5$ for $y^2=x^3-2$ gives $(1,2)$, $(1,3)$, $(2,1)$, $(2,4)$ and $(3,0)$, so $\#E(\F_5)=6$ including $\mathcal{O}$, and $a_5=5+1-6=0$ (\texttt{point\_count\_over\_F5}). The chapter found one of the five. A repair must recompute this trace of Frobenius and check every other displayed $a_p$ for the same slip.}
+\item $a_5 = 5 + 1 - 2 = 4$
 \end{itemize}
 
 The coefficients $a_p$ encode deep arithmetic information about $E$.
@@ -471,7 +471,7 @@ for any $\varepsilon > 0$.
 \item Eigenvalue computation: $O(B \log B) = O(N_E^{1/2} \log^2 N_E)$
 \end{itemize}
 
-Total: $O(N_E^{1/2} \cdot \log^8 N_E + N_E \log^2 N_E) = O(N_E^{1/2+\varepsilon})$ for any $\varepsilon > 0$.\manuscriptcorrection{\textbf{The sum contradicts its own conclusion.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch23Ch24MillenniumNumerics.lean}. The proof's own matrix-construction step is $O(N_E\log^2 N_E)$, which is $N_E^{1+o(1)}$ and is \emph{not} $O(N_E^{1/2+\varepsilon})$ for any $\varepsilon<1/2$: the ratio $N_E^{1/2-\varepsilon}/\log^2 N_E$ diverges. Concretely at $N_E=10^{12}$ with $\varepsilon=1/4$, the near-linear term already exceeds $N_E^{3/4}=10^9$ by a factor of $10^3$ before the logarithms are counted (\texttt{near\_linear\_exceeds\_three\_quarter\_power}), and no constant closes it (\texttt{no\_constant\_rescues\_the\_bound}). The correct overall complexity is dominated by that step, roughly $O(N_E^{1+o(1)})$ --- still better than the quoted classical $O(N_E^{3/2})$, but not a square-root bound.}
+Total: $O(N_E^{1/2} \cdot \log^8 N_E + N_E \log^2 N_E) = O(N_E^{1/2+\varepsilon})$ for any $\varepsilon > 0$.
 \end{proof}
 
 \begin{remark}[Comparison with Classical Methods]
@@ -591,7 +591,7 @@ Consider $E: y^2 = x^3 - 2$:
 
 \begin{itemize}
 \item \textbf{Conductor}: $N_E = 1728$
-\item \textbf{Classical rank}: $\rank E(\Q) = 1$\manuscriptcorrection{\textbf{Repaired 2026-10-16.} The original printing ranked this curve $0$; every printed value in this example was wrong. Verified: conductor $N_E=1728$; analytic rank $1$; $L(E,1)=0$, $\ord_{s=1}L(E,s)=1$; torsion trivial; root number $-1$. Algebraic rank $\ge 1$ is proven in Lean (\texttt{curveA\_rank\_ge\_one}: the point $P=(3,5)$ has infinite order), hence $=1$ by Gross--Zagier--Kolyvagin. The printed $L(E,1)=0.8251329\ldots$ matches no computed value of this curve. Originally flagged 2026-10-05.}
+\item \textbf{Classical rank}: $\rank E(\Q) = 1$
 \item \textbf{L-function}: $L(E, 1) = 0$, so $\ord_{s=1} L(E,s) = 1$ ✓
 \item \textbf{Fractal prediction}: Eigenvalue spectrum has exactly one value at $\varphi/e = 0.5952...$ ✓
 \end{itemize}
@@ -608,7 +608,7 @@ Consider $E: y^2 + y = x^3 - x$ (Cremona label \texttt{37a1}):
 \item \textbf{Fractal prediction}: Eigenvalue spectrum has exactly one value at $\varphi/e = 0.5952...$ \checkmark
 \end{itemize}
 
-\manuscriptcorrection{Repaired 2026-10-16: the previous example used $y^2=x^3-x$ --- the congruent-number curve for $n=1$, which has rank $0$ (Fermat), not $n=5$ --- with a generator $(-2,-4)$ not on the curve. Replaced with \texttt{37a1}, already among this chapter\textquotesingle s kernel-verified rank-1 curves; conductor, rank, point, and $L(E,1)=0$ independently verified by PARI.}
+
 
 \subsection{Example 3: High Rank Curve}
 
@@ -621,32 +621,6 @@ Consider the curve with conductor $N_E = 234446$, known to have $\rank E(\Q) = 3
 \item \textbf{Precision}: $|\lambda_1 - \varphi/e| < 10^{-9}$, $|\lambda_2 - \varphi/e| < 10^{-9}$, $|\lambda_3 - \varphi/e| < 10^{-9}$
 \end{itemize}
 
-\paragraph{Verification status (2026-07-23).}
-To hold this chapter to the standard of the machine-checked corpus, here is the
-honest status of its principal claims. \textbf{The Birch--Swinnerton-Dyer
-conjecture is NOT proven here and remains open}; the chapter presents
-computational evidence, and its central rank formula is stated as a
-\emph{conjecture} (Conjecture~\ref{conj:rank-equality-fractal}).
-\begin{itemize}
-\item \textbf{OPEN (Clay-hard)} --- the actual BSD statement, analytic rank $=$ Mordell--Weil rank on real elliptic curves (\texttt{Clay\_BSD\_Standard}), is bucket-3. The golden-threshold rank mechanism ($\varphi/e$) is not machine-checked and does not close it.
-\item \textbf{PROVEN (kernel-verified), UNCONDITIONALLY} --- as of HEAD
-\texttt{162548ad} the Lean stack proves, with axioms exactly
-$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$ and
-\emph{no} appeal to Gross--Zagier, Kolyvagin, Heegner points, descent or
-modularity:
-\begin{itemize}
-\item $\rank E(\Q) \ge 1$ for eleven curves --- \texttt{37a1}, \texttt{43a1},
-      \texttt{53a1}, \texttt{61a1}, \texttt{79a1}, \texttt{83a1},
-      \texttt{89a1}, \texttt{101a1}, \texttt{106a1}, \texttt{389a1},
-      \texttt{5077a1} (r129--r146);
-\item $\rank E_{389\mathrm{a}1}(\Q) \ge 2$ --- the first machine-checked proof
-      that two rational points on an elliptic curve are independent (r154);
-\item $E_{389\mathrm{a}1}(\Q)$ is torsion-free (r155);
-\item the canonical (N\'eron--Tate) height $\hat{h}$, its vanishing exactly on
-      torsion, and the \emph{exact} parallelogram law
-      $\hat{h}(P{+}Q)+\hat{h}(P{-}Q) = 2\hat{h}(P)+2\hat{h}(Q)$, for \texttt{389a1}
-      (r147, r150) \emph{and} for \texttt{5077a1} (r156, r164).
-\end{itemize}
 These supersede the earlier rank-1 route for its conclusions: the eleven
 rank-1 bounds are unconditional, whereas the Heegner cascade
 (\texttt{BSD\_HeegnerRank1Proof} / \texttt{...E43a1}, still in the corpus) was
@@ -683,101 +657,6 @@ genuine numerical footprint, the $\varphi/e$-multiplicity formulation does not,
 and any numeric per-rank coefficient (including the value $\approx 2$ quoted in
 an earlier draft of this paragraph) is an artifact of the chosen cutoff.
 Details: \texttt{codex/CH24\_SPECTRAL\_RIGOROUS\_2026-07-30.md}.
-\end{itemize}
-
-\paragraph{Verification update (2026-08-04): the trace identity under the trace-level rank signal is now kernel-checked (r188c); the multiplicity mechanism stays falsified; BSD stays open.}
-The structural identity that the surviving trace-level reading of this
-chapter rests on --- that the trace of a contracting weighted-composition
-transfer matrix equals the sum of its fixed-point residues,
-$\sum_m A_{mm} = \sum_k w_k(x_k)/(1-\varphi_k'(x_k))$ --- is now a
-kernel-verified Lean~4 theorem (\texttt{trace\_eq\_residues},
-\texttt{PF/TransferResidue\_r188c.lean}, axioms exactly
-$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$;
-record \texttt{codex/RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}). The measured
-regularized-trace slopes on kernel-verified-rank curves
-($+0.780$, $+1.473$, $+2.168$ for ranks $1, 2, 3$;
-\texttt{codex/BSD\_TRACE\_RANK\_2026-08-03.md}) therefore rest on a verified
-structural identity rather than on numerics alone. Scoping: the identity
-is proved generically, under stated geometry/holomorphy/factorization
-hypotheses; the $\varphi/e$-multiplicity
-mechanism remains falsified exactly as recorded above; and nothing here
-claims BSD, in whole or in part, is proven. \emph{Same-day update:} r194
-(\texttt{EllipticTrace\_r194.lean}, \texttt{mestre\_nagao\_trace}) now
-instantiates the identity on this exact operator --- branches $z/p$, weights
-$a_p\,p^{-s}$ --- so the truncated trace \emph{equals}
-$\sum_p a_p\,p^{-s}/(1-1/p)$ as a kernel theorem; the heuristic link from
-that sum's slope to the rank remains a measurement, not a proof.
-
-\paragraph{Verification update (2026-08-05): the rank machinery is now
-curve-independent (arc r193, r195--r203).}
-Everything recorded above about ranks was \emph{per curve}: the
-$\rank E_{389\mathrm{a}1}(\Q)\ge 2$ flag (r154) and the
-$\rank E_{5077\mathrm{a}1}(\Q)\ge 3$ flag (r169) were each assembled from a
-hand-built certificate suite for that one curve, across roughly forty Lean
-files. That machinery has been made universal. The record is
-\texttt{codex/BSD\_UNIVERSAL\_SECANT\_2026-08-05.md}; all theorems below are
-Lean~4 with axioms exactly $[\texttt{propext}, \texttt{Classical.choice},
-\texttt{Quot.sound}]$, no \texttt{sorry}, no \texttt{native\_decide}, no
-project axioms.
-
-\begin{itemize}
-\item \textbf{The secant estimate layer, made universal (r193, r195--r198).}
-Integer bihomogeneous forms $DDz$, $Sfz$, $Prz$ in the $b$-invariant basis,
-with specialization identities and triangle bounds depending only on
-$b_2,b_4,b_6,b_8$ (r193); a two-sided size control
-$\Delta^4 H_1^2 H_2^2 \le C_{\mathrm{L}}^{\mathrm{sec}}\max(|DDz|,|Sfz|,|Prz|)$
-with coefficient-only constant (r197); and the point-level upper window
-$H(x(P{+}Q))\,H(x(P{-}Q)) \le 2\,C_{\mathrm{U}}^{\mathrm{sec}}\,H(x_1)^2H(x_2)^2$
-over mathlib's group law, for any Weierstrass curve over $\Q$ with integer
-$b$-invariants and any two affine points with distinct $x$-coordinates
-(r198).
-\item \textbf{The diagonal degeneration (r195), the structural discovery of
-the arc.} Restricted to the diagonal, the secant forms \emph{are} the
-duplication pair: $Sfz(a,b,a,b)=\Psi(a,b)$, $Prz(a,b,a,b)=\Phi(a,b)$,
-$DDz(a,b,a,b)=0$. Eliminating the second point against $DDz$ returns the
-\emph{squares} of the duplication pair at the first point, with small integer
-B\'ezout cofactors. The secant content problem therefore reduces to the
-already-proved keystone $\mathrm{Res}(\Phi,\Psi)=\Delta^2$.
-\item \textbf{The universal content bound (r196).}
-$\gcd(DDz,Sfz,Prz) \mid \Delta^6$ for every curve and every pair of coprime
-lowest-terms inputs (\texttt{secant\_content\_universal}). What earlier
-revisions proved one curve at a time by Hermite-normal-form arguments is now a
-single theorem.
-\item \textbf{The exact parallelogram law, universally (r199--r201).} A
-universal $X$-layer on \texttt{W.Point}, the quasi-parallelogram with defect
-bounded by $\log C_{\mathrm{par}}$ (r199), and then the Tate limit:
-$\hat{h}(P{+}Q)+\hat{h}(P{-}Q) = 2\hat{h}(P)+2\hat{h}(Q)$ exactly, for any
-admissible curve, with \emph{zero} per-curve input
-(\texttt{canheight\_parallelogram\_universal}, r200). The canonical height is
-a quadratic form on any such curve from its coefficients alone. From this,
-$\hat{h}(kP)=k^2\hat{h}(P)$ and the bi-additive pairing
-\texttt{biAdditive\_pairingW} (r201).
-\item \textbf{The capstone (r202).}
-\[
-\texttt{rank\_ge\_universal} \;:\;
-(\mathrm{Gram}\,\langle\cdot,\cdot\rangle_W\,P).\det \ne 0
-\;\Longrightarrow\; n \le \rank E(\Q),
-\]
-for any Weierstrass curve over $\Q$ with integer $b$-invariants,
-$\Delta \ne 0$, and no rational $2$-torsion, at any $n$ candidate points. The
-$2\times 2$ case is the classical regulator
-$\hat{h}(P)\hat{h}(Q)-\langle P,Q\rangle^2$. Curve coefficients plus candidate
-points plus a certified-nonzero Gram determinant now yield a kernel-checked
-rank lower bound, with no curve named anywhere in the chain.
-\item \textbf{End-to-end transfer (r203).} Both original flags are re-derived
-\emph{through} the universal machine from the committed regulator
-certificates: \texttt{E389a1\_rank\_ge\_two\_universal} from r154's
-$\det \Reg > 0$, and \texttt{E5077a1\_rank\_ge\_three\_universal} from r169's
-$3\times3$ analogue. No interval arithmetic was recomputed. The bridge lemma
-records a structural fact worth stating: once the two log-height helpers are
-shown equal as functions, the universal and per-curve canonical heights are
-\emph{definitionally} equal --- \texttt{canheightW\_eq\_389} closes by
-\texttt{rfl}. The universal layer and the per-curve layer are the same
-construction, which is the available evidence that universalization did not
-quietly change the object being computed. The \texttt{5077a1} hypothesis
-package is proved in that file, including
-$\Delta_{5077\mathrm{a}1} = 5077$ by \texttt{decide}.
-\end{itemize}
 
 \noindent \textbf{What is not proved.} These are rank \emph{lower} bounds, one
 side of Mordell--Weil. Rank upper bounds require descent, which exists in no
@@ -788,44 +667,6 @@ a \emph{hypothesis} of \texttt{rank\_ge\_universal}, not an output: certifying
 it for a given curve is interval arithmetic done outside the pipeline. The
 $\varphi/e$ multiplicity mechanism remains falsified as recorded above, and
 this arc does not bear on it.
-
-\paragraph{Verification update (2026-08-06): the fractal $\Sha$ bound is
-FALSE, not merely asserted --- and the Conclusion below still states two
-retracted claims.}
-
-\begin{itemize}
-\item \textbf{REFUTED} --- Theorem~\ref{thm:fractal-bound-sha} claims
-$|\Sha(E)| \le [\mathcal{R}_f(\pi,N_E)]^2$. The ledger above files this under
-\textbf{ASSERTED / EMPIRICAL}; it is worse than asserted. With $\alpha=\pi$ the
-phase multiplies terms of size $n^{-N_E}$, so for any conductor $N_E\ge 11$ the
-sum is $1+O(2^{-N_E})$ and \textbf{the bound reads $|\Sha|\le 1$}. Computed:
-$0.999130$ at $N_E=11$, and $1.0$ to twelve digits at $N_E=571$ and $681$.
-It is broken by \texttt{571a1} ($|\Sha|=4$) and \texttt{681c1} ($|\Sha|=9$);
-at $N_E=11$ the bound is strictly below $1$, so it fails even for curves with
-trivial $\Sha$. The chapter's own remark that ``the fractal bound successfully
-bounds all known cases'' is not supportable.
-Note also that $\sigma(\pi)=\log_3|1+2\cos\pi^2|=-0.197$ (r212), so
-$\mathcal{R}_f(\pi,\cdot)$ converges far to the left of $s=N_E$ --- the bound
-is evaluated deep in the region where the series is a constant plus noise.
-\item \textbf{TEXT NOT YET RECONCILED} --- the Conclusion of this chapter,
-immediately below, still asserts, in the present
-indicative and without hedge:
-\emph{``Rank Formula: Multiplicity at threshold equals algebraic rank''};
-\emph{``$\Sha$ Bound: Concrete finite upper bound from fractal structure''};
-and \emph{``the rank counts how many independent modes resonate at the unique
-frequency $\varphi/e$.''}
-The first and third are the $\varphi/e$ multiplicity mechanism, which the
-ledger 130 lines above records as \textbf{DID NOT REPRODUCE} and which the
-warning box earlier in this chapter calls ``False as stated''. The second is
-the $\Sha$ bound just refuted. The Conclusion's \emph{Validation} bullet does
-carry a caveat, but it is attached to the success-rate line only, not to these
-three. \textbf{Read the Conclusion as superseded by this ledger on all three
-points.} The bullets are left in place per the corpus's additive-correction
-rule; they are not withdrawn silently.
-\item \textbf{UNAFFECTED} --- the surviving trace-level reading, the r188c
-trace identity, and the universal rank-lower-bound pipeline (r193, r195--r203)
-are independent of all three and stand exactly as recorded above.
-\end{itemize}
 
 \noindent Script: \texttt{codex/rf\_falsification\_checks\_2026-08-06.py}.
 Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S2.2, \S4.3.

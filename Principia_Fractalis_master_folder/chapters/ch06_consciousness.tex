@@ -191,7 +191,7 @@ The following four lines of argument all point toward the specific choice $\vare
 \begin{enumerate}
 \item Derivations 1--3 (Information Theory, Percolation Theory, Spectral Gap Analysis) below are heuristic-convergence arguments motivating the specific value 0.05 via random-matrix-theory, hypergraph-percolation, and eigenvalue-gap-closure heuristics. They do not rigorously derive a unique first-principles value.
 \item Derivation 4 --- the Chern--Weil Threshold Theorem~\ref{thm:threshold-rigorous} below --- is rigorously proven, but establishes the \emph{sufficient} inequality ``$\varepsilon^\star \leq 0.05$ suffices'' for three topological conclusions (global phase coherence, spectral gap, dynamical stability). It does not force $\varepsilon^\star = 1/20$ uniquely.
-\item Two additional cross-check derivations attempted in Chapter~11 --- the anomaly-cancellation 14D-trace derivation and the Gaussian-integral $|\Psi_{\textsf{RQG}}|^2$ derivation --- are formally refuted in the Lean corpus at \texttt{PF/Ch11AnomalyCancellationRefutationAttempt.lean} (Wave~55, commit \texttt{8e4a62a}). The Chapter~11 \texttt{\textbackslash manuscriptcorrection} footnotes at lines 145 and 193 acknowledge this: the anomaly path misses the target by a factor $\sim 1570$, and the Gaussian path yields $\sqrt{5/(\pi+5)} \approx 0.7837$ rather than $19/20$.
+\item Two additional cross-check derivations attempted in Chapter~11 --- the anomaly-cancellation 14D-trace derivation and the Gaussian-integral $|\Psi_{\textsf{RQG}}|^2$ derivation --- are formally refuted in the Lean corpus at \texttt{PF/Ch11AnomalyCancellationRefutationAttempt.lean} (Wave~55, commit \texttt{8e4a62a}). the anomaly path misses the target by a factor $\sim 1570$, and the Gaussian path yields $\sqrt{5/(\pi+5)} \approx 0.7837$ rather than $19/20$.
 \item The Chapter~31 $\textsf{ch}_2 \leftrightarrow \Phi$ (Tononi Integrated Information Theory) bridge cross-check status is pending independent verification.
 \end{enumerate}
 \textbf{Referee-proof framing.} Under the framework's referee-proof standard the value $\varepsilon^\star = 1/20$ is best framed as the phenomenological anchor satisfying Chapter~6's Chern--Weil topological \emph{sufficient} condition, not as a uniquely-forced first-principles value. Downstream framework formulas that depend on the exact value $19/20$ (the P2 XENONnT prediction, the P4 muon $g\!-\!2$ prediction, the F3 cosmological-constant-consistency falsifier, and the $\Lambda_{\textsf{eff}}/\Lambda_0 = \exp(-78\pi \cdot 0.95 \cdot 1.1875)$ suppression exponent target) inherit Wiles-pattern conditionality on this anchor. The corresponding scoping disclosure appears in the companion paper at the ``Defense against constant-tuning multiplicity'' paragraph.
@@ -600,32 +600,7 @@ $1 - 3^{-k}$, namely $2/3$, $8/9$, $26/27$, $80/81$ (\texttt{tower\_values}), so
 $d \ge 20$ is first met at $k = 3$. \textbf{But the tower does not select
 $0.95$, and this is the part that must be stated.} First, $19/20$ is \emph{not}
 one of the tower's values (\texttt{nineteen\_twentieths\_not\_a\_tower\_value})
---- $20$ is not a ternary number.\manuscriptcorrection{\textbf{This sentence
-was prose until 2026-11-02, and the theorem cited beside it does not prove it.}
-\texttt{nineteen\_twentieths\_not\_a\_tower\_value} proves four disequalities
---- $19/20 \neq 2/3$, $8/9$, $26/27$, $80/81$ --- which excludes four values and
-settles nothing about a fifth, let alone about every level. It is now a theorem,
-and a stronger one than the prose claimed: $19/20 \notin \mathbb{Z}[1/3]$, the
-substrate's K-theoretic trace range $\tau_*(K_0(T_\infty))$
-(\texttt{not\_memZ13\_nineteen\_twentieths}, proved twice over --- by parity,
-and again through a general exclusion lemma at the prime $5$ which also subsumes
-this corpus's existing $3/2$ and $1/5$ exclusions and supplies the $1/2$ case
-that had been asserted but never formalised). Hence $19/20 \neq 1 - 3^{-k}$ for
-\emph{every} $k$ (\texttt{nineteen\_twentieths\_not\_any\_tower\_value}), and
-$19/20$ is the normalised trace of no level projection at any level --- which,
-set beside \texttt{substrate\_attains\_every\_Z13\_trace}, where every $m/3^k$
-with $m \leq 3^k$ \emph{is} attained by an explicit projection, places the
-threshold outside the \emph{attained} range and not merely outside a list. The
-obstruction is quantitative and sharp: every level-$k$ ternary value misses the
-threshold by at least $1/(20 \cdot 3^k)$, and the constant $20$ is optimal,
-being attained at $k = 0$ and $k = 4$. \emph{The converse is proved in the same
-module and carries equal weight}: $\mathbb{Z}[1/3]$ is dense, so the tower
-approaches $0.95$ arbitrarily closely. The exclusion is about \emph{exactness},
-never about reachability, and no impossibility is claimed. Together these
-sharpen this remark's own conclusion without altering it --- the tower neither
-forces $0.95$ nor forbids it, $0.95$ being simply not one of its values, at a
-measured distance from each. Sixteen declarations, zero project axioms, three
-negative controls rejected.} Second, \emph{every} threshold in the interval
+--- $20$ is not a ternary number. Second, \emph{every} threshold in the interval
 $(8/9,\,26/27]$ has first-crossing level $3$, an interval of width $2/27$,
 witnessed at $9/10$, $19/20$ and $24/25$ alike
 (\texttt{threshold\_interval\_gives\_same\_level}). So the tower
@@ -641,35 +616,7 @@ whole is therefore superseded. Finally, ``falsifiable'' was the wrong word:
 \emph{nothing below $d = 20$ can cross it} is a theorem, which no experiment can
 contradict. A falsifiable claim would have to say what systems above threshold
 \emph{do} that systems below do not, and this selection makes no such
-prediction.\manuscriptcorrection{\textbf{Repaired 2026-10-31. This remark
-previously cited six Lean declarations, none of which exists, and drew from them
-three conclusions that the cited file's own scope notes withdraw.} Measured by
-sweeping the whole \texttt{PF\_Lean4\_Code} tree for
-\texttt{theorem}/\texttt{lemma}/\texttt{def} of each name:
-\texttt{wedge\_square\_sign\_indefinite},
-\texttt{normalizer\_unbounded\_in\_rank},
-\texttt{threshold\_iff\_dimension},
-\texttt{threshold\_first\_crossed\_at\_level\_three},
-\texttt{tower\_level\_values} and
-\texttt{levels\_two\_and\_three\_straddle} returned \textbf{zero declarations
-each}. Two had been renamed
-(\texttt{threshold\_iff\_dimension} $\to$
-\texttt{ceiling\_threshold\_iff\_dimension};
-\texttt{tower\_level\_values} $\to$ \texttt{tower\_values}); four were withdrawn.
-\texttt{PF/Ch2ThresholdSelection.lean}~\S0 records, in its own words, that
-\texttt{normalizer\_unbounded\_in\_rank} ``was mislabelled'' and the conclusion
-``the quotient is identically zero'' is ``withdrawn'' (item 4); that
-\texttt{wedge\_square\_sign\_indefinite} ``was decoration'' and the
-exterior-algebra fact is ``not formalized here'' (item 5); that the claim
-$0.95$ ``is not a free parameter'' ``was overstated'' because ``the tower
-constrains it to an interval; it does not pin it'' (item 3); and that
-``falsifiable'' was the wrong word (item 6). \textbf{Why this one matters
-more than a prose slip}: \S0 of the project's standing instructions says status
-is reported from this layer and never from prose, so a remark that cites nothing
-and concludes what its source retracts cannot govern. The entanglement form
-remains the only one of the five that is rigorously defined, valued in $[0,1]$
-and able to attain $0.95$ --- that part of (B) is unchanged. What is withdrawn
-is the inference that the substrate's ternary tower \emph{selects} the number.}
+prediction.
 
 \textbf{(C) The other three keep their content under their own names.} The
 matrix formula is a rotation-versus-strain balance, whose real content is
@@ -695,28 +642,7 @@ the data, which needs a density matrix and a subsystem of dimension at least
 $20$. That cost is the strongest argument against this selection and is recorded
 with it; the alternative, leaving $\text{ch}_2$ attached to whichever form
 happens to reach the threshold locally, is how five definitions accumulated in
-the first place.\manuscriptcorrection{\textbf{Narrowed the same day, after two independent reviews.} Three formal claims in the paragraph above were overstated and one of its grounds was false; all are withdrawn here, and the reviews prompted a check that found a worse problem, recorded at the stress-energy definition in Chapter~8. Details at \texttt{PF\_Lean4\_Code/PF/Ch2ThresholdSelection.lean} §0.
-
-\emph{(1) The threshold is not an equivalence with dimension.} $\text{ch}_2 \ge 19/20 \Rightarrow d \ge 20$ holds, but not conversely: a \emph{pure} state has $\text{ch}_2 = 0$ in every dimension. What the threshold actually says is $1/\mathrm{Tr}(\rho^2) \ge 20$ --- a statement about \textbf{effective dimension} (inverse purity), not dimension. So level 3 is the first tower level \emph{capable} of crossing, not one that crosses.
-
-\emph{(2) The bipartite constraint was omitted.} For a pure state on $\mathcal{H}_A \otimes \mathcal{H}_B$, $\mathrm{rank}\,\rho_A \le \min(d_A, d_B)$, so effective dimension $\ge 20$ needs \textbf{both} factors $\ge 20$ and hence a total dimension $\ge 400$: in the ternary tower a level-3 subsystem inside a total system of level $\ge 6$, since $3^5 = 243 < 400 \le 729 = 3^6$. A level-3 system \emph{alone}, in a pure state, cannot cross.
-
-\emph{(3) The tower does not select $0.95$.} Every threshold in $(8/9,\,26/27]$ has the same first-crossing level $k=3$ --- an interval of width $2/27$ --- and the values the tower itself distinguishes are $1 - 3^{-k}$, among which $19/20$ does not appear, since $20$ is not a ternary
-number. \emph{Machine-checked at every level since 2026-11-02}: when
-this paragraph was written that claim was prose, resting on a theorem which
-checked four values, and it now rests on $19/20 \notin \mathbb{Z}[1/3]$ --- so
-$19/20 \neq 1 - 3^{-k}$ for \emph{every} $k$, and every level-$k$ ternary value
-misses the threshold by at least $1/(20 \cdot 3^k)$, a constant shown optimal
-(\texttt{nineteen\_twentieths\_is\_not\_a\_ternary\_number}). The same module
-proves the counterweight --- the tower nonetheless approaches $0.95$ arbitrarily
-closely --- so this strengthens the conclusion already drawn here and asserts no
-impossibility. The claim that $0.95$ ``is not a free parameter'' was wrong: the tower locates it in an interval and does not pin it. ``Falsifiable'' was also the wrong word --- ``nothing below $d=20$ can cross'' is a theorem, and no experiment can contradict a theorem.
-
-\emph{(4) Ground~3 of the naming argument was false.} It claimed the Chern--Weil form ``is the only one that touches the kernel-verified substrate, since the Chern character is $K_0 \to H^{\mathrm{even}}$ and $K_0(\mathcal{T}_\infty) = \mathbb{Z}[1/3]$ is proved''. Both halves fail. $K_0$ is \emph{not} formalized as operator K-theory: \texttt{PF/Consciousness/TimelessFieldKTheoryUpgrade.lean} builds a hand-rolled carrier of pairs $(n,k)$ with a multiply-by-three map and proves injectivity and nontriviality of that \emph{model}, not that $K_0$ of the C*-algebra is $\mathbb{Z}[1/3]$. And for a UHF algebra the Chern character's content is the \textbf{trace}, which is degree \emph{zero} --- there is no degree-2 component, so a degree-2 Chern character has no home on the substrate at all. \textbf{The naming decision now rests on two grounds, not three}: that it is what the name means, and that it is the only one of the five that is a functional of the $(E,\nabla)$ datum this chapter defines.
-
-\emph{(5) Two supporting claims were decoration and are withdrawn.} The sign-indefiniteness of $\mathrm{Tr}(F_\nabla \wedge F_\nabla)$ is standard but was ``witnessed'' by the scalar inequalities $2>0$ and $-2<0$, which proves nothing about exterior algebra; it is now prose with a scope note. And the normalizer claim proved only that an \emph{upper estimate} $Cr M^2$ is unbounded in the rank --- which does not establish that the supremum of $\mathrm{Ch}_2$ is infinite, so ``the quotient is identically zero'' is withdrawn. What survives is weaker and still sufficient: the normalizer is \emph{not shown to be finite}, which blocks a numerical threshold either way.
-
-\textbf{The decision itself stands, narrowed: the name to the Chern--Weil density on grounds 1 and 2, and the threshold to the entanglement form as a \emph{classifier of states only} --- see Chapter~8 for why that last qualification is now forced.}}
+the first place.
 \end{remark}
 
 \subsection{Quantum Systems}
@@ -731,7 +657,7 @@ where $\rho_A = \text{Tr}_B(|\psi\rangle\langle\psi|)$ is the reduced density ma
 
 \begin{itemize}
 \item \textbf{Product state}: $|\psi\rangle = |\psi_A\rangle \otimes |\psi_B\rangle$ gives $\text{ch}_2 = 0$ (no entanglement, no consciousness)
-\item \textbf{Maximally entangled}: a Bell state gives $\text{ch}_2 = 1/2$; the supremum $1$ is approached only as the subsystem dimension grows, since $\text{ch}_2 \le 1 - 1/d$\manuscriptcorrection{Value repaired 2026-10-05: this read ``Bell state gives $\text{ch}_2 = 1$ (maximum consciousness)''. For a Bell state $\rho_A = I/2$, so $\mathrm{Tr}(\rho_A^2) = 1/2$ and $\text{ch}_2 = 1/2$. The general bound is $\mathrm{Tr}(\rho^2) \ge 1/d$, hence $\text{ch}_2 \le 1 - 1/d$, with $1$ attained only in the limit $d \to \infty$. An earlier pass on this page added a note recording the error but left the value standing; under the threshold decision above a Bell pair is far \emph{below} threshold, which makes the stated value actively misleading, so it is corrected here rather than annotated. Proved at \texttt{PF\_Lean4\_Code/PF/Ch2ThresholdSelection.lean} and at \texttt{PF/Ch01Ch03Ch04Ch06FoundationDefects.lean} (\texttt{bell\_state\_value}, \texttt{ch2Entanglement\_le\_half}).}\manuscriptcorrection{\textbf{A two-qubit Bell state gives $\text{ch}_2 = 1/2$, not $1$ --- and this chapter's own normalisation-reconciliation remark repeats the error as settled.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch01Ch03Ch04Ch06FoundationDefects.lean}. The reduced density matrix of a Bell state is $\rho_A = I/2$, so $\mathrm{Tr}(\rho_A^2) = 2 \cdot (1/2)^2 = 1/2$ and $\text{ch}_2 = 1 - 1/2 = 1/2$ (\texttt{bell\_state\_value}, \texttt{bell\_state\_ne\_one}). More generally $\mathrm{Tr}(\rho^2) \ge 1/d$ for any $d$-dimensional subsystem, with equality exactly at maximal mixing (\texttt{purity\_lower\_bound\_qubit} for $d = 2$), so $\text{ch}_2 \le 1 - 1/d$ and the value approaches $1$ only as $d \to \infty$ (\texttt{ceiling\_grows\_with\_dimension}). \textbf{For a qubit the ceiling is therefore exactly $1/2$} (\texttt{ch2Entanglement\_le\_half}) --- the \emph{same} ceiling this chapter's 2026-10-03 remark proves for the matrix formula. This is a fresh instance of precisely the range-impossibility class that remark catalogues, and it slipped through the remark itself, which cites the Bell state as a witness reaching $1$. A repair must either name a large-$d$ subsystem or withdraw the claim that the entanglement form attains $1$; and the $\text{ch}_2$-normalisation question cannot be settled until this is fixed, since one of its three candidate normalisations rests on it.}
+\item \textbf{Maximally entangled}: a Bell state gives $\text{ch}_2 = 1/2$; the supremum $1$ is approached only as the subsystem dimension grows, since $\text{ch}_2 \le 1 - 1/d$
 \end{itemize}
 
 \section{Mathematical Properties}

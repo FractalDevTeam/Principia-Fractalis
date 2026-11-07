@@ -111,7 +111,7 @@ s_{13} & s_{23} & s_{33}
 \item The eigenvalues satisfy:
 \begin{equation}
 \lambda_1 + \lambda_2 + \lambda_3 = 0 \quad \text{and} \quad \lambda_i \in i\mathbb{R} \text{ (pure imaginary)}
-\end{equation}\manuscriptcorrection{\textbf{The second half is not derived, and what it is equivalent to is opposed to this chapter's own $\text{ch}_2$ threshold.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch22EmergencePointSpectrum.lean}. \emph{First, what is \textbf{not} wrong.} The claim is not impossible: a pure rotation ($S=0$) has spectrum $\{0,\pm i\|\boldsymbol\omega\|\}$, every element of which lies in $i\mathbb{R}$, so the assertion is satisfiable for $\nabla\mathbf{u}$. (It \emph{would} be self-defeating if read of the strain tensor $S$ alone: $S$ is real symmetric by its own displayed definition, so its spectrum is real and $\lambda_i\in i\mathbb{R}$ would force $S\equiv0$, annihilating the strain this theorem is about.) \emph{What is wrong is that it is asserted.} The proof derives $\sum\lambda_i=0$ correctly from incompressibility and then states only ``Real parts of eigenvalues vanish'' with no computation. Trace-zero alone does not give it: $\mathrm{diag}(1,1,-2)$ is traceless with real nonzero spectrum (\texttt{trace\_zero\_insufficient}). \emph{What it IS equivalent to.} For a real traceless $3\times3$ matrix $W$ the characteristic polynomial is depressed, $\lambda^3+e_2\lambda-\det W$, and all roots lie in $i\mathbb{R}$ exactly when $\det W = 0$ \emph{and} $e_2\ge0$ --- the forward direction because a real cubic has a real root which must then be $0$, the backward direction by \texttt{depressed\_cubic\_factors} with \texttt{no\_real\_root\_of\_pos} and \texttt{neg\_coeff\_gives\_nonzero\_real\_root}. Checked on $400\,000$ random traceless matrices with zero mismatches before the module was written. \emph{And here is the consequence.} For traceless $W$, $e_2=-\mathrm{Tr}(W^2)/2$ while this book's own matrix formula gives $\text{ch}_2(W)=\mathrm{Tr}(W^2)/(2\|W\|_F^2)$, so $e_2\ge0\iff\text{ch}_2(W)\le0$ (\texttt{e2\_nonneg\_iff\_ch2\_nonpos}); decomposing $W=\Omega+S$ this reads $\|S\|_F\le\|\Omega\|_F$, i.e.\ \textbf{rotation dominates strain} (\texttt{ch2\_nonpos\_iff\_rotation\_dominates}). That is exactly the counter-rotating balance this chapter's physical picture rests on, so the \emph{intuition is sound} --- but it means the emergence-point condition requires $\text{ch}_2\le0$, while this chapter elsewhere demands $\text{ch}_2\ge0.95$ at the same points. Those are not merely far apart: they are on opposite sides of zero (\texttt{emergence\_condition\_and\_threshold\_are\_opposed}), and $\text{ch}_2<19/20$ holds for \emph{every} real square matrix anyway (\texttt{ch2Matrix\_lt\_threshold}, with $\text{ch}_2\in[-1/2,1/2]$ once the trace vanishes). \textbf{A repair must establish two things at each emergence point:} $\det(\nabla\mathbf{u})=0$, and $\|S\|_F\le\|\Omega\|_F$. The second is this chapter's own hypothesis made quantitative and is the more promising. The $0.95$ threshold language at these points cannot be fixed by recomputation and is an authorial item.}
+\end{equation}
 
 \item The pressure Hessian $\nabla \nabla p$ has signature $(2,1)$ or $(1,2)$ (saddle point)
 \end{enumerate}
@@ -383,7 +383,7 @@ At the emergence points created by these pairs:
 but vorticity remains bounded:
 \begin{equation}
 \lim_{r \to 0} \frac{|\boldsymbol{\omega}(\mathbf{x}_0 + r\hat{n})|}{r^{-1}} = C < \infty
-\end{equation}\manuscriptcorrection{\textbf{The sentence and the equation on this line assert opposite things.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch22EmergencePointSpectrum.lean}. Dividing by $r^{-1}$ is multiplying by $r$ (\texttt{div\_by\_inv\_is\_mul}), so the displayed limit is $r\,|\boldsymbol\omega|\to C$ --- a statement that $|\boldsymbol\omega|$ grows like $C/r$, i.e.\ \emph{diverges}, for any $C>0$. Concretely, for any proposed bound $B>0$ there is a radius at which $r\,|\boldsymbol\omega| = C$ forces $|\boldsymbol\omega|>B$ (\texttt{positive\_limit\_forces\_unbounded}). The only value compatible with boundedness is $C=0$, and even that does not establish boundedness: $|\boldsymbol\omega|\sim r^{-1/2}$ also gives $C=0$ while diverging. So the equation never supports ``vorticity remains bounded'', and for $C>0$ it contradicts it. \textbf{This is not only a wording problem.} Step 5 concludes global regularity from ``emergence points themselves have bounded quantities''. A $1/r$ spatial blow-up of vorticity at a point means $\|\boldsymbol\omega\|_\infty=\infty$ at that time, which by Beale--Kato--Majda is already the singularity Step 5 claims to exclude --- so as printed, Step 4 asserts what Step 5 denies. \textbf{A repair must state which is intended}: a limit on $|\boldsymbol\omega|$ itself if boundedness is meant, or an explicit $1/r$ growth law with the BKM time-integral examined, if the divergence is. The two give different chapters and the choice is an authorial item.}
+\end{equation}
 
 The would-be singularity transforms into a zero-velocity emergence point with finite vorticity gradient.
 
@@ -579,45 +579,6 @@ Applications:
 \item Chemical reaction enhancement
 \end{itemize}
 
-\paragraph{Verification status (2026-07-23).}
-To hold this chapter to the standard of the machine-checked corpus, here is the
-honest status of its principal claims. \textbf{Global existence and smoothness for
-3D Navier--Stokes is NOT proven here and remains open}; the Clay statement is
-untouched.
-\begin{itemize}
-\item \textbf{OPEN (Clay-hard)} --- the no-blowup claim (Theorem~\ref{thm:no-blowup}) is exactly the Clay bar: uniform, all-scales, full-PDE control of the vortex-stretching term $(\boldsymbol{\omega}\cdot\nabla)\mathbf{u}$. In the corpus this is the named \emph{open} proposition \texttt{VortexStretchingBoundedHypothesis} / \texttt{NS3DVortexStretchingObstruction}, bucket-3. The vortex-emergence argument is heuristic, not machine-checked.
-\item \textbf{CONDITIONAL REDUCTION, prerequisites absent} --- the local-well-posedness bricks \texttt{VortexStretchingPDEBilinearBounded} (Kato-type Sobolev multiplication $H^s\times H^s\to H^{s-1}$) and \texttt{MathlibSobolevDivFreeAvailable} (Leray/Helmholtz projection, $H^s_\sigma$) are classically standard but \emph{not} formalised: mathlib lacks type-level $H^s$ and the Leray projection. Even if closed they are local-in-time ingredients that do \emph{not} discharge the Clay bar.
-\item \textbf{ASSERTED / EMPIRICAL} --- the base-3 emergence-point hierarchy, the fractal dimension $\log 2/\log 3$, the resonance value $\alpha=3\pi/2$, and the consciousness-threshold statements are asserted framework structure, neither derived nor experimentally validated.
-\end{itemize}
-
-\paragraph{Verification update (2026-08-08): the typed NS predicate does not
-contain the Navier--Stokes equation, and the local/global distinction is absent
-from the encoding. All of this is now kernel-visible (r215).}
-The 2026-07-23 ledger above correctly records that the Clay bar is open. What it
-does not record is how far short of the Clay \emph{statement} the typed
-encoding falls. The following are now Lean theorems in
-\texttt{PF/NavierStokesTypedContent\_r215.lean}, axioms exactly
-$[\texttt{propext},\texttt{Classical.choice},\texttt{Quot.sound}]$.
-
-\begin{itemize}
-\item \textbf{NO EQUATION.} The predicate \texttt{NS\_Solution u u0} is a
-conjunction of four clauses containing \emph{no time derivative, no convective
-term $\mathbf{u}\cdot\nabla\mathbf{u}$, no pressure, no Laplacian and no
-viscosity}. It is not the Navier--Stokes equation, and no choice of witness
-could have made it one. Concretely:
-\begin{itemize}
-\item \texttt{forwardTimeDomain u} is $\forall y,\ \exists z,\ u(y)=z$ --- true
-for \emph{any} function, by taking $z := u(y)$. Now proved equivalent to
-\texttt{True} (\texttt{forwardTimeDomain\_iff\_true}).
-\item \texttt{smoothness u} is $\exists M \ge 0,\ \forall y,\ \|u(y)\| \le M$ ---
-that is \emph{boundedness}, not smoothness, and it holds for every Schwartz map
-(\texttt{smoothness\_iff\_true}). The clause is named for a property it does not
-state.
-\item \texttt{divergenceFreePreserved \_u u0} discards its solution argument
-entirely and reduces to \texttt{u0.isDivFree}. The clause named ``divergence-free
-\emph{preservation}'' constrains no solution
-(\texttt{divergenceFreePreserved\_independent\_of\_solution}).
-\end{itemize}
 Hence \texttt{NS\_Solution u u0} $\leftrightarrow$
 \texttt{initialDataMatch u u0} $\wedge$ \texttt{u0.isDivFree}, and the whole
 time-global existential reduces to
@@ -667,7 +628,6 @@ less open. What changes is the reading of the typed layer: it should not be
 cited --- here or upstream as
 \texttt{PFSubstrateConsequences.NS\_via\_substrate} --- as substrate-level
 Navier--Stokes content, because it contains none.
-\end{itemize}
 
 \noindent Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S4.1.
 
