@@ -489,7 +489,7 @@ theorem bsd_rank_one_E37a1_discharged_at_placeholder :
       1990 + LMFDB anchors;
     * (S5) the unconditional discharge at the framework's
       placeholder level is available. -/
-theorem bsd_rank_one_E37a1_honest_scope :
+theorem bsd_rank_one_E37a1_referee_scope :
     -- (S1) Heegner point on E_{37.a1}
     E_rank_one.toAffine.Equation
       heegnerPoint_E37a1.1 heegnerPoint_E37a1.2
@@ -566,7 +566,7 @@ theorem bsd_heegner_rank_one_proof_capstone :
 #print axioms selmerRankEquals_E37a1_at_one
 #print axioms bsd_rank_one_E37a1_via_heegner_and_GZ_K
 #print axioms bsd_rank_one_E37a1_discharged_at_placeholder
-#print axioms bsd_rank_one_E37a1_honest_scope
+#print axioms bsd_rank_one_E37a1_referee_scope
 #print axioms bsd_heegner_rank_one_proof_capstone
 
 /-! ## §X — Heegner-pair residual collapse: HeegnerHypothesisSatisfied ≡ LDerivativeAtOneNonZero -/

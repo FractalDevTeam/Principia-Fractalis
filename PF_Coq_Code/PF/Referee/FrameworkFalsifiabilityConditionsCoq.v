@@ -286,10 +286,10 @@ Qed.
 
 (** ## Section 6 -- Honest-scope marker (ProvennessTag x 4)
 
-    Mirrors Lean Section 6: structure FrameworkFalsifiabilityHonestScope
+    Mirrors Lean Section 6: structure FrameworkFalsifiabilityRefereeScope
     with four ProvennessTag fields S1-S4 documenting the module's scope. *)
 
-Record FrameworkFalsifiabilityHonestScope : Prop := mkHonestScope {
+Record FrameworkFalsifiabilityRefereeScope : Prop := mkRefereeScope {
   (** (S1) The 8 falsifiers are TYPED PROPS, not measured observations.
       Make Popper falsifiability LITERAL in Coq for the empirically-falsifiable
       antecedents. *)
@@ -307,9 +307,9 @@ Record FrameworkFalsifiabilityHonestScope : Prop := mkHonestScope {
   no_new_mathematical_content                 : True
 }.
 
-Theorem framework_falsifiability_honest_scope : FrameworkFalsifiabilityHonestScope.
+Theorem framework_falsifiability_referee_scope : FrameworkFalsifiabilityRefereeScope.
 Proof.
-  apply mkHonestScope;
+  apply mkRefereeScope;
   exact I.
 Qed.
 
@@ -359,10 +359,10 @@ Qed.
 
 (** ## Section 8 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_clay_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_clay_discharge.
 Proof. exact I. Qed.
 
 End FrameworkFalsifiabilityConditions.

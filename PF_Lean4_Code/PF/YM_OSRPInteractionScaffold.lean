@@ -485,7 +485,7 @@ theorem wave57_OSRP_composed_with_wave56_chain :
     (d) NOT a Clay discharge. The four Wave 47B mathlib gaps remain
         open at the literal level; the Wave 56-YM cascade still gates
         the LITERAL YM statement on those four items. -/
-def Wave57OSRPHonestScopeNotice : Prop :=
+def Wave57OSRPRefereeScopeNotice : Prop :=
   -- (a) Finite-dim discharge of the Wave 56 Prop.
   PrincipiaTractalis.YM_Wave56ContinuumLiftAttempt.OSRP_Compatible_Interacting_Ham_Open ∧
   -- (b) Finite-dim structural content.
@@ -501,8 +501,8 @@ def Wave57OSRPHonestScopeNotice : Prop :=
   WightmanReconstructionTheorem ∧
   MassGapPropagationAcrossReconstruction
 
-theorem wave57_osrp_honest_scope_notice_holds :
-    Wave57OSRPHonestScopeNotice := by
+theorem wave57_osrp_referee_scope_notice_holds :
+    Wave57OSRPRefereeScopeNotice := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact osrp_compatible_interacting_ham_finite_dim_discharge
   · exact interactingHam_symmetric
@@ -645,7 +645,7 @@ theorem osrp_two_props_all_iff_True :
 #print axioms osrp_compatible_interacting_ham_finite_dim_discharge
 #print axioms finite_dim_structural_content_witnessing_wave56_gap
 #print axioms wave57_OSRP_composed_with_wave56_chain
-#print axioms wave57_osrp_honest_scope_notice_holds
+#print axioms wave57_osrp_referee_scope_notice_holds
 #print axioms ym_osrp_interaction_scaffold_capstone
 
 end YM_OSRPInteractionScaffold

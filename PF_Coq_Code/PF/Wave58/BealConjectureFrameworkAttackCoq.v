@@ -445,11 +445,11 @@ Proof. unfold MathlibBealHypothesis. tauto. Qed.
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 attack, NOT a discharge of
     the Beal Conjecture. *)
-Definition honest_scope_structural_mirror_not_a_discharge : Prop :=
+Definition referee_scope_structural_mirror_not_a_discharge : Prop :=
   True.
 
-Theorem honest_scope_marker :
-  honest_scope_structural_mirror_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
 (** ## §10 — Capstone Record *)
@@ -510,7 +510,7 @@ Record BealFrameworkAttack : Type := {
       False;
   (* Honest scope *)
   honest_not_a_discharge :
-    honest_scope_structural_mirror_not_a_discharge
+    referee_scope_structural_mirror_not_a_discharge
 }.
 
 (** ★ BEAL FRAMEWORK-ATTACK COQ CAPSTONE ★
@@ -543,7 +543,7 @@ Definition beal_framework_attack_capstone : BealFrameworkAttack :=
    ; named_obstruction := MathlibBealHypothesis
    ; cascade_composition_coprime := beal_via_wiles_cascade_coprime
    ; beal_implies_fermat := beal_implies_fermat_under_coprime_AB
-   ; honest_not_a_discharge := honest_scope_marker
+   ; honest_not_a_discharge := referee_scope_marker
   |}.
 
 End BealConjectureFrameworkAttack.

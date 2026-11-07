@@ -643,7 +643,7 @@ theorem wave57BSD_statement_holds_at_placeholder :
     `a_n` remains gap G3); (A4) remains an encoded `Prop` requiring
     Wiles 1995 formalisation + L-function analytic-continuation
     API. -/
-theorem bsd_LSeries_convergence_scaffold_honest_scope :
+theorem bsd_LSeries_convergence_scaffold_referee_scope :
     True := trivial
 
 /-! ## §8 — Capstone -/
@@ -790,4 +790,4 @@ end PrincipiaTractalis.BSD_LSeriesConvergenceScaffold
 #print axioms
   PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.bsd_LSeries_convergence_scaffold_capstone
 #print axioms
-  PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.bsd_LSeries_convergence_scaffold_honest_scope
+  PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.bsd_LSeries_convergence_scaffold_referee_scope

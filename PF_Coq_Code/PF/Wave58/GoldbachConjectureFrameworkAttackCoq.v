@@ -384,11 +384,11 @@ Proof. unfold MathlibGoldbachConjecture. tauto. Qed.
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 attack, NOT a discharge of
     Goldbach's Conjecture. *)
-Definition honest_scope_structural_mirror_not_a_discharge : Prop :=
+Definition referee_scope_structural_mirror_not_a_discharge : Prop :=
   True.
 
-Theorem honest_scope_marker :
-  honest_scope_structural_mirror_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
 (** ## §12 — Capstone Record *)
@@ -439,7 +439,7 @@ Record GoldbachFrameworkAttack : Type := {
     WeakGoldbach -> Vinogradov1937ThreePrimes;
   (* Honest scope *)
   honest_not_a_discharge :
-    honest_scope_structural_mirror_not_a_discharge
+    referee_scope_structural_mirror_not_a_discharge
 }.
 
 (** ★ GOLDBACH FRAMEWORK-ATTACK COQ CAPSTONE ★
@@ -475,7 +475,7 @@ Definition goldbach_framework_attack_capstone
    ; cascade_implies_conjecture :=
        goldbach_via_spectral_cascade_implies_conjecture
    ; helfgott_implies_vinogradov_chain := helfgott_implies_vinogradov
-   ; honest_not_a_discharge := honest_scope_marker
+   ; honest_not_a_discharge := referee_scope_marker
   |}.
 
 End GoldbachConjectureFrameworkAttack.

@@ -65,6 +65,6 @@ Proof. exact I. Qed.
 
 (** ## §4 -- Honest scope marker *)
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End HilbertPolyaPositiveReductionToCountability.

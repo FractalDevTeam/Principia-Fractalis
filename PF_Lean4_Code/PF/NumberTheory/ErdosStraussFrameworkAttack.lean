@@ -278,7 +278,7 @@ structure ErdosStraussFrameworkAttack where
   cascade_implies_conjecture :
     ∀ T : ℕ → ℕ × ℕ × ℕ,
       ESViaFrameworkSpectralCascade T → ErdosStraussConjecture
-  honest_scope_not_a_discharge : True
+  referee_scope_not_a_discharge : True
 
 /-- **★ ERDŐS-STRAUS FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -303,7 +303,7 @@ noncomputable def erdos_straus_framework_attack_capstone :
   named_obstruction := MathlibErdosStraussConjecture
   cascade_implies_conjecture :=
     es_via_spectral_cascade_implies_conjecture
-  honest_scope_not_a_discharge := trivial
+  referee_scope_not_a_discharge := trivial
 
 #check @ErdosStraussSolution
 #check @ErdosStraussConjecture

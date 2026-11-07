@@ -110,10 +110,10 @@ Theorem concrete_div_free_linear_equiv_capstone : True. Proof. exact I. Qed.
 
 (** ## Section 7 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_ns3d_linear_equiv : Prop := True.
+Definition referee_scope_coq_parity_only_ns3d_linear_equiv : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_ns3d_linear_equiv.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_ns3d_linear_equiv.
 Proof. exact I. Qed.
 
 End NS3D_DivFreeLinearEquiv.

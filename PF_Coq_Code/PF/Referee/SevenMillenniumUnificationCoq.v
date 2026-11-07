@@ -33,7 +33,7 @@
     - `alphaPoincare_eq_one_from_rigidity`
     - structure `SevenMillenniumUnification`
     - `sevenMillenniumUnification_realized`
-    - `sevenMillenniumUnification_honest_scope`
+    - `sevenMillenniumUnification_referee_scope`
 
   ## Honest scope
 
@@ -74,15 +74,15 @@ Proof.
   apply mkSevenMillenniumUnification; exact I.
 Qed.
 
-Theorem sevenMillenniumUnification_honest_scope : True.
+Theorem sevenMillenniumUnification_referee_scope : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_seven_millennium_lives_in_lean : Prop := True.
+Definition referee_scope_coq_parity_only_seven_millennium_lives_in_lean : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_seven_millennium_lives_in_lean.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_seven_millennium_lives_in_lean.
 Proof. exact I. Qed.
 
 End SevenMillenniumUnification.

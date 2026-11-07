@@ -338,7 +338,7 @@ theorem energy_conserved_toy_bounded :
     Each component is independently axiom-free where it is a
     real-analysis or arithmetic identity, and manuscript-cited
     where the input value is from external observational fits
-    (χ², H_0). The honest-scope marker is the `chi2_honest_scope`
+    (χ², H_0). The honest-scope marker is the `chi2_referee_scope`
     field. -/
 structure LambdaCDMFullRebuttal : Prop where
   /-- 120 orders of magnitude as Lean-internal `Real.log` identity. -/
@@ -370,7 +370,7 @@ structure LambdaCDMFullRebuttal : Prop where
       genuine Lean-internal real-analysis content is the ratio
       identity and the density-strict-inequality and the algebraic
       `exp` product. -/
-  honest_scope : True
+  referee_scope : True
 
 /-- **★ THE CAPSTONE: ΛCDM FULL REBUTTAL ★**
 
@@ -384,7 +384,7 @@ theorem lambdaCDM_full_rebuttal : LambdaCDMFullRebuttal := by
     , hubble_tension := hubble_tension_local_gt_CMB
     , hubble_brackets := hubble_framework_brackets_local_and_cmb
     , energy_conservation := energy_conserved_toy
-    , honest_scope := trivial }
+    , referee_scope := trivial }
 
 /-! ## 7. Cross-reference to existing Cosmology stack -/
 

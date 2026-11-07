@@ -58,11 +58,11 @@ Proof. exact I. Qed.
 Theorem bochnerMinlos_R4_implies_original : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def BochnerMinlosR4WitnessHonestScope` (data/Prop marker). *)
-Definition BochnerMinlosR4WitnessHonestScope : Prop := True.
+(** Mirror of Lean `def BochnerMinlosR4WitnessRefereeScope` (data/Prop marker). *)
+Definition BochnerMinlosR4WitnessRefereeScope : Prop := True.
 
-(** Mirror of Lean `theorem bochnerMinlos_R4_witness_honestScope_holds`. *)
-Theorem bochnerMinlos_R4_witness_honestScope_holds : True.
+(** Mirror of Lean `theorem bochnerMinlos_R4_witness_refereeScope_holds`. *)
+Theorem bochnerMinlos_R4_witness_refereeScope_holds : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem bochnerMinlos_R4_witness_capstone`. *)
@@ -71,9 +71,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_BochnerMinlosR4Witness.

@@ -101,7 +101,7 @@ bearing residual sitting between SCPO and RH.
     → PrincipiaTractalis.RiemannHypothesis → Clay_RiemannHypothesis_Standard`.
 
   **H6 — Honest scope record**
-    `hilbert_polya_honest_scope` — typed record documenting:
+    `hilbert_polya_referee_scope` — typed record documenting:
       (a) all four formulations are PUBLISHED CONJECTURES;
       (b) PF's contribution is to collapse the RH gap to ONE
           precisely-named open conjecture
@@ -578,7 +578,7 @@ A typed record asserting:
     these are honest-scope DOCUMENTATION fields, not Clay-path
     claim content). Each tag is annotated with the precise published
     citation it abbreviates. -/
-structure HilbertPolyaIdentificationPreciseHonestScope : Prop where
+structure HilbertPolyaIdentificationPreciseRefereeScope : Prop where
   /-- (a) All four HP formulations are PUBLISHED CONJECTURES.
       Berry-Keating 1999 SIAM Rev 41:236; Connes 1999 Selecta 5:29;
       Bost-Connes 1995 Selecta 1:411; PF T3_sym ≡ Mayer 1991. -/
@@ -600,8 +600,8 @@ structure HilbertPolyaIdentificationPreciseHonestScope : Prop where
   clay_precision_gain_is_naming_only : True
 
 /-- **Honest-scope record inhabited**. -/
-theorem hilbert_polya_honest_scope :
-    HilbertPolyaIdentificationPreciseHonestScope :=
+theorem hilbert_polya_referee_scope :
+    HilbertPolyaIdentificationPreciseRefereeScope :=
   ⟨trivial, trivial, trivial, trivial⟩
 
 /-! ## §11 — Capstone bundle (8 clauses) -/
@@ -678,7 +678,7 @@ theorem hilbert_polya_identification_precise_capstone :
 #print axioms hilbert_polya_implies_RH
 #print axioms hilbert_polya_implies_Clay_RiemannHypothesis_Standard
 #print axioms hilbert_polya_implies_canonical_SCPO
-#print axioms hilbert_polya_honest_scope
+#print axioms hilbert_polya_referee_scope
 #print axioms hilbert_polya_identification_precise_capstone
 
 end HilbertPolyaIdentificationPrecise

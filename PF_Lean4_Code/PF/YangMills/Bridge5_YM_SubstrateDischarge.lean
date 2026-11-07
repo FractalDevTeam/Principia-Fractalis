@@ -481,7 +481,7 @@ theorem PF_YMEncodingBridge5_gauge_witness_is_one :
     axiom-free framework theorem (V4 inheritance), by mathlib
     substrate content (SU(2) properties), or by Wave 56-pattern
     typed-open published-theorem anchor inhabitance. -/
-def PF_YM_Bridge5_honestScope : Prop :=
+def PF_YM_Bridge5_refereeScope : Prop :=
   -- (H1) Bridge 5 typed Clay form holds unconditionally.
   PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
     PF_YMEncodingBridge5 ∧
@@ -518,7 +518,7 @@ def PF_YM_Bridge5_honestScope : Prop :=
   (∀ t : ℝ, (interactingPropagatorMat t).PosSemidef)
 
 /-- The Bridge 5 honest-scope marker holds unconditionally. -/
-theorem PF_YM_Bridge5_honestScope_holds : PF_YM_Bridge5_honestScope :=
+theorem PF_YM_Bridge5_refereeScope_holds : PF_YM_Bridge5_refereeScope :=
   ⟨PF_YM_bridge5_yields_Clay_YangMillsMassGap_substrate,
    PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4,
    rfl,
@@ -591,7 +591,7 @@ theorem ym_substrate_discharge_bridge5_capstone :
     StreaterWightman_SU2_TypedAnchor ∧
     OsterwalderSchrader_SU2_TypedAnchor ∧
     (PF_YMEncodingBridge5.massGap pfBridge5Witness = 3 / 2) ∧
-    PF_YM_Bridge5_honestScope :=
+    PF_YM_Bridge5_refereeScope :=
   ⟨PF_YM_bridge5_yields_Clay_YangMillsMassGap_substrate,
    PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4,
    rfl,
@@ -602,13 +602,13 @@ theorem ym_substrate_discharge_bridge5_capstone :
    streater_wightman_SU2_typed_anchor_holds,
    osterwalder_schrader_SU2_typed_anchor_holds,
    rfl,
-   PF_YM_Bridge5_honestScope_holds⟩
+   PF_YM_Bridge5_refereeScope_holds⟩
 
 #check @PF_YMEncodingBridge5
 #check @PF_YM_bridge5_yields_Clay_YangMillsMassGap_substrate
 #check @PF_YM_Bridge5_yields_YangMillsMassGap_via_V4
 #check @PF_YM_Bridge5_yields_YangMillsMassGap_via_OSRP
-#check @PF_YM_Bridge5_honestScope_holds
+#check @PF_YM_Bridge5_refereeScope_holds
 #check @ym_substrate_discharge_bridge5_capstone
 
 /-! ## §11 — Axiom-freeness verification -/
@@ -627,7 +627,7 @@ theorem ym_substrate_discharge_bridge5_capstone :
 #print axioms PF_YMEncodingBridge5_massGap_canonical
 #print axioms PF_YMEncodingBridge5_v4_eq_pfV4
 #print axioms PF_YMEncodingBridge5_gauge_witness_is_one
-#print axioms PF_YM_Bridge5_honestScope_holds
+#print axioms PF_YM_Bridge5_refereeScope_holds
 #print axioms ym_substrate_discharge_bridge5_capstone
 
 end Bridge5_YM_SubstrateDischarge

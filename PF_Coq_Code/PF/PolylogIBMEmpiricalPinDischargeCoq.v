@@ -96,14 +96,14 @@ Proof. exact I. Qed.
 Theorem polylog_ibm_empirical_pin_discharge_capstone : True.
 Proof. exact I. Qed.
 
-Theorem polylog_ibm_empirical_pin_discharge_honest_scope : True.
+Theorem polylog_ibm_empirical_pin_discharge_referee_scope : True.
 Proof. exact I. Qed.
 
 (** ## Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End PolylogIBMEmpiricalPinDischarge.

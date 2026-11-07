@@ -68,14 +68,14 @@ Proof. exact I. Qed.
 Theorem wave57_ContinuousSpectralConcentration_implies_wave56_FullZetaSet : True.
 Proof. exact I. Qed.
 
-Theorem wave57_hardy_to_full_strip_scaffold_honest_scope : True.
+Theorem wave57_hardy_to_full_strip_scaffold_referee_scope : True.
 Proof. exact I. Qed.
 
 (** ## Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End RH_HardyToFullStripScaffold.

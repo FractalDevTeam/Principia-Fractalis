@@ -345,11 +345,11 @@ Qed.
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 attack, NOT a discharge of
     the Inverse Galois Problem. *)
-Definition honest_scope_structural_mirror_not_a_discharge : Prop :=
+Definition referee_scope_structural_mirror_not_a_discharge : Prop :=
   True.
 
-Theorem honest_scope_marker :
-  honest_scope_structural_mirror_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
 (** ## §11 — Capstone Record *)
@@ -398,7 +398,7 @@ Record InverseGaloisFrameworkAttack : Type := {
   framework_galois_disc_bridge : True;
   (* Honest scope: NOT a discharge of IGP itself *)
   honest_not_a_discharge :
-    honest_scope_structural_mirror_not_a_discharge
+    referee_scope_structural_mirror_not_a_discharge
 }.
 
 (** ★ INVERSE GALOIS PROBLEM FRAMEWORK-ATTACK COQ CAPSTONE ★
@@ -438,7 +438,7 @@ Definition inverse_galois_framework_attack_capstone
    ; named_obstruction := MathlibInverseGaloisProblem
    ; framework_galois_disc_bridge :=
        framework_igp_via_galois_discriminant
-   ; honest_not_a_discharge := honest_scope_marker
+   ; honest_not_a_discharge := referee_scope_marker
   |}.
 
 End InverseGaloisProblemFrameworkAttack.

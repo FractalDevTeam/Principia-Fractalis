@@ -43,7 +43,7 @@
     - `PF_YMEncodingV2` -- the V2 standard YM encoding.
     - `PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV2` --
        the V2 typed Clay YM discharge.
-    - `PF_YM_V2_honestScope_holds` -- bundled honest-scope verdict.
+    - `PF_YM_V2_refereeScope_holds` -- bundled honest-scope verdict.
 
   ## What this file delivers (Coq side)
 
@@ -58,7 +58,7 @@
   6. `Clay_YangMillsMassGap_StandardV2` typed Clay form.
   7. The V2 discharge theorem.
   8. Discriminator theorems vs V1.
-  9. `PF_YM_V2_honestScope_holds` -- bundled verdict.
+  9. `PF_YM_V2_refereeScope_holds` -- bundled verdict.
 
   ## Honest scope
 
@@ -240,9 +240,9 @@ Proof. reflexivity. Qed.
 
 (** ## §9 -- The honest-scope verdict
 
-    Mirrors Lean `PF_YM_V2_honestScope` +
-    `PF_YM_V2_honestScope_holds`. *)
-Definition PF_YM_V2_honestScope : Prop :=
+    Mirrors Lean `PF_YM_V2_refereeScope` +
+    `PF_YM_V2_refereeScope_holds`. *)
+Definition PF_YM_V2_refereeScope : Prop :=
   (* (H1) V2 typed Clay form holds unconditionally. *)
   Clay_YangMillsMassGap_StandardV2 PF_YMEncodingV2 /\
   (* (H2) Inf-dim Hilbert carrier strengthening. *)
@@ -262,9 +262,9 @@ Definition PF_YM_V2_honestScope : Prop :=
   (1 <= Delta pfV2ContinuumWitness) /\
   (Delta pfV2ContinuumWitness <> 1).
 
-Theorem PF_YM_V2_honestScope_holds : PF_YM_V2_honestScope.
+Theorem PF_YM_V2_refereeScope_holds : PF_YM_V2_refereeScope.
 Proof.
-  unfold PF_YM_V2_honestScope.
+  unfold PF_YM_V2_refereeScope.
   split; [exact PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV2 |].
   split; [reflexivity |].
   split; [reflexivity |].
@@ -277,10 +277,10 @@ Qed.
 
 (** ## §10 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 End YMContinuumWightmanV2.

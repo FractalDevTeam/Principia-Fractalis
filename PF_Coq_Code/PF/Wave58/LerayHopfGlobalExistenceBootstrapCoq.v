@@ -542,10 +542,10 @@ Proof.
 Qed.
 
 (** **Coq-parity-only honest-scope marker.** NOT a Clay discharge. *)
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-    honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+    referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 End LerayHopfGlobalExistenceBootstrap.

@@ -89,7 +89,7 @@ theorem tsum_geometric_inv_eq_a_div (a : ℝ) (ha : 1 < a) :
        extension to L²(K_P, μ). The kernel bound is now CONNECTED to
        the limit value, closing the loop from finite-N truncation
        to the continuum claim. -/
-theorem GeometricSeriesLimit_HonestScope : True := trivial
+theorem GeometricSeriesLimit_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

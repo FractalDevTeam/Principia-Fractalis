@@ -559,7 +559,7 @@ The framework attack must:
 
     (4) Discharging `EnumToClassSeparationBridge` precisely closes the
         P vs NP Clay gap. -/
-theorem pf_pvsnp_honest_scope :
+theorem pf_pvsnp_referee_scope :
     -- (1) PF's enum-level discharge holds axiom-free at the polylog
     --     substrate (NOT at the class level).
     PF_PolylogEnumDischarge ∧
@@ -703,6 +703,6 @@ end PrincipiaTractalis.PNPClassSeparationPrecisionBridge
 #print axioms
   PrincipiaTractalis.PNPClassSeparationPrecisionBridge.pf_clay_precision_chain
 #print axioms
-  PrincipiaTractalis.PNPClassSeparationPrecisionBridge.pf_pvsnp_honest_scope
+  PrincipiaTractalis.PNPClassSeparationPrecisionBridge.pf_pvsnp_referee_scope
 #print axioms
   PrincipiaTractalis.PNPClassSeparationPrecisionBridge.pnp_class_separation_precision_capstone

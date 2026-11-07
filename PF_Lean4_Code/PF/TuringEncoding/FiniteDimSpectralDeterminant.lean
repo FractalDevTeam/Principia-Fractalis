@@ -130,7 +130,7 @@ theorem kernelMatrix_two_discriminant_nonneg (V : ℝ → ℝ → ℝ)
     4. CONTINUUM-LIMIT M3 RESIDUAL: the N → ∞ limit to L²(K_P, μ)
        and the convergence of finite-dim spectra to continuum
        spectra. Specific mathlib targets; not abstract open math. -/
-theorem FiniteDimSpectralDeterminant_HonestScope : True := trivial
+theorem FiniteDimSpectralDeterminant_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

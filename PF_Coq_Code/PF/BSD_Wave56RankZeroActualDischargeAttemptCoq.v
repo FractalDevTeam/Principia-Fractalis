@@ -120,7 +120,7 @@ Proof. exact I. Qed.
 Theorem wave55F_typed_implies_statement : True.
 Proof. exact I. Qed.
 
-Theorem bsd_wave56_rank_zero_actual_discharge_attempt_honest_scope : True.
+Theorem bsd_wave56_rank_zero_actual_discharge_attempt_referee_scope : True.
 Proof. exact I. Qed.
 
 Theorem bsd_wave56_rank_zero_actual_discharge_attempt_capstone : True.
@@ -128,9 +128,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End BSD_Wave56RankZeroActualDischargeAttempt.

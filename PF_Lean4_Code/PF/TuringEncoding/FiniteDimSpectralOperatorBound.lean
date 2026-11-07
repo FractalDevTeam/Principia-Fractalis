@@ -105,7 +105,7 @@ theorem fractalKernel_entry_bound (Nlevels : ℕ) (a α : ℝ) (d : ℝ → ℝ 
     3. CONTINUUM-LIMIT M3 RESIDUAL: extension to L²(K_P, μ) with uniform
        operator norm bound across truncation hierarchy. Concrete
        published-math content. -/
-theorem FiniteDimSpectralOperatorBound_HonestScope : True := trivial
+theorem FiniteDimSpectralOperatorBound_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

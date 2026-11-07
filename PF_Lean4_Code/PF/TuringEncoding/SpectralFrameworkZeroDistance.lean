@@ -63,7 +63,7 @@ theorem fractalKernel_at_zero_distance_bound (Nlevels : ℕ) (a α : ℝ) (d : �
 /-! ## §2 — Honest scope marker -/
 
 /-- **Honest scope** for this file: zero-distance kernel identities. -/
-theorem SpectralFrameworkZeroDistance_HonestScope : True := trivial
+theorem SpectralFrameworkZeroDistance_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

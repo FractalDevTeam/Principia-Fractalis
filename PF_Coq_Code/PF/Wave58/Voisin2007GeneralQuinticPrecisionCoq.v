@@ -323,10 +323,10 @@ Qed.
 (** Honest-scope marker. This file is a structural Coq parity mirror
     of the Lean Wave 58-Hodge-Precision attack, NOT a discharge of
     `Clay_Hodge_Standard`. *)
-Definition honest_scope_voisin_precision_not_clay_discharge : Prop := True.
+Definition referee_scope_voisin_precision_not_clay_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_voisin_precision_not_clay_discharge.
+Theorem referee_scope_marker :
+  referee_scope_voisin_precision_not_clay_discharge.
 Proof. exact I. Qed.
 
 (** ## §10 — Capstone Record *)
@@ -356,7 +356,7 @@ Record Voisin2007PrecisionCapstone : Type := {
        Voisin2007GeneralCodimTwoNonAlgebraic X);
   (* Honest scope: NOT a Clay discharge *)
   honest_not_clay_discharge :
-    honest_scope_voisin_precision_not_clay_discharge
+    referee_scope_voisin_precision_not_clay_discharge
 }.
 
 (** ★ VOISIN 2007 GENERAL-QUINTIC PRECISION COQ CAPSTONE ★
@@ -382,7 +382,7 @@ Definition voisin_capstone : Voisin2007PrecisionCapstone :=
    ; generic_non_cm_open := genericNonCMQuintic_outside_sublocus
    ; discriminator := general_quintic_outside_pf_substrate
    ; clay_gap_isolated := hodge_clay_gap_isolated_to_voisin_2007
-   ; honest_not_clay_discharge := honest_scope_marker
+   ; honest_not_clay_discharge := referee_scope_marker
   |}.
 
 Close Scope R_scope.

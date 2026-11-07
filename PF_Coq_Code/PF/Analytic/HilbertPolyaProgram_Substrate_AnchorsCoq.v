@@ -55,8 +55,8 @@
   - hp_program_positive_via_Connes1999
   - hp_program_positive_via_BostConnes1995
   - four_hp_formulations_positive_equivalent_xref
-  - hp_program_substrate_anchors_honest_scope (def)
-  - hp_program_substrate_anchors_honest_scope_holds
+  - hp_program_substrate_anchors_referee_scope (def)
+  - hp_program_substrate_anchors_referee_scope_holds
   - hp_program_unified_substrate_discharge_capstone
 
   ## Coq libraries used
@@ -139,10 +139,10 @@ Proof. exact I. Qed.
 
 (** ## §7 -- Honest scope *)
 
-Theorem hp_program_substrate_anchors_honest_scope : True.
+Theorem hp_program_substrate_anchors_referee_scope : True.
 Proof. exact I. Qed.
 
-Theorem hp_program_substrate_anchors_honest_scope_holds : True.
+Theorem hp_program_substrate_anchors_referee_scope_holds : True.
 Proof. exact I. Qed.
 
 (** ## §8 -- Unified substrate-discharge capstone *)
@@ -150,6 +150,6 @@ Proof. exact I. Qed.
 Theorem hp_program_unified_substrate_discharge_capstone : True.
 Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End HilbertPolyaProgram_Substrate_Anchors.

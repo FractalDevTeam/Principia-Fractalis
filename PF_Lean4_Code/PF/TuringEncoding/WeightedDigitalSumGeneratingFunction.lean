@@ -179,7 +179,7 @@ theorem framework_fractal_kernel_reduction_holds (α : ℝ) :
             (Hutchinson 1981) — mathlib lacks this entirely;
        (M3) Fractal-recursion spectral analysis with `α^n` inside cosine
             kernels — the genuine novel content of `cohen2025pvsnp`. -/
-theorem WeightedDigitalSumGeneratingFunction_HonestScope : True := trivial
+theorem WeightedDigitalSumGeneratingFunction_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

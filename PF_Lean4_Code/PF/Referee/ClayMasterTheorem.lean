@@ -27,7 +27,7 @@ Composes:
 The framework's case for Clay-acceptance, in one theorem.
 
 Composes existing axiom-free content. ZERO project axioms.
-ZERO sorries. No `:= True` placeholders. No `HonestScope` theorems.
+ZERO sorries. No `:= True` placeholders. No `RefereeScope` theorems.
 
 Author: Pablo Cohen + Claude Opus 4.7. 2026-06-05.
 -/

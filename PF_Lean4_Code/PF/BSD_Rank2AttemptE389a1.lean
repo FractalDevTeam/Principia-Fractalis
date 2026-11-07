@@ -499,7 +499,7 @@ theorem bsd_rank_two_E389a1_discharged_at_placeholder :
     * (S5) the unconditional discharge at the framework's
       placeholder level is available;
     * (S6) Δ(E_{389.a1}) = 389, matching the conductor. -/
-theorem bsd_rank_two_E389a1_honest_scope :
+theorem bsd_rank_two_E389a1_referee_scope :
     -- (S1) First generator on E_{389.a1}
     E_389a1.toAffine.Equation
       heegnerLikePoint_E389a1_first.1
@@ -601,7 +601,7 @@ theorem bsd_rank_two_E389a1_capstone :
 #print axioms LMFDBNumericalRank2_E389a1_holds
 #print axioms bsd_rank_two_E389a1_via_BSZ
 #print axioms bsd_rank_two_E389a1_discharged_at_placeholder
-#print axioms bsd_rank_two_E389a1_honest_scope
+#print axioms bsd_rank_two_E389a1_referee_scope
 #print axioms bsd_rank_two_E389a1_capstone
 
 end BSD_Rank2AttemptE389a1

@@ -150,7 +150,7 @@ theorem spectral_gap_explicit_sqrt (V : ℝ → ℝ → ℝ)
 
     4. CONTINUUM-LIMIT M3 RESIDUAL: extending to L²(K_P, μ) at N → ∞.
        Specific concrete mathlib targets, not abstract open math. -/
-theorem FiniteDimSpectralClosedForm_HonestScope : True := trivial
+theorem FiniteDimSpectralClosedForm_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

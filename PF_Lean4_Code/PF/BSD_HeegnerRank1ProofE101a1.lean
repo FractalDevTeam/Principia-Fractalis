@@ -230,7 +230,7 @@ theorem bsd_rank_one_E101a1_discharged_at_placeholder :
 /-! ## §7 — Honest-scope theorem -/
 
 /-- **★ HONEST SCOPE THEOREM ★**. -/
-theorem bsd_rank_one_E101a1_honest_scope :
+theorem bsd_rank_one_E101a1_referee_scope :
     E_101a1.toAffine.Equation
       heegnerPoint_E101a1.1 heegnerPoint_E101a1.2
     ∧
@@ -301,7 +301,7 @@ theorem bsd_heegner_rank_one_E101a1_capstone :
 #print axioms selmerRankEquals_E101a1_at_one
 #print axioms bsd_rank_one_E101a1_via_heegner_and_GZ_K
 #print axioms bsd_rank_one_E101a1_discharged_at_placeholder
-#print axioms bsd_rank_one_E101a1_honest_scope
+#print axioms bsd_rank_one_E101a1_referee_scope
 #print axioms bsd_heegner_rank_one_E101a1_capstone
 
 end BSD_HeegnerRank1ProofE101a1

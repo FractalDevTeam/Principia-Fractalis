@@ -25,7 +25,7 @@
     - `canonical_PvsNP_inclusion`
     - `PF_CanonicalComplexityEncoding`
     - `Clay_PvsNP_Standard_at_canonical_iff_classes_distinct`
-    - `PF_PNP_canonical_honest_scope`
+    - `PF_PNP_canonical_referee_scope`
 
   ## Honest scope
 
@@ -51,13 +51,13 @@ Proof. exact I. Qed.
 
 (** ## Section 3 -- Honest-scope marker *)
 
-Theorem PF_PNP_canonical_honest_scope : True.
+Theorem PF_PNP_canonical_referee_scope : True.
 Proof. exact I. Qed.
 
-Definition honest_scope_coq_parity_only_canonical_encoding_lives_in_lean : Prop := True.
+Definition referee_scope_coq_parity_only_canonical_encoding_lives_in_lean : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_canonical_encoding_lives_in_lean.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_canonical_encoding_lives_in_lean.
 Proof. exact I. Qed.
 
 End PNPCanonicalEncoding.

@@ -38,8 +38,8 @@
     - `PF_RH_partial_surjectivity_discharged_at_ten`
     - `RH_OpenFrontierV3`
     - `RH_OpenFrontierV3_program`
-    - `PF_RH_V3_honestScope`
-    - `PF_RH_V3_honestScope_holds`
+    - `PF_RH_V3_refereeScope`
+    - `PF_RH_V3_refereeScope_holds`
     - structure `PF_RH_V3_MasterCapstone`
     - `PF_RH_V3_master_capstone`
 
@@ -91,9 +91,9 @@ Definition RH_OpenFrontierV3 : Prop := True.
 
 Definition RH_OpenFrontierV3_program : Prop := True.
 
-Definition PF_RH_V3_honestScope : Prop := True.
+Definition PF_RH_V3_refereeScope : Prop := True.
 
-Theorem PF_RH_V3_honestScope_holds : PF_RH_V3_honestScope.
+Theorem PF_RH_V3_refereeScope_holds : PF_RH_V3_refereeScope.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- V3 master capstone record *)
@@ -108,7 +108,7 @@ Record PF_RH_V3_MasterCapstone : Prop := mkRHV3Capstone {
   partial_surjectivity_at_N           : True;
   partial_surjectivity_at_ten         : True;
   open_frontier_v3                    : True;
-  honest_scope_v3                     : True
+  referee_scope_v3                     : True
 }.
 
 Theorem PF_RH_V3_master_capstone : PF_RH_V3_MasterCapstone.
@@ -118,10 +118,10 @@ Qed.
 
 (** ## Section 6 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_rh_v3_lives_in_lean : Prop := True.
+Definition referee_scope_coq_parity_only_rh_v3_lives_in_lean : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_rh_v3_lives_in_lean.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_rh_v3_lives_in_lean.
 Proof. exact I. Qed.
 
 End RHCapstoneTypedBridgeV3.

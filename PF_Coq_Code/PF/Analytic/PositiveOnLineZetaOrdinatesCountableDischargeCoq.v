@@ -103,6 +103,6 @@ Theorem rh_wave59_one_fact_capstone : True. Proof. exact I. Qed.
 
 (** ## §5 -- Honest scope marker *)
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End PositiveOnLineZetaOrdinatesCountableDischarge.

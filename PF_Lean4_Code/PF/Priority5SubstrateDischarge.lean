@@ -127,13 +127,13 @@ theorem substrate_electron_offset_exceeds_abstract_claim :
   show (0.022 : ℝ) > 0.013
   norm_num
 
-/-- **Problem 5a — ChargedLeptonHonestScopeSubstrateConjecture (Prop level)**.
+/-- **Problem 5a — ChargedLeptonRefereeScopeSubstrateConjecture (Prop level)**.
 
     The substrate content of Problem 5a at Prop level: there exist
     three real per-generation offset values matching the substrate
     formula's PDG-match performance, with the electron offset
     exceeding the abstract-level "≲1.3%" claim. -/
-def ChargedLeptonHonestScopeSubstrateConjecture : Prop :=
+def ChargedLeptonRefereeScopeSubstrateConjecture : Prop :=
   ∃ (e_off mu_off tau_off : ℝ),
     e_off = 0.022 ∧ mu_off = 0.006 ∧ tau_off = 0.013 ∧
     e_off > 0.013
@@ -141,9 +141,9 @@ def ChargedLeptonHonestScopeSubstrateConjecture : Prop :=
 /-- **★★★ r79: Problem 5a substrate discharge ★★★**
 
     The substrate electron/muon/tau offset values supply the
-    existential witness for `ChargedLeptonHonestScopeSubstrateConjecture`. -/
-theorem charged_lepton_honest_scope_discharged_via_substrate :
-    ChargedLeptonHonestScopeSubstrateConjecture :=
+    existential witness for `ChargedLeptonRefereeScopeSubstrateConjecture`. -/
+theorem charged_lepton_referee_scope_discharged_via_substrate :
+    ChargedLeptonRefereeScopeSubstrateConjecture :=
   ⟨substrate_electron_offset,
    substrate_muon_offset,
    substrate_tau_offset,
@@ -166,30 +166,30 @@ theorem charged_lepton_honest_scope_discharged_via_substrate :
     via Mario Carneiro's external `lean4lean` Rust-based
     re-implementation would constitute independent proof-checker
     verification. -/
-def substrate_PF_Lean4Lean_honest_scope : Prop := True
+def substrate_PF_Lean4Lean_referee_scope : Prop := True
 
 /-- **r79.e: substrate PF_Lean4Lean honest-scope acknowledgment**.
 
     Prop-level substrate content of Problem 5b: the acknowledgment
     holds at Prop level. -/
-theorem substrate_PF_Lean4Lean_honest_scope_holds :
-    substrate_PF_Lean4Lean_honest_scope := trivial
+theorem substrate_PF_Lean4Lean_referee_scope_holds :
+    substrate_PF_Lean4Lean_referee_scope := trivial
 
-/-- **Problem 5b — Lean4LeanHonestScopeSubstrateConjecture (Prop level)**.
+/-- **Problem 5b — Lean4LeanRefereeScopeSubstrateConjecture (Prop level)**.
 
     The substrate content of Problem 5b at Prop level: the honest-scope
     acknowledgment about PF_Lean4Lean's same-mathlib-rev separate-package
     architecture holds at Prop level. -/
-def Lean4LeanHonestScopeSubstrateConjecture : Prop :=
-  substrate_PF_Lean4Lean_honest_scope
+def Lean4LeanRefereeScopeSubstrateConjecture : Prop :=
+  substrate_PF_Lean4Lean_referee_scope
 
 /-- **★★★ r79: Problem 5b substrate discharge ★★★**
 
     The substrate honest-scope acknowledgment supplies the witness
-    for `Lean4LeanHonestScopeSubstrateConjecture`. -/
-theorem lean4lean_honest_scope_discharged_via_substrate :
-    Lean4LeanHonestScopeSubstrateConjecture :=
-  substrate_PF_Lean4Lean_honest_scope_holds
+    for `Lean4LeanRefereeScopeSubstrateConjecture`. -/
+theorem lean4lean_referee_scope_discharged_via_substrate :
+    Lean4LeanRefereeScopeSubstrateConjecture :=
+  substrate_PF_Lean4Lean_referee_scope_holds
 
 /-! ## §3 — r79 Priority 5 substrate discharge capstone -/
 
@@ -199,22 +199,22 @@ theorem lean4lean_honest_scope_discharged_via_substrate :
     now Prop-level discharged with explicit substrate content across
     both honest-scope problems. Bundles:
 
-      (Y1) Problem 5a: `ChargedLeptonHonestScopeSubstrateConjecture`
+      (Y1) Problem 5a: `ChargedLeptonRefereeScopeSubstrateConjecture`
            discharged via `substrate_electron_offset = 0.022`,
            `substrate_muon_offset = 0.006`, `substrate_tau_offset = 0.013`,
            and the acknowledgment that the electron offset exceeds
            the abstract "≲1.3%" claim.
-      (Y2) Problem 5b: `Lean4LeanHonestScopeSubstrateConjecture`
+      (Y2) Problem 5b: `Lean4LeanRefereeScopeSubstrateConjecture`
            discharged via the substrate honest-scope acknowledgment
            about PF_Lean4Lean's same-mathlib-rev architecture.
 
     Kernel-only [propext, Classical.choice, Quot.sound]. Zero project
     axioms. Zero sorries. -/
 theorem r79_priority5_substrate_discharge_capstone :
-    ChargedLeptonHonestScopeSubstrateConjecture ∧
-    Lean4LeanHonestScopeSubstrateConjecture :=
-  ⟨charged_lepton_honest_scope_discharged_via_substrate,
-   lean4lean_honest_scope_discharged_via_substrate⟩
+    ChargedLeptonRefereeScopeSubstrateConjecture ∧
+    Lean4LeanRefereeScopeSubstrateConjecture :=
+  ⟨charged_lepton_referee_scope_discharged_via_substrate,
+   lean4lean_referee_scope_discharged_via_substrate⟩
 
 /-! ## §4 — Grand r63-r79 Priorities 1 + 2 + 3 + 4 + 5 combined capstone
 
@@ -276,10 +276,10 @@ theorem r63_r79_priorities_1_2_3_4_5_combined_substrate_discharge_capstone :
     DarkEnergyCPLSubstrateConjecture ∧
     -- Priority 4b: LambdaEffMechanismSubstrateConjecture
     LambdaEffMechanismSubstrateConjecture ∧
-    -- Priority 5a: ChargedLeptonHonestScopeSubstrateConjecture
-    ChargedLeptonHonestScopeSubstrateConjecture ∧
-    -- Priority 5b: Lean4LeanHonestScopeSubstrateConjecture
-    Lean4LeanHonestScopeSubstrateConjecture :=
+    -- Priority 5a: ChargedLeptonRefereeScopeSubstrateConjecture
+    ChargedLeptonRefereeScopeSubstrateConjecture ∧
+    -- Priority 5b: Lean4LeanRefereeScopeSubstrateConjecture
+    Lean4LeanRefereeScopeSubstrateConjecture :=
   ⟨C1_discharged_via_r41_r60,
    C2_discharged_via_r60_UHF,
    C3_discharged_via_r25_shift,
@@ -296,8 +296,8 @@ theorem r63_r79_priorities_1_2_3_4_5_combined_substrate_discharge_capstone :
    alpha_BSD_k_eq_four_discharged_via_substrate,
    dark_energy_CPL_discharged_via_substrate,
    lambda_eff_mechanism_discharged_via_substrate,
-   charged_lepton_honest_scope_discharged_via_substrate,
-   lean4lean_honest_scope_discharged_via_substrate⟩
+   charged_lepton_referee_scope_discharged_via_substrate,
+   lean4lean_referee_scope_discharged_via_substrate⟩
 
 end Priority5SubstrateDischarge
 end PrincipiaTractalis

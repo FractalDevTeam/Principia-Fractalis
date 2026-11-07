@@ -630,7 +630,7 @@ theorem kolyvagin1990_formalization_capstone :
     * (S5) The rank-1 typed certificate bridge composes:
       `Kolyvagin1990_FullTheorem ∧ Gross-Zagier ∧ L' ≠ 0 ∧
       HeegnerHyp ⟹ ∃ cert, cert.r = 1`. -/
-theorem kolyvagin1990_honest_scope :
+theorem kolyvagin1990_referee_scope :
     -- (S1)
     HeegnerPointInfiniteOrder E_rank_one
     ∧
@@ -680,4 +680,4 @@ end PrincipiaTractalis.BSD_Kolyvagin1990Formalization
 #print axioms
   PrincipiaTractalis.BSD_Kolyvagin1990Formalization.kolyvagin1990_formalization_capstone
 #print axioms
-  PrincipiaTractalis.BSD_Kolyvagin1990Formalization.kolyvagin1990_honest_scope
+  PrincipiaTractalis.BSD_Kolyvagin1990Formalization.kolyvagin1990_referee_scope

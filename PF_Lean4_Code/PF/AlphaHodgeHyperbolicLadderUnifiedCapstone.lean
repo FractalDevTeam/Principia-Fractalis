@@ -148,7 +148,7 @@ theorem α_Hodge_hyperbolic_lucas_fibonacci_ladder_unified :
 /-- **Honest-scope marker** — this file is a pure consolidation point.
     Each rank's identity is committed to a dedicated file; the unified
     capstone exposes them all as one referee-reading point. -/
-theorem α_Hodge_hyperbolic_lucas_fibonacci_ladder_honest_scope : True := trivial
+theorem α_Hodge_hyperbolic_lucas_fibonacci_ladder_referee_scope : True := trivial
 
 end AlphaHodgeHyperbolicLadderUnifiedCapstone
 end PrincipiaTractalis
@@ -157,4 +157,4 @@ end PrincipiaTractalis
 #print axioms
   PrincipiaTractalis.AlphaHodgeHyperbolicLadderUnifiedCapstone.α_Hodge_hyperbolic_lucas_fibonacci_ladder_unified
 #print axioms
-  PrincipiaTractalis.AlphaHodgeHyperbolicLadderUnifiedCapstone.α_Hodge_hyperbolic_lucas_fibonacci_ladder_honest_scope
+  PrincipiaTractalis.AlphaHodgeHyperbolicLadderUnifiedCapstone.α_Hodge_hyperbolic_lucas_fibonacci_ladder_referee_scope

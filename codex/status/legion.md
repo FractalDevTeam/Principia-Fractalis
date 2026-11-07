@@ -882,7 +882,7 @@ Checked and found **not** defects (read, not assumed):
 there really is a ζ-zero, and the file says so in five places;
 `framework_static_DE_falsified_if_DESI_evolution` has `[]` because it is a
 deliberate propositional falsifiability bridge;
-`PrincipiaFractalisSubstrateTheoremHonestScope`'s `True` fields are a labelled
+`PrincipiaFractalisSubstrateTheoremRefereeScope`'s `True` fields are a labelled
 ProvennessTag documentation record, not claim content.
 
 ---

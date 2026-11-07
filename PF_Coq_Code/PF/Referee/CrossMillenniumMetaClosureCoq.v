@@ -74,7 +74,7 @@
     - cross_millennium_meta_closure_capstone
 
   Section 7 -- Honest-scope marker:
-    - cross_millennium_meta_closure_honest_scope
+    - cross_millennium_meta_closure_referee_scope
 
   ## Honest scope
 
@@ -356,11 +356,11 @@ Qed.
 
 (** ## Section 7 -- Honest-scope marker (Rule #1: ProvennessTag x 5)
 
-    Mirrors Lean `structure CrossMillenniumMetaClosureHonestScope`
+    Mirrors Lean `structure CrossMillenniumMetaClosureRefereeScope`
     with five trivial tags S1-S5. *)
 
-Record CrossMillenniumMetaClosureHonestScopeRecord : Prop :=
-  mkMetaClosureHonestScope {
+Record CrossMillenniumMetaClosureRefereeScopeRecord : Prop :=
+  mkMetaClosureRefereeScope {
     (** (S1) The meta-closure is machine-verified at the substrate
         level -- every clause composes an existing axiom-free
         theorem by exact name. *)
@@ -387,18 +387,18 @@ Record CrossMillenniumMetaClosureHonestScopeRecord : Prop :=
 
 (** Honest-scope record inhabited. Five trivial tags; content in
     the docstrings. *)
-Theorem cross_millennium_meta_closure_honest_scope :
-  CrossMillenniumMetaClosureHonestScopeRecord.
+Theorem cross_millennium_meta_closure_referee_scope :
+  CrossMillenniumMetaClosureRefereeScopeRecord.
 Proof.
-  apply mkMetaClosureHonestScope; exact I.
+  apply mkMetaClosureRefereeScope; exact I.
 Qed.
 
 (** ## Section 8 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_clay_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_clay_discharge.
 Proof. exact I. Qed.
 
 End CrossMillenniumMetaClosure.

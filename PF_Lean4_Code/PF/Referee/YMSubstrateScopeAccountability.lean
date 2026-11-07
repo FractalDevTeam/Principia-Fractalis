@@ -10,7 +10,7 @@ of `3/2`, NOT the literal Clay Yang–Mills statement on an arbitrary
 compact simple gauge group with a continuum-limit-derived mass gap.
 
 The scope statement is already partially documented in
-`Bridge5_YM_SubstrateDischarge.lean`'s 18-clause `PF_YM_Bridge5_honestScope`
+`Bridge5_YM_SubstrateDischarge.lean`'s 18-clause `PF_YM_Bridge5_refereeScope`
 theorem. This file consolidates the substrate-vs-literal-Clay gap as
 three named typed Props and provides a single referee-readable scope
 capstone parallel to the Hodge and NS accountability files.

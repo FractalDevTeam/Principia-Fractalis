@@ -42,8 +42,8 @@
     - PF_BSD_capstoneV4_implies_V1
     - isV4Discharged
     - v4_residual_is_zero_on_undischarged
-    - PF_BSD_V4_honestScope
-    - PF_BSD_V4_honestScope_holds
+    - PF_BSD_V4_refereeScope
+    - PF_BSD_V4_refereeScope_holds
 
   ## Honest scope
 
@@ -151,15 +151,15 @@ Proof. exact I. Qed.
 
 (** ## Section 14 -- Honest-scope marker *)
 
-Definition PF_BSD_V4_honestScope : Prop := True.
+Definition PF_BSD_V4_refereeScope : Prop := True.
 
-Theorem PF_BSD_V4_honestScope_holds : PF_BSD_V4_honestScope.
+Theorem PF_BSD_V4_refereeScope_holds : PF_BSD_V4_refereeScope.
 Proof. exact I. Qed.
 
-Definition honest_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_clay_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_clay_discharge.
 Proof. exact I. Qed.
 
 End BSDCapstoneTypedBridgeV4.

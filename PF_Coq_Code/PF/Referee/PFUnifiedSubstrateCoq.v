@@ -77,10 +77,10 @@ Proof. exact I. Qed.
 
 (** ## Section 5 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_unified_substrate_lives_in_lean : Prop := True.
+Definition referee_scope_coq_parity_only_unified_substrate_lives_in_lean : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_unified_substrate_lives_in_lean.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_unified_substrate_lives_in_lean.
 Proof. exact I. Qed.
 
 End PFUnifiedSubstrate.

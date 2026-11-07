@@ -255,7 +255,7 @@ theorem concrete_matrix_spectrum_pos :
     Clay statement requires the reconstructed Wightman Hamiltonian
     on the infinite-dim Hilbert space, with
     `Spec(H) ⊂ {0} ∪ [Δ, ∞)`. NOT a Clay discharge. -/
-def MassGapPropagationConcreteWitnessHonestScope : Prop :=
+def MassGapPropagationConcreteWitnessRefereeScope : Prop :=
   -- (1) Strengthened typed predicate inhabited by `interactingHam`.
   MassGapPropagationConcreteTypedStatement ∧
   -- (2) Strengthened concrete ⇒ Wave 57 typed.
@@ -276,8 +276,8 @@ def MassGapPropagationConcreteWitnessHonestScope : Prop :=
       ∃ Δ : ℝ, Δ ≠ 1 ∧ 0 < Δ ∧ 1 ≤ Δ)
 
 /-- The honest-scope marker holds unconditionally. -/
-theorem massGapPropagation_concrete_witness_honestScope_holds :
-    MassGapPropagationConcreteWitnessHonestScope :=
+theorem massGapPropagation_concrete_witness_refereeScope_holds :
+    MassGapPropagationConcreteWitnessRefereeScope :=
   ⟨massGapPropagation_concrete_witness,
    massGapPropagation_concrete_implies_wave57_typed,
    massGapPropagation_concrete_implies_original,
@@ -334,7 +334,7 @@ theorem massGapPropagation_concrete_witness_capstone :
        MassGapPropagationTypedStatement) ∧
     (MassGapPropagationConcreteTypedStatement →
        MassGapPropagationAcrossReconstruction) ∧
-    MassGapPropagationConcreteWitnessHonestScope :=
+    MassGapPropagationConcreteWitnessRefereeScope :=
   ⟨massGapPropagation_concrete_witness,
    interactingHam_eigenvalue_at_concreteEigenvector,
    concreteEigenvector_ne_zero,
@@ -343,7 +343,7 @@ theorem massGapPropagation_concrete_witness_capstone :
    concrete_matrix_det_eq_three_quarters,
    massGapPropagation_concrete_implies_wave57_typed,
    massGapPropagation_concrete_implies_original,
-   massGapPropagation_concrete_witness_honestScope_holds⟩
+   massGapPropagation_concrete_witness_refereeScope_holds⟩
 
 /-! ## §8 — Axiom-freeness verification -/
 
@@ -358,7 +358,7 @@ theorem massGapPropagation_concrete_witness_capstone :
 #print axioms concrete_matrix_trace_eq_two
 #print axioms concrete_matrix_det_eq_three_quarters
 #print axioms concrete_matrix_spectrum_pos
-#print axioms massGapPropagation_concrete_witness_honestScope_holds
+#print axioms massGapPropagation_concrete_witness_refereeScope_holds
 #print axioms massGapPropagation_concrete_witness_capstone
 
 end YM_MassGapPropagationConcreteWitness

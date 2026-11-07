@@ -497,7 +497,7 @@ theorem Wave56_cross_millennium_master_cascade_conditional :
 
 /-! ## Section 6 — Honest-scope marker -/
 
-/-- **HonestScopeNotice** — empty Prop documenting that the Wave 56
+/-- **RefereeScopeNotice** — empty Prop documenting that the Wave 56
     cross-Millennium meta-cascade is the STRONGEST framework-internal
     cascade form but does NOT discharge any Clay Millennium problem. -/
 def Wave56MetaCascadeIsFrameworkInternalNotClayDischarge : Prop :=

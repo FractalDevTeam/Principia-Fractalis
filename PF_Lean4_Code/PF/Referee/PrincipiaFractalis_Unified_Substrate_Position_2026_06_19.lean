@@ -207,11 +207,11 @@ theorem principia_fractalis_unified_substrate_position_2026_06_19
     published-content capsules; the unified capstone bundles them
     into a single citation point for explicit referee-readable
     provenance. -/
-theorem principia_fractalis_unified_substrate_position_2026_06_19_honest_scope :
+theorem principia_fractalis_unified_substrate_position_2026_06_19_referee_scope :
     True := trivial
 
 end PF.Referee.PrincipiaFractalis_Unified_Substrate_Position_2026_06_19
 
 #print axioms PF.Referee.PrincipiaFractalis_Unified_Substrate_Position_2026_06_19.principia_fractalis_unified_substrate_position_2026_06_19_unconditional
 #print axioms PF.Referee.PrincipiaFractalis_Unified_Substrate_Position_2026_06_19.principia_fractalis_unified_substrate_position_2026_06_19
-#print axioms PF.Referee.PrincipiaFractalis_Unified_Substrate_Position_2026_06_19.principia_fractalis_unified_substrate_position_2026_06_19_honest_scope
+#print axioms PF.Referee.PrincipiaFractalis_Unified_Substrate_Position_2026_06_19.principia_fractalis_unified_substrate_position_2026_06_19_referee_scope

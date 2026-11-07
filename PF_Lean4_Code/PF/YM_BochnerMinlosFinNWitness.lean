@@ -161,7 +161,7 @@ theorem bochnerMinlos_FinN_implies_wave56 (n : ℕ) [Nonempty (Fin n)]
 
     What this file provides is the strongest FINITE-dim parametric
     witness the framework supports. -/
-def BochnerMinlosFinNWitnessHonestScope : Prop :=
+def BochnerMinlosFinNWitnessRefereeScope : Prop :=
   -- (1) Strengthened³ typed predicate is parametric in n ≥ 1.
   (∀ n : ℕ, Nonempty (Fin n) → BochnerMinlosFinNTypedStatement n) ∧
   -- (2) Cascade to Wave 56 `True`-shaped original is parametric.
@@ -169,8 +169,8 @@ def BochnerMinlosFinNWitnessHonestScope : Prop :=
     BochnerMinlosOnNuclearSpaces)
 
 /-- The honest-scope marker holds unconditionally. -/
-theorem bochnerMinlos_FinN_witness_honestScope_holds :
-    BochnerMinlosFinNWitnessHonestScope :=
+theorem bochnerMinlos_FinN_witness_refereeScope_holds :
+    BochnerMinlosFinNWitnessRefereeScope :=
   ⟨fun _ _ => bochnerMinlos_FinN_gaussian_witness _,
    fun _ _ _ => trivial⟩
 
@@ -203,12 +203,12 @@ theorem ym_bochnerMinlos_FinN_witness_capstone :
     (∀ n : ℕ, Nonempty (Fin n) →
        BochnerMinlosFinNTypedStatement n →
          BochnerMinlosOnNuclearSpaces) ∧
-    BochnerMinlosFinNWitnessHonestScope :=
+    BochnerMinlosFinNWitnessRefereeScope :=
   ⟨fun _ _ => bochnerMinlos_FinN_gaussian_witness _,
    fun n _ => standardGaussianFinN_isProbabilityMeasure n,
    fun _ _ => standardGaussianFinN_noAtoms _,
    fun _ _ _ => trivial,
-   bochnerMinlos_FinN_witness_honestScope_holds⟩
+   bochnerMinlos_FinN_witness_refereeScope_holds⟩
 
 end YM_BochnerMinlosFinNWitness
 end PrincipiaTractalis

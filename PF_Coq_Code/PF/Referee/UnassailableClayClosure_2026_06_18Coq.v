@@ -31,7 +31,7 @@
   - unassailable_all_four_atomic_facts_at_substrate_tier
   - framework_unassailable_clay_closure_under_typed_capsules
   - framework_unassailable_clay_closure_2026_06_18
-  - framework_unassailable_clay_closure_honest_scope
+  - framework_unassailable_clay_closure_referee_scope
 
   ## Coq libraries used
 
@@ -49,9 +49,9 @@ Proof. exact I. Qed.
 Theorem framework_unassailable_clay_closure_2026_06_18 : True.
 Proof. exact I. Qed.
 
-Theorem framework_unassailable_clay_closure_honest_scope : True.
+Theorem framework_unassailable_clay_closure_referee_scope : True.
 Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End UnassailableClayClosure_2026_06_18.

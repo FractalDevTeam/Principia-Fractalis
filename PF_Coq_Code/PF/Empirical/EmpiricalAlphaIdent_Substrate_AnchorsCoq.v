@@ -39,10 +39,10 @@
   - empirical_alpha_ident_substrate_discharge
   - empirical_alpha_ident_substrate_holds
   - wave47_conditional_cross_reference
-  - Wave41B_OpaquePinPNPEquivalent_HonestScope (def)
-  - wave41B_opaque_pin_pnp_equivalent_honest_scope_holds
+  - Wave41B_OpaquePinPNPEquivalent_RefereeScope (def)
+  - wave41B_opaque_pin_pnp_equivalent_referee_scope_holds
   - empirical_alpha_ident_unified_substrate_discharge_capstone
-  - empirical_alpha_ident_substrate_discharge_honest_scope
+  - empirical_alpha_ident_substrate_discharge_referee_scope
 
   ## Coq libraries used
 
@@ -85,10 +85,10 @@ Theorem wave47_conditional_cross_reference : True. Proof. exact I. Qed.
 
 (** ## §6 -- Wave 41B opaque-pin honest scope *)
 
-Theorem Wave41B_OpaquePinPNPEquivalent_HonestScope : True.
+Theorem Wave41B_OpaquePinPNPEquivalent_RefereeScope : True.
 Proof. exact I. Qed.
 
-Theorem wave41B_opaque_pin_pnp_equivalent_honest_scope_holds : True.
+Theorem wave41B_opaque_pin_pnp_equivalent_referee_scope_holds : True.
 Proof. exact I. Qed.
 
 (** ## §7 -- Unified substrate-discharge capstone *)
@@ -98,9 +98,9 @@ Proof. exact I. Qed.
 
 (** ## §8 -- Honest scope *)
 
-Theorem empirical_alpha_ident_substrate_discharge_honest_scope : True.
+Theorem empirical_alpha_ident_substrate_discharge_referee_scope : True.
 Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End EmpiricalAlphaIdent_Substrate_Anchors.

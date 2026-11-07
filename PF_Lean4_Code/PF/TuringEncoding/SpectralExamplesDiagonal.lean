@@ -89,7 +89,7 @@ theorem spectral_gap_equal_diagonal_zero (V : ℝ → ℝ → ℝ) (x_0 x_1 : �
        choices: the abstract `lambdaPlus`, `lambdaMinus`, `spectral_gap`
        theorems become EXPLICIT closed-form values when the kernel has
        no off-diagonal coupling. -/
-theorem SpectralExamplesDiagonal_HonestScope : True := trivial
+theorem SpectralExamplesDiagonal_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

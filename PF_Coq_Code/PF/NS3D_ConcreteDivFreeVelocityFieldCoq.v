@@ -115,10 +115,10 @@ Theorem concrete_div_free_velocity_field_capstone : True. Proof. exact I. Qed.
 
 (** ## Section 8 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_ns3d_velocity_field : Prop := True.
+Definition referee_scope_coq_parity_only_ns3d_velocity_field : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_ns3d_velocity_field.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_ns3d_velocity_field.
 Proof. exact I. Qed.
 
 End NS3D_ConcreteDivFreeVelocityField.

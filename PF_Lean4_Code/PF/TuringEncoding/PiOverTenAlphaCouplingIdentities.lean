@@ -121,7 +121,7 @@ theorem piOverTen_alphaHodge_sq_identity :
 
 /-! ## §4 — Honest scope marker -/
 
-theorem PiOverTenAlphaCouplingIdentities_HonestScope : True := trivial
+theorem PiOverTenAlphaCouplingIdentities_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

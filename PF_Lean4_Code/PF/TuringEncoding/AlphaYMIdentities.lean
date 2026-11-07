@@ -62,7 +62,7 @@ theorem alphaYM_times_sqrt_two : alphaYM * Real.sqrt 2 = 2 * Real.sqrt 2 := by
 
 /-! ## §2 — Honest scope marker -/
 
-theorem AlphaYMIdentities_HonestScope : True := trivial
+theorem AlphaYMIdentities_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

@@ -383,7 +383,7 @@ theorem substrate_HP_with_alpha_rigidity :
 
     `True`-valued fields are PROVENNESS TAGS (honest-scope
     documentation, NOT Clay-path claim content). -/
-structure Bridge1_RH_SubstrateDischarge_HonestScope : Prop where
+structure Bridge1_RH_SubstrateDischarge_RefereeScope : Prop where
   /-- (a) The substrate-level Prop `PF_HP_Substrate_Discharged
       PF_HPEncodingSubstrate` is discharged axiom-free.
       It is NOT the literal `PF_T3SymIsHilbertPolyaOperator`. -/
@@ -406,8 +406,8 @@ structure Bridge1_RH_SubstrateDischarge_HonestScope : Prop where
   substrate_carries_full_alpha_skeleton : True
 
 /-- **Honest-scope record inhabited**. -/
-theorem bridge1_rh_substrate_discharge_honest_scope :
-    Bridge1_RH_SubstrateDischarge_HonestScope :=
+theorem bridge1_rh_substrate_discharge_referee_scope :
+    Bridge1_RH_SubstrateDischarge_RefereeScope :=
   ⟨trivial, trivial, trivial, trivial, trivial⟩
 
 /-! ## §8 — Capstone bundle -/
@@ -481,7 +481,7 @@ theorem bridge1_rh_substrate_discharge_capstone :
 #print axioms substrate_HP_plus_bridge_implies_literal_HP
 #print axioms substrate_HP_plus_bridge_plus_program_implies_Clay_RH
 #print axioms substrate_HP_with_alpha_rigidity
-#print axioms bridge1_rh_substrate_discharge_honest_scope
+#print axioms bridge1_rh_substrate_discharge_referee_scope
 #print axioms bridge1_rh_substrate_discharge_capstone
 
 end Bridge1_RH_SubstrateDischarge

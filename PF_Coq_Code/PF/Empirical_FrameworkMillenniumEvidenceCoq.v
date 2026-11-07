@@ -293,10 +293,10 @@ Qed.
 
 (** ## Section 3 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_external_empirical_evidence : Prop := True.
+Definition referee_scope_coq_parity_only_external_empirical_evidence : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_external_empirical_evidence.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_external_empirical_evidence.
 Proof. exact I. Qed.
 
 End Empirical_FrameworkMillenniumEvidence.

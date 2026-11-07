@@ -99,11 +99,11 @@ Definition specSetH_infDim : Prop := True.
 Theorem H_infDim_spectrum_contains_three_halves : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def YMContinuumMassGapInfDimHonestScope` (data/Prop marker). *)
-Definition YMContinuumMassGapInfDimHonestScope : Prop := True.
+(** Mirror of Lean `def YMContinuumMassGapInfDimRefereeScope` (data/Prop marker). *)
+Definition YMContinuumMassGapInfDimRefereeScope : Prop := True.
 
-(** Mirror of Lean `theorem ym_continuum_mass_gap_inf_dim_honest_scope`. *)
-Theorem ym_continuum_mass_gap_inf_dim_honest_scope : True.
+(** Mirror of Lean `theorem ym_continuum_mass_gap_inf_dim_referee_scope`. *)
+Theorem ym_continuum_mass_gap_inf_dim_referee_scope : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem ym_continuum_mass_gap_inf_dim_capstone`. *)
@@ -112,9 +112,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_ContinuumMassGapInfDimWitness.

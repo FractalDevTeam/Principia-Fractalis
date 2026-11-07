@@ -399,7 +399,7 @@ theorem H_infDim_spectrum_contains_three_halves :
     Hamiltonian built via OS reconstruction on the Schwartz dual
     `𝓢'(ℝ⁴, ℝ)` has spectrum `Spec(H) ⊂ {0} ∪ [Δ, ∞)` for some
     `Δ > 0`.  NOT a Clay YM discharge. -/
-def YMContinuumMassGapInfDimHonestScope : Prop :=
+def YMContinuumMassGapInfDimRefereeScope : Prop :=
   -- (1) Inf-dim typed predicate is inhabited by `(L2RInf, H_infDim)`.
   ContinuumMassGapInfDimTypedStatement ∧
   -- (2) Eigenvalue identity `H_infDim v = (3/2) • v` at the named `v`.
@@ -422,8 +422,8 @@ def YMContinuumMassGapInfDimHonestScope : Prop :=
   (Function.Injective (fun n : ℕ => (lp.single 2 n (1 : ℝ) : L2RInf)))
 
 /-- The honest-scope marker holds unconditionally. -/
-theorem ym_continuum_mass_gap_inf_dim_honest_scope :
-    YMContinuumMassGapInfDimHonestScope :=
+theorem ym_continuum_mass_gap_inf_dim_referee_scope :
+    YMContinuumMassGapInfDimRefereeScope :=
   ⟨ym_continuum_mass_gap_three_halves,
    H_infDim_eigenvalue_three_halves,
    concreteUnitVectorInf_ne_zero,
@@ -487,7 +487,7 @@ theorem ym_continuum_mass_gap_inf_dim_capstone :
        MassGapPropagationAcrossReconstruction) ∧
     ((3 / 2 : ℝ) ∈ specSetH_infDim) ∧
     (Function.Injective (fun n : ℕ => (lp.single 2 n (1 : ℝ) : L2RInf))) ∧
-    YMContinuumMassGapInfDimHonestScope :=
+    YMContinuumMassGapInfDimRefereeScope :=
   ⟨ym_continuum_mass_gap_three_halves,
    H_infDim_eigenvalue_three_halves,
    concreteUnitVectorInf_ne_zero,
@@ -497,7 +497,7 @@ theorem ym_continuum_mass_gap_inf_dim_capstone :
    infDim_implies_wave56_original,
    H_infDim_spectrum_contains_three_halves,
    L2RInf_infinite_orthonormal_family,
-   ym_continuum_mass_gap_inf_dim_honest_scope⟩
+   ym_continuum_mass_gap_inf_dim_referee_scope⟩
 
 /-! ## §13 — Axiom-freeness verification -/
 
@@ -515,7 +515,7 @@ theorem ym_continuum_mass_gap_inf_dim_capstone :
 #print axioms L2RInf_unit_vectors_distinct
 #print axioms L2RInf_infinite_orthonormal_family
 #print axioms H_infDim_spectrum_contains_three_halves
-#print axioms ym_continuum_mass_gap_inf_dim_honest_scope
+#print axioms ym_continuum_mass_gap_inf_dim_referee_scope
 #print axioms ym_continuum_mass_gap_inf_dim_capstone
 
 end YM_ContinuumMassGapInfDimWitness

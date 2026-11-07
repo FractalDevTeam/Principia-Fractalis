@@ -145,7 +145,7 @@ Proof. exact I. Qed.
 
 (** ## Section 6 -- 18-conjunct honest-scope marker *)
 
-Record PF_YM_Bridge5_HonestScope : Prop := mkBridge5HonestScope {
+Record PF_YM_Bridge5_RefereeScope : Prop := mkBridge5RefereeScope {
   hs_b5_not_a_clay_YM_discharge                   : True;
   hs_b5_gauge_group_is_real_SU2_from_mathlib      : True;
   hs_b5_three_published_anchors_at_typed_open_tier : True;
@@ -166,8 +166,8 @@ Record PF_YM_Bridge5_HonestScope : Prop := mkBridge5HonestScope {
   hs_b5_zero_project_axioms                       : True
 }.
 
-Theorem PF_YM_Bridge5_honestScope_holds : PF_YM_Bridge5_HonestScope.
-Proof. apply mkBridge5HonestScope; exact I. Qed.
+Theorem PF_YM_Bridge5_refereeScope_holds : PF_YM_Bridge5_RefereeScope.
+Proof. apply mkBridge5RefereeScope; exact I. Qed.
 
 (** ## Section 7 -- 11-clause single-citation capstone *)
 
@@ -183,7 +183,7 @@ Record YM_Substrate_Discharge_Bridge5_Capstone : Prop :=
     c5_gauge_group_eq_SU2         : PF_YMEncodingBridge5_GaugeGroup_Eq_SU2;
     c5_mass_gap_canonical         : PF_YMEncodingBridge5_MassGap_Canonical;
     c5_v4_preserved               : PF_YMEncodingBridge5_V4_Eq_pfV4;
-    c5_honest_scope               : PF_YM_Bridge5_HonestScope
+    c5_referee_scope               : PF_YM_Bridge5_RefereeScope
   }.
 
 Theorem ym_substrate_discharge_bridge5_capstone :
@@ -200,7 +200,7 @@ Proof.
   - exact PF_YMEncodingBridge5_gaugeGroup_eq_SU2.
   - exact PF_YMEncodingBridge5_massGap_canonical.
   - exact PF_YMEncodingBridge5_v4_eq_pfV4.
-  - exact PF_YM_Bridge5_honestScope_holds.
+  - exact PF_YM_Bridge5_refereeScope_holds.
 Qed.
 
 End Bridge5_YM_SU2_SubstrateDischarge.

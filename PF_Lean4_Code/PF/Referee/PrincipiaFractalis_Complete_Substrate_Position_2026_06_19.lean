@@ -188,11 +188,11 @@ theorem principia_fractalis_complete_substrate_position_2026_06_19
     on its respective named anchors and published-content capsules
     where stated; the complete capstone bundles them into a single
     citation point for explicit referee-readable provenance. -/
-theorem principia_fractalis_complete_substrate_position_2026_06_19_honest_scope :
+theorem principia_fractalis_complete_substrate_position_2026_06_19_referee_scope :
     True := trivial
 
 end PF.Referee.PrincipiaFractalis_Complete_Substrate_Position_2026_06_19
 
 #print axioms PF.Referee.PrincipiaFractalis_Complete_Substrate_Position_2026_06_19.principia_fractalis_complete_substrate_position_unconditional
 #print axioms PF.Referee.PrincipiaFractalis_Complete_Substrate_Position_2026_06_19.principia_fractalis_complete_substrate_position_2026_06_19
-#print axioms PF.Referee.PrincipiaFractalis_Complete_Substrate_Position_2026_06_19.principia_fractalis_complete_substrate_position_2026_06_19_honest_scope
+#print axioms PF.Referee.PrincipiaFractalis_Complete_Substrate_Position_2026_06_19.principia_fractalis_complete_substrate_position_2026_06_19_referee_scope

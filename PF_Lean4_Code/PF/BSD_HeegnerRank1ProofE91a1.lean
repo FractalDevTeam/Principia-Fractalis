@@ -378,7 +378,7 @@ theorem bsd_rank_one_E91a1_discharged_at_placeholder :
     * (S5) the unconditional discharge at the framework's
       placeholder level is available;
     * (S6) Δ(E_{91.a1}) = -91, matching the conductor. -/
-theorem bsd_rank_one_E91a1_honest_scope :
+theorem bsd_rank_one_E91a1_referee_scope :
     -- (S1) Heegner point on E_{91.a1}
     E_91a1.toAffine.Equation
       heegnerPoint_E91a1.1 heegnerPoint_E91a1.2
@@ -463,7 +463,7 @@ theorem bsd_heegner_rank_one_E91a1_capstone :
 #print axioms selmerRankEquals_E91a1_at_one
 #print axioms bsd_rank_one_E91a1_via_heegner_and_GZ_K
 #print axioms bsd_rank_one_E91a1_discharged_at_placeholder
-#print axioms bsd_rank_one_E91a1_honest_scope
+#print axioms bsd_rank_one_E91a1_referee_scope
 #print axioms bsd_heegner_rank_one_E91a1_capstone
 
 end BSD_HeegnerRank1ProofE91a1

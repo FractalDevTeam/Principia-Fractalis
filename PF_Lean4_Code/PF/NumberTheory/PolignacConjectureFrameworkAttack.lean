@@ -292,7 +292,7 @@ structure PolignacFrameworkAttack where
   cascade_implies_conjecture :
     ∀ P : ℕ → Prop,
       PolignacViaFrameworkSpectralCascade P → PolignacConjecture
-  honest_scope_not_a_discharge : True
+  referee_scope_not_a_discharge : True
 
 /-- **★ POLIGNAC FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -325,7 +325,7 @@ noncomputable def polignac_framework_attack_capstone :
   polignac_implies_twin_prime_thm := polignac_implies_twin_prime
   cascade_implies_conjecture :=
     polignac_via_spectral_cascade_implies_conjecture
-  honest_scope_not_a_discharge := trivial
+  referee_scope_not_a_discharge := trivial
 
 #check @PolignacPair
 #check @PolignacConjecture

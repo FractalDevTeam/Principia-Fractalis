@@ -71,6 +71,6 @@ Theorem rh_wave57_rigidity_capstone : True. Proof. exact I. Qed.
 
 (** ## §5 -- Honest scope marker *)
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End HilbertPolyaPositiveImageRigidity.

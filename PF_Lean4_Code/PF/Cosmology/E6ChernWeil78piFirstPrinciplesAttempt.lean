@@ -461,7 +461,7 @@ theorem e6_chern_weil_78pi_first_principles_capstone :
 
 /-- **Honest-scope marker**: this Prop documents EXPLICITLY that the
 file does NOT discharge the 78π Chern–Weil derivation. -/
-def Wave55Lambda_FirstPrinciples_HonestScope : Prop :=
+def Wave55Lambda_FirstPrinciples_RefereeScope : Prop :=
   -- We achieved:
   -- (1) anchoring 78 to dim_E6 (substantively stronger than bare literal),
   -- (2) sharper bracket (245, 245.05) for 78π,
@@ -480,8 +480,8 @@ def Wave55Lambda_FirstPrinciples_HonestScope : Prop :=
 implication from "not everything is true" to `True` holds trivially.
 This theorem's value is that #print axioms shows it lives at the same
 axiom level as the rest of the file. -/
-theorem wave55_lambda_first_principles_honest_scope_witness :
-    Wave55Lambda_FirstPrinciples_HonestScope := by
+theorem wave55_lambda_first_principles_referee_scope_witness :
+    Wave55Lambda_FirstPrinciples_RefereeScope := by
   refine ⟨rfl, ?_⟩
   intro _; trivial
 

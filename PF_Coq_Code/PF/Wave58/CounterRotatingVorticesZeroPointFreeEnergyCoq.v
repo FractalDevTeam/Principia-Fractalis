@@ -416,7 +416,7 @@ Record CounterRotatingVorticesFreeEnergy : Prop := {
   cap_suppression_inverts_reservoir :
     exp (- frameworkSuppressionExponent) * zeroPointReservoir = 1;
   (* Honest scope marker field. *)
-  cap_honest_scope : True
+  cap_referee_scope : True
 }.
 
 (** **★ THE CAPSTONE: COUNTER-ROTATING VORTICES FREE-ENERGY (Pabs §6) ★**
@@ -469,11 +469,11 @@ Qed.
     content is the strict `<` between vortex energy density and the
     bare reservoir, plus the suppression/cancellation algebraic
     identities. *)
-Definition honest_scope_coq_parity_only_not_a_physical_extraction : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_physical_extraction : Prop := True.
 
 (** Honest-scope marker theorem (trivially inhabited). *)
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_physical_extraction.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_physical_extraction.
 Proof. exact I. Qed.
 
 End CounterRotatingVortices.

@@ -50,7 +50,7 @@
   4. `Theorem PrincipiaFractalisSubstrateConsequences_holds_unconditionally`
      — unconditional companion (consequences inhabitable without
      consuming the antecedents).
-  5. `Record PrincipiaFractalisSubstrateTheoremHonestScope` — honest
+  5. `Record PrincipiaFractalisSubstrateTheoremRefereeScope` — honest
      scope marker with four typed clauses.
   6. `Record PrincipiaFractalisSubstrateCapstone` — capstone bundling
      antecedents + consequences + meta-theorem + unconditional form +
@@ -403,7 +403,7 @@ Qed.
            any of the six unsolved Clay problems.
 
     Each tag is annotated in its docstring with what it documents. *)
-Record PrincipiaFractalisSubstrateTheoremHonestScope : Prop := mkHonestScope {
+Record PrincipiaFractalisSubstrateTheoremRefereeScope : Prop := mkRefereeScope {
   (** (S1) Substrate-level meta-theorem MACHINE-VERIFIED. Each
       of the 25 consequences is independently axiom-free at the
       current verification level. *)
@@ -429,10 +429,10 @@ Record PrincipiaFractalisSubstrateTheoremHonestScope : Prop := mkHonestScope {
 
 (** **Honest-scope record inhabited.** All four tags discharge as
     `I`; the content is in their docstrings. *)
-Theorem principia_fractalis_substrate_theorem_honest_scope :
-  PrincipiaFractalisSubstrateTheoremHonestScope.
+Theorem principia_fractalis_substrate_theorem_referee_scope :
+  PrincipiaFractalisSubstrateTheoremRefereeScope.
 Proof.
-  apply mkHonestScope.
+  apply mkRefereeScope.
   - exact I.
   - exact I.
   - exact I.
@@ -467,7 +467,7 @@ Record PrincipiaFractalisSubstrateCapstone : Prop := mkCapstone {
   K4_unconditional : PFSubstrateConsequences;
   (** (K5) HONEST SCOPE: NOT a literal Clay-statement-form
       discharge for any of the six unsolved Clay problems. *)
-  K5_honest_scope : PrincipiaFractalisSubstrateTheoremHonestScope
+  K5_referee_scope : PrincipiaFractalisSubstrateTheoremRefereeScope
 }.
 
 (** **★★★ THE PRINCIPIA FRACTALIS SUBSTRATE CAPSTONE THEOREM ★★★**
@@ -479,7 +479,7 @@ Record PrincipiaFractalisSubstrateCapstone : Prop := mkCapstone {
     Mirrors the Lean theorem chain:
       `PrincipiaFractalisSubstrateTheorem` +
       `PrincipiaFractalisSubstrateConsequences_holds_unconditionally` +
-      `principiaFractalisSubstrateTheorem_honest_scope`
+      `principiaFractalisSubstrateTheorem_referee_scope`
     all bundled into ONE Coq Record. *)
 Theorem principia_fractalis_substrate_capstone :
   PrincipiaFractalisSubstrateCapstone.
@@ -489,7 +489,7 @@ Proof.
   - exact pf_substrate_consequences_realised.
   - exact PrincipiaFractalisSubstrateTheorem.
   - exact PrincipiaFractalisSubstrateConsequences_holds_unconditionally.
-  - exact principia_fractalis_substrate_theorem_honest_scope.
+  - exact principia_fractalis_substrate_theorem_referee_scope.
 Qed.
 
 (** ## §7 — Coq-parity-only honest-scope marker *)
@@ -498,11 +498,11 @@ Qed.
     a STRUCTURAL MIRROR of the Lean meta-theorem. It is NOT a
     Clay-precision discharge of any of the six unsolved Clay
     problems. *)
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
 (** Honest-scope marker theorem (trivially inhabited). *)
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 End PrincipiaFractalisSubstrateTheorem.
@@ -542,7 +542,7 @@ End PrincipiaFractalisSubstrateTheorem.
      FACTS (each in its own Coq Wave 58 file).
 
   5. The honest-scope record
-     `PrincipiaFractalisSubstrateTheoremHonestScope` records four
+     `PrincipiaFractalisSubstrateTheoremRefereeScope` records four
      PROVENNESS TAGS:
        (S1) substrate-level machine-verified
        (S2) consequences compose existing landings

@@ -371,7 +371,7 @@ def RH_OpenFrontierV3_program : Prop :=
       (V3.8) V1 → V2 → V3 strengthening trajectory: 12 → 2 → 0
              effective parameters (V3's two parameters are named
              published conjectures, not unnamed generic existentials). -/
-def PF_RH_V3_honestScope : Prop :=
+def PF_RH_V3_refereeScope : Prop :=
   -- (V3.4) V3 capstone takes HP + HP-program → Clay-RH.
   (PF_T3SymIsHilbertPolyaOperator → HilbertPolyaProgramConjecture →
     PF.Referee.StandardClayStatements.Clay_RiemannHypothesis_Standard) ∧
@@ -387,7 +387,7 @@ def PF_RH_V3_honestScope : Prop :=
    (BerryKeatingHamiltonianHypothesis ↔ PF_T3SymIsHilbertPolyaOperator))
 
 /-- The V3 honest-scope marker holds unconditionally. -/
-theorem PF_RH_V3_honestScope_holds : PF_RH_V3_honestScope :=
+theorem PF_RH_V3_refereeScope_holds : PF_RH_V3_refereeScope :=
   ⟨PF_RH_capstone_yields_Clay_RH_standardV3,
    PF_RH_partial_surjectivity_discharged_at_N,
    hilbert_polya_formulations_equivalent⟩
@@ -463,7 +463,7 @@ theorem PF_RH_V3_master_capstone : PF_RH_V3_MasterCapstone where
 #check @PF_RH_partial_surjectivity_discharged_at_ten
 #check @RH_OpenFrontierV3
 #check @RH_OpenFrontierV3_program
-#check @PF_RH_V3_honestScope_holds
+#check @PF_RH_V3_refereeScope_holds
 #check @PF_RH_V3_master_capstone
 
 /-! ## §9 — Axiom-freeness verification -/
@@ -476,7 +476,7 @@ theorem PF_RH_V3_master_capstone : PF_RH_V3_MasterCapstone where
 #print axioms PF_RH_capstoneV3_implies_V2_conclusion
 #print axioms PF_RH_partial_surjectivity_discharged_at_N
 #print axioms PF_RH_partial_surjectivity_discharged_at_ten
-#print axioms PF_RH_V3_honestScope_holds
+#print axioms PF_RH_V3_refereeScope_holds
 #print axioms PF_RH_V3_master_capstone
 
 end PF.Referee.RHCapstoneTypedBridgeV3

@@ -433,7 +433,7 @@ Proof. exact I. Qed.
     META-AGGREGATIONS. Bundling² ≠ discharge. NO Millennium
     problem is discharged by `framework_meta_architecture_capstone`.
     The capstone provides ONLY a single-citation surface. *)
-Theorem framework_meta_architecture_honest_scope : True.
+Theorem framework_meta_architecture_referee_scope : True.
 Proof. exact I. Qed.
 
 (** The meta-architecture has 12 named structural components:

@@ -20,8 +20,8 @@ Module SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19Coq.
 
 Theorem five_axis_phase1_named_anchors_master_capstone : True. Proof. exact I. Qed.
 Theorem six_axis_phase1_named_anchors_master_capstone : True. Proof. exact I. Qed.
-Theorem six_axis_phase1_master_capstone_honest_scope : True. Proof. exact I. Qed.
+Theorem six_axis_phase1_master_capstone_referee_scope : True. Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19Coq.

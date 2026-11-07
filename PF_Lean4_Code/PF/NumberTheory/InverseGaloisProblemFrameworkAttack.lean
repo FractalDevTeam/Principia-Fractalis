@@ -500,7 +500,7 @@ structure InverseGaloisFrameworkAttack where
   -- Galois-discriminant axis bridge
   framework_galois_disc_bridge : True
   -- Honest scope: NOT a discharge of IGP itself
-  honest_scope_not_a_discharge : True
+  referee_scope_not_a_discharge : True
 
 /-- **★ INVERSE GALOIS PROBLEM FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -539,7 +539,7 @@ noncomputable def inverse_galois_framework_attack_capstone :
   named_remaining := IGP_remaining_simple_groups
   named_obstruction := MathlibInverseGaloisProblem
   framework_galois_disc_bridge := framework_igp_via_galois_discriminant
-  honest_scope_not_a_discharge := trivial
+  referee_scope_not_a_discharge := trivial
 
 #check @InverseGaloisProblemStructural
 #check @InverseGaloisProblem_Mathlib

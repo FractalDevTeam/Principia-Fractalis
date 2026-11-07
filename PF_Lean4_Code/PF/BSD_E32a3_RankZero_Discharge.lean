@@ -236,7 +236,7 @@ Props.
 This is the strongest honest composition. -/
 
 /-- **Honest-scope marker** stating exactly what's been done. -/
-theorem bsd_e32a3_rank_zero_discharge_honest_scope : True := trivial
+theorem bsd_e32a3_rank_zero_discharge_referee_scope : True := trivial
 
 /-! ## §4 — Capstone -/
 
@@ -254,13 +254,13 @@ structure BSD_E32a3_RankZero_Discharge_Status : Prop where
       (_hCMz : hasCM E_rank_zero),
       MordellWeilRankZeroTyped
   /-- Honest scope marker. -/
-  honest_scope : True
+  referee_scope : True
 
 theorem bsd_e32a3_rank_zero_discharge_capstone :
     BSD_E32a3_RankZero_Discharge_Status :=
   { rank_zero_discharged := bsd_rank_zero_E32a3_discharged_at_placeholder
     cascade_available := bsd_rank_zero_E32a3_discharged
-    honest_scope := bsd_e32a3_rank_zero_discharge_honest_scope }
+    referee_scope := bsd_e32a3_rank_zero_discharge_referee_scope }
 
 /-! ## §5 — Axiom-freeness verification -/
 

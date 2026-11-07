@@ -321,7 +321,7 @@ continuation for the coefficient sequence `a_n` of an elliptic curve
 Continuation`) — mathlib does not yet have
 `WeierstrassCurve.LFunction`, so the witness must be supplied
 externally. -/
-theorem bsd_wilesModularityAnalyticContinuation_discharge_honest_scope :
+theorem bsd_wilesModularityAnalyticContinuation_discharge_referee_scope :
     True := trivial
 
 /-- **★ BSD WILES MODULARITY → ANALYTIC CONTINUATION DISCHARGE CAPSTONE ★** —
@@ -440,4 +440,4 @@ end PrincipiaTractalis.BSD_WilesModularityAnalyticContinuationDischarge
 #print axioms
   PrincipiaTractalis.BSD_WilesModularityAnalyticContinuationDischarge.bsd_wilesModularityAnalyticContinuation_discharge_capstone
 #print axioms
-  PrincipiaTractalis.BSD_WilesModularityAnalyticContinuationDischarge.bsd_wilesModularityAnalyticContinuation_discharge_honest_scope
+  PrincipiaTractalis.BSD_WilesModularityAnalyticContinuationDischarge.bsd_wilesModularityAnalyticContinuation_discharge_referee_scope

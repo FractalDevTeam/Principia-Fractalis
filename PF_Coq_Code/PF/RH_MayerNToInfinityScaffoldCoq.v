@@ -59,16 +59,16 @@ Theorem mayer_cascade_composed_with_wave56_discharges_RH : True.
 Proof. exact I. Qed.
 Theorem rh_wave57_mayer_n_to_infinity_scaffold_capstone : True.
 Proof. exact I. Qed.
-Theorem rh_wave57_mayer_n_to_infinity_scaffold_honest_scope : True.
+Theorem rh_wave57_mayer_n_to_infinity_scaffold_referee_scope : True.
 Proof. exact I. Qed.
 Theorem mayer_cascade_at_eigSeqMayer_discharges_G1 : True.
 Proof. exact I. Qed.
 
 (** ## Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End RH_MayerNToInfinityScaffold.

@@ -82,7 +82,7 @@ theorem polylogChainSession_final_capstone : PolylogChainSession20260606_Final w
     `PFCompleteFrameworkCapstone` structural-linkage machinery; today's
     chain closes the ALGEBRAIC SUBSTRATE SCAFFOLDING that the structural
     linkage rests on. -/
-theorem PolylogChainSessionFinalCapstone_HonestScope : True := trivial
+theorem PolylogChainSessionFinalCapstone_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

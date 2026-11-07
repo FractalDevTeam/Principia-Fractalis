@@ -136,7 +136,7 @@ theorem fractalKernel_uniform_bound (Nlevels : ℕ) (a α : ℝ) (d : ℝ → �
        finite-dim → infinite-dim spectral convergence. With the kernel
        uniformly bounded, mathlib's compact operator infrastructure
        can be applied (when M2.1-M2.3 are in place). -/
-theorem GeometricPartialSumClosedForm_HonestScope : True := trivial
+theorem GeometricPartialSumClosedForm_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

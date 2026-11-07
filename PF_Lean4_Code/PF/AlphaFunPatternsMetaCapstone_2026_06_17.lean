@@ -140,7 +140,7 @@ theorem α_fun_patterns_meta_capstone :
     structures: Lucas/Fibonacci ladder, Pythagorean triples, half-integer
     Γ, Euler's identity, Beraha numbers, silver ratio, Vieta/Galois
     pair, golden self-similarity, π·α unit circle. -/
-theorem α_fun_patterns_meta_capstone_honest_scope : True := trivial
+theorem α_fun_patterns_meta_capstone_referee_scope : True := trivial
 
 end AlphaFunPatternsMetaCapstone_2026_06_17
 end PrincipiaTractalis
@@ -149,4 +149,4 @@ end PrincipiaTractalis
 #print axioms
   PrincipiaTractalis.AlphaFunPatternsMetaCapstone_2026_06_17.α_fun_patterns_meta_capstone
 #print axioms
-  PrincipiaTractalis.AlphaFunPatternsMetaCapstone_2026_06_17.α_fun_patterns_meta_capstone_honest_scope
+  PrincipiaTractalis.AlphaFunPatternsMetaCapstone_2026_06_17.α_fun_patterns_meta_capstone_referee_scope

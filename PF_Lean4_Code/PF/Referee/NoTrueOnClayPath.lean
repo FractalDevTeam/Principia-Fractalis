@@ -164,7 +164,7 @@ def audit : List TrueDeclEntry :=
       classification := TrueDeclKind.ProvennessTag
       rationale := "Provenness tag: marks the capstone dependency audit as pure inspection infrastructure; consumed only by `#print axioms` checks."
       replacement := none }
-  , { declName := "Ch17OperatorTheoryConcreteHonestScope"
+  , { declName := "Ch17OperatorTheoryConcreteRefereeScope"
       declFile := "PF/Wave58/Ch17OperatorTheoryConcrete.lean"
       classification := TrueDeclKind.ProvennessTag
       rationale := "Honest-scope marker tag: documents Ch 17 attack file's substrate-level scope; no Clay-path theorem depends on this content."
@@ -189,7 +189,7 @@ def audit : List TrueDeclEntry :=
       classification := TrueDeclKind.ProvennessTag
       rationale := "Pattern: every Wave-N master capstone uses `<name>_Proven : Prop := True` tags as referee-readable summary of which sub-attacks landed; the master capstone's substantive content lives in the typed record, not the tags."
       replacement := none }
-  , { declName := "(in attack-attempt files) *_HonestScope, *_Required, *_OpenContent"
+  , { declName := "(in attack-attempt files) *_RefereeScope, *_Required, *_OpenContent"
       declFile := "(various PF/Wave**/ attack files)"
       classification := TrueDeclKind.ExternalAnchor
       rationale := "Pattern: per-attempt inventory markers naming the open residuals each attack still has; load-bearing claims in attack files are in typed-Prop hypotheses, not in `:= True` markers."

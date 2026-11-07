@@ -454,7 +454,7 @@ open content. -/
 
     `ShiabOperatorRegularized` is now the only typed Prop in this file
     without quantitative content. -/
-def WeinsteinGURescueHonestScope : Prop :=
+def WeinsteinGURescueRefereeScope : Prop :=
   -- Concrete-witness side: RQG inhabited, BRST = 78, projection real.
   Nonempty ResonantQuantumGeometryCorrection ∧
   (78 : ℕ) = 78 ∧
@@ -463,7 +463,7 @@ def WeinsteinGURescueHonestScope : Prop :=
   (MuonG2Prediction ∧ HubbleTensionResolution ∧
    ANITAUltraHighEnergyEvent ∧ CosmologicalLithiumAbundance)
 
-theorem weinsteinGURescueHonestScope_holds : WeinsteinGURescueHonestScope :=
+theorem weinsteinGURescueRefereeScope_holds : WeinsteinGURescueRefereeScope :=
   -- No `trivial` remains: every experimental clause is discharged by a
   -- quantitative theorem. Two of them record a mismatch; see the docstring.
   ⟨rqg_inhabited, brst_H2_eq_78, shiab_operator_regularized_holds,

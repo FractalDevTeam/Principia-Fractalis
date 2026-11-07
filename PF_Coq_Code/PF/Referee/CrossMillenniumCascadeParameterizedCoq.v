@@ -42,7 +42,7 @@
     - `cascade_parameterized_capstone`
     - `framework_alpha_satisfies_invariants`
     - `framework_cascade_from_perelman_anchor`
-    - `cross_millennium_cascade_parameterized_honest_scope`
+    - `cross_millennium_cascade_parameterized_referee_scope`
 
   Seven named invariants preserved verbatim:
     - inv_RH_Poincare
@@ -240,11 +240,11 @@ Proof. exact I. Qed.
 
 (** ## Section 6 -- Honest-scope record
 
-    Mirrors Lean `structure CrossMillenniumCascadeParameterizedHonestScope`
+    Mirrors Lean `structure CrossMillenniumCascadeParameterizedRefereeScope`
     with five trivial tags S1-S5. *)
 
-Record CrossMillenniumCascadeParameterizedHonestScopeRecord : Prop :=
-  mkCascadeHonestScope {
+Record CrossMillenniumCascadeParameterizedRefereeScopeRecord : Prop :=
+  mkCascadeRefereeScope {
     (** (S1) The cascade is GENUINELY deductive: each entailment proof
         uses the invariant hypotheses nontrivially. *)
     genuinely_deductive         : True;
@@ -263,18 +263,18 @@ Record CrossMillenniumCascadeParameterizedHonestScopeRecord : Prop :=
   }.
 
 (** Honest-scope record inhabited (five trivial tags). *)
-Theorem cross_millennium_cascade_parameterized_honest_scope :
-  CrossMillenniumCascadeParameterizedHonestScopeRecord.
+Theorem cross_millennium_cascade_parameterized_referee_scope :
+  CrossMillenniumCascadeParameterizedRefereeScopeRecord.
 Proof.
-  apply mkCascadeHonestScope; exact I.
+  apply mkCascadeRefereeScope; exact I.
 Qed.
 
 (** ## Section 7 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_clay_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_clay_discharge.
 Proof. exact I. Qed.
 
 End CrossMillenniumCascadeParameterized.

@@ -519,7 +519,7 @@ structure GoldbachFrameworkAttack where
   helfgott_implies_vinogradov_chain :
     WeakGoldbach → Vinogradov1937ThreePrimes
   -- Honest scope: NOT a discharge of GoldbachConjecture itself
-  honest_scope_not_a_discharge : True
+  referee_scope_not_a_discharge : True
 
 /-- **★ GOLDBACH FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -556,7 +556,7 @@ noncomputable def goldbach_framework_attack_capstone :
   cascade_implies_conjecture :=
     goldbach_via_spectral_cascade_implies_conjecture
   helfgott_implies_vinogradov_chain := helfgott_implies_vinogradov
-  honest_scope_not_a_discharge := trivial
+  referee_scope_not_a_discharge := trivial
 
 #check @GoldbachConjecture
 #check @WeakGoldbach

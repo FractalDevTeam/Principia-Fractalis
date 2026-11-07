@@ -252,11 +252,11 @@ Proof. unfold MathlibTwinPrimeInfinitude. tauto. Qed.
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 attack, NOT a discharge of
     the Twin Prime Conjecture. *)
-Definition honest_scope_structural_mirror_not_a_discharge : Prop := True.
+Definition referee_scope_structural_mirror_not_a_discharge : Prop := True.
 
 (** Honest-scope marker theorem (trivially inhabited). *)
-Theorem honest_scope_marker :
-  honest_scope_structural_mirror_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
 (** ## §9 — Capstone Record *)
@@ -286,7 +286,7 @@ Record TwinPrimeFrameworkAttack : Type := {
   named_obstruction : Prop;
   (* Honest scope: NOT a discharge of TwinPrimeConjecture itself *)
   honest_not_a_discharge :
-    honest_scope_structural_mirror_not_a_discharge
+    referee_scope_structural_mirror_not_a_discharge
 }.
 
 (** ★ TWIN-PRIME FRAMEWORK-ATTACK COQ CAPSTONE ★
@@ -312,7 +312,7 @@ Definition twin_prime_framework_attack_capstone
    ; brun_pos := brunConstant_pos
    ; named_polymath := PolymathBoundedGap246
    ; named_obstruction := MathlibTwinPrimeInfinitude
-   ; honest_not_a_discharge := honest_scope_marker
+   ; honest_not_a_discharge := referee_scope_marker
   |}.
 
 End TwinPrimeConjectureFrameworkAttack.

@@ -54,7 +54,7 @@ Proof. exact I. Qed.
 Theorem sharpest_honest_position : True.
 Proof. exact I. Qed.
 
-Theorem wave57_pnp_witness_existence_scaffold_honest_scope : True.
+Theorem wave57_pnp_witness_existence_scaffold_referee_scope : True.
 Proof. exact I. Qed.
 
 Theorem wave57_pnp_witness_existence_scaffold_capstone : True.
@@ -62,9 +62,9 @@ Proof. exact I. Qed.
 
 (** ## Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End PNP_WitnessExistenceScaffold.

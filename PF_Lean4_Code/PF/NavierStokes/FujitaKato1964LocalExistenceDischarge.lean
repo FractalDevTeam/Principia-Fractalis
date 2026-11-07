@@ -76,7 +76,7 @@ with `T = T(‖u₀‖) > 0`.
       initial datum, providing the structural cross-bridge to
       `Wave58TimeGlobalExistenceUpgrade`.
 
- (10) **`fujitaKato1964Discharge_honest_scope`** — honest-scope
+ (10) **`fujitaKato1964Discharge_referee_scope`** — honest-scope
       documentation theorem precisely separating the axiom-free
       content (trivial-initial-data case) from the named-theorem
       content (full divergence-free case requires the published
@@ -459,7 +459,7 @@ structure FujitaKato1964DischargeStatus : Prop where
   explicit_time_bound_eq_theorem :
     FujitaKato1964ExplicitTimeBound = FujitaKato1964Theorem
 
-/-- **★★★ CAPSTONE — `fujitaKato1964Discharge_honest_scope` ★★★**
+/-- **★★★ CAPSTONE — `fujitaKato1964Discharge_referee_scope` ★★★**
 
     Records the Fujita-Kato 1964 discharge verdict for Wave 58-NS.
 
@@ -498,7 +498,7 @@ structure FujitaKato1964DischargeStatus : Prop where
       gap is named, not introduced, and any future mathlib
       formalisation of Fujita-Kato 1964 immediately discharges the
       Wave 58 strengthened clause via the structural bridge. -/
-theorem fujitaKato1964Discharge_honest_scope :
+theorem fujitaKato1964Discharge_referee_scope :
     FujitaKato1964DischargeStatus :=
   { trivial_initial_data_axiom_free :=
       fujitaKato_local_at_zero_initial_data
@@ -534,6 +534,6 @@ theorem fujitaKato1964Discharge_honest_scope :
 #print axioms ns_local_existence_discharged_at_zero_initial_data
 #print axioms fujitaKato1964Theorem_implies_wave58_strengthened
 #print axioms fujitaKato1964Theorem_implies_wave58_legacy
-#print axioms fujitaKato1964Discharge_honest_scope
+#print axioms fujitaKato1964Discharge_referee_scope
 
 end PF.NavierStokes.FujitaKato1964LocalExistenceDischarge

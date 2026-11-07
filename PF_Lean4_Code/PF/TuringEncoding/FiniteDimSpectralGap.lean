@@ -147,7 +147,7 @@ theorem spectral_gap_N2_positive_iff_nondegenerate (V : ℝ → ℝ → ℝ)
        uniform spectral gap convergence + identification of the limit
        gap with the framework's `Δ = 0.0891219046` value. Concrete
        published-math content. -/
-theorem FiniteDimSpectralGap_HonestScope : True := trivial
+theorem FiniteDimSpectralGap_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

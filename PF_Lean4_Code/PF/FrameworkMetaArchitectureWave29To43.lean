@@ -421,8 +421,8 @@ their downstream consumers are left untouched. -/
     scope (`Literal_P_neq_NP_V2` is provably False under the `True`
     placeholder — the precise field a future plug-in must populate). -/
 theorem cite_pnp_class_separation_carrier_V2_capstone :
-    @PrincipiaTractalis.PNPClassSeparationCarrierV2.pnp_carrier_V2_honest_scope_capstone =
-      @PrincipiaTractalis.PNPClassSeparationCarrierV2.pnp_carrier_V2_honest_scope_capstone := rfl
+    @PrincipiaTractalis.PNPClassSeparationCarrierV2.pnp_carrier_V2_referee_scope_capstone =
+      @PrincipiaTractalis.PNPClassSeparationCarrierV2.pnp_carrier_V2_referee_scope_capstone := rfl
 
 /-- Cite **NS V2 regularity-solution capstone**: V2 bundle inhabited
     on every divergence-free typed `u0`, V2 encoding discharges

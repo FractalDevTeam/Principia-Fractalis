@@ -126,7 +126,7 @@ that the value is correct.
   `AlphaBSDkFourSubstrateConjecture` (`PF/Priority3SubstrateDischarge.lean`)
 - `DarkEnergyCPLSubstrateConjecture`, `LambdaEffMechanismSubstrateConjecture`
   (`PF/Priority4SubstrateDischarge.lean`)
-- `ChargedLeptonHonestScopeSubstrateConjecture`, `Lean4LeanHonestScopeSubstrateConjecture`
+- `ChargedLeptonRefereeScopeSubstrateConjecture`, `Lean4LeanRefereeScopeSubstrateConjecture`
   (`PF/Priority5SubstrateDischarge.lean`)
 
 These are physics predictions (α_BSD=3π/4, Λ_QCD mechanism, L₃=ln 3, dark-energy CPL,

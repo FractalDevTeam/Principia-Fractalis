@@ -63,7 +63,7 @@ and at `:391` the source comment on the discarded hypothesis reads
 "★ antecedent DISCARDED". The Lean layer is candid; the chapter gloss is not.
 The ledger should record this as a headline/prose defect in ch34A, **not** as
 concealment in the formalisation. The same file's own
-`PrincipiaFractalisSubstrateTheoremHonestScope` record (`:496-516`) states the
+`PrincipiaFractalisSubstrateTheoremRefereeScope` record (`:496-516`) states the
 "substrate DETERMINES the consequences" claim explicitly as a *claim*
 (field S3), tagged `True`, i.e. as documentation rather than as content.
 
@@ -397,7 +397,7 @@ direction. Three things must be said plainly.
 twenty-five fields carry substantive propositions — equations between reals,
 inequalities, universally quantified implications, and named structures. The
 `True`-valued fields in that file belong to the *adjacent* record
-`PrincipiaFractalisSubstrateTheoremHonestScope`
+`PrincipiaFractalisSubstrateTheoremRefereeScope`
 (`PrincipiaFractalisSubstrateTheorem.lean:496-516`), whose four fields
 `substrate_level_machine_verified`, `consequences_compose_existing_landings`,
 `framework_claim_is_substrate_determines_consequences` and

@@ -575,7 +575,7 @@ structure TwinPrimeFrameworkAttack where
     ∀ (lam : ℕ → ℝ) (P : ℕ → Prop),
       TwinPrimeViaSpectralCascade lam P → TwinPrimeConjecture
   -- Honest scope: NOT a discharge of TwinPrimeConjecture itself
-  honest_scope_not_a_discharge : True
+  referee_scope_not_a_discharge : True
 
 /-- **★ TWIN-PRIME FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -605,7 +605,7 @@ noncomputable def twin_prime_framework_attack_capstone :
   named_obstruction := MathlibTwinPrimeInfinitude
   cascade_implies_conjecture :=
     twin_prime_via_spectral_cascade_implies_conjecture
-  honest_scope_not_a_discharge := trivial
+  referee_scope_not_a_discharge := trivial
 
 #check @TwinPrimePair
 #check @TwinPrimeConjecture

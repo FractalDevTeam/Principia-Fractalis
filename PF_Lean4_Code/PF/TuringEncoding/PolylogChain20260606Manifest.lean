@@ -132,7 +132,7 @@ theorem polylog_manifest_recorded : Polylog20260606Manifest := by
 
 /-! ## §4 — Honest scope marker -/
 
-theorem PolylogChain20260606Manifest_HonestScope : True := trivial
+theorem PolylogChain20260606Manifest_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

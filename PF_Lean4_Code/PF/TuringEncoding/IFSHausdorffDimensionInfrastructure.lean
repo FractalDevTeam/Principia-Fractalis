@@ -181,7 +181,7 @@ theorem fractalKernelTruncated_at_zero (N : ℕ) (a α : ℝ) (d : ℝ → ℝ �
        (M2.2) Self-similar measure construction (mathlib gap)
        (M2.3) Hausdorff-measure ↔ self-similar measure equivalence
               under open-set condition (mathlib gap) -/
-theorem IFSHausdorffDimensionInfrastructure_HonestScope : True := trivial
+theorem IFSHausdorffDimensionInfrastructure_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

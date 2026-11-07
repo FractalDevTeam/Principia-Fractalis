@@ -44,8 +44,8 @@ Theorem literal_clay_NS_substrate_bridge_audit_trail : True. Proof. exact I. Qed
 
 (* §6 — Honest-scope marker *)
 
-Theorem literal_clay_NS_substrate_bridge_honest_scope : True. Proof. exact I. Qed.
+Theorem literal_clay_NS_substrate_bridge_referee_scope : True. Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End Fefferman2000_LiteralClayNS3D_Statement_2026_06_19Coq.

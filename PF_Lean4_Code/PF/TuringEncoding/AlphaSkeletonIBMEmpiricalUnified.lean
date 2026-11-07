@@ -95,7 +95,7 @@ theorem ibm_peak_RH_times_alphaYM_eq_three :
     derivations; the framework's modular-structure NP-axis residual.
     Closes only: the algebraic identification + the cross-Millennium
     IBM-RH-YM product identity. -/
-theorem AlphaSkeletonIBMEmpiricalUnified_HonestScope : True := trivial
+theorem AlphaSkeletonIBMEmpiricalUnified_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

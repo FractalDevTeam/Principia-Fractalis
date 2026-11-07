@@ -32,7 +32,7 @@ Module PNeqNP_ClayLiteralClosureAttempt.
 
 Definition pf_enum_separator : Prop := True.
 
-Definition ClayLiteralClosureAttempt_HonestScope : Prop := True.
+Definition ClayLiteralClosureAttempt_RefereeScope : Prop := True.
 
 (** ## Section 2 -- Theorems (parity markers) *)
 
@@ -99,14 +99,14 @@ Proof. exact I. Qed.
 Theorem clay_literal_closure_attempt_capstone : True.
 Proof. exact I. Qed.
 
-Theorem ClayLiteralClosureAttempt_HonestScope_holds : True.
+Theorem ClayLiteralClosureAttempt_RefereeScope_holds : True.
 Proof. exact I. Qed.
 
 (** ## Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End PNeqNP_ClayLiteralClosureAttempt.

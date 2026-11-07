@@ -90,8 +90,8 @@ Proof.
   - exact alpha_ES_pos.
 Qed.
 
-Definition honest_scope_structural_mirror_not_a_discharge : Prop := True.
-Theorem honest_scope_marker : honest_scope_structural_mirror_not_a_discharge.
+Definition referee_scope_structural_mirror_not_a_discharge : Prop := True.
+Theorem referee_scope_marker : referee_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
 End ErdosStraussFrameworkAttack.

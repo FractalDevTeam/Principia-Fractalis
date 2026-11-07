@@ -461,7 +461,7 @@ Record FujitaKato1964DischargeStatus : Prop := {
     FujitaKato1964ExplicitTimeBound = FujitaKato1964Theorem
 }.
 
-(** **★★★ CAPSTONE — `fujitaKato1964Discharge_honest_scope` ★★★**
+(** **★★★ CAPSTONE — `fujitaKato1964Discharge_referee_scope` ★★★**
 
     Records the Fujita-Kato 1964 discharge verdict for Wave 58-NS.
 
@@ -478,7 +478,7 @@ Record FujitaKato1964DischargeStatus : Prop := {
       `R^3` (the literal Clay statement) is NOT addressed; this
       file addresses ONLY local-in-time existence — Fujita-Kato
       1964, a 60-year-old published result. *)
-Theorem fujitaKato1964Discharge_honest_scope :
+Theorem fujitaKato1964Discharge_referee_scope :
     FujitaKato1964DischargeStatus.
 Proof.
   apply Build_FujitaKato1964DischargeStatus.
@@ -493,10 +493,10 @@ Proof.
 Qed.
 
 (** **Coq-parity-only honest-scope marker.** NOT a Clay discharge. *)
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-    honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+    referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 End FujitaKato1964LocalExistenceDischarge.

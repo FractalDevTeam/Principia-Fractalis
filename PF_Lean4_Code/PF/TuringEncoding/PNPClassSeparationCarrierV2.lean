@@ -305,7 +305,7 @@ theorem not_Literal_P_neq_NP_V2_under_True_placeholder :
     `Literal_P_neq_NP_V2` is still provably False under the `True`
     placeholder, exposing the precise field (`computability`) that a
     future plug-in of a real machine model must populate. -/
-theorem pnp_carrier_V2_honest_scope_capstone :
+theorem pnp_carrier_V2_referee_scope_capstone :
     -- (1) Cook 1971 P ⊆ NP on V2.
     (class_P_typedV2 ⊆ class_NP_typedV2) ∧
     -- (2) Reduction theorem analog.

@@ -314,7 +314,7 @@ structure LonelyRunnerFrameworkAttack where
   cascade_implies_conjecture :
     ∀ Sigma : (n : ℕ) → (Fin n → ℕ) → ℝ,
       LRViaFrameworkSpectralCascade Sigma → LonelyRunnerConjecture
-  honest_scope_open_at_k8 : True
+  referee_scope_open_at_k8 : True
 
 /-- **★ LONELY RUNNER FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -347,7 +347,7 @@ noncomputable def lonely_runner_framework_attack_capstone :
   named_obstruction := MathlibLonelyRunnerOpen_k8
   cascade_implies_conjecture :=
     lr_via_spectral_cascade_implies_conjecture
-  honest_scope_open_at_k8 := trivial
+  referee_scope_open_at_k8 := trivial
 
 #check @frac
 #check @nearestIntDist

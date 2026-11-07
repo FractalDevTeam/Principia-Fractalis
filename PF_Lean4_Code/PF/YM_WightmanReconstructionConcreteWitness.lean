@@ -232,7 +232,7 @@ theorem id_R_eigenvalue_eq_one
 
     HOWEVER: the Hamiltonian `(1/2) • id` is a TOY scalar-multiple, not
     the genuine OS-reconstructed Hamiltonian. NOT a Clay discharge. -/
-def WightmanReconstructionConcreteWitnessHonestScope : Prop :=
+def WightmanReconstructionConcreteWitnessRefereeScope : Prop :=
   -- (1) Strengthened typed predicate is inhabited by the concrete `(L2R, (1/2)•id)`.
   WightmanReconstructionConcreteTypedStatement ∧
   -- (2) Strengthened concrete ⇒ Wave 57 typed.
@@ -250,8 +250,8 @@ def WightmanReconstructionConcreteWitnessHonestScope : Prop :=
      (ContinuousLinearMap.id ℝ ℝ) v = Δ • v → Δ = 1)
 
 /-- The honest-scope marker holds unconditionally. -/
-theorem wightmanReconstruction_concrete_witness_honestScope_holds :
-    WightmanReconstructionConcreteWitnessHonestScope :=
+theorem wightmanReconstruction_concrete_witness_refereeScope_holds :
+    WightmanReconstructionConcreteWitnessRefereeScope :=
   ⟨wightmanReconstruction_concrete_witness,
    wightmanReconstruction_concrete_implies_wave57_typed,
    wightmanReconstruction_concrete_implies_original,
@@ -300,14 +300,14 @@ theorem wightmanReconstruction_concrete_witness_capstone :
        WightmanReconstructionTypedStatement) ∧
     (WightmanReconstructionConcreteTypedStatement →
        WightmanReconstructionTheorem) ∧
-    WightmanReconstructionConcreteWitnessHonestScope :=
+    WightmanReconstructionConcreteWitnessRefereeScope :=
   ⟨wightmanReconstruction_concrete_witness,
    concreteHamiltonian_eigenvalue,
    concreteUnitVector_ne_zero,
    @id_R_eigenvalue_eq_one,
    wightmanReconstruction_concrete_implies_wave57_typed,
    wightmanReconstruction_concrete_implies_original,
-   wightmanReconstruction_concrete_witness_honestScope_holds⟩
+   wightmanReconstruction_concrete_witness_refereeScope_holds⟩
 
 /-! ## §9 — Axiom-freeness verification -/
 
@@ -319,7 +319,7 @@ theorem wightmanReconstruction_concrete_witness_capstone :
 #print axioms wightmanReconstruction_concrete_implies_wave57_typed
 #print axioms wightmanReconstruction_concrete_implies_original
 #print axioms id_R_eigenvalue_eq_one
-#print axioms wightmanReconstruction_concrete_witness_honestScope_holds
+#print axioms wightmanReconstruction_concrete_witness_refereeScope_holds
 #print axioms wightmanReconstruction_concrete_witness_capstone
 
 end YM_WightmanReconstructionConcreteWitness

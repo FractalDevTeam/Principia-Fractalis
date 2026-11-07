@@ -334,7 +334,7 @@ Record LambdaCDMFullRebuttal : Prop := {
       exp (- frameworkSuppressionExponent);
   (* HONEST SCOPE marker: χ² values and H_0 values are
       manuscript-reported numerical fits. *)
-  honest_scope_field : True
+  referee_scope_field : True
 }.
 
 (** **★ THE CAPSTONE: ΛCDM FULL REBUTTAL ★**
@@ -364,11 +364,11 @@ Qed.
     identity is a toy exponential model. The genuine Coq-internal
     content is the `ln`-ratio identity, the density-strict-inequality,
     and the algebraic `exp` product. *)
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
 (** Honest-scope marker theorem (trivially inhabited). *)
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 End LambdaCDMRebuttal.

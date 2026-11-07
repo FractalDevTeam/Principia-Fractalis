@@ -498,7 +498,7 @@ The genuine Clay discharge requires:
 
     Records the four bullet-point upgrades required to lift the
     scaffold-level discharge to a literal Clay-class discharge. -/
-def Wave57HonestScopeNotice : Prop :=
+def Wave57RefereeScopeNotice : Prop :=
   -- (a) The scaffold discharges the framework's TYPED
   --     `YangMillsMassGap`, NOT the Clay statement.
   YangMillsMassGap ∧
@@ -515,7 +515,7 @@ def Wave57HonestScopeNotice : Prop :=
   (MassGapPropagationStatement → MassGapPropagationAcrossReconstruction)
 
 /-- The honest-scope notice holds unconditionally. -/
-theorem wave57HonestScopeNotice_holds : Wave57HonestScopeNotice :=
+theorem wave57RefereeScopeNotice_holds : Wave57RefereeScopeNotice :=
   ⟨wightmanReconstructionInput_implies_YangMillsMassGap
      wightmanReconstructionInput_holds,
    bochnerMinlosStatement_holds,
@@ -594,7 +594,7 @@ theorem ym_wightman_reconstruction_scaffold_capstone :
     (WightmanReconstructionStatement → WightmanReconstructionTheorem) ∧
     (MassGapPropagationStatement → MassGapPropagationAcrossReconstruction) ∧
     -- (6) Honest-scope notice.
-    Wave57HonestScopeNotice := by
+    Wave57RefereeScopeNotice := by
   refine ⟨rfl, nuclearSpaceStructural_holds,
           bochnerMinlosStatement_holds,
           reflectionStructureStatement_holds,
@@ -607,7 +607,7 @@ theorem ym_wightman_reconstruction_scaffold_capstone :
           reflectionStructure_to_wave56,
           wightmanReconstruction_to_wave56,
           massGapPropagation_to_wave56,
-          wave57HonestScopeNotice_holds⟩
+          wave57RefereeScopeNotice_holds⟩
   intro W g5
   exact wave57_W_composes_with_wave56 W g5
 
@@ -626,7 +626,7 @@ theorem ym_wightman_reconstruction_scaffold_capstone :
 #print axioms reflectionStructure_to_wave56
 #print axioms wightmanReconstruction_to_wave56
 #print axioms massGapPropagation_to_wave56
-#print axioms wave57HonestScopeNotice_holds
+#print axioms wave57RefereeScopeNotice_holds
 #print axioms ym_wightman_reconstruction_scaffold_capstone
 
 end YM_WightmanReconstructionScaffold

@@ -389,7 +389,7 @@ Qed.
     Wightman Hamiltonian on `S'(R^4, R)` has spectrum
     `Spec(H) subset of {0} U [Delta, infty)` for some
     `Delta > 0`. *)
-Definition YMContinuumMassGapInfDimHonestScope : Prop :=
+Definition YMContinuumMassGapInfDimRefereeScope : Prop :=
   YMContinuumMassGapInfDimTypedStatement /\
   (forall n : nat,
      H_infDim concreteUnitVectorInf n
@@ -405,10 +405,10 @@ Definition YMContinuumMassGapInfDimHonestScope : Prop :=
   specSetH_infDim (3 / 2).
 
 (** The honest-scope marker holds unconditionally. *)
-Theorem ym_continuum_mass_gap_inf_dim_honest_scope :
-  YMContinuumMassGapInfDimHonestScope.
+Theorem ym_continuum_mass_gap_inf_dim_referee_scope :
+  YMContinuumMassGapInfDimRefereeScope.
 Proof.
-  unfold YMContinuumMassGapInfDimHonestScope.
+  unfold YMContinuumMassGapInfDimRefereeScope.
   split; [exact ym_continuum_mass_gap_three_halves|].
   split; [intro n; apply H_infDim_eigenvalue_three_halves|].
   split; [exact concreteUnitVectorInf_not_zero_fun|].
@@ -421,11 +421,11 @@ Qed.
 
 (** Coq-parity-only honest-scope marker definition. NOT a Clay
     discharge. *)
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
 (** Honest-scope marker theorem (trivially inhabited). *)
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 (** ## §9 — Capstone Record *)
@@ -475,7 +475,7 @@ Record YMContinuumMassGapInfDimCapstone : Prop := {
     deltaUnit 1 <> deltaUnit 2;
   (* (10) Honest-scope: NOT a Clay YM discharge *)
   honest_not_a_discharge :
-    honest_scope_coq_parity_only_not_a_discharge
+    referee_scope_coq_parity_only_not_a_discharge
 }.
 
 (** **★ THE CAPSTONE: YM CONTINUUM MASS-GAP INF-DIM WITNESS ★**
@@ -494,7 +494,7 @@ Proof.
   - exact infDim_implies_wave56_original.
   - exact H_infDim_spectrum_contains_three_halves.
   - exact L2Sequence_three_distinct_unit_vectors.
-  - exact honest_scope_marker.
+  - exact referee_scope_marker.
 Qed.
 
 End YMContinuumMassGapInfDimWitness.

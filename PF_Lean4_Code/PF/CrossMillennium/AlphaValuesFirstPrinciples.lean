@@ -326,7 +326,7 @@ NOT a Millennium discharge. -/
     the per-α theorems above and in the rigidity theorem
     `framework_alpha_values_match_rigidity` in
     `CrossMillenniumDerivedConsequences`. -/
-theorem alpha_values_first_principles_honest_scope :
+theorem alpha_values_first_principles_referee_scope :
     -- (1) Algebraic chain through derived consequences: α_YM = 2
     α_YM = 2 ∧
     -- (2) Substrate identity: α_Poincare = 1
@@ -354,10 +354,10 @@ theorem alpha_values_first_principles_honest_scope :
 #check @ternary_scaling_minimal
 #check @framework_substrate_base_is_minimum
 #check @alpha_values_first_principles_capstone
-#check @alpha_values_first_principles_honest_scope
+#check @alpha_values_first_principles_referee_scope
 
 #print axioms alpha_values_first_principles_capstone
-#print axioms alpha_values_first_principles_honest_scope
+#print axioms alpha_values_first_principles_referee_scope
 
 end AlphaValuesFirstPrinciples
 end CrossMillennium

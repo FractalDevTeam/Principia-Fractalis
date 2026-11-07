@@ -115,7 +115,7 @@ HARD	PROOF_IS_OWN_INPUT	PF.Analytic.HilbertPolyaProgram_Substrate_Anchors	357	hp
 HARD	ALL_BINDERS_DEAD	PF.Analytic.HilbertPolyaProgram_Substrate_Anchors	357	hp_program_positive_via_Connes1999	binders: _anchor,_content
 HARD	PROOF_IS_OWN_INPUT	PF.Analytic.HilbertPolyaProgram_Substrate_Anchors	364	hp_program_positive_via_BostConnes1995	proof := _content
 HARD	ALL_BINDERS_DEAD	PF.Analytic.HilbertPolyaProgram_Substrate_Anchors	364	hp_program_positive_via_BostConnes1995	binders: _anchor,_content
-HARD	TRUE_BODY	PF.Analytic.HilbertPolyaProgram_Substrate_Anchors	416	hp_program_substrate_anchors_honest_scope	body := True
+HARD	TRUE_BODY	PF.Analytic.HilbertPolyaProgram_Substrate_Anchors	416	hp_program_substrate_anchors_referee_scope	body := True
 soft	IFF_RFL_ALIAS	PF.Analytic.JonquieresIdentity	145	jonquieresZetaSummable_iff_summable	jonquieresZetaSummable s z ↔ Summable (fun k : ℕ => jonquieresZetaTerm s z k)
 HARD	PROOF_IS_OWN_INPUT	PF.Analytic.JonquieresIdentity	178	polyLog_eq_jonquieresExpansion_conditional	proof := h
 soft	CONCL_IGNORES_BIND	PF.Analytic.MaassCuspSimplicityFactorings	358	maass_simplicity_from_residual	data binder t_PSL2Z : ℝ absent from conclusion
@@ -311,7 +311,7 @@ HARD	TRUE_BODY	PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors	154	IBM9Way_Al
 HARD	TRUE_BODY	PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors	182	Ch21_PolylogSpectralDerivation_Anchor	body := True
 HARD	TRUE_BODY	PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors	227	CrossMillenniumInvariants_AlphaSkeleton_Anchor	body := True
 soft	TRUE_VIA_ALIAS	PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors	259	EmpiricalAlphaIdentificationHypothesis_Substrate	resolves through IBM9Way_AlphaPin_Anchor
-HARD	TRUE_BODY	PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors	333	Wave41B_OpaquePinPNPEquivalent_HonestScope	body := True
+HARD	TRUE_BODY	PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors	333	Wave41B_OpaquePinPNPEquivalent_RefereeScope	body := True
 HARD	TRUE_BODY	PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19	70	IBMQuantum_TwoInstance_Observation_Anchor	body := True
 HARD	TRUE_BODY	PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19	81	CDFII2022_WBosonMass_Anchor	body := True
 HARD	TRUE_BODY	PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19	90	XENONnT_ElectronicRecoil_Anchor	body := True
@@ -589,8 +589,8 @@ HARD	ALL_BINDERS_DEAD	PF.PerelmanSolvedCaseCrossValidation	330	perelman_substrat
 soft	DUPLICATE_PROP_BODY	PF.PolylogConjectureAttemptWave47	115	EmpiricalAlphaIdentificationHypothesis	byte-identical to IBMHardwarePeaksMatchAlphaCanonicalPair
 soft	DUPLICATE_PROP_BODY	PF.PolylogEigenvalueReformulated	245	PolylogAlgebraicContent	byte-identical to PolylogEigenvalueConjecture
 soft	DUPLICATE_PROP_BODY	PF.PolylogIBMEmpiricalGaloisCascade	121	IBMHardwarePeaksMatchAlphaCanonicalPair	byte-identical to EmpiricalAlphaIdentificationHypothesis
-HARD	TRUE_BODY	PF.Priority5SubstrateDischarge	169	substrate_PF_Lean4Lean_honest_scope	body := True
-soft	TRUE_VIA_ALIAS	PF.Priority5SubstrateDischarge	183	Lean4LeanHonestScopeSubstrateConjecture	resolves through substrate_PF_Lean4Lean_honest_scope
+HARD	TRUE_BODY	PF.Priority5SubstrateDischarge	169	substrate_PF_Lean4Lean_referee_scope	body := True
+soft	TRUE_VIA_ALIAS	PF.Priority5SubstrateDischarge	183	Lean4LeanRefereeScopeSubstrateConjecture	resolves through substrate_PF_Lean4Lean_referee_scope
 soft	DUPLICATE_PROP_BODY	PF.RHConditionalDischargeViaGaloisRigidity	149	AnalyticPosBijectionToZetaZeros	byte-identical to ConsciousnessStationaryStateCompleteness
 HARD	TRUE_BODY	PF.RHDimensionTwoTruncation	278	FirstZetaZeroBracket	body := True
 HARD	TRUE_BODY	PF.RHDimensionTwoTruncation	281	SecondZetaZeroBracket	body := True
@@ -1009,7 +1009,7 @@ HARD	EXTERNAL_NAME_TRIV	PF.Wave57MasterCapstone	105	Wave57YM_WightmanReconstruct
 HARD	TRUE_BODY	PF.Wave57MasterCapstone	107	Wave57YM_OSRPInteractionProven	body := True
 HARD	TRUE_BODY	PF.Wave57MasterCapstone	109	Wave57BSD_LSeriesConvergenceProven	body := True
 HARD	TRUE_BODY	PF.Wave57MasterCapstone	111	Wave56MasterCapstoneAggregatorProven	body := True
-HARD	TRUE_BODY	PF.Wave58.Ch17OperatorTheoryConcrete	490	Ch17OperatorTheoryConcreteHonestScope	body := True
+HARD	TRUE_BODY	PF.Wave58.Ch17OperatorTheoryConcrete	490	Ch17OperatorTheoryConcreteRefereeScope	body := True
 HARD	TRUE_BODY	PF.YMContinuumLiftAttemptWave47	234	ReflectionPositivity	body := True
 HARD	ALL_BINDERS_DEAD	PF.YMContinuumLiftAttemptWave47	234	ReflectionPositivity	binders: _H
 HARD	TRUE_BODY	PF.YMContinuumLiftAttemptWave47	243	EuclideanInvariance	body := True
@@ -1024,7 +1024,7 @@ HARD	ALL_BINDERS_DEAD	PF.YM_ContinuumMassGapInfDimWitness	284	ym_infDim_implies_
 HARD	TRUE_BODY	PF.YM_OSRPInteractionScaffold	316	MathlibSpectralTheoremForBoundedSelfAdjointOpenProp	body := True
 HARD	TRUE_BODY	PF.YM_OSRPInteractionScaffold	331	Wave55CContinuumLiftPSDPreservingProp	body := True
 soft	CONCL_IGNORES_BIND	PF.YM_OSRPInteractionScaffold	346	wave55C_continuum_lift_psd_preserving_via_finite_dim	data binder t : ℝ absent from conclusion
-soft	TRUE_VIA_ALIAS	PF.YM_OSRPInteractionScaffold	488	Wave57OSRPHonestScopeNotice	resolves through OSRP_Compatible_Interacting_Ham_Open
+soft	TRUE_VIA_ALIAS	PF.YM_OSRPInteractionScaffold	488	Wave57OSRPRefereeScopeNotice	resolves through OSRP_Compatible_Interacting_Ham_Open
 HARD	TRUE_BODY	PF.YM_Wave56ContinuumLiftAttempt	322	BochnerMinlosOnNuclearSpaces	body := True
 HARD	TRUE_BODY	PF.YM_Wave56ContinuumLiftAttempt	328	SchwartzReflectionStructure	body := True
 HARD	TRUE_BODY	PF.YM_Wave56ContinuumLiftAttempt	335	WightmanReconstructionTheorem	body := True

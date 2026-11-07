@@ -104,7 +104,7 @@ Proof. exact I. Qed.
 
 (** ## Section 5 -- Honest-scope and capstone *)
 
-Record Bridge1_RH_SubstrateDischarge_HonestScope : Prop := mkBridge1HonestScope {
+Record Bridge1_RH_SubstrateDischarge_RefereeScope : Prop := mkBridge1RefereeScope {
   hs_not_a_clay_rh_discharge        : True;
   hs_substrate_at_PF_HPEncodingSubstrate : True;
   hs_literal_step_named_residual    : True;
@@ -112,9 +112,9 @@ Record Bridge1_RH_SubstrateDischarge_HonestScope : Prop := mkBridge1HonestScope 
   hs_zero_project_axioms            : True
 }.
 
-Theorem bridge1_rh_substrate_discharge_honest_scope :
-  Bridge1_RH_SubstrateDischarge_HonestScope.
-Proof. apply mkBridge1HonestScope; exact I. Qed.
+Theorem bridge1_rh_substrate_discharge_referee_scope :
+  Bridge1_RH_SubstrateDischarge_RefereeScope.
+Proof. apply mkBridge1RefereeScope; exact I. Qed.
 
 Record Bridge1_RH_SubstrateDischarge_Capstone : Prop := mkBridge1Capstone {
   cs_substrate_discharged           : PF_HP_Substrate_Discharged_AtSubstrate;
@@ -124,7 +124,7 @@ Record Bridge1_RH_SubstrateDischarge_Capstone : Prop := mkBridge1Capstone {
   cs_bridge_to_literal              : Substrate_HP_Plus_Bridge_Implies_Literal_HP;
   cs_chain_to_clay_RH               : Substrate_HP_Plus_Bridge_Plus_Program_Implies_Clay_RH;
   cs_alpha_rigidity                 : Substrate_HP_With_Alpha_Rigidity;
-  cs_honest_scope                   : Bridge1_RH_SubstrateDischarge_HonestScope
+  cs_referee_scope                   : Bridge1_RH_SubstrateDischarge_RefereeScope
 }.
 
 Theorem bridge1_rh_substrate_discharge_capstone :
@@ -138,7 +138,7 @@ Proof.
   - exact substrate_HP_plus_bridge_implies_literal_HP.
   - exact substrate_HP_plus_bridge_plus_program_implies_Clay_RH.
   - exact substrate_HP_with_alpha_rigidity.
-  - exact bridge1_rh_substrate_discharge_honest_scope.
+  - exact bridge1_rh_substrate_discharge_referee_scope.
 Qed.
 
 End Bridge1_RH_SubstrateDischarge.

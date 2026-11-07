@@ -72,7 +72,7 @@ theorem alpha_NP_minus_alpha_P_sq_pos : 0 < (alphaNP - Real.sqrt 2) ^ 2 := by
 
 /-- **Honest scope** for this file: integration of polylog α-identities
     with the framework's α-skeleton structure. -/
-theorem AlphaSkeletonSubstrateIntegration_HonestScope : True := trivial
+theorem AlphaSkeletonSubstrateIntegration_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

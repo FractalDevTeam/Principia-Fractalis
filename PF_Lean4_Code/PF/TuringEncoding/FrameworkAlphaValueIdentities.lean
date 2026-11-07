@@ -157,7 +157,7 @@ theorem alphaP_sq_plus_alphaNP_sq_pos : 0 < Real.sqrt 2 ^ 2 + alphaNP ^ 2 := by
        dimension. The literal spectral gap on the operator side
        (`Δ = 0.0891219046`) follows from the kernel-matrix-level
        computations + continuum limit. -/
-theorem FrameworkAlphaValueIdentities_HonestScope : True := trivial
+theorem FrameworkAlphaValueIdentities_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

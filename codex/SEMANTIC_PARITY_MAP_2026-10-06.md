@@ -399,7 +399,7 @@ rather than treated as a defect inventory.
 unscoped restatements and the vacuous Props. (1) ch11 L5 (abstract) and L499--505
 (summary) still assert the refuted routes and the four "resolved" anomalies in the
 present indicative — propagate the L145/L193 corrections and the
-`WeinsteinGURescueHonestScope` split, which already separates in Lean the
+`WeinsteinGURescueRefereeScope` split, which already separates in Lean the
 "concrete-witness side (RQG inhabited, BRST = 78, projection real)" from the
 "open / typed-Prop side (Shiab + 4 experimental Props)". (2) Rename the four
 anomaly Props `*_Unformalized` or delete them. (3) Cite `dim E₆ = 78` as the

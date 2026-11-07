@@ -35,8 +35,8 @@
   Mirrored Lean items:
     - structure `PFFrameworkUnifiedWhole`
     - theorem `pfFrameworkUnifiedWhole_realized`
-    - structure `PFFrameworkUnifiedWholeHonestScope`
-    - theorem `pfFrameworkUnifiedWhole_honest_scope`
+    - structure `PFFrameworkUnifiedWholeRefereeScope`
+    - theorem `pfFrameworkUnifiedWhole_referee_scope`
 
   ## Honest scope
 
@@ -82,25 +82,25 @@ Qed.
 
 (** ## Section 3 -- Honest-scope record *)
 
-Record PFFrameworkUnifiedWholeHonestScope : Prop := mkPFUnifiedHonestScope {
+Record PFFrameworkUnifiedWholeRefereeScope : Prop := mkPFUnifiedRefereeScope {
   composes_existing_axiom_free_landings              : True;
   no_new_mathematical_content                        : True;
   substrate_forces_every_layer_simultaneously        : True;
   not_literal_Clay_discharge_substrate_level_only    : True
 }.
 
-Theorem pfFrameworkUnifiedWhole_honest_scope :
-  PFFrameworkUnifiedWholeHonestScope.
+Theorem pfFrameworkUnifiedWhole_referee_scope :
+  PFFrameworkUnifiedWholeRefereeScope.
 Proof.
-  apply mkPFUnifiedHonestScope; exact I.
+  apply mkPFUnifiedRefereeScope; exact I.
 Qed.
 
 (** ## Section 4 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_unified_whole_lives_in_lean : Prop := True.
+Definition referee_scope_coq_parity_only_unified_whole_lives_in_lean : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_unified_whole_lives_in_lean.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_unified_whole_lives_in_lean.
 Proof. exact I. Qed.
 
 End PFFrameworkUnifiedClosure.

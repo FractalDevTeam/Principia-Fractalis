@@ -49,7 +49,7 @@ This is the same Path-C protocol as `FlagshipReverification` and
 from a separate package with an independent build hash.  It is NOT
 a separate type-checker written in another language.  The honest
 scope of each individual closure is the one fixed by that closure's
-own `*_honestScope` / `*_honest_scope` marker in the canonical PF
+own `*_refereeScope` / `*_referee_scope` marker in the canonical PF
 library (e.g. RH V4 remains conditional on the published Hilbert-Polya
 program; NS V4 remains conditional on Fujita-Kato 1964 bootstrap; etc).
 The harness re-exports the closures as they are — it does NOT
@@ -138,7 +138,7 @@ theorem clay_verification_harness_passes : ClayVerificationStatus where
     have _ := @rhV4_master_capstone_reverified
     trivial
   rh_pnp_paired_passed := by
-    have _ := @rhPvNP_paired_closure_honest_scope_reverified
+    have _ := @rhPvNP_paired_closure_referee_scope_reverified
     trivial
   ns_ym_paired_passed := by
     have _ := @nsYM_paired_closure_capstone_reverified
@@ -192,8 +192,8 @@ theorem verify_six_axes_holds : verify_six_axes := by
 /-- **Three paired closures audit predicate.** -/
 def verify_three_paired_closures : Prop :=
   (∃ _ : True,
-    @rhPvNP_paired_closure_honest_scope_reverified =
-      @rhPvNP_paired_closure_honest_scope_reverified) ∧
+    @rhPvNP_paired_closure_referee_scope_reverified =
+      @rhPvNP_paired_closure_referee_scope_reverified) ∧
   (∃ _ : True,
     @nsYM_paired_closure_capstone_reverified =
       @nsYM_paired_closure_capstone_reverified) ∧

@@ -59,7 +59,7 @@ theorem alphaRH_sq_minus_alphaRH : alphaRH ^ 2 - alphaRH = 3 / 4 := by
 
 /-! ## §3 — Honest scope marker -/
 
-theorem AlphaRHIdentities_HonestScope : True := trivial
+theorem AlphaRHIdentities_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

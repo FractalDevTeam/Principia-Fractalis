@@ -766,7 +766,7 @@ We record what was achieved and what remains. -/
          space of the OS reconstruction on the genuine Schwartz-
          dual measure. Conceptually named
          `GNSReconstructionOnSchwartzDualOpen`. -/
-def YM_Clay_Literal_Closure_HonestScope : Prop :=
+def YM_Clay_Literal_Closure_RefereeScope : Prop :=
   -- (1) Hamiltonian discharged at CLM level via Wave 55C matrix.
   (H_OS_Wightman OS_eigvec_three_halves =
      (3 / 2 : ℝ) • OS_eigvec_three_halves) ∧
@@ -799,8 +799,8 @@ def YM_Clay_Literal_Closure_HonestScope : Prop :=
 
 /-- The honest-scope marker holds unconditionally except for the LAST
     clause which depends on the §11 named open sub-step. -/
-theorem YM_Clay_Literal_Closure_HonestScope_holds :
-    YM_Clay_Literal_Closure_HonestScope := by
+theorem YM_Clay_Literal_Closure_RefereeScope_holds :
+    YM_Clay_Literal_Closure_RefereeScope := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact H_OS_Wightman_eigenvalue_three_halves
   · exact H_OS_Wightman_not_scalar_mult_id
@@ -937,7 +937,7 @@ theorem ym_clay_literal_closure_capstone :
     -- (11) Spectrum contains both Wave 55C eigenvalues
     ((3 / 2 : ℝ) ∈ specSet_H_OS ∧ (1 / 2 : ℝ) ∈ specSet_H_OS) ∧
     -- (12) Honest-scope marker
-    YM_Clay_Literal_Closure_HonestScope := by
+    YM_Clay_Literal_Closure_RefereeScope := by
   refine ⟨H_OS_Wightman_eigenvalue_three_halves,
           H_OS_Wightman_apply,
           H_OS_Wightman_not_scalar_mult_id,
@@ -949,7 +949,7 @@ theorem ym_clay_literal_closure_capstone :
           H_OS_discharges_weaker_ClayYM_unconditional,
           ?_,
           ⟨H_OS_spectrum_contains_three_halves, H_OS_spectrum_contains_one_half⟩,
-          YM_Clay_Literal_Closure_HonestScope_holds⟩
+          YM_Clay_Literal_Closure_RefereeScope_holds⟩
   intro hsub
   obtain ⟨f, hf_sym, hf_ne⟩ := hsub.witness
   refine ⟨H_Wightman, inferInstance, inferInstance, inferInstance,
@@ -1064,7 +1064,7 @@ theorem ym_clay_literal_mass_gap :
 #print axioms H_OS_Wightman_not_scalar_mult_id
 #print axioms H_OS_discharges_weaker_ClayYM_unconditional
 #print axioms ClayYM_Literal_implies_weaker
-#print axioms YM_Clay_Literal_Closure_HonestScope_holds
+#print axioms YM_Clay_Literal_Closure_RefereeScope_holds
 #print axioms ym_clay_literal_closure_capstone
 #print axioms ym_clay_literal_mass_gap
 

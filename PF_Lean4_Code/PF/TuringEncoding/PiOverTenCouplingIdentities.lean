@@ -54,7 +54,7 @@ theorem pi_over_ten_sq : piOverTen ^ 2 = Real.pi ^ 2 / 100 := by
 
 /-! ## §2 — Honest scope marker -/
 
-theorem PiOverTenCouplingIdentities_HonestScope : True := trivial
+theorem PiOverTenCouplingIdentities_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

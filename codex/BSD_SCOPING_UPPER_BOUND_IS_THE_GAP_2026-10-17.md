@@ -54,7 +54,7 @@ needed here:
 * `heegnerHypothesisSatisfied_iff_LDerivativeAtOneNonZero` (574)
 * `kolyvagin1990HeegnerToRankOne_holds_at_True_placeholder` (381)
 * `bsd_rank_one_E37a1_discharged_at_placeholder` (462)
-* `bsd_rank_one_E37a1_honest_scope` (492)
+* `bsd_rank_one_E37a1_referee_scope` (492)
 
 **JUDGEMENT: the naming discipline here is as good as it gets** — a reader
 cannot be misled by a theorem called `..._at_True_placeholder`. The defect is

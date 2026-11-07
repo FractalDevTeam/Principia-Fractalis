@@ -650,7 +650,7 @@ theorem cross_millennium_meta_closure_capstone : CrossMillenniumMetaClosure wher
 /-- **Honest-scope record** distinguishing substrate-level meta-
     closure (machine-verified) from literal Clay-form per-axis
     closure (still gated on the named per-axis open content). -/
-structure CrossMillenniumMetaClosureHonestScope : Prop where
+structure CrossMillenniumMetaClosureRefereeScope : Prop where
   /-- (S1) The meta-closure is machine-verified at the substrate
       level — every clause composes an existing axiom-free
       theorem by exact name. -/
@@ -682,8 +682,8 @@ structure CrossMillenniumMetaClosureHonestScope : Prop where
 
 /-- **Honest-scope record inhabited.** Five `trivial` tags; content
     in the docstrings. -/
-theorem cross_millennium_meta_closure_honest_scope :
-    CrossMillenniumMetaClosureHonestScope :=
+theorem cross_millennium_meta_closure_referee_scope :
+    CrossMillenniumMetaClosureRefereeScope :=
   ⟨trivial, trivial, trivial, trivial, trivial⟩
 
 /-! ## §8 — Axiom-freeness verification -/
@@ -702,7 +702,7 @@ theorem cross_millennium_meta_closure_honest_scope :
 #check @entailment_from_Perelman
 #check @CrossMillenniumMetaClosure
 #check @cross_millennium_meta_closure_capstone
-#check @cross_millennium_meta_closure_honest_scope
+#check @cross_millennium_meta_closure_referee_scope
 
 #print axioms meta_closure_eleven_invariants
 #print axioms cross_millennium_axis_coupling
@@ -716,6 +716,6 @@ theorem cross_millennium_meta_closure_honest_scope :
 #print axioms entailment_from_Hodge
 #print axioms entailment_from_Perelman
 #print axioms cross_millennium_meta_closure_capstone
-#print axioms cross_millennium_meta_closure_honest_scope
+#print axioms cross_millennium_meta_closure_referee_scope
 
 end PF.Referee.CrossMillenniumMetaClosure

@@ -333,7 +333,7 @@ theorem PF_YMEncodingV3_v2_eq_pfV2 :
 
     All clauses unconditional; each discharged by an existing
     axiom-free framework theorem. -/
-def PF_YM_V3_honestScope : Prop :=
+def PF_YM_V3_refereeScope : Prop :=
   -- (H1) V3 typed Clay form holds unconditionally.
   PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard PF_YMEncodingV3 ∧
   -- (H2) V2 backward compatibility.
@@ -359,7 +359,7 @@ def PF_YM_V3_honestScope : Prop :=
   YangMillsMassGap
 
 /-- The V3 honest-scope marker holds unconditionally. -/
-theorem PF_YM_V3_honestScope_holds : PF_YM_V3_honestScope :=
+theorem PF_YM_V3_refereeScope_holds : PF_YM_V3_refereeScope :=
   ⟨PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV3,
    PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV2,
    rfl,
@@ -405,7 +405,7 @@ theorem ym_continuum_wightman_v3_capstone :
     (∀ ψ : Fin 2 → ℝ, 0 ≤ interactingHamBilinear ψ) ∧
     (H_infDim concreteUnitVectorInf = (3 / 2 : ℝ) • concreteUnitVectorInf) ∧
     PF_YMEncodingV3.massGap pfV3ContinuumWitness = 3 / 2 ∧
-    PF_YM_V3_honestScope :=
+    PF_YM_V3_refereeScope :=
   ⟨PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV3,
    PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV2,
    PF_YM_V3_yields_YangMillsMassGap,
@@ -413,12 +413,12 @@ theorem ym_continuum_wightman_v3_capstone :
    interactingHamBilinear_nonneg,
    H_infDim_eigenvalue_three_halves,
    rfl,
-   PF_YM_V3_honestScope_holds⟩
+   PF_YM_V3_refereeScope_holds⟩
 
 #check @PF_YMEncodingV3
 #check @PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV3
 #check @PF_YM_V3_yields_YangMillsMassGap
-#check @PF_YM_V3_honestScope_holds
+#check @PF_YM_V3_refereeScope_holds
 #check @ym_continuum_wightman_v3_capstone
 
 /-! ## §10 — Axiom-freeness verification -/
@@ -431,7 +431,7 @@ theorem ym_continuum_wightman_v3_capstone :
 #print axioms PF_YMEncodingV3_QYM_eq_ContinuumYMTheoryV3
 #print axioms PF_YMEncodingV3_massGap_canonical
 #print axioms PF_YMEncodingV3_v2_eq_pfV2
-#print axioms PF_YM_V3_honestScope_holds
+#print axioms PF_YM_V3_refereeScope_holds
 #print axioms ym_continuum_wightman_v3_capstone
 
 end YM_ContinuumWightmanV3

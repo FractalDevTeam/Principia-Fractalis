@@ -547,7 +547,7 @@ What is NOT claimed:
 -/
 
 /-- The honest-scope statement as a machine-checked Prop. -/
-def RazborovRudich_AaronsonWigderson_Formalization_HonestScope : Prop :=
+def RazborovRudich_AaronsonWigderson_Formalization_RefereeScope : Prop :=
   -- (1) Typed barrier signatures hold.
   RazborovRudich1997_BarrierStatement ∧
   AaronsonWigderson2009_BarrierStatement ∧
@@ -563,8 +563,8 @@ def RazborovRudich_AaronsonWigderson_Formalization_HonestScope : Prop :=
   (EnumToClassSeparationBridge ↔ Literal_P_neq_NP)
 
 /-- The honest-scope claim holds AXIOM-FREE. -/
-theorem RazborovRudich_AaronsonWigderson_Formalization_HonestScope_holds :
-    RazborovRudich_AaronsonWigderson_Formalization_HonestScope :=
+theorem RazborovRudich_AaronsonWigderson_Formalization_RefereeScope_holds :
+    RazborovRudich_AaronsonWigderson_Formalization_RefereeScope :=
   ⟨razborov_rudich_1997_barrier_holds,
    aaronson_wigderson_2009_barrier_holds,
    ⟨pf_enum_separator_support_finite,
@@ -589,4 +589,4 @@ end PrincipiaTractalis
 #print axioms
   PrincipiaTractalis.RazborovRudich_AaronsonWigderson_Formalization.razborov_rudich_aaronson_wigderson_formalization_capstone
 #print axioms
-  PrincipiaTractalis.RazborovRudich_AaronsonWigderson_Formalization.RazborovRudich_AaronsonWigderson_Formalization_HonestScope_holds
+  PrincipiaTractalis.RazborovRudich_AaronsonWigderson_Formalization.RazborovRudich_AaronsonWigderson_Formalization_RefereeScope_holds

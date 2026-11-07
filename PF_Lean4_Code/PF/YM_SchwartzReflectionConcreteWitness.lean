@@ -279,7 +279,7 @@ theorem schwartzTimeReflectionCLM_negates_time
     HOWEVER: the OS reflection-positivity content — positivity of
     `⟨f, θ f⟩` under the time-reflection pairing against the
     Schwinger measure — is NOT proved here. -/
-def SchwartzReflectionConcreteWitnessHonestScope : Prop :=
+def SchwartzReflectionConcreteWitnessRefereeScope : Prop :=
   -- (1) Strengthened typed predicate is inhabited by the time reflection.
   SchwartzReflectionConcreteTypedStatement ∧
   -- (2) Strengthened concrete ⇒ Wave 57 typed.
@@ -295,8 +295,8 @@ def SchwartzReflectionConcreteWitnessHonestScope : Prop :=
   (∀ (x : EuclideanSpace ℝ (Fin 4)), timeReflectFun x 0 = -(x 0))
 
 /-- The honest-scope marker holds unconditionally. -/
-theorem schwartzReflection_concrete_witness_honestScope_holds :
-    SchwartzReflectionConcreteWitnessHonestScope :=
+theorem schwartzReflection_concrete_witness_refereeScope_holds :
+    SchwartzReflectionConcreteWitnessRefereeScope :=
   ⟨schwartzReflection_concrete_timeReflection_witness,
    schwartzReflection_concrete_implies_wave57_typed,
    schwartzReflection_concrete_implies_original,
@@ -349,7 +349,7 @@ theorem schwartzReflection_concrete_witness_capstone :
         SchwartzReflectionTypedStatement) ∧
     (SchwartzReflectionConcreteTypedStatement →
         SchwartzReflectionStructure) ∧
-    SchwartzReflectionConcreteWitnessHonestScope :=
+    SchwartzReflectionConcreteWitnessRefereeScope :=
   ⟨schwartzReflection_concrete_timeReflection_witness,
    schwartzTimeReflectionCLM_apply_eq,
    schwartzTimeReflectionCLM_involution_apply,
@@ -357,7 +357,7 @@ theorem schwartzReflection_concrete_witness_capstone :
    schwartzTimeReflectionCLM_negates_time,
    schwartzReflection_concrete_implies_wave57_typed,
    schwartzReflection_concrete_implies_original,
-   schwartzReflection_concrete_witness_honestScope_holds⟩
+   schwartzReflection_concrete_witness_refereeScope_holds⟩
 
 /-! ## §8 — Axiom-freeness verification -/
 
@@ -373,7 +373,7 @@ theorem schwartzReflection_concrete_witness_capstone :
 #print axioms schwartzReflection_concrete_implies_original
 #print axioms schwartzTimeReflectionCLM_fixes_spatial
 #print axioms schwartzTimeReflectionCLM_negates_time
-#print axioms schwartzReflection_concrete_witness_honestScope_holds
+#print axioms schwartzReflection_concrete_witness_refereeScope_holds
 #print axioms schwartzReflection_concrete_witness_capstone
 
 end YM_SchwartzReflectionConcreteWitness

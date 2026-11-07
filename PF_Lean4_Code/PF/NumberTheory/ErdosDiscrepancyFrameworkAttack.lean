@@ -327,7 +327,7 @@ structure ErdosDiscrepancyFrameworkAttack where
   cascade_implies_conjecture :
     ∀ S : ℕ → Bool, EDPViaFrameworkSpectralCascade S →
       ErdosDiscrepancyProblem
-  honest_scope_published_not_formalised : True
+  referee_scope_published_not_formalised : True
 
 /-- **★ ERDŐS DISCREPANCY FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -358,7 +358,7 @@ noncomputable def erdos_discrepancy_framework_attack_capstone :
   named_obstruction := MathlibEDPFormalisation
   cascade_implies_conjecture :=
     edp_via_spectral_cascade_implies_conjecture
-  honest_scope_published_not_formalised := trivial
+  referee_scope_published_not_formalised := trivial
 
 #check @discrepancySum
 #check @IsSignSequence

@@ -531,7 +531,7 @@ structure SubstrateDischargeStatus : Prop where
   composite_wave58 :
     UniversalDecayBound → Wave58TimeGlobalExistenceClauseStrengthened
 
-/-- **★★★ CAPSTONE — `substrateDischarge_honest_scope` ★★★**
+/-- **★★★ CAPSTONE — `substrateDischarge_referee_scope` ★★★**
 
     Records the substrate-typed discharge verdict for `FujitaKato1964Theorem`
     via the Gaussian-damping lift construction.
@@ -577,7 +577,7 @@ structure SubstrateDischargeStatus : Prop where
 
     The decay-bound certificate `UniversalDecayBound` is the precise
     residual; the structural composition is AXIOM-FREE. -/
-theorem substrateDischarge_honest_scope :
+theorem substrateDischarge_referee_scope :
     SubstrateDischargeStatus :=
   { lift_matches_initial_data := liftToSpacetime_at_zero
     lift_smooth := liftToSpacetimeFun_smooth
@@ -605,6 +605,6 @@ theorem substrateDischarge_honest_scope :
 #print axioms substrate_discharge_implies_existence_hypothesis
 #print axioms substrate_discharge_implies_wave58_strengthened
 #print axioms substrate_discharge_implies_wave58_legacy
-#print axioms substrateDischarge_honest_scope
+#print axioms substrateDischarge_referee_scope
 
 end PF.NavierStokes.FujitaKato1964SubstrateDischarge

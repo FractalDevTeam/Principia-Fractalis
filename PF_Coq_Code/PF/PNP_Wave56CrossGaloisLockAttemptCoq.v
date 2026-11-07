@@ -73,14 +73,14 @@ Proof. exact I. Qed.
 Theorem IBM_cascade_meets_disc5_lock : True.
 Proof. exact I. Qed.
 
-Theorem pnp_wave56_cross_galois_lock_honest_scope : True.
+Theorem pnp_wave56_cross_galois_lock_referee_scope : True.
 Proof. exact I. Qed.
 
 (** ## Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End PNP_Wave56CrossGaloisLockAttempt.

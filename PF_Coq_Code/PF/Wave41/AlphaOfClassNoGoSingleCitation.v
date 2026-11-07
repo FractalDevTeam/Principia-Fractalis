@@ -222,7 +222,7 @@ Qed.
     bundles a structural NO-GO; it does NOT discharge any
     Millennium problem. The intended use is referee / chapter-21
     citation. *)
-Theorem alpha_of_class_no_go_single_citation_honest_scope : True.
+Theorem alpha_of_class_no_go_single_citation_referee_scope : True.
 Proof. exact I. Qed.
 
 (** Witness that this single-citation file is axiom-free at the

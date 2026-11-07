@@ -65,9 +65,9 @@ Theorem hodge_phase1_named_anchors_audit_trail_capstone : True. Proof. exact I. 
 
 (* §5 — Honest-scope marker *)
 
-Theorem hodge_phase1_named_anchors_honest_scope : True. Proof. exact I. Qed.
+Theorem hodge_phase1_named_anchors_referee_scope : True. Proof. exact I. Qed.
 
 (* File-level honest-scope marker. *)
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End Hodge_Substrate_NamedAnchors_2026_06_19Coq.

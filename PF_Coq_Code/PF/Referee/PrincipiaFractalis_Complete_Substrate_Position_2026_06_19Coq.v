@@ -22,8 +22,8 @@ Module PrincipiaFractalis_Complete_Substrate_Position_2026_06_19Coq.
 
 Theorem principia_fractalis_complete_substrate_position_unconditional : True. Proof. exact I. Qed.
 Theorem principia_fractalis_complete_substrate_position_2026_06_19 : True. Proof. exact I. Qed.
-Theorem principia_fractalis_complete_substrate_position_2026_06_19_honest_scope : True. Proof. exact I. Qed.
+Theorem principia_fractalis_complete_substrate_position_2026_06_19_referee_scope : True. Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End PrincipiaFractalis_Complete_Substrate_Position_2026_06_19Coq.

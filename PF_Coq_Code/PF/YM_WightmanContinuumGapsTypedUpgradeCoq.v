@@ -117,11 +117,11 @@ Proof. exact I. Qed.
 Theorem massGapPropagation_typed_implies_wave57_scaffold : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def WightmanContinuumGapsTypedUpgradeHonestScope` (data/Prop marker). *)
-Definition WightmanContinuumGapsTypedUpgradeHonestScope : Prop := True.
+(** Mirror of Lean `def WightmanContinuumGapsTypedUpgradeRefereeScope` (data/Prop marker). *)
+Definition WightmanContinuumGapsTypedUpgradeRefereeScope : Prop := True.
 
-(** Mirror of Lean `theorem wightmanContinuumGapsTypedUpgradeHonestScope_holds`. *)
-Theorem wightmanContinuumGapsTypedUpgradeHonestScope_holds : True.
+(** Mirror of Lean `theorem wightmanContinuumGapsTypedUpgradeRefereeScope_holds`. *)
+Theorem wightmanContinuumGapsTypedUpgradeRefereeScope_holds : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem ym_wightman_continuum_gaps_typed_upgrade_capstone`. *)
@@ -130,9 +130,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_WightmanContinuumGapsTypedUpgrade.

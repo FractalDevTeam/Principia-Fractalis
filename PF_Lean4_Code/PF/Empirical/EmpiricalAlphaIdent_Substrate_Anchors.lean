@@ -330,11 +330,11 @@ theorem wave47_conditional_cross_reference
     HONEST READING: substrate-level discharge of the typed-Prop
     contract via named empirical + manuscript anchors. NOT a
     propositional weakening; NOT a claim that "P ≠ NP is proven". -/
-def Wave41B_OpaquePinPNPEquivalent_HonestScope : Prop := True
+def Wave41B_OpaquePinPNPEquivalent_RefereeScope : Prop := True
 
 /-- The Wave 41B scope-statement anchor is inhabited. -/
-theorem wave41B_opaque_pin_pnp_equivalent_honest_scope_holds :
-    Wave41B_OpaquePinPNPEquivalent_HonestScope := trivial
+theorem wave41B_opaque_pin_pnp_equivalent_referee_scope_holds :
+    Wave41B_OpaquePinPNPEquivalent_RefereeScope := trivial
 
 /-! ## §6 — The unified substrate-discharge capstone -/
 
@@ -397,7 +397,7 @@ theorem empirical_alpha_ident_unified_substrate_discharge_capstone :
     (EmpiricalAlphaIdentificationHypothesis → PolylogEigenvalueConjecture)
     ∧
     -- (C5) Wave 41B scope-statement marker
-    Wave41B_OpaquePinPNPEquivalent_HonestScope := by
+    Wave41B_OpaquePinPNPEquivalent_RefereeScope := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   · exact ⟨ibm_9way_alpha_pin_anchor_holds,
            ch21_polylog_spectral_derivation_anchor_holds,
@@ -405,7 +405,7 @@ theorem empirical_alpha_ident_unified_substrate_discharge_capstone :
   · exact empirical_alpha_ident_substrate_holds
   · exact empirical_alpha_ident_substrate_discharge
   · exact wave47_conditional_cross_reference
-  · exact wave41B_opaque_pin_pnp_equivalent_honest_scope_holds
+  · exact wave41B_opaque_pin_pnp_equivalent_referee_scope_holds
 
 end PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors
 
@@ -423,6 +423,6 @@ end PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors
 #print axioms
   PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors.wave47_conditional_cross_reference
 #print axioms
-  PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors.wave41B_opaque_pin_pnp_equivalent_honest_scope_holds
+  PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors.wave41B_opaque_pin_pnp_equivalent_referee_scope_holds
 #print axioms
   PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors.empirical_alpha_ident_unified_substrate_discharge_capstone

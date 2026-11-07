@@ -98,7 +98,7 @@ Definition typed_to_legacy : Prop := True.
 Theorem typed_certificate_implies_True_certificate : True.
 Proof. exact I. Qed.
 
-Theorem bsd_rankWitnessTyped_honest_scope : True.
+Theorem bsd_rankWitnessTyped_referee_scope : True.
 Proof. exact I. Qed.
 
 Theorem bsd_E32a3_via_typed_certificate_cascade : True.
@@ -109,9 +109,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End BSD_RankWitnessTypedUpgrade.

@@ -38,8 +38,8 @@
     - PF_BSD_capstoneV5_implies_V1
     - isV5Discharged
     - v5_residual_is_zero_on_undischarged
-    - PF_BSD_V5_honestScope
-    - PF_BSD_V5_honestScope_holds
+    - PF_BSD_V5_refereeScope
+    - PF_BSD_V5_refereeScope_holds
 
   ## Honest scope
 
@@ -133,15 +133,15 @@ Proof. exact I. Qed.
 
 (** ## Section 10 -- Honest-scope marker *)
 
-Definition PF_BSD_V5_honestScope : Prop := True.
+Definition PF_BSD_V5_refereeScope : Prop := True.
 
-Theorem PF_BSD_V5_honestScope_holds : PF_BSD_V5_honestScope.
+Theorem PF_BSD_V5_refereeScope_holds : PF_BSD_V5_refereeScope.
 Proof. exact I. Qed.
 
-Definition honest_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_clay_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_clay_discharge.
 Proof. exact I. Qed.
 
 End BSDCapstoneTypedBridgeV5.

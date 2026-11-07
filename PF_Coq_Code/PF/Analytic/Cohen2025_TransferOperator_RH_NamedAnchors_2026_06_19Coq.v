@@ -49,6 +49,6 @@ Theorem six_cohen2025_rh_anchors_conjunction_holds : True. Proof. exact I. Qed.
 Theorem cohen2025_rh_priorWork_audit_trail_capstone : True. Proof. exact I. Qed.
 Theorem cohen2025_rh_substrate_position : True. Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End Cohen2025_TransferOperator_RH_NamedAnchors_2026_06_19Coq.

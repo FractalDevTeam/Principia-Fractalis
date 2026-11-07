@@ -44,8 +44,8 @@
     - `PF_RH_V4_via_Mayer1991_implies_V3_conclusion`
     - `RH_OpenFrontierV4`
     - `RH_OpenFrontierV4_iff_V3`
-    - `PF_RH_V4_honestScope`
-    - `PF_RH_V4_honestScope_holds`
+    - `PF_RH_V4_refereeScope`
+    - `PF_RH_V4_refereeScope_holds`
     - structure `PF_RH_V4_MasterCapstone`
     - `PF_RH_V4_master_capstone`
 
@@ -115,9 +115,9 @@ Definition RH_OpenFrontierV4 : Prop := True.
 Theorem RH_OpenFrontierV4_iff_V3 : True.
 Proof. exact I. Qed.
 
-Definition PF_RH_V4_honestScope : Prop := True.
+Definition PF_RH_V4_refereeScope : Prop := True.
 
-Theorem PF_RH_V4_honestScope_holds : PF_RH_V4_honestScope.
+Theorem PF_RH_V4_refereeScope_holds : PF_RH_V4_refereeScope.
 Proof. exact I. Qed.
 
 (** ## Section 6 -- V4 master capstone *)
@@ -137,7 +137,7 @@ Record PF_RH_V4_MasterCapstone : Prop := mkRHV4Capstone {
   partial_SCPO_fifty                                    : True;
   v4_implies_v3                                         : True;
   open_frontier_v4                                      : True;
-  honest_scope_v4                                       : True
+  referee_scope_v4                                       : True
 }.
 
 Theorem PF_RH_V4_master_capstone : PF_RH_V4_MasterCapstone.
@@ -147,10 +147,10 @@ Qed.
 
 (** ## Section 7 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_rh_v4_lives_in_lean : Prop := True.
+Definition referee_scope_coq_parity_only_rh_v4_lives_in_lean : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_rh_v4_lives_in_lean.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_rh_v4_lives_in_lean.
 Proof. exact I. Qed.
 
 End RHCapstoneTypedBridgeV4.

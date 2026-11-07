@@ -325,7 +325,7 @@ Qed.
         existence).
     (d) Clay-precision gain is NAMING the residual against
         published literature, NOT discharging it. *)
-Definition HilbertPolyaIdentificationPreciseHonestScope : Prop :=
+Definition HilbertPolyaIdentificationPreciseRefereeScope : Prop :=
   (* (a) all four formulations are published conjectures *)
   (BerryKeatingHamiltonianHypothesis ->
      BerryKeatingHamiltonianHypothesis) /\
@@ -344,19 +344,19 @@ Definition HilbertPolyaIdentificationPreciseHonestScope : Prop :=
   True.
 
 (** Honest-scope marker holds unconditionally. *)
-Theorem hilbert_polya_honest_scope :
-  HilbertPolyaIdentificationPreciseHonestScope.
+Theorem hilbert_polya_referee_scope :
+  HilbertPolyaIdentificationPreciseRefereeScope.
 Proof.
-  unfold HilbertPolyaIdentificationPreciseHonestScope.
+  unfold HilbertPolyaIdentificationPreciseRefereeScope.
   repeat split; intros; try exact I; try (intro; exact I).
 Qed.
 
 (** Coq-parity-only honest-scope marker. NOT a Clay RH discharge. *)
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
 (** Honest-scope marker theorem (trivially inhabited). *)
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 (** ## §9 — Capstone Record *)
@@ -412,7 +412,7 @@ Record HilbertPolyaIdentificationPreciseCapstone : Prop := {
     forall N : nat, BerryKeatingHamiltonianHypothesis_partial N;
   (* (K10) Honest-scope: NOT a Clay RH discharge *)
   K10_honest_not_a_discharge :
-    honest_scope_coq_parity_only_not_a_discharge
+    referee_scope_coq_parity_only_not_a_discharge
 }.
 
 (** **★ THE CAPSTONE: HILBERT-POLYA IDENTIFICATION PRECISE ★**
@@ -431,7 +431,7 @@ Proof.
   - exact hilbert_polya_implies_Clay_RiemannHypothesis_Standard.
   - exact hilbert_polya_implies_Clay_RiemannHypothesis_Standard.
   - exact canonical_SCPO_implies_hilbert_polya_partial.
-  - exact honest_scope_marker.
+  - exact referee_scope_marker.
 Qed.
 
 End HilbertPolyaIdentificationPrecise.
