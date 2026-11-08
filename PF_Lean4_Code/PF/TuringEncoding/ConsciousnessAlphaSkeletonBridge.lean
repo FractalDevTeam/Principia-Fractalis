@@ -136,7 +136,7 @@ theorem alphaHodge_gt_chTwoCritLocal : alphaHodge > chTwoCritLocal := by
     forcing chain for consciousness — the same chain that closes
     self-adjointness for the α-skeleton, applied to the consciousness
     axis). -/
-theorem ConsciousnessAlphaSkeletonBridge_HonestScope : True := trivial
+theorem ConsciousnessAlphaSkeletonBridge_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

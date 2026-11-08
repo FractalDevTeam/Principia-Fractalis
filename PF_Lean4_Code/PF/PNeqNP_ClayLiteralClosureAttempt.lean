@@ -619,7 +619,7 @@ precision bridge).
 -/
 
 /-- The honest-scope statement as a machine-checked Prop. -/
-def ClayLiteralClosureAttempt_HonestScope : Prop :=
+def ClayLiteralClosureAttempt_RefereeScope : Prop :=
   -- (1) Bypass theorems hold AXIOM-FREE.
   ({x : PFClass | pf_enum_separator x ≠ 0}.Finite ∧
     pf_enum_separator .P ≠ pf_enum_separator .NP ∧
@@ -630,8 +630,8 @@ def ClayLiteralClosureAttempt_HonestScope : Prop :=
   (EnumToClassSeparationBridge ↔ Literal_P_neq_NP)
 
 /-- The honest-scope claim holds AXIOM-FREE. -/
-theorem ClayLiteralClosureAttempt_HonestScope_holds :
-    ClayLiteralClosureAttempt_HonestScope :=
+theorem ClayLiteralClosureAttempt_RefereeScope_holds :
+    ClayLiteralClosureAttempt_RefereeScope :=
   ⟨⟨pf_enum_separator_support_finite,
     pf_enum_separator_distinguishes_P_NP,
     D3_no_polynomial_extension_over_Q⟩,
@@ -661,4 +661,4 @@ end PrincipiaTractalis
 #print axioms
   PrincipiaTractalis.PNeqNP_ClayLiteralClosureAttempt.clay_literal_closure_attempt_capstone
 #print axioms
-  PrincipiaTractalis.PNeqNP_ClayLiteralClosureAttempt.ClayLiteralClosureAttempt_HonestScope_holds
+  PrincipiaTractalis.PNeqNP_ClayLiteralClosureAttempt.ClayLiteralClosureAttempt_RefereeScope_holds

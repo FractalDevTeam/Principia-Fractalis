@@ -120,7 +120,7 @@ extended-named-instance disjunctions.
 
 ZERO project axioms. ZERO sorries. Additive — preserves all V3 content.
 
-## Honest scope
+## Scope statement
 
 NOT a Clay discharge of the Hodge conjecture. The substrate-level
 refutation of the V3 residual is at the rank-1 ℚ-coefficient encoding;
@@ -531,15 +531,7 @@ theorem hodgeV4_wave57_dworkpencil_scaffold_composition :
       quinticCYThreefoldCodim2Substrate :=
   wave57_hodge_quintic_codim2_scaffold_capstone 0 fermatQuinticConcrete
 
-/-! ## §10 — Honest-scope marker and capstone -/
-
-/-- **Honest-scope marker** — V4 is an ADDITIVE EXTENSION of V3
-    composing existing axiom-free content. The substrate-shadow
-    refutation of the V3 residual is at the rank-1 ℚ-coefficient
-    encoding; the LITERAL geometric Voisin 2007 question is
-    UNCHANGED — it has been re-named at one tier tighter as
-    `HodgeV4_LiteralChowH22LiftGap`. NOT a Clay discharge. -/
-theorem hodgeAlgebraicRepresentationV4_honest_scope : True := trivial
+/-! ## §10 — Scope statement and capstone -/
 
 /-- **★ HodgeAlgebraicRepresentationV4 CAPSTONE ★** —
     `hodgeAlgebraicRepresentationV4_capstone`.
@@ -583,7 +575,7 @@ theorem hodgeAlgebraicRepresentationV4_honest_scope : True := trivial
         conjunct PARTIAL POSITIVE bundle from
         `Hodge_QuinticCYCodim2Scaffold` is incorporated.
 
-    **HONEST SCOPE**: NOT a Clay discharge of the Hodge conjecture.
+    **SCOPE**: NOT a Clay discharge of the Hodge conjecture.
     The substrate-level refutation of V3's residual is at the rank-1
     ℚ-coefficient encoding; the literal geometric Voisin 2007
     question on a generic non-CM smooth quintic outside Schoen + 121 +

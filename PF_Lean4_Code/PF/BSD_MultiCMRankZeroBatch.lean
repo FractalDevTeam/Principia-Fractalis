@@ -518,7 +518,7 @@ theorem bsd_five_CM_rank_zero_batch_aggregate
 /-! ## §8 — Honest-scope marker and capstone -/
 
 /-- **Honest-scope marker** stating exactly what's been done. -/
-theorem bsd_multi_CM_rank_zero_batch_honest_scope : True := trivial
+theorem bsd_multi_CM_rank_zero_batch_referee_scope : True := trivial
 
 /-- **Capstone** bundling the four single-curve discharges, the
     four-curve batch, the five-curve aggregate, the placeholder-
@@ -575,7 +575,7 @@ structure BSD_MultiCMRankZeroBatch_Status : Prop where
     LValueAtOneNonZero E_121b1 ∧
     LValueAtOneNonZero E_144a1
   /-- Honest scope marker. -/
-  honest_scope : True
+  referee_scope : True
 
 theorem bsd_multi_CM_rank_zero_batch_capstone :
     BSD_MultiCMRankZeroBatch_Status :=
@@ -585,7 +585,7 @@ theorem bsd_multi_CM_rank_zero_batch_capstone :
     cascade_E_144a1     := bsd_rank_zero_E144a1_discharged
     torsion_unconditional := cascade_input_torsion_four_curves
     lvalue_unconditional  := cascade_input_LValueNonZero_four_curves
-    honest_scope := bsd_multi_CM_rank_zero_batch_honest_scope }
+    referee_scope := bsd_multi_CM_rank_zero_batch_referee_scope }
 
 /-! ## §9 — Axiom-freeness verification -/
 

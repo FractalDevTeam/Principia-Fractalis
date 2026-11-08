@@ -487,10 +487,10 @@ theorem ch17_operator_theory_concrete_capstone :
     What it DOES establish: the FIRST axiom-free Lean-side
     finite-dim concrete content for Ch 17, closing the Wave 58
     audit Level-C gap. -/
-def Ch17OperatorTheoryConcreteHonestScope : Prop := True
+def Ch17OperatorTheoryConcreteRefereeScope : Prop := True
 
-theorem ch17_operator_theory_concrete_honest_scope :
-    Ch17OperatorTheoryConcreteHonestScope := trivial
+theorem ch17_operator_theory_concrete_referee_scope :
+    Ch17OperatorTheoryConcreteRefereeScope := trivial
 
 #check @ch17_operator_theory_concrete_capstone
 #print axioms ch17_operator_theory_concrete_capstone

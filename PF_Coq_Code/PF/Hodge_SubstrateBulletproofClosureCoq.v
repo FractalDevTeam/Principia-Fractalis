@@ -208,10 +208,10 @@ Qed.
 
 (** ## Section 9 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_substrate_scope : Prop := True.
+Definition referee_scope_coq_parity_only_substrate_scope : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_substrate_scope.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_substrate_scope.
 Proof. exact I. Qed.
 
 End Hodge_SubstrateBulletproofClosure.

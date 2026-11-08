@@ -88,7 +88,7 @@ theorem w_TF_times_ibm_peak_RH :
     with the IBM-empirical-anchor naming convention to provide a
     bridge for referees. No new mathematical content beyond the
     composition — just the cross-namespace expression. -/
-theorem TFWeightIBMCompositionBridge_HonestScope : True := trivial
+theorem TFWeightIBMCompositionBridge_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

@@ -30,7 +30,7 @@ YM, NS, BSD, Hodge are each UNCONDITIONALLY axiom-free on their respective
 `PF_*Encoding` substrates (see `PF.Referee.{YM,NS,BSD,Hodge}CapstoneTypedBridge`).
 
 Composes existing axiom-free content by exact name. ZERO project axioms.
-ZERO sorries. No `:= True` placeholders. No `HonestScope` theorems.
+ZERO sorries. No `:= True` placeholders. No `RefereeScope` theorems.
 
 This file is the single-citation referee point for the framework's
 linkage claim: discharging the two residuals discharges all six Clay

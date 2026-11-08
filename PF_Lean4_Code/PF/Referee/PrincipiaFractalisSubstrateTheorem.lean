@@ -489,7 +489,7 @@ verified) from literal Clay-statement-form content (NOT discharged). -/
 
 /-- Provenness-tag record (Rule #1: ProvennessTag × 4). Honest-scope
     documentation fields, not Clay-path claim content. -/
-structure PrincipiaFractalisSubstrateTheoremHonestScope : Prop where
+structure PrincipiaFractalisSubstrateTheoremRefereeScope : Prop where
   /-- (S1) The substrate-level meta-theorem is MACHINE-VERIFIED at
       the current verification level. Each of the 25+ consequences
       is independently axiom-free. -/
@@ -517,8 +517,8 @@ structure PrincipiaFractalisSubstrateTheoremHonestScope : Prop where
 
 /-- **Honest-scope record inhabited.** All four tags discharge as
     `trivial`; the content is in their docstrings. -/
-theorem principiaFractalisSubstrateTheorem_honest_scope :
-    PrincipiaFractalisSubstrateTheoremHonestScope :=
+theorem principiaFractalisSubstrateTheorem_referee_scope :
+    PrincipiaFractalisSubstrateTheoremRefereeScope :=
   ⟨trivial, trivial, trivial, trivial⟩
 
 /-! ## §6 — Axiom-freeness verification -/
@@ -528,12 +528,12 @@ theorem principiaFractalisSubstrateTheorem_honest_scope :
 #check @PFSubstrateConsequences
 #check @PrincipiaFractalisSubstrateTheorem
 #check @PrincipiaFractalisSubstrateConsequences_holds_unconditionally
-#check @PrincipiaFractalisSubstrateTheoremHonestScope
-#check @principiaFractalisSubstrateTheorem_honest_scope
+#check @PrincipiaFractalisSubstrateTheoremRefereeScope
+#check @principiaFractalisSubstrateTheorem_referee_scope
 
 #print axioms pfSubstrateAntecedents_realised
 #print axioms PrincipiaFractalisSubstrateTheorem
 #print axioms PrincipiaFractalisSubstrateConsequences_holds_unconditionally
-#print axioms principiaFractalisSubstrateTheorem_honest_scope
+#print axioms principiaFractalisSubstrateTheorem_referee_scope
 
 end PF.Referee.PrincipiaFractalisSubstrateTheorem

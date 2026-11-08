@@ -142,7 +142,7 @@ theorem polylogSubstrateRouteChain_realized : PolylogSubstrateRouteChain where
 
     Concrete published-math content (`cohen2025pvsnp`), not abstract
     open math. -/
-theorem PolylogSubstrateRouteCapstone_HonestScope : True := trivial
+theorem PolylogSubstrateRouteCapstone_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

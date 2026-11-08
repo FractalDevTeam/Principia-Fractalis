@@ -234,10 +234,10 @@ Qed.
 
 (** ## §7 -- Honest-scope marker *)
 
-Definition honest_scope_structural_mirror_not_a_discharge : Prop := True.
+Definition referee_scope_structural_mirror_not_a_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_structural_mirror_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
 End HadwigerNelsonFrameworkAttack.

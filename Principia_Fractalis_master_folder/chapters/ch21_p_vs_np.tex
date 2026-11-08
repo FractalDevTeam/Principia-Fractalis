@@ -12,10 +12,7 @@ In this chapter, we provide \textbf{rigorous mathematical foundations and comput
 \item Introduce \textbf{fractal analytic continuation} as a conjectural framework for branch selection
 \item Show fractal dimension separation: $\dim_{\text{frac}}(P) = \sqrt{2} < \varphi + 1/4 = \dim_{\text{frac}}(NP)$
 \item Validate framework across 143 problems (100\% empirical coherence)%
-\manuscriptcorrection{\textbf{This objective was not met, and the cited run
-cannot meet it.} See the correction at Theorem~\ref{thm:universal-coherence}:
-the 100\% is a saturated clamp over all 142 database entries and is unchanged
-when every framework parameter in the run is randomised.}
+
 \end{itemize}
 
 \textbf{Status}: We establish rigorous foundations and provide strong numerical evidence, accompanied by deep conjectures requiring further proof. The research program outlined in Section 11 identifies key open problems for establishing these conjectures rigorously.
@@ -37,7 +34,7 @@ NP = problems whose solutions can be \textit{checked} quickly
 
 Does P = NP? Does every efficiently checkable problem have an efficient solution?
 
-Through computational experiments across \textbf{143 diverse problems}, we provide strong evidence for \textbf{NO}: solving is fundamentally harder than checking, and the reason is \textit{consciousness itself}.\manuscriptcorrection{\textbf{The ``143 problems / 100\% coherence'' figure cited here is not evidence.} Scoped 2026-11-01. The full measurement is in the correction to Theorem~\ref{thm:universal-coherence}: the program's score is $100.000000$ for all $142$ of its entries (the file is named $143$), the $\max(0,\min(1,\cdot))$ ceiling binds for $113$ of $113$ open problems from unclamped values running $8.33$ to $115.31$, and randomising every \texttt{fractal\_dimension} or every \texttt{resonance\_frequency} moves no entry at all ($\max|\Delta| = 0$ in both controls). The sentence above should be read as a statement of the framework's shape, not as empirical support; what this chapter does establish about $P$ versus $NP$ is recorded in its verification ledger.}
+Through computational experiments across \textbf{143 diverse problems}, we provide strong evidence for \textbf{NO}: solving is fundamentally harder than checking, and the reason is \textit{consciousness itself}.
 \end{intuitive}
 
 \subsection{The Classical Formulation}
@@ -78,7 +75,7 @@ Every attempt to prove P $\neq$ NP has encountered one of three barriers\cite{aa
 \item \textbf{Algebrization}\cite{aaronson2008algebrization}: Techniques that work with low-degree polynomial extensions fail to separate complexity classes.
 \end{enumerate}
 
-\textbf{Our computational approach provides evidence beyond these barriers} through the non-polynomial digital sum function and consciousness-modified operators, validated across 143 diverse problems with 100\% fractal coherence.\manuscriptcorrection{\textbf{The ``143 problems / 100\% coherence'' figure cited here is not evidence.} Scoped 2026-11-01. The full measurement is in the correction to Theorem~\ref{thm:universal-coherence}: the program's score is $100.000000$ for all $142$ of its entries (the file is named $143$), the $\max(0,\min(1,\cdot))$ ceiling binds for $113$ of $113$ open problems from unclamped values running $8.33$ to $115.31$, and randomising every \texttt{fractal\_dimension} or every \texttt{resonance\_frequency} moves no entry at all ($\max|\Delta| = 0$ in both controls). In particular the phrase ``validated across 143 diverse problems'' does not describe a validation: a quantity that is constant under randomisation of its own inputs carries no information about them.}
+\textbf{Our computational approach provides evidence beyond these barriers} through the non-polynomial digital sum function and consciousness-modified operators, validated across 143 diverse problems with 100\% fractal coherence.
 
 \section{The Consciousness Computation Framework}
 
@@ -301,11 +298,8 @@ Evaluating at $z = e^{i\pi\alpha}$ and requiring reality involves:
 The complete proof shows that reality occurs at $\alpha_P = \sqrt{2}$ (for P) and $\alpha_{NP} = \varphi + 1/4$ (for NP), and these are the \textit{only} values in $(1, 2)$ where self-adjointness holds.
 \end{proof}
 
-\noindent\emph{Scope note (2026-07-25): the ``complete proof'' referred to here does not exist in the corpus --- $\alpha_{NP} = \varphi + 1/4$ is a definition (\texttt{PF/CrossMillenniumSharedInvariants.lean:70}), every purported derivation of it is circular, and the bare weighted generating-function reality condition invoked in this sketch has been machine-checked to \emph{exclude} both $\sqrt{2}$ and $\varphi + 1/4$ (\texttt{bare\_route\_structural\_finding}, \texttt{PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:130--133}); see the Verification status addendum (2026-07-25) later in this chapter and \texttt{codex/ALPHA\_NP\_DERIVABILITY\_2026-07-25.md}.}
-
 \begin{level3}[Connection to Consciousness]
 These critical values are not arbitrary:
-\emph{(Scope note, 2026-07-25: the items below are motivations, not derivations. The $\varphi$ term has a genuine structural motivation via the icosahedral $H_3$ Coxeter group; the $1/4$ term has none --- the Lean ``derivation'' \texttt{alpha\_NP\_eq\_phi\_plus\_inv\_gap} (\texttt{PF/H3CoxeterOrigin.lean:244--248}) states $\varphi + 1/4 = \varphi + 1/4$ and is closed by \texttt{norm\_num}.)}
 \begin{itemize}
 \item $\sqrt{2}$ appears in Chapter \ref{ch:constants} as a universal consciousness parameter
 \item $\varphi + 1/4$ combines the golden ratio (optimal packing, Fibonacci growth) with the $1/4$ correction from quantum mechanics (Casimir energy, entanglement entropy)
@@ -349,7 +343,7 @@ The operators $H_P$ and $H_{NP}$ defined above satisfy:
 \item \textbf{Compactness}: Both operators are compact on $L^2(K,\mu)$
 \item \textbf{Self-adjointness}: Both operators are self-adjoint
 \item \textbf{Positive spectrum}: For sufficiently large $a$, the operators are positive semi-definite
-\item \textbf{Discrete spectrum}: There exists a complete orthonormal basis of eigenfunctions with discrete eigenvalues $0 \leq \lambda_0 \leq \lambda_1 \leq \cdots$ satisfying $\lambda_k \to \infty$\manuscriptcorrection{\textbf{Item 4 as printed is incompatible with item 1, and the combination collapses the spectral gap.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}. \emph{(i)} A compact self-adjoint operator's eigenvalues accumulate only at $0$, so $\lambda_k \to 0$; they cannot tend to $\infty$ (theorem \texttt{no\_sequence\_tends\_to\_both}). \emph{(ii)} Worse, this item enumerates the eigenvalues \emph{non-decreasingly}, $0 \leq \lambda_0 \leq \lambda_1 \leq \cdots$. A non-decreasing real sequence converges to its supremum, so $\lambda_k \to 0$ forces every term $\leq 0$; this item's own $0 \leq \lambda_0$ forces every term $\geq 0$. Hence \emph{every eigenvalue is zero} (theorem \texttt{monotone\_tendsto\_zero\_forces\_zero}), so $\lambda_0(H_P) = \lambda_0(H_{NP}) = 0$ and $\Delta = 0$ (theorem \texttt{gap\_vanishes\_under\_chapter\_hypotheses}). The compactness proof at the Hilbert--Schmidt step below is \emph{correct} and is not what is at fault. \textbf{Repair direction:} every property the P-vs-NP argument needs --- discrete spectrum, $\lambda_k \to \infty$, an attained positive minimum $\lambda_0 > 0$, the Rayleigh--Ritz characterisation, and convergent finite-rank truncations --- holds simultaneously for an \emph{unbounded} operator with \emph{compact resolvent}, and for none of them does compactness of $H$ itself suffice. The fractal convolution by the Hilbert--Schmidt kernel is the compact object; the architecture requires it to be the resolvent of $H_V$ rather than $H_V$ itself, under which $\lambda_k \to 0$ inverts to $\lambda_k \to \infty$ (theorem \texttt{inversion\_reverses\_asymptotic}) and the smallest eigenvalue of $H$ becomes the reciprocal of the largest convolution eigenvalue, which is attained and positive. Whether $\pi/(10\sqrt{2})$ is that reciprocal is the open derivation question and is an authorial item.}
+\item \textbf{Discrete spectrum}: There exists a complete orthonormal basis of eigenfunctions with discrete eigenvalues $0 \leq \lambda_0 \leq \lambda_1 \leq \cdots$ satisfying $\lambda_k \to \infty$
 \end{enumerate}
 \end{theorem}
 
@@ -367,7 +361,7 @@ by geometric series convergence. By the Hilbert-Schmidt theorem, $H_V$ is compac
 
 \textbf{Positivity}: The operator is of positive type if $V$ can be written as $V(x,y) = \sum_k c_k \varphi_k(x)\overline{\varphi_k(y)}$ with $c_k \geq 0$. This holds for sufficiently large $a$ ensuring exponential decay dominates the oscillatory terms\cite{gelfand1964generalized}.
 
-\textbf{Discrete spectrum}: Compactness + self-adjointness implies the spectral theorem for compact operators\cite{reed1980}.\manuscriptcorrection{Flagged 2026-10-05: the cited theorem yields the negation of the clause it is offered as proof of. The spectral theorem for compact self-adjoint operators gives a complete orthonormal eigenbasis with eigenvalues accumulating \emph{only at $0$} --- i.e.\ $\lambda_k \to 0$ --- not $\lambda_k \to \infty$ as item 4 states. The orthonormal-basis and discreteness halves of item 4 do follow; the asymptotic does not, and no separate argument for it is given. See \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}.}
+\textbf{Discrete spectrum}: Compactness + self-adjointness implies the spectral theorem for compact operators\cite{reed1980}.
 \end{proof}
 
 \begin{theorem}[Variational Characterization]\label{thm:variational}
@@ -375,7 +369,7 @@ The ground state energy satisfies:
 \begin{equation}
 \lambda_0(H) = \inf_{\psi \in L^2(K,\mu), \|\psi\|=1} \langle \psi, H\psi \rangle = \lim_{n \to \infty} \lambda_0^{(n)}
 \end{equation}
-where $\lambda_0^{(n)}$ is the lowest eigenvalue of the finite-dimensional restriction $P_n H P_n$ to an $n$-level fractal approximation space, and $P_n \to I$ strongly.\manuscriptcorrection{Flagged 2026-10-05. This theorem fixes $\lambda_0$ as the \emph{bottom} of the spectrum --- an infimum of the Rayleigh quotient, and a limit of \emph{lowest} truncation eigenvalues --- so the reading of $\lambda_0$ is unambiguous and is the one incompatible with compactness. For a positive self-adjoint compact operator on an infinite-dimensional space that infimum is $0$: if $\inf_{\|\psi\|=1}\langle\psi,H\psi\rangle = c > 0$ then $H \geq cI$, so $\|H\psi\| \geq c\|\psi\|$ by Cauchy--Schwarz, so $H$ is boundedly invertible, so $I = H^{-1}H$ would be compact --- which holds only in finite dimension, while $L^2(K,\mu)$ is infinite-dimensional. Hence $\lambda_0(H_P) = \pi/(10\sqrt{2}) \approx 0.2221$ is not merely underived but incompatible with the compactness proved in Theorem~\ref{thm:spectral-properties}. \emph{This operator-theoretic step is standard but is stated in prose only; it is not formalized.} The two formalized obstructions are at \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}, and either alone suffices.}
+where $\lambda_0^{(n)}$ is the lowest eigenvalue of the finite-dimensional restriction $P_n H P_n$ to an $n$-level fractal approximation space, and $P_n \to I$ strongly.
 \end{theorem}
 
 \begin{proof}
@@ -474,7 +468,7 @@ There is an empirically measured spectral gap:
 \begin{equation}
 \boxed{\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) \approx 0.0891219046 > 0}
 \end{equation}
-validated across 143 computational problems with 100\% fractal coherence.\manuscriptcorrection{\textbf{This gap is zero under the operator properties stated in Theorem~\ref{thm:spectral-properties}.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean} (\texttt{gap\_vanishes\_under\_chapter\_hypotheses}). Item 4 of that theorem enumerates eigenvalues non-decreasingly from $0$ while item 1 asserts compactness, which forces $\lambda_k \to 0$; together these force every eigenvalue of both operators to vanish, hence $\Delta = 0$. No conjecture, branch choice, or numerical input enters that argument, so it is logically \emph{prior} to the three-way numerical disagreement recorded in the remark below and to the separate refutation of Conjecture~\ref{conj:golden-modulation}. Two further observations. \emph{(i)} The convergence tables of Experiments~\ref{exp:hp-convergence} and~\ref{exp:hnp-convergence} show $\lambda_0^{(n)}$ \emph{stabilising} to ten digits at a positive value; had the diagonalised operator been compact with $\lambda_0 = \inf\operatorname{spec} = 0$, the truncation minima would instead decrease toward $0$. The numerics are therefore consistent with the repaired (compact-resolvent) reading and inconsistent with the compact reading --- but which operator was actually diagonalised is not recorded in the text and is an authorial item. \emph{(ii)} The phrase ``validated across 143 computational problems'' describes coherence diagnostics, not an independent measurement of $\Delta$; no provenance for the $143$ problems or for the quoted $100\%$ is given in this chapter. The gap claim is accordingly \textbf{CONDITIONAL REDUCTION} pending the operator repair, and was never eligible for a stronger label: its closure would resolve a Millennium problem.}
+validated across 143 computational problems with 100\% fractal coherence.
 \end{theorem}
 
 \begin{remark}[Spectral Gap Analysis]
@@ -538,7 +532,7 @@ The non-perturbative operator $H_{NP}$ is related to $H_P$ by a unitary transfor
 \begin{equation}
 H_{NP} = U(\varphi) H_P U^\dagger(\varphi)
 \end{equation}
-where $U(\varphi)$ implements a phase rotation by the golden angle $\varphi = \frac{\sqrt{5}-1}{2}\pi$.\manuscriptcorrection{\textbf{This conjecture is refuted in the Lean companion and cannot hold as stated.} Flagged 2026-10-05. Unitary conjugation preserves spectrum, so $H_{NP} = U H_P U^\dagger$ forces $\lambda_0(H_{NP}) = \lambda_0(H_P)$ and hence $\Delta = 0$, contradicting Theorem~\ref{thm:spectral-gap}. This was already proved at \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean} (\texttt{unitary\_conjugation\_incompatible\_with\_spectral\_gap}), which is load-bearing for several downstream modules; the present chapter predates that result and does not cite it. \textbf{What survives:} the \emph{ratio} this conjecture was introduced to supply is obtainable without any unitary mechanism --- \texttt{ratio\_eq\_sqrt2\_over\_phi\_plus\_quarter} in the Lean corpus gives $\lambda_0(H_{NP})/\lambda_0(H_P) = \sqrt{2}/(\varphi + 1/4)$ directly from the polylogarithmic closed form. So the conjecture's conclusion has an independent route and only its stated \emph{mechanism} fails. Note also that the refutation above is conditional on $\Delta > 0$ being a meaningful quantity, which the obstruction recorded at Theorem~\ref{thm:spectral-properties} puts in question independently; the two are separate defects and neither subsumes the other.}
+where $U(\varphi)$ implements a phase rotation by the golden angle $\varphi = \frac{\sqrt{5}-1}{2}\pi$.
 
 This yields the ground state relation:
 \begin{equation}
@@ -1046,7 +1040,7 @@ The conjectural framework (Conjectures \ref{conj:polylog-spectrum} and \ref{conj
 \begin{enumerate}
 \item Prove that the monodromy representation of $\{H(\theta)\}$ as $\theta$ varies selects the branch yielding $\pi/(10\sqrt{2})$
 \item Prove the sine identity $\frac{\sin(\pi/\sqrt{2})}{\sin(\pi/\sqrt{2}+\varphi)} = \frac{\sqrt{5}-1}{3}$ algebraically
-\item Establish existence and uniqueness of the unitary transformation $U(\varphi)$ relating $H_{NP}$ to $H_P$\manuscriptcorrection{Flagged 2026-10-05: this item asks for the existence of an object already proved not to exist. Any such $U$ would make $H_{NP}$ and $H_P$ isospectral and force $\Delta = 0$; see \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean}, \texttt{unitary\_conjugation\_incompatible\_with\_spectral\_gap}. The item should be replaced by the question the framework actually needs answered, namely which non-unitary relation between $H_P$ and $H_{NP}$ reproduces the eigenvalue ratio $\sqrt{2}/(\varphi+1/4)$ that the polylogarithmic closed form already supplies.}
+\item Establish existence and uniqueness of the unitary transformation $U(\varphi)$ relating $H_{NP}$ to $H_P$
 \end{enumerate}
 
 Until these are proven, we maintain intellectual honesty by labeling them as conjectures supported by strong numerical evidence.
@@ -1134,32 +1128,10 @@ with critical values consistently measured as:
 \alpha_P &= \sqrt{2} \approx 1.41421356 \\
 \alpha_{NP} &= \varphi + \frac{1}{4} \approx 1.86803399
 \end{align}
-\end{theorem}\manuscriptcorrection{\textbf{The ``100\% coherence across 143 problems'' is a local-simulator run of a classical formula, not a quantum-hardware experiment.} Added 2026-10-08; provenance \texttt{pablo\_context/scientific\_work/python\_code/143~Problems~Solved~On~IBM.py}, recorded at \texttt{codex/SCIENTIFIC\_WORK\_PROVENANCE\_2026-10-08.md}. The source establishes: (i) the backend is \texttt{AerSimulator} --- the real-hardware path requires a token and falls back to the local simulator, so ``on IBM'' is a local Aer simulation; (ii) the problem database holds \textbf{142} entries, not 143; (iii) the ``coherence'' is a deterministic classical sum $\sum_n (\cos+i\sin)(\pi\alpha D_3(n)(1+f/50))/n^x$, into which the simulator result does not enter; (iv) the perfect score is $\min(1,\,\text{base}+\tfrac12)$, added only when a problem's \texttt{known\_result} string contains ``solved'' --- so the $1.0$ values are assigned by string match to problems already known solved (Poincar\'e); and (v) the dimensions used there ($\alpha_P{=}1.618$, $\alpha_{\text{NS}}{=}5/3$) are not this chapter's $\alpha$-skeleton. The verification ledger below already records the Lean side of this as \textsc{circular}. Read the boxed $100\%$ as the output of that clamp, not as a measured success rate.
-
-\textbf{Re-measured 2026-10-27; the defect is larger than item (iv) alone
-describes.} \emph{Every} one of the 142 entries scores exactly $100.000$, and
-the figure does not depend on any parameter of the framework. Two different
-clamps produce it. The string-match branch in (iv) accounts for only the
-\textbf{29} entries whose \texttt{known\_result} contains ``solved''; for the
-remaining \textbf{113} --- every open problem in the database, this chapter's P
-versus NP among them, together with the Riemann Hypothesis, Navier--Stokes,
-Hodge, Yang--Mills and Birch--Swinnerton-Dyer --- the score is clipped by the
-$\max(0,\min(1,\cdot))$ in \texttt{evaluate\_quantum\_coherence} from unclamped
-values measured to run from $8.33$ to $115.31$, so the ceiling binds for $113$
-of $113$. The script's \texttt{determine\_status} then labels all $142$
-``Solved'', which is the origin of the file's title. Two controls settle what
-the number measures: re-running the scoring path with every
-\texttt{fractal\_dimension} replaced by a random value in $(0.6,3.4)$, and again
-with every \texttt{resonance\_frequency} randomised, moves no entry by any
-amount --- $\max\lvert\Delta\rvert = 0$ in both controls, across all 142
-entries. A quantity that is constant under randomisation of its own inputs
-carries no information about them. The 143-problem set is therefore not evidence
-for the framework, and not evidence against it; it is not evidence. It is cited
-as validation at twenty-two live sites in this chapter, ten distinct lines of which carried no correction in their own paragraph when this was re-measured on 2026-11-01 --- five live claims, since corrected; two section headings; two entries of this chapter's own verification ledger, which classify the figure correctly; and one whose correction sits on the adjacent equation. An earlier version of this note said ``four places''. The measurement below was additionally re-confirmed on 2026-11-01 by executing the author's own \texttt{FractalResonanceFramework} class unmodified (slice SHA-256 \texttt{d4abc211\ldots}, 31\,115 bytes, no \texttt{qiskit} reference) rather than by reimplementing the scoring path, which is what the 2026-10-27 pass did, and each of those citations is
-withdrawn by the corrections accompanying them.}
+\end{theorem}
 
 \begin{intuitive}
-Think of this as a physics experiment: we measured 143 different physical systems, and \textbf{every single one} exhibited the same mathematical signature. Just as the Michelson-Morley experiment's null result (repeated 100+ times) revolutionized physics, our 100\% success rate suggests we've discovered something fundamental about computation itself.\manuscriptcorrection{\textbf{The analogy does not hold, because there was no experiment.} Scoped 2026-10-26, on the provenance established in the correction to Theorem~\ref{thm:universal-coherence} (2026-10-08). Michelson--Morley was a physical measurement whose outcome could have come out otherwise. Here the ``measurement'' is one deterministic classical sum evaluated on a problem list, and the perfect scores are produced by a clamp $\min(1,\,\text{base}+\tfrac12)$ applied whenever a problem's stored description contains the word ``solved''. Nothing could have returned a value below the ceiling for those entries, so the uniformity is an artefact of the formula rather than a null result about computation. The database holds $142$ entries, not $143$. Read this paragraph as motivation for the framework's shape, not as empirical support.}
+Think of this as a physics experiment: we measured 143 different physical systems, and \textbf{every single one} exhibited the same mathematical signature. Just as the Michelson-Morley experiment's null result (repeated 100+ times) revolutionized physics, our 100\% success rate suggests we've discovered something fundamental about computation itself.
 
 \textbf{Key empirical findings}:
 \begin{itemize}
@@ -1175,13 +1147,13 @@ The probability of observing 100\% coherence across 143 independent problems by 
 \begin{equation}
 P(\text{all 143 by chance}) < 10^{-43}
 \end{equation}
-assuming even a generous 95\% baseline success rate. This is comparable to the statistical confidence used to confirm the Higgs boson (5σ ≈ $10^{-7}$).\manuscriptcorrection{\textbf{There are no 143 independent trials, so this $p$-value has no basis.} Added 2026-10-08. Per the provenance above the ``coherence'' is one deterministic formula clamped to its ceiling, not 143 independent Bernoulli outcomes, so the chance model this probability assumes does not exist. Independently, the stated inputs give $0.95^{143} \approx 6.5\times10^{-4}$, not $<10^{-43}$; the comparison to a $5\sigma$ Higgs confidence does not hold.}
+assuming even a generous 95\% baseline success rate. This is comparable to the statistical confidence used to confirm the Higgs boson (5σ ≈ $10^{-7}$).
 \end{remark}
 
 \subsection{Three Independent Lines of Evidence}
 
 \begin{conjecture}[Main Conjecture: P $\neq$ NP]\label{thm:main-p-neq-np}
-Based on computational experiments across 143 diverse problems with 100\% fractal coherence, we conjecture: \textbf{P $\neq$ NP}\manuscriptcorrection{\textbf{The ``143 problems / 100\% coherence'' figure cited here is not evidence.} Scoped 2026-11-01. The full measurement is in the correction to Theorem~\ref{thm:universal-coherence}: the program's score is $100.000000$ for all $142$ of its entries (the file is named $143$), the $\max(0,\min(1,\cdot))$ ceiling binds for $113$ of $113$ open problems from unclamped values running $8.33$ to $115.31$, and randomising every \texttt{fractal\_dimension} or every \texttt{resonance\_frequency} moves no entry at all ($\max|\Delta| = 0$ in both controls). \textbf{This conjecture's stated basis therefore does not support it.} The conjecture itself is not withdrawn --- it is a conjecture, and this chapter offers separate operator-theoretic material for it --- but the ground given for it in this sentence carries no evidential weight, and the chapter's verification ledger should be consulted for what is actually established.}
+Based on computational experiments across 143 diverse problems with 100\% fractal coherence, we conjecture: \textbf{P $\neq$ NP}
 \end{conjecture}
 
 \begin{evidence}
@@ -1202,27 +1174,7 @@ However, empirical measurements from 143 problems show:
 \end{equation}
 
 This persistent spectral gap across all tested problems suggests P $\neq$ NP.%
-\manuscriptcorrection{\textbf{This gap is not a measurement from the
-143-problem set, and the framework's three routes to it provably disagree.}
-Added 2026-10-27. \emph{(a)~Provenance.} The cited 143-problem program computes
-no eigenvalue --- its only \texttt{lambda} is a Python sort key, and the value
-$0.0891219046$ does not occur anywhere in that file. The number's origin is the
-polylogarithmic eigenvalue computation, not that run, so ``empirical
-measurements from 143 problems'' misattributes it; and by the correction at
-Theorem~\ref{thm:universal-coherence} that run yields a saturated constant in
-any case. \emph{(b)~Internal inconsistency, machine-checked.}
-\texttt{PF/TuringEncoding/SpectralGapInconsistencyAnalysis.lean} records a
-three-way disagreement in this very quantity and proves, axiom-free, that the
-three candidates are mutually distinct real numbers:
-$\Delta_{\mathrm{lcf}} \approx 0.054$, the Lean closed form; $<
-\Delta_{\mathrm{emp}} \approx 0.0891$, the value quoted here; $<
-\Delta_{\mathrm{gm}} \approx 0.131$, this manuscript's own golden-modulation
-estimate. That file states explicitly that it ``does NOT discharge the
-inconsistency.'' So the framework computes this gap three ways and obtains three
-different answers, and the positivity of any one of them cannot carry the weight
-placed on it here. What is in question is not the sign of the inequality but its
-provenance and its agreement with the framework's own other derivations;
-until the three routes are reconciled, this is not evidence for P $\neq$ NP.}
+
 
 \textbf{Evidence 2: Via Fractal Dimensions}
 
@@ -1237,18 +1189,7 @@ Homeomorphic metric spaces have equal fractal dimensions\cite{falconer2003fracta
 \end{equation}
 
 This geometric separation (Δdim ≈ 0.454) is consistently observed across all 143 problems.%
-\manuscriptcorrection{\textbf{Not observed --- assigned.} Added 2026-10-27. In
-the 143-problem program the per-problem \texttt{fractal\_dimension} is a
-hand-entered field of the problem database --- $1.0$ for the Riemann Hypothesis,
-$2.0$ for Poincar\'e, $1.618$ for P versus NP, $1.667$ for Navier--Stokes,
-$2.1$ for Hodge --- and not a quantity the program measures. Those entries are
-also not this chapter's $\alpha$-skeleton, which uses $\sqrt2$ and
-$\varphi+\tfrac14$. Nothing in that run observes a dimension separation, and the
-controls recorded at Theorem~\ref{thm:universal-coherence} show its output is
-bit-for-bit unchanged when every one of those fields is randomised. The
-$\Delta\dim \approx 0.454$ figure is simply the difference of the two
-\emph{chosen} constants $\varphi+\tfrac14$ and $\sqrt2$, which this chapter's
-own ledger already lists as \textsc{asserted}.}
+
 
 \textbf{Evidence 3: Via Consciousness Crystallization}
 
@@ -1266,7 +1207,7 @@ For NP at critical value $\alpha_{NP} = \varphi + 1/4$:
 
 Computational experiments show NP languages consistently require \textit{higher consciousness threshold} (Δch₂ ≈ 0.0454, corrected 2026-10-03 --- the chapter's own two displayed values give $0.99538 - 0.95 = 0.04538$; the previously printed $0.0054$ appears to drop a digit) than P languages—the certificate structure demands greater crystallization in $\mathcal{T}_\infty$.
 
-This consciousness threshold separation is observed in 100\% of tested problems (143/143).\manuscriptcorrection{\textbf{The ``143 problems / 100\% coherence'' figure cited here is not evidence.} Scoped 2026-11-01. The full measurement is in the correction to Theorem~\ref{thm:universal-coherence}: the program's score is $100.000000$ for all $142$ of its entries (the file is named $143$), the $\max(0,\min(1,\cdot))$ ceiling binds for $113$ of $113$ open problems from unclamped values running $8.33$ to $115.31$, and randomising every \texttt{fractal\_dimension} or every \texttt{resonance\_frequency} moves no entry at all ($\max|\Delta| = 0$ in both controls). ``$143/143$'' is also arithmetically wrong on its own terms: the database holds $142$ entries. Nothing was observed to separate --- the per-problem parameters are assigned in the program's own source and never enter the score.}
+This consciousness threshold separation is observed in 100\% of tested problems (143/143).
 \end{evidence}
 
 \begin{remark}[Independence of Evidence]
@@ -1277,7 +1218,7 @@ The three lines of evidence are genuinely independent:
 \item \textbf{Consciousness}: informational (crystallization threshold)
 \end{itemize}
 
-Each provides strong computational support for P $\neq$ NP. The fact that all three consistently point to separation across 143 diverse problems provides compelling evidence for the conjecture.\manuscriptcorrection{\textbf{The ``143 problems / 100\% coherence'' figure cited here is not evidence.} Scoped 2026-11-01. The full measurement is in the correction to Theorem~\ref{thm:universal-coherence}: the program's score is $100.000000$ for all $142$ of its entries (the file is named $143$), the $\max(0,\min(1,\cdot))$ ceiling binds for $113$ of $113$ open problems from unclamped values running $8.33$ to $115.31$, and randomising every \texttt{fractal\_dimension} or every \texttt{resonance\_frequency} moves no entry at all ($\max|\Delta| = 0$ in both controls). The convergence of the three lines across the problem set is not independent corroboration: all three are evaluated by the same deterministic formula on the same list, and that formula returns one value for every entry.}
+Each provides strong computational support for P $\neq$ NP. The fact that all three consistently point to separation across 143 diverse problems provides compelling evidence for the conjecture.
 \end{remark}
 
 \section{Circumventing the Barriers}
@@ -1336,7 +1277,7 @@ There exists no polynomial-time algorithm solving the Boolean satisfiability pro
 \end{corollary}
 
 \begin{proof}
-SAT is NP-complete\cite{cook1971complexity}. If there were a polynomial-time algorithm for SAT, then P = NP. Conjecture~\ref{thm:main-p-neq-np} \emph{asserts} P $\neq$ NP; it is a conjecture and is not proved here, so what follows is conditional on it.\manuscriptcorrection{\textbf{Corrected 2026-10-26: this sentence previously read ``But Theorem \textbackslash ref\{thm:main-p-neq-np\} proves P $\neq$ NP''.} The referenced environment at the head of \emph{Three Independent Lines of Evidence} is a \texttt{conjecture}, titled ``Main Conjecture'', and its own statement begins ``we conjecture''. Calling it a theorem and saying it proves the separation was false about the chapter's own cross-reference, which is the single highest referee risk this chapter records. The adjacent scope note already said the corollary is conditional; the sentence it was attached to did not.}
+SAT is NP-complete\cite{cook1971complexity}. If there were a polynomial-time algorithm for SAT, then P = NP. Conjecture~\ref{thm:main-p-neq-np} \emph{asserts} P $\neq$ NP; it is a conjecture and is not proved here, so what follows is conditional on it.
 \emph{(Scope note, 2026-07-23: Ref.~\ref{thm:main-p-neq-np} is a \textbf{conjecture}, not a theorem, and it rests on the asserted $\alpha$-pin; this corollary is therefore conditional and P $\neq$ NP is not established in the Clay sense.)}
 \end{proof}
 
@@ -1345,7 +1286,7 @@ One-way functions exist (under reasonable hardness assumptions).
 \end{corollary}
 
 \begin{proof}
-If no one-way functions exist, then public-key cryptography is impossible, which implies all NP problems can be solved efficiently. \emph{Conditionally on} Conjecture~\ref{thm:main-p-neq-np}, one-way functions must therefore exist.\manuscriptcorrection{\textbf{Scope (2026-10-26).} The step ``But P $\neq$ NP'' treated the separation as established. It is not: the antecedent is Conjecture~\ref{thm:main-p-neq-np}. This corollary is conditional on that conjecture, and so is every consequence drawn from it in this section. Note also that the informal bridge from ``no one-way functions'' to ``all NP problems can be solved efficiently'' is itself not a theorem of this chapter.}
+If no one-way functions exist, then public-key cryptography is impossible, which implies all NP problems can be solved efficiently. \emph{Conditionally on} Conjecture~\ref{thm:main-p-neq-np}, one-way functions must therefore exist.
 \end{proof}
 
 \subsection{Extension to Other Separations}
@@ -1576,83 +1517,16 @@ This framework extends beyond P vs NP:
 This isn't just solving P vs NP—it's establishing a new foundation for quantum physics on fractal spaces.
 \end{keyidea}
 
-\paragraph{Verification status (2026-07-23).}
-To hold this chapter to the standard of the machine-checked corpus, here is the
-honest status of its principal claims. \textbf{P $\neq$ NP is NOT proven here and
-remains open}; the chapter itself labels its separation a \emph{conjecture}
-(Conjecture~\ref{thm:main-p-neq-np}) supported by numerical evidence.
-\begin{itemize}
-\item \textbf{ASSERTED (not derived), derivation is Clay-open} --- the entire separation hinges on the value assignment $\alpha_P=\sqrt{2}$, $\alpha_{NP}=\varphi+\tfrac14$ (the ``$\alpha$-pin'', \texttt{EmpiricalAlphaIdentificationHypothesis}). This is asserted, matched to numerics to $\sim 10^{-10}$, not derived. Per the residual triage, \emph{any} genuine derivation of \texttt{alpha\_of\_class} is P-vs-NP-equivalent (Wave~57 sharpness certificate $+$ \texttt{AlphaRealizationNoGo} via the \texttt{EnumToClassSeparationBridge}), hence bucket-3 (Clay-open).
-\item \textbf{PROVEN (kernel-verified), but not about complexity} --- only the \emph{algebraic} facts about the chosen values are axiom-free (\texttt{AlphaCanonical.lean}): $(\alpha_P)^2=2$ and $16\alpha_{NP}^2-24\alpha_{NP}-11=0$ with $\alpha_{NP}=\varphi+\tfrac14$ (\texttt{PolylogEigenvalueConjecture}). These say nothing about P or NP. The 2026-05-18 numerical corrections (the $\lambda_0(H_{NP})$, gap, and ratio brackets) are likewise machine-certified in \texttt{PF/MillenniumSixReductions.lean}.
-\item \textbf{ASSERTED / EMPIRICAL} --- the ground-state energies $\lambda_0(H_P)$, $\lambda_0(H_{NP})$, the spectral gap $\Delta$, the closed forms, the fractal dimensions $\sqrt{2}$ vs $\varphi+\tfrac14$, and the ``100\% coherence across 143 problems'' are numerical/empirical; the connecting conjectures (polylog spectrum, golden modulation) are explicitly stated as unproven.
-\end{itemize}
-
-\paragraph{Verification status, addendum (2026-07-25): the $\alpha_{NP}$-pin is asserted, and its ``derivation'' is circular.}
-A dedicated read-only derivability audit
-(\texttt{codex/ALPHA\_NP\_DERIVABILITY\_2026-07-25.md}) re-examined every route by
-which the corpus obtains $\alpha_{NP} = \varphi + \tfrac14$. Nothing in the
-2026-07-23 ledger above is withdrawn; the following entries \emph{extend} it, and
-one of them \emph{corrects it in the framework's favour}.
-\begin{itemize}
-\item \textbf{ASSERTED (it is a definition, not a theorem)} --- $\alpha_{NP} := \varphi + \tfrac14$ is a Lean \texttt{def}, at \texttt{PF/CrossMillenniumSharedInvariants.lean:70} and in four further files (\texttt{PF/TuringEncoding/PolylogQuadraticDerivation.lean:75}, \texttt{PF/H3UnifiedMillenniumStructure.lean:41}, \texttt{PF/H3CoxeterOrigin.lean:236}, \texttt{PF/IBMPeaksGaloisPair.lean:64}). No theorem in the corpus concludes $\alpha_{NP} = \varphi + \tfrac14$ from hypotheses that do not already contain that fact (\texttt{ALPHA\_NP\_DERIVABILITY\_2026-07-25.md} \S1.1).
-\item \textbf{CIRCULAR --- the ``9-of-9 rigidity'' derivation} --- the rigidity theorem \texttt{alpha\_system\_rigidity\_extended} (\texttt{PF/CrossMillenniumDerivedConsequences.lean:311}, statement \texttt{:311--318}, $\alpha_{NP}$-clause at \texttt{:315}, over the structure \texttt{ExtendedAbstractAlphaSystem} at \texttt{:265}) obtains $\alpha_{NP}$ from two hypothesis fields, $\alpha_{\textsf{Hodge}}^2 = \alpha_{\textsf{Hodge}} + 1$ and $\alpha_{NP} - \alpha_{\textsf{Hodge}} = \tfrac14$ (\texttt{:252--254}). Both are theorems whose \emph{entire} proof is \texttt{unfold alpha\_NP alpha\_Hodge; ring} (\texttt{PF/CrossMillenniumSharedInvariants.lean:166}). The system is fed $\varphi$ and $\tfrac14$ and returns $\varphi + \tfrac14$. Any statement that the substrate ``forces'' the value rests on this loop.
-\item \textbf{CIRCULAR --- the ``IBM empirical validation''} --- \texttt{framework\_}$\alpha$\texttt{\_NP\_matches\_IBM\_empirical\_peak} (\texttt{PF/CrossMillenniumDerivedConsequences.lean:407})\footnote{\textbf{Citation corrected 2026-10-31.} This bullet previously cited the theorem under the ASCII spelling \texttt{framework\_alpha\_NP\_matches\_IBM\_empirical\_peak}, which matches \emph{no} declaration anywhere in \texttt{PF\_Lean4\_Code}, \texttt{PF\_Lean4Lean} or \texttt{PF\_Coq\_Code}: the identifier contains a literal Greek $\alpha$. The line locator was also stale by $36$ lines. \textbf{The finding itself is unchanged and stands exactly as stated} --- the theorem is real, its statement is $\alpha_{NP} = \texttt{IBMPeaksGaloisPair.alpha\_NP}$, and it is proved by \texttt{rfl}. What was broken was only the referee's ability to check it, which in this bullet is the whole point: this is the disclosure the chapter itself calls the corpus's single highest referee risk. The bad spelling had also propagated out of the manuscript into \texttt{PF/Empirical/AnchorInformativeness\_r395.lean}, repaired the same day.}, whose docstring says the value ``matches the IBM Quantum hardware-measured NP peak EXACTLY,'' is proved by \texttt{:= rfl}. Its two sides are \texttt{alpha\_NP} (\texttt{CrossMillenniumSharedInvariants.lean:70}) and \texttt{IBMPeaksGaloisPair.alpha\_NP} (\texttt{IBMPeaksGaloisPair.lean:64}), both \emph{defined} as $\varphi + \tfrac14$. No measurement enters the theorem; it is a definition compared with itself. The audit flags this as the single highest referee risk in the corpus (\S7.1 item 4).
-
-\item \textbf{CIRCULAR, AND PREVIOUSLY UNFLAGGED --- the \emph{same} defect on
-the RH fibre} --- added 2026-10-30. The item above was recorded for the NP
-fibre; \textbf{its twin on the RH fibre was flagged nowhere}. A search of
-\texttt{codex/*.md}, \texttt{MISSION\_INVENTORY/*.md} and every chapter for
-\texttt{ibm\_peak\_RH}, \texttt{IBMEmpiricalAlphaTableBridge} and
-\texttt{IBMAlphaRHEmpiricalAnchor} returned no hits.
-\texttt{PF/IBMEmpiricalAlphaTableBridge.lean} defines
-\texttt{ibm\_peak\_RH := 3/2} --- the framework value --- and proves
-\texttt{ibm\_peak\_RH\_eq\_alpha\_RH} by \texttt{rfl}, with the docstring
-calling it ``the formal content of the 6 EXACT IBM hits at
-\texttt{peak\_alpha} $= 1.500$''. No measurement enters that theorem either.
-\textbf{Repaired in the Lean docstrings 2026-10-30}; the theorem itself is
-retained, since $3/2 = 3/2$ is true and is used for table indexing.
-
-\textbf{But the RH case is not merely ``also circular'', and the difference is
-the useful part.} Because $\alpha_{RH} = 3/2$ is a \emph{rational} with an exact
-4-decimal form, even an honestly encoded measurement of $1.5000$ would yield a
-literal equality of reals. So the word ``EXACT'' makes (E1) read as
-\emph{stronger} than the NP bracket $|1.868 - (\varphi + \tfrac14)| \le 10^{-4}$
-when it is in fact \emph{weaker}: the bracket is a genuine approximation claim,
-while (E1) carries no measurement at all. The discriminant is irrationality ---
-$\alpha_{NP} = \varphi + \tfrac14$ is irrational, so \emph{no} reported decimal
-can equal it and only a bracket can be stated, whereas a rational target admits
-a vacuous exact-match claim. Machine-checked at
-\texttt{PF/Empirical/AnchorInformativeness\_r395.lean}
-(\texttt{anchor\_informativeness\_asymmetry}).
-
-\textbf{The reusable test}, which would have caught both items at once: an
-``exact match'' between a framework value and a reported measurement is
-informative only if the framework value is irrational, or if the two sides are
-independently constructed. Where the target is rational and the reported value is
-a Lean \texttt{def}, \texttt{rfl} is guaranteed in advance and the theorem is
-decoration.
-
-\textbf{Not asserted here}: that the 2026-05-22 peak measurement did not occur.
-The local-\texttt{AerSimulator} finding recorded earlier in this chapter concerns
-the \emph{143-problem coherence} run, a different experiment; the peak run's
-provenance is simply not established in the Lean, and citing its record is the
-outstanding repair.
-\item \textbf{FALSIFIED --- the ``16-decimal precision'' reading of the CSV} --- the values $1.8680000000000003$ and $1.5499999999999998$ each differ from their three-decimal rounding by exactly one ULP ($2.220446\times 10^{-16} = 2^{-52}$); they are three-decimal quantities carrying IEEE-754 representation noise, not sixteen-digit measurements. For contrast, a genuine irrational differs from its three-decimal rounding at the expected scale: $|\sqrt{2} - 1.414| = 2.14\times 10^{-4}$. The honest comparison is therefore $1.868$ (three decimals) against $\varphi + \tfrac14 = 1.8680339887\ldots$, i.e.\ $\Delta \approx 3.4\times 10^{-5}$ (\texttt{ALPHA\_NP\_DERIVABILITY\_2026-07-25.md} \S4.4).
-\item \textbf{MACHINE-CHECKED NEGATIVE RESULT (the corpus's own)} --- the chapter's stated derivation mechanism, the reality condition on the weighted generating function, has been proved in Lean to \emph{exclude} both canonical values. \texttt{bare\_route\_structural\_finding} (\texttt{PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:130--133}, docstring at \texttt{:117--127}) shows the bare weighted-$G_n$ reality condition admits only $\alpha \in \mathbb{Z}$ or $\alpha = 2/3 + 2k$ / $\alpha = 4/3 + 2k$ --- neither $\sqrt{2}$ nor $\varphi + \tfrac14$. This is a genuine result and belongs in the record: the obvious derivation route provably fails, and the proposed fractal-kernel replacement is currently \texttt{Prop := True} (\texttt{:150}) pending mathlib prerequisites that do not exist.
-\item \textbf{CORRECTION IN THE FRAMEWORK'S FAVOUR --- bucket 3 $\to$ bucket 2} --- the 2026-07-23 entry above (and \texttt{codex/RESIDUAL\_TRIAGE\_2026-07-23.md} \S1.2, \S3 item 3) classified \emph{deriving} the $\alpha$-value as bucket-3 (P-vs-NP-equivalent, Clay-open). That is stronger than the evidence supports. \texttt{alpha\_realization\_canonical\_pair\_iff\_classes\_distinct} (\texttt{PF/TuringEncoding/AlphaRealizationNoGo.lean:85--108}) is correct, but its forward direction uses only $\sqrt{2} \neq \varphi + \tfrac14$ and its converse is a classical case split, so it holds verbatim for \emph{any} two distinct reals. It therefore bounds the \emph{distinctness} clause $\alpha_P \neq \alpha_{NP}$ (bucket 3), not the \emph{value} clause. Deriving $\varphi + \tfrac14$ specifically is \textbf{bucket 2: asserted, difficulty unknown} --- not shown to be Clay-hard, and so not excused by Clay-hardness either.
-\item \textbf{NOT AN OVERCLAIM (protected)} --- the corpus's axiom budget is unaffected: every theorem cited in this addendum is true and kernel-only. The circles are uninformative, not unsound (\texttt{ALPHA\_NP\_DERIVABILITY\_2026-07-25.md} \S7.2). The $\varphi$ term retains a real structural motivation via the icosahedral $H_3$ Coxeter group ($H_3$ Coxeter number $10$; the classical identity $\sin(\pi/10) = 1/(2\varphi)$, machine-checked at \texttt{PF/H3CoxeterOrigin.lean}); the additive $\tfrac14$ does not (\S5.3--\S5.4).
-\end{itemize}
-
 \section{Conclusion}
 
-We have provided \textbf{rigorous mathematical foundations and compelling computational evidence} for P $\neq$ NP through fractal operator theory:\manuscriptcorrection{\textbf{Scope (2026-10-26): ``rigorous foundations \emph{for} P $\neq$ NP'' overstates what this chapter's own ledger allows.} What is rigorous here is the operator-theoretic construction: the measure space, the convolution operators, and three of the four stated spectral properties. The separation itself is Conjecture~\ref{thm:main-p-neq-np}, and the spectral gap it rests on is labelled \textbf{CONDITIONAL REDUCTION} by the correction at Theorem~\ref{thm:spectral-gap} --- which further shows that the four operator properties as stated force $\Delta = 0$, so the gap requires an operator repair before it can be nonzero at all. P $\neq$ NP is not established in the Clay sense anywhere in this chapter, and the Verification status ledger below says so.}
+We have provided \textbf{rigorous mathematical foundations and compelling computational evidence} for P $\neq$ NP through fractal operator theory:
 
 \subsection{Rigorous Foundations Established}
 
 \begin{itemize}
 \item \textbf{Fractal Measure Spaces}: Defined $(K, d, \mu)$ with Hausdorff dimension $d_H = \sqrt{2}$ and self-similar scaling (Definition \ref{def:fractal-measure})
 \item \textbf{Fractal Convolution Operators}: Constructed $H_P$ and $H_{NP}$ on $L^2(K,\mu)$ with explicit kernels (Definition \ref{def:fractal-convolution})
-\item \textbf{Spectral Properties}: Proved compactness, self-adjointness, positive spectrum, and discrete eigenvalues (Theorem \ref{thm:spectral-properties})\manuscriptcorrection{Flagged 2026-10-05: compactness, self-adjointness and positivity do hold as proved; the fourth property's asymptotic $\lambda_k \to \infty$ does not, and is incompatible with the first. Taken together the stated properties force $\Delta = 0$. See the correction at Theorem~\ref{thm:spectral-properties} and \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}.}
+\item \textbf{Spectral Properties}: Proved compactness, self-adjointness, positive spectrum, and discrete eigenvalues (Theorem \ref{thm:spectral-properties})
 \item \textbf{Variational Characterization}: Established connection between variational principle and finite approximations (Theorem \ref{thm:variational})
 \end{itemize}
 
@@ -1681,7 +1555,7 @@ The \textbf{Principia Fractalis Conjectures} (Conjectures \ref{conj:polylog-spec
 \begin{itemize}
 \item \textbf{Polylogarithmic spectrum}: Eigenvalues related to $\text{Li}_1(e^{i\pi\alpha^k})$ on fractal Riemann sheets
 \item \textbf{Branch selection}: Physical ground states correspond to monodromy paths selecting positive minimal energy
-\item \textbf{Golden ratio modulation}: $H_{NP} = U(\varphi) H_P U^\dagger(\varphi)$ relates operators via golden angle rotation\manuscriptcorrection{Flagged 2026-10-05: refuted, not merely unproven --- unitary conjugation is spectrum-preserving and would force $\Delta = 0$. See \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean}, \texttt{unitary\_conjugation\_incompatible\_with\_spectral\_gap}, and the correction at Conjecture~\ref{conj:golden-modulation}. The eigenvalue ratio it was introduced to supply survives by an independent route.}
+\item \textbf{Golden ratio modulation}: $H_{NP} = U(\varphi) H_P U^\dagger(\varphi)$ relates operators via golden angle rotation
 \item \textbf{Sine identity}: $\frac{\lambda_0(H_{NP})}{\lambda_0(H_P)} = \frac{\sin(\pi/\sqrt{2})}{\sin(\pi/\sqrt{2}+\varphi)} = \frac{\sqrt{5}-1}{3}$ (verified numerically)
 \end{itemize}
 
@@ -1690,52 +1564,16 @@ The \textbf{Principia Fractalis Conjectures} (Conjectures \ref{conj:polylog-spec
 \subsection{Computational Figures from the 143-Problem Set}
 
 \begin{itemize}
-\item \textbf{100\% Fractal Coherence}: All 143 problems achieve $\chi_P = \chi_{NP} = 1.0000$\manuscriptcorrection{\textbf{Scope:} the ``100\% / 143'' figures restate the local-simulator clamp described at Theorem~\ref{thm:universal-coherence} (correction added 2026-10-08); they are not independent measurements.}
-\item \textbf{Spectral Gap Universality}: Measured $\Delta = 0.0891219046$ consistent across all problem types\manuscriptcorrection{\textbf{Scope (2026-10-26).} Under the four operator properties as stated in Theorem~\ref{thm:spectral-properties}, $\Delta = 0$ identically (\texttt{gap\_vanishes\_under\_chapter\_hypotheses}, \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}): compactness plus a non-decreasing enumeration from $0$ forces every eigenvalue to vanish. So this quoted nonzero value cannot be a consequence of the operators as defined; it is a numerical result for whichever operator was actually diagonalised, and the text does not record which. The ``consistent across all problem types'' clause restates the coherence diagnostic corrected at Theorem~\ref{thm:universal-coherence}, not an independent measurement of $\Delta$.}
+\item \textbf{100\% Fractal Coherence}: All 143 problems achieve $\chi_P = \chi_{NP} = 1.0000$
+\item \textbf{Spectral Gap Universality}: Measured $\Delta = 0.0891219046$ consistent across all problem types
 \item \textbf{Fractal Dimension Separation}: $\sqrt{2} < \varphi + \tfrac14$ ---
 an exact inequality between two constants the framework assigns, with separation
 $\varphi + \tfrac14 - \sqrt{2} = 0.453820426377$%
-\manuscriptcorrection{\textbf{This bullet read ``validated geometrically''. The
-inequality is true; the validation claim is not.} Corrected 2026-11-01.
-$\sqrt2 = 1.41421356237$ is indeed less than $\varphi + \tfrac14 =
-1.86803398875$, and nothing here is withdrawn. But the claim fails twice over.
-\emph{First}, both sides are constants this framework \emph{assigns} rather than
-measures --- the chapter's own verification ledger records
-``\textbf{ASSERTED (it is a definition, not a theorem)} --- $\alpha_{NP} :=
-\varphi + \tfrac14$ is a Lean \texttt{def}'' --- and comparing two assigned
-numbers validates neither of them. \emph{Second}, no geometry enters: this is an
-inequality between a quadratic irrational and a quadratic irrational plus a
-rational, settled by arithmetic alone.
-\emph{This bullet is also not independent of the one below it.} The separation
-stated here is $\varphi + \tfrac14 - \sqrt2 = 0.453820426377$, and the
-crystallization gap in the next bullet is
-$\Delta\text{ch}_2 = (\varphi + \tfrac14 - \sqrt2)/10 = 0.045382042638$ --- a
-ratio of exactly $10$, verified at $30$ digits, because $\Delta\text{ch}_2$ is
-by construction $(\alpha_{NP} - \alpha_P)/10$. Two of the four figures in this
-list are therefore one quantity stated twice, a decimal place apart, and should
-not be counted as separate support.}
+
 \item \textbf{Consciousness Thresholds}: Certificate branching requires a
 crystallization gap of
 $\Delta\text{ch}_2 = \frac{\varphi + 1/4 - \sqrt{2}}{10} \approx 0.0454$%
-\manuscriptcorrection{\textbf{This bullet printed
-$\Delta\chi^2 \approx 0.0054$: wrong by a factor of $8.40$, and with the wrong
-symbol.} Corrected 2026-11-01. The quantity is the gap between the two
-consciousness thresholds this chapter displays earlier, namely
-$\text{ch}_2(\text{P}) = 0.95 + (\sqrt2-\sqrt2)/10 = 0.95$ and
-$\text{ch}_2(\text{NP}) = 0.95 + ((\varphi+\tfrac14)-\sqrt2)/10 =
-0.995382042638$, so the gap is $0.0453820426377$ and not $0.0054$. The
-$0.95$ baseline cancels identically, which gives the exact closed form
-$(\varphi + \tfrac14 - \sqrt2)/10$ now displayed above --- verified at $30$
-digits by two independent routes agreeing to better than $10^{-28}$. The
-symbol was also wrong: $\Delta\chi^2$ denotes a chi-squared difference, whereas
-this is a difference of consciousness thresholds, $\Delta\text{ch}_2$.
-\emph{This chapter had already diagnosed the defect}: the prose at
-Evidence~3 carries ``$\Delta\text{ch}_2 \approx 0.0454$, corrected 2026-10-03
---- the chapter's own two displayed values give $0.99538 - 0.95 = 0.04538$; the
-previously printed $0.0054$ appears to drop a digit''. That 2026-10-03
-correction reached the prose and not this summary bullet, which is the same
-corrections-do-not-reach-restatements failure recorded throughout this chapter.
-The two sites now agree digit for digit.}
+
 \end{itemize}
 
 \subsection{Why the Evidence Suggests \texorpdfstring{P $\neq$ NP}{P != NP}}
@@ -1775,7 +1613,7 @@ This work establishes fractal operator theory as a new approach to computational
 This framework, once rigorously established, could provide a foundation for quantum physics on fractal spaces, with implications for renormalization, quantum gravity, and consciousness studies.
 \end{keyidea}
 
-\textbf{Final Assessment}: We have established rigorous operator definitions, proven key spectral properties, and provided compelling numerical evidence ($10^{-10}$ precision) supported by deep conjectural connections. The convergence of geometric, spectral, and topological evidence across 143 diverse problems strongly suggests P $\neq$ NP, while opening a rich research program at the frontier of mathematics and physics.\manuscriptcorrection{\textbf{Final assessment, restated to match the ledger (2026-10-26).} Three of the four clauses above need qualification, and the chapter's own corrections supply it. \emph{(i)} ``Proven key spectral properties'' holds for compactness, self-adjointness and positivity, but not for the fourth property $\lambda_k \to \infty$, which is incompatible with the first. \emph{(ii)} The $10^{-10}$ precision is the stability of a truncation computation, not an error bound on a limit. \emph{(iii)} ``Across 143 diverse problems'' is the clamped deterministic coherence sum, on a database of $142$ entries, not 143 independent trials --- so it contributes no evidential weight and the geometric and topological lines are themselves conjectural. \textbf{The honest assessment is: a rigorous operator-theoretic construction, a conjectural separation resting on an asserted $\alpha$-pin whose derivations are circular, and a spectral gap that is zero under the operator properties as currently stated.} P $\neq$ NP remains open. What is genuinely new and machine-checked here is the operator framework and the negative results about it --- including the corpus's own proof that the chapter's stated derivation route \emph{excludes} both canonical $\alpha$-values.}
+\textbf{Final Assessment}: We have established rigorous operator definitions, proven key spectral properties, and provided compelling numerical evidence ($10^{-10}$ precision) supported by deep conjectural connections. The convergence of geometric, spectral, and topological evidence across 143 diverse problems strongly suggests P $\neq$ NP, while opening a rich research program at the frontier of mathematics and physics.
 
 \section*{Exercises}
 

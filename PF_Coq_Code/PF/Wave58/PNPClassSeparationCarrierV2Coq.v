@@ -39,7 +39,7 @@
       via Cook 1971.
     - `not_Literal_P_neq_NP_V2_under_True_placeholder` -- honest
       scope corollary.
-    - `pnp_carrier_V2_honest_scope_capstone` -- bundles all three.
+    - `pnp_carrier_V2_referee_scope_capstone` -- bundles all three.
 
   ## What this file delivers (Coq side)
 
@@ -265,8 +265,8 @@ Qed.
 
 (** ## §9 -- V2 carrier honest-scope capstone
 
-    Mirrors Lean `pnp_carrier_V2_honest_scope_capstone`. *)
-Theorem pnp_carrier_V2_honest_scope_capstone :
+    Mirrors Lean `pnp_carrier_V2_referee_scope_capstone`. *)
+Theorem pnp_carrier_V2_referee_scope_capstone :
   (* (1) Cook 1971 P subset NP on V2. *)
   (forall L : DecidableProblemV2,
      class_P_typedV2 L -> class_NP_typedV2 L) /\
@@ -284,10 +284,10 @@ Qed.
 
 (** ## §10 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 End PNPClassSeparationCarrierV2.

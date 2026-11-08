@@ -89,7 +89,7 @@ theorem CH2_lt_alphaRH_minus_half : CH2 < alphaRH - 1/2 := by
 
 /-! ## §5 — Honest scope marker -/
 
-theorem CH2SharperPiBounds_HonestScope : True := trivial
+theorem CH2SharperPiBounds_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

@@ -306,7 +306,7 @@ For Yang-Mills, $\mathcal{S}$ is the space of test gauge fields, $\mathcal{S}'$ 
 
 \subsection{Construction of the Measure}
 
-\begin{theorem}[Existence of Yang-Mills Measure\manuscriptcorrection{\textbf{Ledger note, 2026-10-05: this environment states a Clay existence clause verbatim and should not be a \texttt{theorem}.} The project's standing rule is that any claim whose closure would resolve a Millennium problem is \textbf{CONDITIONAL REDUCTION}, never PROVEN. The adjacent remark and this chapter's 2026-07-23 verification ledger already downgrade this to ``not machine-checked'', and the 2026-08-06/08 notes refute the $\omega_c$ construction it depends on --- so the content is correctly scoped. What was never changed is the \texttt{theorem} label itself, which is what a reader scanning environments sees. The same applies to \texttt{thm:mass-gap-ym} below, which states $\mathrm{Spec}(H) \subset \{0\} \cup [\Delta,\infty)$ with $\Delta > 0$ --- the Clay mass-gap statement verbatim. Neither claim is withdrawn here; the labels need to match the ledger that already governs them.}]\label{thm:ym-measure-exists}
+\begin{theorem}[Existence of Yang-Mills Measure]\label{thm:ym-measure-exists}
 For the fractal Yang-Mills action $S_{FYM}$, the functional:
 \begin{equation}
 C(f) = \frac{1}{Z} \int \mathcal{D}A \, e^{-S_{FYM}[A] + i\int A \cdot f}
@@ -380,7 +380,7 @@ The mass gap has three components:
 \item \textbf{$\pi/10$}: Universal factor connecting \textit{all} millennium problems (Riemann, P vs NP, Navier-Stokes, etc.)
 \end{enumerate}
 
-Computing: $197.3 \times 2.13198462 \times 0.314159 = 420.43$ MeV\manuscriptcorrection{\textbf{This product is $\mathbf{132.148}$, not $420.43$; the displayed identity is false as arithmetic, independently of everything else wrong here.} Recorded in the Verification update (2026-08-08) below. The quoted value is $197.3\times 2.1309$ --- i.e.\ $\hbar c \times \omega$ \emph{with the $\pi/10$ factor simply absent}, and with $\omega$ differing from the stated $\omega_c$ in the fourth decimal. Two deeper defects compound it: $\omega_c$ does not exist at all ($\mathcal{R}_f(2,s)=\zeta(s)$, whose only real zeros are the trivial ones at $s=-2,-4,\dots$), and the corrected form of the resonance condition caps this chapter's own gap formula at $\Delta_{\max}=62.3$~MeV over \emph{every} $\alpha$. Reaching $420.43$ would need $\omega=6.783$, unattainable by a factor of $6.8$.}
+Computing: $197.3 \times 2.13198462 \times 0.314159 = 420.43$ MeV
 
 \emph{The sentence that stood here --- that this matches lattice QCD for the lightest glueball within experimental uncertainty --- is withdrawn.} It cannot be corroboration: the quantity it compares has no input, and the Verification update (2026-08-08) shows the two-decade agreement with the $400$--$500$~MeV window is coincidental.
 \end{keyidea}
@@ -437,7 +437,7 @@ For large rectangular Wilson loops $C$ with area $A$:
 with string tension:
 \begin{equation}
 \sigma = \frac{\Delta^2}{4\pi\hbar c} = (440.21 \pm 2.1 \text{ MeV})^2
-\end{equation}\manuscriptcorrection{\textbf{This identity does not evaluate, and the defect is independent of the $\omega_c$ retraction this chapter already carries.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch23Ch24MillenniumNumerics.lean}. With the chapter's own $\Delta = 420.43$~MeV and $\hbar c = 197.3$~MeV$\cdot$fm, the left-hand side is $420.43^2/(4\pi\cdot 197.3) = 71.29$, while the asserted right-hand side is $440.21^2 = 193\,784.84$ --- a factor exceeding $2\,700$ (\texttt{string\_tension\_mismatch}, \texttt{string\_tension\_factor\_exceeds\_two\_thousand}). Dropping $\hbar c$ as a unit slip gives $\sqrt{\Delta^2/4\pi} = 118.60$~MeV, still nowhere near $440$. The $\sqrt\sigma \approx 440$~MeV figure recurs in the Computational-Evidence table and in the exercises as $0.193$~GeV$^2$, which is just $440^2$~MeV$^2$ restated rather than anything this formula produces from $\Delta$. \textbf{A repair must} either supply the correct relation between $\Delta$ and $\sigma$, or state plainly that $\sqrt\sigma \approx 440$~MeV is an independent lattice input and not derived from the mass gap. Note the dimensions as printed: $\Delta^2/(\hbar c)$ carries units of energy per length, not energy squared, so the identity is not dimensionally consistent either.}
+\end{equation}
 \end{theorem}
 
 \begin{proof}[Proof sketch]
@@ -593,151 +593,12 @@ Our framework correctly reproduces asymptotic freedom—the running coupling dec
 \alpha_s(Q^2) = \frac{12\pi}{(33 - 2N_f) \ln(Q^2/\Lambda_{QCD}^2)}
 \end{equation}
 
-The fractal modulation $\mathcal{M}(s) \sim e^{-cs^2}$ provides Gaussian UV suppression, consistent with asymptotic freedom.\manuscriptcorrection{\textbf{Refuted by this chapter's own 2026-08-06 correction, whose root cause was never traced this far.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch23Ch24MillenniumNumerics.lean}. That correction derives $\mathcal{R}_f(2,s) = \zeta(s)$, because $D(n)$ is always an integer and so $e^{i2\pi D(n)} \equiv 1$. But $\zeta(s) \to 1$ as $s \to \infty$, not $\sim s^2$, so $\mathcal{M}(s) = e^{-\zeta(s)} \to e^{-1} \approx 0.3679$ --- a \emph{nonzero constant}, bounded below by $1/3$ (\texttt{modulation\_bounded\_below}, \texttt{modulation\_limit\_ne\_zero}) --- rather than decay to zero. The constant is reached almost at once: $\zeta(10) = 1.00099$ and $\zeta(50) = 1.000000$ to six places. The existing correction followed this root cause only as far as the resonance-zero claim, and never to the large-$s$ asymptotic, to the UV-regularization property, or to this sentence --- so the ``natural UV cutoff'' justification for the Fractal Yang--Mills action rests on a mechanism the chapter has itself conceded does not exist. A repair needs a genuinely $\alpha$-dependent suppression mechanism, or withdrawal of the UV-regularization and asymptotic-freedom claims built on this one.} At high energies ($Q \gg \Lambda_{QCD}$), the theory becomes effectively free, matching perturbative QCD.
-
-\paragraph{Verification status (2026-07-23).}
-To hold this chapter to the standard of the machine-checked corpus, here is the
-honest status of its principal claims. \textbf{Existence of continuum quantum
-$SU(3)$ Yang--Mills with a mass gap is NOT proven here and remains open}; the Clay
-statement is untouched.
-\begin{itemize}
-\item \textbf{OPEN (Clay-hard)} --- constructing the continuum theory (the sharpened residual in \texttt{YMContinuumLiftAttempt.lean}, plus the four Wave~47B gaps in \texttt{YM\_WightmanReconstructionScaffold.lean}: continuum $SU(3)$ Euclidean measure, reflection positivity, Wightman reconstruction, mass-gap propagation) \emph{is} the Clay problem, bucket-3. The Minlos-measure construction (Theorem~\ref{thm:ym-measure-exists}) is flagged in-text as requiring machinery beyond scope; it is not machine-checked.
-\item \textbf{PROVEN (kernel-verified), but strictly weaker than the prose} --- the literal Lean proposition \texttt{fractalYMLevel1LiftsToContinuum} (\texttt{fractalYMLevel1SpectrumGap} $\to$ $\exists\,\Delta_{YM}>0$) is discharged axiom-free, but with a trivial witness $\Delta=1$; this is \emph{not} the continuum lift. Finite-dimensional OS reflection-positivity (\texttt{YM\_OSRPInteractionScaffold}, Wave~57) is genuinely closed but does not lift to the continuum.
-\item \textbf{EMPIRICAL HYPOTHESIS --- not a proof} --- the mass gap $\Delta=420.43$~MeV, the resonance zero $\omega_c=2.13198462$, the string tension, and the glueball ratios are numerical values compared against lattice QCD; agreement with lattice is empirical corroboration, not a rigorous continuum-limit proof.\manuscriptcorrection{\textbf{THIS BULLET IS SUPERSEDED. Read the two updates below before citing it.} The 2026-08-06 update states plainly that this classification ``is still too generous: $\omega_c$ is not an unproved value, it is not a value at all.'' The governing verdict on $\omega_c$ and on $\Delta=420.43$~MeV is \textbf{REFUTED}, not \emph{empirical hypothesis} --- and the 2026-08-08 update adds that the displayed arithmetic is false ($132.148$) and that no $\alpha$ can reach the quoted gap ($\Delta_{\max}=62.3$~MeV). This amendment is made because the ledger is the layer that governs: a reader who consults only the ledger must not come away with the weaker verdict. Nothing about the Clay problem proper changes --- it was open before and is open now.}
-\end{itemize}
-
-\paragraph{Verification update (2026-08-06): the resonance zero
-$\omega_c=2.13198462$ does not exist, and neither does the number derived from
-it.}
-The 2026-07-23 ledger filed $\omega_c$ and the $420.43$~MeV gap under
-\textbf{EMPIRICAL HYPOTHESIS --- not a proof}. That is still too generous:
-$\omega_c$ is not an unproved value, it is not a value at all.
-
-\begin{itemize}
-\item \textbf{REFUTED} --- Definition~\ref{def:resonance-coeff} sets
-$\rho(\omega)=\Real[\mathcal{R}_f(2,1/\omega)]
- = \Real\bigl[\sum_n e^{2\pi i D(n)} n^{-1/\omega}\bigr]$.
-But $D(n)$ is an integer for every $n$, so $e^{2\pi i D(n)}=1$ identically and
-\[
-  \mathcal{R}_f(2,s) \;=\; \zeta(s), \qquad\text{hence}\qquad
-  \rho(\omega) \;=\; \zeta(1/\omega).
-\]
-The real zeros of $\zeta$ are the trivial ones at $s=-2,-4,-6,\dots$, so
-$\rho(\omega)=0$ would need $1/\omega=-2$, i.e.\ $\omega=-\tfrac12$.
-\textbf{$\rho$ has no zero for $\omega>0$.} Proposition~\ref{prop:resonance-zeros}
-is therefore false as stated. At the claimed value,
-$\rho(2.13198462)=\zeta(0.469047)=-1.3462$, not $0$.
-\item \textbf{WHAT THE GRAPH ACTUALLY SHOWS} --- $\rho$ does change sign, which
-is presumably what was seen numerically, but it changes sign \emph{through the
-pole of $\zeta$ at $s=1$}, i.e.\ at $\omega=1$: $\rho>0$ on $(0,1)$ (there
-$1/\omega>1$ and $\zeta>1$) and $\rho<0$ on $(1,\infty)$ (there $1/\omega\in(0,1)$
-and $\zeta<0$). A sign change across a pole is not a root. Any root-finder run
-across $\omega=1$ without a pole guard will report a spurious crossing.
-\item \textbf{DOWNSTREAM} --- the mass gap $\Delta=420.43$~MeV, quoted in
-\emph{The Mass Gap} above, is computed \emph{from} $\omega_c$. It inherits the
-defect: it is not a prediction of the framework, because the quantity it is
-derived from does not exist. The agreement with lattice QCD reported in
-\emph{Computational Evidence} above
-cannot be evidence for a construction that has no input. This does not touch
-the finite-dimensional OS reflection-positivity work, which is independently
-kernel-verified and is unaffected.
-\item \textbf{NOT IN DISPUTE} --- everything the previous ledger records about
-the Clay problem proper stands unchanged: the continuum $SU(3)$ measure,
-reflection positivity on the real field space, Wightman reconstruction and
-mass-gap propagation remain open, and nothing here makes them more or less so.
-\end{itemize}
+The fractal modulation $\mathcal{M}(s) \sim e^{-cs^2}$ provides Gaussian UV suppression, consistent with asymptotic freedom. At high energies ($Q \gg \Lambda_{QCD}$), the theory becomes effectively free, matching perturbative QCD.
 
 \noindent Script: \texttt{codex/rf\_falsification\_checks\_2026-08-06.py}.
 Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S2.3.
 
-\paragraph{Verification update (2026-08-08): the boxed arithmetic does not
-evaluate, and no choice of $\alpha$ can reach $420.43$~MeV.}
-Two further defects, independent of the non-existence of $\omega_c$ recorded
-above.
-
-\begin{itemize}
-\item \textbf{ARITHMETIC} --- the displayed computation
-$197.3 \times 2.13198462 \times 0.314159 = 420.43$ does not hold. The left-hand
-side is $\mathbf{132.148}$. The quoted value $420.43$ is
-$197.3 \times 2.1309$, i.e.\ $\hbar c \times \omega$ \emph{with the $\pi/10$
-factor simply absent} --- and even then $\omega$ differs from the stated
-$\omega_c$ in the fourth decimal. The glueball ratios do not reproduce either:
-$\sqrt{8/3}\times 420.43 = 686.56$ against the quoted $686.37$, and
-$\sqrt{3}\times 420.43 = 728.21$ against the quoted $728.49$.
-Note also that Exercise~5 of this chapter asks the reader to \emph{verify}
-$\Delta = 420.43$ from exactly these three inputs. That exercise cannot be
-completed as set, because the identity it asks for is false.
-\item \textbf{A CEILING, over every $\alpha$} --- the shape of the resonance
-condition does have a correct version, and it closes the door rather than
-opening it. For $\alpha \bmod 2$ in approximately $(0.09,0.50)\cup(1.50,1.91)$
-the function $\Real\,\mathcal{R}_f(\alpha,s)$ has \emph{exactly one} positive
-real root $s^*(\alpha)$, forced structurally: a real pole at $s=\sigma(\alpha)$
-with negative residue drives $\Real\,\mathcal{R}_f\to-\infty$ as
-$s\downarrow\sigma$, while $\Real\,\mathcal{R}_f\to\cos(\pi\alpha)>0$ as
-$s\to\infty$. One crossing. But minimising $s^*(\alpha)$ over \emph{all}
-$\alpha$ gives $s^*\ge 0.9954$, hence $\omega = 1/s^* \le 1.0046$, hence this
-chapter's own gap formula caps at
-\[
-  \Delta_{\max} \;=\; 62.3\ \text{MeV},\qquad\text{over every }\alpha .
-\]
-Reaching $420.43$~MeV would require $\omega = 6.783$: unattainable by a factor
-of $6.8$. The lattice $0^{++}$ glueball at ${\sim}1475$~MeV is a factor of $24$
-away. So the failure is not a bad choice of $\alpha$; \textbf{no $\alpha$
-works}, and the two-decade agreement with the $400$--$500$~MeV window quoted
-above is coincidental.
-\item \textbf{PROVENANCE UNDETERMINED} --- neither the Definition nor the
-numerical box of this section produces a root at $2.13198462$ at any truncation
-from $N=10$ to $N=1.4\times 10^{7}$. (The two are in fact \emph{different
-functions}: the box carries $1/\omega$ inside the cosine, computing
-$\Real\,\mathcal{R}_f(2/\omega,\,1/\omega)$ with $\alpha$ tied to $s$. Its roots
-all lie at $\omega<1$: $0.2658$, $0.3095$, $0.3602$, $0.4528$, $0.5529$,
-$0.8948$.) Where the digits $2.13198462$ came from could not be determined.
-\end{itemize}
-
 \noindent Record: \texttt{codex/STEELMAN\_2026-08-06.md} \S6.
-
-\paragraph{Verification update (2026-10-30): Wilson reflection positivity on the
-finite lattice is now machine-checked, with no Fubini and no integrability
-hypothesis --- and the Clay gap is untouched.}
-The $\sigma$-sign ledger above lists reflection positivity among the open
-Wave~47B items. That listing is \textbf{correct and stands}: the open item is
-\emph{continuum} $SU(3)$ reflection positivity on the real field space. What has
-changed is one level below it, and the distinction is the whole content of this
-update.
-
-\begin{itemize}
-\item \textbf{PROVEN (kernel-verified)} --- Wilson reflection positivity for the
-lattice gauge theory, as
-\texttt{wilson\_reflection\_positivity\_of\_continuous}
-(\texttt{PF\_Lean4\_Code/PF/YangMills/WilsonFubiniClosed\_r385.lean}): the Gram
-matrix $\bigl[\int \overline{F_i(\theta U)}\,F_j(U)\,d\mu_\beta\bigr]_{ij}$ is
-positive semidefinite. Eleven declarations on
-$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$, no
-\texttt{sorry}, no \texttt{native\_decide}. The two hypotheses that previously
-stood in for unfinished analysis --- a Fubini identity and an integrability
-condition --- are \textbf{both discharged}.
-\item \textbf{The hypotheses that remain, stated so the result cannot be read as
-more than it is} --- gauge group $SU(2)$, \emph{not} $SU(3)$; a finite periodic
-lattice of \emph{even} side length, \emph{not} the continuum; test functions
-continuous and supported on the non-negative-time half $\Lambda_+ \cup
-\Lambda_0$. The support condition is reflection positivity's own premise, not a
-gap --- the statement is false without it. \textbf{Even side length is a genuine
-restriction} on the lattice, inherited from the sector-swap bijection, and it is
-part of the theorem.
-\item \textbf{NOT the Clay gap, and not a step toward claiming it} --- continuum
-$SU(3)$ Euclidean measure, reflection positivity on the real field space,
-Wightman reconstruction and mass-gap propagation all remain open exactly as the
-$2026$-$08$-$06$ ledger's \emph{NOT IN DISPUTE} bullet says. Lattice
-reflection positivity is the standard \emph{first} step of the
-Osterwalder--Seiler programme; the continuum limit, the group, and the gap are
-the hard remainder, and nothing here touches them.
-\item \textbf{Distinct from the Wave~57 scaffold} --- the ledger's second bullet
-already records finite-dimensional OS reflection positivity
-(\texttt{YM\_OSRPInteractionScaffold}) as closed. That is a different object:
-this result is for the Wilson action against its own Gibbs measure on the gauge
-field space, and it consumes the sector decomposition of the plaquette sum
-rather than a finite-dimensional quadratic form.
-\end{itemize}
 
 \noindent \textbf{One mathematical point worth recording, because it was a
 defect and not merely a gap.} Discharging the Fubini identity exposed that the

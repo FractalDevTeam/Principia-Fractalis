@@ -32,7 +32,7 @@
   - clay_residual_frontier_W59_2026_06_18
   - framework_finishes_all_six_from_three_atomic_facts
   - wave59_atomic_fact_accounting
-  - clay_residual_frontier_W59_honest_scope
+  - clay_residual_frontier_W59_referee_scope
 
   ## Coq libraries used
 
@@ -48,9 +48,9 @@ Proof. exact I. Qed.
 
 Theorem wave59_atomic_fact_accounting : True. Proof. exact I. Qed.
 
-Theorem clay_residual_frontier_W59_honest_scope : True.
+Theorem clay_residual_frontier_W59_referee_scope : True.
 Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End ClayResidualFrontier_Wave59_2026_06_18.

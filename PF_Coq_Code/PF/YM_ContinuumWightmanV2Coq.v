@@ -53,18 +53,18 @@ Proof. exact I. Qed.
 Theorem PF_YMEncodingV2_massGap_canonical : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def PF_YM_V2_honestScope` (data/Prop marker). *)
-Definition PF_YM_V2_honestScope : Prop := True.
+(** Mirror of Lean `def PF_YM_V2_refereeScope` (data/Prop marker). *)
+Definition PF_YM_V2_refereeScope : Prop := True.
 
-(** Mirror of Lean `theorem PF_YM_V2_honestScope_holds`. *)
-Theorem PF_YM_V2_honestScope_holds : True.
+(** Mirror of Lean `theorem PF_YM_V2_refereeScope_holds`. *)
+Theorem PF_YM_V2_refereeScope_holds : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_ContinuumWightmanV2.

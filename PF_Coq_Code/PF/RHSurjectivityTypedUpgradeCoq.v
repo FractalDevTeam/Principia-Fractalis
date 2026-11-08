@@ -73,14 +73,14 @@ Theorem riemann_hypothesis_via_typed_and_inline_surjectivity : True.
 Proof. exact I. Qed.
 Theorem rh_surjectivity_typed_capstone : True.
 Proof. exact I. Qed.
-Theorem rh_surjectivity_typed_honest_scope : True.
+Theorem rh_surjectivity_typed_referee_scope : True.
 Proof. exact I. Qed.
 
 (** ## Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End RHSurjectivityTypedUpgrade.

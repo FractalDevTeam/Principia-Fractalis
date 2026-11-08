@@ -79,7 +79,7 @@ theorem spectral_gap_constant_nonneg (c : ℝ) (hc : 0 ≤ c) :
 
 /-- **Honest scope** for this file: concrete spectral identities at
     constant kernels. -/
-theorem SpectralExamplesConstant_HonestScope : True := trivial
+theorem SpectralExamplesConstant_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

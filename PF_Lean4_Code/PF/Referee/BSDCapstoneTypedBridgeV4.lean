@@ -592,7 +592,7 @@ theorem v4_residual_is_zero_on_undischarged
     relative to V3: 5 additional curve surfacings (4 CM rank-0 +
     1 rank-3); equality `rfl`-provable; Clay BSD form axiom-free
     on V4; backward bridges to V3/V2/V1. -/
-def PF_BSD_V4_honestScope : Prop :=
+def PF_BSD_V4_refereeScope : Prop :=
   -- (H1) V4 substrate equality is provable axiom-free.
   (∀ E : WeierstrassCurve ℚ, algebraicRankV4 E = analyticRankV4 E) ∧
   -- (H2) V4 ⇒ V3 backward-compat bridge.
@@ -619,7 +619,7 @@ def PF_BSD_V4_honestScope : Prop :=
   (∀ E : WeierstrassCurve ℚ, ¬ isV4Discharged E → manuscriptRankV4 E = 0)
 
 /-- The V4 honest-scope marker holds unconditionally. -/
-theorem PF_BSD_V4_honestScope_holds : PF_BSD_V4_honestScope :=
+theorem PF_BSD_V4_refereeScope_holds : PF_BSD_V4_refereeScope :=
   ⟨algebraicRankV4_eq_analyticRankV4,
    PF_BSD_capstoneV4_implies_V3,
    PF_BSD_capstoneV4_implies_V2,
@@ -637,7 +637,7 @@ theorem PF_BSD_V4_honestScope_holds : PF_BSD_V4_honestScope :=
 #check @PF_BSD_capstoneV4_implies_V3
 #check @PF_BSD_capstoneV4_implies_V2
 #check @PF_BSD_capstoneV4_implies_V1
-#check @PF_BSD_V4_honestScope_holds
+#check @PF_BSD_V4_refereeScope_holds
 
 /-! ## §15 — Axiom-freeness verification -/
 
@@ -656,6 +656,6 @@ theorem PF_BSD_V4_honestScope_holds : PF_BSD_V4_honestScope :=
 #print axioms v4_rank_blind_concordance_surfaced
 #print axioms v4_clay_literal_closure_surfaced
 #print axioms v4_residual_is_zero_on_undischarged
-#print axioms PF_BSD_V4_honestScope_holds
+#print axioms PF_BSD_V4_refereeScope_holds
 
 end PF.Referee.BSDCapstoneTypedBridgeV4

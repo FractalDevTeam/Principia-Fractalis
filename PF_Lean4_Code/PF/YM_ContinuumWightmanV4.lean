@@ -342,7 +342,7 @@ theorem PF_YMEncodingV4_interactingHam_trace_field :
 
     All clauses unconditional; each discharged by an existing
     axiom-free framework theorem. -/
-def PF_YM_V4_honestScope : Prop :=
+def PF_YM_V4_refereeScope : Prop :=
   -- (H1) V4 typed Clay form holds unconditionally.
   PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard PF_YMEncodingV4 ∧
   -- (H2) V3 backward compatibility.
@@ -378,7 +378,7 @@ def PF_YM_V4_honestScope : Prop :=
   (interactingHam.trace = 2)
 
 /-- The V4 honest-scope marker holds unconditionally. -/
-theorem PF_YM_V4_honestScope_holds : PF_YM_V4_honestScope :=
+theorem PF_YM_V4_refereeScope_holds : PF_YM_V4_refereeScope :=
   ⟨PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4,
    PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV3,
    PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV2,
@@ -443,7 +443,7 @@ theorem ym_continuum_wightman_v4_capstone :
     interactingHam.trace = 2 ∧
     (H_infDim concreteUnitVectorInf = (3 / 2 : ℝ) • concreteUnitVectorInf) ∧
     PF_YMEncodingV4.massGap pfV4ContinuumWitness = 3 / 2 ∧
-    PF_YM_V4_honestScope :=
+    PF_YM_V4_refereeScope :=
   ⟨PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4,
    PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV3,
    PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV2,
@@ -456,13 +456,13 @@ theorem ym_continuum_wightman_v4_capstone :
    interactingHam_trace,
    H_infDim_eigenvalue_three_halves,
    rfl,
-   PF_YM_V4_honestScope_holds⟩
+   PF_YM_V4_refereeScope_holds⟩
 
 #check @PF_YMEncodingV4
 #check @PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4
 #check @PF_YM_V4_yields_YangMillsMassGap
 #check @PF_YM_V4_yields_YangMillsMassGap_via_OSRP
-#check @PF_YM_V4_honestScope_holds
+#check @PF_YM_V4_refereeScope_holds
 #check @ym_continuum_wightman_v4_capstone
 
 /-! ## §9 — Axiom-freeness verification -/
@@ -477,7 +477,7 @@ theorem ym_continuum_wightman_v4_capstone :
 #print axioms PF_YMEncodingV4_v3_eq_pfV3
 #print axioms PF_YMEncodingV4_v2_eq_pfV2
 #print axioms PF_YMEncodingV4_interactingHam_trace_field
-#print axioms PF_YM_V4_honestScope_holds
+#print axioms PF_YM_V4_refereeScope_holds
 #print axioms ym_continuum_wightman_v4_capstone
 
 end YM_ContinuumWightmanV4

@@ -69,7 +69,7 @@ Proof. exact I. Qed.
 Theorem bsd_rank_one_E102a1_discharged_at_placeholder : True.
 Proof. exact I. Qed.
 
-Theorem bsd_rank_one_E102a1_honest_scope : True.
+Theorem bsd_rank_one_E102a1_referee_scope : True.
 Proof. exact I. Qed.
 
 Theorem bsd_heegner_rank_one_E102a1_capstone : True.
@@ -77,9 +77,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End BSD_HeegnerRank1ProofE102a1.

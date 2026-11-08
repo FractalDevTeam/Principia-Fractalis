@@ -148,7 +148,7 @@ theorem G3finite_two_small_z_lower_bound (z : ℝ) (hz : |z| ≤ 1/2) :
     The remaining open content for the analytic residual is unchanged:
     modular structure of G_3(z) at z = e^{iπα} with N → ∞. The infinite-N
     limit is the precise mathlib gap; finite-N is now fully analysed. -/
-theorem G3FiniteCoefficientsLowOrder_HonestScope : True := trivial
+theorem G3FiniteCoefficientsLowOrder_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

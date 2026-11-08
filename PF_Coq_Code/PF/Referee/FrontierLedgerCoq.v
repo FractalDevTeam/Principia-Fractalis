@@ -67,10 +67,10 @@ Proof. exact I. Qed.
 
 (** ## Section 4 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_documentation_only : Prop := True.
+Definition referee_scope_coq_parity_only_documentation_only : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_documentation_only.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_documentation_only.
 Proof. exact I. Qed.
 
 End FrontierLedger.

@@ -154,7 +154,7 @@ theorem bochnerMinlos_concrete_implies_original
     HOWEVER: the carrier `ℝ` is 1-dim, not the dual `𝓢'(ℝ⁴, ℝ)`
     of the Schwartz space on `ℝ⁴`. The infinite-dim Minlos extension
     is NOT proved. -/
-def BochnerMinlosConcreteWitnessHonestScope : Prop :=
+def BochnerMinlosConcreteWitnessRefereeScope : Prop :=
   -- (1) Strengthened typed predicate is inhabited by a Gaussian.
   BochnerMinlosConcreteTypedStatement ∧
   -- (2) Strengthened concrete ⇒ Wave 57 typed.
@@ -165,8 +165,8 @@ def BochnerMinlosConcreteWitnessHonestScope : Prop :=
   (∀ t : ℝ, charFun (gaussianReal 0 1) t = Complex.exp (-(t : ℂ)^2 / 2))
 
 /-- The honest-scope marker holds unconditionally. -/
-theorem bochnerMinlos_concrete_witness_honestScope_holds :
-    BochnerMinlosConcreteWitnessHonestScope :=
+theorem bochnerMinlos_concrete_witness_refereeScope_holds :
+    BochnerMinlosConcreteWitnessRefereeScope :=
   ⟨bochnerMinlos_concrete_gaussianReal_witness,
    bochnerMinlos_concrete_implies_wave57_typed,
    bochnerMinlos_concrete_implies_original,
@@ -206,14 +206,14 @@ theorem bochnerMinlos_concrete_witness_capstone :
     (∀ t : ℝ, charFun (gaussianReal 0 1) t = Complex.exp (-(t : ℂ)^2 / 2)) ∧
     (BochnerMinlosConcreteTypedStatement → BochnerMinlosTypedStatement) ∧
     (BochnerMinlosConcreteTypedStatement → BochnerMinlosOnNuclearSpaces) ∧
-    BochnerMinlosConcreteWitnessHonestScope :=
+    BochnerMinlosConcreteWitnessRefereeScope :=
   ⟨bochnerMinlos_concrete_gaussianReal_witness,
    gaussianReal_standard_isProbabilityMeasure,
    gaussianReal_standard_noAtoms,
    charFun_gaussianReal_standard,
    bochnerMinlos_concrete_implies_wave57_typed,
    bochnerMinlos_concrete_implies_original,
-   bochnerMinlos_concrete_witness_honestScope_holds⟩
+   bochnerMinlos_concrete_witness_refereeScope_holds⟩
 
 /-! ## §6 — Axiom-freeness verification -/
 
@@ -223,7 +223,7 @@ theorem bochnerMinlos_concrete_witness_capstone :
 #print axioms bochnerMinlos_concrete_gaussianReal_witness
 #print axioms bochnerMinlos_concrete_implies_wave57_typed
 #print axioms bochnerMinlos_concrete_implies_original
-#print axioms bochnerMinlos_concrete_witness_honestScope_holds
+#print axioms bochnerMinlos_concrete_witness_refereeScope_holds
 #print axioms bochnerMinlos_concrete_witness_capstone
 
 end YM_BochnerMinlosConcreteWitness

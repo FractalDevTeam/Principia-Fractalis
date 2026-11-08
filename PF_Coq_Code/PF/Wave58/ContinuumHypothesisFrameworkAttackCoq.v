@@ -304,7 +304,7 @@ Qed.
     7. `framework_prediction` -- typed encoding of the
        framework's claim that CH is determinate within its
        natural substrate.
-    8. `honest_scope_marker` -- this attack is structural,
+    8. `referee_scope_marker` -- this attack is structural,
        NOT a discharge.
 
     **NOT a discharge of CH**: CH is independent of ZFC; this

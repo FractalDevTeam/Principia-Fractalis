@@ -64,7 +64,7 @@ theorem consciousness_threshold_sq : chTwoCrit ^ 2 = 361 / 400 := by
 
 /-- **Honest scope** for this file: numerical identities for the framework's
     consciousness threshold ch_2 = 19/20. -/
-theorem ConsciousnessThresholdIdentities_HonestScope : True := trivial
+theorem ConsciousnessThresholdIdentities_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

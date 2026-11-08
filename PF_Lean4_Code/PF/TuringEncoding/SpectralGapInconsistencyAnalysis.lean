@@ -124,7 +124,7 @@ theorem Delta_gm_minus_Delta_lcf_lower_bound :
     their own published-math sources. The inconsistency is a known
     research-frontier open question (per manuscript Ch 21 §6 remark
     rem:alpha-P-NP-derivation-status). -/
-theorem SpectralGapInconsistencyAnalysis_HonestScope : True := trivial
+theorem SpectralGapInconsistencyAnalysis_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

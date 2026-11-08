@@ -116,7 +116,7 @@
        constructor `weinstein_GU_rescued_capstone`.
 
    10. Honest scope marker
-       `honest_scope_weinstein_rescue_not_clay_discharge`.
+       `referee_scope_weinstein_rescue_not_clay_discharge`.
 
    11. Added to `_CoqProject` (brings Coq Wave 58 to 11 of N).
 
@@ -416,11 +416,11 @@ Definition weinstein_GU_rescued_capstone : WeinsteinGURescueBundle :=
     The Weinstein Geometric Unity programme itself remains an
     unproven physics conjecture; the rescue here is a STRUCTURAL
     completion via RQG, not a physics-level closure. *)
-Definition honest_scope_weinstein_rescue_not_clay_discharge : Prop :=
+Definition referee_scope_weinstein_rescue_not_clay_discharge : Prop :=
   True.
 
-Theorem honest_scope_marker :
-  honest_scope_weinstein_rescue_not_clay_discharge.
+Theorem referee_scope_marker :
+  referee_scope_weinstein_rescue_not_clay_discharge.
 Proof. exact I. Qed.
 
 Close Scope R_scope.

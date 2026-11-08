@@ -57,7 +57,7 @@ content plus the BRIDGE that names the residual."
     axiom-free narrowing.
   * `six_axis_single_citation_narrowings_realized` — the structure is
     inhabited by the six existing capstones, AXIOM-FREE.
-  * Honest-scope theorem.
+  * Scope-statement theorem.
 
 ## What this file does NOT claim
 
@@ -65,7 +65,7 @@ content plus the BRIDGE that names the residual."
   * Does NOT introduce new mathematical content. Composes existing
     axiom-free narrowings by exact name.
 
-## Honest scope
+## Scope statement
 
   THE referee-handoff. Each axis residual is named, bounded, and
   precisely identified. The framework's contribution is the
@@ -95,7 +95,7 @@ namespace SixAxisSingleCitationNarrowings
     discharges the narrowing for that axis. The structure is
     inhabited by the existing axiom-free content in the framework.
 
-    HONEST SCOPE: this structure DOES NOT prove any of the six
+    SCOPE: this structure DOES NOT prove any of the six
     unsolved Clay problems. It records that EACH residual is
     SINGLE-CITATION precisely-named, which is the precondition
     for any future axiom-free discharge to be referee-readable. -/
@@ -213,7 +213,7 @@ theorem pvsnp_collapses_to_EnumBridge
 
     **(K7)** Perelman external anchor; α_Poincaré = 1.
 
-    **HONEST SCOPE**: this is NOT a Clay discharge. Each clause
+    **SCOPE**: this is NOT a Clay discharge. Each clause
     records that the framework provides a single-citation narrowing
     to ONE named residual on its axis. Discharging any named
     residual axiom-free constitutes a Clay-level proof on that axis
@@ -227,12 +227,6 @@ theorem pvsnp_collapses_to_EnumBridge
     axis. -/
 theorem six_axis_clay_referee_handoff : SixAxisNarrowingsRecord :=
   six_axis_single_citation_narrowings_realized
-
-/-- **Honest-scope marker** — this aggregator file does NOT claim
-    any Clay discharge. It records the framework's single-citation
-    narrowings per axis, which is the precondition for any future
-    axis-by-axis axiom-free discharge to be referee-readable. -/
-theorem six_axis_clay_referee_honest_scope : True := trivial
 
 end SixAxisSingleCitationNarrowings
 
@@ -248,5 +242,3 @@ end PF.Referee
   PF.Referee.SixAxisSingleCitationNarrowings.pvsnp_collapses_to_EnumBridge
 #print axioms
   PF.Referee.SixAxisSingleCitationNarrowings.six_axis_clay_referee_handoff
-#print axioms
-  PF.Referee.SixAxisSingleCitationNarrowings.six_axis_clay_referee_honest_scope

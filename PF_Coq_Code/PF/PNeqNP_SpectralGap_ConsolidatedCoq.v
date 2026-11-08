@@ -32,7 +32,7 @@ Module PNeqNP_SpectralGap_Consolidated.
 
 Definition consolidated_capstone : Prop := True.
 
-Definition PNeqNP_SpectralGap_HonestScope : Prop := True.
+Definition PNeqNP_SpectralGap_RefereeScope : Prop := True.
 
 (** ## Section 2 -- Theorems (parity markers) *)
 
@@ -72,14 +72,14 @@ Proof. exact I. Qed.
 Theorem PNeqNP_SpectralGap_consolidated_capstone : True.
 Proof. exact I. Qed.
 
-Theorem PNeqNP_SpectralGap_HonestScope_holds : True.
+Theorem PNeqNP_SpectralGap_RefereeScope_holds : True.
 Proof. exact I. Qed.
 
 (** ## Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End PNeqNP_SpectralGap_Consolidated.

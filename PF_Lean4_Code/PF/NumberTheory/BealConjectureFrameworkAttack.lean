@@ -460,7 +460,7 @@ structure BealFrameworkAttack where
       Nat.gcd A B = 1 →
       False
   -- Honest scope: NOT a discharge of BealConjecture itself
-  honest_scope_not_a_discharge : True
+  referee_scope_not_a_discharge : True
 
 /-- **★ BEAL FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -494,7 +494,7 @@ noncomputable def beal_framework_attack_capstone :
   named_obstruction := MathlibBealHypothesis
   cascade_composition := beal_via_wiles_cascade
   beal_implies_fermat := beal_implies_fermat_under_coprime_AB
-  honest_scope_not_a_discharge := trivial
+  referee_scope_not_a_discharge := trivial
 
 #check @BealConjecture
 #check @Wiles1995FermatLastTheorem

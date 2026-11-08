@@ -234,7 +234,7 @@ Proof.
 Qed.
 
 (** Honest-scope marker — referee-reproducibility, not propositional weakening. *)
-Theorem polylog_ibm_empirical_pin_discharge_honest_scope : True.
+Theorem polylog_ibm_empirical_pin_discharge_referee_scope : True.
 Proof. exact I. Qed.
 
 (** Structural-reading remark. *)

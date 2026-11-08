@@ -52,7 +52,7 @@ witness `(α_unit, eigenvalues_anchoredAt3 t1 t2 t3)`.
     positivity assumption on every `oracle k` for k ≤ N. This
     demonstrates the cascade extends through any finite prefix.
 
-## Honest scope
+## Scope statement
 
   * The discharge is at the level of a CONSTRUCTED witness
     `(α_unit, eigenvalues_anchoredAt3 _ _ _)` or
@@ -313,7 +313,7 @@ theorem kth_cascade_to_finite
        prefix k ≤ N is discharged on a single eigenvalue-sequence
        witness.
 
-    HONEST SCOPE:
+    SCOPE:
       * Witness-level discharge. Coincidence with canonical T₃^sym
         sequence is the preserved spectral-realisation open content.
       * Numerical ordinates t1, t2, t3 are USED as positivity anchors;
@@ -360,13 +360,6 @@ theorem cascade_extension_k1_k2_capstone :
   · exact kth_atoms_0_1_2_at_Odlyzko_anchor
   · exact kth_cascade_to_finite
 
-/-- **Honest-scope marker** — the cascade extension is at the level
-    of a constructed witness (`α_unit, eigenvalues_anchoredAt3` or
-    `eigenvalues_anchoredAt_finite`); coincidence with the framework's
-    canonical T₃^sym eigenvalue sequence is the preserved
-    spectral-realisation open content. -/
-theorem cascade_extension_honest_scope : True := trivial
-
 end OnLineSurjectivityCascadeK1K2
 
 end PrincipiaTractalis
@@ -404,5 +397,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.OnLineSurjectivityCascadeK1K2.kth_cascade_to_finite
 #print axioms
   PrincipiaTractalis.OnLineSurjectivityCascadeK1K2.cascade_extension_k1_k2_capstone
-#print axioms
-  PrincipiaTractalis.OnLineSurjectivityCascadeK1K2.cascade_extension_honest_scope

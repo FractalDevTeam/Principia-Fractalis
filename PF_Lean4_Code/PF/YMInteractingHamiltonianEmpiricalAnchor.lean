@@ -356,7 +356,7 @@ theorem alpha_YM_empirical_anchor_and_wave55C_imply_empirically_anchored_YM_toy 
 
 /-! ## §10 — Honest-scope marker -/
 
-/-- **HonestScopeNotice** — empty `Prop` documenting that this bridge is
+/-- **RefereeScopeNotice** — empty `Prop` documenting that this bridge is
     a structural-coincidence record, NOT a Clay YM mass-gap discharge.
     The Wave 55C toy is a finite-dim 2×2 real-matrix on `Hilb 1`; the
     Clay statement is on an infinite-dim Wightman Hilbert space. NO

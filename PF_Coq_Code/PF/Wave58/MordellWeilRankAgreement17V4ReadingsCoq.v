@@ -163,9 +163,9 @@ Proof. exact I. Qed.
 
 (** ## §5 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_discharge.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 End MordellWeilRankAgreement17V4Readings.

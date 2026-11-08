@@ -370,7 +370,7 @@ theorem PF_ContinuumYMEncoding_QYM_eq_ContinuumYMTheory :
     Clay continuum SU(3) on ℝ⁴ requires the OS-reconstructed
     self-adjoint Hamiltonian on the genuine Schwartz-dual measure
     space; that content is NOT proved. -/
-def PF_Clay_YM_Continuum_HonestScope : Prop :=
+def PF_Clay_YM_Continuum_RefereeScope : Prop :=
   -- (1) The Clay-typed discharge holds on PF_ContinuumYMEncoding.
   Clay_YangMillsMassGap_Standard PF_ContinuumYMEncoding ∧
   -- (2) The four (G1)-(G4) concrete typed predicates each hold
@@ -395,8 +395,8 @@ def PF_Clay_YM_Continuum_HonestScope : Prop :=
   (PF_ContinuumYMEncoding.massGap pfClayContinuumWitness = 3 / 2)
 
 /-- The honest-scope marker holds unconditionally. -/
-theorem PF_Clay_YM_Continuum_HonestScope_holds :
-    PF_Clay_YM_Continuum_HonestScope :=
+theorem PF_Clay_YM_Continuum_RefereeScope_holds :
+    PF_Clay_YM_Continuum_RefereeScope :=
   ⟨PF_Clay_YangMillsMassGap_Standard_discharge,
    bochnerMinlos_concrete_gaussianReal_witness,
    schwartzReflection_concrete_timeReflection_witness,
@@ -493,7 +493,7 @@ theorem PF_Clay_YM_continuum_discharge_capstone :
     MassGapPropagationConcreteTypedStatement ∧
     fractalYMLevel1SpectrumGap ∧
     fractalYMLevel1LiftsToContinuum ∧
-    PF_Clay_YM_Continuum_HonestScope :=
+    PF_Clay_YM_Continuum_RefereeScope :=
   ⟨PF_Clay_YangMillsMassGap_Standard_discharge,
    PF_ContinuumYMEncoding_massGap_canonical,
    PF_ContinuumYMEncoding_gaugeGroup_eq_L2R,
@@ -505,7 +505,7 @@ theorem PF_Clay_YM_continuum_discharge_capstone :
    massGapPropagation_concrete_witness,
    fractalYMLevel1SpectrumGap_holds,
    fractalYMLevel1LiftsToContinuum_lean_literal,
-   PF_Clay_YM_Continuum_HonestScope_holds⟩
+   PF_Clay_YM_Continuum_RefereeScope_holds⟩
 
 /-! ## §9 — Axiom-freeness verification -/
 
@@ -516,7 +516,7 @@ theorem PF_Clay_YM_continuum_discharge_capstone :
 #print axioms PF_ContinuumYMEncoding_gaugeGroup_eq_L2R
 #print axioms PF_ContinuumYMEncoding_massGap_canonical
 #print axioms PF_ContinuumYMEncoding_QYM_eq_ContinuumYMTheory
-#print axioms PF_Clay_YM_Continuum_HonestScope_holds
+#print axioms PF_Clay_YM_Continuum_RefereeScope_holds
 #print axioms PF_Clay_YM_continuum_discharge_capstone
 
 end YM_ClayDischargeAttempt

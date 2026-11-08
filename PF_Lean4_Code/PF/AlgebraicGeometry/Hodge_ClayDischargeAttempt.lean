@@ -47,7 +47,7 @@ discharged axiom-free by case-dispatch:
     `exists_dim_three_four_five_VoisinCodimTwoCycleClassExistsHypothesis`
     via `Classical.choice` against the carrier's typed predicate.
 
-## What this is NOT (HONEST SCOPE — non-negotiable)
+## What this is NOT (SCOPE — non-negotiable)
 
   * NOT a literal resolution of the codim ≥ 2 Hodge conjecture on a
     GENERAL smooth projective complex variety. The genuine open
@@ -70,7 +70,7 @@ discharged axiom-free by case-dispatch:
 
 The contribution: a SINGLE `Clay_Hodge_Standard` discharge on an
 encoding parameterised across all PF Hodge content axiom-free
-TODAY (substrate matrix + Voisin typed matrix). The honest-scope
+TODAY (substrate matrix + Voisin typed matrix). The scope-statement
 markers naming the open frontier remain in
 `Hodge_OpenFrontier` (Voisin 2007 obstruction on general CY3 /
 general smooth quintic outside Dwork locus).
@@ -291,7 +291,7 @@ theorem unified_voisin_isAlgebraic
     Voisin branch reuses the matching-coefficient witness from
     `VoisinCodimTwoConcreteInstance §1`.
 
-    Honest scope: the carrier is the TAGGED-SUM substrate type, not
+    Scope statement: the carrier is the TAGGED-SUM substrate type, not
     the literal mathlib type of smooth projective complex varieties;
     the `isAlgebraic` predicate is the substrate-level
     `HodgeAlgebraicRepresentation` / typed Voisin existential, not
@@ -361,15 +361,7 @@ def witness_voisin_cmAbelian4 : UnifiedHodgeVariety :=
 def witness_voisin_cmAbelian5 : UnifiedHodgeVariety :=
   UnifiedHodgeVariety.voisinDimGe3 cmAbelianFiveFoldInstance
 
-/-! ## §7 — Honest-scope marker, capstone -/
-
-/-- **Honest-scope marker** — the unified `Clay_Hodge_Standard`
-    discharge composes six substrate-level discharges and one
-    Voisin-typed branch. None of these resolves the literal Clay
-    Hodge conjecture on a general smooth projective complex variety
-    at codim ≥ 2; the Voisin 2007 obstruction is named at
-    `Hodge_OpenFrontier` and is unchanged by this file. -/
-theorem hodge_clay_discharge_honest_scope : True := trivial
+/-! ## §7 — Scope statement, capstone -/
 
 /-- **★ UNIFIED HODGE CLAY DISCHARGE CAPSTONE ★** —
     `hodge_clay_discharge_capstone`.
@@ -399,7 +391,7 @@ theorem hodge_clay_discharge_honest_scope : True := trivial
         `PF_Hodge_multisubstrate_capstone` (the six prior
         substrate-level Clay shapes).
 
-    **HONEST SCOPE**: NOT a Clay discharge of the codim ≥ 2 Hodge
+    **SCOPE**: NOT a Clay discharge of the codim ≥ 2 Hodge
     conjecture on a general smooth projective complex variety. The
     encoding's `SmoothProjectiveComplexVariety` is a tagged sum of
     PF substrate types + the abstract Voisin carrier (NOT the

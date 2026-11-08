@@ -393,7 +393,7 @@ LMFDB anchor. The rank ≥ 1 cases remain genuinely open. -/
 
     The upgrade narrows the structural gap from "trivial `True`-tag
     covers arbitrary rank" to "rank-0 vacuous, rank ≥ 1 open". -/
-theorem bsd_rankWitnessTyped_honest_scope :
+theorem bsd_rankWitnessTyped_referee_scope :
     -- (S1) Rank-0 typed witness holds vacuously.
     (∀ E : WeierstrassCurve ℚ, RankWitnessTyped E 0)
     ∧
@@ -561,6 +561,6 @@ end PrincipiaTractalis.BSD_RankWitnessTypedUpgrade
 #print axioms
   PrincipiaTractalis.BSD_RankWitnessTypedUpgrade.bsd_E32a3_via_typed_certificate_cascade
 #print axioms
-  PrincipiaTractalis.BSD_RankWitnessTypedUpgrade.bsd_rankWitnessTyped_honest_scope
+  PrincipiaTractalis.BSD_RankWitnessTypedUpgrade.bsd_rankWitnessTyped_referee_scope
 #print axioms
   PrincipiaTractalis.BSD_RankWitnessTypedUpgrade.bsd_rankWitnessTyped_capstone

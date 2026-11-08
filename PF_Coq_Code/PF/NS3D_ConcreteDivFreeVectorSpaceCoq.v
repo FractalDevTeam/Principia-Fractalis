@@ -105,10 +105,10 @@ Theorem concrete_div_free_vector_space_capstone : True. Proof. exact I. Qed.
 
 (** ## Section 9 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_ns3d_vector_space : Prop := True.
+Definition referee_scope_coq_parity_only_ns3d_vector_space : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_ns3d_vector_space.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_ns3d_vector_space.
 Proof. exact I. Qed.
 
 End NS3D_ConcreteDivFreeVectorSpace.

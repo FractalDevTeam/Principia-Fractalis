@@ -112,11 +112,11 @@ Proof. exact I. Qed.
 Theorem wave57_OSRP_composed_with_wave56_chain : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def Wave57OSRPHonestScopeNotice` (data/Prop marker). *)
-Definition Wave57OSRPHonestScopeNotice : Prop := True.
+(** Mirror of Lean `def Wave57OSRPRefereeScopeNotice` (data/Prop marker). *)
+Definition Wave57OSRPRefereeScopeNotice : Prop := True.
 
-(** Mirror of Lean `theorem wave57_osrp_honest_scope_notice_holds`. *)
-Theorem wave57_osrp_honest_scope_notice_holds : True.
+(** Mirror of Lean `theorem wave57_osrp_referee_scope_notice_holds`. *)
+Theorem wave57_osrp_referee_scope_notice_holds : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem ym_osrp_interaction_scaffold_capstone`. *)
@@ -125,9 +125,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_OSRPInteractionScaffold.

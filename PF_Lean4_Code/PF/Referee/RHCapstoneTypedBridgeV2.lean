@@ -292,7 +292,7 @@ theorem PF_RH_capstoneV2_implies_V1_via_pinned :
     Net effect: 9 of 10 V1 "easy" hypotheses concretely discharged
     axiom-free; the 10th (`hev`) bundled into the encoding; the
     open frontier (`surjectivity`) preserved. -/
-def PF_RH_V2_honestScope : Prop :=
+def PF_RH_V2_refereeScope : Prop :=
   -- (H1) Nine easy V1 hypotheses concretely discharged.
   (∀ n : ℕ, 0 < evV2 n) ∧
   (∀ n : ℕ, evV2 n ≠ 0) ∧
@@ -306,7 +306,7 @@ def PF_RH_V2_honestScope : Prop :=
     PF.Referee.StandardClayStatements.Clay_RiemannHypothesis_Standard)
 
 /-- The V2 honest-scope marker holds unconditionally. -/
-theorem PF_RH_V2_honestScope_holds : PF_RH_V2_honestScope :=
+theorem PF_RH_V2_refereeScope_holds : PF_RH_V2_refereeScope :=
   ⟨evV2_pos,
    evV2_ne_zero,
    evV2_bound,
@@ -318,7 +318,7 @@ theorem PF_RH_V2_honestScope_holds : PF_RH_V2_honestScope :=
 #check @PF_RH_capstone_yields_Clay_RH_standardV2
 #check @RH_OpenFrontierV2
 #check @PF_RH_capstoneV2_implies_V1_via_pinned
-#check @PF_RH_V2_honestScope_holds
+#check @PF_RH_V2_refereeScope_holds
 
 /-! ## §7 — Axiom-freeness verification -/
 
@@ -328,6 +328,6 @@ theorem PF_RH_V2_honestScope_holds : PF_RH_V2_honestScope :=
 #print axioms evV2_distinct
 #print axioms PF_RH_capstone_yields_Clay_RH_standardV2
 #print axioms PF_RH_capstoneV2_implies_V1_via_pinned
-#print axioms PF_RH_V2_honestScope_holds
+#print axioms PF_RH_V2_refereeScope_holds
 
 end PF.Referee.RHCapstoneTypedBridgeV2

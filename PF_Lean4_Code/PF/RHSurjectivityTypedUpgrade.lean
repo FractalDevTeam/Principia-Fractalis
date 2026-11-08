@@ -97,7 +97,7 @@ shows the typed conjunction follows from the natural decomposition.
     which still requires either a Mayer-style numerical formalisation
     or an analytic spectral-realisation construction.
 
-## Honest scope (per 2026-05-25 referee-proof feedback + strategic audit)
+## Scope statement (per 2026-05-25 referee-proof feedback + strategic audit)
 
   * The typed Prop is a SHAPE TIGHTENING of the inline conjecture, not a
     new mathematical claim. Each clause is either:
@@ -493,7 +493,7 @@ theorem riemann_hypothesis_via_typed_and_inline_surjectivity
        content. RH requires either separate hypothesis or a discharge
        of (C3).
 
-    **HONEST SCOPE** (per the 2026-05-25 referee-proof feedback and
+    **SCOPE** (per the 2026-05-25 referee-proof feedback and
     the 2026-05-25 strategic audit):
 
     * NOT an RH discharge. This tightens the *shape* of the conjecture
@@ -561,15 +561,6 @@ theorem rh_surjectivity_typed_capstone
   · exact rangeOnCriticalLine_iff_noOffLineZeroHit α eigenvalues
   · exact onLineSurjectivity_implies_firstZeroHit α eigenvalues
 
-/-- **Honest-scope marker** — the typed Prop is the single-theorem
-    formalisation of the inline `RHSpectralSurjectivityConjecture`
-    tightened to a five-clause typed conjunction on `(α, eigenvalues)`.
-    It does not unconditionally discharge RH; the cascade hypotheses
-    are conditional (Hardy 1914 anchor for (C2) and on-line
-    surjectivity for (C3)), and the load-bearing content remains the
-    classical spectral-realisation problem. -/
-theorem rh_surjectivity_typed_honest_scope : True := trivial
-
 end RHSurjectivityTypedUpgrade
 
 end PrincipiaTractalis
@@ -601,5 +592,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.RHSurjectivityTypedUpgrade.riemann_hypothesis_via_typed_and_inline_surjectivity
 #print axioms
   PrincipiaTractalis.RHSurjectivityTypedUpgrade.rh_surjectivity_typed_capstone
-#print axioms
-  PrincipiaTractalis.RHSurjectivityTypedUpgrade.rh_surjectivity_typed_honest_scope

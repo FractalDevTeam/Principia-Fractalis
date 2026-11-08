@@ -206,10 +206,10 @@ Qed.
 
 (** ## Section 3 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_theoretical_physics_support : Prop := True.
+Definition referee_scope_coq_parity_only_theoretical_physics_support : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_theoretical_physics_support.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_theoretical_physics_support.
 Proof. exact I. Qed.
 
 End TheoreticalPhysics_FrameworkBundle.

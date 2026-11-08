@@ -33,7 +33,7 @@
     - `rh_collapses_to_HP`
     - `pvsnp_collapses_to_EnumBridge`
     - `six_axis_clay_referee_handoff`
-    - `six_axis_clay_referee_honest_scope`
+    - `six_axis_clay_referee_referee_scope`
 
   ## Honest scope
 
@@ -78,15 +78,15 @@ Proof.
   apply mkSixAxisRecord; exact I.
 Qed.
 
-Theorem six_axis_clay_referee_honest_scope : True.
+Theorem six_axis_clay_referee_referee_scope : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_six_axis_narrowings_lives_in_lean : Prop := True.
+Definition referee_scope_coq_parity_only_six_axis_narrowings_lives_in_lean : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_six_axis_narrowings_lives_in_lean.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_six_axis_narrowings_lives_in_lean.
 Proof. exact I. Qed.
 
 End SixAxisSingleCitationNarrowings.

@@ -71,7 +71,7 @@ theorem alphaNP_minus_alphaHodge_eq_quarter : alphaNP - alphaHodge = 1/4 := by
 
 /-! ## §3 — Honest scope marker -/
 
-theorem AlphaHodgeIdentities_HonestScope : True := trivial
+theorem AlphaHodgeIdentities_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

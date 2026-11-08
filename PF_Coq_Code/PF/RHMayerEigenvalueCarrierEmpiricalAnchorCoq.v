@@ -49,14 +49,14 @@ Theorem mayer_carrier_band_below_alpha_RH : True.
 Proof. exact I. Qed.
 Theorem rh_mayer_eigenvalue_carrier_empirical_anchor_capstone : True.
 Proof. exact I. Qed.
-Theorem rh_mayer_eigenvalue_carrier_empirical_anchor_honest_scope : True.
+Theorem rh_mayer_eigenvalue_carrier_empirical_anchor_referee_scope : True.
 Proof. exact I. Qed.
 
 (** ## Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End RHMayerEigenvalueCarrierEmpiricalAnchor.

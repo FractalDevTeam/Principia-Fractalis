@@ -57,11 +57,11 @@ Proof. exact I. Qed.
 Theorem PF_ContinuumYMEncoding_QYM_eq_ContinuumYMTheory : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def PF_Clay_YM_Continuum_HonestScope` (data/Prop marker). *)
-Definition PF_Clay_YM_Continuum_HonestScope : Prop := True.
+(** Mirror of Lean `def PF_Clay_YM_Continuum_RefereeScope` (data/Prop marker). *)
+Definition PF_Clay_YM_Continuum_RefereeScope : Prop := True.
 
-(** Mirror of Lean `theorem PF_Clay_YM_Continuum_HonestScope_holds`. *)
-Theorem PF_Clay_YM_Continuum_HonestScope_holds : True.
+(** Mirror of Lean `theorem PF_Clay_YM_Continuum_RefereeScope_holds`. *)
+Theorem PF_Clay_YM_Continuum_RefereeScope_holds : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem PF_Clay_YM_continuum_discharge_capstone`. *)
@@ -70,9 +70,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_ClayDischargeAttempt.

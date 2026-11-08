@@ -473,7 +473,7 @@ theorem RH_OpenFrontierV4_iff_V3 :
       (V4.8) V1 → V2 → V3 → V4 strengthening: 12 → 2 → 0 effective
              parameters; V4 adds operator-construction naming +
              extended N. -/
-def PF_RH_V4_honestScope : Prop :=
+def PF_RH_V4_refereeScope : Prop :=
   -- (V4.2) V4 Mayer route capstone.
   (Mayer1991_SymmetricQuotientHasZetaSpectrum →
     HilbertPolyaProgramConjecture →
@@ -498,7 +498,7 @@ def PF_RH_V4_honestScope : Prop :=
         (⟨1/2, odlyzko50_oracle k⟩ : ℂ))
 
 /-- The V4 honest-scope marker holds unconditionally. -/
-theorem PF_RH_V4_honestScope_holds : PF_RH_V4_honestScope :=
+theorem PF_RH_V4_refereeScope_holds : PF_RH_V4_refereeScope :=
   ⟨PF_RH_capstone_via_Mayer1991_T3sym,
    PF_RH_Mayer1991_iff_PF_T3sym,
    PF_RH_V4_partial_surjectivity_discharged_at_N20,
@@ -618,7 +618,7 @@ theorem PF_RH_V4_master_capstone : PF_RH_V4_MasterCapstone where
 #check @PF_RH_V4_partialStripCompletePositiveOracleExists_at_fifty
 #check @RH_OpenFrontierV4
 #check @RH_OpenFrontierV4_iff_V3
-#check @PF_RH_V4_honestScope_holds
+#check @PF_RH_V4_refereeScope_holds
 #check @PF_RH_V4_master_capstone
 
 /-! ## §10 — Axiom-freeness verification -/
@@ -637,7 +637,7 @@ theorem PF_RH_V4_master_capstone : PF_RH_V4_MasterCapstone where
 #print axioms PF_RH_V4_partialStripCompletePositiveOracleExists_at_fifty
 #print axioms PF_RH_V4_via_Mayer1991_implies_V3_conclusion
 #print axioms RH_OpenFrontierV4_iff_V3
-#print axioms PF_RH_V4_honestScope_holds
+#print axioms PF_RH_V4_refereeScope_holds
 #print axioms PF_RH_V4_master_capstone
 
 end PF.Referee.RHCapstoneTypedBridgeV4

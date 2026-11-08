@@ -129,7 +129,7 @@ theorem alphaTable_eight_ne_alphaNS :
     primary; the manuscript's Ch 5 substrate-axis assignment uses
     the algebraic convention I added today; Ch 21 §6 + IBM hardware
     anchoring uses the transcendental convention. -/
-theorem AlphaSkeletonToIBMTableBridge_HonestScope : True := trivial
+theorem AlphaSkeletonToIBMTableBridge_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

@@ -130,7 +130,7 @@ def pnpV3_class_P_subset_class_NP_reverified :=
 /-- L4L re-verification: PNP V4 honest-scope capstone, closing the V3
     constant-trivial defect via `decide`↔`encodeRun` linking. -/
 def pnpV4_capstone_reverified :=
-  @PrincipiaTractalis.PNPClassSeparationCarrierV4.pnp_carrier_V4_honest_scope_capstone
+  @PrincipiaTractalis.PNPClassSeparationCarrierV4.pnp_carrier_V4_referee_scope_capstone
 
 #print axioms pnpV4_capstone_reverified
 
@@ -178,10 +178,10 @@ def rhV4_master_capstone_reverified :=
 /-- L4L re-verification: RH + P vs NP paired-closure capstone bundling
     Hilbert-Polya, Berry-Keating, Connes, Bost-Connes routes; axiom-free
     PNP algebraic content; named single residual. -/
-def rhPvNP_paired_closure_honest_scope_reverified :=
-  @PF.Referee.RHPvsNPPairedClosure.RH_PvNP_paired_honest_scope_holds
+def rhPvNP_paired_closure_referee_scope_reverified :=
+  @PF.Referee.RHPvsNPPairedClosure.RH_PvNP_paired_referee_scope_holds
 
-#print axioms rhPvNP_paired_closure_honest_scope_reverified
+#print axioms rhPvNP_paired_closure_referee_scope_reverified
 
 /-- L4L re-verification: NS + YM paired-closure capstone (NS Leray
     bootstrap isolated to Fujita-Kato 1964; YM V4 Clay form). -/

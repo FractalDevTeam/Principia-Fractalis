@@ -535,7 +535,7 @@ theorem grossZagier1986Identity_E37a1
       the typed bridge;
     * (S5) Specialization to `E_{37.a1}` with `K = ℚ(√−7)`
       structurally holds. -/
-theorem bsd_grossZagier1986_honest_scope :
+theorem bsd_grossZagier1986_referee_scope :
     -- (S1) The Heegner hypothesis is satisfied for every E (in the
     -- existential typed form).
     (∀ E : WeierstrassCurve ℚ, HeegnerHypothesisSatisfied_Typed E)
@@ -667,7 +667,7 @@ theorem bsd_grossZagier1986_formalization_capstone :
 #print axioms lDerivativeAtOne_OverK_bridges_to_existing
 #print axioms heegnerHypothesis_E37a1
 #print axioms grossZagier1986Identity_E37a1
-#print axioms bsd_grossZagier1986_honest_scope
+#print axioms bsd_grossZagier1986_referee_scope
 #print axioms bsd_grossZagier1986_formalization_capstone
 
 end BSD_GrossZagier1986Formalization

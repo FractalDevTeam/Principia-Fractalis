@@ -139,7 +139,7 @@ theorem kernelMatrix_two_trace (V : ℝ → ℝ → ℝ) (x_0 x_1 : ℝ) :
        Concrete published-math content. Specific mathlib infrastructure
        targets (uniform Hilbert-Schmidt convergence on metric measure
        spaces, fractal self-similar measures). Not abstract open math. -/
-theorem FiniteDimSpectralRealSpectrum_HonestScope : True := trivial
+theorem FiniteDimSpectralRealSpectrum_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

@@ -393,7 +393,7 @@ theorem bsd_rank_one_E141a1_discharged_at_placeholder :
       placeholder level is available;
     * (S6) Δ(E_{141.a1}) = 102789 = 3⁷·47, matching the
       conductor 141 = 3·47 modulo additive-reduction at 3. -/
-theorem bsd_rank_one_E141a1_honest_scope :
+theorem bsd_rank_one_E141a1_referee_scope :
     -- (S1) Heegner point on E_{141.a1}
     E_141a1.toAffine.Equation
       heegnerPoint_E141a1.1 heegnerPoint_E141a1.2
@@ -478,7 +478,7 @@ theorem bsd_heegner_rank_one_E141a1_capstone :
 #print axioms selmerRankEquals_E141a1_at_one
 #print axioms bsd_rank_one_E141a1_via_heegner_and_GZ_K
 #print axioms bsd_rank_one_E141a1_discharged_at_placeholder
-#print axioms bsd_rank_one_E141a1_honest_scope
+#print axioms bsd_rank_one_E141a1_referee_scope
 #print axioms bsd_heegner_rank_one_E141a1_capstone
 
 end BSD_HeegnerRank1ProofE141a1

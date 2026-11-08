@@ -148,10 +148,10 @@ Theorem concrete_div_free_hs_inner_capstone : True. Proof. exact I. Qed.
 
 (** ## Section 5 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_ns3d_hs_inner : Prop := True.
+Definition referee_scope_coq_parity_only_ns3d_hs_inner : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_ns3d_hs_inner.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_ns3d_hs_inner.
 Proof. exact I. Qed.
 
 End NS3D_ConcreteDivFreeHsInner.

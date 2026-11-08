@@ -160,7 +160,7 @@ theorem alphaSkeleton_non_collapse :
 
 /-! ## §3 — Honest scope marker -/
 
-theorem AlphaSkeletonNonCollapse_HonestScope : True := trivial
+theorem AlphaSkeletonNonCollapse_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

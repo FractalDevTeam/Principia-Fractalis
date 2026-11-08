@@ -400,7 +400,7 @@ theorem massGapPropagation_typed_implies_wave57_scaffold
     via `four_typed_gaps_imply_YangMillsMassGap`, which discharges the
     framework's typed `YangMillsMassGap` placeholder. NOT a Clay
     discharge of the YM mass gap. -/
-def WightmanContinuumGapsTypedUpgradeHonestScope : Prop :=
+def WightmanContinuumGapsTypedUpgradeRefereeScope : Prop :=
   -- (a) Typed gaps each imply the original `True`-shaped Wave 56 Props.
   (BochnerMinlosTypedStatement → BochnerMinlosOnNuclearSpaces) ∧
   (SchwartzReflectionTypedStatement → SchwartzReflectionStructure) ∧
@@ -415,8 +415,8 @@ def WightmanContinuumGapsTypedUpgradeHonestScope : Prop :=
   MassGapPropagationTypedStatement
 
 /-- The honest-scope marker holds unconditionally. -/
-theorem wightmanContinuumGapsTypedUpgradeHonestScope_holds :
-    WightmanContinuumGapsTypedUpgradeHonestScope :=
+theorem wightmanContinuumGapsTypedUpgradeRefereeScope_holds :
+    WightmanContinuumGapsTypedUpgradeRefereeScope :=
   ⟨bochnerMinlos_typed_implies_original,
    schwartzReflection_typed_implies_original,
    wightmanReconstruction_typed_implies_original,
@@ -492,7 +492,7 @@ theorem ym_wightman_continuum_gaps_typed_upgrade_capstone :
     -- (5c) Bundle inhabited at scaffold level.
     WightmanContinuumGapsTypedInput ∧
     -- (6) Honest-scope marker.
-    WightmanContinuumGapsTypedUpgradeHonestScope := by
+    WightmanContinuumGapsTypedUpgradeRefereeScope := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact bochnerMinlos_typed_holds_at_scaffold_level
   · exact schwartzReflection_typed_holds_at_scaffold_level
@@ -501,7 +501,7 @@ theorem ym_wightman_continuum_gaps_typed_upgrade_capstone :
   · exact four_typed_gaps_imply_wave56_props
   · exact wightmanContinuumGapsTypedInput_implies_YangMillsMassGap
   · exact wightmanContinuumGapsTypedInput_holds_at_scaffold_level
-  · exact wightmanContinuumGapsTypedUpgradeHonestScope_holds
+  · exact wightmanContinuumGapsTypedUpgradeRefereeScope_holds
 
 /-! ## §11 — Axiom-freeness verification -/
 
@@ -518,7 +518,7 @@ theorem ym_wightman_continuum_gaps_typed_upgrade_capstone :
 #print axioms four_typed_gaps_imply_wave56_props
 #print axioms four_typed_gaps_imply_YangMillsMassGap
 #print axioms wightmanContinuumGapsTypedInput_implies_YangMillsMassGap
-#print axioms wightmanContinuumGapsTypedUpgradeHonestScope_holds
+#print axioms wightmanContinuumGapsTypedUpgradeRefereeScope_holds
 #print axioms ym_wightman_continuum_gaps_typed_upgrade_capstone
 
 end YM_WightmanContinuumGapsTypedUpgrade

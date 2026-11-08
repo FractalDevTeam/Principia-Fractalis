@@ -51,7 +51,7 @@
        encoding + surjectivity yields typed Clay RH.
     - `PF_RH_capstoneV2_implies_V1_via_pinned` -- forward V2 -> V1
        backward-compat bridge.
-    - `PF_RH_V2_honestScope_holds` -- bundled honest-scope verdict.
+    - `PF_RH_V2_refereeScope_holds` -- bundled honest-scope verdict.
 
   ## What this file delivers (Coq side)
 
@@ -66,7 +66,7 @@
      (encoding + surjectivity residual).
   6. `RH_OpenFrontierV2` Prop -- residual surjectivity frontier.
   7. V2 -> V1 backward-compat bridge.
-  8. `PF_RH_V2_honestScope_holds` -- bundled verdict.
+  8. `PF_RH_V2_refereeScope_holds` -- bundled verdict.
 
   ## Honest scope
 
@@ -225,8 +225,8 @@ Qed.
 
 (** ## §8 -- Honest-scope bundle
 
-    Mirrors Lean `PF_RH_V2_honestScope` / `PF_RH_V2_honestScope_holds`. *)
-Definition PF_RH_V2_honestScope : Prop :=
+    Mirrors Lean `PF_RH_V2_refereeScope` / `PF_RH_V2_refereeScope_holds`. *)
+Definition PF_RH_V2_refereeScope : Prop :=
   (* (H1) Nine easy V1 hypotheses concretely discharged. *)
   (forall n : nat, 0 < evV2 n) /\
   (forall n : nat, evV2 n <> 0) /\
@@ -238,9 +238,9 @@ Definition PF_RH_V2_honestScope : Prop :=
      Clay_RiemannHypothesis_Standard).
 
 (** The V2 honest-scope marker holds unconditionally. *)
-Theorem PF_RH_V2_honestScope_holds : PF_RH_V2_honestScope.
+Theorem PF_RH_V2_refereeScope_holds : PF_RH_V2_refereeScope.
 Proof.
-  unfold PF_RH_V2_honestScope.
+  unfold PF_RH_V2_refereeScope.
   split; [exact evV2_pos |].
   split; [exact evV2_ne_zero |].
   split; [exact evV2_bound |].
@@ -251,10 +251,10 @@ Qed.
 
 (** ## §9 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 End RHCapstoneTypedBridgeV2.

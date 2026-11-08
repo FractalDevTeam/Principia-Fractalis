@@ -24,7 +24,7 @@ substrate-level shadow of the Voisin obstruction is False on every
 By the iff isolation, this CLOSES `Clay_Hodge_Standard PF_HodgeEncoding_FullGeneral`
 axiom-free.
 
-### Why this is NOT a literal Clay discharge (honest scope)
+### Why this is NOT a literal Clay discharge (scope statement)
 
 The closure is at the substrate-level encoding, where:
 
@@ -78,9 +78,9 @@ H^{2,2} carrier".
   4. **Precise gap localization theorem** — after this file the gap
      is no longer "settle Voisin in either direction" but the lift
      (G1)-(G3) above, encoded as `LiftSubstrateToLiteralChowH22 Prop`.
-  5. **Capstone** bundles all of the above with honest-scope marker.
+  5. **Capstone** bundles all of the above with scope-statement marker.
 
-## What this file is NOT (HONEST SCOPE — non-negotiable)
+## What this file is NOT (SCOPE — non-negotiable)
 
   * **NOT** a literal Clay-grade resolution of the Hodge conjecture
     on general smooth projective complex varieties at codim ≥ 2.
@@ -170,7 +170,7 @@ hold by `rfl`. Hence the inner `¬∃ Z, ...` is False, so the outer
     inhabited (set `Z.representedCoefficient := c.rationalCoefficient`).
     Hence `∃ c, ¬ ∃ Z, ...` is False.
 
-    HONEST SCOPE: this is a substrate-level refutation. The literal
+    SCOPE: this is a substrate-level refutation. The literal
     geometric Voisin 2007 obstruction (on the literal mathlib
     `H^{2,2}(X, ℚ)` carrier with literal Chow cycle classes) is
     UNCHANGED — settling it remains the Fields-medal-grade open question. -/
@@ -213,7 +213,7 @@ level. -/
     which is False at the substrate level by
     `no_general_smooth_quintic_with_substrate_voisin_obstruction`.
 
-    HONEST SCOPE: closure is at the substrate-level encoding ONLY.
+    SCOPE: closure is at the substrate-level encoding ONLY.
     The encoding's `SmoothProjectiveComplexVariety := GeneralSmoothQuintic`
     is opaque about the actual projective scheme; `RationalHodgeClassOnQuintic`
     is the rank-1 substrate (single ℚ coefficient against the
@@ -320,7 +320,7 @@ content that remains. -/
       - A literal cycle-class map (mathlib Chow API);
       - The surjectivity proof at p = 2.
 
-    HONEST SCOPE: This Prop ENCODES the remaining open content; it is
+    SCOPE: This Prop ENCODES the remaining open content; it is
     NOT proven (proving it would resolve the literal Hodge conjecture
     on the quintic family). -/
 def LiftSubstrateToLiteralChowH22 : Prop :=
@@ -372,30 +372,7 @@ theorem dual_substrate_level_hodge_clay_closure :
   ⟨PF_HodgeUnified_capstone_yields_Clay_Hodge_standard,
    pf_hodgeEncoding_FullGeneral_clay_substrate_closure⟩
 
-/-! ## §6 — Honest-scope marker and capstone -/
-
-/-- **★ HONEST SCOPE THEOREM ★** — encodes the precise status of
-    PF's Hodge axis after this file:
-
-      * Substrate-level `Clay_Hodge_Standard PF_HodgeEncoding_FullGeneral`
-        holds axiom-free.
-      * Substrate-level negation of the Voisin obstruction holds for
-        every `X : GeneralSmoothQuintic` including `genericNonCMQuintic`.
-      * Dual substrate-level Clay closure (unified + full-general)
-        holds simultaneously.
-      * α-Hodge = φ uniformly across the moduli space (framework's
-        α-substrate is moduli-locus-invariant on the Hodge axis).
-      * The literal Voisin 2007 question (lift from rank-1 substrate
-        to literal mathlib H^{2,2}(X, ℚ) on a generic smooth quintic
-        outside Dwork+CM) is UNCHANGED — the residual gap is
-        precisely identified at (G1)-(G3) above.
-
-    NOT a literal Clay-grade discharge of the Hodge conjecture; the
-    contribution is to refute the substrate-level shadow of the Voisin
-    obstruction Prop and thereby close the substrate-level Clay
-    statement, identifying the residual gap as exactly the
-    substrate-to-mathlib lift. -/
-theorem hodge_clay_literal_closure_honest_scope : True := trivial
+/-! ## §6 — Scope statement and capstone -/
 
 /-- **★ HODGE CLAY LITERAL CLOSURE ATTEMPT CAPSTONE ★** —
     `hodge_clay_literal_closure_capstone`.
@@ -435,7 +412,7 @@ theorem hodge_clay_literal_closure_honest_scope : True := trivial
         that PF's substrate closure does NOT obstruct the lift —
         the gap is structurally orthogonal.
 
-    **HONEST SCOPE**: NOT a literal Clay discharge of the Hodge
+    **SCOPE**: NOT a literal Clay discharge of the Hodge
     conjecture. The closure operates at the substrate-level encoding
     (rank-1 ℚ coefficient + matching-coefficient witness); the literal
     geometric Voisin 2007 question on a generic non-CM quintic outside

@@ -381,7 +381,7 @@ Qed.
 (* ============================================================ *)
 
 (** **Honest-scope marker**. *)
-Theorem bsd_lSeriesAbsConvergence_discharge_honest_scope : True.
+Theorem bsd_lSeriesAbsConvergence_discharge_referee_scope : True.
 Proof. exact I. Qed.
 
 (** **★ BSD L-SERIES ABS CONVERGENCE DISCHARGE CAPSTONE ★** —

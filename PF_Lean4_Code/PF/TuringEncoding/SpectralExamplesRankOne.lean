@@ -96,7 +96,7 @@ theorem spectral_gap_rank_one_eq_sum_sq (f : ℝ → ℝ) (x_0 x_1 : ℝ) :
 
 /-- **Honest scope** for this file: concrete spectral identities at
     rank-1 kernels. -/
-theorem SpectralExamplesRankOne_HonestScope : True := trivial
+theorem SpectralExamplesRankOne_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

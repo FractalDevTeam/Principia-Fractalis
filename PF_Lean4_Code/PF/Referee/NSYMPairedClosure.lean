@@ -363,7 +363,7 @@ theorem nsym_paired_forces_NS_over_YM_eq_BSD
 /-! ## §8 — Honest-scope record -/
 
 /-- **Cross-Millennium honest-scope marker for the paired closure**. -/
-structure NSYMPairedClosureHonestScope : Prop where
+structure NSYMPairedClosureRefereeScope : Prop where
   /-- YM V4 typed Clay form holds axiom-free. -/
   ym_axiom_free :
     PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
@@ -399,8 +399,8 @@ structure NSYMPairedClosureHonestScope : Prop where
 /-- **★★★ The honest-scope marker holds AXIOM-FREE for the
     structural fields and conditionally for the literal Clay
     fields**. -/
-theorem ns_ym_paired_closure_honestScope_holds :
-    NSYMPairedClosureHonestScope :=
+theorem ns_ym_paired_closure_refereeScope_holds :
+    NSYMPairedClosureRefereeScope :=
   { ym_axiom_free := ym_paired_V4_clay_form
     ns_zero_datum_axiom_free := ns_paired_local_to_global_at_zero
     alpha_product_bridge := nsym_alpha_product_bridge
@@ -462,13 +462,13 @@ theorem ns_ym_paired_closure_capstone :
     (∀ (u : SchwartzMap (Fin 4 → ℝ) (Fin 3 → ℝ))
       (u0 : NS3DSchwartzInitialData),
       NS_Solution u u0 → Leray1934WeakSolution u u0) ∧
-    NSYMPairedClosureHonestScope ∧
+    NSYMPairedClosureRefereeScope ∧
     (FujitaKato1964Theorem → NS_LocalToGlobalBootstrap) ∧
     (FujitaKato1964Theorem → NSYMPairedClayContract) :=
   ⟨ns_ym_paired_substrate_closure,
    nsym_paired_forces_NS_over_YM_eq_BSD ns_ym_paired_substrate_closure,
    ns_solution_lifts_to_leray_weak_solution,
-   ns_ym_paired_closure_honestScope_holds,
+   ns_ym_paired_closure_refereeScope_holds,
    NS_LocalToGlobalBootstrap_under_FujitaKato1964,
    ns_ym_paired_clay_contract_under_FujitaKato1964⟩
 
@@ -489,7 +489,7 @@ theorem ns_ym_paired_closure_capstone :
 #print axioms ns_ym_paired_clay_contract_under_FK_hypothesis
 #print axioms nsym_paired_forces_alpha_BSD_pinned
 #print axioms nsym_paired_forces_NS_over_YM_eq_BSD
-#print axioms ns_ym_paired_closure_honestScope_holds
+#print axioms ns_ym_paired_closure_refereeScope_holds
 #print axioms ns_ym_paired_closure_capstone
 
 end PF.Referee.NSYMPairedClosure

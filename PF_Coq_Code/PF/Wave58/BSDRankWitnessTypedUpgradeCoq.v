@@ -374,7 +374,7 @@ Qed.
     `rank(E(Q)) = ord_{s=1} L(E, s)` for all elliptic curves
     `E / Q`, supplying actual non-torsion-point witnesses at
     `r >= 1`. *)
-Definition BSDRankWitnessTypedHonestScope : Prop :=
+Definition BSDRankWitnessTypedRefereeScope : Prop :=
   (forall E : WeierstrassCurveQ, RankWitnessTyped E 0) /\
   (exists cert : RankCertificateTyped E_rank_zero,
      cert.(rct_r) = 0%nat) /\
@@ -391,10 +391,10 @@ Definition BSDRankWitnessTypedHonestScope : Prop :=
 (** **★ HONEST SCOPE THEOREM ★** — the typed upgrade eliminates
     the `True`-tag tautology in PF's BSD attack at the typed-
     certificate layer. *)
-Theorem bsd_rankWitnessTyped_honest_scope :
-    BSDRankWitnessTypedHonestScope.
+Theorem bsd_rankWitnessTyped_referee_scope :
+    BSDRankWitnessTypedRefereeScope.
 Proof.
-  unfold BSDRankWitnessTypedHonestScope.
+  unfold BSDRankWitnessTypedRefereeScope.
   split; [exact rankWitnessTyped_at_zero_holds|].
   split; [exact bsd_E32a3_via_typed_certificate|].
   split; [exact typed_certificate_implies_True_certificate|].
@@ -403,11 +403,11 @@ Qed.
 
 (** Coq-parity-only honest-scope marker definition. NOT a Clay
     discharge. *)
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
 (** Honest-scope marker theorem (trivially inhabited). *)
-Theorem honest_scope_marker :
-    honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+    referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 (** ## §11 — Capstone Record *)
@@ -451,7 +451,7 @@ Record BSDRankWitnessTypedCapstone : Prop := {
         (forall i : nat, (i < cert.(rct_r))%nat -> g i <> 0);
   (* (C6) Honest-scope: NOT a Clay BSD discharge *)
   c6_honest_not_a_discharge :
-    honest_scope_coq_parity_only_not_a_discharge
+    referee_scope_coq_parity_only_not_a_discharge
 }.
 
 (** **★ THE CAPSTONE: BSD RANK-WITNESS TYPED UPGRADE ★**
@@ -466,7 +466,7 @@ Proof.
   - exact typed_certificate_implies_True_certificate.
   - exact bsd_E32a3_via_typed_certificate_cascade.
   - exact rankCertificateTyped_rankWitness_is_typed.
-  - exact honest_scope_marker.
+  - exact referee_scope_marker.
 Qed.
 
 End BSDRankWitnessTypedUpgrade.

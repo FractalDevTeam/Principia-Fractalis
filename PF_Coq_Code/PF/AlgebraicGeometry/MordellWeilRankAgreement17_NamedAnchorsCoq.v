@@ -58,6 +58,6 @@ Theorem allSeventeen_namedAnchors_iff : True. Proof. exact I. Qed.
 Theorem mordellWeilRankAgreementOn17Curves_under_namedAnchors : True. Proof. exact I. Qed.
 
 (* Honest-scope marker (file-level). *)
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End MordellWeilRankAgreement17_NamedAnchorsCoq.

@@ -534,7 +534,7 @@ structure CollatzFrameworkAttack where
   named_terras_1976 : Prop
   named_conjecture : Prop
   -- Honest scope: NOT a discharge of CollatzConjecture
-  honest_scope_not_a_discharge : True
+  referee_scope_not_a_discharge : True
 
 /-- **★ COLLATZ FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -563,7 +563,7 @@ def collatz_framework_attack_capstone : CollatzFrameworkAttack where
   named_krasikov_lagarias := KrasikovLagarias2003DensityBound
   named_terras_1976 := Terras1976StoppingTimeDensityOne
   named_conjecture := CollatzConjecture
-  honest_scope_not_a_discharge := trivial
+  referee_scope_not_a_discharge := trivial
 
 #check @collatzStep
 #check @collatzStep_one

@@ -311,7 +311,7 @@ theorem not_Literal_P_neq_NP_V3_under_TMConfig_wiring :
     provably False under TMConfig-wired `computability`, exposing the
     precise missing axis (`decide`-to-`encodeRun` linkage) that a V4
     refactor must populate. -/
-theorem pnp_carrier_V3_honest_scope_capstone :
+theorem pnp_carrier_V3_referee_scope_capstone :
     -- (1) Cook 1971 P ⊆ NP on V3.
     (class_P_typedV3 ⊆ class_NP_typedV3) ∧
     -- (2) Reduction theorem analog.

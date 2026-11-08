@@ -260,7 +260,7 @@ theorem substrate_route_NP_axis_forces_alphaNP
     composes (A) as a typed contract with (B) as actual content. When (A) is
     formalized via mathlib modular forms, the substrate-route discharge of the
     4th sub-prop closes at literal-mathlib tier. -/
-theorem PolylogQuadraticDerivation_HonestScope : True := trivial
+theorem PolylogQuadraticDerivation_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

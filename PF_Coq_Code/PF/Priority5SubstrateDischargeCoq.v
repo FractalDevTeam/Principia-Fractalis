@@ -61,21 +61,21 @@ Proof. exact I. Qed.
 Theorem substrate_electron_offset_exceeds_abstract_claim_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Definition ChargedLeptonHonestScopeSubstrateConjecture : Prop := True.
+Definition ChargedLeptonRefereeScopeSubstrateConjecture : Prop := True.
 
-Theorem charged_lepton_honest_scope_discharged_via_substrate_ShapeIndex : True.
+Theorem charged_lepton_referee_scope_discharged_via_substrate_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Problem 5b: PF_Lean4Lean same-mathlib-rev honest-scope *)
 
-Definition substrate_PF_Lean4Lean_honest_scope : Prop := True.
+Definition substrate_PF_Lean4Lean_referee_scope : Prop := True.
 
-Theorem substrate_PF_Lean4Lean_honest_scope_holds_ShapeIndex : True.
+Theorem substrate_PF_Lean4Lean_referee_scope_holds_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Definition Lean4LeanHonestScopeSubstrateConjecture : Prop := True.
+Definition Lean4LeanRefereeScopeSubstrateConjecture : Prop := True.
 
-Theorem lean4lean_honest_scope_discharged_via_substrate_ShapeIndex : True.
+Theorem lean4lean_referee_scope_discharged_via_substrate_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- r79 Priority 5 substrate discharge capstone *)

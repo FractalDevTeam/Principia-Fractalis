@@ -34,7 +34,7 @@ Theorem framework_alpha_skeleton_over_determined_capstone : True.
 Proof. exact I. Qed.
 
 (* Honest-scope marker. *)
-Theorem honest_scope_marker : True.
+Theorem referee_scope_marker : True.
 Proof. exact I. Qed.
 
 End CrossMillenniumInvariants_Extended_2026_06_19Coq.

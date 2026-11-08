@@ -95,7 +95,7 @@ theorem fractalKernel_matrix_HS_sq_bound {N : ℕ} (Nlevels : ℕ)
        The bound `N² · (a/(a-1))²` is not uniform — for the continuum
        limit, the kernel must be normalized by `1/N²` to give a
        Hilbert-Schmidt operator. This is the precise mathlib target. -/
-theorem HilbertSchmidtBound_HonestScope : True := trivial
+theorem HilbertSchmidtBound_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

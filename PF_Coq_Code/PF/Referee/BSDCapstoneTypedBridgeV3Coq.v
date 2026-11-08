@@ -36,8 +36,8 @@
     - PF_BSD_capstone_yields_Clay_BSD_standardV3_conditional
     - PF_BSD_capstoneV3_implies_V2
     - PF_BSD_capstoneV3_implies_V1
-    - PF_BSD_V3_honestScope
-    - PF_BSD_V3_honestScope_holds
+    - PF_BSD_V3_refereeScope
+    - PF_BSD_V3_refereeScope_holds
 
   ## Honest scope
 
@@ -106,15 +106,15 @@ Proof. exact I. Qed.
 
 (** ## Section 8 -- Honest-scope marker *)
 
-Definition PF_BSD_V3_honestScope : Prop := True.
+Definition PF_BSD_V3_refereeScope : Prop := True.
 
-Theorem PF_BSD_V3_honestScope_holds : PF_BSD_V3_honestScope.
+Theorem PF_BSD_V3_refereeScope_holds : PF_BSD_V3_refereeScope.
 Proof. exact I. Qed.
 
-Definition honest_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_clay_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_clay_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_clay_discharge.
 Proof. exact I. Qed.
 
 End BSDCapstoneTypedBridgeV3.

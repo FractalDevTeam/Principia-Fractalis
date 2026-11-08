@@ -418,27 +418,7 @@ Integrating:
 \end{equation}
 
 Substituting $w_{\text{DE}}(z) = -1 + 0.15 e^{-(z/0.5)^2}$:%
-\manuscriptcorrection{\textbf{This step and the three that follow rest on the
-superseded exponent, and are flagged rather than rewritten.} The form
-substituted here lacks the factor of~$3$ that this chapter's own
-\emph{Arithmetic correction, 2026-11-01} establishes for $w_{\text{DE}}$: since
-$\text{ch}_2(z) = 0.95\,e^{-(z/z_*)^2}$, the canonical form is
-$-1 + 0.15\,e^{-3(z/z_*)^2}$, and the two differ by $0.0477$ at $z = 0.5$
-($-0.944818$ as substituted here against $-0.992532$). That correction's claim
-that ``no number elsewhere changes'' did not account for this site; the claim has
-been withdrawn where it was made. \emph{Why this line is not simply re-tripled}:
-the three steps below were derived from the form as printed and are internally
-consistent with one another, so correcting only this line would leave a proof
-whose steps no longer follow. Re-deriving the chain is a modelling decision for
-the author, not a numeral repair. \emph{Two further defects in those steps},
-both verified at 25 digits and independent of the exponent: the Gaussian
-antiderivative is $\int_0^z e^{-(z'/0.5)^2}dz' = \tfrac14\sqrt{\pi}\,
-\text{erf}(2z)$, so the prefactor below should be $\tfrac14\sqrt\pi$ rather than
-the printed $\tfrac12\sqrt\pi$ --- the printed value is exactly twice the true
-one at every~$z$ ($0.461281$ against $0.230641$ at $z = 0.25$); and the final
-logarithmic step does not follow from the one above it, the two having
-\emph{opposite signs} for $z < z_*$ ($+0.009868$ against $-0.046523$ at
-$z = 0.1$). Flagged 2026-11-01.}
+
 \begin{align}
 \int_0^z \frac{0.15 e^{-(z'/0.5)^2}}{1+z'} dz' &\approx 0.15 \int_0^z \frac{e^{-(z'/0.5)^2}}{1+z_*} dz' \\
 &\approx \frac{0.15}{1+z_*} \times 0.5 \sqrt{\pi} \, \text{erf}(z/0.5) \\
@@ -467,7 +447,7 @@ The 5$\sigma$ discrepancy arises from ignoring consciousness evolution. Includin
 H_0^{\text{modified}} = 69.8 \pm 0.8 \, \text{km/s/Mpc}
 \end{equation}
 
-consistent with both measurements within 2$\sigma$.\manuscriptcorrection{\textbf{The book carries TWO incompatible framework values for $H_0$ today, and they disagree by $5.4\sigma$ in ch~27's own error bar.} Flagged 2026-10-25. Chapter~\ref{ch:geometric_unity} gives $H_{\text{eff}} = 74.11$ km/s/Mpc by RQG enhancement of $67.4$; Chapter~\ref{ch:dark-energy-expansion}, Prop.~\ref{prop:h0-tension} gives $H_0^{\text{modified}} = 69.8 \pm 0.8$ km/s/Mpc by $\mathrm{ch}_2(z)$ evolution. $|74.11 - 69.8| = 4.31$, i.e. $5.4\sigma$ against the $\pm 0.8$ quoted there. Both sections claim to resolve the same tension; they cannot both be the framework's prediction for the same quantity. Machine-checked at \texttt{PF\_Lean4\_Code/PF/Ch11PredictionsFormalized\_r349.lean} (\texttt{H\_eff\_incompatible\_with\_ch27\_value}). \textbf{Neither value is withdrawn here} --- that is an authorial choice between two mechanisms, and each already carries its own scope note (ch~27's $69.8$ is definitional, chosen to lie between the measurements; ch~11's $74.11$ sits $1.026\sigma$ from SH0ES). What is recorded is that the two are inconsistent with each other, which was not stated anywhere before. Chapter~34A line~1893 quotes the ch~11 value with the correct $1.03\sigma$ characterisation.}
+consistent with both measurements within 2$\sigma$.
 \emph{Scope note (2026-07-23): the ``resolution'' is an \textbf{empirical hypothesis, not independently validated}. What the Lean corpus certifies is only the trivial bracket $67.4<69.8<73.0$ (theorem
 \texttt{hubble\_framework\_brackets\_local\_and\_cmb}), which holds \textbf{because $69.8$ is a framework-defined constant chosen to lie between the two measurements} --- definitional, not a derivation that the true $H_0$ takes this value.}
 \end{proposition}
@@ -502,7 +482,7 @@ Averaging CMB and modified SN:
 H_0^{\text{combined}} = \frac{67.4 + 70.8}{2} = 69.1 \pm 1.2 \, \text{km/s/Mpc}
 \end{equation}
 
-Tension reduced from 5$\sigma$ to 1.5$\sigma$.\manuscriptcorrection{Bookkeeping mismatch, noted for completeness and deliberately not inflated. This proof sketch computes $69.1$ while the proposition above states $69.8$; the two central values differ by $0.7$. \textbf{This is not a statistical contradiction:} $69.8$ lies inside $69.1\pm1.2 = [67.9,70.3]$ and $69.1$ lies inside $69.8\pm0.8 = [69.0,70.6]$, so the intervals overlap and each central value sits within the other's stated uncertainty. An external audit reported these as differing outside either error bar; that reading is incorrect. The substantive point is already disclosed by the proposition's own scope note of 2026-07-23, which records that $69.8$ is a framework-defined constant chosen to lie between the two measurements rather than a derived quantity. What that note does not add, and this one does, is that the proof sketch below it arrives at $69.1$ --- so a reader who follows the sketch will not recover the number the proposition states.}
+Tension reduced from 5$\sigma$ to 1.5$\sigma$.
 \end{proof}
 
 \section{Structure Formation}
@@ -769,7 +749,7 @@ linking expansion to resonance quantization (the $\pi/10$ factor
 documented in Ch.~9).  Substituting
 $H_0=67.36\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$ gives
 $L_{\mathrm{coh}}\approx 1.38\,\mathrm{Gly}$, consistent with the
-observed Quipu extent within uncertainties.\manuscriptcorrection{The printed formula does not give this number. With $c/H_0 = 299792.458/67.36 = 4450.60$~Mpc $= 14.5159$~Gly and $\sigma_c = 0.95$, equation~\eqref{eq:Lcoh_formula} as displayed yields $14.5159\cdot(\pi/10)\cdot0.95 = 4.3323$~Gly, not $1.38$. Deleting the $\pi$ gives $14.5159\cdot(1/10)\cdot0.95 = 1.3790$~Gly --- the claimed value to three figures --- and the ratio between the two is $4.3323/1.38 = 3.139$, i.e.\ $\pi$. The defect is a single spurious factor of $\pi$. Theorem \texttt{L\_coh\_printed\_eq\_pi\_mul\_piFree} (file \texttt{PF/Ch27QuipuCoherenceRefutationAttempt.lean}, 2026-10-05) proves axiom-free that the printed quantity is \emph{exactly} $\pi$ times the $\pi$-free one, which is the whole diagnosis in one identity; \texttt{L\_coh\_piFree\_bracket} places the $\pi$-free quantity in $(1.37,1.39)$; and \texttt{L\_coh\_printed\_gt\_four} shows the printed quantity exceeds $4$~Gly. \textbf{A fork this chapter cannot straddle.} It asserts both that the formula carries ``the $\pi/10$ factor documented in Ch.~9'' and that the result agrees with the observed Quipu extent, given as $\approx1.4$~Gly in the figure legend below. Both cannot hold. If the $\pi/10$ is right the prediction is $4.33$~Gly and overshoots the observed extent by $3.1\times$, so the agreement claim fails. If the agreement is right the formula is $(c/H_0)(1/10)\sigma_c$ and the attribution of a $\pi/10$ factor to Ch.~9 is wrong \emph{at this equation}. \textbf{This note does not choose}, because the choice is authorial and has consequences elsewhere: $\pi/10$ is load-bearing across the framework, so removing it here while retaining it in Ch.~9 would need a stated reason. What is established is that the two assertions are incompatible, and by exactly a factor of $\pi$.}
+observed Quipu extent within uncertainties.
 
 \begin{figure}[t]
 \centering

@@ -477,7 +477,7 @@ A future mathlib formalisation of `Ḣ^{1/2}(ℝ³)` + Leray projection
 would immediately discharge `FujitaKato1964Theorem_Universal`
 axiom-free, which would then cascade through the bridges to the
 PF NS Clay-precision stack. -/
-theorem fujitaKato1964Infrastructure_honest_scope :
+theorem fujitaKato1964Infrastructure_referee_scope :
     FujitaKato1964InfrastructureStatus :=
   { reexport_vector_schwartz_done := rfl
     reexport_euclidean_done := rfl
@@ -685,12 +685,12 @@ theorem fk1964_implemented_infrastructure_stack_capstone :
 #check @FujitaKato1964Theorem_Universal
 #check @Bridge_FujitaKato_to_LocalToGlobalBootstrap
 #check @fujitaKato1964_infrastructure_capstone
-#check @fujitaKato1964Infrastructure_honest_scope
+#check @fujitaKato1964Infrastructure_referee_scope
 #check @fk1964_implemented_infrastructure_stack_capstone
 #check @bridge_to_PFFujitaKato1964Theorem_via_implemented_stack
 
 #print axioms fujitaKato1964_infrastructure_capstone
-#print axioms fujitaKato1964Infrastructure_honest_scope
+#print axioms fujitaKato1964Infrastructure_referee_scope
 #print axioms bridge_to_PFFujitaKato1964Theorem_axiom_free
 #print axioms fujitaKato1964Theorem_Universal_at_zero
 #print axioms SmallH12Data_zero

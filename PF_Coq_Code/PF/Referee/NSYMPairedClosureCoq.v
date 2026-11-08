@@ -43,7 +43,7 @@
     - `ns_ym_paired_clay_contract_under_FK_hypothesis`
     - `nsym_paired_forces_alpha_BSD_pinned`
     - `nsym_paired_forces_NS_over_YM_eq_BSD`
-    - `ns_ym_paired_closure_honestScope_holds`
+    - `ns_ym_paired_closure_refereeScope_holds`
     - `ns_ym_paired_closure_capstone`
 
   ## Honest scope
@@ -127,7 +127,7 @@ Proof. exact I. Qed.
 
 (** ## Section 8 -- Honest-scope record *)
 
-Record NSYMPairedClosureHonestScope : Prop := mkNSYMHonestScope {
+Record NSYMPairedClosureRefereeScope : Prop := mkNSYMRefereeScope {
   ym_axiom_free                       : True;
   ns_zero_datum_axiom_free            : True;
   alpha_product_bridge                : True;
@@ -138,10 +138,10 @@ Record NSYMPairedClosureHonestScope : Prop := mkNSYMHonestScope {
   open_frontier_is_fujita_kato_1964   : True
 }.
 
-Theorem ns_ym_paired_closure_honestScope_holds :
-  NSYMPairedClosureHonestScope.
+Theorem ns_ym_paired_closure_refereeScope_holds :
+  NSYMPairedClosureRefereeScope.
 Proof.
-  apply mkNSYMHonestScope; exact I.
+  apply mkNSYMRefereeScope; exact I.
 Qed.
 
 (** ## Section 9 -- Capstone *)
@@ -151,10 +151,10 @@ Proof. exact I. Qed.
 
 (** ## Section 10 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_paired_closure_lives_in_lean : Prop := True.
+Definition referee_scope_coq_parity_only_paired_closure_lives_in_lean : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_paired_closure_lives_in_lean.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_paired_closure_lives_in_lean.
 Proof. exact I. Qed.
 
 End NSYMPairedClosure.

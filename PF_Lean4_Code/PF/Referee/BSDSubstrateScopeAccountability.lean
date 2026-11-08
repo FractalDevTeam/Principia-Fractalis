@@ -239,16 +239,7 @@ theorem PF_substrate_BSD_scope_capstone :
    BSD_default_residual_is_zero_holds,
    BSD_catalog_size_is_20⟩
 
-/-! ## §4 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this file consolidates the
-    substrate-vs-literal-Clay BSD scope distinction into a
-    referee-reading point parallel to the Hodge, NS, and YM
-    accountability files. The V5 BSD discharge is unchanged; the
-    rank-projection identification, default-zero residual, and
-    20-curve catalog structure are now mechanically readable at the
-    typed-Prop level alongside the discharge itself. -/
-theorem PF_substrate_BSD_scope_honest_scope : True := trivial
+/-! ## §4 — Scope statement -/
 
 end PF.Referee.BSDSubstrateScopeAccountability
 
@@ -263,5 +254,3 @@ end PF.Referee.BSDSubstrateScopeAccountability
   PF.Referee.BSDSubstrateScopeAccountability.BSD_catalog_size_is_20
 #print axioms
   PF.Referee.BSDSubstrateScopeAccountability.PF_substrate_BSD_scope_capstone
-#print axioms
-  PF.Referee.BSDSubstrateScopeAccountability.PF_substrate_BSD_scope_honest_scope

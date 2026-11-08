@@ -283,7 +283,7 @@ theorem PF_BSD_capstoneV2_implies_V1 :
     `BSD_RankWitnessTypedUpgrade` rather than `r.val` arithmetic.
     The substrate-level discharge is unconditional; the Clay BSD
     content at positive rank remains genuinely open. -/
-def PF_BSD_V2_honestScope : Prop :=
+def PF_BSD_V2_refereeScope : Prop :=
   -- (H1) V2 substrate routings hold for both projections.
   (∀ E : WeierstrassCurve ℚ, RankWitnessTyped E (algebraicRankV2 E)) ∧
   (∀ E : WeierstrassCurve ℚ, SelmerRankEquals E (analyticRankV2 E)) ∧
@@ -297,7 +297,7 @@ def PF_BSD_V2_honestScope : Prop :=
   PF.Referee.StandardClayStatements.Clay_BSD_Standard PF_BSDEncodingV2
 
 /-- The V2 honest-scope marker holds unconditionally. -/
-theorem PF_BSD_V2_honestScope_holds : PF_BSD_V2_honestScope :=
+theorem PF_BSD_V2_refereeScope_holds : PF_BSD_V2_refereeScope :=
   ⟨algebraicRankV2_routed_via_RankWitnessTyped,
    analyticRankV2_routed_via_SelmerRankEquals,
    algebraicRankV2_eq_analyticRankV2,
@@ -307,7 +307,7 @@ theorem PF_BSD_V2_honestScope_holds : PF_BSD_V2_honestScope :=
 #check @PF_BSDEncodingV2
 #check @PF_BSD_capstone_yields_Clay_BSD_standardV2
 #check @PF_BSD_capstoneV2_implies_V1
-#check @PF_BSD_V2_honestScope_holds
+#check @PF_BSD_V2_refereeScope_holds
 
 /-! ## §9 — Axiom-freeness verification -/
 
@@ -317,6 +317,6 @@ theorem PF_BSD_V2_honestScope_holds : PF_BSD_V2_honestScope :=
 #print axioms PF_BSD_capstone_yields_Clay_BSD_standardV2
 #print axioms PF_BSD_capstone_yields_Clay_BSD_standardV2_conditional
 #print axioms PF_BSD_capstoneV2_implies_V1
-#print axioms PF_BSD_V2_honestScope_holds
+#print axioms PF_BSD_V2_refereeScope_holds
 
 end PF.Referee.BSDCapstoneTypedBridgeV2

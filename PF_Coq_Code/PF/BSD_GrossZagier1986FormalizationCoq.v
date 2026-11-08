@@ -86,7 +86,7 @@ Proof. exact I. Qed.
 Theorem grossZagier1986Identity_E37a1 : True.
 Proof. exact I. Qed.
 
-Theorem bsd_grossZagier1986_honest_scope : True.
+Theorem bsd_grossZagier1986_referee_scope : True.
 Proof. exact I. Qed.
 
 Theorem bsd_grossZagier1986_formalization_capstone : True.
@@ -94,9 +94,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End BSD_GrossZagier1986Formalization.

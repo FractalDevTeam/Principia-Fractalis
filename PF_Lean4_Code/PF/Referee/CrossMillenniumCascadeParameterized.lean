@@ -444,7 +444,7 @@ theorem framework_cascade_from_perelman_anchor :
 /-! ## §6 — Honest-scope record -/
 
 /-- **Honest-scope record** for the parameterized cascade. -/
-structure CrossMillenniumCascadeParameterizedHonestScope : Prop where
+structure CrossMillenniumCascadeParameterizedRefereeScope : Prop where
   /-- (S1) The cascade is GENUINELY deductive: each entailment proof
       uses the invariant hypotheses nontrivially (no `intro _h` that
       discards the hypothesis). -/
@@ -469,8 +469,8 @@ structure CrossMillenniumCascadeParameterizedHonestScope : Prop where
   addresses_referee_finding : True
 
 /-- The honest-scope record is inhabited. -/
-theorem cross_millennium_cascade_parameterized_honest_scope :
-    CrossMillenniumCascadeParameterizedHonestScope :=
+theorem cross_millennium_cascade_parameterized_referee_scope :
+    CrossMillenniumCascadeParameterizedRefereeScope :=
   ⟨trivial, trivial, trivial, trivial, trivial⟩
 
 /-! ## §7 — Axiom-freeness verification -/
@@ -489,7 +489,7 @@ theorem cross_millennium_cascade_parameterized_honest_scope :
 #check @framework_alpha
 #check @framework_alpha_satisfies_invariants
 #check @framework_cascade_from_perelman_anchor
-#check @cross_millennium_cascade_parameterized_honest_scope
+#check @cross_millennium_cascade_parameterized_referee_scope
 
 #print axioms entailment_from_a_Poincare
 #print axioms entailment_from_a_RH
@@ -501,6 +501,6 @@ theorem cross_millennium_cascade_parameterized_honest_scope :
 #print axioms cascade_parameterized_capstone
 #print axioms framework_alpha_satisfies_invariants
 #print axioms framework_cascade_from_perelman_anchor
-#print axioms cross_millennium_cascade_parameterized_honest_scope
+#print axioms cross_millennium_cascade_parameterized_referee_scope
 
 end PF.Referee.CrossMillenniumCascadeParameterized

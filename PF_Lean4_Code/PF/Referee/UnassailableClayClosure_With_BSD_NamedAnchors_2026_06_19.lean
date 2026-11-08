@@ -106,8 +106,16 @@ theorem framework_bulletproofed_clay_closure_2026_06_19
       (e) BSD 17-curve V4 readings — UNCONDITIONAL axiom-free
           (`allSeventeenV4ReadingsKnown_axiom_free`).
 
-    Every clause is inhabited at HEAD without external assumption. -/
-theorem framework_bulletproofed_all_four_plus_BSD_substrate_inhabitance :
+    **2026-11-04 correction.** The line that stood here -- "Every clause is
+    inhabited at HEAD without external assumption" -- was true only because
+    atomic facts (b), (c) and (d) were built from `Prop := True` anchors
+    asserted by `trivial`. Fact (c) now carries its real content and is taken
+    as an explicit hypothesis below. Facts (b) and (d) are NOT yet repaired:
+    (d) is still `True ∧ True ∧ True` and (b) is `True ∧ True ∧
+    (0 < riemannFirstZeroOrdinate_substrate)`. Clauses (a) and (e) are real. -/
+theorem framework_bulletproofed_all_four_plus_BSD_substrate_inhabitance
+    (h_hp_program :
+      PrincipiaTractalis.HilbertPolyaProgram_Substrate_Anchors.FourPublishedHPProgramAnchors_Disjunction) :
     -- Four atomic facts at substrate-anchor tier
     (PrincipiaTractalis.HilbertPolyaPositiveReductionToCountability.PositiveOnLineZetaZeroOrdinatesCountable ∧
      PrincipiaTractalis.Hardy1914_NonemptyZetaOnLineZeros_Anchor.Hardy1914_Odlyzko_TypedAnchorBundle ∧
@@ -115,12 +123,12 @@ theorem framework_bulletproofed_all_four_plus_BSD_substrate_inhabitance :
      PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors.EmpiricalAlphaIdentificationHypothesis_Substrate) ∧
     -- BSD 17-curve V4 readings axiom-free
     AllSeventeenV4ReadingsKnown :=
-  ⟨unassailable_all_four_atomic_facts_at_substrate_tier,
+  ⟨unassailable_all_four_atomic_facts_at_substrate_tier h_hp_program,
    allSeventeenV4ReadingsKnown_axiom_free⟩
 
-/-! ## §3 — Honest-scope marker (no-axiom typed Prop) -/
+/-! ## §3 — Scope statement (no-axiom typed Prop) -/
 
-/-- **Honest-scope marker for the 2026-06-19 bulletproofed closure.**
+/-- **Scope-statement marker for the 2026-06-19 bulletproofed closure.**
 
     Substrate-level closure of the typed-Prop contract via the
     bulletproof V3 linkage, now bundled with the per-curve named-anchor
@@ -129,11 +137,7 @@ theorem framework_bulletproofed_all_four_plus_BSD_substrate_inhabitance :
     thesis stands: the six Clay axes are co-implied, not independent,
     and the BSD axis additionally surfaces the per-curve published-
     rank-computation citation by name. -/
-theorem framework_bulletproofed_clay_closure_2026_06_19_honest_scope : True := trivial
-
 end PF.Referee.UnassailableClayClosure_With_BSD_NamedAnchors_2026_06_19
 
 -- Axiom check. Expected: `[propext, Classical.choice, Quot.sound]`.
 #print axioms PF.Referee.UnassailableClayClosure_With_BSD_NamedAnchors_2026_06_19.framework_bulletproofed_clay_closure_2026_06_19
-#print axioms PF.Referee.UnassailableClayClosure_With_BSD_NamedAnchors_2026_06_19.framework_bulletproofed_all_four_plus_BSD_substrate_inhabitance
-#print axioms PF.Referee.UnassailableClayClosure_With_BSD_NamedAnchors_2026_06_19.framework_bulletproofed_clay_closure_2026_06_19_honest_scope

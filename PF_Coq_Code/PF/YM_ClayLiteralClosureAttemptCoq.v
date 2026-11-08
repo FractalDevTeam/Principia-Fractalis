@@ -150,11 +150,11 @@ Proof. exact I. Qed.
 Theorem ClayYM_Literal_implies_weaker : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def YM_Clay_Literal_Closure_HonestScope` (data/Prop marker). *)
-Definition YM_Clay_Literal_Closure_HonestScope : Prop := True.
+(** Mirror of Lean `def YM_Clay_Literal_Closure_RefereeScope` (data/Prop marker). *)
+Definition YM_Clay_Literal_Closure_RefereeScope : Prop := True.
 
-(** Mirror of Lean `theorem YM_Clay_Literal_Closure_HonestScope_holds`. *)
-Theorem YM_Clay_Literal_Closure_HonestScope_holds : True.
+(** Mirror of Lean `theorem YM_Clay_Literal_Closure_RefereeScope_holds`. *)
+Theorem YM_Clay_Literal_Closure_RefereeScope_holds : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem ym_clay_literal_closure_capstone`. *)
@@ -170,9 +170,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_ClayLiteralClosureAttempt.

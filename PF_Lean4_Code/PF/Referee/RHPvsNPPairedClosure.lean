@@ -346,7 +346,7 @@ theorem RH_PvNP_paired_closure_under_open_frontier
       (H7) NAMED OPEN FRONTIER: the precise mathlib gap on each axis.
       (H8) NOT a Clay RH discharge.
       (H9) NOT a Clay P vs NP discharge. -/
-def RH_PvNP_paired_honest_scope : Prop :=
+def RH_PvNP_paired_referee_scope : Prop :=
   -- (H1)
   (BerryKeatingHamiltonianHypothesis → PF_T3SymIsHilbertPolyaOperator) ∧
   -- (H2)
@@ -375,7 +375,7 @@ def RH_PvNP_paired_honest_scope : Prop :=
     PF_T3SymIsHilbertPolyaOperator ∧ PolylogEigenvalueConjecture)
 
 /-- **The paired-closure honest scope holds AXIOM-FREE**. -/
-theorem RH_PvNP_paired_honest_scope_holds : RH_PvNP_paired_honest_scope := by
+theorem RH_PvNP_paired_referee_scope_holds : RH_PvNP_paired_referee_scope := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact PF_T3SymIsHilbertPolyaOperator_via_BerryKeating
   · exact RH_partial_surjectivity_at_N50_re_exposed

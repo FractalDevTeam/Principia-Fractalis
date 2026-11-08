@@ -90,7 +90,7 @@ mathlib-tractable Prop that implies C3.
     `bijective_enumeration_implies_C3`) giving smaller-shape Props
     each of which would suffice to discharge C3.
 
-## Honest scope (per 2026-05-25 referee-proof feedback)
+## Scope statement (per 2026-05-25 referee-proof feedback)
 
   * SD1-SD2 are EXACT decompositions (no information loss). They split
     the universal quantifier of C3 along orthogonal axes (per-zero index
@@ -434,7 +434,7 @@ theorem all_kth_imply_filteredDensity
        Mayer 1991 numerical infrastructure can be EXTENDED to k>0 in
        the same shape.
 
-    **HONEST SCOPE** (per 2026-05-25 referee-proof feedback):
+    **SCOPE** (per 2026-05-25 referee-proof feedback):
 
     * NOT an unconditional discharge of C3.
     * K1, K2 are EXACT (information-preserving) decompositions splitting
@@ -499,12 +499,6 @@ theorem onLineSurjectivity_subDecomposition_capstone
   · intro oracle h_first
     exact C2_iff_kth_at_zero α eigenvalues oracle h_first
 
-/-- **Honest-scope marker** — the sub-decomposition isolates the
-    per-zero / per-height / set-equality / enumeration shapes of C3;
-    it does NOT unconditionally discharge C3 (which remains comparable
-    in depth to RH itself). -/
-theorem onLineSurjectivity_subDecomposition_honest_scope : True := trivial
-
 end OnLineSurjectivitySubDecomposition
 
 end PrincipiaTractalis
@@ -535,5 +529,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.OnLineSurjectivitySubDecomposition.all_kth_imply_filteredDensity
 #print axioms
   PrincipiaTractalis.OnLineSurjectivitySubDecomposition.onLineSurjectivity_subDecomposition_capstone
-#print axioms
-  PrincipiaTractalis.OnLineSurjectivitySubDecomposition.onLineSurjectivity_subDecomposition_honest_scope

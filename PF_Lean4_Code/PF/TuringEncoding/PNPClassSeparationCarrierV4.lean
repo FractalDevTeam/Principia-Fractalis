@@ -374,7 +374,7 @@ configuration transitions from initial state, closing the gap further. -/
     (4) admissibility of the genuinely trivial cases (identically-true
     and identically-false predicates) via the constant-encoding
     witness, confirming the linkage is non-vacuous. -/
-theorem pnp_carrier_V4_honest_scope_capstone :
+theorem pnp_carrier_V4_referee_scope_capstone :
     -- (1) Cook 1971 P ⊆ NP on V4.
     (class_P_typedV4 ⊆ class_NP_typedV4) ∧
     -- (2) Reduction theorem analog.

@@ -105,11 +105,11 @@ Proof. exact I. Qed.
 Theorem wave57_W_composes_with_wave56 : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def Wave57HonestScopeNotice` (data/Prop marker). *)
-Definition Wave57HonestScopeNotice : Prop := True.
+(** Mirror of Lean `def Wave57RefereeScopeNotice` (data/Prop marker). *)
+Definition Wave57RefereeScopeNotice : Prop := True.
 
-(** Mirror of Lean `theorem wave57HonestScopeNotice_holds`. *)
-Theorem wave57HonestScopeNotice_holds : True.
+(** Mirror of Lean `theorem wave57RefereeScopeNotice_holds`. *)
+Theorem wave57RefereeScopeNotice_holds : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem ym_wightman_reconstruction_scaffold_capstone`. *)
@@ -118,9 +118,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_WightmanReconstructionScaffold.

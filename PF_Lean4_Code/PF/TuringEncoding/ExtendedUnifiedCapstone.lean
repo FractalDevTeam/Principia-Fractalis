@@ -122,7 +122,7 @@ theorem extendedUnifiedFramework_capstone : ExtendedUnifiedFramework :=
     NOT a Clay Millennium discharge. This capstone closes the
     ALGEBRAIC LAYER + the FINITE-N modular-product layer of the framework's
     substrate-side scaffolding. -/
-theorem ExtendedUnifiedCapstone_HonestScope : True := trivial
+theorem ExtendedUnifiedCapstone_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

@@ -373,7 +373,7 @@ theorem PF_BSD_capstoneV3_implies_V1 :
     relative to V2: case-split projection surfacing the 12
     specific-curve discharges; equality `rfl`-provable;
     Clay BSD form axiom-free on V3. -/
-def PF_BSD_V3_honestScope : Prop :=
+def PF_BSD_V3_refereeScope : Prop :=
   -- (H1) V3 substrate equality is provable axiom-free.
   (∀ E : WeierstrassCurve ℚ, algebraicRankV3 E = analyticRankV3 E) ∧
   -- (H2) V3 ⇒ V2 backward-compat bridge.
@@ -397,7 +397,7 @@ def PF_BSD_V3_honestScope : Prop :=
     PrincipiaTractalis.BSD_Rank2AttemptE389a1.E_389a1, cert.r = 2)
 
 /-- The V3 honest-scope marker holds unconditionally. -/
-theorem PF_BSD_V3_honestScope_holds : PF_BSD_V3_honestScope :=
+theorem PF_BSD_V3_refereeScope_holds : PF_BSD_V3_refereeScope :=
   ⟨algebraicRankV3_eq_analyticRankV3,
    PF_BSD_capstoneV3_implies_V2,
    PF_BSD_capstoneV3_implies_V1,
@@ -411,7 +411,7 @@ theorem PF_BSD_V3_honestScope_holds : PF_BSD_V3_honestScope :=
 #check @PF_BSD_capstone_yields_Clay_BSD_standardV3
 #check @PF_BSD_capstoneV3_implies_V2
 #check @PF_BSD_capstoneV3_implies_V1
-#check @PF_BSD_V3_honestScope_holds
+#check @PF_BSD_V3_refereeScope_holds
 
 /-! ## §9 — Axiom-freeness verification -/
 
@@ -425,6 +425,6 @@ theorem PF_BSD_V3_honestScope_holds : PF_BSD_V3_honestScope :=
 #print axioms v3_E_43a1_discharged
 #print axioms v3_rank_one_cohort_discharged
 #print axioms v3_E_389a1_discharged
-#print axioms PF_BSD_V3_honestScope_holds
+#print axioms PF_BSD_V3_refereeScope_holds
 
 end PF.Referee.BSDCapstoneTypedBridgeV3

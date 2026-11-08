@@ -436,7 +436,7 @@ structure AbcFrameworkAttack where
   named_obstruction : Prop
   cascade_implies_conjecture :
     ∀ R : ℕ → ℕ, AbcViaFrameworkSpectralCascade R → abcConjecture
-  honest_scope_not_a_discharge : True
+  referee_scope_not_a_discharge : True
 
 /-- **★ abc FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -477,7 +477,7 @@ noncomputable def abc_framework_attack_capstone :
   named_obstruction := MathlibAbcConjecture
   cascade_implies_conjecture :=
     abc_via_spectral_cascade_implies_conjecture
-  honest_scope_not_a_discharge := trivial
+  referee_scope_not_a_discharge := trivial
 
 #check @AbcTriple
 #check @abcConjecture

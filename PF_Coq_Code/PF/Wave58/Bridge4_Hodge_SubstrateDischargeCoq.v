@@ -137,9 +137,9 @@ Qed.
 
 (** ## Section 7 -- Honest-scope marker *)
 
-Definition Bridge4_Hodge_Substrate_Discharge_HonestScope : Prop := True.
-Theorem bridge4_hodge_substrate_discharge_honest_scope :
-  Bridge4_Hodge_Substrate_Discharge_HonestScope.
+Definition Bridge4_Hodge_Substrate_Discharge_RefereeScope : Prop := True.
+Theorem bridge4_hodge_substrate_discharge_referee_scope :
+  Bridge4_Hodge_Substrate_Discharge_RefereeScope.
 Proof. exact I. Qed.
 
 End Bridge4_Hodge_SubstrateDischarge.

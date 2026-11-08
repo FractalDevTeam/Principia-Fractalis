@@ -374,7 +374,7 @@ is NOT a Clay BSD discharge. Three layers of honesty:
     on the single LMFDB rank-0 CM anchor `E_{32.a3}`, with one
     named open Prop (`ConvergenceOfPartialEulerProductAtSEquals1`)
     bridging `L_partial → L_full`. -/
-theorem bsd_wave56_rank_zero_actual_discharge_attempt_honest_scope :
+theorem bsd_wave56_rank_zero_actual_discharge_attempt_referee_scope :
     True := trivial
 
 /-! ## §8 — Capstone
@@ -567,4 +567,4 @@ end PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt
 #print axioms
   PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.bsd_wave56_rank_zero_actual_discharge_attempt_capstone
 #print axioms
-  PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.bsd_wave56_rank_zero_actual_discharge_attempt_honest_scope
+  PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.bsd_wave56_rank_zero_actual_discharge_attempt_referee_scope

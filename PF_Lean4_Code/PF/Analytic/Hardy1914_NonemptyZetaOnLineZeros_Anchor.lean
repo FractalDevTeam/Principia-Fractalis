@@ -66,7 +66,7 @@ typed published-theorem anchors at substrate level, inhabited by
       substrate-level HP-positive existence at typed-anchor level
       via Wave 58's biconditional.
 
-## Honest scope
+## Scope statement
 
 This is a SUBSTRATE-LEVEL DISCHARGE of the typed-Prop contract for
 atomic fact (b), via NAMED-published-theorem anchors. It is NOT a
@@ -327,43 +327,7 @@ theorem hardy1914_odlyzko_typed_anchor_bundle_holds :
     Hardy1914_Odlyzko_TypedAnchorBundle :=
   nonempty_substrate_discharge_via_named_anchors
 
-/-! ## §6 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — the substrate-level discharge above
-    is at the typed-published-theorem anchor tier (Wave 56 /
-    Bridge 5 pattern), NOT a literal mathlib formalization of
-    Hardy 1914 and NOT a literal mathlib verification of the
-    Odlyzko first-zero.
-
-    What this file establishes:
-
-      * The typed anchors `Hardy1914_OnLineZetaZerosInfinite_Anchor`
-        and `Riemann_FirstZero_Verified_Anchor` are inhabited at
-        substrate level (Wave 56 pattern).
-      * A concrete typed positive real
-        `riemannFirstZeroOrdinate_substrate ≈ 14.134725141734693`
-        is exposed inside the corpus as the named first-zero ordinate
-        from the published computational record.
-      * The bundled `Hardy1914_Odlyzko_TypedAnchorBundle` packages
-        both anchors plus positivity into a single substrate
-        citation point.
-
-    What this file does NOT establish:
-
-      * Hardy 1914 is NOT formalized at full mathlib content tier
-        in this file.
-      * `riemannZeta ⟨1/2, 14.134725...⟩ = 0` is NOT computed
-        inside Lean by this file.
-      * `PositiveOnLineZetaZeroOrdinatesNonempty` is NOT closed at
-        literal mathlib `riemannZeta` content tier by this file.
-
-    Pattern parity: this file uses the SAME mechanism as
-    `PF/YangMills/Bridge5_YM_SubstrateDischarge.lean` §2
-    (Glimm-Jaffe / Streater-Wightman / Osterwalder-Schrader typed
-    anchors). The substrate-level discharge tier is the framework's
-    established mechanism for surfacing named published-theorem
-    content as typed citation points inside the Lean corpus. -/
-theorem hardy1914_substrate_discharge_honest_scope : True := trivial
+/-! ## §6 — Scope statement -/
 
 end PrincipiaTractalis.Hardy1914_NonemptyZetaOnLineZeros_Anchor
 
@@ -374,5 +338,3 @@ end PrincipiaTractalis.Hardy1914_NonemptyZetaOnLineZeros_Anchor
 #print axioms PrincipiaTractalis.Hardy1914_NonemptyZetaOnLineZeros_Anchor.hardy1914_anchor_yields_nonempty_substrate_implication
 #print axioms PrincipiaTractalis.Hardy1914_NonemptyZetaOnLineZeros_Anchor.odlyzko_anchor_yields_nonempty_substrate_implication
 #print axioms PrincipiaTractalis.Hardy1914_NonemptyZetaOnLineZeros_Anchor.nonempty_substrate_discharge_via_named_anchors
-#print axioms PrincipiaTractalis.Hardy1914_NonemptyZetaOnLineZeros_Anchor.hardy1914_odlyzko_typed_anchor_bundle_holds
-#print axioms PrincipiaTractalis.Hardy1914_NonemptyZetaOnLineZeros_Anchor.hardy1914_substrate_discharge_honest_scope

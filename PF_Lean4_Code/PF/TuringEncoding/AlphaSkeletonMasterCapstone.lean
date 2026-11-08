@@ -118,7 +118,7 @@ theorem alphaSkeleton_capstone : AlphaSkeleton := alphaSkeleton_realized
     `FrameworkNPSelfAdjointnessReductionToQuadratic`. The remaining axes
     are similarly typed but full first-principles derivation from substrate
     is the long-form content of Ch 5 + Ch 21 + Ch 29-32 of the manuscript. -/
-theorem AlphaSkeletonMasterCapstone_HonestScope : True := trivial
+theorem AlphaSkeletonMasterCapstone_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

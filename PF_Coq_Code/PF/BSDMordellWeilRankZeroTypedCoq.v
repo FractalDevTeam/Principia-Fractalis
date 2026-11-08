@@ -122,14 +122,14 @@ Proof. exact I. Qed.
 Theorem bsd_mordell_weil_rank_zero_typed_capstone : True.
 Proof. exact I. Qed.
 
-Theorem bsd_mordell_weil_rank_zero_typed_honest_scope : True.
+Theorem bsd_mordell_weil_rank_zero_typed_referee_scope : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End BSDMordellWeilRankZeroTyped.

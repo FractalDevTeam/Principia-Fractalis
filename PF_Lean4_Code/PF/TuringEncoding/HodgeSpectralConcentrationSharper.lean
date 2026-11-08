@@ -119,7 +119,7 @@ theorem inv_alphaHodge_lt_chTwoCritLocal :
 
 /-! ## §4 — Honest scope marker -/
 
-theorem HodgeSpectralConcentrationSharper_HonestScope : True := trivial
+theorem HodgeSpectralConcentrationSharper_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

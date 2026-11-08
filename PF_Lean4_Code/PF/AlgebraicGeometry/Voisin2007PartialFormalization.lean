@@ -65,7 +65,7 @@ three structural facts that this file formalizes as typed Props:
      re-exporting `not_voisin2007_general_codim_two_non_algebraic_at_substrate`
      (substrate-level refutation of the obstruction Prop) and
      reformulating it explicitly as a **substrate-level resolution of
-     the Voisin 2007 (R3) open content**, with HONEST SCOPE that the
+     the Voisin 2007 (R3) open content**, with SCOPE that the
      literal geometric content is unchanged.
 
   5. Encodes the **precise iff** stated in the briefing:
@@ -76,10 +76,10 @@ three structural facts that this file formalizes as typed Props:
      the literal-mathlib iff is the residual lift gap from
      `LiftSubstrateToLiteralChowH22`.
 
-  6. Bundles (R1)-(R5) with an honest-scope marker into a single
+  6. Bundles (R1)-(R5) with an scope-statement marker into a single
      **Voisin 2007 partial formalization capstone**.
 
-## What this file is NOT (HONEST SCOPE — non-negotiable)
+## What this file is NOT (SCOPE — non-negotiable)
 
   * **NOT** a literal Clay-grade resolution of the Hodge conjecture
     at codim 2. The closure on (R1) and (R2) is at the substrate-level
@@ -108,7 +108,7 @@ three structural facts that this file formalizes as typed Props:
 The contribution: pin each of the three published Voisin 2007 partial
 results to a typed Prop in the PF stack, with substrate-level
 discharges for the closed cases (R1, R2) and explicit citation +
-honest-scope encoding for the open case (R3).
+scope-statement encoding for the open case (R3).
 
 ## Build
 
@@ -186,7 +186,7 @@ over the three substrate-level witnesses. -/
     abelian instances from the PF stack
     (abelian 3-fold + CM abelian 4-fold + CM abelian 5-fold).
 
-    HONEST SCOPE: discharged at substrate-level encoding. Literal
+    SCOPE: discharged at substrate-level encoding. Literal
     mathlib content (Chow groups + cycle class map on actual abelian
     varieties) is NOT touched. -/
 def Voisin2007_AbelianCodimTwoHolds : Prop :=
@@ -225,7 +225,7 @@ PF stack discharges this at substrate level uniformly across all
     `dwork_generic_codimtwo_status` Props from
     `Voisin2007GeneralQuinticPrecision.lean`.
 
-    HONEST SCOPE: discharged at substrate-level encoding. Literal
+    SCOPE: discharged at substrate-level encoding. Literal
     mathlib content on the actual Dwork pencil scheme is NOT touched. -/
 def Voisin2007_DworkPencilCodimTwoHolds : Prop :=
   (∀ lam : ℚ,
@@ -266,7 +266,7 @@ explicit Voisin 2007 citation marker. -/
     Voisin obstruction holds on X); proving or refuting this is
     the Fields-medal-grade open question.
 
-    HONEST SCOPE: encodes the OPEN content. NOT proven; refutable
+    SCOPE: encodes the OPEN content. NOT proven; refutable
     at substrate level (see `Hodge_ClayLiteralClosureAttempt §1`)
     but literal-mathlib geometric content unchanged. -/
 def Voisin2007_GeneralQuinticOpenContent : Prop :=
@@ -283,7 +283,7 @@ def Voisin2007_GeneralQuinticOpenContent : Prop :=
     citation that the literal geometric Voisin 2007 obstruction
     (G1)-(G3) is unchanged.
 
-    HONEST SCOPE: substrate-level refutation only. The literal
+    SCOPE: substrate-level refutation only. The literal
     geometric question (literal mathlib H^{2,2}(X, ℚ) carrier with
     literal Chow cycle classes on a generic non-CM smooth quintic
     outside Dwork+CM) is UNCHANGED. -/
@@ -323,7 +323,7 @@ by combining `hodge_clay_gap_isolated_to_voisin_2007` (from
     `Voisin2007GeneralCodimTwoNonAlgebraic` cannot hold, hence no `X`
     carries the obstruction.
 
-    HONEST SCOPE: this iff lives at the substrate-level encoding. The
+    SCOPE: this iff lives at the substrate-level encoding. The
     LITERAL mathlib iff (with literal H^{2,2} carrier and literal Chow
     cycle classes) is the residual gap from
     `LiftSubstrateToLiteralChowH22`. -/
@@ -392,30 +392,7 @@ theorem Voisin2007_CombinedPartialStatus_substrate :
   ⟨Voisin2007_AbelianCodimTwoHolds_substrate,
    Voisin2007_DworkPencilCodimTwoHolds_substrate⟩
 
-/-! ## §6 — Honest-scope marker and capstone -/
-
-/-- **★ HONEST SCOPE THEOREM ★** —
-    precise status of this file:
-
-      * (R1) Voisin 2007 abelian codim-2 result — substrate-level
-        DISCHARGED axiom-free on 3 named instances (abelian 3-fold +
-        CM abelian 4-fold + CM abelian 5-fold).
-      * (R2) Voisin 2007 Dwork pencil codim-2 result — substrate-level
-        DISCHARGED axiom-free uniformly across `λ : ℚ`, plus two
-        moduli-locus status Props.
-      * (R3) Voisin 2007 general quintic OPEN content — encoded at
-        type level as `Voisin2007_GeneralQuinticOpenContent` Prop;
-        substrate-level shadow refutable; LITERAL geometric content
-        UNCHANGED (resolving it remains Fields-medal-grade).
-      * Precise iff `¬ Voisin2007_GeneralQuinticOpenContent ↔
-        Clay_Hodge_Standard PF_HodgeEncoding_FullGeneral` HOLDS
-        axiom-free at the substrate-level encoding.
-
-    NOT a literal Clay-grade discharge of the Hodge conjecture; full
-    mathlib formalization requires Chow groups + cycle class map +
-    Hodge theory infrastructure (see `LiftSubstrateToLiteralChowH22`
-    for the precise residual gap). -/
-theorem voisin2007_partial_formalization_honest_scope : True := trivial
+/-! ## §6 — Scope statement and capstone -/
 
 /-- **★ VOISIN 2007 PARTIAL FORMALIZATION CAPSTONE ★** —
     `voisin2007_partial_formalization_capstone`.
@@ -455,7 +432,7 @@ theorem voisin2007_partial_formalization_honest_scope : True := trivial
         `Voisin2007_CombinedPartialStatus` (closed sub-cases) holds
         at substrate level.
 
-    **HONEST SCOPE**: NOT a literal Clay discharge of the codim ≥ 2
+    **SCOPE**: NOT a literal Clay discharge of the codim ≥ 2
     Hodge conjecture. The discharges on (R1) and (R2) and the iff in
     (D4) operate at the substrate-level encoding (rank-1 ℚ-coefficient
     + matching-coefficient realisation predicate); full mathlib
@@ -508,7 +485,5 @@ end PrincipiaTractalis.AlgebraicGeometry.Voisin2007PartialFormalization
   PrincipiaTractalis.AlgebraicGeometry.Voisin2007PartialFormalization.voisin2007_obstruction_and_clay_hodge_codim_two_substrate_joint
 #print axioms
   PrincipiaTractalis.AlgebraicGeometry.Voisin2007PartialFormalization.Voisin2007_CombinedPartialStatus_substrate
-#print axioms
-  PrincipiaTractalis.AlgebraicGeometry.Voisin2007PartialFormalization.voisin2007_partial_formalization_honest_scope
 #print axioms
   PrincipiaTractalis.AlgebraicGeometry.Voisin2007PartialFormalization.voisin2007_partial_formalization_capstone

@@ -114,10 +114,10 @@ Theorem concrete_div_free_mean_zero_capstone : True. Proof. exact I. Qed.
 
 (** ## Section 7 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_ns3d_mean_zero : Prop := True.
+Definition referee_scope_coq_parity_only_ns3d_mean_zero : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_ns3d_mean_zero.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_ns3d_mean_zero.
 Proof. exact I. Qed.
 
 End NS3D_MeanZeroDivFree.

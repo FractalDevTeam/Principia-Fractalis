@@ -206,7 +206,7 @@ structure PFFrameworkUnifiedWhole : Prop where
       unconditionally, 5 new curves surfaced beyond V3, residual
       identity on undischarged curves. -/
   clay_bsd_V4 :
-    PF_BSD_V4_honestScope
+    PF_BSD_V4_refereeScope
   /-- (L3e) **Clay V4 — Yang-Mills**: V4 typed Clay-Standard on
       `PF_YMEncodingV4` (first conjunct of the 16-clause
       `ym_continuum_wightman_v4_capstone`). -/
@@ -364,7 +364,7 @@ theorem pfFrameworkUnifiedWhole_realized : PFFrameworkUnifiedWhole where
     PF_Clay_Master_Theorem
   -- (L3a) Clay V4 — P vs NP.
   clay_pnp_V4 :=
-    pnp_carrier_V4_honest_scope_capstone
+    pnp_carrier_V4_referee_scope_capstone
   -- (L3b) Clay V4 — Navier-Stokes.
   clay_ns_V4 :=
     ns3DRegularitySolutionV4_capstone
@@ -373,7 +373,7 @@ theorem pfFrameworkUnifiedWhole_realized : PFFrameworkUnifiedWhole where
     hodgeAlgebraicRepresentationV4_capstone.1
   -- (L3d) Clay V4 — BSD.
   clay_bsd_V4 :=
-    PF_BSD_V4_honestScope_holds
+    PF_BSD_V4_refereeScope_holds
   -- (L3e) Clay V4 — Yang-Mills (Clay_YangMillsMassGap_Standard
   -- on PF_YMEncodingV4).
   clay_ym_V4 :=
@@ -429,7 +429,7 @@ theorem pfFrameworkUnifiedWhole_realized : PFFrameworkUnifiedWhole where
 
 /-- Honest-scope record for the unified-whole closure. Documentation
     fields, not Clay-path claim content. -/
-structure PFFrameworkUnifiedWholeHonestScope : Prop where
+structure PFFrameworkUnifiedWholeRefereeScope : Prop where
   /-- (S1) The unified-whole closure COMPOSES existing axiom-free
       theorems by exact name. Each of the 10 layers is witnessed by
       a previously-proved theorem in its source module. -/
@@ -468,18 +468,18 @@ structure PFFrameworkUnifiedWholeHonestScope : Prop where
 
 /-- **Honest-scope record inhabited.** All four tags discharge as
     `trivial`; the content is in their docstrings. -/
-theorem pfFrameworkUnifiedWhole_honest_scope :
-    PFFrameworkUnifiedWholeHonestScope :=
+theorem pfFrameworkUnifiedWhole_referee_scope :
+    PFFrameworkUnifiedWholeRefereeScope :=
   ⟨trivial, trivial, trivial, trivial⟩
 
 /-! ## §4 — Axiom-freeness verification -/
 
 #check @PFFrameworkUnifiedWhole
 #check @pfFrameworkUnifiedWhole_realized
-#check @PFFrameworkUnifiedWholeHonestScope
-#check @pfFrameworkUnifiedWhole_honest_scope
+#check @PFFrameworkUnifiedWholeRefereeScope
+#check @pfFrameworkUnifiedWhole_referee_scope
 
 #print axioms pfFrameworkUnifiedWhole_realized
-#print axioms pfFrameworkUnifiedWhole_honest_scope
+#print axioms pfFrameworkUnifiedWhole_referee_scope
 
 end PF.Referee.PFFrameworkUnifiedClosure

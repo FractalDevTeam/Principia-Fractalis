@@ -305,7 +305,7 @@ theorem PF_YMEncodingV2_massGap_canonical :
     state-space gauge marker `L2RInf` (vs `Unit`). All four ingredients
     are mathlib-grounded; none uses scaffold-level trivial witnesses.
     NOT a literal continuum SU(N) Clay discharge. -/
-def PF_YM_V2_honestScope : Prop :=
+def PF_YM_V2_refereeScope : Prop :=
   -- (H1) V2 typed Clay form holds unconditionally.
   PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard PF_YMEncodingV2 ∧
   -- (H2) Inf-dim Hilbert carrier strengthening.
@@ -324,7 +324,7 @@ def PF_YM_V2_honestScope : Prop :=
   (pfV2ContinuumWitness.Δ ≠ 1)
 
 /-- The V2 honest-scope marker holds unconditionally. -/
-theorem PF_YM_V2_honestScope_holds : PF_YM_V2_honestScope :=
+theorem PF_YM_V2_refereeScope_holds : PF_YM_V2_refereeScope :=
   ⟨PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV2,
    rfl,
    rfl,
@@ -337,7 +337,7 @@ theorem PF_YM_V2_honestScope_holds : PF_YM_V2_honestScope :=
 
 #check @PF_YMEncodingV2
 #check @PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV2
-#check @PF_YM_V2_honestScope_holds
+#check @PF_YM_V2_refereeScope_holds
 
 /-! ## §7 — Axiom-freeness verification -/
 
@@ -347,7 +347,7 @@ theorem PF_YM_V2_honestScope_holds : PF_YM_V2_honestScope :=
 #print axioms PF_YMEncodingV2_gaugeGroup_eq_L2RInf
 #print axioms PF_YMEncodingV2_QYM_eq_ContinuumYMTheoryV2
 #print axioms PF_YMEncodingV2_massGap_canonical
-#print axioms PF_YM_V2_honestScope_holds
+#print axioms PF_YM_V2_refereeScope_holds
 
 end YM_ContinuumWightmanV2
 end PrincipiaTractalis

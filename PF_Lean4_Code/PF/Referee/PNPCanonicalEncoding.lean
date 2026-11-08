@@ -38,7 +38,7 @@ substrate's `StandardComplexityEncoding` through the canonical
   capstone targeted at the canonical encoding, conditional on the
   framework's existing polylog open Prop.
 
-## Honest scope
+## Scope statement
 
 ZERO project axioms. ZERO sorries. The canonical Clay-statement form
 remains conditional on `PolylogEigenvalueConjecture` — which is the
@@ -114,17 +114,7 @@ theorem Clay_PvsNP_Standard_at_canonical_iff_classes_distinct :
         simpa using this.symm
       rw [h_val]; exact L_P.property
 
-/-! ## §3 — Honest scope -/
-
-/-- **Honest scope marker.** This file exhibits the canonical Cook
-    1971 / Karp 1972 encoding of `Clay_PvsNP_Standard` using the
-    framework's existing canonical `ClassP` / `ClassNP` infrastructure
-    from `PrincipiaTractalis.TuringEncoding.Complexity`. The canonical
-    encoding is the literal mathlib-canonical Cook 1971 form, replacing
-    the ad-hoc carrier of the prior PNP bridges. The Clay-statement
-    target on this canonical encoding is logically equivalent to the
-    canonical `PvsNP_Question : ClassP = ClassNP`. -/
-theorem PF_PNP_canonical_honest_scope : True := trivial
+/-! ## §3 — Scope statement -/
 
 end PF.Referee.PNPCanonicalEncoding
 

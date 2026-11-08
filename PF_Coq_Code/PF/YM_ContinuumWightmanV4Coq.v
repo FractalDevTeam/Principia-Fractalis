@@ -69,11 +69,11 @@ Proof. exact I. Qed.
 Theorem PF_YMEncodingV4_interactingHam_trace_field : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def PF_YM_V4_honestScope` (data/Prop marker). *)
-Definition PF_YM_V4_honestScope : Prop := True.
+(** Mirror of Lean `def PF_YM_V4_refereeScope` (data/Prop marker). *)
+Definition PF_YM_V4_refereeScope : Prop := True.
 
-(** Mirror of Lean `theorem PF_YM_V4_honestScope_holds`. *)
-Theorem PF_YM_V4_honestScope_holds : True.
+(** Mirror of Lean `theorem PF_YM_V4_refereeScope_holds`. *)
+Theorem PF_YM_V4_refereeScope_holds : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem ym_continuum_wightman_v4_capstone`. *)
@@ -82,9 +82,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_ContinuumWightmanV4.

@@ -387,7 +387,7 @@ conjecture is UNCHANGED. -/
     does NOT discharge Clay BSD; the LMFDB anchor remains the empirical
     input on the typed-Prop side, and the IBM-CSV remains the empirical
     input on the α-value side. -/
-theorem bsd_mordell_weil_rank_zero_typed_empirical_anchor_honest_scope :
+theorem bsd_mordell_weil_rank_zero_typed_empirical_anchor_referee_scope :
     True :=
   trivial
 
@@ -559,4 +559,4 @@ end PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor
 #print axioms
   PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor.bsd_mordell_weil_rank_zero_typed_empirical_anchor_capstone
 #print axioms
-  PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor.bsd_mordell_weil_rank_zero_typed_empirical_anchor_honest_scope
+  PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor.bsd_mordell_weil_rank_zero_typed_empirical_anchor_referee_scope

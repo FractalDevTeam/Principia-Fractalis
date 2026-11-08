@@ -134,7 +134,7 @@ theorem w_TF_times_alphaYM_eq_alphaP : w_TF * alphaYM = Real.sqrt 2 := by
     *derive* each α-value from TF cohomology) remains the long-form
     manuscript content. This file establishes ONE concrete TF-weight
     identity (w_TF = 1/√2) and its three cross-axis consequences. -/
-theorem TimelessFieldAxisAlgebraicAnchor_HonestScope : True := trivial
+theorem TimelessFieldAxisAlgebraicAnchor_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

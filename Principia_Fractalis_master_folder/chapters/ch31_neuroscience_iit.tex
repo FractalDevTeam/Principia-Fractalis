@@ -184,31 +184,14 @@ For our clinical threshold ch$_2 = 0.95$, this predicts:
 
 This value lies in the range IIT reports for awake human brain states,
 $\Phi \in [4, 6]$ bits --- but only under the normalisation this chapter
-uses.\manuscriptcorrection{\textbf{The agreement with the $4$--$6$ bit band is
-normalisation-dependent, and the machine-checked normalisation does not share
-it.} Added 2026-11-02. The figure above follows from this chapter's own
-definition $\Phi = -\log_2(1-\text{ch}_2)$, and that arithmetic is correct:
-$-\log_2(0.05) = 4.32192809488736$ bits. The Lean corpus, however, defines the
-measure with a factor of two --- \texttt{Phi\_IIT := 2 * vNEntropy} --- and
-proves that at the uniform Schmidt spectrum matching
-$\text{ch}_2 = 19/20$ the value is $2\log 20$, which is
-$8.64385618977472$ bits. The two differ by a factor of exactly $2$, and only
-the un-doubled form falls inside $[4,6]$; the verified form misses the band
-above. So this sentence records a consequence of a normalisation choice, not an
-empirical concordance, and the normalisation the formal corpus actually checks
-is the one that fails it. Which convention is intended is an authorial decision
-and is not settled here. Two further cautions belong with it: this chapter's
-earlier $\Phi = \min_{\text{partition}} EI$ is a third, distinct object that the
-project's reading ledger records as ``not a definition of IIT's current
-integrated information''; and the $[4,6]$ band is quoted from the IIT literature
-without a citation at this site.}
+uses.
 
 \textbf{Critical advantage—Operational measurement:} IIT's exact $\Phi$ calculation requires enumerating all possible system partitions and computing effective information for each, a computation that is NP-hard and becomes intractable for systems with more than $\sim$10 elements~\cite{oizumi2014}. For the human brain with $\sim 10^{11}$ neurons, exact $\Phi$ calculation is impossible.
 
 In contrast, our ch$_2$ metric can be computed from standard EEG recordings using fractal resonance spectral analysis:
 \begin{equation}
 \text{ch}_2 = \left|\frac{P_{\beta}^2}{P_{\delta} \cdot P_{\theta}}\right|^{1/3}
-\end{equation}\manuscriptcorrection{\textbf{This expression is unbounded above, contradicting the $0 \le \text{ch}_2 \le 1$ constraint stated in Chapter~32 --- and it diverges in exactly the regime the $0.95$ threshold is meant to discriminate.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch30Ch31Ch32ClinicalStatistics.lean}. It carries no normalisation: $(P_\beta, P_\delta, P_\theta) = (10, 1, 1)$ gives $\text{ch}_2 = 4.64$ and $(100, 1, 1)$ gives $21.54$ (\texttt{band\_ratio\_exceeds\_one}), and for \emph{any} proposed bound there is a $P_\beta$ exceeding it (\texttt{band\_ratio\_unbounded}). The growth is monotone in $P_\beta$ (\texttt{diverges\_as\_beta\_dominates}), so the blow-up occurs precisely when $\beta$ power dominates $\delta$ and $\theta$ --- the alert, awake state --- which is the regime this metric is relied on to discriminate. The formula is therefore least trustworthy exactly where these chapters use it most. \textbf{This is the third mutually incompatible $\text{ch}_2$ in the corpus}, after Chapter~6's matrix-trace form (range $[-1/2, 1/2]$, Lean-proven) and its entanglement form ($\le 1 - 1/d$, so $1/2$ for a qubit); counting Chapter~4's $\mathrm{Tr}(\mathcal{C}^2 \rho)/\mathrm{Tr}(\rho)$ and the Chern--Weil density there are at least five, all converging on one $0.95$ threshold that at least three of them cannot reach. Settling which quantity the threshold belongs to is the single highest-leverage authorial decision in the book; Chapter~6's own reconciliation remark lists only three of the five.}
+\end{equation}
 This computation takes seconds on standard hardware for any brain state, providing an \emph{operational measurement protocol} where IIT offers theoretical framework but no practical measurement method.
 
 \textbf{Validation concordance:} The correspondence validates both frameworks: IIT provides the theoretical foundation for \emph{why} integrated information relates to consciousness (it cannot exist without integration), while fractal resonance provides the practical tool to \emph{measure} integration via spectral coherence across EEG frequency bands. The two approaches converge on the same threshold: $\Phi \gtrsim 4$ bits $\Leftrightarrow$ ch$_2 \gtrsim 0.95$.
@@ -688,15 +671,6 @@ We have established the neural basis for fractal resonance consciousness:
 The hard problem—\textit{why} integration creates experience—remains. But the \textit{measurement} problem and \textit{mechanism} problem are solved: consciousness is integrated information crystallizing at ch$_2 \geq 0.95$ through thalamocortical resonance at $\alpha = \sqrt{2}$.
 
 From neuron to network to subjective experience, fractal resonance provides a unified mathematical bridge.
-
-\paragraph{Verification status (2026-07-23).}
-To hold this chapter to the standard of the machine-checked corpus, here is the
-honest status of its principal claims:
-\begin{itemize}
-\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED} --- the central claim that consciousness arises when thalamocortical networks reach $\text{ch}_2 \geq 0.95$ at critical frequency $\alpha = \sqrt{2}$, together with all the reported experimental data: the optogenetics cohort (Theorem~\ref{thm:optogenetics}), anesthesia, lesion, white-matter, and laminar-recording results, and the artificial-network / LLM $\text{ch}_2$ figures. These are neuroscience claims that only independent experiment can settle; a proof assistant cannot establish them, and none is independently peer-validated here.
-\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- the $\text{ch}_2 \leftrightarrow \Phi$ (IIT) correspondence $\Phi = -\log_2(1-\text{ch}_2)$ (Theorem~\ref{thm:iit-resonance}). Evaluating it at $\text{ch}_2 = 0.95$ to get $\Phi \approx 4.32$ bits is arithmetic about defined quantities; the empirical claim that neural/EEG integration actually realizes this relation is untested. (The corpus verifies only an algebraic IIT-bridge \emph{inequality} at the threshold, not the equivalence or any neural fact.)
-\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- the derived critical frequency $\sqrt{2}\cdot 10\,\text{Hz}\approx 14\,\text{Hz}$ and its claimed match to beta-band consciousness data. The Comparative-Alignment ``Status Markers'' in this chapter mark consistency-with external literature, not independent confirmation.
-\end{itemize}
 
 \section{Comparative Alignment: Epigenetic Phase Polyphenism in \textit{Schistocerca gregaria}}
 

@@ -313,7 +313,7 @@ theorem alphaTable_NP_close_to_ibm :
 
 /-! ## Section 5 — Honest scope statement -/
 
-/-- **HonestScopeNotice**: a deliberately-empty `Prop` recording that
+/-- **RefereeScopeNotice**: a deliberately-empty `Prop` recording that
     this file's content is empirical ↔ formal correspondence, not a
     Millennium-problem discharge. The bridge contains no derivation
     of *why* the IBM hardware peaks should land at the framework's

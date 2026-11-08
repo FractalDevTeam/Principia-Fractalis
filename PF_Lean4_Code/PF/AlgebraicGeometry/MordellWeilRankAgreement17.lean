@@ -550,7 +550,7 @@ tier), one per V4-discharged curve. This is a "named gap FACTORED"
 closure — the factorisation is axiom-free; the factors themselves
 are the genuine BSD published-theorem content at the mathlib G3
 gap.** -/
-def MordellWeilRankAgreementOn17_HonestScope : Prop :=
+def MordellWeilRankAgreementOn17_RefereeScope : Prop :=
   -- (H1) Under both typed bundles, the 17-curve agreement holds.
   (AllSeventeenMordellWeilRanksKnown → AllSeventeenV4ReadingsKnown →
    mordellWeilRankAgreementOn17Curves) ∧
@@ -565,8 +565,8 @@ def MordellWeilRankAgreementOn17_HonestScope : Prop :=
    V4ReadingIs E_rank_one 1)
 
 /-- **The honest-scope marker holds axiom-free.** -/
-theorem mordellWeilRankAgreementOn17_honestScope_holds :
-    MordellWeilRankAgreementOn17_HonestScope := by
+theorem mordellWeilRankAgreementOn17_refereeScope_holds :
+    MordellWeilRankAgreementOn17_RefereeScope := by
   refine ⟨?_, ?_, ?_⟩
   · exact mordellWeilRankAgreementOn17Curves_under_hyps
   · exact mordellWeilRankAgreementOn17Curves_iff
@@ -581,7 +581,7 @@ theorem mordellWeilRankAgreementOn17_honestScope_holds :
 #check @AllSeventeenPerCurveBridges
 #check @mordellWeilRankAgreementOn17Curves_under_hyps
 #check @mordellWeilRankAgreementOn17Curves_iff
-#check @mordellWeilRankAgreementOn17_honestScope_holds
+#check @mordellWeilRankAgreementOn17_refereeScope_holds
 
 #print axioms algebraicRankV4_E_rank_zero
 #print axioms algebraicRankV4_E_36a1
@@ -594,6 +594,6 @@ theorem mordellWeilRankAgreementOn17_honestScope_holds :
 #print axioms v4ReadingIs_axiom_free
 #print axioms mordellWeilRankAgreementOn17Curves_under_hyps
 #print axioms mordellWeilRankAgreementOn17Curves_iff
-#print axioms mordellWeilRankAgreementOn17_honestScope_holds
+#print axioms mordellWeilRankAgreementOn17_refereeScope_holds
 
 end PF.AlgebraicGeometry.MordellWeilRankAgreement17

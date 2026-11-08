@@ -65,7 +65,7 @@ and developed across the existing files:
 
 10. **Capstone record + honest-scope marker** —
     `PNeqNP_SpectralGap_CapstoneRecord` packages the seven structural
-    fields with an explicit `HonestScope` field. The proof is at the
+    fields with an explicit `RefereeScope` field. The proof is at the
     **framework spectral-gap level**: the structural reduction is
     machine-checked here; the literal Clay-class separation goes through
     the existing `PF/TuringEncoding/PNPClassSeparationPrecisionBridge.lean`
@@ -332,7 +332,7 @@ inductive ProvennessTag
   | AxiomFreeTheorem      -- discharged here in Lean, axiom-free
   | StructuralReExport    -- re-export from another axiom-free theorem
   | FrameworkInput        -- framework hypothesis (e.g. PolylogEigenvalueConjecture)
-  | HonestScope           -- documentation of scope, not a theorem
+  | RefereeScope           -- documentation of scope, not a theorem
 
 /-- The single citable record packaging the consolidated framework-level
     proof, with explicit provenness tagging on every clause. -/
@@ -348,7 +348,7 @@ structure PNeqNP_SpectralGap_CapstoneRecord where
   -- The bridge from `P_neq_NP_def` to the literal Clay
   -- `Literal_P_neq_NP` goes through `EnumToClassSeparationBridge`
   -- (axiom-free named gap, see PNPClassSeparationPrecisionBridge.lean).
-  honest_scope_tag              : ProvennessTag := .HonestScope
+  referee_scope_tag              : ProvennessTag := .RefereeScope
 
 /-- The canonical record witness: every field is at its designed tag. -/
 def consolidated_capstone : PNeqNP_SpectralGap_CapstoneRecord := {}
@@ -417,7 +417,7 @@ What remains as the manuscript's contribution (NOT discharged here):
     capstone is the *structural* P ≠ NP reduction at the spectral-gap
     level. The framework hypothesis `PolylogEigenvalueConjecture` is the
     remaining input. -/
-def PNeqNP_SpectralGap_HonestScope : Prop :=
+def PNeqNP_SpectralGap_RefereeScope : Prop :=
   -- Structural reduction unconditional:
   (Function.Injective encodeConfig) ∧
   (lambda_0_P - lambda_0_NP > 0) ∧
@@ -425,8 +425,8 @@ def PNeqNP_SpectralGap_HonestScope : Prop :=
   (TuringEncoding.PolylogEigenvalueConjecture → P_neq_NP_def)
 
 /-- The honest-scope claim holds. -/
-theorem PNeqNP_SpectralGap_HonestScope_holds :
-    PNeqNP_SpectralGap_HonestScope := by
+theorem PNeqNP_SpectralGap_RefereeScope_holds :
+    PNeqNP_SpectralGap_RefereeScope := by
   refine ⟨EncodingInjective, spectral_gap_positive_consolidated, ?_⟩
   intro hpoly
   exact PNeqNP_via_SpectralGap_holds hpoly

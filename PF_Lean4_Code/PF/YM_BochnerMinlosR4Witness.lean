@@ -198,7 +198,7 @@ theorem bochnerMinlos_R4_implies_original
     the topological dual `𝓢'(ℝ⁴, ℝ)` of the Schwartz space on `ℝ⁴`
     which is infinite-dim. The infinite-dim Minlos extension is NOT
     proved. -/
-def BochnerMinlosR4WitnessHonestScope : Prop :=
+def BochnerMinlosR4WitnessRefereeScope : Prop :=
   -- (1) Strengthened² typed predicate is inhabited by the 4-dim
   --     standard Gaussian product measure.
   BochnerMinlosR4TypedStatement ∧
@@ -210,8 +210,8 @@ def BochnerMinlosR4WitnessHonestScope : Prop :=
   (BochnerMinlosR4TypedStatement → BochnerMinlosOnNuclearSpaces)
 
 /-- The honest-scope marker holds unconditionally. -/
-theorem bochnerMinlos_R4_witness_honestScope_holds :
-    BochnerMinlosR4WitnessHonestScope :=
+theorem bochnerMinlos_R4_witness_refereeScope_holds :
+    BochnerMinlosR4WitnessRefereeScope :=
   ⟨bochnerMinlos_R4_gaussian_witness,
    bochnerMinlos_R4_implies_wave58_concrete,
    bochnerMinlos_R4_implies_wave57_typed,
@@ -256,14 +256,14 @@ theorem bochnerMinlos_R4_witness_capstone :
     (BochnerMinlosR4TypedStatement → BochnerMinlosConcreteTypedStatement) ∧
     (BochnerMinlosR4TypedStatement → BochnerMinlosTypedStatement) ∧
     (BochnerMinlosR4TypedStatement → BochnerMinlosOnNuclearSpaces) ∧
-    BochnerMinlosR4WitnessHonestScope :=
+    BochnerMinlosR4WitnessRefereeScope :=
   ⟨bochnerMinlos_R4_gaussian_witness,
    standardGaussianR4_isProbabilityMeasure,
    standardGaussianR4_noAtoms,
    bochnerMinlos_R4_implies_wave58_concrete,
    bochnerMinlos_R4_implies_wave57_typed,
    bochnerMinlos_R4_implies_original,
-   bochnerMinlos_R4_witness_honestScope_holds⟩
+   bochnerMinlos_R4_witness_refereeScope_holds⟩
 
 /-! ## §6 — Axiom-freeness verification -/
 
@@ -273,7 +273,7 @@ theorem bochnerMinlos_R4_witness_capstone :
 #print axioms bochnerMinlos_R4_implies_wave58_concrete
 #print axioms bochnerMinlos_R4_implies_wave57_typed
 #print axioms bochnerMinlos_R4_implies_original
-#print axioms bochnerMinlos_R4_witness_honestScope_holds
+#print axioms bochnerMinlos_R4_witness_refereeScope_holds
 #print axioms bochnerMinlos_R4_witness_capstone
 
 end YM_BochnerMinlosR4Witness

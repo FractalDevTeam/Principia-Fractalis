@@ -44,7 +44,7 @@ where:
   * `MordellWeilRankZeroTyped` is the four-clause typed conjunction
     on `E_rank_zero` defined here.
 
-## Honest scope (per the 2026-05-25 referee-proof feedback and the
+## Scope statement (per the 2026-05-25 referee-proof feedback and the
    2026-05-25 strategic audit)
 
   * **NOT a BSD Clay discharge.** This file tightens the *shape* of
@@ -416,7 +416,7 @@ referee-citable theorem. -/
     **(C9) Routing-explicit alternative**: the typed Prop assembled
        from the Wave 53F full-argument output for the rank clause.
 
-    **HONEST SCOPE** (per the 2026-05-25 referee-proof feedback
+    **SCOPE** (per the 2026-05-25 referee-proof feedback
     and the 2026-05-25 strategic audit):
 
     * NOT a BSD Clay discharge. This tightens the *shape* of the
@@ -491,15 +491,6 @@ theorem bsd_mordell_weil_rank_zero_typed_capstone :
   · exact typed_implies_placeholder
   · exact mordellWeilRankZeroTyped_via_wave53F
 
-/-- **Honest-scope marker** — the typed Prop is the single-theorem
-    formalisation of the Wave 51G `True` placeholder tightened to
-    a four-clause LMFDB-anchored typed conjunction on `E_rank_zero`.
-    It does not unconditionally discharge BSD; the cascade
-    hypotheses are conditional (Wave 53F sandwich + Wave 51G
-    Coates-Wiles encoding), and the LMFDB anchor remains the
-    empirical input. -/
-theorem bsd_mordell_weil_rank_zero_typed_honest_scope : True := trivial
-
 end PrincipiaTractalis.BSDMordellWeilRankZeroTyped
 
 -- Axiom checks. Expected for every theorem: `[propext, Classical.choice, Quot.sound]`.
@@ -521,5 +512,3 @@ end PrincipiaTractalis.BSDMordellWeilRankZeroTyped
   PrincipiaTractalis.BSDMordellWeilRankZeroTyped.placeholder_lifts_to_typed_under_cascade
 #print axioms
   PrincipiaTractalis.BSDMordellWeilRankZeroTyped.bsd_mordell_weil_rank_zero_typed_capstone
-#print axioms
-  PrincipiaTractalis.BSDMordellWeilRankZeroTyped.bsd_mordell_weil_rank_zero_typed_honest_scope

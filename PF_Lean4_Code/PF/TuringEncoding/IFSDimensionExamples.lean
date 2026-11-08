@@ -99,7 +99,7 @@ theorem sierpinskiCarpet_IFS : IFSWithDimension (Real.log 8 / Real.log 3) 8 (1/3
 
 /-- **Honest scope** for this file: concrete IFS realizations at
     standard self-similar fractals. -/
-theorem IFSDimensionExamples_HonestScope : True := trivial
+theorem IFSDimensionExamples_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

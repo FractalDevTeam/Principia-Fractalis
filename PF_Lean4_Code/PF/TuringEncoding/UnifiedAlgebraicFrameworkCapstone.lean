@@ -143,7 +143,7 @@ theorem unifiedAlgebraicFramework_capstone : UnifiedAlgebraicFramework :=
     structurally LINKS all six Clay axes through the PFCompleteFrameworkCapstone
     machinery; this file's contribution is the algebraic completion of the
     substrate-side scaffolding that the structural linkage rests on. -/
-theorem UnifiedAlgebraicFrameworkCapstone_HonestScope : True := trivial
+theorem UnifiedAlgebraicFrameworkCapstone_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

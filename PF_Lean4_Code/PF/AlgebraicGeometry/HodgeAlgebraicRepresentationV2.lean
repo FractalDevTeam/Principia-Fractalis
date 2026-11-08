@@ -86,7 +86,7 @@ For a given `H : HodgeAmbient` and `class_idx : ℕ`:
 
 ZERO project axioms. ZERO sorries. Pure structural composition.
 
-## Honest scope
+## Scope statement
 
 NOT a Clay discharge of the Hodge conjecture. The two closed
 sub-cases (dim 1, codim-2 abelian / Dwork pencil) are classically
@@ -372,16 +372,7 @@ theorem exists_dim_one_HodgeAmbient_with_V2 :
   ⟨onePointDegreeOne.toHodgeAmbient, 0,
     HodgeAlgebraicRepresentationV2_holds_on_dim_one_branch 0⟩
 
-/-! ## §8 — Honest-scope marker and capstone -/
-
-/-- **Honest-scope marker** — V2 is a STRICT STRENGTHENING of V1 by
-    composition with the existing axiom-free geometric content. The
-    two closed sub-cases (dim 1, codim-2 abelian / Dwork) are
-    CLASSICALLY KNOWN. The generic codim ≥ 2 case retains the typed
-    Voisin 2007 OPEN content gated externally.
-
-    NOT a Clay discharge of the Hodge conjecture. -/
-theorem hodgeAlgebraicRepresentationV2_honest_scope : True := trivial
+/-! ## §8 — Scope statement and capstone -/
 
 /-- **★ HodgeAlgebraicRepresentationV2 CAPSTONE ★** —
     `hodgeAlgebraicRepresentationV2_capstone`.
@@ -411,7 +402,7 @@ theorem hodgeAlgebraicRepresentationV2_honest_scope : True := trivial
     **(D6) Existence witnesses** — `∃ H, V2 H 0` axiom-free, both on
         the dim-1 branch and the codim-2 branch.
 
-    **HONEST SCOPE**: NOT a Clay discharge of the Hodge conjecture.
+    **SCOPE**: NOT a Clay discharge of the Hodge conjecture.
     Both closed sub-cases are classically known. The contribution is to
     compose existing axiom-free content into a strict strengthening of
     V1, so that V2 inhabitedness on a closed sub-case carries actual

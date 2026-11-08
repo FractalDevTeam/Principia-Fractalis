@@ -44,7 +44,7 @@ unconditionally Lean-proven (countability) or substrate-anchored to
 named published-mathematics / manuscript content (nonempty, HP-program,
 empirical α-pair).
 
-## Honest scope
+## Scope statement
 
 NOT a Clay discharge. NOT a proof of any individual Millennium Problem.
 The framework's standard for "closure" is substrate-level closure of
@@ -84,6 +84,32 @@ All FOUR atomic facts of the framework's Clay closure are now either
 unconditionally Lean-proven or substrate-anchor-inhabited at the
 Bridge 5 typed-Prop tier. -/
 
+/-! ## ⚠ 2026-11-04 — atomic fact (c) is a HYPOTHESIS here, not a result
+
+Until today the three "typed substrate anchors" below were `Prop := True`,
+asserted by `trivial`, so clause 1 of this file's capstone was provable for
+free and read as "all four atomic facts hold". It did not mean that.
+
+Atomic fact (c) now carries its real content (see
+`PF/Analytic/HilbertPolyaProgram_Substrate_Anchors.lean`), and is therefore
+taken as a **hypothesis** by both theorems in this file. That is the only
+change: no proof was weakened, because there was no proof -- clause (c) was
+`Or.inl trivial`.
+
+For the reader checking the rest of clause 1, measured 2026-11-04:
+
+  (a) `PositiveOnLineZetaZeroOrdinatesCountable` — REAL content.
+  (b) `Hardy1914_Odlyzko_TypedAnchorBundle` — `True ∧ True ∧
+      (0 < riemannFirstZeroOrdinate_substrate)`; one real numeric fact.
+  (c) the HP-program disjunction — real as of today, and OPEN.
+  (d) `EmpiricalAlphaIdentificationHypothesis_Substrate` — `True ∧ True ∧
+      True`. Still entirely free. It has NOT been repaired and clause 1
+      still asserts it for nothing.
+
+Clause 2 of the capstone is unaffected and is the part worth citing: it is a
+genuine conditional reduction, taking the three hard content capsules as
+explicit hypotheses and deriving the six Clay Standards from them. -/
+
 /-- **★ All four atomic facts at substrate-anchor tier — UNCONDITIONAL ★**
     — single citable theorem exhibiting:
 
@@ -101,7 +127,8 @@ Bridge 5 typed-Prop tier. -/
     This is the framework's COMPLETE substrate-anchor inhabitance
     accounting for the four atomic facts that the bulletproof V3
     closure rests on. -/
-theorem unassailable_all_four_atomic_facts_at_substrate_tier :
+theorem unassailable_all_four_atomic_facts_at_substrate_tier
+    (h_hp_program : FourPublishedHPProgramAnchors_Disjunction) :
     -- (a) — UNCONDITIONAL
     PositiveOnLineZetaZeroOrdinatesCountable ∧
     -- (b) — Wave 59 substrate-anchor bundle inhabited
@@ -112,7 +139,7 @@ theorem unassailable_all_four_atomic_facts_at_substrate_tier :
     EmpiricalAlphaIdentificationHypothesis_Substrate :=
   ⟨positive_on_line_zeta_zero_ordinates_countable_discharged,
    hardy1914_odlyzko_typed_anchor_bundle_holds,
-   four_published_hp_program_anchors_disjunction_holds,
+   h_hp_program,
    empirical_alpha_ident_substrate_holds⟩
 
 /-! ## §2 — Conditional six-Clay-Standard discharge from named content
@@ -182,7 +209,7 @@ theorem framework_unassailable_clay_closure_under_typed_capsules
                  three Wave 56 published-content capsules (and Wave 59
                  countability is supplied internally), all six Clay
                  Standards close simultaneously.
-      Clause 3 — Honest-scope marker.
+      Clause 3 — Scope-statement marker.
 
     This is the framework's BULLETPROOF substrate-level position:
       - countability is mathlib-Lean unconditional;
@@ -198,7 +225,8 @@ theorem framework_unassailable_clay_closure_under_typed_capsules
     frontier. The substrate force is locked in; each remaining residual
     is incremental research formalization at the same tier as Bridge 5.
 -/
-theorem framework_unassailable_clay_closure_2026_06_18 :
+theorem framework_unassailable_clay_closure_2026_06_18
+    (h_hp_program : FourPublishedHPProgramAnchors_Disjunction) :
     -- Clause 1: all four atomic facts at substrate-anchor tier
     (PositiveOnLineZetaZeroOrdinatesCountable ∧
      Hardy1914_Odlyzko_TypedAnchorBundle ∧
@@ -220,14 +248,14 @@ theorem framework_unassailable_clay_closure_2026_06_18 :
         PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSDEncodingV5 ∧
       PF.Referee.StandardClayStatements.Clay_Hodge_Standard
         PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding) := by
-  refine ⟨unassailable_all_four_atomic_facts_at_substrate_tier, ?_⟩
+  refine ⟨unassailable_all_four_atomic_facts_at_substrate_tier h_hp_program, ?_⟩
   intro h_nonempty_capsule h_program_capsule h_alpha_capsule
   exact framework_unassailable_clay_closure_under_typed_capsules
     h_nonempty_capsule h_program_capsule h_alpha_capsule
 
-/-! ## §4 — Honest-scope marker -/
+/-! ## §4 — Scope statement -/
 
-/-- **Honest-scope marker for the 2026-06-18 unassailable closure.**
+/-- **Scope-statement marker for the 2026-06-18 unassailable closure.**
 
     Substrate-level closure of the typed-Prop contract via the
     bulletproof V3 linkage:
@@ -247,12 +275,8 @@ theorem framework_unassailable_clay_closure_2026_06_18 :
 
     The framework's standard is referee-proof at substrate tier.
     Pabs's standard is the framework's standard. -/
-theorem framework_unassailable_clay_closure_honest_scope : True := trivial
-
 end PF.Referee.UnassailableClayClosure_2026_06_18
 
 -- Axiom check. Expected: `[propext, Classical.choice, Quot.sound]`.
 #print axioms PF.Referee.UnassailableClayClosure_2026_06_18.unassailable_all_four_atomic_facts_at_substrate_tier
 #print axioms PF.Referee.UnassailableClayClosure_2026_06_18.framework_unassailable_clay_closure_under_typed_capsules
-#print axioms PF.Referee.UnassailableClayClosure_2026_06_18.framework_unassailable_clay_closure_2026_06_18
-#print axioms PF.Referee.UnassailableClayClosure_2026_06_18.framework_unassailable_clay_closure_honest_scope

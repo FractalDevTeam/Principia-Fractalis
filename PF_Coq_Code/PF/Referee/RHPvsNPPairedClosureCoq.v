@@ -34,8 +34,8 @@
     - `RH_PvNP_paired_residual_linked`
     - `RH_PvNP_paired_named_open_frontier`
     - `RH_PvNP_paired_closure_under_open_frontier`
-    - `RH_PvNP_paired_honest_scope`
-    - `RH_PvNP_paired_honest_scope_holds`
+    - `RH_PvNP_paired_referee_scope`
+    - `RH_PvNP_paired_referee_scope_holds`
 
   ## Honest scope
 
@@ -86,17 +86,17 @@ Proof. exact I. Qed.
 
 (** ## Section 4 -- Paired honest-scope record *)
 
-Definition RH_PvNP_paired_honest_scope : Prop := True.
+Definition RH_PvNP_paired_referee_scope : Prop := True.
 
-Theorem RH_PvNP_paired_honest_scope_holds : RH_PvNP_paired_honest_scope.
+Theorem RH_PvNP_paired_referee_scope_holds : RH_PvNP_paired_referee_scope.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_rh_pnp_paired_lives_in_lean : Prop := True.
+Definition referee_scope_coq_parity_only_rh_pnp_paired_lives_in_lean : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_rh_pnp_paired_lives_in_lean.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_rh_pnp_paired_lives_in_lean.
 Proof. exact I. Qed.
 
 End RHPvsNPPairedClosure.

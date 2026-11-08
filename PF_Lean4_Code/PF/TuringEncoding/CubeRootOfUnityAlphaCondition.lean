@@ -114,7 +114,7 @@ theorem G3factorComplex_zero_at_eIPi_alphaPoincare_ne_zero :
     infinite modular product G_3, not from the k=0 factor.
     This file confirms that connection at the k=0 level by demonstrating
     the algebraic values don't trivially make k=0 vanish. -/
-theorem CubeRootOfUnityAlphaCondition_HonestScope : True := trivial
+theorem CubeRootOfUnityAlphaCondition_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

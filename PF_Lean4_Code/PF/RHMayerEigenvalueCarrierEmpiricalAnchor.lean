@@ -96,7 +96,7 @@ It is **NOT** a Clay RH discharge:
   7. `rh_mayer_eigenvalue_carrier_empirical_anchor_capstone` — the
      Wave 55B-emp bundled capstone.
 
-  8. `rh_mayer_eigenvalue_carrier_empirical_anchor_honest_scope` —
+  8. `rh_mayer_eigenvalue_carrier_empirical_anchor_referee_scope` —
      honest-scope marker (deliberately trivial Prop).
 
 ## Axiom budget
@@ -369,7 +369,7 @@ theorem rh_mayer_eigenvalue_carrier_empirical_anchor_capstone :
     `RHSpectralSurjectivityConjecture` at any α. The Wave 52B
     Hardy-irrationality obstruction is UNCHANGED. The Clay RH problem
     remains OPEN. -/
-theorem rh_mayer_eigenvalue_carrier_empirical_anchor_honest_scope :
+theorem rh_mayer_eigenvalue_carrier_empirical_anchor_referee_scope :
     True := trivial
 
 end RHMayerEigenvalueCarrierEmpiricalAnchor
@@ -391,4 +391,4 @@ end PrincipiaTractalis
 #print axioms
   PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.rh_mayer_eigenvalue_carrier_empirical_anchor_capstone
 #print axioms
-  PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.rh_mayer_eigenvalue_carrier_empirical_anchor_honest_scope
+  PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.rh_mayer_eigenvalue_carrier_empirical_anchor_referee_scope

@@ -284,7 +284,7 @@ Proof. exact I. Qed.
 (** Wave 47G honest-scope marker — meta-statement that this file's
     contribution is conditional + narrowing + documenting, not
     unconditional discharge. *)
-Theorem polylog_conjecture_attempt_wave47_honest_scope : True.
+Theorem polylog_conjecture_attempt_wave47_referee_scope : True.
 Proof. exact I. Qed.
 
 (** Axiom-freeness witness at the provenness-tag level. *)

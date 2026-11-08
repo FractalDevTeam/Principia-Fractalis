@@ -78,11 +78,11 @@ Proof. exact I. Qed.
 Theorem concrete_matrix_spectrum_pos : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def MassGapPropagationConcreteWitnessHonestScope` (data/Prop marker). *)
-Definition MassGapPropagationConcreteWitnessHonestScope : Prop := True.
+(** Mirror of Lean `def MassGapPropagationConcreteWitnessRefereeScope` (data/Prop marker). *)
+Definition MassGapPropagationConcreteWitnessRefereeScope : Prop := True.
 
-(** Mirror of Lean `theorem massGapPropagation_concrete_witness_honestScope_holds`. *)
-Theorem massGapPropagation_concrete_witness_honestScope_holds : True.
+(** Mirror of Lean `theorem massGapPropagation_concrete_witness_refereeScope_holds`. *)
+Theorem massGapPropagation_concrete_witness_refereeScope_holds : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem massGapPropagation_concrete_witness_capstone`. *)
@@ -91,9 +91,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_MassGapPropagationConcreteWitness.

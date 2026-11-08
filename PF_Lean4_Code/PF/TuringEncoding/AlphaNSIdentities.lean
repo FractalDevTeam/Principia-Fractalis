@@ -71,7 +71,7 @@ theorem alphaNS_times_alphaRH : alphaNS * alphaRH = 3 := by
 
 /-! ## §3 — Honest scope marker -/
 
-theorem AlphaNSIdentities_HonestScope : True := trivial
+theorem AlphaNSIdentities_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

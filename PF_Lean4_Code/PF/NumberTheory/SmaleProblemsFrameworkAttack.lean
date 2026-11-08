@@ -550,7 +550,7 @@ structure AllEighteenSmaleProblems_FrameworkAddressed : Prop where
     alpha_Smale_aggregate = 3 * α_RH
   alpha_aggregate_eq_nine_halves :
     alpha_Smale_aggregate = 9 / 2
-  honest_scope_structural_reduction_not_discharge : True
+  referee_scope_structural_reduction_not_discharge : True
 
 /-- **★ THE EIGHTEEN-SMALE-PROBLEMS FRAMEWORK-ATTACK CAPSTONE ★**
 
@@ -605,7 +605,7 @@ noncomputable def mkAllEighteenSmaleProblems :
   alpha_aggregate_pos := alpha_Smale_aggregate_pos
   alpha_aggregate_eq_three_α_RH := alpha_Smale_aggregate_eq_three_α_RH
   alpha_aggregate_eq_nine_halves := alpha_Smale_aggregate_eq_nine_halves
-  honest_scope_structural_reduction_not_discharge := trivial
+  referee_scope_structural_reduction_not_discharge := trivial
 
 #check @Smale_1_StructuralReductionInFramework
 #check @Smale_2_StructuralReductionInFramework

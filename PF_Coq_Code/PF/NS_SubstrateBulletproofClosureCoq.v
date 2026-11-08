@@ -242,11 +242,11 @@ Qed.
     pathway, NOT against the literal classical mathlib-tier
     Clay-Standard for Navier-Stokes. *)
 
-Definition honest_scope_substrate_bulletproof_not_classical_clay_discharge
+Definition referee_scope_substrate_bulletproof_not_classical_clay_discharge
   : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_substrate_bulletproof_not_classical_clay_discharge.
+Theorem referee_scope_marker :
+  referee_scope_substrate_bulletproof_not_classical_clay_discharge.
 Proof. exact I. Qed.
 
 End NS_SubstrateBulletproofClosure.

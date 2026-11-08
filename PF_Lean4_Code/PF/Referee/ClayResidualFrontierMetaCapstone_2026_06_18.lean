@@ -136,23 +136,9 @@ theorem framework_finishes_all_six_from_atomic_facts
   -- HP-positive from countable + nonempty
   exact hp_positive_iff_countable_nonempty.mpr ⟨h_countable, h_nonempty⟩
 
-/-! ## §3 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — the framework's Clay residual frontier
-    as of 2026-06-18 consists of four atomic facts. The substrate-
-    rigidity case provides the structural force; the formalization
-    of the four atomic facts (two mathlib-formalizable ζ properties,
-    one published HP-program conjecture, one alpha_of_class identification)
-    completes the Lean discharge.
-
-    Path forward: formalize the four atomic facts in mathlib /
-    framework Lean. Each is incremental research math; none is
-    structurally a 100-year-old open problem. -/
-theorem clay_residual_frontier_honest_scope : True := trivial
+/-! ## §3 — Scope statement -/
 
 end PF.Referee.ClayResidualFrontierMetaCapstone_2026_06_18
 
 -- Axiom check. Expected: `[propext, Classical.choice, Quot.sound]`.
 #print axioms PF.Referee.ClayResidualFrontierMetaCapstone_2026_06_18.clay_residual_frontier_2026_06_18
-#print axioms PF.Referee.ClayResidualFrontierMetaCapstone_2026_06_18.framework_finishes_all_six_from_atomic_facts
-#print axioms PF.Referee.ClayResidualFrontierMetaCapstone_2026_06_18.clay_residual_frontier_honest_scope

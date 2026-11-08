@@ -32,11 +32,11 @@ Proof. exact I. Qed.
 
 (* §3 — Honest-scope marker *)
 
-Theorem framework_bulletproofed_clay_closure_2026_06_19_honest_scope : True.
+Theorem framework_bulletproofed_clay_closure_2026_06_19_referee_scope : True.
 Proof. exact I. Qed.
 
 (* Honest-scope marker (file-level). *)
-Theorem honest_scope_marker : True.
+Theorem referee_scope_marker : True.
 Proof. exact I. Qed.
 
 End UnassailableClayClosure_With_BSD_NamedAnchors_2026_06_19Coq.

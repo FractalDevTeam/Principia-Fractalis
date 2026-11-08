@@ -41,7 +41,7 @@
   - nonempty_substrate_discharge_via_named_anchors
   - Hardy1914_Odlyzko_TypedAnchorBundle (def)
   - hardy1914_odlyzko_typed_anchor_bundle_holds
-  - hardy1914_substrate_discharge_honest_scope
+  - hardy1914_substrate_discharge_referee_scope
 
   ## Coq libraries used
 
@@ -95,9 +95,9 @@ Proof. exact I. Qed.
 
 (** ## §6 -- Honest scope *)
 
-Theorem hardy1914_substrate_discharge_honest_scope : True.
+Theorem hardy1914_substrate_discharge_referee_scope : True.
 Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End Hardy1914_NonemptyZetaOnLineZeros_Anchor.

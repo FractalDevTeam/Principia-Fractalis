@@ -70,8 +70,8 @@ Theorem empirical_anchors_phase1_audit_trail_capstone : True. Proof. exact I. Qe
 
 (* §7 — Honest-scope marker *)
 
-Theorem empirical_anchors_phase1_honest_scope : True. Proof. exact I. Qed.
+Theorem empirical_anchors_phase1_referee_scope : True. Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End EmpiricalAnchors_NamedSources_2026_06_19Coq.

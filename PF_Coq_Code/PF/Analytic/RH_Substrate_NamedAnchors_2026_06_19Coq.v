@@ -36,8 +36,8 @@ Theorem EightPublishedRHAnchors_Conjunction : True. Proof. exact I. Qed.
 Theorem eight_published_rh_anchors_conjunction_holds : True. Proof. exact I. Qed.
 
 Theorem rh_phase1_named_anchors_audit_trail_capstone : True. Proof. exact I. Qed.
-Theorem rh_phase1_named_anchors_honest_scope : True. Proof. exact I. Qed.
+Theorem rh_phase1_named_anchors_referee_scope : True. Proof. exact I. Qed.
 
-Theorem honest_scope_marker : True. Proof. exact I. Qed.
+Theorem referee_scope_marker : True. Proof. exact I. Qed.
 
 End RH_Substrate_NamedAnchors_2026_06_19Coq.

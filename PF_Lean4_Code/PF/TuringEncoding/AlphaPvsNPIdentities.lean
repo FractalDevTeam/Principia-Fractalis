@@ -98,7 +98,7 @@ theorem alphaPvsNP_fails_NP_quadratic :
 
 /-! ## §5 — Honest scope marker -/
 
-theorem AlphaPvsNPIdentities_HonestScope : True := trivial
+theorem AlphaPvsNPIdentities_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

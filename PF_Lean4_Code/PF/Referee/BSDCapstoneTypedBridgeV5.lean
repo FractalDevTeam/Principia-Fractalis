@@ -434,7 +434,7 @@ theorem v5_residual_is_zero_on_undischarged
     relative to V4: 3 additional curve surfacings (3 rank-1 Heegner
     cohort members); equality `rfl`-provable; Clay BSD form
     axiom-free on V5; backward bridges to V4/V3/V2/V1. -/
-def PF_BSD_V5_honestScope : Prop :=
+def PF_BSD_V5_refereeScope : Prop :=
   -- (H1) V5 substrate equality is provable axiom-free.
   (∀ E : WeierstrassCurve ℚ, algebraicRankV5 E = analyticRankV5 E) ∧
   -- (H2) V5 ⇒ V4 backward-compat bridge.
@@ -465,10 +465,10 @@ def PF_BSD_V5_honestScope : Prop :=
   -- (H8) V5 narrowed residual on undischarged curves.
   (∀ E : WeierstrassCurve ℚ, ¬ isV5Discharged E → manuscriptRankV5 E = 0) ∧
   -- (H9) V4 named residuals preserved (V4 honest scope still holds).
-  PF.Referee.BSDCapstoneTypedBridgeV4.PF_BSD_V4_honestScope
+  PF.Referee.BSDCapstoneTypedBridgeV4.PF_BSD_V4_refereeScope
 
 /-- The V5 honest-scope marker holds unconditionally. -/
-theorem PF_BSD_V5_honestScope_holds : PF_BSD_V5_honestScope :=
+theorem PF_BSD_V5_refereeScope_holds : PF_BSD_V5_refereeScope :=
   ⟨algebraicRankV5_eq_analyticRankV5,
    PF_BSD_capstoneV5_implies_V4,
    PF_BSD_capstoneV5_implies_V3,
@@ -477,7 +477,7 @@ theorem PF_BSD_V5_honestScope_holds : PF_BSD_V5_honestScope :=
    PF_BSD_capstone_yields_Clay_BSD_standardV5,
    ⟨v5_E_91a1_surfaced, v5_E_131a1_surfaced, v5_E_141a1_surfaced⟩,
    v5_residual_is_zero_on_undischarged,
-   PF.Referee.BSDCapstoneTypedBridgeV4.PF_BSD_V4_honestScope_holds⟩
+   PF.Referee.BSDCapstoneTypedBridgeV4.PF_BSD_V4_refereeScope_holds⟩
 
 #check @PF_BSDEncodingV5
 #check @PF_BSD_capstone_yields_Clay_BSD_standardV5
@@ -485,7 +485,7 @@ theorem PF_BSD_V5_honestScope_holds : PF_BSD_V5_honestScope :=
 #check @PF_BSD_capstoneV5_implies_V3
 #check @PF_BSD_capstoneV5_implies_V2
 #check @PF_BSD_capstoneV5_implies_V1
-#check @PF_BSD_V5_honestScope_holds
+#check @PF_BSD_V5_refereeScope_holds
 
 /-! ## §12 — Axiom-freeness verification -/
 
@@ -503,6 +503,6 @@ theorem PF_BSD_V5_honestScope_holds : PF_BSD_V5_honestScope :=
 #print axioms v5_E_131a1_explicit_content
 #print axioms v5_E_141a1_explicit_content
 #print axioms v5_residual_is_zero_on_undischarged
-#print axioms PF_BSD_V5_honestScope_holds
+#print axioms PF_BSD_V5_refereeScope_holds
 
 end PF.Referee.BSDCapstoneTypedBridgeV5

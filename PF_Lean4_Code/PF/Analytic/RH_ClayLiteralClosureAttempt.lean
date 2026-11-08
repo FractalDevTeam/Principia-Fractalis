@@ -559,7 +559,7 @@ theorem HilbertPolya_and_HPProgram_imply_SCPO_and_LiteralRH
 
     Rule #1 compliant: `True`-valued fields are PROVENNESS TAGS documenting
     honest-scope content, not Clay-path claim content. -/
-structure RHClayLiteralClosureHonestScope : Prop where
+structure RHClayLiteralClosureRefereeScope : Prop where
   /-- (a) All-N spectral cascade is CONSTRUCTED axiom-free at every N : ℕ
       from any positive ordinate function. Coincidence with the canonical
       T₃^sym spectrum at every N requires the Hilbert-Pólya hypothesis. -/
@@ -577,8 +577,8 @@ structure RHClayLiteralClosureHonestScope : Prop where
   literal_RH_reduces_to_two_published_residuals : True
 
 /-- **Honest-scope record inhabited**. -/
-theorem RH_clay_literal_closure_honest_scope :
-    RHClayLiteralClosureHonestScope :=
+theorem RH_clay_literal_closure_referee_scope :
+    RHClayLiteralClosureRefereeScope :=
   ⟨trivial, trivial, trivial, trivial⟩
 
 /-! ## §12 — Capstone (15 clauses) (C11) -/
@@ -712,7 +712,7 @@ theorem RH_clay_literal_closure_attempt_capstone :
 #print axioms HilbertPolya_and_HPProgram_imply_ClayStandard
 #print axioms HilbertPolya_implies_OnLineOrdinateOracleExists
 #print axioms HilbertPolya_and_HPProgram_imply_SCPO_and_LiteralRH
-#print axioms RH_clay_literal_closure_honest_scope
+#print axioms RH_clay_literal_closure_referee_scope
 #print axioms RH_clay_literal_closure_attempt_capstone
 
 end RH_ClayLiteralClosureAttempt

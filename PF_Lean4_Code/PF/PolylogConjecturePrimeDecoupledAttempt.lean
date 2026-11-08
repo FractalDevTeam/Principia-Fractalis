@@ -43,7 +43,7 @@ conjecture survives Wave 41B:
     landing on `√2 = φ + 1/4`) reveals only the structural fact about
     that specific `f`, not about the opaque `alpha_of_class`.
 
-The honest scope is precise: the refactor SEPARATES the algebraic
+The scope statement is precise: the refactor SEPARATES the algebraic
 content (`f ClassP^2 = 2 ∧ 16(f ClassNP)^2 − 24(f ClassNP) − 11 = 0`,
 positivity) from the P-vs-NP-equivalent OPACITY of `alpha_of_class`.
 The algebraic content alone is referee-checkable arithmetic; the
@@ -79,7 +79,7 @@ canonical pair, (B) is what the Wave 41B no-go binds, (C) is unchanged.
 ZERO project axioms, ZERO sorries. All theorems below depend only on
 `[propext, Classical.choice, Quot.sound]`.
 
-## Honest scope
+## Scope statement
 
 This file does NOT discharge `PolylogEigenvalueConjecture`
 unconditionally on `alpha_of_class`. By the Wave 41B no-go, no such
@@ -217,7 +217,7 @@ theorem witnessF_at_ClassNP_of_distinct
     original conjecture is fully verifiable on the canonical pair
     without invoking the opaque `alpha_of_class`.
 
-    Honest scope: the hypothesis `ClassP ≠ ClassNP` is exactly the
+    Scope statement: the hypothesis `ClassP ≠ ClassNP` is exactly the
     Wave 41B-equivalent burden. The decoupled Prop on `witnessF`
     PRESUPPOSES the class distinction it would otherwise force on
     `alpha_of_class`. The structural point is that the burden is now
@@ -349,7 +349,7 @@ referee-citable theorem. -/
              discharges the decoupled Prop on `alpha_of_class`
              (recovering Wave 47G via the bridge).
 
-    (W55E-5) **Honest scope**: the decoupled refactor does NOT
+    (W55E-5) **Scope statement**: the decoupled refactor does NOT
              discharge `PolylogEigenvalueConjecture` unconditionally.
              By Wave 41B, no such discharge can exist on
              `alpha_of_class`. The contribution is a structural
@@ -391,7 +391,7 @@ theorem polylog_conjecture_prime_decoupled_capstone :
     (EmpiricalAlphaIdentificationHypothesis →
        PolylogEigenvalueConjecturePrime alpha_of_class)
     ∧
-    -- (W55E-5) Honest scope: empirical pin propositionally forces P ≠ NP
+    -- (W55E-5) Scope statement: empirical pin propositionally forces P ≠ NP
     (EmpiricalAlphaIdentificationHypothesis → ClassP ≠ ClassNP) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact polylog_conjecture_iff_prime_at_alpha_of_class
@@ -404,12 +404,10 @@ theorem polylog_conjecture_prime_decoupled_capstone :
   · exact empirical_pin_implies_prime_at_alpha_of_class
   · exact empirical_pin_implies_P_neq_NP_via_prime
 
-/-- **Wave 55E honest-scope marker** — the decoupled refactor
+/-- **Wave 55E scope-statement marker** — the decoupled refactor
     SEPARATES algebraic content from structural identification, but
     does NOT discharge any Millennium problem; the Wave 41B no-go on
     `alpha_of_class` is preserved exactly. -/
-theorem polylog_conjecture_prime_decoupled_honest_scope : True := trivial
-
 end PrincipiaTractalis.PolylogConjecturePrimeDecoupledAttempt
 
 -- Axiom checks. Expected for every theorem: `[propext, Classical.choice, Quot.sound]`.
@@ -441,5 +439,3 @@ end PrincipiaTractalis.PolylogConjecturePrimeDecoupledAttempt
   PrincipiaTractalis.PolylogConjecturePrimeDecoupledAttempt.empirical_pin_implies_P_neq_NP_via_prime
 #print axioms
   PrincipiaTractalis.PolylogConjecturePrimeDecoupledAttempt.polylog_conjecture_prime_decoupled_capstone
-#print axioms
-  PrincipiaTractalis.PolylogConjecturePrimeDecoupledAttempt.polylog_conjecture_prime_decoupled_honest_scope

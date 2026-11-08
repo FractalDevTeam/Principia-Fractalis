@@ -438,7 +438,7 @@ theorem gi_measurement_witnesses_abstract_falsifier
 /-! ## §8 — Honest-scope record -/
 
 /-- Honest-scope record for the GI 144th-problem prediction. -/
-structure GIPredictionHonestScope : Prop where
+structure GIPredictionRefereeScope : Prop where
   /-- (S1) The prediction `α_GI = φ + 1/4` is the framework's CITABLE
       claim. The IBM Quantum measurement IS the empirical work that
       has to be done — this Lean file does NOT perform the measurement. -/
@@ -469,7 +469,7 @@ structure GIPredictionHonestScope : Prop where
   no_new_theoretical_content : True
 
 /-- **Honest-scope record inhabited.** -/
-theorem gi_prediction_honest_scope : GIPredictionHonestScope :=
+theorem gi_prediction_referee_scope : GIPredictionRefereeScope :=
   ⟨trivial, trivial, trivial, trivial, trivial⟩
 
 /-! ## §9 — Capstone record -/
@@ -498,14 +498,14 @@ theorem hundred44_problem_GI_prediction_capstone :
     GITestingProtocol ∧
     -- (6) Scope statement recorded (identifier retains legacy name;
     --     see file header for the tri-class supersession)
-    GIPredictionHonestScope := by
+    GIPredictionRefereeScope := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact framework_predicted_alpha_GI_eq_phi_plus_quarter
   · exact framework_predicted_alpha_GI_in_canonical_pair
   · exact framework_predicted_alpha_GI_from_substrate
   · exact falsifier_and_corroboration_mutually_exclusive
   · exact gi_testing_protocol_recorded
-  · exact gi_prediction_honest_scope
+  · exact gi_prediction_referee_scope
 
 /-! ## §10 — Capstone Record (ProvennessTag pattern) -/
 
@@ -527,7 +527,7 @@ structure Hundred44GICapstoneRecord : Prop where
   /-- (R5) Testing protocol record. -/
   testing_protocol : GITestingProtocol
   /-- (R6) Honest-scope record. -/
-  honest_scope : GIPredictionHonestScope
+  referee_scope : GIPredictionRefereeScope
   /-- (R7) Falsifier and Corroboration mutually exclusive. -/
   falsifier_corroboration_exclusive :
     ∀ m : ℝ, ¬ (|m - framework_predicted_alpha_GI| > 0.05 ∧
@@ -540,7 +540,7 @@ theorem hundred44_GI_capstone_record : Hundred44GICapstoneRecord :=
     substrate_forcing := framework_predicted_alpha_GI_from_substrate
     polylog_deficit_recovered := framework_predicted_alpha_GI_polylog_deficit
     testing_protocol := gi_testing_protocol_recorded
-    honest_scope := gi_prediction_honest_scope
+    referee_scope := gi_prediction_referee_scope
     falsifier_corroboration_exclusive := falsifier_and_corroboration_mutually_exclusive }
 
 /-! ## §11 — Axiom-freeness verification -/
@@ -558,7 +558,7 @@ theorem hundred44_GI_capstone_record : Hundred44GICapstoneRecord :=
 #check @falsifier_and_corroboration_mutually_exclusive
 #check @gi_measurement_witnesses_abstract_falsifier
 #check @gi_testing_protocol_recorded
-#check @gi_prediction_honest_scope
+#check @gi_prediction_referee_scope
 #check @hundred44_problem_GI_prediction_capstone
 #check @hundred44_GI_capstone_record
 

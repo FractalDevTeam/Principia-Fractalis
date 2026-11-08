@@ -303,11 +303,11 @@ Proof. unfold MathlibCollatzConjecture. tauto. Qed.
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 attack, NOT a discharge of
     the Collatz Conjecture. *)
-Definition honest_scope_structural_mirror_not_a_discharge : Prop :=
+Definition referee_scope_structural_mirror_not_a_discharge : Prop :=
   True.
 
-Theorem honest_scope_marker :
-  honest_scope_structural_mirror_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
 (** ## §11 — Capstone Record *)
@@ -348,7 +348,7 @@ Record CollatzFrameworkAttack : Type := {
   named_obstruction : Prop;
   (* Honest scope *)
   honest_not_a_discharge :
-    honest_scope_structural_mirror_not_a_discharge
+    referee_scope_structural_mirror_not_a_discharge
 }.
 
 (** ★ COLLATZ FRAMEWORK-ATTACK COQ CAPSTONE ★
@@ -377,7 +377,7 @@ Definition collatz_framework_attack_capstone
    ; named_terras_1976 := Terras1976StoppingTimeDensityOne
    ; named_conjecture := CollatzConjecture
    ; named_obstruction := MathlibCollatzConjecture
-   ; honest_not_a_discharge := honest_scope_marker
+   ; honest_not_a_discharge := referee_scope_marker
   |}.
 
 End CollatzConjectureFrameworkAttack.

@@ -279,7 +279,7 @@ Qed.
     not unconditionally discharge any Millennium problem. The
     cascade hypotheses are conditional; propositionally the
     cascade is as strong as P ≠ NP. *)
-Theorem polylog_ibm_empirical_galois_cascade_honest_scope : True.
+Theorem polylog_ibm_empirical_galois_cascade_referee_scope : True.
 Proof. exact I. Qed.
 
 (** Axiom-freeness witness at the provenness-tag level. *)

@@ -252,7 +252,7 @@ elliptic-curve-shape absolute convergence on `Re s > 3/2 + ε` for any
 It does NOT construct the elliptic-curve coefficient sequence `a_n`
 itself (Wave 47F gap G3) nor prove the divisor-function bound. The
 bound is encoded as a hypothesis. -/
-theorem bsd_lSeriesAbsConvergence_discharge_honest_scope :
+theorem bsd_lSeriesAbsConvergence_discharge_referee_scope :
     True := trivial
 
 /-- **★ BSD L-SERIES ABS CONVERGENCE DISCHARGE CAPSTONE ★** —
@@ -347,4 +347,4 @@ end PrincipiaTractalis.BSD_LSeriesAbsConvergenceDischarge
 #print axioms
   PrincipiaTractalis.BSD_LSeriesAbsConvergenceDischarge.bsd_lSeriesAbsConvergence_discharge_capstone
 #print axioms
-  PrincipiaTractalis.BSD_LSeriesAbsConvergenceDischarge.bsd_lSeriesAbsConvergence_discharge_honest_scope
+  PrincipiaTractalis.BSD_LSeriesAbsConvergenceDischarge.bsd_lSeriesAbsConvergence_discharge_referee_scope

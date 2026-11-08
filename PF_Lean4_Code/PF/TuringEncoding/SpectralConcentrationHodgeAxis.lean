@@ -62,7 +62,7 @@ theorem frameworkHodge_contract_holds (σ : ℝ) :
 
 /-- **Honest scope**: spectral concentration threshold identities and
     typed Hodge axis contract. -/
-theorem SpectralConcentrationHodgeAxis_HonestScope : True := trivial
+theorem SpectralConcentrationHodgeAxis_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

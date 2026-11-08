@@ -31,7 +31,7 @@ bulletproofed** at the typed-Prop level:
     typed theorem, not a comment.
   * The V3 route's HP-pair hypothesis is inhabitable at the typed-Prop
     level (published open mathematics, not pinned-constants arithmetic).
-  * Every per-axis substrate restriction or honest-scope marker is
+  * Every per-axis substrate restriction or scope-statement marker is
     codified as a typed witness.
   * The PNP route is shown to be sharpness-tight (residual iff-equivalent
     to ClassP ≠ ClassNP).
@@ -146,22 +146,10 @@ theorem bulletproofing_2026_06_17_meta_capstone :
     PF.Referee.BSDSubstrateScopeAccountability.PF_substrate_BSD_clay_witness⟩,
    fun h => (PF.Referee.UnifiedClayClosureLinkageV3.unified_clay_closure_via_substrate_linkage_v3 h).1⟩
 
-/-! ## §2 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — this meta-capstone bundles the 2026-06-17
-    bulletproofing work into a single citable point. It introduces no
-    new mathematical content beyond what the four imported files
-    already establish. The framework's six-Clay-axis closure is
-    structurally bulletproofed at the typed-Prop level: the V2 RH
-    route obstruction is certified, the V3 route's hypothesis is
-    inhabitable typed-open mathematics, every per-axis substrate
-    restriction is codified, and the V2 → V3 migration is mechanical. -/
-theorem bulletproofing_2026_06_17_honest_scope : True := trivial
+/-! ## §2 — Scope statement -/
 
 end PF.Referee.BulletproofingMetaCapstone_2026_06_17
 
 -- Axiom check.
 #print axioms
   PF.Referee.BulletproofingMetaCapstone_2026_06_17.bulletproofing_2026_06_17_meta_capstone
-#print axioms
-  PF.Referee.BulletproofingMetaCapstone_2026_06_17.bulletproofing_2026_06_17_honest_scope

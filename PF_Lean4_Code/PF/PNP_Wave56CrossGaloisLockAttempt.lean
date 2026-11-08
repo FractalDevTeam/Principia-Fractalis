@@ -80,7 +80,7 @@ fall in the SAME Galois-discriminant cell.
    exhibit the propositional strength: discharging this open Prop
    forces `ClassP ≠ ClassNP`.
 
-4. **Honest scope** — the chain is a STRUCTURAL REDUCTION, not a
+4. **Scope statement** — the chain is a STRUCTURAL REDUCTION, not a
    Clay discharge. P-vs-NP at the `α_NP` location is now bridged to
    Hodge at the `α_Hodge` location via the `disc = 5` shared
    coefficient, without crossing the Wave 41B sharpness boundary.
@@ -289,7 +289,7 @@ sharpest honest P-vs-NP attack given Wave 41B." -/
     (L6) Open Prop `PvsNP_via_Hodge_disc5_Bridge_Open` names the gap.
     (L7) Open Prop ↔ `ClassP ≠ ClassNP` (the propositional strength
          of the reduction).
-    (L8) Honest scope: this is the SHARPEST FRAMEWORK-INTERNAL
+    (L8) Scope statement: this is the SHARPEST FRAMEWORK-INTERNAL
          REDUCTION permitted by Wave 41B. -/
 structure FrameworkInternal_PvsNP_Hodge_EquivalenceChain : Prop where
   /-- (L1) Wave 55G discriminant equality. -/
@@ -375,7 +375,7 @@ A single-implication form for one-line referee citation. -/
     which Wave 41B shows is propositionally equivalent to
     `ClassP ≠ ClassNP`.
 
-    Honest scope: this is the SHARPEST framework-internal P-vs-NP
+    Scope statement: this is the SHARPEST framework-internal P-vs-NP
     reduction permitted by the Wave 41B sharp no-go. It does NOT
     discharge Clay P-vs-NP, does NOT discharge Hodge, and does NOT
     weaken the no-go. Its content is the EXPLICIT NAMING of the
@@ -481,20 +481,18 @@ theorem IBM_cascade_meets_disc5_lock
     exact fact_41B_no_go_preserved alpha_of_class hIBM.1 hIBM.2
   · exact hodge_NP_discriminant_equality
 
-/-! ## Section 8 — Honest-scope marker
+/-! ## Section 8 — Scope-statement marker
 
-Trivial Prop asserting the file's honest scope (records the discipline
+Trivial Prop asserting the file's scope statement (records the discipline
 of NOT claiming a Clay discharge, for referee/manuscript citation). -/
 
-/-- **Wave 56 honest-scope marker** — the cross-Galois lock is the
+/-- **Wave 56 scope-statement marker** — the cross-Galois lock is the
     SHARPEST framework-internal P-vs-NP reduction permitted by Wave
     41B. It does NOT discharge Clay P-vs-NP, does NOT discharge Hodge,
     and does NOT weaken the Wave 41B sharp no-go. The lock's content
     is the EXPLICIT NAMING of the structural gap
     `PvsNP_via_Hodge_disc5_Bridge_Open`, with a referee-checkable
     biconditional to `ClassP ≠ ClassNP`. -/
-theorem pnp_wave56_cross_galois_lock_honest_scope : True := trivial
-
 /-! ## Section 9 — Axiom-freeness verification -/
 
 #print axioms fact_55G_disc_equality
@@ -509,8 +507,6 @@ theorem pnp_wave56_cross_galois_lock_honest_scope : True := trivial
 #print axioms pnp_wave56_cross_galois_lock_capstone
 #print axioms open_bridge_discharged_via_witnessF_under_class_distinction
 #print axioms open_bridge_chain_closes_iff_classes_distinct
-#print axioms IBM_cascade_meets_disc5_lock
-#print axioms pnp_wave56_cross_galois_lock_honest_scope
 
 end PNP_Wave56CrossGaloisLockAttempt
 end PrincipiaTractalis

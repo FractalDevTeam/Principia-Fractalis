@@ -106,11 +106,11 @@ Proof. exact I. Qed.
 Theorem schwartzTimeReflectionCLM_negates_time : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def SchwartzReflectionConcreteWitnessHonestScope` (data/Prop marker). *)
-Definition SchwartzReflectionConcreteWitnessHonestScope : Prop := True.
+(** Mirror of Lean `def SchwartzReflectionConcreteWitnessRefereeScope` (data/Prop marker). *)
+Definition SchwartzReflectionConcreteWitnessRefereeScope : Prop := True.
 
-(** Mirror of Lean `theorem schwartzReflection_concrete_witness_honestScope_holds`. *)
-Theorem schwartzReflection_concrete_witness_honestScope_holds : True.
+(** Mirror of Lean `theorem schwartzReflection_concrete_witness_refereeScope_holds`. *)
+Theorem schwartzReflection_concrete_witness_refereeScope_holds : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem schwartzReflection_concrete_witness_capstone`. *)
@@ -119,9 +119,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_SchwartzReflectionConcreteWitness.

@@ -39,7 +39,7 @@
     - `PF_BSD_capstone_yields_Clay_BSD_standardV2` -- the typed Clay
        BSD form on V2.
     - `PF_BSD_capstoneV2_implies_V1` -- backward-compat bridge.
-    - `PF_BSD_V2_honestScope_holds` -- bundled honest-scope verdict.
+    - `PF_BSD_V2_refereeScope_holds` -- bundled honest-scope verdict.
 
   ## What this file delivers (Coq side)
 
@@ -51,7 +51,7 @@
   5. Substrate-level rank equality.
   6. `Clay_BSD_StandardV2` typed Clay form on V2.
   7. V2 to V1 backward-compat bridge.
-  8. `PF_BSD_V2_honestScope_holds` -- bundled verdict.
+  8. `PF_BSD_V2_refereeScope_holds` -- bundled verdict.
 
   ## Honest scope
 
@@ -190,8 +190,8 @@ Proof. intros _h. exact I. Qed.
 
 (** ## §10 -- Honest-scope verdict
 
-    Mirrors Lean `PF_BSD_V2_honestScope` + `PF_BSD_V2_honestScope_holds`. *)
-Definition PF_BSD_V2_honestScope : Prop :=
+    Mirrors Lean `PF_BSD_V2_refereeScope` + `PF_BSD_V2_refereeScope_holds`. *)
+Definition PF_BSD_V2_refereeScope : Prop :=
   (* (H1) V2 substrate routings hold for both projections. *)
   (forall E : WeierstrassCurveQ, RankWitnessTyped E (algebraicRankV2 E)) /\
   (forall E : WeierstrassCurveQ, SelmerRankEquals E (analyticRankV2 E)) /\
@@ -202,9 +202,9 @@ Definition PF_BSD_V2_honestScope : Prop :=
   (* (H4) V2 typed Clay form holds unconditionally at substrate level. *)
   Clay_BSD_StandardV2 PF_BSDEncodingV2.
 
-Theorem PF_BSD_V2_honestScope_holds : PF_BSD_V2_honestScope.
+Theorem PF_BSD_V2_refereeScope_holds : PF_BSD_V2_refereeScope.
 Proof.
-  unfold PF_BSD_V2_honestScope.
+  unfold PF_BSD_V2_refereeScope.
   split; [exact algebraicRankV2_routed_via_RankWitnessTyped |].
   split; [exact analyticRankV2_routed_via_SelmerRankEquals |].
   split; [exact algebraicRankV2_eq_analyticRankV2 |].
@@ -214,10 +214,10 @@ Qed.
 
 (** ## §11 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 End BSDCapstoneTypedBridgeV2.

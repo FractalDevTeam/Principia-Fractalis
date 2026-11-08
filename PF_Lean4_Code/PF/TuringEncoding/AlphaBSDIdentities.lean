@@ -93,7 +93,7 @@ theorem alphaBSD_ne_alphaYM : alphaBSD ≠ alphaYM := by
 
 /-! ## §4 — Honest scope marker -/
 
-theorem AlphaBSDIdentities_HonestScope : True := trivial
+theorem AlphaBSDIdentities_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

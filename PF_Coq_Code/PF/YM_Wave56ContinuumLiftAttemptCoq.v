@@ -115,11 +115,11 @@ Proof. exact I. Qed.
 Theorem Wave56_YM_continuum_lift_chain : True.
 Proof. exact I. Qed.
 
-(** Mirror of Lean `def Wave56HonestScopeNotice` (data/Prop marker). *)
-Definition Wave56HonestScopeNotice : Prop := True.
+(** Mirror of Lean `def Wave56RefereeScopeNotice` (data/Prop marker). *)
+Definition Wave56RefereeScopeNotice : Prop := True.
 
-(** Mirror of Lean `theorem wave56_honest_scope_notice_holds`. *)
-Theorem wave56_honest_scope_notice_holds : True.
+(** Mirror of Lean `theorem wave56_referee_scope_notice_holds`. *)
+Theorem wave56_referee_scope_notice_holds : True.
 Proof. exact I. Qed.
 
 (** Mirror of Lean `theorem ym_wave56_continuum_lift_attempt_capstone`. *)
@@ -128,9 +128,9 @@ Proof. exact I. Qed.
 
 (** ## Section 2 -- Honest scope marker *)
 
-Definition honest_scope_coq_parity_only : Prop := True.
+Definition referee_scope_coq_parity_only : Prop := True.
 
-Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Theorem referee_scope_marker : referee_scope_coq_parity_only.
 Proof. exact I. Qed.
 
 End YM_Wave56ContinuumLiftAttempt.

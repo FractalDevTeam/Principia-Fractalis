@@ -141,7 +141,7 @@ Record SubstrateDischargeStatus : Prop := mkSubstrateDischargeStatus {
   sds_zero_project_axioms                   : True
 }.
 
-Theorem substrateDischarge_honest_scope : SubstrateDischargeStatus.
+Theorem substrateDischarge_referee_scope : SubstrateDischargeStatus.
 Proof. apply mkSubstrateDischargeStatus; exact I. Qed.
 
 End Bridge2_NS_FujitaKato1964SubstrateDischarge.

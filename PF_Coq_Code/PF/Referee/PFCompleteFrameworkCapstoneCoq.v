@@ -61,10 +61,10 @@ Qed.
 
 (** ## Section 3 -- Honest-scope marker *)
 
-Definition honest_scope_coq_parity_only_bundles_existing_theorems : Prop := True.
+Definition referee_scope_coq_parity_only_bundles_existing_theorems : Prop := True.
 
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_bundles_existing_theorems.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_bundles_existing_theorems.
 Proof. exact I. Qed.
 
 End PFCompleteFrameworkCapstone.

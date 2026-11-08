@@ -100,7 +100,7 @@ theorem G3factorComplex_zero_vanish_iff_cube_root_of_unity (z : ℂ) :
     factor where the framework's quadratic structure first emerges.
     The full modular-structure step (N → ∞ in the modular group)
     remains open. -/
-theorem G3FiniteComplexUnitCircle_HonestScope : True := trivial
+theorem G3FiniteComplexUnitCircle_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

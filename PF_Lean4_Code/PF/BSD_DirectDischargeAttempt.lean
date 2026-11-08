@@ -11,7 +11,7 @@ regardless of witness content. The file docstring at
 ("the content of the discharge lives in the requirement that the
 user supply a `RankCertificate`").
 
-For an **honest-scope companion** with TWO independent rank fields —
+For an **scope-statement companion** with TWO independent rank fields —
 where the Clay equality is NOT `rfl` and the current tree's absence
 of analytic-rank witnesses is machine-checked — see
 `PF/BSD_BoundedEncodingHonest.lean` (Campaign BSD-Bounded,
@@ -93,7 +93,7 @@ The certificate is therefore the **smallest honest Prop** through
 which the typed `Clay_BSD_Standard` statement can be discharged at
 this layer of the framework.
 
-## Honest scope (foregrounded)
+## Scope statement (foregrounded)
 
 * This is NOT a Clay BSD discharge. The `RankCertificate.rankEquality`
   field IS the BSD conjecture for `E`, restated as a typed datum.
@@ -486,7 +486,7 @@ theorem trivialEncoding_clay_BSD_under_obstruction
     Exists`, if discharged, mechanically yields Clay BSD on the
     trivial `EllipticCurve := WeierstrassCurve ℚ` encoding.
 
-    **HONEST SCOPE** (foregrounded):
+    **SCOPE** (foregrounded):
     * The Σ-encoding's discharge is by typed projection. The
       `RankCertificate.r` field is the rank witness; both projections
       return it directly.
@@ -532,16 +532,6 @@ theorem bsd_directDischargeAttempt_capstone :
   · exact sigma_E_rank_zero_with_cascade
   · exact trivialEncoding_clay_BSD_under_obstruction
 
-/-- **Honest-scope marker** — the file delivers a Σ-typed encoding
-    strictly larger than Fin 6, an axiom-free Clay BSD discharge on
-    that encoding by projection, the six LMFDB instances, the
-    composition with the existing `E_rank_zero` cascade, and an
-    explicit statement of the single named obstruction blocking
-    lift to the trivial encoding (`MathlibWeierstrassCurveRank
-    Exists`). It does NOT discharge Clay BSD on the trivial
-    encoding without that obstruction Prop. -/
-theorem bsd_directDischargeAttempt_honest_scope : True := trivial
-
 end PrincipiaTractalis.BSD_DirectDischargeAttempt
 
 -- Axiom checks. Expected for every theorem: `[propext, Classical.choice, Quot.sound]`.
@@ -557,5 +547,3 @@ end PrincipiaTractalis.BSD_DirectDischargeAttempt
   PrincipiaTractalis.BSD_DirectDischargeAttempt.trivialEncoding_clay_BSD_under_obstruction
 #print axioms
   PrincipiaTractalis.BSD_DirectDischargeAttempt.bsd_directDischargeAttempt_capstone
-#print axioms
-  PrincipiaTractalis.BSD_DirectDischargeAttempt.bsd_directDischargeAttempt_honest_scope

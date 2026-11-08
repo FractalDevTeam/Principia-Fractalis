@@ -496,7 +496,7 @@ theorem Wave56_YM_continuum_lift_chain :
     (d) The 4 mathlib gaps + the 1 new structural gap are recorded as
         named Props for downstream lifting once the corresponding
         mathlib infrastructure becomes available. -/
-def Wave56HonestScopeNotice : Prop :=
+def Wave56RefereeScopeNotice : Prop :=
   -- (a) Cascade discharges TYPED Prop, NOT Clay statement.
   YangMillsMassGap ∧
   -- (b) Four Wave 47B mathlib gaps remain open at the LITERAL level.
@@ -510,7 +510,7 @@ def Wave56HonestScopeNotice : Prop :=
   --     off-diagonal element at t = 1.
   ((-(Real.exp (-(1 : ℝ) / 2)) + Real.exp (-3 * 1 / 2)) / 2) ≠ 0
 
-theorem wave56_honest_scope_notice_holds : Wave56HonestScopeNotice :=
+theorem wave56_referee_scope_notice_holds : Wave56RefereeScopeNotice :=
   ⟨YM_conditional_via_framework_reduced_to_one_open
      wave46C_unconditionally_inhabited,
    trivial, trivial, trivial, trivial, trivial,
@@ -582,7 +582,7 @@ theorem ym_wave56_continuum_lift_attempt_capstone :
        OSRP_Compatible_Interacting_Ham_Open →
        YangMillsMassGap) ∧
     -- (6) Honest-scope notice.
-    Wave56HonestScopeNotice := by
+    Wave56RefereeScopeNotice := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · intro t; exact interactingPropagator_eigenvector_minus t
   · intro t; exact interactingPropagator_eigenvector_plus t
@@ -590,7 +590,7 @@ theorem ym_wave56_continuum_lift_attempt_capstone :
   · exact wave56_propagator_distinguishes_from_wave54D
   · exact psd_osrp_ladder_wave52D_holds
   · exact Wave56_YM_continuum_lift_chain
-  · exact wave56_honest_scope_notice_holds
+  · exact wave56_referee_scope_notice_holds
 
 /-! ## §16b — YM Wave 56 named-gap collapse: G1 ≡ G2 ≡ G3 ≡ G4 ≡ G5
 
@@ -668,7 +668,7 @@ theorem wave56_5_gaps_all_iff_True :
 #print axioms wave55C_non_tautological_H_holds
 #print axioms wave54D_propagator_holds
 #print axioms Wave56_YM_continuum_lift_chain
-#print axioms wave56_honest_scope_notice_holds
+#print axioms wave56_referee_scope_notice_holds
 #print axioms ym_wave56_continuum_lift_attempt_capstone
 
 end YM_Wave56ContinuumLiftAttempt

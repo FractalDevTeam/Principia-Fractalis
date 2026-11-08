@@ -143,7 +143,7 @@ theorem G3finite_pos_at_nonneg (N : ℕ) (z : ℝ) (hz : 0 ≤ z) :
 
     This file is the FIRST CONCRETE STEP of the analytic residual
     `FrameworkNPSelfAdjointnessReductionToQuadratic`. -/
-theorem G3PolynomialFiniteTruncation_HonestScope : True := trivial
+theorem G3PolynomialFiniteTruncation_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 

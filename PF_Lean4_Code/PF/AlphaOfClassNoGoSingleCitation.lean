@@ -193,7 +193,7 @@ theorem realises_P_sqrt2 : RealisesP (Real.sqrt 2) := by
     reverse-chain biconditional `realised_P_iff_realised_YM`
     propagates to an existence statement at the YM-node.
 
-    Honest scope: the cascade is at the level of
+    Scope statement: the cascade is at the level of
     *existence-of-realisations*, NOT a discharge of any Millennium
     problem. It expresses: "if anyone constructs `alpha_of_class`
     concretely on the canonical pair, the entire connected web
@@ -241,7 +241,7 @@ should cite as the framework's binding structural constraint. -/
           witness (the P-node is the hardness bottleneck of the
           connected component `{P, YM, NS, BSD, RH}`).
 
-    (SC5) **Honest scope (load-bearing).** This bundle does NOT
+    (SC5) **Scope statement (load-bearing).** This bundle does NOT
           discharge any Millennium problem. It packages the
           framework's structural binding constraint into a single
           citable theorem: *we know exactly why we cannot
@@ -273,7 +273,7 @@ theorem alpha_of_class_no_go_single_citation_capstone :
       ∧ RealisesP (Real.sqrt 2)
       ∧ (∃ a : ℝ, RealisesYM a))
     ∧
-    -- (SC5) Honest scope marker: True placeholder for the meta-claim.
+    -- (SC5) Scope statement marker: True placeholder for the meta-claim.
     -- The capstone is META about the framework's structural limit,
     -- not a Millennium discharge.
     True := by
@@ -286,20 +286,10 @@ theorem alpha_of_class_no_go_single_citation_capstone :
     exact alpha_of_class_no_go_cross_millennium_cascade f hP hNP
   · trivial
 
-/-! ## Section 4 — Honest-scope companion
+/-! ## Section 4 — Scope-statement companion
 
 The capstone is META about the framework's binding constraint. The
 following theorem makes the meta-claim explicit and citable. -/
-
-/-- **Honest scope of the single-citation capstone.** This file
-    bundles a structural NO-GO; it does **NOT** discharge any
-    Millennium problem.
-
-    The intended use is referee / chapter-21 citation: when
-    explaining why the framework's algebraic α-content is bounded
-    by P-vs-NP, cite `alpha_of_class_no_go_single_citation_capstone`
-    as the single referee-grade statement of that bound. -/
-theorem alpha_of_class_no_go_single_citation_honest_scope : True := trivial
 
 end AlphaOfClassNoGoSingleCitation
 end PrincipiaTractalis
@@ -317,5 +307,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.AlphaOfClassNoGoSingleCitation.alpha_of_class_no_go_cross_millennium_cascade
 #print axioms
   PrincipiaTractalis.AlphaOfClassNoGoSingleCitation.alpha_of_class_no_go_single_citation_capstone
-#print axioms
-  PrincipiaTractalis.AlphaOfClassNoGoSingleCitation.alpha_of_class_no_go_single_citation_honest_scope

@@ -79,7 +79,7 @@ by `norm_num`.
     this bridge demonstrates that the larger cascade subsumes the
     smaller as a subrange Prop schema.
 
-## Honest scope
+## Scope statement
 
   * The discharge is at the level of a CONSTRUCTED witness
     `(α_unit, eigenvalues_Odlyzko30)`. Coincidence with the
@@ -479,7 +479,7 @@ theorem kth_atom_twenty_nine_at_Odlyzko30 :
 
     **(D29) k = 29 discharge** at t30_Odlyzko = 101.3178... .
 
-    HONEST SCOPE:
+    SCOPE:
       * Witness-level discharge on the single sequence
         `(α_unit, eigenvalues_Odlyzko30)`. Coincidence with the
         framework's canonical T₃^sym sequence is the preserved
@@ -555,13 +555,6 @@ theorem cascade_extension_k0_to_k29_implies_k0_to_k19 :
   intro k hk
   exact cascade_extension_k0_to_k29_bundle k (by omega)
 
-/-- **Honest-scope marker** — the cascade extension to k ∈ {20, ..., 29}
-    is at the level of a constructed witness (`α_unit,
-    eigenvalues_Odlyzko30`); coincidence with the framework's canonical
-    T₃^sym eigenvalue sequence is the preserved spectral-realisation
-    open content. -/
-theorem cascade_extension_k20_to_k29_honest_scope : True := trivial
-
 end OnLineSurjectivityCascadeK20ToK29
 
 end PrincipiaTractalis
@@ -615,5 +608,3 @@ end PrincipiaTractalis
   PrincipiaTractalis.OnLineSurjectivityCascadeK20ToK29.cascade_extension_k0_to_k29_bundle
 #print axioms
   PrincipiaTractalis.OnLineSurjectivityCascadeK20ToK29.cascade_extension_k0_to_k29_implies_k0_to_k19
-#print axioms
-  PrincipiaTractalis.OnLineSurjectivityCascadeK20ToK29.cascade_extension_k20_to_k29_honest_scope

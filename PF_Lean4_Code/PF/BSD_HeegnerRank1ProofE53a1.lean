@@ -292,7 +292,7 @@ theorem bsd_rank_one_E53a1_discharged_at_placeholder :
 /-! ## §7 — Honest-scope theorem -/
 
 /-- **★ HONEST SCOPE THEOREM ★** — bundles the explicit content. -/
-theorem bsd_rank_one_E53a1_honest_scope :
+theorem bsd_rank_one_E53a1_referee_scope :
     -- (S1) Heegner point on E_{53.a1}
     E_53a1.toAffine.Equation
       heegnerPoint_E53a1.1 heegnerPoint_E53a1.2
@@ -376,7 +376,7 @@ theorem bsd_heegner_rank_one_E53a1_capstone :
 #print axioms selmerRankEquals_E53a1_at_one
 #print axioms bsd_rank_one_E53a1_via_heegner_and_GZ_K
 #print axioms bsd_rank_one_E53a1_discharged_at_placeholder
-#print axioms bsd_rank_one_E53a1_honest_scope
+#print axioms bsd_rank_one_E53a1_referee_scope
 #print axioms bsd_heegner_rank_one_E53a1_capstone
 
 end BSD_HeegnerRank1ProofE53a1

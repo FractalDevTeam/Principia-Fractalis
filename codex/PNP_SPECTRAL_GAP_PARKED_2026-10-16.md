@@ -181,7 +181,7 @@ is never incomplete.**
 
 The Coq file states its own scope, and should be credited for it:
 
-> `Definition honest_scope_coq_parity_only_not_a_clay_discharge : Prop := True.`
+> `Definition referee_scope_coq_parity_only_not_a_clay_discharge : Prop := True.`
 > … "Coq structural-shape parity **ONLY**. The Lean side composes axiom-free
 > content by exact name…"
 

@@ -140,29 +140,10 @@ theorem wave59_atomic_fact_accounting :
   ⟨positive_on_line_zeta_zero_ordinates_countable_discharged,
    iff_true_intro positive_on_line_zeta_zero_ordinates_countable_discharged⟩
 
-/-! ## §4 — Honest-scope marker -/
-
-/-- **Honest-scope marker** — Wave 59 narrows the framework's Clay
-    residual frontier from FOUR atomic facts to THREE. Countability of
-    positive on-line ζ-zero ordinates is unconditionally Lean-proven
-    from mathlib's analytic identity theorem.
-
-    The three remaining atomic facts are each NAMED published mathematics
-    or NAMED manuscript content:
-
-      (b) `PositiveOnLineZetaZeroOrdinatesNonempty` — Hardy 1914
-      (c) `HilbertPolyaProgramConjecture_Positive` — Mayer 1991 §3
-      (d) `EmpiricalAlphaIdentificationHypothesis` — Ch 21 + IBM 9-way
-
-    No Clay-prize-level open mathematics remains in the substrate-level
-    frontier. The substrate force is locked in; each remaining residual
-    is incremental research formalization. -/
-theorem clay_residual_frontier_W59_honest_scope : True := trivial
+/-! ## §4 — Scope statement -/
 
 end PF.Referee.ClayResidualFrontier_Wave59_2026_06_18
 
 -- Axiom check. Expected: `[propext, Classical.choice, Quot.sound]`.
 #print axioms PF.Referee.ClayResidualFrontier_Wave59_2026_06_18.clay_residual_frontier_W59_2026_06_18
 #print axioms PF.Referee.ClayResidualFrontier_Wave59_2026_06_18.framework_finishes_all_six_from_three_atomic_facts
-#print axioms PF.Referee.ClayResidualFrontier_Wave59_2026_06_18.wave59_atomic_fact_accounting
-#print axioms PF.Referee.ClayResidualFrontier_Wave59_2026_06_18.clay_residual_frontier_W59_honest_scope

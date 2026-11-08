@@ -855,7 +855,7 @@ theorem experimental_protocols_recorded : ExperimentalProtocols :=
 /-! ## §6 — Honest-scope marker (ProvennessTag × 4) -/
 
 /-- Honest-scope record for this module (ProvennessTag fields). -/
-structure FrameworkFalsifiabilityHonestScope : Prop where
+structure FrameworkFalsifiabilityRefereeScope : Prop where
   /-- (S1) The 8 falsifiers are TYPED PROPS, not measured
       observations. They make Popper's falsifiability criterion
       LITERAL in Lean for the framework's empirically-falsifiable
@@ -876,8 +876,8 @@ structure FrameworkFalsifiabilityHonestScope : Prop where
   no_new_mathematical_content : True
 
 /-- **Honest-scope record inhabited.** -/
-theorem framework_falsifiability_honest_scope :
-    FrameworkFalsifiabilityHonestScope :=
+theorem framework_falsifiability_referee_scope :
+    FrameworkFalsifiabilityRefereeScope :=
   ⟨trivial, trivial, trivial, trivial⟩
 
 /-! ## §7 — Axiom-freeness verification -/
@@ -895,12 +895,12 @@ theorem framework_falsifiability_honest_scope :
 #check @framework_falsifiability_capstone
 #check @any_falsifier_refutes_antecedents
 #check @experimental_protocols_recorded
-#check @framework_falsifiability_honest_scope
+#check @framework_falsifiability_referee_scope
 
 #print axioms framework_falsifiability_capstone
 #print axioms any_falsifier_refutes_antecedents
 #print axioms experimental_protocols_recorded
-#print axioms framework_falsifiability_honest_scope
+#print axioms framework_falsifiability_referee_scope
 
 /-! ## §8 — Verification of new 2026-06-03 additions -/
 

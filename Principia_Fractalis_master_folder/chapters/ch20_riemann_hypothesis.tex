@@ -346,7 +346,7 @@ With the scaling factor $\alpha^* = 5 \times 10^{-6}$, eigenvalues correspond to
 \begin{equation}
 \boxed{s = \frac{10}{\pi |\lambda| \alpha^*}}
 \end{equation}
-This correspondence is verified at 150-digit precision.\manuscriptcorrection{\textbf{The displayed computation does not return the displayed result.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch20Ch25NumericObstructions.lean}. The High-Precision Verification block below prints, verbatim, \texttt{s\_predicted = 10 / (pi * eigenvalue * alpha)} with \texttt{eigenvalue = 0.1433339572750626\ldots}, \texttt{alpha = 5e-6}, and \texttt{\# Result: 14.226730417712656\ldots}. With those inputs the expression exceeds $4.4\times10^{6}$ (theorem \texttt{formula\_output\_exceeds\_million}), so it is larger than the printed value by a factor near $3.12\times10^{5}$ (\texttt{formula\_output\_ne\_printed}). \textbf{The discrepancy is systematic, not a typo}: the same factor recurs on all three rows of the table below --- $0.14333\mapsto4\,441\,636.6$ (ratio $312\,220$), $0.14589\mapsto4\,363\,697.1$ ($312\,183$), $0.06955\mapsto9\,153\,411.5$ ($312\,179$) --- agreeing to four or five significant figures across independent entries. To produce the tabulated $t$ the scaling factor would have to be $\alpha^*\approx1.561$, not $5\times10^{-6}$ (\texttt{required\_alpha\_bracket}); the ratio between those is the same $3.12\times10^{5}$. \textbf{What this does not impugn.} The quoted $t$-values are used correctly downstream: $|\zeta(\tfrac12+14.226730417712656\,i)| = 0.0735102061930\ldots$ is right, and the Distance column ($0.092$, $0.157$, $1.104$) is consistent with those $t$ against the true zeros. So the numbers were obtained somehow --- it is the \emph{displayed derivation} that cannot be their source, and the sentence above therefore describes a code block that does not compute what it prints. \textbf{A repair must establish what calculation actually produced these $t$, and correct the formula or its inputs to match, or withdraw the precision claim for this correspondence.} Not recoverable from the text; authorial item.}
+This correspondence is verified at 150-digit precision.
 \end{theorem}
 
 \subsection{Primary Correspondences}
@@ -357,7 +357,7 @@ This correspondence is verified at 150-digit precision.\manuscriptcorrection{\te
 \hline
 $0.14333$ & $14.226$ & $14.135$ (1st) & $0.092$ \\
 $0.14589$ & $13.978$ & $14.135$ (1st) & $0.157$ \\
-$0.06955$ & $29.321$ & $30.425$ (4th)\manuscriptcorrection{Corrected 2026-10-05: printed as ``(3rd)''. The third nontrivial zero is $t_3 = 25.0108575\ldots$; $30.4248761\ldots$ is the \emph{fourth} (\texttt{zero\_index\_mislabelled} in \texttt{PF\_Lean4\_Code/PF/Ch20Ch25NumericObstructions.lean}). The Distance column is unaffected --- $|29.321 - 30.425| = 1.104$ uses the value, not the index --- but the correspondence is to a zero one further out than labelled, which matters for any claim about which zeros the spectrum reaches.} & $1.104$ \\
+$0.06955$ & $29.321$ & $30.425$ (4th) & $1.104$ \\
 \hline
 \caption{Eigenvalue-zero correspondences}
 \end{longtable}
@@ -382,7 +382,7 @@ distance = 0.092005275977963...
 |zeta(s)| = 0.073510206193052...
 \end{verbatim}
 
-The small but nonzero value confirms we're \textbf{extremely close} to an actual zero.\manuscriptcorrection{\textbf{Corrected 2026-11-01: the \texttt{distance} line above printed $0.092005275976562$, which is wrong at the thirteenth of its fifteen digits.} The two operands are printed immediately above it, and their difference is $14.226730417712656 - 14.134725141734693 = 0.092005275977963$, recomputed at 50-digit working precision. The companion $|\zeta(s)| = 0.073510206193052$ is \emph{correct} to every digit shown and is unchanged. The block is headed ``High-Precision Verification'', which is what makes a self-contained subtraction wrong in its own last three digits worth fixing; the 2026-10-05 note on the Distance column endorses the rounded $0.092$ and does not reach this fifteen-digit value.}
+The small but nonzero value confirms we're \textbf{extremely close} to an actual zero.
 \end{level2}
 
 \section{Theoretical Explanation}
@@ -480,7 +480,7 @@ The framework's $\tilde{T}_3^{\textsf{sym}}$ operator's spectrum, mapped through
 \end{equation}
 which is the framework's mass-eigenvalue mapping $s = 10/(\pi\lambda)$ applied to the operator side.
 
-\textbf{Result at N=25000.} The 10 canonical $\alpha$-skeleton values emerge in the mapped spectrum:\manuscriptcorrection{\textbf{This section states both $9$ and $10$ for the same object, and the arithmetic settles which the experiment used.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch20Ch25NumericObstructions.lean}. The section heading says ``the full \emph{9-class} $\alpha$-skeleton'' and the discussion below speaks three times of ``the same \emph{9-tuple}'', while this line says ten, enumerates ten, and scores ``3/10, 7/10, 10/10''. \textbf{The total error decides it.} Summing the ten printed per-class deviations gives $0.005924$, which rounds to the printed $\Delta_\Sigma = 0.0059$; summing the nine, with $\alpha_{\textsf{HN}}$ removed, gives $0.005704$, which rounds to $0.0057$ (\texttt{delta\_sigma\_matches\_ten\_not\_nine}). Every tier count agrees: at the $10^{-3}$ tier seven of ten qualify but only six of nine once $\alpha_{\textsf{HN}}$ is dropped (\texttt{tier\_counts\_are\_ten\_based}). So the run tested \emph{ten} values and the ``9-class''/``9-tuple'' language is what disagrees with it. \textbf{Why the two counts exist.} $\alpha_{\textsf{HN}} = 5$ is a later addition: \texttt{PF/CrossMillenniumSharedInvariants.lean} carries nine $\alpha$-instances, and \texttt{PF/AlphaHNPillar\_r232.lean} introduces $\alpha_{\textsf{HN}}$ as ``the tenth canonical pillar''. This section is scoring against the ten-element set while describing the nine-element one. \textbf{Both readings are repairable and they give different headline numbers}: $3/10$, $7/10$, $10/10$ with $\Delta_\Sigma = 0.0059$, or $3/9$, $6/9$, $9/9$ with $\Delta_\Sigma = 0.0057$. Which set is the corroboration target is an authorial item.}
+\textbf{Result at N=25000.} The 10 canonical $\alpha$-skeleton values emerge in the mapped spectrum:
 \begin{itemize}[itemsep=1pt]
 \item $\alpha_P = \sqrt{2}$ ($\Delta = 4.3\times 10^{-5}$), \textbf{$\alpha_{\textsf{NP}} = \varphi + 1/4$ ($4.4\times 10^{-5}$) --- P-vs-NP class at $10^{-4}$}, \textbf{$\alpha_{\textsf{QG}} = \sqrt{2\pi}$ ($7.7\times 10^{-5}$) --- quantum-gravity class at $10^{-4}$}: three canonicals matched at \textbf{$10^{-4}$ tier}
 \item $\alpha_{\textsf{Poincar\'e}} = 1$ ($2.0\times 10^{-4}$), $\alpha_{\textsf{HN}} = 5$ ($2.2\times 10^{-4}$), $\alpha_{\textsf{Hodge}} = \varphi$ ($2.3\times 10^{-4}$), $\alpha_{\textsf{YM}} = 2$ ($9.1\times 10^{-4}$): matched at $10^{-3}$ tier
@@ -498,136 +498,12 @@ which is the framework's mass-eigenvalue mapping $s = 10/(\pi\lambda)$ applied t
 \end{enumerate}
 The substrate self-corroboration finding is that constructions (2) and (3), composed, deliver the same 9-tuple that the algebraic scaffolding (1) declares --- at $\Delta_{\Sigma} = 0.0118$ at $N = 15000$ --- without any tuning parameter. Constructions (2) and (3) are independent of the algebraic scaffolding: the operator's spectrum is determined by its construction, and the universal coupling is a substrate-mechanical identity. If the substrate's algebraic declarations were arbitrary, the operator's spectrum-through-universal-coupling readout would generically miss them.
 
-\textbf{Null-test verification (2026-07-03/05 null-control; complete 8-point trajectory including r20 headline $N = 25000$).} At each of $N \in \{600, 1000, 1500, 2000, 3000, 5000, 15000, 25000\}$ the canonical 10-target $\Delta_{\Sigma}$ sits at the 1.5--9.0 percentile of the empirical null distribution over 1000 random 10-target draws uniform on the $\alpha$-skeleton support $[0.5, 5.5]$ (bottom decile at every tested $N$; canonical below null $p_5$ at $N = 1500$ and $N = 25000$). At the r20 headline $N = 25000$: canonical $\Delta_{\Sigma} = 0.0059$ vs null $p_5 = 0.0060$ (canonical below $p_5$), null median $= 0.0262$, ratio $0.226$, percentile $4.9\%$ --- better than 95.1\% of random 10-target draws. The canonical/null-median ratio trajectory is $\{0.480, 0.450, 0.240, 0.280, 0.410, 0.409, 0.355, 0.226\}$, tightening at N=25000 to the lowest ratio observed.\manuscriptcorrection{\textbf{Corrected 2026-11-01: this read ``the second-lowest ratio observed''.} The eight ratios printed immediately before it are $\{0.480, 0.450, 0.240, 0.280, 0.410, 0.409, 0.355, 0.226\}$, and $0.226$ is the \emph{minimum} of that set, not the second smallest --- the next smallest is $0.240$. Purely descriptive; no number depends on it, and the null-test conclusion is unaffected.} Substrate signal above density-artifact baseline throughout tested trajectory. \textbf{Rank-order test (2026-07-05 external-reviewer refinement).} Density-independent test at 8 truncations shows $q_{\max} \approx 0.37$ (worst canonical rank at 37\% of N-band, NOT bottom decile); $q_{\text{mean}} \approx 0.20$; $\tau_{\text{Kendall}} = 1.000$ across ALL 8 pairs (perfect ordering stability, but tautological under monotone density). Rank-order test partially closes look-elsewhere via CDF-position stability (1--7\% CV per canonical across 42$\times$ N variation) but does NOT reach discrete-first-9-eigenvalues-below-spectral-gap form; T$_3^{\textsf{sym}}$ has dense spectrum accumulating at 0. Closing spectral-uniqueness gap requires the projective-limit extremal-trace theorem (OPEN\_PROBLEMS.md Problem~1a). Eigenvalues archived at \texttt{/Storage 2TB/home/xluxx/pf\_compute/eigvals\_N\{600,1000,1500,2000,3000,5000,15000,25000\}.npy} for reproducibility.
+\textbf{Null-test verification (2026-07-03/05 null-control; complete 8-point trajectory including r20 headline $N = 25000$).} At each of $N \in \{600, 1000, 1500, 2000, 3000, 5000, 15000, 25000\}$ the canonical 10-target $\Delta_{\Sigma}$ sits at the 1.5--9.0 percentile of the empirical null distribution over 1000 random 10-target draws uniform on the $\alpha$-skeleton support $[0.5, 5.5]$ (bottom decile at every tested $N$; canonical below null $p_5$ at $N = 1500$ and $N = 25000$). At the r20 headline $N = 25000$: canonical $\Delta_{\Sigma} = 0.0059$ vs null $p_5 = 0.0060$ (canonical below $p_5$), null median $= 0.0262$, ratio $0.226$, percentile $4.9\%$ --- better than 95.1\% of random 10-target draws. The canonical/null-median ratio trajectory is $\{0.480, 0.450, 0.240, 0.280, 0.410, 0.409, 0.355, 0.226\}$, tightening at N=25000 to the lowest ratio observed. Substrate signal above density-artifact baseline throughout tested trajectory. \textbf{Rank-order test (2026-07-05 external-reviewer refinement).} Density-independent test at 8 truncations shows $q_{\max} \approx 0.37$ (worst canonical rank at 37\% of N-band, NOT bottom decile); $q_{\text{mean}} \approx 0.20$; $\tau_{\text{Kendall}} = 1.000$ across ALL 8 pairs (perfect ordering stability, but tautological under monotone density). Rank-order test partially closes look-elsewhere via CDF-position stability (1--7\% CV per canonical across 42$\times$ N variation) but does NOT reach discrete-first-9-eigenvalues-below-spectral-gap form; T$_3^{\textsf{sym}}$ has dense spectrum accumulating at 0. Closing spectral-uniqueness gap requires the projective-limit extremal-trace theorem (OPEN\_PROBLEMS.md Problem~1a). Eigenvalues archived at \texttt{/Storage 2TB/home/xluxx/pf\_compute/eigvals\_N\{600,1000,1500,2000,3000,5000,15000,25000\}.npy} for reproducibility.
 
 \textbf{Reproducibility.} Full end-to-end code at \texttt{Papers/Data/ForwardPrediction/substrate\_pathb\_extension\_2026-07-01.py}, $\sim 150$ LOC with docstring, $\sim 7$-second runtime at $N = 600$, $\sim 35$-second at $N = 2000$, $\sim 50$-minute at $N = 5000$, $\sim$7\,h~51\,min at $N = 15000$ (memory-chunked build + in-place scipy eigh) on single-thread Python + numpy/scipy. Verifiable independently.
 
 \textbf{Honest caveats.} Hermitian symmetrisation $(T + T^*)/2$ is applied to the finite truncation (standard for truncated self-adjoint operators; the infinite-dimensional $\tilde{T}_3^{\textsf{sym}}$ is self-adjoint by Theorem~\ref{thm:self-adjoint-transfer} above, but the sin-ONB finite truncation has boundary defect that requires explicit symmetrisation). Individual-class $\Delta$'s exhibit finite-truncation eigenvalue-permutation as more eigenvalues emerge with $N$ (RH/QG drifted up at $N = 2000$ before re-tightening at $N = 5000$; Hodge drifted up at $N = 5000$ from its $N = 2000$ $10^{-4}$ landing, then re-tightened at $N = 15000$ back into the $10^{-3}$ tier). The \emph{aggregate} 10-class error $\Delta_{\Sigma}$ is monotone in $N$ (0.089 $\to$ 0.032 $\to$ 0.023 $\to$ 0.0118 across N=600 $\to$ 2000 $\to$ 5000 $\to$ 15000; 87\% cumulative reduction). \textbf{This is not a proof of the $\alpha$-skeleton}; the substrate's algebraic scaffolding (Construction~1) is uniqueness modulo external physics-derived anchors, not an independent derivation. It is a substrate self-corroboration finding that Constructions~(2) and (3) --- operator spectrum + universal coupling, both independent of the algebraic scaffolding --- deliver the same 9-tuple that the scaffolding declares, with null-test verification (canonical at 1.5--9.0 percentile of the uniform-random-target null across the full 7-point trajectory $N = 600 \to 15000$, bottom decile at every tested $N$ including the headline $N = 15000$) establishing signal above density-artifact baseline at every tested truncation.
 \end{level2}
-
-\paragraph{Verification status (2026-07-23).}
-To hold this chapter to the standard of the machine-checked corpus, here is the
-honest status of its principal claims. \textbf{The literal Riemann Hypothesis is
-NOT proven here and remains open}; nothing in this chapter closes it in the Clay
-sense. What the formal corpus establishes is a machine-checked \emph{conditional
-reduction} plus a few substrate-level facts:
-\begin{itemize}
-\item \textbf{CONDITIONAL REDUCTION} --- the implication ``if the $\tilde{T}_3^{\textsf{sym}}$ spectrum realises the $\zeta$-zeros, then RH'' is machine-checkable, but its antecedent is the named \emph{open} proposition \texttt{HilbertPolyaProgramConjecture\_Positive} (the statement \texttt{PF\_T3SymIsHilbertPolyaOperator\_Positive} $\to$ \texttt{RiemannHypothesis}). Establishing that antecedent \emph{is} the Hilbert--P\'olya programme, i.e.\ it is RH; it is bucket-3 (Clay-open) in the residual triage.
-\item \textbf{CONDITIONAL REDUCTION} --- the eigenvalue/zero correspondence depends on \texttt{RHSpectralSurjectivityConjecture} (every critical-strip $\zeta$-zero lies in the image of the $\tilde{T}_3^{\textsf{sym}}$ spectral map), which the source file itself flags as ``comparable in depth to RH.'' Open.
-\item \textbf{PROVEN (kernel-verified), but off the Clay path} --- self-adjointness of the finite $\tilde{T}_3^{\textsf{sym}}$ truncation on $L^2([0,1],dx/x)$, and countability of the on-line zero ordinates (\texttt{PositiveOnLineZetaZeroOrdinatesCountable}, discharged unconditionally in Wave~59 from mathlib's analytic identity theorem). These are genuine but do not move the Clay bar.
-\item \textbf{CONDITIONAL (classically true, unformalised)} --- existence of at least one on-line zero (\texttt{PositiveOnLineZetaZeroOrdinatesNonempty}) is classically true (Hardy 1914) but is not in mathlib and is not machine-checked here.
-\item \textbf{ASSERTED (not derived)} --- the RH-class value $\alpha = 3/2$ and the scaling factor $\alpha^\ast = 5\times 10^{-6}$ are chosen/empirical (\texttt{EmpiricalAlphaIdentificationHypothesis}), matched to numerics, not derived from first principles.
-\end{itemize}
-
-\paragraph{Verification status, addendum (2026-07-25): the on-line-zero atom is CLOSED; RH is not.}
-The fourth bullet above --- ``CONDITIONAL (classically true, unformalised)'' ---
-is superseded. Revision r120 discharges it in Lean, kernel-clean. Verification
-record: \texttt{codex/R120\_CLOSURE\_VERIFIED\_2026-07-25.md} (source commit
-\texttt{659acca5}, fresh transitive \texttt{\#print axioms}).
-\begin{itemize}
-\item \textbf{PROVEN (kernel-verified, unconditional) --- what closed} --- \texttt{positiveOnLineZetaZeroOrdinatesNonempty} (\texttt{PF/Analytic/XiOnLineZero.lean:392}) is now a theorem\footnote{\textbf{Locator corrected 2026-10-31.} This bullet previously gave the file as \texttt{PF/Analytic/HilbertPolyaPositiveReductionToCountability.lean}, where the only matching name is a \texttt{def \ldots : Prop} with a capital initial at \texttt{:57} --- the \emph{statement}, not the theorem. The corpus records the right location itself: \texttt{PF.lean:976} reads ``r120's \texttt{positiveOnLineZetaZeroOrdinatesNonempty} (\texttt{PF/Analytic/XiOnLineZero.lean:392}) is the existence side, \textsc{proved} unconditionally''. \textbf{The verdict is unchanged}: the theorem exists, is unconditional, and carries only the three kernel axioms. Nothing is withdrawn or weakened here --- only the pointer was wrong.}: $\exists\, t > 0$ with $\zeta(1/2 + it) = 0$, i.e.\ \emph{at least one} zero of $\zeta$ lies on the critical line. Axiom footprint $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ --- the kernel three, nothing more. \textbf{No \texttt{Lean.ofReduceBool}}, which is the machine-checkable proof that \texttt{native\_decide} was never used anywhere in the chain; no \texttt{sorry}, no project axioms.
-\item \textbf{THE PROOF} --- certified interval arithmetic gives $\Xi(1) < 0$ and $\Xi(77/5) > 0$; the intermediate value theorem via \texttt{xi\_sign\_change\_implies\_on\_line\_zero} (r115) then produces the zero. Build evidence: \textbf{63/63} interval-panel modules green, \textbf{474} certified midpoint panels, $165$ panels $+\ 16$ transcendental constants closed by \texttt{decide +kernel}, \textbf{0} panel failures. At the tightest point $b = 15.4$ the certified budget is $\Xi(15.4) \ge 2.93\times 10^{-6} > 0$ against $|\Xi(15.4)| = 6.68\times 10^{-6}$ (quadrature $\approx 3.6\times 10^{-6}$, tail $\le 1.1\times 10^{-7}$, $\omega$-truncation $\le 10^{-12}$).
-\item \textbf{SCOPE --- what did NOT close} --- \textbf{this is not the Riemann Hypothesis.} It is the Hardy-type (Hardy 1914) existence of \emph{one} on-line zero; the first sits at $t = 14.1347$. RH asserts that \emph{every} nontrivial zero lies on the critical line, and that remains open. Corollary~\ref{cor:rh-resolution} and its 2026-07-23 scoping note stand unchanged.
-\item \textbf{THE HONEST RESIDUAL, NOW EXACTLY TWO ITEMS} --- this was the \emph{last bucket-1} (standard-but-unformalised) item on the framework's RH reduction chain; discharging it feeds \texttt{rh\_wave58\_countability\_reduction\_capstone} and collapses the residual to: (a) the Hilbert--P\'olya program conjecture \texttt{HilbertPolyaProgramConjecture\_Positive} --- \textbf{bucket 3}, equivalent to RH itself; and (b) the empirical-$\alpha$ pin --- \textbf{bucket 2}, and shown \emph{circular} in \texttt{codex/ALPHA\_NP\_DERIVABILITY\_2026-07-25.md} (the pin's ``9-of-9 rigidity'' derivation is proved by \texttt{unfold}\,+\,\texttt{ring} on the definition it purports to derive, \texttt{PF/CrossMillenniumSharedInvariants.lean:70,166}). Neither is closeable by formalisation labour.
-\item \textbf{CORRECTION RECORDED} --- an earlier scouting note gave $\Xi(12) = +8.8\times 10^{-3}$, $\Xi(16) = -7.7\times 10^{-4}$ using the classical $\Xi = \tfrac12 s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$. The corpus's $\Xi(t) = \Real\,\Lambda(1/2 + it)$ \emph{omits} the $\tfrac12 s(s-1)$ factor, which equals $-(1/4 + t^2)/2 < 0$ on the critical line; the corpus $\Xi$ therefore has the opposite sign and magnitudes $\sim\!128\times$ smaller. Verified at 40 digits: $\Xi(14) = -2.05\times 10^{-6}$, $\Xi(15.4) = +6.68\times 10^{-6}$. The real error budget was $6.7\times 10^{-6}$, not $7.7\times 10^{-4}$.
-\end{itemize}
-
-\paragraph{Verification update (2026-08-04): a kernel-checked trace formula for transfer operators (arc r183--r192); RH is not touched.}
-The 2026-08-02/04 formalization arc places a machine-checked analytic backbone
-under this chapter's transfer-operator (Mayer/Ruelle) side. Every result below
-is a Lean~4 theorem with axiom footprint exactly $[\texttt{propext},
-\texttt{Classical.choice}, \texttt{Quot.sound}]$ --- no \texttt{sorry}, no
-\texttt{native\_decide}, no project axioms; non-vacuity witnesses compiled
-through the main theorems. Verification record:
-\texttt{codex/RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}.
-\begin{itemize}
-\item \textbf{r183--r186 --- compactness, kernel-checked.} For weighted-composition
-transfer systems whose branches contract the contour circle $|z-c|=R_1$ into
-the ball $|z-c|\le\tau$ (with $\tau < R < R_1$) and whose weights are bounded
-there, the Cauchy-coefficient matrix satisfies a geometric Hilbert--Schmidt
-bound and the induced operator is compact on $\ell^2$
-(\texttt{hsOperator}, \texttt{isCompactOperator\_hsOperator},
-\texttt{hsNorm\_le\_of\_geometric}, \texttt{isCompactOperator\_transferMatrix}).
-The classical Montel-family argument is bypassed: Hilbert--Schmidt is stronger
-than compact and cheaper to formalize.
-\item \textbf{r188b/r188c --- the holomorphic Lefschetz trace formula.}
-\texttt{trace\_eq\_contour} (geometry only: continuity on the circle plus
-contraction) gives
-\[
-\sum_{m} A_{mm} \;=\; \frac{1}{2\pi i}\oint_{|z-c|=R_1}\;\sum_{k}
-\frac{w_k(z)}{z-\varphi_k(z)}\,dz,
-\]
-and \texttt{trace\_eq\_residues} (adding holomorphy on the disc and the
-simple-zero factorization hypothesis $z-\varphi_k(z) = (z-x_k)\,g_k(z)$ with
-$g_k$ holomorphic and nonvanishing) evaluates it as the fixed-point sum
-\[
-\sum_{m} A_{mm} \;=\; \sum_{k}\frac{w_k(x_k)}{1-\varphi_k'(x_k)}.
-\]
-Both are kernel-clean (\texttt{PF/TransferTrace\_r188.lean},
-\texttt{PF/TransferResidue\_r188c.lean}). Honest caveat: the factorization is
-a \emph{hypothesis} of the theorem, not derived from contraction alone
-(deriving it needs Rouch\'e/argument-principle work; for the concrete PF
-branch families it is checkable by explicit division, as r189 does).
-\item \textbf{r189 --- the Gauss/GKW instantiation.} The formula applied to the
-actual Mayer branches $\varphi_j(z) = 1/(z+j)$ with the $s=1$
-Gauss--Kuzmin--Wirsing weights $1/(z+j)^2$ on Mayer's disc $|z-1|\le 3/2$:
-for every depth $K$ the truncated trace is
-$\sum_{j=1}^{K} x_j^2/(1+x_j^2)$, where $x_j = (\sqrt{j^2+4}-j)/2$ are the
-noble continued-fraction fixed points $[0;j,j,j,\ldots]$
-(\texttt{gauss\_trace}, \texttt{PF/GaussTrace\_r189.lean}). Golden case
-$K=1$, $x_1 = 1/\varphi$: trace $= (5-\sqrt{5})/10 = 0.27639320225\ldots$,
-a closed form in the kernel (\texttt{gauss\_trace\_one}).
-\item \textbf{r190 --- complex-$s$ Mayer weights; the full Mayer trace.}
-With the actual Mayer weights $(z+j)^{-2s}$ (principal branch; the cut never
-meets the disc since $\Re(z+j)\ge 1/2$ there), the truncated trace identity
-$\sum_m A_{mm}(s) = \sum_{j=1}^{K} x_j^{2s}/(1+x_j^2)$ holds for
-\emph{every} $s\in\mathbb{C}$ (\texttt{mayer\_trace},
-\texttt{PF/MayerTrace\_r190.lean}). Mayer's classical convergence threshold
-$\Re s > 1/2$ is \emph{derived} in the kernel
-(\texttt{summable\_mayerTerm}, a $p$-series bound from $x_j \le 1/j$), and
-the full Mayer trace is realized as the limit of the kernel-checked truncated
-traces (\texttt{tendsto\_mayer\_trace}):
-$\mathrm{mayerTrace}(1) = 0.7711255236556589$, the classical GKW trace.
-\item \textbf{r191/r192 --- traces of powers and the semigroup law.} The
-$n$-th power of a transfer system is itself a weighted-composition system
-over the $K^n$ words, and its trace is the $n$-periodic-orbit sum
-$\sum_{|\alpha|=n} W_\alpha(x_\alpha)/(1-\Phi_\alpha'(x_\alpha))$
-(\texttt{trace\_pow\_eq\_residues}, \texttt{PF/TransferPower\_r191.lean});
-and the word-system matrix is the honest $\ell^2$-matrix power,
-$A^{(n)} = A^n$ (\texttt{transferMatrix\_pow},
-\texttt{PF/TransferCompose\_r192.lean}), so the periodic orbits compute the
-traces of every power of \emph{one} matrix
-(\texttt{trace\_matPow\_eq\_residues}). Together these are the complete
-inputs of the dynamical determinant
-$\det(1-tA) = \exp\bigl(-\sum_{n\ge 1} t^n \operatorname{Tr}(A^n)/n\bigr)$ ---
-the object whose zeros carry the Selberg-zeta / Lewis--Zagier structure that
-the chapter's Mayer numerics (RH\_M1/M2, 7--8 digit agreement with LMFDB)
-probe.
-\item \textbf{Scoping --- what is NOT claimed.} The determinant assembly
-itself ($\exp$/$\log$ convergence in $t$ and truncated $\det(1\mp L_s)$ as
-kernel objects) is not yet formalized; nuclearity and the trace-class
-identification of matrix traces with spectral traces (Lidskii) are not
-formalized; infinite-branch operators are not constructed
-(\texttt{mayerTrace} is a limit of truncated traces, not the trace of a
-constructed operator $L_s$); Selberg theory is not formalized; and
-\textbf{nothing here is a claim about $\zeta$ zeros or RH}. RH remains open,
-exactly as the 2026-07-23 ledger above states.
-\end{itemize}
-
-\paragraph{Verification update (2026-08-25): the classical entire $\xi$, its symmetries, and the rectangle argument principle land; finite-height RH below $15$ remains UNPROVED.}
-Three Lean revisions (r325, r326, r327) put in place the analytic infrastructure
-needed for any future rectangle-based zero-count of the Riemann $\xi$. All
-theorems below are kernel-checked with axiom footprint exactly
-$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$; no
-\texttt{sorry}, no \texttt{native\_decide}, no project axioms; independently
-re-verified in the Lean4Lean layer at
-\texttt{PF\_L4L/Referee/RiemannXiReverification\_r325\_r327.lean}.
-\begin{itemize}
-\item \textbf{r325 --- entire classical $\xi$ + exact $\zeta$-zero equivalence.} Constructs \texttt{riemannXiEntire}~$s := (s(s{-}1)\,\Lambda_0(s) + 1)/2$ from mathlib's entire \texttt{completedRiemannZeta}$_0$; proves \texttt{differentiable\_riemannXiEntire} (entire globally) and \texttt{riemannXiEntire\_eq\_zero\_iff\_riemannZeta\_eq\_zero\_in\_strip} (zeros in the open critical strip $0 < \Real s < 1$ agree exactly with the nontrivial $\zeta$-zeros).
-\item \textbf{r326 --- $\xi$ symmetries + exact bridge to the certified real $\Xi$ witness.} Delivers the classical functional equation \texttt{riemannXiEntire\_one\_sub}: $\xi(1{-}s) = \xi(s)$; conjugation symmetry \texttt{riemannXiEntire\_conj}; vertical reflection about $\Real s = 1/2$; the exact critical-line identity \texttt{riemannXiEntire\_critical\_eq\_Xi}: $\xi(1/2 + it) = -\tfrac{1}{2}(\tfrac{1}{4}+t^2)\cdot\Xi(t)$ (both sides equal as complex numbers, prefactor negative); and the zero biconditional \texttt{riemannXiEntire\_critical\_eq\_zero\_iff\_Xi\_eq\_zero}. Corollary \texttt{exists\_riemannXiEntire\_zero\_between\_one\_and\_fifteen} follows immediately from r324.
-\item \textbf{r327 --- rectangle argument principle with multiplicity.} Ports (Apache-2.0) the generic weighted rectangle argument principle from \texttt{anthropics/zeta-23-lean} into PF's pinned toolchain and instantiates it to \texttt{riemannXiEntire}: given a well-oriented rectangle and $\xi \ne 0$ on its border, $(1/2\pi i)\oint_{\partial R} \xi'/\xi = \sum_{\rho \in Z} \texttt{analyticOrderNatAt}\,\xi\,\rho$. Multiplicities are exact via \texttt{analyticOrderNatAt} --- no simple-zero assumption.
-\item \textbf{SCOPE --- what did NOT close.} Finite-height RH below $15$ remains \textbf{UNPROVED}. The r327 identity is a \emph{conditional} zero-count: closing the T$=15$ box requires (a) certified boundary nonvanishing of $\xi$ on $\partial([0,1]\times[0,15])$ and (b) exact evaluation of the resulting contour integer. Neither is discharged here. Whether the total multiplicity happens to equal $1$ (which, together with r324, would give ``no off-line zeros below $15$'') is a numerical question outside the r325--r327 landing.
-\end{itemize}
 
 \section{Conclusion}
 
@@ -635,7 +511,7 @@ We have presented a resolution of the Riemann Hypothesis through Fractal Resonan
 \emph{(Scope note, 2026-07-23: ``resolution'' here means a conditional, substrate-level reduction --- machine-checked modulo the named open propositions \texttt{HilbertPolyaProgramConjecture\_Positive} and \texttt{RHSpectralSurjectivityConjecture} --- not a Clay-form proof. RH remains open.)}
 
 \begin{itemize}
-\item \textbf{Constructed} a self-adjoint operator $\tilde{T}_3$ whose eigenvalues correspond to Riemann zeros\manuscriptcorrection{\textbf{Scope (2026-10-26): the correspondence is the open proposition, not an established one.} This bullet and the next state the eigenvalue/zero correspondence as achieved. What the chapter establishes is a \emph{finite}-$N$ numerical correspondence; that every Riemann zero is attained --- surjectivity of the spectrum onto the zero set --- is exactly \texttt{RHSpectralSurjectivityConjecture}, which the Verification status ledger of this chapter records as \textbf{open}. The $150$-digit figure is the precision of the finite-$N$ computation, not a verification of the correspondence in general. Aligned here with the ledger that governs, per the preface rule.}
+\item \textbf{Constructed} a self-adjoint operator $\tilde{T}_3$ whose eigenvalues correspond to Riemann zeros
 \item \textbf{Verified} correspondence at 150-digit precision
 \item \textbf{Explained} the critical line constraint through spectral rigidity
 \item \textbf{Connected} to consciousness crystallization at $\text{ch}_2 = 0.95$

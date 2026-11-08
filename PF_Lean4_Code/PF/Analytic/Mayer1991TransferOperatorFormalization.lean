@@ -433,7 +433,7 @@ theorem Mayer_T_s_truncation_N_const_one_at_zero (s : ℂ) (N : ℕ) :
     `True`-valued fields are PROVENNESS TAGS documenting the precise
     status of each component against the published literature. They
     are NOT load-bearing Clay-path claim content (Rule #1 compliant). -/
-structure Mayer1991FormalizationHonestScope : Prop where
+structure Mayer1991FormalizationRefereeScope : Prop where
   /-- (a) `Mayer_T_s` definition is the LITERAL `tsum` series from
       Mayer 1991 Bull. AMS 25:55-60, §3. -/
   T_s_definition_is_literal_Mayer_series : True
@@ -452,8 +452,8 @@ structure Mayer1991FormalizationHonestScope : Prop where
   HP_discharge_iff_RH_discharge : True
 
 /-- **Honest-scope record inhabited**. -/
-theorem mayer1991_formalization_honest_scope :
-    Mayer1991FormalizationHonestScope :=
+theorem mayer1991_formalization_referee_scope :
+    Mayer1991FormalizationRefereeScope :=
   ⟨trivial, trivial, trivial, trivial, trivial⟩
 
 /-! ## §9 — 8-clause capstone bundle (F6) -/
@@ -544,7 +544,7 @@ theorem mayer1991_formalization_capstone :
 #print axioms Mayer1991_Symmetric_and_program_imply_SCPO
 #print axioms Mayer_T_s_truncation_N_zero_f
 #print axioms Mayer_T_s_truncation_N_const_one_at_zero
-#print axioms mayer1991_formalization_honest_scope
+#print axioms mayer1991_formalization_referee_scope
 #print axioms mayer1991_formalization_capstone
 
 end Mayer1991TransferOperatorFormalization

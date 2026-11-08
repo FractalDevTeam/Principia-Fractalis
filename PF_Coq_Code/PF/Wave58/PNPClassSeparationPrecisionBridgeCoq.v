@@ -420,7 +420,7 @@ Qed.
     (3) Razborov-Rudich + Aaronson-Wigderson barriers as typed
         contracts the framework attack must bypass.
     (4) Discharging the bridge precisely closes the P vs NP Clay gap. *)
-Theorem pf_pvsnp_honest_scope :
+Theorem pf_pvsnp_referee_scope :
   PF_PolylogEnumDischarge /\
   (EnumToClassSeparationBridge <-> Literal_P_neq_NP) /\
   RazborovRudichBarrier1997 /\
@@ -439,11 +439,11 @@ Qed.
 
 (** **Coq-parity-only honest-scope marker.** NOT a Clay P vs NP
     discharge. *)
-Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
+Definition referee_scope_coq_parity_only_not_a_discharge : Prop := True.
 
 (** Honest-scope marker theorem. *)
-Theorem honest_scope_marker :
-  honest_scope_coq_parity_only_not_a_discharge.
+Theorem referee_scope_marker :
+  referee_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
 (** ## §12 — Capstone Record *)
@@ -486,7 +486,7 @@ Record PNPClassSeparationPrecisionCapstone : Prop := {
       Literal_P_neq_NP;
   K9_alpha_pos : 0 < alpha_PvsNP;
   K10_honest_not_a_discharge :
-    honest_scope_coq_parity_only_not_a_discharge
+    referee_scope_coq_parity_only_not_a_discharge
 }.
 
 (** **★ THE CAPSTONE: PNP CLASS-SEPARATION PRECISION ★** —
@@ -507,7 +507,7 @@ Proof.
     intros _ _; exact I.
   - exact pf_clay_precision_chain.
   - exact alpha_PvsNP_pos.
-  - exact honest_scope_marker.
+  - exact referee_scope_marker.
 Qed.
 
 End PNPClassSeparationPrecisionBridge.

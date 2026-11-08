@@ -211,7 +211,7 @@ theorem fractalKernel_finiteSpectralOperator
 
     This is concrete published-mathematics content. Specific mathlib
     targets, not abstract open math. -/
-theorem FiniteDimSpectralFrameworkOperator_HonestScope : True := trivial
+theorem FiniteDimSpectralFrameworkOperator_RefereeScope : True := trivial
 
 end PrincipiaTractalis.TuringEncoding
 
