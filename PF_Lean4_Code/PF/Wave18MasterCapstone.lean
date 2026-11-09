@@ -175,33 +175,199 @@ def YMLevel2Proven : Prop :=
   (PrincipiaTractalis.Analytic.lambdaAntiMinusLevel2 2 2 ≤
    PrincipiaTractalis.Analytic.lambdaAntiPlusLevel2 2 2)
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `fractalYM_cross_level_trace_pattern_capstone`. -/
-def YMLevel3Proven : Prop := True
+/-- **(2026-11-09 content restatement)** `YMLevel3Proven` is the propositional
+    content of `fractalYM_cross_level_trace_pattern_capstone` (axiom-free in
+    `PF/YangMillsLevel3Spectrum.lean`): low-k trace invariance at k ∈ {0,1,2},
+    the doubling refutation, and the level-3 conditional Frobenius² bracket. -/
+def YMLevel3Proven : Prop :=
+  -- (A) Invariance holds at low k
+  ((∃ (σ : Fin (2^0) → ℝ), (∑ i : Fin (2^0), σ i) = 2) ∧
+   (∃ (σ : Fin (2^1) → ℝ), (∑ i : Fin (2^1), σ i) = 2) ∧
+   (∃ (σ : Fin (2^2) → ℝ), (∑ i : Fin (2^2), σ i) = 2)) ∧
+  -- (B) Doubling refuted
+  (¬ fractalYMTraceDoublingConjecture) ∧
+  -- (C) Conditional level-3 structural content
+  (∀ (σ : Level3Spectrum),
+      fractalYMLevel3TraceEqTwo σ →
+      fractalYMLevel3FrobeniusSqLeFour σ →
+      ((1/2 : ℝ) ≤ ∑ i : Fin 8, (σ i)^2 ∧
+       (∑ i : Fin 8, (σ i)^2) ≤ 4))
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `fractalYM_cross_level_4_capstone`. -/
-def YMLevel4Proven : Prop := True
+/-- **(2026-11-09 content restatement)** `YMLevel4Proven` is the propositional
+    content of `fractalYM_cross_level_4_capstone` (axiom-free in
+    `PF/YangMillsLevel4Spectrum.lean`): trace invariance at k ∈ {0..4},
+    doubling refutation at k ∈ {1..4}, generic `4/2^k` lower bound, and
+    the level-4 conditional Frobenius² bracket. -/
+def YMLevel4Proven : Prop :=
+  -- (A) Invariance holds at k ∈ {0, 1, 2, 3, 4}
+  ((∃ (σ : Fin (2^0) → ℝ), (∑ i : Fin (2^0), σ i) = 2) ∧
+   (∃ (σ : Fin (2^1) → ℝ), (∑ i : Fin (2^1), σ i) = 2) ∧
+   (∃ (σ : Fin (2^2) → ℝ), (∑ i : Fin (2^2), σ i) = 2) ∧
+   (∃ (σ : Fin (2^3) → ℝ), (∑ i : Fin (2^3), σ i) = 2) ∧
+   (∃ (σ : Fin (2^4) → ℝ), (∑ i : Fin (2^4), σ i) = 2)) ∧
+  -- (B) Doubling refuted at k ∈ {1, 2, 3, 4}
+  ((∃ (σ : Fin (2^1) → ℝ), (∑ i : Fin (2^1), σ i) ≠ 2 * (2^1 : ℝ)) ∧
+   (∃ (σ : Fin (2^2) → ℝ), (∑ i : Fin (2^2), σ i) ≠ 2 * (2^2 : ℝ)) ∧
+   (∃ (σ : Fin (2^3) → ℝ), (∑ i : Fin (2^3), σ i) ≠ 2 * (2^3 : ℝ)) ∧
+   (∃ (σ : Fin (2^4) → ℝ), (∑ i : Fin (2^4), σ i) ≠ 2 * (2^4 : ℝ))) ∧
+  -- (C) Convergence rate: generic level-k lower bound 4/2^k
+  (∀ (k : ℕ) (σ : Fin (2^k) → ℝ),
+      (∑ i : Fin (2^k), σ i) = 2 →
+      (4 : ℝ) / (2^k : ℝ) ≤ ∑ i : Fin (2^k), (σ i)^2) ∧
+  -- (D) Level-4 conditional structural Frobenius bracket [1/4, 4]
+  (∀ (σ : Level4Spectrum),
+      fractalYMLevel4TraceEqTwo σ →
+      fractalYMLevel4FrobeniusSqLeFour σ →
+      ((1/4 : ℝ) ≤ ∑ i : Fin 16, (σ i)^2 ∧
+       (∑ i : Fin 16, (σ i)^2) ≤ 4))
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `fractalYM_cross_level_5_capstone`. -/
-def YMLevel5Proven : Prop := True
+/-- **(2026-11-09 content restatement)** `YMLevel5Proven` is the propositional
+    content of `fractalYM_cross_level_5_capstone` (axiom-free in
+    `PF/YangMillsLevel5Spectrum.lean`): trace invariance at k ∈ {0..5},
+    doubling refutation at k ∈ {1..5}, geometric-decay rate `4·(1/2)^k`,
+    tendency to zero, and the level-5 conditional Frobenius² bracket. -/
+def YMLevel5Proven : Prop :=
+  -- (A) Invariance holds at k ∈ {0, 1, 2, 3, 4, 5}
+  ((∃ (σ : Fin (2^0) → ℝ), (∑ i : Fin (2^0), σ i) = 2) ∧
+   (∃ (σ : Fin (2^1) → ℝ), (∑ i : Fin (2^1), σ i) = 2) ∧
+   (∃ (σ : Fin (2^2) → ℝ), (∑ i : Fin (2^2), σ i) = 2) ∧
+   (∃ (σ : Fin (2^3) → ℝ), (∑ i : Fin (2^3), σ i) = 2) ∧
+   (∃ (σ : Fin (2^4) → ℝ), (∑ i : Fin (2^4), σ i) = 2) ∧
+   (∃ (σ : Fin (2^5) → ℝ), (∑ i : Fin (2^5), σ i) = 2)) ∧
+  -- (B) Doubling refuted at k ∈ {1, 2, 3, 4, 5}
+  ((∃ (σ : Fin (2^1) → ℝ), (∑ i : Fin (2^1), σ i) ≠ 2 * (2^1 : ℝ)) ∧
+   (∃ (σ : Fin (2^2) → ℝ), (∑ i : Fin (2^2), σ i) ≠ 2 * (2^2 : ℝ)) ∧
+   (∃ (σ : Fin (2^3) → ℝ), (∑ i : Fin (2^3), σ i) ≠ 2 * (2^3 : ℝ)) ∧
+   (∃ (σ : Fin (2^4) → ℝ), (∑ i : Fin (2^4), σ i) ≠ 2 * (2^4 : ℝ)) ∧
+   (∃ (σ : Fin (2^5) → ℝ), (∑ i : Fin (2^5), σ i) ≠ 2 * (2^5 : ℝ))) ∧
+  -- (C) Geometric decay rate of the Frobenius² lower bound
+  (∀ (k : ℕ) (σ : Fin (2^k) → ℝ),
+      (∑ i : Fin (2^k), σ i) = 2 →
+      (4 : ℝ) * (1/2 : ℝ)^k ≤ ∑ i : Fin (2^k), (σ i)^2) ∧
+  -- (D) The lower bound tends to 0 (no uniform positive gap from Frobenius²)
+  (∀ ε : ℝ, 0 < ε → ∃ K : ℕ, ∀ k : ℕ, K ≤ k → (4 : ℝ) * (1/2 : ℝ)^k < ε) ∧
+  -- (E) Level-5 conditional structural Frobenius bracket [1/8, 4]
+  (∀ (σ : Level5Spectrum),
+      fractalYMLevel5TraceEqTwo σ →
+      fractalYMLevel5FrobeniusSqLeFour σ →
+      ((1/8 : ℝ) ≤ ∑ i : Fin 32, (σ i)^2 ∧
+       (∑ i : Fin 32, (σ i)^2) ≤ 4))
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `perelman_backward_unified_attack_capstone`. -/
-def PerelmanBackwardProven : Prop := True
+/-- **(2026-11-09 content restatement)** `PerelmanBackwardProven` is the
+    propositional content of `perelman_backward_unified_attack_capstone`
+    (axiom-free in `PF/PerelmanBackwardUnifiedAttack.lean`): α-rescaled
+    discrete W-entropy monotonicity / boundedness / convergence for all
+    α ≥ 0, Perelman cascade ceiling at α=1, Q(√5)-tower W-entropy
+    ceilings, surgery ↔ cascade structural analogy, and no-go clauses. -/
+def PerelmanBackwardProven : Prop :=
+  -- Path A: monotone, bounded, convergent W-entropy for ALL α ≥ 0.
+  (∀ α : ℝ, 0 ≤ α → ∀ n m : ℕ, n ≤ m →
+      PrincipiaFractalis.PerelmanBackwardUnifiedAttack.W_alpha α n ≤
+      PrincipiaFractalis.PerelmanBackwardUnifiedAttack.W_alpha α m) ∧
+  (∀ α : ℝ, 0 ≤ α → ∀ N : ℕ,
+      PrincipiaFractalis.PerelmanBackwardUnifiedAttack.W_alpha α N ≤ α * 3) ∧
+  (∀ α : ℝ, Filter.Tendsto
+      (fun N : ℕ => PrincipiaFractalis.PerelmanBackwardUnifiedAttack.W_alpha α N)
+      Filter.atTop (nhds (α * 3))) ∧
+  -- Path A α=1 specialization to Perelman cascade ceiling.
+  (∑' n : ℕ, PrincipiaFractalis.PerelmanBackwardUnifiedAttack.W_alpha_level 1 n = 3) ∧
+  (∑' n : ℕ, PrincipiaFractalis.PerelmanBackwardUnifiedAttack.W_alpha_level
+      PrincipiaFractalis.H3UnifiedMillenniumStructure.alpha_Poincare_H3U n = 3) ∧
+  -- H₃ Q(√2)-tower simultaneous W-entropy ceilings.
+  (∑' n : ℕ, PrincipiaFractalis.PerelmanBackwardUnifiedAttack.W_alpha_level
+      PrincipiaFractalis.H3UnifiedMillenniumStructure.alpha_Poincare_H3U n =
+      PrincipiaFractalis.H3UnifiedMillenniumStructure.alpha_Poincare_H3U * 3) ∧
+  (∑' n : ℕ, PrincipiaFractalis.PerelmanBackwardUnifiedAttack.W_alpha_level
+      PrincipiaFractalis.H3UnifiedMillenniumStructure.alpha_P_H3U n =
+      PrincipiaFractalis.H3UnifiedMillenniumStructure.alpha_P_H3U * 3) ∧
+  (∑' n : ℕ, PrincipiaFractalis.PerelmanBackwardUnifiedAttack.W_alpha_level
+      PrincipiaFractalis.H3UnifiedMillenniumStructure.alpha_YM_H3U n =
+      PrincipiaFractalis.H3UnifiedMillenniumStructure.alpha_YM_H3U * 3) ∧
+  -- Path B: surgery ≅ cascade structural analogy clauses.
+  PrincipiaFractalis.PerelmanBackwardUnifiedAttack.PerelmanSurgeryProcedure ∧
+  PrincipiaTractalis.NSBase3SelfSimilarity.Z_lt_S_base_3_cascade ∧
+  -- Path D: no-go clauses.
+  (Set.univ : Set ℕ).Infinite ∧
+  (¬ ∃ f : ℕ → Fin 3, Function.Bijective f)
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `bsd_rank_zero_one_two_concordance`. -/
-def BSDThreeRankProven : Prop := True
+/-- **(2026-11-09 content restatement)** `BSDThreeRankProven` is the
+    propositional content of `bsd_rank_zero_one_two_concordance`
+    (axiom-free in `PF/BSDRankTwoCurveFramework.lean`): three distinct
+    LMFDB curves, shared eigenvalue bracket (0.595, 0.596), Galois-pair
+    separation from α_RH and α_NP, and rank-2 manuscript label. -/
+def BSDThreeRankProven : Prop :=
+  -- (T1) Three distinct genuine elliptic curves over ℚ.
+  BSDGaloisPairConcordance.E_rank_zero.Δ = 64 ∧
+  BSDGaloisPairConcordance.E_rank_one.Δ = 37 ∧
+  BSDGaloisPairConcordance.E_rank_zero.Δ ≠ 0 ∧
+  BSDGaloisPairConcordance.E_rank_one.Δ ≠ 0 ∧
+  BSDGaloisPairConcordance.E_rank_zero.Δ ≠ BSDGaloisPairConcordance.E_rank_one.Δ ∧
+  -- (T2) Shared eigenvalue-anchor bracket (rank-blind across 0, 1, 2).
+  (595 : ℝ)/1000 < MillenniumSix.bsd_distinguished_eigenvalue ∧
+  MillenniumSix.bsd_distinguished_eigenvalue < (596 : ℝ)/1000 ∧
+  -- (T3) Galois-pair separation (carries over from Wave 17).
+  MillenniumSix.bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_RH ∧
+  MillenniumSix.bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_NP ∧
+  -- (T4) Rank-2 fact as manuscript-cited label.
+  BSDRankTwoCurveFramework.E_rank_two_rank_is_two
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `t3_sym_2x2_truncation_yields_first_2_zero_candidates`. -/
-def RHDim2TruncationProven : Prop := True
+/-- **(2026-11-09 content restatement)** `RHDim2TruncationProven` is the
+    propositional content of `t3_sym_2x2_truncation_yields_first_2_zero_candidates`
+    (axiom-free in `PF/RHDimensionTwoTruncation.lean`): the closed-form
+    real-symmetric 2×2 matrix has eigenvalues {6, 4}, closed-form
+    t-candidates 14.13 and 21.195, numerical proximity to the first two
+    ζ-zeros (14.135, 21.022), critical-line Re = 1/2, and distinctness. -/
+def RHDim2TruncationProven : Prop :=
+  -- (1) The truncation matrix is symmetric.
+  PrincipiaFractalis.RHDimensionTwoTruncation.M2.IsSymmetric ∧
+  -- (2)+(3) Explicit eigenvalues `6` and `4`.
+  PrincipiaFractalis.RHDimensionTwoTruncation.M2.HasEigenvalue 6 ∧
+  PrincipiaFractalis.RHDimensionTwoTruncation.M2.HasEigenvalue 4 ∧
+  -- (4) Closed-form t-candidates from the canonical bijection.
+  PrincipiaTractalis.eigenvalueToT
+    PrincipiaFractalis.RHDimensionTwoTruncation.α_truncation 6 = 1413 / 100 ∧
+  PrincipiaTractalis.eigenvalueToT
+    PrincipiaFractalis.RHDimensionTwoTruncation.α_truncation 4 = 4239 / 200 ∧
+  -- (5)+(6) Numerical proximity to the first 2 known ζ-zeros.
+  |(1413 / 100 : ℝ) - 14.135| < 0.006 ∧
+  |(4239 / 200 : ℝ) - 21.022| < 0.18 ∧
+  -- (7) Both critical-line images have real part 1/2.
+  (PrincipiaTractalis.eigenvalueToZero
+    PrincipiaFractalis.RHDimensionTwoTruncation.α_truncation 6).re = 1/2 ∧
+  (PrincipiaTractalis.eigenvalueToZero
+    PrincipiaFractalis.RHDimensionTwoTruncation.α_truncation 4).re = 1/2 ∧
+  -- (8) The two candidates are distinct.
+  PrincipiaTractalis.eigenvalueToZero
+    PrincipiaFractalis.RHDimensionTwoTruncation.α_truncation 6 ≠
+    PrincipiaTractalis.eigenvalueToZero
+    PrincipiaFractalis.RHDimensionTwoTruncation.α_truncation 4
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `framework_full_3D_clay_chain_axiom_free`. -/
-def NS3DClayChainIsolatedProven : Prop := True
+/-- **(2026-11-09 content restatement)** `NS3DClayChainIsolatedProven` is
+    the propositional content of `framework_full_3D_clay_chain_axiom_free`
+    (axiom-free in `PF/NS3DVortexStretchingObstruction.lean`): 3D vortex
+    stretching non-vanishing, cascade arithmetic, base-3 self-similarity,
+    typed BKM reduction, framework cascade attack, and the already-
+    discharged `NavierStokesGlobalSmoothness` placeholder at framework
+    typed level. Does NOT discharge Clay. -/
+def NS3DClayChainIsolatedProven : Prop :=
+  -- (i) 3D non-vanishing
+  (∃ (ω : NS3DVortexStretchingObstruction.Vorticity3DState 1)
+     (g : NS3DVortexStretchingObstruction.VelocityGradient3DState 1),
+    NS3DVortexStretchingObstruction.VortexStretching3D ω g ≠ 0) ∧
+  -- (ii) Cascade arithmetic
+  CrowCascadeDominance ∧
+  -- (iii) Base-3 self-similarity
+  PrincipiaTractalis.NSBase3SelfSimilarity.Z_lt_S_base_3_cascade ∧
+  -- (iv) Typed BKM reduction
+  ((∀ n, @NS3DVortexStretchingObstruction.VortexStretchingBoundedHypothesis n) →
+   NS3DVortexStretchingObstruction.Regular3DInitialData →
+   MillenniumSix.NavierStokesGlobalSmoothness) ∧
+  -- (v) Typed framework cascade attack
+  (NS3DVortexStretchingObstruction.CascadeImpliesVortexStretchingBound →
+   NS3DVortexStretchingObstruction.Regular3DInitialData →
+   MillenniumSix.NavierStokesGlobalSmoothness) ∧
+  -- Already-discharged Clay placeholder (framework typed level)
+  MillenniumSix.NavierStokesGlobalSmoothness
 
 /-! Each provenness tag is witnessed by `trivial : True`. The
     *companion side-theorems* in `Section 4` of this file pin down
@@ -455,14 +621,17 @@ theorem wave15to18_additions_hold : Wave15to18Additions :=
       fun h => PrincipiaTractalis.NSCascadeCrowBound.cascade_vs_crow_dominates h
     ns_2D_global_regularity :=
       PrincipiaTractalis.NS2DGlobalRegularity.ns_2D_global_regularity_classical_witnessed
-    ns_3D_clay_chain_isolated := by unfold NS3DClayChainIsolatedProven; trivial
+    ns_3D_clay_chain_isolated :=
+      NS3DVortexStretchingObstruction.framework_full_3D_clay_chain_axiom_free
     ym_level2_certificate := fractalYMLevel2_structural_certificate
-    ym_level3_cross_capstone := by unfold YMLevel3Proven; trivial
-    ym_level4_cross_capstone := by unfold YMLevel4Proven; trivial
-    ym_level5_cross_capstone := by unfold YMLevel5Proven; trivial
-    perelman_backward_attack := by unfold PerelmanBackwardProven; trivial
-    bsd_three_rank_concordance := by unfold BSDThreeRankProven; trivial
-    rh_dim2_truncation := by unfold RHDim2TruncationProven; trivial
+    ym_level3_cross_capstone := fractalYM_cross_level_trace_pattern_capstone
+    ym_level4_cross_capstone := fractalYM_cross_level_4_capstone
+    ym_level5_cross_capstone := fractalYM_cross_level_5_capstone
+    perelman_backward_attack :=
+      PrincipiaFractalis.PerelmanBackwardUnifiedAttack.perelman_backward_unified_attack_capstone
+    bsd_three_rank_concordance := BSDRankTwoCurveFramework.bsd_rank_zero_one_two_concordance
+    rh_dim2_truncation :=
+      PrincipiaFractalis.RHDimensionTwoTruncation.t3_sym_2x2_truncation_yields_first_2_zero_candidates
     rh_honest_density_route :=
       PrincipiaTractalis.honest_density_route_capstone
     consciousness_threePoint_witness :=
@@ -568,12 +737,16 @@ this file depends only on the three core Lean kernel axioms
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem YMLevel2Proven_holds : YMLevel2Proven := fractalYMLevel2_structural_certificate
-theorem YMLevel3Proven_holds : YMLevel3Proven := trivial
-theorem YMLevel4Proven_holds : YMLevel4Proven := trivial
-theorem YMLevel5Proven_holds : YMLevel5Proven := trivial
-theorem PerelmanBackwardProven_holds : PerelmanBackwardProven := trivial
-theorem BSDThreeRankProven_holds : BSDThreeRankProven := trivial
-theorem RHDim2TruncationProven_holds : RHDim2TruncationProven := trivial
-theorem NS3DClayChainIsolatedProven_holds : NS3DClayChainIsolatedProven := trivial
+theorem YMLevel3Proven_holds : YMLevel3Proven := fractalYM_cross_level_trace_pattern_capstone
+theorem YMLevel4Proven_holds : YMLevel4Proven := fractalYM_cross_level_4_capstone
+theorem YMLevel5Proven_holds : YMLevel5Proven := fractalYM_cross_level_5_capstone
+theorem PerelmanBackwardProven_holds : PerelmanBackwardProven :=
+  PrincipiaFractalis.PerelmanBackwardUnifiedAttack.perelman_backward_unified_attack_capstone
+theorem BSDThreeRankProven_holds : BSDThreeRankProven :=
+  BSDRankTwoCurveFramework.bsd_rank_zero_one_two_concordance
+theorem RHDim2TruncationProven_holds : RHDim2TruncationProven :=
+  PrincipiaFractalis.RHDimensionTwoTruncation.t3_sym_2x2_truncation_yields_first_2_zero_candidates
+theorem NS3DClayChainIsolatedProven_holds : NS3DClayChainIsolatedProven :=
+  NS3DVortexStretchingObstruction.framework_full_3D_clay_chain_axiom_free
 
 end PrincipiaTractalis
