@@ -140,10 +140,40 @@ but that is the entire point of a meta-aggregation file, and the
 docstring lists each cited theorem by name. The full content
 lives in the cited file. -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag: `fractalYMLevel2_structural_certificate` has been
-    proven axiom-free in `PF/YangMillsLevel2Spectrum.lean`. -/
-def YMLevel2Proven : Prop := True
+/-- **(2026-11-09 content restatement)** `YMLevel2Proven` is now the actual
+    propositional content of `fractalYMLevel2_structural_certificate`
+    (axiom-free in `PF/YangMillsLevel2Spectrum.lean`): the trace identity,
+    Frobenius² bracket `[1, 4]`, block-trace partitions, and eigenvalue
+    orderings for the 4-cell YM level-2 spectrum. -/
+def YMLevel2Proven : Prop :=
+  -- (1) Exact trace = 2
+  (PrincipiaTractalis.Analytic.lambdaSymPlusLevel2 2 2 +
+   PrincipiaTractalis.Analytic.lambdaSymMinusLevel2 2 2 +
+   (PrincipiaTractalis.Analytic.lambdaAntiPlusLevel2 2 2 +
+    PrincipiaTractalis.Analytic.lambdaAntiMinusLevel2 2 2) = 2) ∧
+  -- (2) Frobenius² ∈ [1, 4]
+  (1 ≤ (PrincipiaTractalis.Analytic.lambdaSymPlusLevel2 2 2)^2 +
+       (PrincipiaTractalis.Analytic.lambdaSymMinusLevel2 2 2)^2 +
+       ((PrincipiaTractalis.Analytic.lambdaAntiPlusLevel2 2 2)^2 +
+        (PrincipiaTractalis.Analytic.lambdaAntiMinusLevel2 2 2)^2)) ∧
+  ((PrincipiaTractalis.Analytic.lambdaSymPlusLevel2 2 2)^2 +
+   (PrincipiaTractalis.Analytic.lambdaSymMinusLevel2 2 2)^2 +
+   ((PrincipiaTractalis.Analytic.lambdaAntiPlusLevel2 2 2)^2 +
+    (PrincipiaTractalis.Analytic.lambdaAntiMinusLevel2 2 2)^2) ≤ 4) ∧
+  -- (3) Sym/antisym block trace partitions
+  (0 ≤ PrincipiaTractalis.Analytic.lambdaSymPlusLevel2 2 2 +
+       PrincipiaTractalis.Analytic.lambdaSymMinusLevel2 2 2 ∧
+   PrincipiaTractalis.Analytic.lambdaSymPlusLevel2 2 2 +
+   PrincipiaTractalis.Analytic.lambdaSymMinusLevel2 2 2 ≤ 2) ∧
+  (0 ≤ PrincipiaTractalis.Analytic.lambdaAntiPlusLevel2 2 2 +
+       PrincipiaTractalis.Analytic.lambdaAntiMinusLevel2 2 2 ∧
+   PrincipiaTractalis.Analytic.lambdaAntiPlusLevel2 2 2 +
+   PrincipiaTractalis.Analytic.lambdaAntiMinusLevel2 2 2 ≤ 2) ∧
+  -- (4) Eigenvalue ordering in each block
+  (PrincipiaTractalis.Analytic.lambdaSymMinusLevel2 2 2 ≤
+   PrincipiaTractalis.Analytic.lambdaSymPlusLevel2 2 2) ∧
+  (PrincipiaTractalis.Analytic.lambdaAntiMinusLevel2 2 2 ≤
+   PrincipiaTractalis.Analytic.lambdaAntiPlusLevel2 2 2)
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `fractalYM_cross_level_trace_pattern_capstone`. -/
@@ -426,7 +456,7 @@ theorem wave15to18_additions_hold : Wave15to18Additions :=
     ns_2D_global_regularity :=
       PrincipiaTractalis.NS2DGlobalRegularity.ns_2D_global_regularity_classical_witnessed
     ns_3D_clay_chain_isolated := by unfold NS3DClayChainIsolatedProven; trivial
-    ym_level2_certificate := by unfold YMLevel2Proven; trivial
+    ym_level2_certificate := fractalYMLevel2_structural_certificate
     ym_level3_cross_capstone := by unfold YMLevel3Proven; trivial
     ym_level4_cross_capstone := by unfold YMLevel4Proven; trivial
     ym_level5_cross_capstone := by unfold YMLevel5Proven; trivial
@@ -537,7 +567,7 @@ this file depends only on the three core Lean kernel axioms
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem YMLevel2Proven_holds : YMLevel2Proven := trivial
+theorem YMLevel2Proven_holds : YMLevel2Proven := fractalYMLevel2_structural_certificate
 theorem YMLevel3Proven_holds : YMLevel3Proven := trivial
 theorem YMLevel4Proven_holds : YMLevel4Proven := trivial
 theorem YMLevel5Proven_holds : YMLevel5Proven := trivial
