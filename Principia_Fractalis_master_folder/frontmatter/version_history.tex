@@ -651,7 +651,7 @@ NOT a Clay discharge --- substrate-level typed-bridge upgrades only.
   (absence of a constraint LINKING \texttt{decide} to \texttt{encodeRun},
   e.g.\ ``\texttt{decide~x~=~true~$\leftrightarrow$~encodeRun~x}
   reaches an accepting TM state''), which is the V4 refactor target.
-  Scoping capstone: \texttt{pnp\_carrier\_V3\_honest\_scope\_capstone}.
+  Scoping capstone: \texttt{pnp\_carrier\_V3\_referee\_scope\_capstone}.
   \end{itemize}
 \item \textbf{Build state.} \texttt{lake build PF} clean at HEAD
 \texttt{700bb29}; zero project axioms. Both refactors depend only on
@@ -694,7 +694,7 @@ NOT a Clay discharge --- substrate-level typed-bridge upgrades only.
   biconditional
   \texttt{enum\_to\_class\_separation\_bridge\_V2\_iff\_literal\_P\_neq\_NP\_V2}
   holds on the Bool carrier. The scoping capstone
-  \texttt{pnp\_carrier\_V2\_honest\_scope\_capstone} records that the
+  \texttt{pnp\_carrier\_V2\_referee\_scope\_capstone} records that the
   remaining substrate defect localises to a SINGLE field
   \texttt{computability~:~True} placeholder (rather than the
   carrier-wide Iff-vs-Bool defect of V1).
