@@ -1,7 +1,7 @@
 /-
 # PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors
 
-★★★★★★ 2026-06-18 — WAVE 59 ATOMIC FACT (d) SUBSTRATE-DISCHARGE ★★★★★★
+★★★★★★ 2026-06-18 / 2026-11-09 — WAVE 59 ATOMIC FACT (d) SUBSTRATE-DISCHARGE ★★★★★★
 
 ## Goal of this file
 
@@ -13,68 +13,70 @@ framework's Clay closure residual to THREE atomic facts:
   (c) `HilbertPolyaProgramConjecture_Positive`         — Mayer 1991 §3
   (d) `EmpiricalAlphaIdentificationHypothesis`         — Ch 21 + IBM 9-way
 
-This file SUBSTRATE-DISCHARGES atomic fact (d) via the Wave 56
-typed-anchor pattern, exhibiting the framework's three substrate-level
-sources for the canonical α-pair pin:
+This file SUBSTRATE-DISCHARGES atomic fact (d) by exhibiting the
+framework's three substrate-level sources for the canonical α-pair
+pin, each anchor carrying the ACTUAL propositional content of its
+substrate source (not a `Prop := True` placeholder):
 
   (A1) IBM 9-way hardware empirical anchor
-       (`IBMHardware9WayEvidence` — joint random-match ≤ 10⁻¹⁵ under
-       the explicit `NoiseModel9` hypotheses)
+       — the axiom-free joint random-match probability bound
+       `nineWayJointMatchProbabilityBound eps9_hardware ≤ 10⁻¹⁵` under
+       the explicit `NoiseModel9` hypotheses
+       (`PF/IBMHardware9WayEvidence.lean`).
   (A2) Ch 21 polylog spectral derivation anchor
-       (manuscript derivation of `α_P² = 2` and the NP quadratic
-       `16α² − 24α − 11 = 0` from the polylog deficit + Galois pair)
-  (A3) Cross-Millennium α-invariants anchor — the 11 named α-anchors
-       across the framework's nine-class α-table:
-       `α_Poincare = 1, α_P = √2, α_RH = 3/2, α_Hodge = φ,
-        α_NP = φ + 1/4, α_YM = 2, α_BSD = 3π/4, α_NS = 3π/2,
-        α_QG = √(2π)` plus the two algebraic anchors
-       `α_P² = 2` and `16α_NP² − 24α_NP − 11 = 0`.
+       — the axiom-free algebraic identities + positivity on the
+       canonical pair `(√2, φ + 1/4)`:
+         `(√2)² = 2`, `0 < √2`,
+         `16·(φ + 1/4)² − 24·(φ + 1/4) − 11 = 0`, `0 < φ + 1/4`
+       (`PF/TuringEncoding/AlphaCanonical.lean`).
+  (A3) Cross-Millennium α-invariants anchor
+       — the IBM-measured Galois pair `α_RH = 3/2, α_NP = φ + 1/4`
+       (`PF/IBMPeaksGaloisPair.lean`) plus the two algebraic anchors
+       and positivity.
 
-## What this file does and does NOT do
+## 2026-11-09 restatement
 
-* DOES define three typed substrate anchors (`Prop := True`) — the
-  SAME PATTERN as `GlimmJaffe_OS_SU2_TypedAnchor`,
-  `StreaterWightman_SU2_TypedAnchor`,
-  `OsterwalderSchrader_SU2_TypedAnchor` in
-  `PF/YangMills/Bridge5_YM_SubstrateDischarge.lean` and as the Wave
-  56 `BochnerMinlosOnNuclearSpaces` typed-open citation anchors.
+The four anchor Props previously stood as `Prop := True` with trivial
+inhabitants, under the Wave 56 typed-anchor pattern. Pablo-correction
+2026-11-06 (`principia_IBM_empirical_provenance_not_circular.md`):
+the IBM 9-way content and the algebraic identities are REAL theorems
+already present in the corpus and axiom-free; the flagship clause
+1(d) file should therefore CARRY that content directly, not shadow
+it. This file now does so — each anchor's `Prop` is a propositional
+statement of real substrate content, and each `_holds` theorem is a
+real proof via the existing axiom-free theorem in the referenced
+file.
 
-* DOES define a substrate-version of the empirical α-identification
-  hypothesis `EmpiricalAlphaIdentificationHypothesis_Substrate` as
-  the conjunction of the three typed anchors.
+The restatement does not alter the capstone's five-clause shape and
+does not weaken the Wave 41B scope reading. It replaces four
+`True`-placeholder Props with the actual propositional content they
+already pointed at.
 
-* DOES PROVE axiom-free that the three anchors discharge the
-  substrate-version hypothesis (trivial composition; the content is
-  the NAMING of the three substrate sources, not algebraic
-  manipulation).
+## What this file does
 
-* DOES expose the existing axiom-free CONDITIONAL discharge from
-  Wave 47G:
-    `EmpiricalAlphaIdentificationHypothesis → PolylogEigenvalueConjecture`
+* Defines four substrate anchors (A1, A2, A3, Wave 41B scope), each
+  carrying real propositional content inherited from existing
+  axiom-free theorems in `PF/IBMHardware9WayEvidence.lean`,
+  `PF/TuringEncoding/AlphaCanonical.lean`, `PF/IBMPeaksGaloisPair.lean`,
+  and `PF/AlphaOfClassNoGoSingleCitation.lean`.
+
+* Proves each anchor via the existing axiom-free theorem it names.
+
+* Defines the substrate-version of
+  `EmpiricalAlphaIdentificationHypothesis` as the conjunction of the
+  three substrate anchors.
+
+* Proves axiom-free that the three anchors discharge the substrate
+  version.
+
+* Exposes the axiom-free Wave 47G conditional discharge
+  `EmpiricalAlphaIdentificationHypothesis → PolylogEigenvalueConjecture`
   as a published-form cross-reference inside the capstone.
 
-* DOES bundle an scope-statement marker explaining that the literal
-  `alpha_of_class` opaque pinning remains propositionally equivalent
-  to `ClassP ≠ ClassNP` by the Wave 41B no-go
-  (`alpha_of_class_no_go_single_citation_capstone`). The substrate
-  contribution is to NAME the three framework sources for the pin at
-  the typed-anchor tier, NOT to weaken the Wave 41B propositional
-  reading.
-
-## Wave 56 typed-anchor pattern — invocation
-
-The pattern `def AnchorName : Prop := True` followed by
-`theorem anchor_name_holds : AnchorName := trivial` is the framework's
-ESTABLISHED MECHANISM for surfacing PUBLISHED substrate content (a
-named theorem from the literature, an empirical measurement
-externally on record) at the Lean substrate tier WITHOUT supplying
-its full mathlib content. The anchor is referee-citable: the
-docstring NAMES the substrate source. This is NOT a hedge — it is
-the framework's standard substrate-citation tier, identical to how
-Bridge 5 (Glimm-Jaffe / Streater-Wightman / Osterwalder-Schrader),
-Wave 56 (Bochner-Minlos / Wightman reconstruction / OS analytic
-continuation), and the NS/Hodge/BSD substrate discharges surface
-their published sources.
+* Carries the Wave 41B existential-equivalence scope statement
+  (`∃ f realising the algebraic pair ↔ ClassP ≠ ClassNP`) via the
+  existing axiom-free theorem
+  `alpha_of_class_no_go_existential_equivalence`.
 
 ## Axiom budget
 
@@ -113,6 +115,7 @@ import PF.PolylogIBMEmpiricalPinDischarge
 import PF.IBMHardware9WayEvidence
 import PF.IBMPeaksGaloisPair
 import PF.TuringEncoding.AlphaCanonical
+import PF.AlphaOfClassNoGoSingleCitation
 
 namespace PF.Empirical.EmpiricalAlphaIdent_Substrate_Anchors
 
@@ -122,113 +125,106 @@ open PrincipiaTractalis.PolylogConjectureAttemptWave47
 open PrincipiaTractalis.PolylogConjectureAttemptWave48
 open PrincipiaTractalis.PolylogIBMEmpiricalPinDischarge
 
-/-! ## §1 — The three framework substrate anchors (Wave 56 pattern)
+/-! ## §1 — The three framework substrate anchors
 
 We surface the THREE substrate-level sources for the canonical α-pair
-pin `(α_P, α_NP) = (√2, φ + 1/4)` as Wave 56 typed substrate anchors.
-Each anchor is a `Prop := True` whose docstring NAMES its substrate
-source — referee-citable at the typed-anchor tier without supplying
-the full mathlib content. -/
+pin `(α_P, α_NP) = (√2, φ + 1/4)` as substrate anchors carrying the
+actual propositional content of their substrate source. Each anchor
+is proved by the corresponding axiom-free theorem already established
+in the corpus. -/
 
-/-- **(A1) IBM 9-way hardware empirical anchor** — typed substrate
-    anchor for the IBM-Quantum hardware empirical content underwriting
-    the canonical α-pair pin.
+/-- **(A1) IBM 9-way hardware empirical anchor** — the axiom-free
+    probability bound underwriting the canonical α-pair pin.
 
-    SUBSTRATE SOURCE:
-      * `PF/IBMHardware9WayEvidence.lean` (440 lines) ships the
-        machine-checked 9-way joint random-match probability bound
-        `≤ 10⁻¹⁵` under the explicit `NoiseModel9` hypotheses.
-      * Observed on IBM-Quantum hardware (2-of-9 measured to date,
-        commit 2026-05-24): `α_RH = 3/2 EXACT` (RH-fibre peak) and
-        `α_NP = 1.868` to 4-decimal precision (matches `φ + 1/4 ≈
-        1.86803398875` to 10⁻⁴).
-      * `PF/IBMPeaksGaloisPair.lean` establishes that
-        `(α_RH, α_NP) = (3/2, φ + 1/4)` are the two Galois-conjugate
-        roots of `4a² − (9 + 2√5) a + (9 + 6√5)/2` over ℚ(√5).
+    SUBSTRATE CONTENT: the joint probability that nine independent
+    measurements all land within hardware precision `10⁻³` of the
+    nine framework-predicted α-instances, under the explicit
+    `NoiseModel9` hypotheses (uniform upper bound `1/1.7` on density
+    supported in `[0.9, 2.6]`), is bounded above by `10⁻¹⁵`. This is
+    `nineWayJointMatchProbabilityBound eps9_hardware ≤ 10⁻¹⁵`.
 
-    SUBSTRATE SCOPE: typed-open at the SAME tier as Bridge 5's
-    `GlimmJaffe_OS_SU2_TypedAnchor` and Wave 56's
-    `BochnerMinlosOnNuclearSpaces`. The literal IBM hardware
-    measurement record is external substrate content; this anchor
-    NAMES it inside Lean. -/
-def IBM9Way_AlphaPin_Anchor : Prop := True
+    SUBSTRATE SOURCE: `PF/IBMHardware9WayEvidence.lean` ships the
+    machine-checked theorem
+    `IBM_hardware_nine_way_random_match_probability_bound`
+    (axiom-free). IBM-Quantum hardware record (2-of-9 measured,
+    commit 2026-05-24): `α_RH = 3/2 EXACT`, `α_NP ≈ 1.868` to 10⁻⁴.
+    `PF/IBMPeaksGaloisPair.lean` identifies `(α_RH, α_NP)` as
+    Galois-conjugate roots over ℚ(√5). -/
+def IBM9Way_AlphaPin_Anchor : Prop :=
+  PrincipiaTractalis.IBMHardware9WayEvidence.nineWayJointMatchProbabilityBound
+      PrincipiaTractalis.IBMHardware9WayEvidence.eps9_hardware
+    ≤ (1 / 10 ^ 15 : ℝ)
 
-/-- The IBM 9-way α-pin substrate anchor is inhabited. -/
+/-- The IBM 9-way α-pin substrate anchor holds, via the axiom-free
+    `IBM_hardware_nine_way_random_match_probability_bound`. -/
 theorem ibm_9way_alpha_pin_anchor_holds :
-    IBM9Way_AlphaPin_Anchor := trivial
+    IBM9Way_AlphaPin_Anchor :=
+  PrincipiaTractalis.IBMHardware9WayEvidence.IBM_hardware_nine_way_random_match_probability_bound
 
-/-- **(A2) Ch 21 polylog spectral derivation anchor** — typed substrate
-    anchor for the manuscript's Ch 21 polylog spectral derivation of
-    the canonical α-pair.
+/-- **(A2) Ch 21 polylog spectral derivation anchor** — the
+    axiom-free algebraic identities + positivity on the canonical
+    pair `(√2, φ + 1/4)`.
 
-    SUBSTRATE SOURCE:
-      * Manuscript `master_folder_rev2/chapters/ch21_p_vs_np.tex`:
-        the polylog deficit `α_NP − α_Poincare = 1/4` derivation, the
-        P-fibre algebraic identity `α_P² = 2`, and the NP-fibre
-        quadratic `16 α_NP² − 24 α_NP − 11 = 0`.
-      * Formalised algebraically in
-        `PF/TuringEncoding/AlphaCanonical.lean` as
-        `alpha_P_sq : (Real.sqrt 2)^2 = 2`,
-        `alpha_NP_quadratic :
-           16 * (phi + 1/4)^2 - 24 * (phi + 1/4) - 11 = 0`,
-        plus positivity `alpha_P_pos`, `alpha_NP_pos`. These are
-        AXIOM-FREE concrete theorems already established in the corpus.
+    SUBSTRATE CONTENT:
+      `(√2)² = 2` and `0 < √2`, and
+      `16·(φ + 1/4)² − 24·(φ + 1/4) − 11 = 0` and `0 < φ + 1/4`.
 
-    SUBSTRATE SCOPE: typed-open at the SAME tier as Bridge 5's
-    `StreaterWightman_SU2_TypedAnchor`. The literal Ch 21 derivation
-    text is external manuscript content; this anchor NAMES it inside
-    Lean and points at the existing axiom-free algebraic
-    formalisations. -/
-def Ch21_PolylogSpectralDerivation_Anchor : Prop := True
+    SUBSTRATE SOURCE: manuscript ch21 polylog deficit derivation
+    (`α_NP − α_Poincare = 1/4`), P-fibre identity, NP-fibre
+    quadratic. Formalised axiom-free in
+    `PF/TuringEncoding/AlphaCanonical.lean` as `alpha_P_sq`,
+    `alpha_NP_quadratic`, `alpha_P_pos`, `alpha_NP_pos`, bundled by
+    `canonical_alpha_algebraic_pair`. -/
+def Ch21_PolylogSpectralDerivation_Anchor : Prop :=
+  ((Real.sqrt 2) ^ 2 = 2 ∧ 0 < Real.sqrt 2) ∧
+  (16 * (phi + 1/4) ^ 2 - 24 * (phi + 1/4) - 11 = 0 ∧ 0 < phi + 1/4)
 
-/-- The Ch 21 polylog spectral derivation substrate anchor is inhabited. -/
+/-- The Ch 21 polylog spectral derivation anchor holds, via the
+    axiom-free `canonical_alpha_algebraic_pair`. -/
 theorem ch21_polylog_spectral_derivation_anchor_holds :
-    Ch21_PolylogSpectralDerivation_Anchor := trivial
+    Ch21_PolylogSpectralDerivation_Anchor :=
+  canonical_alpha_algebraic_pair
 
-/-- **(A3) Cross-Millennium α-invariants anchor** — typed substrate
-    anchor for the framework's 11-anchor cross-Millennium α-skeleton.
+/-- **(A3) Cross-Millennium α-invariants anchor** — the IBM-measured
+    Galois pair plus the two algebraic anchors and positivity.
 
-    SUBSTRATE SOURCE:
-      * `PF/MillenniumSixReductions.lean` ships the nine-class α-table:
-        `α_Poincare = 1`, `α_P = √2`, `α_RH = 3/2`, `α_Hodge = φ`,
-        `α_NP = φ + 1/4`, `α_YM = 2`, `α_BSD = 3π/4`, `α_NS = 3π/2`.
-      * `PF/QuantumGravity.lean` ships `α_QG = √(2π)` — the ninth
-        α-instance (TOE completion).
-      * `PF/IBMPeaksGaloisPair.lean` ships the Galois pair anchors
-        `α_RH = 3/2` and `α_NP = φ + 1/4` as conjugate roots over
-        ℚ(√5).
-      * `PF/TuringEncoding/AlphaCanonical.lean` ships the two
-        algebraic-identity anchors `α_P² = 2` and
-        `16 α_NP² − 24 α_NP − 11 = 0`.
+    SUBSTRATE CONTENT:
+      * Galois pair: `α_RH = 3/2` and `α_NP = φ + 1/4`
+        (`PF/IBMPeaksGaloisPair.lean`).
+      * Algebraic anchors: `(√2)² = 2` and
+        `16·(φ + 1/4)² − 24·(φ + 1/4) − 11 = 0`
+        (`PF/TuringEncoding/AlphaCanonical.lean`).
+      * Positivity: `0 < √2` and `0 < φ + 1/4`.
 
-    Eleven cross-Millennium invariant anchors total:
-      (i)   `α_Poincare = 1`
-      (ii)  `α_P = √2`
-      (iii) `α_RH = 3/2`
-      (iv)  `α_Hodge = φ`
-      (v)   `α_NP = φ + 1/4`
-      (vi)  `α_YM = 2`
-      (vii) `α_BSD = 3π/4`
-      (viii)`α_NS = 3π/2`
-      (ix)  `α_QG = √(2π)`
-      (x)   `α_P² = 2` (algebraic anchor)
-      (xi)  `16 α_NP² − 24 α_NP − 11 = 0` (algebraic anchor)
+    These are the two anchors (`α_P`, `α_NP`) pinned by
+    `EmpiricalAlphaIdentificationHypothesis` plus the IBM-measured
+    Galois-conjugate pair `(α_RH, α_NP)`. The full nine-class
+    α-skeleton (`α_Poincare = 1`, `α_RH = 3/2`, `α_Hodge = φ`,
+    `α_NP = φ + 1/4`, `α_YM = 2`, `α_BSD = 3π/4`, `α_NS = 3π/2`,
+    `α_QG = √(2π)`) agrees with this anchor via the 9-way unified
+    spectral table (`PF/MillenniumSixReductions.lean`,
+    `PF/QuantumGravity.lean`).
 
-    Anchors (ii) and (v) are the canonical α-pair pinned by
-    `EmpiricalAlphaIdentificationHypothesis`; the other nine are the
-    cross-Millennium skeleton that AGREES with the canonical-pair pin
-    via the 9-way unified spectral table.
+    SUBSTRATE SCOPE: four axiom-free propositional facts plus two
+    definitional identities, all pre-existing in the corpus. -/
+def CrossMillenniumInvariants_AlphaSkeleton_Anchor : Prop :=
+  (PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH = 3 / 2 ∧
+   PrincipiaTractalis.IBMPeaksGaloisPair.alpha_NP = phi + 1 / 4) ∧
+  ((Real.sqrt 2) ^ 2 = 2 ∧
+   16 * (phi + 1/4) ^ 2 - 24 * (phi + 1/4) - 11 = 0) ∧
+  (0 < Real.sqrt 2 ∧ 0 < phi + 1/4)
 
-    SUBSTRATE SCOPE: typed-open at the SAME tier as Bridge 5's
-    `OsterwalderSchrader_SU2_TypedAnchor`. The literal 11 numerical
-    values are already axiom-free Lean theorems in the cited files;
-    this anchor BUNDLES them at the typed-anchor tier for the
-    cross-Millennium discharge of atomic fact (d). -/
-def CrossMillenniumInvariants_AlphaSkeleton_Anchor : Prop := True
-
-/-- The cross-Millennium α-invariants substrate anchor is inhabited. -/
+/-- The cross-Millennium α-invariants anchor holds, via the Galois-pair
+    definitional identities and the axiom-free algebraic theorems. -/
 theorem cross_millennium_invariants_alpha_skeleton_anchor_holds :
-    CrossMillenniumInvariants_AlphaSkeleton_Anchor := trivial
+    CrossMillenniumInvariants_AlphaSkeleton_Anchor := by
+  refine ⟨⟨?_, ?_⟩, ⟨?_, ?_⟩, ?_, ?_⟩
+  · rfl
+  · rfl
+  · exact alpha_P_sq
+  · exact alpha_NP_quadratic
+  · exact alpha_P_pos
+  · exact alpha_NP_pos
 
 /-! ## §2 — The substrate-version of atomic fact (d)
 
@@ -308,74 +304,83 @@ theorem wave47_conditional_cross_reference
     PolylogEigenvalueConjecture :=
   wave47_polylog_discharge_under_empirical_pin h
 
-/-! ## §5 — Scope-statement content (Wave 41B caveat) -/
+/-! ## §5 — Scope-statement content (Wave 41B existential equivalence) -/
 
-/-- **Scope-statement: the literal opaque pin remains
-    P-vs-NP-equivalent (Wave 41B).**
+/-- **Wave 41B existential equivalence: the literal opaque pin is
+    propositionally equivalent to `ClassP ≠ ClassNP`.**
 
-    The Wave 41B no-go
-    (`alpha_of_class_no_go_single_citation_capstone`) establishes that
-    any literal pinning of the OPAQUE `alpha_of_class : Set Language
-    → ℝ` to the canonical pair `(√2, φ + 1/4)` is propositionally
-    equivalent to `ClassP ≠ ClassNP`. This anchor surfaces the
-    Wave 41B caveat at the typed-anchor tier.
+    SUBSTRATE CONTENT: the existence of any real-valued function on
+    `Set Language` satisfying the canonical α-pair's algebraic system
+    on the `ClassP`/`ClassNP` classes is EQUIVALENT to
+    `ClassP ≠ ClassNP`:
 
-    The substrate contribution of this file is NOT to weaken the
-    Wave 41B reading. It is to surface the THREE framework substrate
-    sources (IBM 9-way, Ch 21 polylog spectral derivation,
-    cross-Millennium α-invariants) at the typed-anchor tier, IDENTICAL
-    in form to Bridge 5's three published-theorem anchors and Wave 56's
-    typed-open citation anchors.
+      `(∃ f : Set Language → ℝ,
+          ((f ClassP)² = 2 ∧ 0 < f ClassP) ∧
+          (16·(f ClassNP)² − 24·(f ClassNP) − 11 = 0 ∧
+           0 < f ClassNP)) ↔ ClassP ≠ ClassNP`.
 
-    HONEST READING: substrate-level discharge of the typed-Prop
-    contract via named empirical + manuscript anchors. NOT a
-    propositional weakening; NOT a claim that "P ≠ NP is proven". -/
-def Wave41B_OpaquePinPNPEquivalent_RefereeScope : Prop := True
+    This is the Wave 41B no-go's existential equivalence clause
+    (`alpha_of_class_no_go_existential_equivalence` in
+    `PF/AlphaOfClassNoGoSingleCitation.lean`, axiom-free). It states
+    the propositional reality the framework's substrate discharge
+    does NOT weaken: literal pinning of the opaque `alpha_of_class`
+    to the canonical pair is propositionally equivalent to P ≠ NP. -/
+def Wave41B_OpaquePinPNPEquivalent_RefereeScope : Prop :=
+  (∃ f : Set Language → ℝ,
+      ((f ClassP) ^ 2 = 2 ∧ 0 < f ClassP) ∧
+      (16 * (f ClassNP) ^ 2 - 24 * (f ClassNP) - 11 = 0 ∧
+       0 < f ClassNP)) ↔
+    ClassP ≠ ClassNP
 
-/-- The Wave 41B scope-statement anchor is inhabited. -/
+/-- The Wave 41B existential-equivalence scope anchor holds, via the
+    axiom-free `alpha_of_class_no_go_existential_equivalence`. -/
 theorem wave41B_opaque_pin_pnp_equivalent_referee_scope_holds :
-    Wave41B_OpaquePinPNPEquivalent_RefereeScope := trivial
+    Wave41B_OpaquePinPNPEquivalent_RefereeScope :=
+  PrincipiaTractalis.AlphaOfClassNoGoSingleCitation.alpha_of_class_no_go_existential_equivalence
 
 /-! ## §6 — The unified substrate-discharge capstone -/
 
 /-- **★★★ ATOMIC FACT (d) UNIFIED SUBSTRATE-DISCHARGE CAPSTONE ★★★**
-    (2026-06-18, Wave 59 follow-up).
+    (2026-06-18, Wave 59 follow-up. 2026-11-09 restatement: all five
+    clauses carry real propositional content; no `Prop := True`
+    placeholders.)
 
     Five clauses certifying the substrate-level discharge of atomic
-    fact (d) `EmpiricalAlphaIdentificationHypothesis` via the Wave 56
-    typed-anchor pattern:
+    fact (d) `EmpiricalAlphaIdentificationHypothesis` via three
+    substrate anchors with load-bearing content:
 
-    (C1) **Three typed substrate anchors are inhabited at the typed-
-         anchor tier**:
-           * (A1) `IBM9Way_AlphaPin_Anchor` — IBM-Quantum hardware
-             empirical content (9-way joint random-match ≤ 10⁻¹⁵).
-           * (A2) `Ch21_PolylogSpectralDerivation_Anchor` — manuscript
-             Ch 21 polylog spectral derivation of `α_P² = 2` and the
-             NP quadratic `16α² − 24α − 11 = 0`.
+    (C1) **Three substrate anchors hold, each via its referenced
+         axiom-free theorem**:
+           * (A1) `IBM9Way_AlphaPin_Anchor` — the 10⁻¹⁵ joint
+             random-match probability bound from
+             `IBM_hardware_nine_way_random_match_probability_bound`.
+           * (A2) `Ch21_PolylogSpectralDerivation_Anchor` — the
+             algebraic identities + positivity from
+             `canonical_alpha_algebraic_pair`.
            * (A3) `CrossMillenniumInvariants_AlphaSkeleton_Anchor` —
-             the 11-anchor cross-Millennium α-skeleton
-             (nine-class table + two algebraic anchors).
+             the IBM Galois pair identities plus the algebraic
+             anchors and positivity.
 
     (C2) **Substrate-version pin holds**: the conjunction of the
-         three typed anchors inhabits
+         three anchors inhabits
          `EmpiricalAlphaIdentificationHypothesis_Substrate`.
 
     (C3) **Substrate-discharge implication**: the three anchors
          discharge `EmpiricalAlphaIdentificationHypothesis_Substrate`
-         (trivially at the typed-anchor tier).
+         (by pairing).
 
     (C4) **Cross-reference to Wave 47G conditional**: the literal
          `EmpiricalAlphaIdentificationHypothesis` opaque pin discharges
          `PolylogEigenvalueConjecture` axiom-free
          (`wave47_polylog_discharge_under_empirical_pin`).
 
-    (C5) **Scope statement (Wave 41B caveat)**: the literal opaque pin
-         on `alpha_of_class` remains propositionally equivalent to
-         `ClassP ≠ ClassNP`. The substrate contribution is to NAME
-         the three framework substrate sources at the typed-anchor
-         tier — substrate-level discharge of the typed-Prop contract
-         via named empirical + manuscript anchors — NOT a propositional
-         weakening of the Wave 41B reading.
+    (C5) **Wave 41B existential equivalence**: the existence of any
+         `f : Set Language → ℝ` realising the canonical pair's
+         algebraic system on `(ClassP, ClassNP)` is propositionally
+         equivalent to `ClassP ≠ ClassNP`
+         (`alpha_of_class_no_go_existential_equivalence`). The
+         substrate contribution of this file does NOT weaken that
+         reading.
 
     Status: ZERO project axioms, ZERO sorries. -/
 theorem empirical_alpha_ident_unified_substrate_discharge_capstone :
