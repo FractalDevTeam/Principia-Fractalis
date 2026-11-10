@@ -116,9 +116,11 @@ namespace PrincipiaTractalis
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave51T3SymSurrogateSurjectivityProven : Prop := True
+def Wave51T3SymSurrogateSurjectivityProven : Prop :=
+  PrincipiaTractalis.T3SymSurrogateSurjectivityAttempt.T3SymSurrogateSurjectivityBundle
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave51NSWave35P1JointDischargeProven : Prop := True
+def Wave51NSWave35P1JointDischargeProven : Prop :=
+  PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.Wave51JointDischargeStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51NSVortexStretchingUniformGalerkinProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -154,12 +156,10 @@ structure Wave51MasterCapstone : Prop where
   wave_51 : Wave51Additions
 
 theorem wave51_additions_hold : Wave51Additions :=
-  { wave51_t3_sym_surrogate_surjectivity := by
-      have _ := _root_.PrincipiaTractalis.T3SymSurrogateSurjectivityAttempt.t3_sym_surrogate_surjectivity_attempt_capstone
-      unfold Wave51T3SymSurrogateSurjectivityProven; trivial
-    wave51_ns_wave35_p1_joint_discharge := by
-      have _ := _root_.PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.ns_3d_mathlib_sobolev_div_free_attempt_wave51_capstone
-      unfold Wave51NSWave35P1JointDischargeProven; trivial
+  { wave51_t3_sym_surrogate_surjectivity :=
+      PrincipiaTractalis.T3SymSurrogateSurjectivityAttempt.t3_sym_surrogate_surjectivity_attempt_capstone
+    wave51_ns_wave35_p1_joint_discharge :=
+      PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.ns_3d_mathlib_sobolev_div_free_attempt_wave51_capstone
     wave51_ns_vortex_stretching_uniform_galerkin := by
       have _ := _root_.PrincipiaTractalis.NS3DVortexStretchingUniformGalerkinAttempt.ns_3d_vortex_stretching_uniform_galerkin_attempt_capstone
       unfold Wave51NSVortexStretchingUniformGalerkinProven; trivial
@@ -196,11 +196,9 @@ theorem wave51_master_capstone_axiom_free : True := trivial
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave51T3SymSurrogateSurjectivityProven_holds : Wave51T3SymSurrogateSurjectivityProven :=
-  have _ := _root_.PrincipiaTractalis.T3SymSurrogateSurjectivityAttempt.t3_sym_surrogate_surjectivity_attempt_capstone
-  trivial
+  PrincipiaTractalis.T3SymSurrogateSurjectivityAttempt.t3_sym_surrogate_surjectivity_attempt_capstone
 theorem Wave51NSWave35P1JointDischargeProven_holds : Wave51NSWave35P1JointDischargeProven :=
-  have _ := _root_.PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.ns_3d_mathlib_sobolev_div_free_attempt_wave51_capstone
-  trivial
+  PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.ns_3d_mathlib_sobolev_div_free_attempt_wave51_capstone
 theorem Wave51NSVortexStretchingUniformGalerkinProven_holds : Wave51NSVortexStretchingUniformGalerkinProven :=
   have _ := _root_.PrincipiaTractalis.NS3DVortexStretchingUniformGalerkinAttempt.ns_3d_vortex_stretching_uniform_galerkin_attempt_capstone
   trivial
