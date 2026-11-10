@@ -167,6 +167,11 @@ import PF.PolylogResonanceAtGaloisPair
 
 namespace PrincipiaTractalis
 
+-- 2026-11-09: targeted opens for restated content-bearing defs
+open PrincipiaTractalis.MillenniumSix (HodgeAlgebraicRepresentation)
+open PrincipiaTractalis.TuringEncoding (PolylogEigenvalueConjecture ClassP ClassNP)
+open PrincipiaTractalis.PolylogReformulated (PolylogResonanceConjecture PolylogAlgebraicContent)
+
 /-! ## Section 0 — Provenness tags for large-conjunction capstones
 
 Each large multi-clause capstone landed in Waves 19–21 is encoded
@@ -174,56 +179,226 @@ here as a Prop-level provenness witness. The actual content lives
 in the cited source file; this file records exactly the
 meta-aggregation citation. Each tag is witnessed by `trivial`. -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `wave18_discharge_investigation_unified`
-    (Wave 19, commit a968642). NEGATIVE result. -/
-def PNPUnconditionalNonDischargeProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `wave18_discharge_investigation_unified` (Wave 19, commit a968642).
+    NEGATIVE result: four-conjunct bridge/resonance/obstruction/conditional
+    capstone. Does NOT discharge P vs NP. -/
+def PNPUnconditionalNonDischargeProven : Prop :=
+  -- (1) Bridge is definitional renaming
+  (PrincipiaTractalis.PolylogReformulated.PolylogAlgebraicContent ↔
+    PolylogEigenvalueConjecture) ∧
+  -- (2) Resonance theorem holds universally on free α
+  (∀ α : ℝ, PolylogResonanceConjecture α) ∧
+  -- (3) Sharp obstruction
+  (PolylogEigenvalueConjecture → ClassP ≠ ClassNP) ∧
+  -- (4) Best Wave-18 result remains a conditional reduction
+  (PrincipiaTractalis.PolylogReformulated.PolylogAlgebraicContent →
+    P_neq_NP_def)
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `ym_uniform_gap_routes_verdict`
-    (Wave 19, commit fe0413c). M1+M2 NEGATIVE, M3 conditional. -/
-def YMMechanismTriageProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `ym_uniform_gap_routes_verdict` (Wave 19, commit fe0413c).
+    Four-route triage: Routes 1-3 REFUTED; Route 4 (spectral
+    concentration ε ≤ 1/4) SURVIVES. -/
+def YMMechanismTriageProven : Prop :=
+  -- Route 1: trace + Cauchy-Schwarz — REFUTED
+  (∀ ε : ℝ, 0 < ε → ∃ K : ℕ, ∀ k : ℕ, K ≤ k →
+     (4 : ℝ) * (1/2 : ℝ)^k < ε) ∧
+  -- Route 2: eigenvalue repulsion — REFUTED
+  (∀ (C β : ℝ), 0 < C → 0 < β →
+     ∀ δ : ℝ, 0 < δ → ∃ K : ℕ, ∀ k : ℕ, K ≤ k →
+       |C * ((2 : ℝ)^(-β))^k| < δ) ∧
+  -- Route 3: kernel positivity for consecutive gap — REFUTED
+  (∀ δ : ℝ, 0 < δ → ∃ K : ℕ, ∀ k : ℕ, K ≤ k →
+     (1 : ℝ) / ((2^k : ℕ) : ℝ) < δ) ∧
+  -- Route 4: spectral concentration ε ≤ 1/4 — SURVIVES
+  (∀ (k : ℕ) (σ : Fin (2^k) → ℝ),
+     SpectrumConcentratesNearHalfAndThreeHalves k σ (1/4) →
+     ∃ i j : Fin (2^k), (1/2 : ℝ) ≤ σ j - σ i)
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `hodge_CY3_complete_via_11_and_22`
-    (Wave 19, commit 661fff6). Substrate-level only. -/
-def HodgeCY3Dim22FullProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `hodge_CY3_complete_via_11_and_22` (Wave 19, commit 661fff6):
+    for every `HodgeCY3FullSubstrate`, full (1,1) and (2,2) discharge
+    including Poincaré-duality compatibility and rank bounds.
+    Substrate-level only. -/
+def HodgeCY3Dim22FullProven : Prop :=
+  ∀ (XF : PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3FullSubstrate)
+    (class_idx : ℕ),
+  -- (1,1) discharges
+  HodgeAlgebraicRepresentation XF.oneOne.toHodgeAmbient class_idx ∧
+  (∃ Z : Fin XF.oneOne.h_one_one → ℤ, Z = XF.oneOne.cohomologyClass) ∧
+  XF.oneOne.canonical_trivial ∧
+  -- (2,2) discharges
+  HodgeAlgebraicRepresentation XF.twoTwo.toHodgeAmbient class_idx ∧
+  (∃ Z : Fin XF.twoTwo.h_two_two → ℤ, Z = XF.twoTwo.cohomologyClass22) ∧
+  XF.twoTwo.poincareDual_h ∧
+  -- Poincaré-duality compatibility
+  XF.twoTwo.h_two_two = XF.oneOne.h_one_one ∧
+  -- Both rank bounds
+  XF.oneOne.h_one_one ≤ 20 ∧ XF.twoTwo.h_two_two ≤ 20
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `local_vs_global_dichotomy`
-    (Wave 19, commit d280edb). Local axiom-free; global Clay-open. -/
-def NS3DLocalRegularityBKMProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `local_vs_global_dichotomy` (Wave 19, commit d280edb): local
+    BKM-style vortex-stretching bound provable axiom-free for all
+    T > 0 at n = 0, and the typed `VortexStretchingBoundedHypothesis 0`
+    discharge as maximum unconditional content. Global Clay-open. -/
+def NS3DLocalRegularityBKMProven : Prop :=
+  (∀ T : ℝ, 0 < T →
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 0) ∧
+  @NS3DVortexStretchingObstruction.VortexStretchingBoundedHypothesis 0
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `bsd_rank_zero_one_two_three_concordance`
-    (Wave 19, commit 340bf03). 4-rank φ/e concordance. -/
-def BSDFourRankConcordanceProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `bsd_rank_zero_one_two_three_concordance` (Wave 19, commit 340bf03):
+    four distinct LMFDB curves with ranks 0, 1, 2, 3; shared 0.595-0.596
+    eigenvalue bracket; Galois-pair separation; rank-2 and rank-3
+    manuscript labels. 4-rank φ/e concordance. -/
+def BSDFourRankConcordanceProven : Prop :=
+  -- (T1) Four distinct genuine elliptic curves over ℚ.
+  BSDGaloisPairConcordance.E_rank_zero.Δ = 64 ∧
+  BSDGaloisPairConcordance.E_rank_one.Δ = 37 ∧
+  BSDGaloisPairConcordance.E_rank_zero.Δ ≠ 0 ∧
+  BSDGaloisPairConcordance.E_rank_one.Δ ≠ 0 ∧
+  BSDGaloisPairConcordance.E_rank_zero.Δ ≠ BSDGaloisPairConcordance.E_rank_one.Δ ∧
+  -- (T2) Shared eigenvalue-anchor bracket.
+  (595 : ℝ)/1000 < MillenniumSix.bsd_distinguished_eigenvalue ∧
+  MillenniumSix.bsd_distinguished_eigenvalue < (596 : ℝ)/1000 ∧
+  -- (T3) Galois-pair separation.
+  MillenniumSix.bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_RH ∧
+  MillenniumSix.bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_NP ∧
+  -- (T4) Rank-2 and rank-3 manuscript labels.
+  BSDRankTwoCurveFramework.E_rank_two_rank_is_two ∧
+  BSDRankThreeCurveFramework.E_rank_three_rank_is_three
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `BK_truncation_does_not_reproduce_zeta_zeros`
-    (Wave 19, commit 9936deb). NEGATIVE finding on literal BK. -/
-def BerryKeatingNegativeProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `BK_truncation_does_not_reproduce_zeta_zeros` (Wave 19,
+    commit 9936deb). NEGATIVE finding on literal BK: BK spectrum
+    is half-integer arithmetic; closed-form t-candidates miss the
+    first 4 ζ-zeros by large margins; BK descends while ζ-zeros
+    ascend. -/
+def BerryKeatingNegativeProven : Prop :=
+  -- (1)+(2): BK spectrum is half-integer arithmetic at N = 2, 3, 4.
+  (PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_N_diag 2 ⟨0, by norm_num⟩ = 1/2 ∧
+   PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_N_diag 2 ⟨1, by norm_num⟩ = 3/2) ∧
+  (PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_N_diag 3 ⟨0, by norm_num⟩ = 1/2 ∧
+   PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_N_diag 3 ⟨1, by norm_num⟩ = 3/2 ∧
+   PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_N_diag 3 ⟨2, by norm_num⟩ = 5/2) ∧
+  (PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_N_diag 4 ⟨0, by norm_num⟩ = 1/2 ∧
+   PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_N_diag 4 ⟨1, by norm_num⟩ = 3/2 ∧
+   PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_N_diag 4 ⟨2, by norm_num⟩ = 5/2 ∧
+   PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_N_diag 4 ⟨3, by norm_num⟩ = 7/2) ∧
+  -- (3): closed-form BK t-candidates.
+  PrincipiaTractalis.eigenvalueToT
+    PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.α_BK (1/2) = 2827 / 200 ∧
+  PrincipiaTractalis.eigenvalueToT
+    PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.α_BK (3/2) = 2827 / 600 ∧
+  PrincipiaTractalis.eigenvalueToT
+    PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.α_BK (5/2) = 2827 / 1000 ∧
+  PrincipiaTractalis.eigenvalueToT
+    PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.α_BK (7/2) = 2827 / 1400 ∧
+  -- (4)-(6): miss for k = 1, 2, 3 vs. ζ-zeros.
+  21.022 - (2827 / 600 : ℝ) > 16.3 ∧
+  25.0108 - (2827 / 1000 : ℝ) > 22.1 ∧
+  30.4248 - (2827 / 1400 : ℝ) > 28.4 ∧
+  -- (7): BK candidates strictly descend.
+  ((2827 / 200 : ℝ) > (2827 / 600 : ℝ) ∧
+   (2827 / 600 : ℝ) > (2827 / 1000 : ℝ) ∧
+   (2827 / 1000 : ℝ) > (2827 / 1400 : ℝ) ∧
+   (2827 / 1400 : ℝ) > 0)
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `hodge_CY4_complete_via_11_22_33`
-    (Wave 20, commit 8ee352a). Substrate-level only. -/
-def HodgeCY4ThreeSliceProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `hodge_CY4_complete_via_11_22_33` (Wave 20, commit 8ee352a): for
+    every `HodgeCY4Substrate`, full (1,1), (2,2), (3,3) discharges plus
+    Poincaré compatibility and CY structural anchors (canonical_trivial,
+    complex_dim = 4). Substrate-level only. -/
+def HodgeCY4ThreeSliceProven : Prop :=
+  ∀ (X : PrincipiaTractalis.HodgeDim4CY4.HodgeCY4Substrate) (class_idx : ℕ),
+  HodgeAlgebraicRepresentation X.toHodgeAmbient11 class_idx ∧
+  (∃ Z : Fin X.h_one_one → ℤ, Z = X.cohomologyClass11) ∧
+  X.h_one_one ≤ 20 ∧
+  HodgeAlgebraicRepresentation X.toHodgeAmbient22 class_idx ∧
+  (∃ Z : Fin X.h_two_two → ℤ, Z = X.cohomologyClass22) ∧
+  1 ≤ X.h_two_two ∧
+  HodgeAlgebraicRepresentation X.toHodgeAmbient33 class_idx ∧
+  (∃ Z : Fin X.h_three_three → ℤ, Z = X.cohomologyClass33) ∧
+  X.h_three_three ≤ 20 ∧
+  X.h_three_three = X.h_one_one ∧
+  X.canonical_trivial ∧
+  X.complex_dim = 4
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `ym_uniform_gap_full_status`
-    (Wave 20, commit 408ce0a). M3 level-1 ✓, level-k ≥ 2 obstruction. -/
-def YMM3LevelOneDischargedProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `ym_uniform_gap_full_status` (Wave 20, commit 408ce0a): full 4-route
+    triage with Route 4(a) M3 at level 1 DISCHARGED, Route 4(b)
+    obstruction at level 2, and Route 4(c) conditional capstone. -/
+def YMM3LevelOneDischargedProven : Prop :=
+  (∀ ε : ℝ, 0 < ε → ∃ K : ℕ, ∀ k : ℕ, K ≤ k →
+     (4 : ℝ) * (1/2 : ℝ)^k < ε) ∧
+  (∀ (C β : ℝ), 0 < C → 0 < β →
+     ∀ δ : ℝ, 0 < δ → ∃ K : ℕ, ∀ k : ℕ, K ≤ k →
+       |C * ((2 : ℝ)^(-β))^k| < δ) ∧
+  (∀ δ : ℝ, 0 < δ → ∃ K : ℕ, ∀ k : ℕ, K ≤ k →
+     (1 : ℝ) / ((2^k : ℕ) : ℝ) < δ) ∧
+  SpectrumConcentratesNearHalfAndThreeHalves 1 sigmaYMLevel1 (1/4) ∧
+  (∃ σ : Fin (2^2) → ℝ,
+     ¬ SpectrumConcentratesNearHalfAndThreeHalves 2 σ (1/4) ∧
+     (∑ i : Fin (2^2), σ i) = 2) ∧
+  (UniformLevelKConcentration →
+    ∀ k : ℕ, ∃ (σ : Fin (2^k) → ℝ) (i j : Fin (2^k)),
+      (1/2 : ℝ) ≤ σ j - σ i)
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `mathlib_grounded_hodge_bridge_capstone`
-    (Wave 21, commit 45589cc). dim=1 + dim=2 mathlib-grounded. -/
-def HodgeMathlibBridgesProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `mathlib_grounded_hodge_bridge_capstone` (Wave 21, commit 45589cc):
+    for any pair of Weierstrass curves `E, E'` over ℚ, any integer `n`,
+    and any class index, the dim=1 curve bridge and the dim=2
+    abelian-surface bridge both discharge `HodgeAlgebraicRepresentation`
+    plus cohomology-class algebraic witness. -/
+def HodgeMathlibBridgesProven : Prop :=
+  ∀ (E E' : WeierstrassCurve ℚ) (n : ℤ) (class_idx : ℕ),
+  (HodgeAlgebraicRepresentation
+     (PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.curveSubstrateOfWeierstrassCurve E n).toHodgeAmbient class_idx ∧
+   ∃ Z : (PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.curveSubstrateOfWeierstrassCurve E n).Points → ℤ,
+     ((∑ p, Z p : ℤ) : ℚ) =
+       (PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.curveSubstrateOfWeierstrassCurve E n).cohomologyClass) ∧
+  (HodgeAlgebraicRepresentation
+     (PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.abelianSurfaceSubstrateOfProduct E E').toHodgeAmbient class_idx ∧
+   ∃ Z : (PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.abelianSurfaceSubstrateOfProduct E E').torus_endomorphisms → ℚ,
+     (∑ e, Z e *
+         (PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.abelianSurfaceSubstrateOfProduct E E').intersection_form e e) =
+       (PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.abelianSurfaceSubstrateOfProduct E E').cohomologyClass)
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- Provenness tag for `polylog_resonance_at_Galois_pair_capstone`
-    (Wave 21, commit 45589cc). Part A positive + Part B/C/D
-    structurally orthogonal to `alpha_of_class`. -/
-def PolylogGaloisPairProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `polylog_resonance_at_Galois_pair_capstone` (Wave 21, commit 45589cc):
+    explicit Galois-pair specialisations of `R_f_principal` at α_RH and
+    α_NP, universal rectangle identity, B-clean domain membership, and
+    the Galois-pair joint quadratic `P α = 0` at both anchors. Part A
+    positive + Part B/C/D structurally orthogonal to `alpha_of_class`. -/
+def PolylogGaloisPairProven : Prop :=
+  -- Part A — explicit Galois-pair specialisations
+  (PrincipiaTractalis.Analytic.R_f_principal
+      IBMPeaksGaloisPair.alpha_RH).im = Real.pi / 6 ∧
+  Real.pi / 2 - (PrincipiaTractalis.Analytic.R_f_principal
+      IBMPeaksGaloisPair.alpha_NP).im = Real.pi / (2 * IBMPeaksGaloisPair.alpha_NP) ∧
+  (Real.pi / 2 - (PrincipiaTractalis.Analytic.R_f_principal
+      IBMPeaksGaloisPair.alpha_RH).im)
+    + (Real.pi / 2 - (PrincipiaTractalis.Analytic.R_f_principal
+      IBMPeaksGaloisPair.alpha_NP).im)
+    = Real.pi * (9 + 2 * Real.sqrt 5) / (9 + 6 * Real.sqrt 5) ∧
+  (Real.pi / 2 - (PrincipiaTractalis.Analytic.R_f_principal
+      IBMPeaksGaloisPair.alpha_RH).im)
+    * (Real.pi / 2 - (PrincipiaTractalis.Analytic.R_f_principal
+      IBMPeaksGaloisPair.alpha_NP).im)
+    = 2 * Real.pi^2 / (9 + 6 * Real.sqrt 5) ∧
+  -- Part B — universal rectangle identity
+  IBMPeaksGaloisPair.alpha_RH *
+    (Real.pi / 2 - (PrincipiaTractalis.Analytic.R_f_principal
+      IBMPeaksGaloisPair.alpha_RH).im) = Real.pi / 2 ∧
+  IBMPeaksGaloisPair.alpha_NP *
+    (Real.pi / 2 - (PrincipiaTractalis.Analytic.R_f_principal
+      IBMPeaksGaloisPair.alpha_NP).im) = Real.pi / 2 ∧
+  -- Part C — both Galois-pair α's in B-clean domain
+  (1/2 : ℝ) < IBMPeaksGaloisPair.alpha_RH ∧
+  (1/2 : ℝ) < IBMPeaksGaloisPair.alpha_NP ∧
+  -- Part D — Galois pair joint quadratic
+  IBMPeaksGaloisPair.P IBMPeaksGaloisPair.alpha_RH = 0 ∧
+  IBMPeaksGaloisPair.P IBMPeaksGaloisPair.alpha_NP = 0
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for the Wave 18 manuscript-side Ch 20 propagation
@@ -339,29 +514,27 @@ structure Wave21MasterCapstone : Prop where
     content lives in the cited file and is pinned by the companion
     side-theorems in Section 4. -/
 theorem wave19_20_21_additions_hold : Wave19_20_21Additions :=
-  { pnp_unconditional_non_discharge := by
-      unfold PNPUnconditionalNonDischargeProven; trivial
-    ym_uniform_gap_mechanism_triage := by
-      unfold YMMechanismTriageProven; trivial
-    hodge_CY3_dim22_full := by
-      unfold HodgeCY3Dim22FullProven; trivial
-    ns_3d_local_regularity_bkm := by
-      unfold NS3DLocalRegularityBKMProven; trivial
-    bsd_rank_zero_one_two_three := by
-      unfold BSDFourRankConcordanceProven; trivial
-    rh_berry_keating_negative := by
-      unfold BerryKeatingNegativeProven; trivial
+  { pnp_unconditional_non_discharge :=
+      PrincipiaTractalis.PNPUnconditionalDischarge.wave18_discharge_investigation_unified
+    ym_uniform_gap_mechanism_triage := ym_uniform_gap_routes_verdict
+    hodge_CY3_dim22_full := fun XF class_idx =>
+      PrincipiaTractalis.HodgeCalabiYau3FoldDim22.hodge_CY3_complete_via_11_and_22 XF class_idx
+    ns_3d_local_regularity_bkm :=
+      PrincipiaTractalis.NS3DLocalRegularityViaBKM.local_vs_global_dichotomy
+    bsd_rank_zero_one_two_three :=
+      BSDRankThreeCurveFramework.bsd_rank_zero_one_two_three_concordance
+    rh_berry_keating_negative :=
+      PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_truncation_does_not_reproduce_zeta_zeros
     wave18_manuscript_ch20 := by
       unfold Wave18ManuscriptCh20PropagationProven; trivial
-    hodge_CY4_three_slice := by
-      unfold HodgeCY4ThreeSliceProven; trivial
-    ym_M3_level_one_discharged := by
-      unfold YMM3LevelOneDischargedProven; trivial
-    hodge_mathlib_bridges := by
-      have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.mathlib_grounded_hodge_bridge_capstone
-      unfold HodgeMathlibBridgesProven; trivial
-    polylog_galois_pair := by
-      unfold PolylogGaloisPairProven; trivial }
+    hodge_CY4_three_slice := fun X class_idx =>
+      PrincipiaTractalis.HodgeDim4CY4.hodge_CY4_complete_via_11_22_33 X class_idx
+    ym_M3_level_one_discharged := ym_uniform_gap_full_status
+    hodge_mathlib_bridges := fun E E' n class_idx =>
+      PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.mathlib_grounded_hodge_bridge_capstone
+        E E' n class_idx
+    polylog_galois_pair :=
+      PrincipiaTractalis.PolylogResonanceAtGaloisPair.polylog_resonance_at_Galois_pair_capstone }
 
 /-- **★★★ THE WAVE-21 MASTER CROSS-MILLENNIUM CAPSTONE ★★★**
     (2026-05-26, meta-aggregation).
@@ -482,18 +655,25 @@ this file depends only on the three core Lean kernel axioms
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem PNPUnconditionalNonDischargeProven_holds : PNPUnconditionalNonDischargeProven := trivial
-theorem YMMechanismTriageProven_holds : YMMechanismTriageProven := trivial
-theorem HodgeCY3Dim22FullProven_holds : HodgeCY3Dim22FullProven := trivial
-theorem NS3DLocalRegularityBKMProven_holds : NS3DLocalRegularityBKMProven := trivial
-theorem BSDFourRankConcordanceProven_holds : BSDFourRankConcordanceProven := trivial
-theorem BerryKeatingNegativeProven_holds : BerryKeatingNegativeProven := trivial
-theorem HodgeCY4ThreeSliceProven_holds : HodgeCY4ThreeSliceProven := trivial
-theorem YMM3LevelOneDischargedProven_holds : YMM3LevelOneDischargedProven := trivial
-theorem HodgeMathlibBridgesProven_holds : HodgeMathlibBridgesProven :=
-  have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.mathlib_grounded_hodge_bridge_capstone
-  trivial
-theorem PolylogGaloisPairProven_holds : PolylogGaloisPairProven := trivial
+theorem PNPUnconditionalNonDischargeProven_holds : PNPUnconditionalNonDischargeProven :=
+  PrincipiaTractalis.PNPUnconditionalDischarge.wave18_discharge_investigation_unified
+theorem YMMechanismTriageProven_holds : YMMechanismTriageProven := ym_uniform_gap_routes_verdict
+theorem HodgeCY3Dim22FullProven_holds : HodgeCY3Dim22FullProven := fun XF class_idx =>
+  PrincipiaTractalis.HodgeCalabiYau3FoldDim22.hodge_CY3_complete_via_11_and_22 XF class_idx
+theorem NS3DLocalRegularityBKMProven_holds : NS3DLocalRegularityBKMProven :=
+  PrincipiaTractalis.NS3DLocalRegularityViaBKM.local_vs_global_dichotomy
+theorem BSDFourRankConcordanceProven_holds : BSDFourRankConcordanceProven :=
+  BSDRankThreeCurveFramework.bsd_rank_zero_one_two_three_concordance
+theorem BerryKeatingNegativeProven_holds : BerryKeatingNegativeProven :=
+  PrincipiaFractalis.RHViaBerryKeatingConcreteOperator.BK_truncation_does_not_reproduce_zeta_zeros
+theorem HodgeCY4ThreeSliceProven_holds : HodgeCY4ThreeSliceProven := fun X class_idx =>
+  PrincipiaTractalis.HodgeDim4CY4.hodge_CY4_complete_via_11_22_33 X class_idx
+theorem YMM3LevelOneDischargedProven_holds : YMM3LevelOneDischargedProven := ym_uniform_gap_full_status
+theorem HodgeMathlibBridgesProven_holds : HodgeMathlibBridgesProven := fun E E' n class_idx =>
+  PrincipiaTractalis.AlgebraicGeometry.HodgeMathlibBridges.mathlib_grounded_hodge_bridge_capstone
+    E E' n class_idx
+theorem PolylogGaloisPairProven_holds : PolylogGaloisPairProven :=
+  PrincipiaTractalis.PolylogResonanceAtGaloisPair.polylog_resonance_at_Galois_pair_capstone
 theorem Wave18ManuscriptCh20PropagationProven_holds : Wave18ManuscriptCh20PropagationProven := trivial
 
 end PrincipiaTractalis
