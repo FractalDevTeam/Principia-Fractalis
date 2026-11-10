@@ -63,6 +63,9 @@ import PF.BSD_WilesModularityAnalyticContinuationDischarge
 import PF.Analytic.JonquieresGlobalIdentityDischarge
 import PF.Consciousness.TimelessFieldPartialTraceMorphism
 import PF.CrossMillenniumDerivedConsequences
+import PF.YM_BochnerMinlosConcreteWitness
+import PF.YM_SchwartzReflectionConcreteWitness
+import PF.YM_WightmanReconstructionConcreteWitness
 
 namespace PrincipiaTractalis
 
@@ -165,10 +168,10 @@ structure Wave58Additions : Prop where
   voisin_codim_two_concrete_instance_discharge : True
   /-- BochnerMinlos strengthened typed predicate discharged
       axiom-free via mathlib's gaussianReal 0 1 with explicit
-      characteristic functional charFun μ t = exp(-t²/2). The
-      literal free-Gaussian functional of QFT. Provenness marker
-      — actual content in `PF/YM_BochnerMinlosConcreteWitness.lean`. -/
-  bochner_minlos_gaussian_concrete_witness : True
+      characteristic functional charFun μ t = exp(-t²/2). 2026-11-10
+      RESTATE: pinned to the real headline Prop of the imported module. -/
+  bochner_minlos_gaussian_concrete_witness :
+    _root_.PrincipiaTractalis.YM_BochnerMinlosConcreteWitness.BochnerMinlosConcreteTypedStatement
   /-- OnLineSurjectivity per-zero cascade extended to k=1, k=2 via
       Odlyzko ordinates t2, t3 + finite-prefix forward chaining
       `kth_cascade_to_finite` discharging for ANY N : ℕ on a single
@@ -177,15 +180,17 @@ structure Wave58Additions : Prop where
   online_surjectivity_k1_k2_finite_cascade : True
   /-- Schwartz (G2) time-reflection concrete witness on 𝓢(ℝ⁴, ℝ)
       via SchwartzMap.compCLMOfContinuousLinearEquiv on the
-      time-axis ContinuousLinearEquiv. Provenness marker — actual
-      content in `PF/YM_SchwartzReflectionConcreteWitness.lean`. -/
-  schwartz_time_reflection_concrete_witness : True
+      time-axis ContinuousLinearEquiv. 2026-11-10 RESTATE: pinned to the
+      real headline Prop of the imported module. -/
+  schwartz_time_reflection_concrete_witness :
+    _root_.PrincipiaTractalis.YM_SchwartzReflectionConcreteWitness.SchwartzReflectionConcreteTypedStatement
   /-- Wightman (G3) reconstruction concrete witness on
       `lp (fun _ : ℕ => ℝ) 2` (real infinite-index l²) with
-      Hamiltonian (1/2)·id, eigenvalue Δ=1/2, eigenvector
-      lp.single. Provenness marker — actual content in
-      `PF/YM_WightmanReconstructionConcreteWitness.lean`. -/
-  wightman_reconstruction_concrete_witness : True
+      Hamiltonian (1/2)·id, eigenvalue Δ=1/2, eigenvector lp.single.
+      2026-11-10 RESTATE: pinned to the real headline Prop of the
+      imported module. -/
+  wightman_reconstruction_concrete_witness :
+    _root_.PrincipiaTractalis.YM_WightmanReconstructionConcreteWitness.WightmanReconstructionConcreteTypedStatement
 
 /-- **★ Wave 58 deliverables realised ★** — every Wave 58 addition
     discharged axiom-free at HEAD 666c847+1. -/
@@ -212,10 +217,13 @@ theorem wave58_additions_hold : Wave58Additions where
   ns_pde_typed_upgrade_with_wave33_discharge := trivial
   online_surjectivity_base_case_discharge := trivial
   voisin_codim_two_concrete_instance_discharge := trivial
-  bochner_minlos_gaussian_concrete_witness := trivial
+  bochner_minlos_gaussian_concrete_witness :=
+    (_root_.PrincipiaTractalis.YM_BochnerMinlosConcreteWitness.bochnerMinlos_concrete_witness_capstone).1
   online_surjectivity_k1_k2_finite_cascade := trivial
-  schwartz_time_reflection_concrete_witness := trivial
-  wightman_reconstruction_concrete_witness := trivial
+  schwartz_time_reflection_concrete_witness :=
+    (_root_.PrincipiaTractalis.YM_SchwartzReflectionConcreteWitness.schwartzReflection_concrete_witness_capstone).1
+  wightman_reconstruction_concrete_witness :=
+    (_root_.PrincipiaTractalis.YM_WightmanReconstructionConcreteWitness.wightmanReconstruction_concrete_witness_capstone).1
 
 /-! ## §2 — Wave 58 master capstone -/
 
