@@ -98,19 +98,86 @@ namespace PrincipiaTractalis
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_resolvent_misses_cluster_fix` (`7437ea3`). -/
-def YMCanonicalResolventNarrowedOutProven : Prop := True
+def YMCanonicalResolventNarrowedOutProven : Prop :=
+  (∀ mu : ℝ,
+      resolventInducedMap mu (1/2) = (3/2 - mu) / clusterDet mu ∧
+      resolventInducedMap mu (3/2) = (1/2 - mu) / clusterDet mu) ∧
+  (¬ ∃ mu : ℝ, mu ≠ 1/2 ∧ mu ≠ 3/2 ∧
+               resolventInducedMap mu (1/2) = 1/2 ∧
+               resolventInducedMap mu (3/2) = 1/2) ∧
+  (¬ ∃ mu : ℝ, mu ≠ 1/2 ∧ mu ≠ 3/2 ∧
+               resolventInducedMap mu (1/2) = 1/2 ∧
+               resolventInducedMap mu (3/2) = 3/2) ∧
+  (¬ ∃ mu : ℝ, mu ≠ 1/2 ∧ mu ≠ 3/2 ∧
+               resolventInducedMap mu (1/2) = 3/2 ∧
+               resolventInducedMap mu (3/2) = 1/2) ∧
+  (¬ ∃ mu : ℝ, mu ≠ 1/2 ∧ mu ≠ 3/2 ∧
+               resolventInducedMap mu (1/2) = 3/2 ∧
+               resolventInducedMap mu (3/2) = 3/2)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_quantum_propagator_misses_real_cluster_fix`
     (`9df6ef4`). -/
-def YMCanonicalQuantumPropagatorNarrowedOutProven : Prop := True
+def YMCanonicalQuantumPropagatorNarrowedOutProven : Prop :=
+  (∀ t lam : ℝ, (quantumPropagatorInducedMap t lam).re = 1 - (t^2 / 2) * lam^2) ∧
+  (∀ t lam : ℝ, (quantumPropagatorInducedMap t lam).im = -t * lam) ∧
+  (∀ t : ℝ, t ≠ 0 → (quantumPropagatorInducedMap t (1/2)).im ≠ 0) ∧
+  (∀ t : ℝ, t ≠ 0 → (quantumPropagatorInducedMap t (3/2)).im ≠ 0) ∧
+  (∀ lam : ℝ, quantumPropagatorInducedMap 0 lam = 1) ∧
+  (¬ ∃ t : ℝ, quantumPropagatorInducedMap t (1/2) = ((1/2 : ℝ) : ℂ) ∧
+              quantumPropagatorInducedMap t (3/2) = ((1/2 : ℝ) : ℂ)) ∧
+  (¬ ∃ t : ℝ, quantumPropagatorInducedMap t (1/2) = ((1/2 : ℝ) : ℂ) ∧
+              quantumPropagatorInducedMap t (3/2) = ((3/2 : ℝ) : ℂ)) ∧
+  (¬ ∃ t : ℝ, quantumPropagatorInducedMap t (1/2) = ((3/2 : ℝ) : ℂ) ∧
+              quantumPropagatorInducedMap t (3/2) = ((1/2 : ℝ) : ℂ)) ∧
+  (¬ ∃ t : ℝ, quantumPropagatorInducedMap t (1/2) = ((3/2 : ℝ) : ℂ) ∧
+              quantumPropagatorInducedMap t (3/2) = ((3/2 : ℝ) : ℂ))
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `weierstrassPairToHodgeAbelianSurfaceSubstrate_full_discharge`
     (`4acf4b1`, dim=2 surface extension of Wave 21 retry). -/
-def HodgeMathlibSurfaceBridgeProven : Prop := True
+def HodgeMathlibSurfaceBridgeProven : Prop :=
+  ∀ (class_idx : ℕ),
+  (MillenniumSix.HodgeAlgebraicRepresentation
+     (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E32a3_squared_surface_substrate).toHodgeAmbient class_idx ∧
+   ∃ Z : (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E32a3_squared_surface_substrate).torus_endomorphisms → ℚ,
+     (∑ e, Z e *
+         (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E32a3_squared_surface_substrate).intersection_form e e) =
+       (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E32a3_squared_surface_substrate).cohomologyClass) ∧
+  (MillenniumSix.HodgeAlgebraicRepresentation
+     (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E32a3_x_E37a1_surface_substrate).toHodgeAmbient class_idx ∧
+   ∃ Z : (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E32a3_x_E37a1_surface_substrate).torus_endomorphisms → ℚ,
+     (∑ e, Z e *
+         (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E32a3_x_E37a1_surface_substrate).intersection_form e e) =
+       (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E32a3_x_E37a1_surface_substrate).cohomologyClass) ∧
+  (MillenniumSix.HodgeAlgebraicRepresentation
+     (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E37a1_squared_surface_substrate).toHodgeAmbient class_idx ∧
+   ∃ Z : (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E37a1_squared_surface_substrate).torus_endomorphisms → ℚ,
+     (∑ e, Z e *
+         (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E37a1_squared_surface_substrate).intersection_form e e) =
+       (PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.E37a1_squared_surface_substrate).cohomologyClass) ∧
+  BSDGaloisPairConcordance.E_rank_zero.Δ ≠ BSDGaloisPairConcordance.E_rank_one.Δ
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `local_vortex_stretching_bound_off_diagonal_at_n_le_five`
     (`7437ea3`, side-committed). -/
-def NS3DOffDiagonalAtNFourFiveProven : Prop := True
+def NS3DOffDiagonalAtNFourFiveProven : Prop :=
+  ∀ (T : ℝ), 0 < T →
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 0 ∧
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 1 ∧
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 2 ∧
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 3 ∧
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 4 ∧
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 5 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 0 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 1 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 2 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 3 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 4 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 5 ∧
+    (∀ (ω : PrincipiaTractalis.NS3DVortexStretchingObstruction.Vorticity3DState 1)
+       (g : PrincipiaTractalis.NS3DVortexStretchingObstruction.VelocityGradient3DState 1)
+       (o : PrincipiaTractalis.NS3DOffDiagonalVortexStretching.OffDiagonalGradient3DState 1),
+       ‖PrincipiaTractalis.NS3DVortexStretchingObstruction.VortexStretching3D ω g‖ +
+         ‖PrincipiaTractalis.NS3DOffDiagonalVortexStretching.VortexStretching3DOffDiagonal ω o‖
+         ≤ 1 * ‖ω‖ * ‖g‖ + 2 * ‖ω‖ * ‖o‖)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 27 META aggregator (`3955ef0`); pinned here for
     traceability of the Wave 28 META layer. -/
@@ -194,15 +261,14 @@ structure Wave28MasterCapstone : Prop where
 /-- **Wave 28 additions hold axiom-free.** Provenness tags
     pinned via Section 4 citation theorems. -/
 theorem wave28_additions_hold : Wave28Additions :=
-  { ym_canonical_resolvent_narrow_out := by
-      unfold YMCanonicalResolventNarrowedOutProven; trivial
-    ym_canonical_quantum_propagator_narrow_out := by
-      unfold YMCanonicalQuantumPropagatorNarrowedOutProven; trivial
-    hodge_mathlib_surface_bridge := by
-      have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.mathlib_surface_hodge_bridge_capstone
-      unfold HodgeMathlibSurfaceBridgeProven; trivial
-    ns_off_diagonal_at_n_four_five := by
-      unfold NS3DOffDiagonalAtNFourFiveProven; trivial
+  { ym_canonical_resolvent_narrow_out :=
+      ym_canonical_resolvent_misses_cluster_fix
+    ym_canonical_quantum_propagator_narrow_out :=
+      ym_canonical_quantum_propagator_misses_real_cluster_fix
+    hodge_mathlib_surface_bridge := fun class_idx =>
+      PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.mathlib_surface_hodge_bridge_capstone class_idx
+    ns_off_diagonal_at_n_four_five := fun T hT =>
+      PrincipiaTractalis.NS3DOffDiagonalAtNFourFive.local_vortex_stretching_bound_off_diagonal_at_n_le_five T hT
     wave27_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave27_master_capstone
       unfold Wave27MasterCapstoneAggregatorProven; trivial }
@@ -271,12 +337,14 @@ theorem cite_ns_off_diagonal_at_n_four_five :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem YMCanonicalResolventNarrowedOutProven_holds : YMCanonicalResolventNarrowedOutProven := trivial
-theorem YMCanonicalQuantumPropagatorNarrowedOutProven_holds : YMCanonicalQuantumPropagatorNarrowedOutProven := trivial
-theorem HodgeMathlibSurfaceBridgeProven_holds : HodgeMathlibSurfaceBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.mathlib_surface_hodge_bridge_capstone
-  trivial
-theorem NS3DOffDiagonalAtNFourFiveProven_holds : NS3DOffDiagonalAtNFourFiveProven := trivial
+theorem YMCanonicalResolventNarrowedOutProven_holds : YMCanonicalResolventNarrowedOutProven :=
+  ym_canonical_resolvent_misses_cluster_fix
+theorem YMCanonicalQuantumPropagatorNarrowedOutProven_holds : YMCanonicalQuantumPropagatorNarrowedOutProven :=
+  ym_canonical_quantum_propagator_misses_real_cluster_fix
+theorem HodgeMathlibSurfaceBridgeProven_holds : HodgeMathlibSurfaceBridgeProven := fun class_idx =>
+  PrincipiaTractalis.AlgebraicGeometry.MathlibSurfaceHodgeBridge.mathlib_surface_hodge_bridge_capstone class_idx
+theorem NS3DOffDiagonalAtNFourFiveProven_holds : NS3DOffDiagonalAtNFourFiveProven := fun T hT =>
+  PrincipiaTractalis.NS3DOffDiagonalAtNFourFive.local_vortex_stretching_bound_off_diagonal_at_n_le_five T hT
 theorem Wave27MasterCapstoneAggregatorProven_holds : Wave27MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave27_master_capstone
   trivial
