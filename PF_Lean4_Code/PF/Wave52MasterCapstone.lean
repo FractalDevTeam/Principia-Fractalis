@@ -107,11 +107,14 @@ namespace PrincipiaTractalis
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave52StrongFormDivFreeNonTrivialWitnessProven : Prop := True
+def Wave52StrongFormDivFreeNonTrivialWitnessProven : Prop :=
+  PrincipiaTractalis.StrongFormDivFreeNonTrivialWitness.Wave52ANonTrivialWitnessStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave52T3SymCanonicalAlphaCarrierProven : Prop := True
+def Wave52T3SymCanonicalAlphaCarrierProven : Prop :=
+  PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.T3SymCanonicalAlphaCarrierBundle
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave52KatoBilinearEstimateProven : Prop := True
+def Wave52KatoBilinearEstimateProven : Prop :=
+  PrincipiaTractalis.KatoBilinearEstimateAttempt.WaveFiftyOneCKatoEncoding
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave52YMRankKProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -145,15 +148,12 @@ structure Wave52MasterCapstone : Prop where
   wave_52 : Wave52Additions
 
 theorem wave52_additions_hold : Wave52Additions :=
-  { wave52_strong_form_div_free_non_trivial := by
-      have _ := _root_.PrincipiaTractalis.StrongFormDivFreeNonTrivialWitness.strong_form_div_free_nontrivial_witness_capstone
-      unfold Wave52StrongFormDivFreeNonTrivialWitnessProven; trivial
-    wave52_t3_sym_canonical_alpha_carrier := by
-      have _ := _root_.PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.t3_sym_canonical_alpha_carrier_attempt_capstone
-      unfold Wave52T3SymCanonicalAlphaCarrierProven; trivial
-    wave52_kato_bilinear_estimate := by
-      have _ := _root_.PrincipiaTractalis.KatoBilinearEstimateAttempt.kato_bilinear_estimate_attempt_capstone
-      unfold Wave52KatoBilinearEstimateProven; trivial
+  { wave52_strong_form_div_free_non_trivial :=
+      PrincipiaTractalis.StrongFormDivFreeNonTrivialWitness.strong_form_div_free_nontrivial_witness_capstone
+    wave52_t3_sym_canonical_alpha_carrier :=
+      PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.t3_sym_canonical_alpha_carrier_attempt_capstone
+    wave52_kato_bilinear_estimate :=
+      PrincipiaTractalis.KatoBilinearEstimateAttempt.kato_bilinear_estimate_attempt_capstone
     wave52_ym_rank_k := by
       have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.ym_reflection_positivity_3plus1d_rankK_attempt_capstone
       unfold Wave52YMRankKProven; trivial
@@ -187,14 +187,11 @@ theorem wave52_master_capstone_axiom_free : True := trivial
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave52StrongFormDivFreeNonTrivialWitnessProven_holds : Wave52StrongFormDivFreeNonTrivialWitnessProven :=
-  have _ := _root_.PrincipiaTractalis.StrongFormDivFreeNonTrivialWitness.strong_form_div_free_nontrivial_witness_capstone
-  trivial
+  PrincipiaTractalis.StrongFormDivFreeNonTrivialWitness.strong_form_div_free_nontrivial_witness_capstone
 theorem Wave52T3SymCanonicalAlphaCarrierProven_holds : Wave52T3SymCanonicalAlphaCarrierProven :=
-  have _ := _root_.PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.t3_sym_canonical_alpha_carrier_attempt_capstone
-  trivial
+  PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.t3_sym_canonical_alpha_carrier_attempt_capstone
 theorem Wave52KatoBilinearEstimateProven_holds : Wave52KatoBilinearEstimateProven :=
-  have _ := _root_.PrincipiaTractalis.KatoBilinearEstimateAttempt.kato_bilinear_estimate_attempt_capstone
-  trivial
+  PrincipiaTractalis.KatoBilinearEstimateAttempt.kato_bilinear_estimate_attempt_capstone
 theorem Wave52YMRankKProven_holds : Wave52YMRankKProven :=
   have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.ym_reflection_positivity_3plus1d_rankK_attempt_capstone
   trivial
