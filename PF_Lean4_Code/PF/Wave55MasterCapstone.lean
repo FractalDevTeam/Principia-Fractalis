@@ -126,24 +126,31 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55ANS3DGenuineConvolutionBilinearProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55ANS3DGenuineConvolutionBilinearEmpiricalAnchorProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55BRHMayerEigenvalueCarrierProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55CYMInteractingHamiltonianProven : Prop := True
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
+def Wave55ANS3DGenuineConvolutionBilinearProven : Prop :=
+  _root_.PrincipiaTractalis.NS3DGenuineConvolutionBilinearAttempt.GenuineConvolutionBilinearStatus
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
+def Wave55ANS3DGenuineConvolutionBilinearEmpiricalAnchorProven : Prop :=
+  _root_.PrincipiaTractalis.NS3DGenuineConvolutionBilinearEmpiricalAnchor.GenuineConvolutionBilinearEmpiricalAnchorStatus
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
+def Wave55BRHMayerEigenvalueCarrierProven : Prop :=
+  _root_.PrincipiaTractalis.RHMayerEigenvalueCarrierAttempt.Wave55BMayerCarrierStatus
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
+def Wave55CYMInteractingHamiltonianProven : Prop :=
+  _root_.PrincipiaTractalis.YMInteractingHamiltonianAttempt.InteractingHamiltonianStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave55CYMInteractingHamiltonianEmpiricalAnchorProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave55FBSDMordellWeilRankZeroTypedProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55GRigidGaloisDiscriminantAxisProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven : Prop := True
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
+def Wave55GRigidGaloisDiscriminantAxisProven : Prop :=
+  _root_.PrincipiaTractalis.RigidGaloisDiscriminantAxis.GaloisDiscriminantAxisStatus
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
+def Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven : Prop :=
+  _root_.PrincipiaTractalis.RigidGaloisDiscriminantEmpiricalAnchor.RigidGaloisDiscriminantEmpiricalAnchorStatus
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
+def Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven : Prop :=
+  _root_.PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.EmpiricallyAnchoredMayerCarrierStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave55DHodgeCodim2UniruledThreefoldVoisin2018Proven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -198,16 +205,14 @@ theorem Wave54MasterCapstoneAggregatorProven_holds : Wave54MasterCapstoneAggrega
   trivial
 
 /-- Discharge for the `Wave55ANS3DGenuineConvolutionBilinearEmpiricalAnchorProven` marker.
-    Cites `_root_.PrincipiaTractalis.NS3DGenuineConvolutionBilinearEmpiricalAnchor.ns3d_genuine_convolution_bilinear_empirical_anchor_capstone`. -/
+    2026-11-09: now returns the real Status bundle directly. -/
 theorem Wave55ANS3DGenuineConvolutionBilinearEmpiricalAnchorProven_holds : Wave55ANS3DGenuineConvolutionBilinearEmpiricalAnchorProven :=
-  have _ := _root_.PrincipiaTractalis.NS3DGenuineConvolutionBilinearEmpiricalAnchor.ns3d_genuine_convolution_bilinear_empirical_anchor_capstone
-  trivial
+  _root_.PrincipiaTractalis.NS3DGenuineConvolutionBilinearEmpiricalAnchor.ns3d_genuine_convolution_bilinear_empirical_anchor_capstone
 
 /-- Discharge for the `Wave55ANS3DGenuineConvolutionBilinearProven` marker.
-    Cites `_root_.PrincipiaTractalis.NS3DGenuineConvolutionBilinearAttempt.ns3d_genuine_convolution_bilinear_attempt_capstone`. -/
+    2026-11-09: now returns the real Status bundle directly. -/
 theorem Wave55ANS3DGenuineConvolutionBilinearProven_holds : Wave55ANS3DGenuineConvolutionBilinearProven :=
-  have _ := _root_.PrincipiaTractalis.NS3DGenuineConvolutionBilinearAttempt.ns3d_genuine_convolution_bilinear_attempt_capstone
-  trivial
+  _root_.PrincipiaTractalis.NS3DGenuineConvolutionBilinearAttempt.ns3d_genuine_convolution_bilinear_attempt_capstone
 
 /-- Discharge for the `Wave55AppA_R_f_ResonanceCoefficientsRefutationProven` marker.
     Cites `_root_.PrincipiaTractalis.Consciousness.AppA_R_f_ResonanceCoefficients_refutation_capstone`. -/
@@ -216,16 +221,14 @@ theorem Wave55AppA_R_f_ResonanceCoefficientsRefutationProven_holds : Wave55AppA_
   trivial
 
 /-- Discharge for the `Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven` marker.
-    Cites `_root_.PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.rh_mayer_eigenvalue_carrier_empirical_anchor_capstone`. -/
+    2026-11-09: returns the real Status bundle, projected from the C4 slot of the capstone ∧-chain. -/
 theorem Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven_holds : Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven :=
-  have _ := _root_.PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.rh_mayer_eigenvalue_carrier_empirical_anchor_capstone
-  trivial
+  _root_.PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.rh_mayer_eigenvalue_carrier_empirical_anchor_capstone.2.2.2.1
 
 /-- Discharge for the `Wave55BRHMayerEigenvalueCarrierProven` marker.
-    Cites `_root_.PrincipiaTractalis.RHMayerEigenvalueCarrierAttempt.rh_mayer_eigenvalue_carrier_attempt_capstone`. -/
+    2026-11-09: now returns the real Status bundle directly. -/
 theorem Wave55BRHMayerEigenvalueCarrierProven_holds : Wave55BRHMayerEigenvalueCarrierProven :=
-  have _ := _root_.PrincipiaTractalis.RHMayerEigenvalueCarrierAttempt.rh_mayer_eigenvalue_carrier_attempt_capstone
-  trivial
+  _root_.PrincipiaTractalis.RHMayerEigenvalueCarrierAttempt.rh_mayer_eigenvalue_carrier_attempt_capstone
 
 /-- Discharge for the `Wave55CYMInteractingHamiltonianEmpiricalAnchorProven` marker.
     Cites `_root_.PrincipiaTractalis.YMInteractingHamiltonianEmpiricalAnchor.ym_interacting_hamiltonian_empirical_anchor_capstone`. -/
@@ -234,10 +237,9 @@ theorem Wave55CYMInteractingHamiltonianEmpiricalAnchorProven_holds : Wave55CYMIn
   trivial
 
 /-- Discharge for the `Wave55CYMInteractingHamiltonianProven` marker.
-    Cites `_root_.PrincipiaTractalis.YMInteractingHamiltonianAttempt.ym_interacting_hamiltonian_attempt_capstone`. -/
+    2026-11-09: now returns the real Status bundle directly. -/
 theorem Wave55CYMInteractingHamiltonianProven_holds : Wave55CYMInteractingHamiltonianProven :=
-  have _ := _root_.PrincipiaTractalis.YMInteractingHamiltonianAttempt.ym_interacting_hamiltonian_attempt_capstone
-  trivial
+  _root_.PrincipiaTractalis.YMInteractingHamiltonianAttempt.ym_interacting_hamiltonian_attempt_capstone
 
 /-- Discharge for the `Wave55Ch11AnomalyCancellationRefutationProven` marker.
     Cites `_root_.PrincipiaTractalis.Ch11Refutation.Ch11AnomalyCancellationRefutation_capstone`. -/
@@ -276,16 +278,14 @@ theorem Wave55FBSDMordellWeilRankZeroTypedProven_holds : Wave55FBSDMordellWeilRa
   trivial
 
 /-- Discharge for the `Wave55GRigidGaloisDiscriminantAxisProven` marker.
-    Cites `_root_.PrincipiaTractalis.RigidGaloisDiscriminantAxis.rigid_galois_discriminant_axis_capstone`. -/
+    2026-11-09: now returns the real Status bundle directly. -/
 theorem Wave55GRigidGaloisDiscriminantAxisProven_holds : Wave55GRigidGaloisDiscriminantAxisProven :=
-  have _ := _root_.PrincipiaTractalis.RigidGaloisDiscriminantAxis.rigid_galois_discriminant_axis_capstone
-  trivial
+  _root_.PrincipiaTractalis.RigidGaloisDiscriminantAxis.rigid_galois_discriminant_axis_capstone
 
 /-- Discharge for the `Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven` marker.
-    Cites `_root_.PrincipiaTractalis.RigidGaloisDiscriminantEmpiricalAnchor.rigid_galois_discriminant_empirical_anchor_capstone`. -/
+    2026-11-09: now returns the real Status bundle directly. -/
 theorem Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven_holds : Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven :=
-  have _ := _root_.PrincipiaTractalis.RigidGaloisDiscriminantEmpiricalAnchor.rigid_galois_discriminant_empirical_anchor_capstone
-  trivial
+  _root_.PrincipiaTractalis.RigidGaloisDiscriminantEmpiricalAnchor.rigid_galois_discriminant_empirical_anchor_capstone
 
 /-- Discharge for the `Wave55LambdaE6ChernWeil78piFirstPrinciplesProven` marker.
     Cites `_root_.PrincipiaTractalis.Cosmology.E6ChernWeil78piFirstPrinciples.e6_chern_weil_78pi_first_principles_capstone`. -/
