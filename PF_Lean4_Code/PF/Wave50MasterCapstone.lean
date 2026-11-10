@@ -126,16 +126,26 @@ def Wave50SobolevHSScaleProven : Prop :=
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50DivFreeFourierDensityProven : Prop :=
   PrincipiaTractalis.DivFreeFourierDensityOnTorus3Attempt.WaveFortyEightDDivFreeNarrowing
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave50YMReflectionPositivity3plus1DProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave50HodgeCodim2CMCubeFirstPrinciplesProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave50BSDLPartialEvaluationProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave50BSDConductorProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave50RHHodgeRigidTwistedGaloisBridgeProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to theta involution clause (1) of ym_reflection_positivity_3plus1d_attempt_capstone.
+def Wave50YMReflectionPositivity3plus1DProven : Prop :=
+  ∀ f : EuclideanSpace ℝ (Fin 5),
+    _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DAttempt.thetaToy3p1
+      (_root_.PrincipiaTractalis.YMReflectionPositivity3plus1DAttempt.thetaToy3p1 f) = f
+-- 2026-11-10 RESTATE: pinned to the parametrized HodgeConjectureChow Prop of hodge_codim_2_cmCube_first_principles_capstone.
+def Wave50HodgeCodim2CMCubeFirstPrinciplesProven : Prop :=
+  ∀ class_idx : ℕ,
+    _root_.PrincipiaTractalis.AlgebraicGeometry.HodgeConjectureChow
+      (_root_.PrincipiaTractalis.AlgebraicGeometry.CodimTwoAmbient
+        _root_.PrincipiaTractalis.HodgeCodim2CMCubeFirstPrinciplesAttempt.cmCubeAbelian3FoldSubstrate.cy3Dim22) 2
+-- 2026-11-10 RESTATE: pinned to T1 closed-form rational of bsd_L_partial_evaluation_attempt_capstone.
+def Wave50BSDLPartialEvaluationProven : Prop :=
+  _root_.PrincipiaTractalis.BSDLPartialEvaluationAttempt.L_partial_E32a3_at_1 = 6685349671 / 12079595520
+-- 2026-11-10 RESTATE: pinned to conductor = 32 identity of bsd_conductor_attempt_capstone.
+def Wave50BSDConductorProven : Prop :=
+  _root_.PrincipiaTractalis.BSDConductorAttempt.conductor_E_rank_zero = 32
+-- 2026-11-10 RESTATE: pinned to Delta closed-form of rh_hodge_rigid_twisted_galois_bridge_capstone.
+def Wave50RHHodgeRigidTwistedGaloisBridgeProven : Prop :=
+  _root_.PrincipiaTractalis.RHHodgeRigidTwistedGaloisBridge.Delta = (Real.sqrt 5 - 2) / 2
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave49MasterCapstoneAggregatorProven : Prop := True
 
@@ -165,21 +175,16 @@ theorem wave50_additions_hold : Wave50Additions :=
       PrincipiaTractalis.SobolevHSScaleOnTorus3Attempt.sobolev_HS_scale_on_torus3_attempt_capstone
     wave50_div_free_fourier_density :=
       PrincipiaTractalis.DivFreeFourierDensityOnTorus3Attempt.div_free_fourier_density_on_torus3_attempt_capstone
-    wave50_ym_reflection_positivity_3plus1D := by
-      have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DAttempt.ym_reflection_positivity_3plus1d_attempt_capstone
-      unfold Wave50YMReflectionPositivity3plus1DProven; trivial
-    wave50_hodge_codim_2_cmCube_first_principles := by
-      have _ := _root_.PrincipiaTractalis.HodgeCodim2CMCubeFirstPrinciplesAttempt.hodge_codim_2_cmCube_first_principles_capstone
-      unfold Wave50HodgeCodim2CMCubeFirstPrinciplesProven; trivial
-    wave50_bsd_L_partial_evaluation := by
-      have _ := _root_.PrincipiaTractalis.BSDLPartialEvaluationAttempt.bsd_L_partial_evaluation_attempt_capstone
-      unfold Wave50BSDLPartialEvaluationProven; trivial
-    wave50_bsd_conductor := by
-      have _ := _root_.PrincipiaTractalis.BSDConductorAttempt.bsd_conductor_attempt_capstone
-      unfold Wave50BSDConductorProven; trivial
-    wave50_rh_hodge_rigid_twisted_galois_bridge := by
-      have _ := _root_.PrincipiaTractalis.RHHodgeRigidTwistedGaloisBridge.rh_hodge_rigid_twisted_galois_bridge_capstone
-      unfold Wave50RHHodgeRigidTwistedGaloisBridgeProven; trivial
+    wave50_ym_reflection_positivity_3plus1D :=
+      (_root_.PrincipiaTractalis.YMReflectionPositivity3plus1DAttempt.ym_reflection_positivity_3plus1d_attempt_capstone).1
+    wave50_hodge_codim_2_cmCube_first_principles := fun class_idx =>
+      (_root_.PrincipiaTractalis.HodgeCodim2CMCubeFirstPrinciplesAttempt.hodge_codim_2_cmCube_first_principles_capstone class_idx).1
+    wave50_bsd_L_partial_evaluation :=
+      (_root_.PrincipiaTractalis.BSDLPartialEvaluationAttempt.bsd_L_partial_evaluation_attempt_capstone).1
+    wave50_bsd_conductor :=
+      (_root_.PrincipiaTractalis.BSDConductorAttempt.bsd_conductor_attempt_capstone).1
+    wave50_rh_hodge_rigid_twisted_galois_bridge :=
+      (_root_.PrincipiaTractalis.RHHodgeRigidTwistedGaloisBridge.rh_hodge_rigid_twisted_galois_bridge_capstone).1
     wave49_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave49_master_capstone
       unfold Wave49MasterCapstoneAggregatorProven; trivial }
@@ -206,20 +211,15 @@ theorem Wave50SobolevHSScaleProven_holds : Wave50SobolevHSScaleProven :=
 theorem Wave50DivFreeFourierDensityProven_holds : Wave50DivFreeFourierDensityProven :=
   PrincipiaTractalis.DivFreeFourierDensityOnTorus3Attempt.div_free_fourier_density_on_torus3_attempt_capstone
 theorem Wave50YMReflectionPositivity3plus1DProven_holds : Wave50YMReflectionPositivity3plus1DProven :=
-  have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DAttempt.ym_reflection_positivity_3plus1d_attempt_capstone
-  trivial
-theorem Wave50HodgeCodim2CMCubeFirstPrinciplesProven_holds : Wave50HodgeCodim2CMCubeFirstPrinciplesProven :=
-  have _ := _root_.PrincipiaTractalis.HodgeCodim2CMCubeFirstPrinciplesAttempt.hodge_codim_2_cmCube_first_principles_capstone
-  trivial
+  (_root_.PrincipiaTractalis.YMReflectionPositivity3plus1DAttempt.ym_reflection_positivity_3plus1d_attempt_capstone).1
+theorem Wave50HodgeCodim2CMCubeFirstPrinciplesProven_holds : Wave50HodgeCodim2CMCubeFirstPrinciplesProven := fun class_idx =>
+  (_root_.PrincipiaTractalis.HodgeCodim2CMCubeFirstPrinciplesAttempt.hodge_codim_2_cmCube_first_principles_capstone class_idx).1
 theorem Wave50BSDLPartialEvaluationProven_holds : Wave50BSDLPartialEvaluationProven :=
-  have _ := _root_.PrincipiaTractalis.BSDLPartialEvaluationAttempt.bsd_L_partial_evaluation_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDLPartialEvaluationAttempt.bsd_L_partial_evaluation_attempt_capstone).1
 theorem Wave50BSDConductorProven_holds : Wave50BSDConductorProven :=
-  have _ := _root_.PrincipiaTractalis.BSDConductorAttempt.bsd_conductor_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDConductorAttempt.bsd_conductor_attempt_capstone).1
 theorem Wave50RHHodgeRigidTwistedGaloisBridgeProven_holds : Wave50RHHodgeRigidTwistedGaloisBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.RHHodgeRigidTwistedGaloisBridge.rh_hodge_rigid_twisted_galois_bridge_capstone
-  trivial
+  (_root_.PrincipiaTractalis.RHHodgeRigidTwistedGaloisBridge.rh_hodge_rigid_twisted_galois_bridge_capstone).1
 theorem Wave49MasterCapstoneAggregatorProven_holds : Wave49MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave49_master_capstone
   trivial
