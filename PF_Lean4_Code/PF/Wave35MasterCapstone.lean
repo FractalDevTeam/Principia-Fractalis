@@ -82,12 +82,15 @@ namespace PrincipiaTractalis
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ns_3d_layer2_lift_scaffold` (Wave 35 SCAFFOLD — half-layer
     collapse, mathlib gap formalised). -/
-def NS3DLayer2LiftScaffoldProven : Prop := True
+def NS3DLayer2LiftScaffoldProven : Prop :=
+  PrincipiaTractalis.NS3DLayer2LiftAttempt.NS3DLayer2Status
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `consciousness_RH_wave35_fivepoint_witness` (Wave 35
     SUBSTANTIVE — fivePointSubstrate with non-multiplicative H,
     Problem 5 progress). -/
-def ConsciousnessRHWave35FivepointProven : Prop := True
+def ConsciousnessRHWave35FivepointProven : Prop :=
+  CommutatorVanishesAtRHZeros fivePointSubstrate ∧
+  (∀ m : Fin 5 → ℂ, H5 ≠ diagMul 5 m)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 34 META aggregator (`7d3d700`); pinned here for
     traceability of the Wave 35 META layer. -/
@@ -149,10 +152,10 @@ structure Wave35MasterCapstone : Prop where
 /-- **Wave 35 additions hold axiom-free.** Provenness tags pinned
     via Section 4 citation theorems. -/
 theorem wave35_additions_hold : Wave35Additions :=
-  { ns_3d_layer2_lift_scaffold := by
-      unfold NS3DLayer2LiftScaffoldProven; trivial
-    consciousness_RH_wave35_fivepoint := by
-      unfold ConsciousnessRHWave35FivepointProven; trivial
+  { ns_3d_layer2_lift_scaffold :=
+      PrincipiaTractalis.NS3DLayer2LiftAttempt.ns_3d_layer2_lift_scaffold
+    consciousness_RH_wave35_fivepoint :=
+      consciousness_RH_wave35_fivepoint_witness
     wave34_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave34_master_capstone
       unfold Wave34MasterCapstoneAggregatorProven; trivial }
@@ -205,8 +208,10 @@ theorem cite_consciousness_RH_wave35_fivepoint :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem NS3DLayer2LiftScaffoldProven_holds : NS3DLayer2LiftScaffoldProven := trivial
-theorem ConsciousnessRHWave35FivepointProven_holds : ConsciousnessRHWave35FivepointProven := trivial
+theorem NS3DLayer2LiftScaffoldProven_holds : NS3DLayer2LiftScaffoldProven :=
+  PrincipiaTractalis.NS3DLayer2LiftAttempt.ns_3d_layer2_lift_scaffold
+theorem ConsciousnessRHWave35FivepointProven_holds : ConsciousnessRHWave35FivepointProven :=
+  consciousness_RH_wave35_fivepoint_witness
 theorem Wave34MasterCapstoneAggregatorProven_holds : Wave34MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave34_master_capstone
   trivial
