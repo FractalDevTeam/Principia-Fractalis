@@ -68,7 +68,20 @@ namespace PrincipiaTractalis
 def Wave39H3ConsciousnessBridgeProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_pade_one_one_operator_level_instance_capstone` (Wave 39C). -/
-def Wave39YMPadeOperatorInstanceProven : Prop := True
+def Wave39YMPadeOperatorInstanceProven : Prop :=
+  padeKernel (1/2) (1/2) 1 1 =
+    Matrix.diagonal (fun _ : Fin 2 => (1/2 : ℝ)) ∧
+  padeKernel (-3/4) 4 2 1 = M_cluster ∧
+  padeKernel (11/4) (-1) 1 1 =
+    Matrix.diagonal (fun i : Fin 2 =>
+      if i = 0 then (3/2 : ℝ) else (1/2 : ℝ)) ∧
+  padeKernel (3/2) (3/2) 1 1 =
+    Matrix.diagonal (fun _ : Fin 2 => (3/2 : ℝ)) ∧
+  (padeOffCluster (1/2) (1/2) 1 1) 0 0 ≠
+    (polynomialOffCluster 1 (-2) (5/4)) 0 0 ∧
+  padeOffCluster (1/2) (1/2) 1 1 ≠ polynomialOffCluster 1 (-2) (5/4) ∧
+  (padeOffCluster (-3/4) 4 2 1) 0 0 ≠
+    (polynomialOffCluster 1 (-1) (3/4)) 0 0
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `bsd_rank_distinction_capstone` (Wave 39B). -/
 def Wave39BSDRankDistinctionProven : Prop := True
@@ -138,9 +151,8 @@ theorem wave39_additions_hold : Wave39Additions :=
   { wave39_h3_consciousness_bridge := by
       have _ := _root_.PrincipiaTractalis.H3IcosahedralConsciousnessOperatorBridge.h3_icosahedral_consciousness_operator_bridge_capstone
       unfold Wave39H3ConsciousnessBridgeProven; trivial
-    wave39_ym_pade_operator_instance := by
-      have _ := _root_.PrincipiaTractalis.ym_canonical_pade_one_one_operator_level_instance_capstone
-      unfold Wave39YMPadeOperatorInstanceProven; trivial
+    wave39_ym_pade_operator_instance :=
+      ym_canonical_pade_one_one_operator_level_instance_capstone
     wave39_bsd_rank_distinction := by
       have _ := _root_.PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone
       unfold Wave39BSDRankDistinctionProven; trivial
@@ -187,8 +199,7 @@ theorem Wave39H3ConsciousnessBridgeProven_holds : Wave39H3ConsciousnessBridgePro
   have _ := _root_.PrincipiaTractalis.H3IcosahedralConsciousnessOperatorBridge.h3_icosahedral_consciousness_operator_bridge_capstone
   trivial
 theorem Wave39YMPadeOperatorInstanceProven_holds : Wave39YMPadeOperatorInstanceProven :=
-  have _ := _root_.PrincipiaTractalis.ym_canonical_pade_one_one_operator_level_instance_capstone
-  trivial
+  ym_canonical_pade_one_one_operator_level_instance_capstone
 theorem Wave39BSDRankDistinctionProven_holds : Wave39BSDRankDistinctionProven :=
   have _ := _root_.PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone
   trivial
