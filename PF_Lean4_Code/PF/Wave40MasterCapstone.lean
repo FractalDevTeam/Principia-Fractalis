@@ -65,7 +65,8 @@ namespace PrincipiaTractalis
 def Wave40BCleanConsciousnessBridgeProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `framework_headline_wave_29_to_39_update_capstone` (Wave 40D). -/
-def Wave40FrameworkHeadlineWave29To39UpdateProven : Prop := True
+def Wave40FrameworkHeadlineWave29To39UpdateProven : Prop :=
+  PrincipiaTractalis.FrameworkHeadlineWave29To39Update.FrameworkHeadlineWave29To39
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 39 META aggregator (`23d0b94` + `d129432` fixup). -/
 def Wave39MasterCapstoneAggregatorProven : Prop := True
@@ -126,9 +127,8 @@ theorem wave40_additions_hold : Wave40Additions :=
   { wave40_b_clean_consciousness_bridge := by
       have _ := _root_.PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.b_clean_phase_consciousness_commutator_bridge_capstone
       unfold Wave40BCleanConsciousnessBridgeProven; trivial
-    wave40_framework_headline_update := by
-      have _ := _root_.PrincipiaTractalis.FrameworkHeadlineWave29To39Update.framework_headline_wave_29_to_39_update_capstone
-      unfold Wave40FrameworkHeadlineWave29To39UpdateProven; trivial
+    wave40_framework_headline_update :=
+      PrincipiaTractalis.FrameworkHeadlineWave29To39Update.framework_headline_wave_29_to_39_update_capstone
     wave39_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave39_master_capstone
       unfold Wave39MasterCapstoneAggregatorProven; trivial }
@@ -171,8 +171,7 @@ theorem Wave40BCleanConsciousnessBridgeProven_holds : Wave40BCleanConsciousnessB
   have _ := _root_.PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.b_clean_phase_consciousness_commutator_bridge_capstone
   trivial
 theorem Wave40FrameworkHeadlineWave29To39UpdateProven_holds : Wave40FrameworkHeadlineWave29To39UpdateProven :=
-  have _ := _root_.PrincipiaTractalis.FrameworkHeadlineWave29To39Update.framework_headline_wave_29_to_39_update_capstone
-  trivial
+  PrincipiaTractalis.FrameworkHeadlineWave29To39Update.framework_headline_wave_29_to_39_update_capstone
 theorem Wave39MasterCapstoneAggregatorProven_holds : Wave39MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave39_master_capstone
   trivial
