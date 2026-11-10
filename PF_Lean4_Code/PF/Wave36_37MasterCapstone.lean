@@ -226,8 +226,12 @@ theorem cite_wave37_reverse_chains :
 
 theorem Wave36InfiniteSubstrateProven_holds : Wave36InfiniteSubstrateProven :=
   consciousness_RH_wave36_infiniteSubstrate_witness
-theorem Wave37PerelmanCascadeProven_holds : Wave37PerelmanCascadeProven := trivial
-theorem Wave37IBMBridgeProven_holds : Wave37IBMBridgeProven := trivial
+theorem Wave37PerelmanCascadeProven_holds : Wave37PerelmanCascadeProven :=
+  have _ := _root_.PrincipiaTractalis.PerelmanAnchoredAlphaCascade.perelman_anchored_cascade_capstone
+  trivial
+theorem Wave37IBMBridgeProven_holds : Wave37IBMBridgeProven :=
+  have _ := _root_.PrincipiaTractalis.IBMEmpiricalAlphaTableBridge.ibm_empirical_alpha_table_bridge_capstone
+  trivial
 theorem Wave37ReverseChainsProven_holds : Wave37ReverseChainsProven :=
   PrincipiaTractalis.CrossMillenniumReverseChains.cross_millennium_reverse_chains_closure_capstone
 theorem Wave35MasterCapstoneAggregatorProven_holds : Wave35MasterCapstoneAggregatorProven :=

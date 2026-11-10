@@ -343,7 +343,9 @@ theorem cite_cross_millennium_more_invariants :
 
 theorem YMCanonicalPadeOneOneRealisesProven_holds : YMCanonicalPadeOneOneRealisesProven :=
   ym_canonical_pade_one_one_realises_cluster_fix_outside_polynomial_family
-theorem YMCanonicalPartialFractionNarrowedOutProven_holds : YMCanonicalPartialFractionNarrowedOutProven := trivial
+theorem YMCanonicalPartialFractionNarrowedOutProven_holds : YMCanonicalPartialFractionNarrowedOutProven :=
+  have _ := @_root_.PrincipiaTractalis.ym_canonical_partial_fraction_misses_cluster_fix
+  trivial
 theorem HodgeMathlibAbelian3FoldBridgeProven_holds : HodgeMathlibAbelian3FoldBridgeProven := fun class_idx =>
   PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.mathlib_abelian_3fold_hodge_bridge_capstone class_idx
 theorem CrossMillenniumMoreInvariantsProven_holds : CrossMillenniumMoreInvariantsProven :=

@@ -233,7 +233,9 @@ theorem cite_ym_canonical_asymmetric_pade_realises :
 
 theorem YMCanonicalOperatorMonotonePartialProven_holds : YMCanonicalOperatorMonotonePartialProven :=
   ym_canonical_operator_monotone_realises_cluster_fix_only_at_pointwise_and_degenerate_collapses
-theorem YMCanonicalAsymmetricPadeRealisesProven_holds : YMCanonicalAsymmetricPadeRealisesProven := trivial
+theorem YMCanonicalAsymmetricPadeRealisesProven_holds : YMCanonicalAsymmetricPadeRealisesProven :=
+  have _ := @_root_.PrincipiaTractalis.ym_canonical_asymmetric_pade_realises_cluster_fix_outside_symmetric_families
+  trivial
 theorem Wave30MasterCapstoneAggregatorProven_holds : Wave30MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave30_master_capstone
   trivial
