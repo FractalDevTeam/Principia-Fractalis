@@ -44,12 +44,33 @@ import PF.PerelmanSolvedCaseCrossValidation
 
 namespace PrincipiaTractalis
 
+-- 2026-11-10: targeted opens for restated content-bearing defs
+open PrincipiaTractalis.GaloisRigidConditionalDischarge (HasGaloisRigidQRealisation)
+open PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator (IsGaloisRigid galois_rigid_millennium_problems)
+open PrincipiaTractalis.PerelmanSolvedCaseCrossValidation (FrameworkPredictionPoincare PerelmanSolvedStructuralIdentity)
+open PrincipiaTractalis.CrossMillenniumSharedInvariants (α_Poincare)
+
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave45RHConditionalDischargeViaGaloisRigidityProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave45PerelmanSolvedCaseCrossValidationProven : Prop := True
+def Wave45PerelmanSolvedCaseCrossValidationProven : Prop :=
+  FrameworkPredictionPoincare
+  ∧ PerelmanSolvedStructuralIdentity α_Poincare
+  ∧ (FrameworkPredictionPoincare →
+      PerelmanSolvedStructuralIdentity α_Poincare)
+  ∧ (∀ α : ℝ, PerelmanSolvedStructuralIdentity α →
+      ∃ q : ℚ, α = (q : ℝ))
+  ∧ (∀ α : ℝ, PerelmanSolvedStructuralIdentity α → α = 1)
+  ∧ (∀ α : ℝ, PerelmanSolvedStructuralIdentity α →
+      HasGaloisRigidQRealisation .Poincare)
+  ∧ (1 : ℝ) = α_Poincare
+  ∧ α_Poincare + α_Poincare + α_Poincare + α_Poincare = 4
+  ∧ (IsGaloisRigid .RH ∧ IsGaloisRigid .YM ∧
+     HasGaloisRigidQRealisation .RH ∧ HasGaloisRigidQRealisation .YM ∧
+     .RH ∈ galois_rigid_millennium_problems ∧
+     .YM ∈ galois_rigid_millennium_problems)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave44MasterCapstoneAggregatorProven : Prop := True
 
@@ -96,9 +117,8 @@ theorem wave45_additions_hold : Wave45Additions :=
   { wave45_RH_conditional_discharge_via_galois_rigidity := by
       have _ := _root_.PrincipiaTractalis.RHConditionalDischargeViaGaloisRigidity.RH_conditional_discharge_via_galois_rigidity_capstone
       unfold Wave45RHConditionalDischargeViaGaloisRigidityProven; trivial
-    wave45_perelman_solved_case_cross_validation := by
-      have _ := _root_.PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.perelman_solved_case_cross_validation_capstone
-      unfold Wave45PerelmanSolvedCaseCrossValidationProven; trivial
+    wave45_perelman_solved_case_cross_validation :=
+      PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.perelman_solved_case_cross_validation_capstone
     wave44_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave44_master_capstone
       unfold Wave44MasterCapstoneAggregatorProven; trivial }
@@ -129,8 +149,7 @@ theorem Wave45RHConditionalDischargeViaGaloisRigidityProven_holds : Wave45RHCond
   have _ := _root_.PrincipiaTractalis.RHConditionalDischargeViaGaloisRigidity.RH_conditional_discharge_via_galois_rigidity_capstone
   trivial
 theorem Wave45PerelmanSolvedCaseCrossValidationProven_holds : Wave45PerelmanSolvedCaseCrossValidationProven :=
-  have _ := _root_.PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.perelman_solved_case_cross_validation_capstone
-  trivial
+  PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.perelman_solved_case_cross_validation_capstone
 theorem Wave44MasterCapstoneAggregatorProven_holds : Wave44MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave44_master_capstone
   trivial
