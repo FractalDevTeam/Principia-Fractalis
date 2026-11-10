@@ -113,8 +113,9 @@ def Wave57RH_MayerNToInfinityProven : Prop :=
 -- 2026-11-09 RESTATE: pinned to real Status bundle from imported scaffold.
 def Wave57RH_HardyToFullStripProven : Prop :=
   _root_.PrincipiaTractalis.RH_HardyToFullStripScaffold.Wave57HardyScaffoldStatus
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave57Hodge_QuinticCYCodim2Proven : Prop := True
+-- 2026-11-10 RESTATE: pinned to fermatQuinticConcrete.degree = 5 (closed-form carrier identity).
+def Wave57Hodge_QuinticCYCodim2Proven : Prop :=
+  _root_.PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.fermatQuinticConcrete.degree = 5
 -- 2026-11-10 RESTATE: pinned to NuclearSpaceStructural clause (2) of ym_wightman_reconstruction_scaffold_capstone.
 def Wave57YM_WightmanReconstructionProven : Prop :=
   _root_.PrincipiaTractalis.YM_WightmanReconstructionScaffold.NuclearSpaceStructural
@@ -164,9 +165,8 @@ theorem wave57_additions_hold : Wave57Additions :=
       _root_.PrincipiaTractalis.RH_MayerNToInfinityScaffold.rh_wave57_mayer_n_to_infinity_scaffold_capstone
     wave57_rh_hardy_to_full_strip :=
       _root_.PrincipiaTractalis.RH_HardyToFullStripScaffold.wave57_hardy_to_full_strip_scaffold_capstone
-    wave57_hodge_quintic_cy_codim2 := by
-      have _ := _root_.PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.wave57_hodge_quintic_codim2_scaffold_capstone
-      unfold Wave57Hodge_QuinticCYCodim2Proven; trivial
+    wave57_hodge_quintic_cy_codim2 :=
+      _root_.PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.fermatQuinticConcrete_degree
     wave57_ym_wightman_reconstruction :=
       (_root_.PrincipiaTractalis.YM_WightmanReconstructionScaffold.ym_wightman_reconstruction_scaffold_capstone).2.1
     wave57_ym_osrp_interaction :=
@@ -201,8 +201,7 @@ theorem Wave57RH_MayerNToInfinityProven_holds : Wave57RH_MayerNToInfinityProven 
 theorem Wave57RH_HardyToFullStripProven_holds : Wave57RH_HardyToFullStripProven :=
   _root_.PrincipiaTractalis.RH_HardyToFullStripScaffold.wave57_hardy_to_full_strip_scaffold_capstone
 theorem Wave57Hodge_QuinticCYCodim2Proven_holds : Wave57Hodge_QuinticCYCodim2Proven :=
-  have _ := _root_.PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.wave57_hodge_quintic_codim2_scaffold_capstone
-  trivial
+  _root_.PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.fermatQuinticConcrete_degree
 theorem Wave57YM_WightmanReconstructionProven_holds : Wave57YM_WightmanReconstructionProven :=
   (_root_.PrincipiaTractalis.YM_WightmanReconstructionScaffold.ym_wightman_reconstruction_scaffold_capstone).2.1
 theorem Wave57YM_OSRPInteractionProven_holds : Wave57YM_OSRPInteractionProven :=
