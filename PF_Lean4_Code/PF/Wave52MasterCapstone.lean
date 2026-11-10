@@ -117,8 +117,12 @@ def Wave52KatoBilinearEstimateProven : Prop :=
   PrincipiaTractalis.KatoBilinearEstimateAttempt.WaveFiftyOneCKatoEncoding
 -- VACUITY BANNER: parametric by n/t/x; marker preserved as Prop := True.
 def Wave52YMRankKProven : Prop := True
--- VACUITY BANNER: cite_wave47E capstone is a reflexive rfl placeholder; marker preserved.
-def Wave52HodgeCmAbelian4FoldProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to clause (1) (1,1) HodgeAlgebraicRepresentation of hodge_codim_2_cmAbelian4Fold_first_principles_capstone.
+def Wave52HodgeCmAbelian4FoldProven : Prop :=
+  ∀ class_idx : ℕ,
+    _root_.PrincipiaTractalis.MillenniumSix.HodgeAlgebraicRepresentation
+      _root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.cmAbelian4FoldCY4Substrate.toHodgeAmbient11
+      class_idx
 -- 2026-11-10 RESTATE: pinned to clause (C1) closed-form L_partial_at_37 of bsd_L_partial_oscillation_analysis_attempt_capstone.
 def Wave52BSDLPartialOscillationAnalysisProven : Prop :=
   _root_.PrincipiaTractalis.BSDLPartialOscillationAnalysisAttempt.L_partial_at_37 = 247357937827 / 483183820800
@@ -162,9 +166,8 @@ theorem wave52_additions_hold : Wave52Additions :=
     wave52_ym_rank_k := by
       have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.ym_reflection_positivity_3plus1d_rankK_attempt_capstone
       unfold Wave52YMRankKProven; trivial
-    wave52_hodge_cm_abelian_4fold := by
-      have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.hodge_codim_2_cmAbelian4Fold_first_principles_capstone
-      unfold Wave52HodgeCmAbelian4FoldProven; trivial
+    wave52_hodge_cm_abelian_4fold := fun class_idx =>
+      (_root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.hodge_codim_2_cmAbelian4Fold_first_principles_capstone class_idx).1
     wave52_bsd_L_partial_oscillation_analysis :=
       (_root_.PrincipiaTractalis.BSDLPartialOscillationAnalysisAttempt.bsd_L_partial_oscillation_analysis_attempt_capstone).1
     wave52_bsd_wiles_modularity :=
@@ -199,9 +202,8 @@ theorem Wave52KatoBilinearEstimateProven_holds : Wave52KatoBilinearEstimateProve
 theorem Wave52YMRankKProven_holds : Wave52YMRankKProven :=
   have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.ym_reflection_positivity_3plus1d_rankK_attempt_capstone
   trivial
-theorem Wave52HodgeCmAbelian4FoldProven_holds : Wave52HodgeCmAbelian4FoldProven :=
-  have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.hodge_codim_2_cmAbelian4Fold_first_principles_capstone
-  trivial
+theorem Wave52HodgeCmAbelian4FoldProven_holds : Wave52HodgeCmAbelian4FoldProven := fun class_idx =>
+  (_root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.hodge_codim_2_cmAbelian4Fold_first_principles_capstone class_idx).1
 theorem Wave52BSDLPartialOscillationAnalysisProven_holds : Wave52BSDLPartialOscillationAnalysisProven :=
   (_root_.PrincipiaTractalis.BSDLPartialOscillationAnalysisAttempt.bsd_L_partial_oscillation_analysis_attempt_capstone).1
 theorem Wave52BSDWilesModularityProven_holds : Wave52BSDWilesModularityProven :=
