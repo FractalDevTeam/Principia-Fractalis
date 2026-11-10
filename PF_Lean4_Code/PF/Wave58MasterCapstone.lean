@@ -75,6 +75,7 @@ import PF.Analytic.OnLineSurjectivityBaseCaseDischarge
 import PF.RHSurjectivityTypedUpgrade
 import PF.Analytic.OnLineSurjectivitySubDecomposition
 import PF.Analytic.OnLineSurjectivityCascadeK1K2
+import PF.Analytic.T3SymCompactnessAttempt
 
 namespace PrincipiaTractalis
 
@@ -90,11 +91,13 @@ structure Wave58Additions : Prop where
       Consciousness ↔ RH structural bridge. -/
   pf_complete_framework :
     PF.Referee.PFCompleteFrameworkCapstone.PFCompleteFramework
-  /-- T3SymMercerTail reduced to single IsCompactOperator hypothesis
-      (provenness marker — actual reduction is
-      `bundleA_two_of_three_from_witness_compactness` in
-      `PF/Analytic/T3SymMercerTailT3SymDischarge.lean`). -/
-  t3sym_mercer_tail_reduction : True
+  /-- T3SymMercerTail reduced to single IsCompactOperator hypothesis.
+      2026-11-10 RESTATE: pinned to the real self-adjointness Prop of
+      the T3_sym CLM under linear-structure + inner-bridge hypotheses. -/
+  t3sym_mercer_tail_reduction :
+    ∀ (hLin : _root_.PrincipiaTractalis.T3SymLinearStructure)
+      (_hBridge : _root_.PrincipiaTractalis.LogWeightedL2InnerBridge),
+      IsSelfAdjoint (_root_.PrincipiaTractalis.T3_sym_CLM_of_linearStructure hLin)
   /-- BSD (A3): L-series absolute convergence on Re s > 3/2 from
       Hasse-Weil ε-tower bound. 2026-11-09 RESTATE: real statement of
       `lSeriesSummable_of_hasseTower_on_open_halfplane`. -/
@@ -130,10 +133,14 @@ structure Wave58Additions : Prop where
     PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM = 2 ∧
     PrincipiaTractalis.CrossMillenniumSharedInvariants.α_Poincare = 1 ∧
     PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH = 3 / 2
-  /-- T3_sym compactness HSNuclear typed witness landed (provenness
-      marker — actual content in
-      `PF/Analytic/T3SymCompactnessAttempt.lean`). -/
-  t3sym_compactness_HSNuclear_typed_upgrade : True
+  /-- T3_sym compactness HSNuclear typed witness landed. 2026-11-10
+      RESTATE: pinned to the real compact-operator reduction from an
+      HS-nuclear witness, courtesy of T3_sym_CLM_isCompactOperator_of_HSNuclearWitness. -/
+  t3sym_compactness_HSNuclear_typed_upgrade :
+    ∀ (hLin : _root_.PrincipiaTractalis.T3SymLinearStructure)
+      (_hHS : _root_.PrincipiaTractalis.T3SymHilbertSchmidtNuclearWitness
+              (_root_.PrincipiaTractalis.T3_sym_CLM_of_linearStructure hLin)),
+      IsCompactOperator (_root_.PrincipiaTractalis.T3_sym_CLM_of_linearStructure hLin)
   /-- Voisin Hodge codim-2 obstruction typed upgrade landed. 2026-11-10
       RESTATE: pinned to the first typed implication from
       `voisinObstructionTypedUpgrade_capstone`. -/
@@ -233,7 +240,8 @@ structure Wave58Additions : Prop where
 theorem wave58_additions_hold : Wave58Additions where
   pf_complete_framework :=
     PF.Referee.PFCompleteFrameworkCapstone.pfCompleteFramework_realized
-  t3sym_mercer_tail_reduction := trivial
+  t3sym_mercer_tail_reduction := fun hLin hBridge =>
+    _root_.PrincipiaTractalis.T3_sym_CLM_of_linearStructure_isSelfAdjoint hLin hBridge
   bsd_a3_strengthened :=
     @PrincipiaTractalis.BSD_LSeriesAbsConvergenceDischarge.lSeriesSummable_of_hasseTower_on_open_halfplane
   bsd_a4_strengthened :=
@@ -244,7 +252,8 @@ theorem wave58_additions_hold : Wave58Additions where
     PrincipiaTractalis.TimelessField.partialTraceMorphism_projective_compatible
   cross_millennium_rigidity :=
     PF.CrossMillenniumDerivedConsequences.framework_alpha_values_match_rigidity
-  t3sym_compactness_HSNuclear_typed_upgrade := trivial
+  t3sym_compactness_HSNuclear_typed_upgrade := fun hLin hHS =>
+    _root_.PrincipiaTractalis.T3_sym_CLM_isCompactOperator_of_HSNuclearWitness hLin hHS
   voisin_codim_two_typed_upgrade :=
     (_root_.PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.voisinObstructionTypedUpgrade_capstone).1
   ym_wightman_continuum_gaps_typed_upgrade :=
