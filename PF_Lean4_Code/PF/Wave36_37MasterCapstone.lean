@@ -71,7 +71,10 @@ namespace PrincipiaTractalis
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `consciousness_RH_wave36_infiniteSubstrate_witness`. -/
-def Wave36InfiniteSubstrateProven : Prop := True
+def Wave36InfiniteSubstrateProven : Prop :=
+  CommutatorVanishesAtRHZeros infiniteOdlyzkoSubstrate ∧
+  (∀ m : ℕ → ℂ, H36 ≠ fun f n => m n * f n) ∧
+  Infinite infiniteOdlyzkoSubstrate.base.S
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `perelman_anchored_cascade_capstone`. -/
 def Wave37PerelmanCascadeProven : Prop := True
@@ -80,7 +83,20 @@ def Wave37PerelmanCascadeProven : Prop := True
 def Wave37IBMBridgeProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `cross_millennium_reverse_chains_closure_capstone`. -/
-def Wave37ReverseChainsProven : Prop := True
+def Wave37ReverseChainsProven : Prop :=
+  ((∃ a : ℝ, CrossMillenniumImplicationChains.RealisesP a) ↔
+     (∃ b : ℝ, CrossMillenniumImplicationChains.RealisesYM b))
+  ∧ ((∃ a : ℝ, CrossMillenniumImplicationChains.RealisesNS a) ↔
+       (∃ b : ℝ, CrossMillenniumImplicationChains.RealisesBSD b))
+  ∧ ((∃ a : ℝ, CrossMillenniumImplicationChains.RealisesRH a) ↔
+       ((∃ b : ℝ, CrossMillenniumImplicationChains.RealisesNS b) ∧
+        (∃ c : ℝ, CrossMillenniumImplicationChains.RealisesBSD c)))
+  ∧ (∀ {aNS aBSD : ℝ},
+       CrossMillenniumImplicationChains.RealisesNS aNS →
+       CrossMillenniumImplicationChains.RealisesBSD aBSD →
+       CrossMillenniumImplicationChains.RealisesRH ((aNS + aBSD) / aNS)
+       ∧ CrossMillenniumImplicationChains.RealisesYM CrossMillenniumSharedInvariants.α_YM
+       ∧ CrossMillenniumImplicationChains.RealisesP (Real.sqrt 2))
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 35 META aggregator (`a74d7eb`). -/
 def Wave35MasterCapstoneAggregatorProven : Prop := True
@@ -153,14 +169,14 @@ structure Wave36_37MasterCapstone : Prop where
 /-! ## Section 3 — Capstone proofs (citations only) -/
 
 theorem wave36_37_additions_hold : Wave36_37Additions :=
-  { wave36_infinite_substrate := by
-      unfold Wave36InfiniteSubstrateProven; trivial
+  { wave36_infinite_substrate :=
+      consciousness_RH_wave36_infiniteSubstrate_witness
     wave37_perelman_cascade := by
       unfold Wave37PerelmanCascadeProven; trivial
     wave37_ibm_bridge := by
       unfold Wave37IBMBridgeProven; trivial
-    wave37_reverse_chains := by
-      unfold Wave37ReverseChainsProven; trivial
+    wave37_reverse_chains :=
+      PrincipiaTractalis.CrossMillenniumReverseChains.cross_millennium_reverse_chains_closure_capstone
     wave35_master_capstone_aggregator := by
       unfold Wave35MasterCapstoneAggregatorProven; trivial }
 
@@ -206,10 +222,12 @@ theorem cite_wave37_reverse_chains :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave36InfiniteSubstrateProven_holds : Wave36InfiniteSubstrateProven := trivial
+theorem Wave36InfiniteSubstrateProven_holds : Wave36InfiniteSubstrateProven :=
+  consciousness_RH_wave36_infiniteSubstrate_witness
 theorem Wave37PerelmanCascadeProven_holds : Wave37PerelmanCascadeProven := trivial
 theorem Wave37IBMBridgeProven_holds : Wave37IBMBridgeProven := trivial
-theorem Wave37ReverseChainsProven_holds : Wave37ReverseChainsProven := trivial
+theorem Wave37ReverseChainsProven_holds : Wave37ReverseChainsProven :=
+  PrincipiaTractalis.CrossMillenniumReverseChains.cross_millennium_reverse_chains_closure_capstone
 theorem Wave35MasterCapstoneAggregatorProven_holds : Wave35MasterCapstoneAggregatorProven := trivial
 
 end PrincipiaTractalis
