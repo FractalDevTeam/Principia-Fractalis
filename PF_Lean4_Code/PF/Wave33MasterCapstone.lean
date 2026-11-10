@@ -89,11 +89,32 @@ namespace PrincipiaTractalis
 /-- `ns_3d_global_K_T_partial` (Wave 33: PARTIAL / STRUCTURAL —
     uniform K=2 across diagonal + off-diagonal at n∈{0..5}, named
     open Prop isolated). -/
-def NS3DGlobalKTPartialProven : Prop := True
+def NS3DGlobalKTPartialProven : Prop :=
+  ∀ (T : ℝ), 0 < T →
+    (PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBound T 0 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBound T 1 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBound T 2 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBound T 3 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBound T 4 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBound T 5 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBoundOffDiagonal T 0 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBoundOffDiagonal T 1 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBoundOffDiagonal T 2 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBoundOffDiagonal T 3 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBoundOffDiagonal T 4 2 ∧
+     PrincipiaTractalis.NS3DGlobalKTAttempt.UniformLocalVortexStretchingBoundOffDiagonal T 5 2) ∧
+    (PrincipiaTractalis.NS3DGlobalKTAttempt.UniformHadamardBoundAllN →
+      PrincipiaTractalis.NS3DGlobalKTAttempt.UniformVortexStretchingBoundAllN T 1 ∧
+      PrincipiaTractalis.NS3DGlobalKTAttempt.UniformVortexStretchingBoundOffDiagonalAllN T 2) ∧
+    (PrincipiaTractalis.NS3DGlobalKTAttempt.UniformHadamardBoundAllN →
+      PrincipiaTractalis.NS3DGlobalKTAttempt.GlobalKTGalerkinShadow T 2)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `hodge_codim_two_cycle_class_PARTIAL` (Wave 33: PARTIAL POSITIVE
     + Voisin obstruction marker). -/
-def HodgeCodimTwoCycleClassPartialProven : Prop := True
+def HodgeCodimTwoCycleClassPartialProven : Prop :=
+  ∀ (X : PrincipiaTractalis.HodgeCalabiYau3FoldDim22.HodgeCY3Dim22Substrate),
+    PrincipiaTractalis.AlgebraicGeometry.HodgeConjectureChow
+      (PrincipiaTractalis.AlgebraicGeometry.CodimTwoAmbient X) 2
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 32 META aggregator (`845ec56`); pinned here for
     traceability of the Wave 33 META layer. -/
@@ -157,10 +178,10 @@ structure Wave33MasterCapstone : Prop where
 /-- **Wave 33 additions hold axiom-free.** Provenness tags pinned
     via Section 4 citation theorems. -/
 theorem wave33_additions_hold : Wave33Additions :=
-  { ns_3d_global_K_T_partial := by
-      unfold NS3DGlobalKTPartialProven; trivial
-    hodge_codim_two_cycle_class_partial := by
-      unfold HodgeCodimTwoCycleClassPartialProven; trivial
+  { ns_3d_global_K_T_partial := fun T hT =>
+      PrincipiaTractalis.NS3DGlobalKTAttempt.ns_3d_global_K_T_partial T hT
+    hodge_codim_two_cycle_class_partial := fun X =>
+      PrincipiaTractalis.AlgebraicGeometry.hodge_codim_two_cycle_class_PARTIAL X
     wave32_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave32_master_capstone
       unfold Wave32MasterCapstoneAggregatorProven; trivial }
@@ -214,8 +235,10 @@ theorem cite_hodge_codim_two_cycle_class_partial :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem NS3DGlobalKTPartialProven_holds : NS3DGlobalKTPartialProven := trivial
-theorem HodgeCodimTwoCycleClassPartialProven_holds : HodgeCodimTwoCycleClassPartialProven := trivial
+theorem NS3DGlobalKTPartialProven_holds : NS3DGlobalKTPartialProven := fun T hT =>
+  PrincipiaTractalis.NS3DGlobalKTAttempt.ns_3d_global_K_T_partial T hT
+theorem HodgeCodimTwoCycleClassPartialProven_holds : HodgeCodimTwoCycleClassPartialProven := fun X =>
+  PrincipiaTractalis.AlgebraicGeometry.hodge_codim_two_cycle_class_PARTIAL X
 theorem Wave32MasterCapstoneAggregatorProven_holds : Wave32MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave32_master_capstone
   trivial
