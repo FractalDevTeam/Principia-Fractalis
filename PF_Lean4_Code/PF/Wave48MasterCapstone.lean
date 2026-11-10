@@ -92,9 +92,11 @@ def Wave48RHAnalyticPosBijectionParityProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave48YMReflectionPositivityToyProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave48NSLayer2bSobolevTorusSkeletonProven : Prop := True
+def Wave48NSLayer2bSobolevTorusSkeletonProven : Prop :=
+  PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.Layer2bSobolevTorusSkeletonStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave48NSGalerkinDensityProven : Prop := True
+def Wave48NSGalerkinDensityProven : Prop :=
+  PrincipiaTractalis.NS3DGalerkinDensityAttempt.WaveFortyEightGalerkinDensityNarrowing
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave48HodgeMumfordFirstPrinciplesInventoryProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -132,12 +134,10 @@ theorem wave48_additions_hold : Wave48Additions :=
     wave48_ym_reflection_positivity_toy := by
       have _ := _root_.PrincipiaTractalis.YMReflectionPositivityToyAttempt.ym_reflection_positivity_toy_attempt_capstone
       unfold Wave48YMReflectionPositivityToyProven; trivial
-    wave48_ns_layer_2b_skeleton := by
-      have _ := _root_.PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.ns_3d_layer2b_sobolev_torus_skeleton_capstone
-      unfold Wave48NSLayer2bSobolevTorusSkeletonProven; trivial
-    wave48_ns_galerkin_density := by
-      have _ := _root_.PrincipiaTractalis.NS3DGalerkinDensityAttempt.ns_3d_galerkin_density_attempt_capstone
-      unfold Wave48NSGalerkinDensityProven; trivial
+    wave48_ns_layer_2b_skeleton :=
+      PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.ns_3d_layer2b_sobolev_torus_skeleton_capstone
+    wave48_ns_galerkin_density :=
+      PrincipiaTractalis.NS3DGalerkinDensityAttempt.ns_3d_galerkin_density_attempt_capstone
     wave48_hodge_mumford_inventory := by
       have _ := _root_.PrincipiaTractalis.HodgeMumfordAbelianFirstPrinciplesInventory.hodge_mumford_abelian_first_principles_inventory_capstone
       unfold Wave48HodgeMumfordFirstPrinciplesInventoryProven; trivial
@@ -174,11 +174,9 @@ theorem Wave48YMReflectionPositivityToyProven_holds : Wave48YMReflectionPositivi
   have _ := _root_.PrincipiaTractalis.YMReflectionPositivityToyAttempt.ym_reflection_positivity_toy_attempt_capstone
   trivial
 theorem Wave48NSLayer2bSobolevTorusSkeletonProven_holds : Wave48NSLayer2bSobolevTorusSkeletonProven :=
-  have _ := _root_.PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.ns_3d_layer2b_sobolev_torus_skeleton_capstone
-  trivial
+  PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.ns_3d_layer2b_sobolev_torus_skeleton_capstone
 theorem Wave48NSGalerkinDensityProven_holds : Wave48NSGalerkinDensityProven :=
-  have _ := _root_.PrincipiaTractalis.NS3DGalerkinDensityAttempt.ns_3d_galerkin_density_attempt_capstone
-  trivial
+  PrincipiaTractalis.NS3DGalerkinDensityAttempt.ns_3d_galerkin_density_attempt_capstone
 theorem Wave48HodgeMumfordFirstPrinciplesInventoryProven_holds : Wave48HodgeMumfordFirstPrinciplesInventoryProven :=
   have _ := _root_.PrincipiaTractalis.HodgeMumfordAbelianFirstPrinciplesInventory.hodge_mumford_abelian_first_principles_inventory_capstone
   trivial
