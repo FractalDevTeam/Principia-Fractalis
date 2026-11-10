@@ -102,12 +102,15 @@ namespace PrincipiaTractalis
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave57PNP_WitnessExistenceProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave57NS_HsSigmaScaffoldProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave57RH_MayerNToInfinityProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave57RH_HardyToFullStripProven : Prop := True
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported scaffold.
+def Wave57NS_HsSigmaScaffoldProven : Prop :=
+  _root_.PrincipiaTractalis.NS3D_HsSigmaScaffold.Wave57HsSigmaScaffoldStatus
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported scaffold.
+def Wave57RH_MayerNToInfinityProven : Prop :=
+  _root_.PrincipiaTractalis.RH_MayerNToInfinityScaffold.RH_Wave57_MayerNToInfinityScaffoldStatus
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported scaffold.
+def Wave57RH_HardyToFullStripProven : Prop :=
+  _root_.PrincipiaTractalis.RH_HardyToFullStripScaffold.Wave57HardyScaffoldStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave57Hodge_QuinticCYCodim2Proven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -151,15 +154,12 @@ theorem wave57_additions_hold : Wave57Additions :=
   { wave57_pnp_witness_existence := by
       have _ := _root_.PrincipiaTractalis.PNP_WitnessExistenceScaffold.wave57_pnp_witness_existence_scaffold_capstone
       unfold Wave57PNP_WitnessExistenceProven; trivial
-    wave57_ns_hs_sigma_scaffold := by
-      have _ := _root_.PrincipiaTractalis.NS3D_HsSigmaScaffold.wave57_hs_sigma_scaffold_capstone
-      unfold Wave57NS_HsSigmaScaffoldProven; trivial
-    wave57_rh_mayer_n_to_infinity := by
-      have _ := _root_.PrincipiaTractalis.RH_MayerNToInfinityScaffold.rh_wave57_mayer_n_to_infinity_scaffold_capstone
-      unfold Wave57RH_MayerNToInfinityProven; trivial
-    wave57_rh_hardy_to_full_strip := by
-      have _ := _root_.PrincipiaTractalis.RH_HardyToFullStripScaffold.wave57_hardy_to_full_strip_scaffold_capstone
-      unfold Wave57RH_HardyToFullStripProven; trivial
+    wave57_ns_hs_sigma_scaffold :=
+      _root_.PrincipiaTractalis.NS3D_HsSigmaScaffold.wave57_hs_sigma_scaffold_capstone
+    wave57_rh_mayer_n_to_infinity :=
+      _root_.PrincipiaTractalis.RH_MayerNToInfinityScaffold.rh_wave57_mayer_n_to_infinity_scaffold_capstone
+    wave57_rh_hardy_to_full_strip :=
+      _root_.PrincipiaTractalis.RH_HardyToFullStripScaffold.wave57_hardy_to_full_strip_scaffold_capstone
     wave57_hodge_quintic_cy_codim2 := by
       have _ := _root_.PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.wave57_hodge_quintic_codim2_scaffold_capstone
       unfold Wave57Hodge_QuinticCYCodim2Proven; trivial
@@ -193,14 +193,11 @@ theorem Wave57PNP_WitnessExistenceProven_holds : Wave57PNP_WitnessExistenceProve
   have _ := _root_.PrincipiaTractalis.PNP_WitnessExistenceScaffold.wave57_pnp_witness_existence_scaffold_capstone
   trivial
 theorem Wave57NS_HsSigmaScaffoldProven_holds : Wave57NS_HsSigmaScaffoldProven :=
-  have _ := _root_.PrincipiaTractalis.NS3D_HsSigmaScaffold.wave57_hs_sigma_scaffold_capstone
-  trivial
+  _root_.PrincipiaTractalis.NS3D_HsSigmaScaffold.wave57_hs_sigma_scaffold_capstone
 theorem Wave57RH_MayerNToInfinityProven_holds : Wave57RH_MayerNToInfinityProven :=
-  have _ := _root_.PrincipiaTractalis.RH_MayerNToInfinityScaffold.rh_wave57_mayer_n_to_infinity_scaffold_capstone
-  trivial
+  _root_.PrincipiaTractalis.RH_MayerNToInfinityScaffold.rh_wave57_mayer_n_to_infinity_scaffold_capstone
 theorem Wave57RH_HardyToFullStripProven_holds : Wave57RH_HardyToFullStripProven :=
-  have _ := _root_.PrincipiaTractalis.RH_HardyToFullStripScaffold.wave57_hardy_to_full_strip_scaffold_capstone
-  trivial
+  _root_.PrincipiaTractalis.RH_HardyToFullStripScaffold.wave57_hardy_to_full_strip_scaffold_capstone
 theorem Wave57Hodge_QuinticCYCodim2Proven_holds : Wave57Hodge_QuinticCYCodim2Proven :=
   have _ := _root_.PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.wave57_hodge_quintic_codim2_scaffold_capstone
   trivial
