@@ -45,8 +45,9 @@ namespace PrincipiaTractalis
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave44FrameworkMetaArchitectureProven : Prop :=
   PrincipiaTractalis.FrameworkMetaArchitectureWave29To43.FrameworkMetaArchitecture
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave44StrictMonotoneGaloisRigidIdentityBridgeProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to StrictMono (identity) clause (1) of strict_monotone_galois_rigid_identity_bridge_capstone.
+def Wave44StrictMonotoneGaloisRigidIdentityBridgeProven : Prop :=
+  StrictMono (fun x : ℝ => x)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave43MasterCapstoneAggregatorProven : Prop := True
 
@@ -94,9 +95,8 @@ structure Wave44MasterCapstone : Prop where
 theorem wave44_additions_hold : Wave44Additions :=
   { wave44_framework_meta_architecture :=
       PrincipiaTractalis.FrameworkMetaArchitectureWave29To43.framework_meta_architecture_capstone
-    wave44_strict_monotone_galois_rigid_identity_bridge := by
-      have _ := _root_.PrincipiaTractalis.StrictMonotoneGaloisRigidIdentityBridge.strict_monotone_galois_rigid_identity_bridge_capstone
-      unfold Wave44StrictMonotoneGaloisRigidIdentityBridgeProven; trivial
+    wave44_strict_monotone_galois_rigid_identity_bridge :=
+      (_root_.PrincipiaTractalis.StrictMonotoneGaloisRigidIdentityBridge.strict_monotone_galois_rigid_identity_bridge_capstone).1
     wave43_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave43_master_capstone
       unfold Wave43MasterCapstoneAggregatorProven; trivial }
@@ -128,8 +128,7 @@ theorem cite_wave44_strict_monotone_galois_rigid_identity_bridge :
 theorem Wave44FrameworkMetaArchitectureProven_holds : Wave44FrameworkMetaArchitectureProven :=
   PrincipiaTractalis.FrameworkMetaArchitectureWave29To43.framework_meta_architecture_capstone
 theorem Wave44StrictMonotoneGaloisRigidIdentityBridgeProven_holds : Wave44StrictMonotoneGaloisRigidIdentityBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.StrictMonotoneGaloisRigidIdentityBridge.strict_monotone_galois_rigid_identity_bridge_capstone
-  trivial
+  (_root_.PrincipiaTractalis.StrictMonotoneGaloisRigidIdentityBridge.strict_monotone_galois_rigid_identity_bridge_capstone).1
 theorem Wave43MasterCapstoneAggregatorProven_holds : Wave43MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave43_master_capstone
   trivial

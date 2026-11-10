@@ -52,8 +52,10 @@ open PrincipiaTractalis.CrossMillenniumSharedInvariants (α_Poincare)
 
 /-! ## Section 0 — Provenness tags -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave45RHConditionalDischargeViaGaloisRigidityProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to HasGaloisRigidQRealisation .RH clause (2) of RH_conditional_discharge_via_galois_rigidity_capstone (already discharged axiom-free at Wave 43C).
+def Wave45RHConditionalDischargeViaGaloisRigidityProven : Prop :=
+  _root_.PrincipiaTractalis.GaloisRigidConditionalDischarge.HasGaloisRigidQRealisation
+    _root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.MillenniumProblem.RH
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave45PerelmanSolvedCaseCrossValidationProven : Prop :=
   FrameworkPredictionPoincare
@@ -114,9 +116,8 @@ structure Wave45MasterCapstone : Prop where
   wave_45 : Wave45Additions
 
 theorem wave45_additions_hold : Wave45Additions :=
-  { wave45_RH_conditional_discharge_via_galois_rigidity := by
-      have _ := _root_.PrincipiaTractalis.RHConditionalDischargeViaGaloisRigidity.RH_conditional_discharge_via_galois_rigidity_capstone
-      unfold Wave45RHConditionalDischargeViaGaloisRigidityProven; trivial
+  { wave45_RH_conditional_discharge_via_galois_rigidity :=
+      (_root_.PrincipiaTractalis.RHConditionalDischargeViaGaloisRigidity.RH_conditional_discharge_via_galois_rigidity_capstone).2.1
     wave45_perelman_solved_case_cross_validation :=
       PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.perelman_solved_case_cross_validation_capstone
     wave44_master_capstone_aggregator := by
@@ -148,8 +149,7 @@ theorem cite_wave45_perelman_solved_case_cross_validation :
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave45RHConditionalDischargeViaGaloisRigidityProven_holds : Wave45RHConditionalDischargeViaGaloisRigidityProven :=
-  have _ := _root_.PrincipiaTractalis.RHConditionalDischargeViaGaloisRigidity.RH_conditional_discharge_via_galois_rigidity_capstone
-  trivial
+  (_root_.PrincipiaTractalis.RHConditionalDischargeViaGaloisRigidity.RH_conditional_discharge_via_galois_rigidity_capstone).2.1
 theorem Wave45PerelmanSolvedCaseCrossValidationProven_holds : Wave45PerelmanSolvedCaseCrossValidationProven :=
   PrincipiaTractalis.PerelmanSolvedCaseCrossValidation.perelman_solved_case_cross_validation_capstone
 theorem Wave44MasterCapstoneAggregatorProven_holds : Wave44MasterCapstoneAggregatorProven :=

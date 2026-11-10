@@ -67,8 +67,10 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave46YMConditionalDischargeViaGaloisRigidityProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to HasGaloisRigidQRealisation .YM clause (2) of YM_conditional_discharge_via_galois_rigidity_capstone (already discharged axiom-free at Wave 43C).
+def Wave46YMConditionalDischargeViaGaloisRigidityProven : Prop :=
+  _root_.PrincipiaTractalis.GaloisRigidConditionalDischarge.HasGaloisRigidQRealisation
+    _root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.MillenniumProblem.YM
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave46CrossMillenniumOpenFrontierInventoryProven : Prop :=
   PrincipiaTractalis.CrossMillenniumOpenFrontierInventory.Inventory
@@ -115,9 +117,8 @@ structure Wave46MasterCapstone : Prop where
   wave_46 : Wave46Additions
 
 theorem wave46_additions_hold : Wave46Additions :=
-  { wave46_YM_conditional_discharge_via_galois_rigidity := by
-      have _ := _root_.PrincipiaTractalis.YMConditionalDischargeViaGaloisRigidity.YM_conditional_discharge_via_galois_rigidity_capstone
-      unfold Wave46YMConditionalDischargeViaGaloisRigidityProven; trivial
+  { wave46_YM_conditional_discharge_via_galois_rigidity :=
+      (_root_.PrincipiaTractalis.YMConditionalDischargeViaGaloisRigidity.YM_conditional_discharge_via_galois_rigidity_capstone).2.1
     wave46_cross_millennium_open_frontier_inventory :=
       PrincipiaTractalis.CrossMillenniumOpenFrontierInventory.cross_millennium_open_frontier_inventory_capstone
     wave45_master_capstone_aggregator := by
@@ -149,8 +150,7 @@ theorem cite_wave46_cross_millennium_open_frontier_inventory :
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave46YMConditionalDischargeViaGaloisRigidityProven_holds : Wave46YMConditionalDischargeViaGaloisRigidityProven :=
-  have _ := _root_.PrincipiaTractalis.YMConditionalDischargeViaGaloisRigidity.YM_conditional_discharge_via_galois_rigidity_capstone
-  trivial
+  (_root_.PrincipiaTractalis.YMConditionalDischargeViaGaloisRigidity.YM_conditional_discharge_via_galois_rigidity_capstone).2.1
 theorem Wave46CrossMillenniumOpenFrontierInventoryProven_holds : Wave46CrossMillenniumOpenFrontierInventoryProven :=
   PrincipiaTractalis.CrossMillenniumOpenFrontierInventory.cross_millennium_open_frontier_inventory_capstone
 theorem Wave45MasterCapstoneAggregatorProven_holds : Wave45MasterCapstoneAggregatorProven :=
