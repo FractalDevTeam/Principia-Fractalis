@@ -230,6 +230,8 @@ theorem Wave37PerelmanCascadeProven_holds : Wave37PerelmanCascadeProven := trivi
 theorem Wave37IBMBridgeProven_holds : Wave37IBMBridgeProven := trivial
 theorem Wave37ReverseChainsProven_holds : Wave37ReverseChainsProven :=
   PrincipiaTractalis.CrossMillenniumReverseChains.cross_millennium_reverse_chains_closure_capstone
-theorem Wave35MasterCapstoneAggregatorProven_holds : Wave35MasterCapstoneAggregatorProven := trivial
+theorem Wave35MasterCapstoneAggregatorProven_holds : Wave35MasterCapstoneAggregatorProven :=
+  have _ := principia_fractalis_wave35_master_capstone
+  trivial
 
 end PrincipiaTractalis

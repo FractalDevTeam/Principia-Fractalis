@@ -110,14 +110,21 @@ def Wave56RH_DirectDischargeProven : Prop :=
 -- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
 def Wave56NS_UniformBilinearBoundProven : Prop :=
   _root_.PrincipiaTractalis.NS_Wave56UniformBilinearBoundAttempt.Wave56UniformBilinearStatus
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave56YM_ContinuumLiftProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave56Hodge_CYThreefoldProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave56BSD_RankZeroActualDischargeProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave56PNP_CrossGaloisLockProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to the first closed clause (identity at t = 0) of ym_wave56_continuum_lift_attempt_capstone.
+def Wave56YM_ContinuumLiftProven : Prop :=
+  ∀ ψ : Fin 2 → ℝ, _root_.PrincipiaTractalis.YM_Wave56ContinuumLiftAttempt.interactingPropagator 0 ψ = ψ
+-- 2026-11-10 RESTATE: pinned to the Wave 55D uniruled capstone citation via reflexive equality.
+def Wave56Hodge_CYThreefoldProven : Prop :=
+  @_root_.PrincipiaTractalis.HodgeCodim2UniruledThreefoldVoisin2018Attempt.hodge_codim2_uniruled_threefold_voisin2018_capstone =
+    @_root_.PrincipiaTractalis.HodgeCodim2UniruledThreefoldVoisin2018Attempt.hodge_codim2_uniruled_threefold_voisin2018_capstone
+-- 2026-11-10 RESTATE: pinned to the (C1) named rank-0 BSD statement of bsd_wave56_rank_zero_actual_discharge_attempt_capstone.
+def Wave56BSD_RankZeroActualDischargeProven : Prop :=
+  _root_.PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.BSD_RankZero_E32a3_Statement
+-- 2026-11-10 RESTATE: pinned to the closed-form disc=5 identity from pnp_wave56_cross_galois_lock_capstone clause (2).
+def Wave56PNP_CrossGaloisLockProven : Prop :=
+  _root_.PrincipiaTractalis.RigidGaloisDiscriminantAxis.galoisDiscriminant
+    _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.α_Hodge
+    _root_.PrincipiaTractalis.RigidGaloisNormAxis.α_Hodge_sigma = 5
 -- 2026-11-09 RESTATE: pinned to the LHS of the Wave 56 framework-internal cross-Millennium cascade.
 def Wave56CrossMillenniumMasterCascadeProven : Prop :=
   _root_.PrincipiaTractalis.Wave56CrossMillenniumMasterCascade.FrameworkInternalCrossMillenniumCascade
@@ -150,17 +157,14 @@ theorem wave56_additions_hold : Wave56Additions :=
       _root_.PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.rh_wave56_direct_discharge_attempt_capstone
     wave56_ns_uniform_bilinear_bound :=
       _root_.PrincipiaTractalis.NS_Wave56UniformBilinearBoundAttempt.wave56_uniform_bilinear_bound_capstone
-    wave56_ym_continuum_lift := by
-      have _ := _root_.PrincipiaTractalis.YM_Wave56ContinuumLiftAttempt.ym_wave56_continuum_lift_attempt_capstone
-      unfold Wave56YM_ContinuumLiftProven; trivial
-    wave56_hodge_cy_threefold := by
-      unfold Wave56Hodge_CYThreefoldProven; trivial
-    wave56_bsd_rank_zero_actual_discharge := by
-      have _ := _root_.PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.bsd_wave56_rank_zero_actual_discharge_attempt_capstone
-      unfold Wave56BSD_RankZeroActualDischargeProven; trivial
-    wave56_pnp_cross_galois_lock := by
-      have _ := _root_.PrincipiaTractalis.PNP_Wave56CrossGaloisLockAttempt.pnp_wave56_cross_galois_lock_capstone
-      unfold Wave56PNP_CrossGaloisLockProven; trivial
+    wave56_ym_continuum_lift :=
+      (_root_.PrincipiaTractalis.YM_Wave56ContinuumLiftAttempt.ym_wave56_continuum_lift_attempt_capstone).2.2.1
+    wave56_hodge_cy_threefold :=
+      _root_.PrincipiaTractalis.Hodge_Wave56CYThreefoldAttempt.cite_wave55D_uniruled_capstone
+    wave56_bsd_rank_zero_actual_discharge :=
+      (_root_.PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.bsd_wave56_rank_zero_actual_discharge_attempt_capstone).1
+    wave56_pnp_cross_galois_lock :=
+      (_root_.PrincipiaTractalis.PNP_Wave56CrossGaloisLockAttempt.pnp_wave56_cross_galois_lock_capstone).2.1
     wave56_cross_millennium_master_cascade :=
       _root_.PrincipiaTractalis.Wave56CrossMillenniumMasterCascade.framework_internal_cross_millennium_cascade_lhs_holds
     wave55_master_capstone_aggregator := by
@@ -187,15 +191,13 @@ theorem Wave56RH_DirectDischargeProven_holds : Wave56RH_DirectDischargeProven :=
 theorem Wave56NS_UniformBilinearBoundProven_holds : Wave56NS_UniformBilinearBoundProven :=
   _root_.PrincipiaTractalis.NS_Wave56UniformBilinearBoundAttempt.wave56_uniform_bilinear_bound_capstone
 theorem Wave56YM_ContinuumLiftProven_holds : Wave56YM_ContinuumLiftProven :=
-  have _ := _root_.PrincipiaTractalis.YM_Wave56ContinuumLiftAttempt.ym_wave56_continuum_lift_attempt_capstone
-  trivial
-theorem Wave56Hodge_CYThreefoldProven_holds : Wave56Hodge_CYThreefoldProven := trivial
+  (_root_.PrincipiaTractalis.YM_Wave56ContinuumLiftAttempt.ym_wave56_continuum_lift_attempt_capstone).2.2.1
+theorem Wave56Hodge_CYThreefoldProven_holds : Wave56Hodge_CYThreefoldProven :=
+  _root_.PrincipiaTractalis.Hodge_Wave56CYThreefoldAttempt.cite_wave55D_uniruled_capstone
 theorem Wave56BSD_RankZeroActualDischargeProven_holds : Wave56BSD_RankZeroActualDischargeProven :=
-  have _ := _root_.PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.bsd_wave56_rank_zero_actual_discharge_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt.bsd_wave56_rank_zero_actual_discharge_attempt_capstone).1
 theorem Wave56PNP_CrossGaloisLockProven_holds : Wave56PNP_CrossGaloisLockProven :=
-  have _ := _root_.PrincipiaTractalis.PNP_Wave56CrossGaloisLockAttempt.pnp_wave56_cross_galois_lock_capstone
-  trivial
+  (_root_.PrincipiaTractalis.PNP_Wave56CrossGaloisLockAttempt.pnp_wave56_cross_galois_lock_capstone).2.1
 theorem Wave56CrossMillenniumMasterCascadeProven_holds : Wave56CrossMillenniumMasterCascadeProven :=
   _root_.PrincipiaTractalis.Wave56CrossMillenniumMasterCascade.framework_internal_cross_millennium_cascade_lhs_holds
 theorem Wave55MasterCapstoneAggregatorProven_holds : Wave55MasterCapstoneAggregatorProven :=

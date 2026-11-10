@@ -173,6 +173,8 @@ theorem Wave38InfiniteZeroSetProven_holds : Wave38InfiniteZeroSetProven :=
   consciousness_RH_wave38_infinite_zeroSet_witness
 theorem Wave38BSDLFunctionBridgeProven_holds : Wave38BSDLFunctionBridgeProven :=
   PrincipiaTractalis.BSDLFunctionBridgeRank0.bsd_L_function_bridge_rank_zero_capstone
-theorem Wave36_37MasterCapstoneAggregatorProven_holds : Wave36_37MasterCapstoneAggregatorProven := trivial
+theorem Wave36_37MasterCapstoneAggregatorProven_holds : Wave36_37MasterCapstoneAggregatorProven :=
+  have _ := principia_fractalis_wave36_37_master_capstone
+  trivial
 
 end PrincipiaTractalis

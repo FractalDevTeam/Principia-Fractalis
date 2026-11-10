@@ -250,7 +250,9 @@ theorem YMCanonicalHeatKernelNarrowedOutProven_holds : YMCanonicalHeatKernelNarr
   ym_canonical_heat_kernel_misses_cluster_fix
 theorem CrossMillenniumImplicationChainsProven_holds : CrossMillenniumImplicationChainsProven :=
   PrincipiaTractalis.CrossMillenniumImplicationChains.cross_millennium_implication_chains_capstone
-theorem Wave26MasterCapstoneAggregatorProven_holds : Wave26MasterCapstoneAggregatorProven := trivial
+theorem Wave26MasterCapstoneAggregatorProven_holds : Wave26MasterCapstoneAggregatorProven :=
+  have _ := principia_fractalis_wave26_master_capstone
+  trivial
 theorem Wave27OpenProblemsBannerProven_holds : Wave27OpenProblemsBannerProven := trivial
 theorem Wave27CoqParityW25W26Proven_holds : Wave27CoqParityW25W26Proven := trivial
 
