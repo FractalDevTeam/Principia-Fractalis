@@ -107,18 +107,25 @@ def Wave53T3SymContinuousSpectralMeasureProven : Prop :=
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave53StrongFormDivFreeNonConstantWitnessProven : Prop :=
   PrincipiaTractalis.StrongFormDivFreeNonConstantWitness.Wave53BNonConstantWitnessStatus
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave53GalerkinPDEBilinearBridgeProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave53YMWightmanVacuumToyProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
+-- 2026-11-10 RESTATE: pinned to GalerkinToPDEBilinearBridge clause (A) of galerkin_pde_bilinear_bridge_attempt_capstone.
+def Wave53GalerkinPDEBilinearBridgeProven : Prop :=
+  _root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.GalerkinToPDEBilinearBridge
+-- 2026-11-10 RESTATE: pinned to vacuum normalisation clause (1) of ym_wightman_vacuum_toy_attempt_capstone.
+def Wave53YMWightmanVacuumToyProven : Prop :=
+  ∀ N : ℕ, @inner ℝ _ _ (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.vac N)
+    (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.vac N) = 1
+-- VACUITY BANNER: cite_wave47E rfl-only capstone; marker preserved.
 def Wave53HodgeCodim2CmAbelian5FoldProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave53BSDRankZeroFullArgumentProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave53BSDModularFormAnAgreementProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave53RigidGaloisNormAxisProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to L_partial_E32a3_at_1_real > 0 clause (C1) of bsd_rank_zero_full_argument_attempt_capstone.
+def Wave53BSDRankZeroFullArgumentProven : Prop :=
+  0 < _root_.PrincipiaTractalis.BSDLPartialEvaluationAttempt.L_partial_E32a3_at_1_real
+-- 2026-11-10 RESTATE: pinned to bSeq_32_2_a_a 2 = 0 clause (T1) of bsd_modular_form_an_agreement_attempt_capstone.
+def Wave53BSDModularFormAnAgreementProven : Prop :=
+  _root_.PrincipiaTractalis.BSDModularFormAnAgreementAttempt.bSeq_32_2_a_a 2 = 0
+-- 2026-11-10 RESTATE: pinned to alpha_P * alpha_P_sigma = -2 clause (1) of rigid_galois_norm_axis_capstone.
+def Wave53RigidGaloisNormAxisProven : Prop :=
+  _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.α_P *
+    _root_.PrincipiaTractalis.RigidGaloisNormAxis.α_P_sigma = -2
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave52MasterCapstoneAggregatorProven : Prop := True
 
@@ -146,24 +153,19 @@ theorem wave53_additions_hold : Wave53Additions :=
       PrincipiaTractalis.T3SymContinuousSpectralMeasureAttempt.t3_sym_continuous_spectral_measure_attempt_capstone
     wave53_strong_form_div_free_non_constant :=
       PrincipiaTractalis.StrongFormDivFreeNonConstantWitness.strong_form_div_free_nonconstant_witness_capstone
-    wave53_galerkin_pde_bilinear_bridge := by
-      have _ := _root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.galerkin_pde_bilinear_bridge_attempt_capstone
-      unfold Wave53GalerkinPDEBilinearBridgeProven; trivial
-    wave53_ym_wightman_vacuum_toy := by
-      have _ := _root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.ym_wightman_vacuum_toy_attempt_capstone
-      unfold Wave53YMWightmanVacuumToyProven; trivial
+    wave53_galerkin_pde_bilinear_bridge :=
+      (_root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.galerkin_pde_bilinear_bridge_attempt_capstone).1
+    wave53_ym_wightman_vacuum_toy :=
+      (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.ym_wightman_vacuum_toy_attempt_capstone).1
     wave53_hodge_codim_2_cm_abelian_5fold := by
       have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.hodge_codim_2_cmAbelian5Fold_first_principles_capstone
       unfold Wave53HodgeCodim2CmAbelian5FoldProven; trivial
-    wave53_bsd_rank_zero_full_argument := by
-      have _ := _root_.PrincipiaTractalis.BSDRankZeroFullArgumentAttempt.bsd_rank_zero_full_argument_attempt_capstone
-      unfold Wave53BSDRankZeroFullArgumentProven; trivial
-    wave53_bsd_modular_form_an_agreement := by
-      have _ := _root_.PrincipiaTractalis.BSDModularFormAnAgreementAttempt.bsd_modular_form_an_agreement_attempt_capstone
-      unfold Wave53BSDModularFormAnAgreementProven; trivial
-    wave53_rigid_galois_norm_axis := by
-      have _ := _root_.PrincipiaTractalis.RigidGaloisNormAxis.rigid_galois_norm_axis_capstone
-      unfold Wave53RigidGaloisNormAxisProven; trivial
+    wave53_bsd_rank_zero_full_argument :=
+      (_root_.PrincipiaTractalis.BSDRankZeroFullArgumentAttempt.bsd_rank_zero_full_argument_attempt_capstone).1
+    wave53_bsd_modular_form_an_agreement :=
+      (_root_.PrincipiaTractalis.BSDModularFormAnAgreementAttempt.bsd_modular_form_an_agreement_attempt_capstone).1
+    wave53_rigid_galois_norm_axis :=
+      (_root_.PrincipiaTractalis.RigidGaloisNormAxis.rigid_galois_norm_axis_capstone).1
     wave52_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave52_master_capstone
       unfold Wave52MasterCapstoneAggregatorProven; trivial }
@@ -188,23 +190,18 @@ theorem Wave53T3SymContinuousSpectralMeasureProven_holds : Wave53T3SymContinuous
 theorem Wave53StrongFormDivFreeNonConstantWitnessProven_holds : Wave53StrongFormDivFreeNonConstantWitnessProven :=
   PrincipiaTractalis.StrongFormDivFreeNonConstantWitness.strong_form_div_free_nonconstant_witness_capstone
 theorem Wave53GalerkinPDEBilinearBridgeProven_holds : Wave53GalerkinPDEBilinearBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.galerkin_pde_bilinear_bridge_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.galerkin_pde_bilinear_bridge_attempt_capstone).1
 theorem Wave53YMWightmanVacuumToyProven_holds : Wave53YMWightmanVacuumToyProven :=
-  have _ := _root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.ym_wightman_vacuum_toy_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.ym_wightman_vacuum_toy_attempt_capstone).1
 theorem Wave53HodgeCodim2CmAbelian5FoldProven_holds : Wave53HodgeCodim2CmAbelian5FoldProven :=
   have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.hodge_codim_2_cmAbelian5Fold_first_principles_capstone
   trivial
 theorem Wave53BSDRankZeroFullArgumentProven_holds : Wave53BSDRankZeroFullArgumentProven :=
-  have _ := _root_.PrincipiaTractalis.BSDRankZeroFullArgumentAttempt.bsd_rank_zero_full_argument_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDRankZeroFullArgumentAttempt.bsd_rank_zero_full_argument_attempt_capstone).1
 theorem Wave53BSDModularFormAnAgreementProven_holds : Wave53BSDModularFormAnAgreementProven :=
-  have _ := _root_.PrincipiaTractalis.BSDModularFormAnAgreementAttempt.bsd_modular_form_an_agreement_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDModularFormAnAgreementAttempt.bsd_modular_form_an_agreement_attempt_capstone).1
 theorem Wave53RigidGaloisNormAxisProven_holds : Wave53RigidGaloisNormAxisProven :=
-  have _ := _root_.PrincipiaTractalis.RigidGaloisNormAxis.rigid_galois_norm_axis_capstone
-  trivial
+  (_root_.PrincipiaTractalis.RigidGaloisNormAxis.rigid_galois_norm_axis_capstone).1
 theorem Wave52MasterCapstoneAggregatorProven_holds : Wave52MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave52_master_capstone
   trivial
