@@ -128,8 +128,12 @@ def Wave51NSVortexStretchingUniformGalerkinProven : Prop :=
     ‖_root_.PrincipiaTractalis.NS3DVortexStretchingObstruction.VortexStretching3D ω g‖ ≤ 2 * ‖ω‖ * ‖g‖
 -- VACUITY BANNER: parametric by n, t, x; marker preserved as Prop := True.
 def Wave51YMReflectionPositivity3plus1DRank2Proven : Prop := True
--- VACUITY BANNER: cite_wave47E rfl-only; marker preserved.
-def Wave51HodgeMixedCmRankOneProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to HodgeConjectureChow clause (1) of hodge_codim_2_mixedCmRankOne_first_principles_capstone.
+def Wave51HodgeMixedCmRankOneProven : Prop :=
+  ∀ class_idx : ℕ,
+    _root_.PrincipiaTractalis.AlgebraicGeometry.HodgeConjectureChow
+      (_root_.PrincipiaTractalis.AlgebraicGeometry.CodimTwoAmbient
+        _root_.PrincipiaTractalis.HodgeCodim2MixedCmRankOneAttempt.mixedCmRankOneAbelian3FoldSubstrate.cy3Dim22) 2
 -- 2026-11-10 RESTATE: pinned to a_p 37 = -2 clause (T1) of bsd_L_partial_evaluation_extended_attempt_capstone.
 def Wave51BSDLPartialEvaluationExtendedProven : Prop :=
   _root_.PrincipiaTractalis.BSDFrobeniusTraceAttempt.a_p 37 = -2
@@ -174,9 +178,8 @@ theorem wave51_additions_hold : Wave51Additions :=
     wave51_ym_reflection_positivity_3plus1D_rank2 := by
       have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRank2Attempt.ym_reflection_positivity_3plus1d_rank2_attempt_capstone
       unfold Wave51YMReflectionPositivity3plus1DRank2Proven; trivial
-    wave51_hodge_mixed_cm_rank_one := by
-      have _ := _root_.PrincipiaTractalis.HodgeCodim2MixedCmRankOneAttempt.hodge_codim_2_mixedCmRankOne_first_principles_capstone
-      unfold Wave51HodgeMixedCmRankOneProven; trivial
+    wave51_hodge_mixed_cm_rank_one := fun class_idx =>
+      (_root_.PrincipiaTractalis.HodgeCodim2MixedCmRankOneAttempt.hodge_codim_2_mixedCmRankOne_first_principles_capstone class_idx).1
     wave51_bsd_L_partial_evaluation_extended :=
       (_root_.PrincipiaTractalis.BSDLPartialEvaluationExtendedAttempt.bsd_L_partial_evaluation_extended_attempt_capstone).1
     wave51_bsd_coates_wiles_rank_zero :=
@@ -211,9 +214,8 @@ theorem Wave51NSVortexStretchingUniformGalerkinProven_holds : Wave51NSVortexStre
 theorem Wave51YMReflectionPositivity3plus1DRank2Proven_holds : Wave51YMReflectionPositivity3plus1DRank2Proven :=
   have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRank2Attempt.ym_reflection_positivity_3plus1d_rank2_attempt_capstone
   trivial
-theorem Wave51HodgeMixedCmRankOneProven_holds : Wave51HodgeMixedCmRankOneProven :=
-  have _ := _root_.PrincipiaTractalis.HodgeCodim2MixedCmRankOneAttempt.hodge_codim_2_mixedCmRankOne_first_principles_capstone
-  trivial
+theorem Wave51HodgeMixedCmRankOneProven_holds : Wave51HodgeMixedCmRankOneProven := fun class_idx =>
+  (_root_.PrincipiaTractalis.HodgeCodim2MixedCmRankOneAttempt.hodge_codim_2_mixedCmRankOne_first_principles_capstone class_idx).1
 theorem Wave51BSDLPartialEvaluationExtendedProven_holds : Wave51BSDLPartialEvaluationExtendedProven :=
   (_root_.PrincipiaTractalis.BSDLPartialEvaluationExtendedAttempt.bsd_L_partial_evaluation_extended_attempt_capstone).1
 theorem Wave51BSDCoatesWilesRankZeroProven_holds : Wave51BSDCoatesWilesRankZeroProven :=
