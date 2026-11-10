@@ -76,11 +76,41 @@ namespace PrincipiaTractalis
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_strict_monotone_realises_cluster_fix_only_at_pointwise`
     (Wave 32 SHARP partial-elimination). -/
-def YMCanonicalStrictMonotoneSharpProven : Prop := True
+def YMCanonicalStrictMonotoneSharpProven : Prop :=
+  ((fun x : ℝ => x) (1/2) = 1/2 ∧ (fun x : ℝ => x) (3/2) = 3/2) ∧
+  (∀ f : ℝ → ℝ, StrictMono f →
+     ¬ (f (1/2) = 1/2 ∧ f (3/2) = 1/2)) ∧
+  (∀ f : ℝ → ℝ, StrictMono f →
+     ¬ (f (1/2) = 3/2 ∧ f (3/2) = 3/2)) ∧
+  (∀ f : ℝ → ℝ, StrictMono f →
+     ¬ (f (1/2) = 3/2 ∧ f (3/2) = 1/2)) ∧
+  (∀ alpha beta : ℝ, 0 < beta →
+     ¬ (linearMonotoneMap alpha beta (1/2) = 1/2 ∧
+        linearMonotoneMap alpha beta (3/2) = 1/2)) ∧
+  (∀ alpha beta : ℝ, 0 < beta →
+     ¬ (linearMonotoneMap alpha beta (1/2) = 3/2 ∧
+        linearMonotoneMap alpha beta (3/2) = 3/2)) ∧
+  (∀ alpha beta : ℝ, 0 < beta →
+     ¬ (linearMonotoneMap alpha beta (1/2) = 3/2 ∧
+        linearMonotoneMap alpha beta (3/2) = 1/2)) ∧
+  StrictMono (fun x : ℝ => x)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_convex_imposes_off_cluster_bounds_at_one`
     (Wave 32 orthogonal structural axis). -/
-def YMCanonicalConvexOffClusterBoundProven : Prop := True
+def YMCanonicalConvexOffClusterBoundProven : Prop :=
+  (∀ f : ℝ → ℝ, MidpointConvex f →
+     f (1/2) = 1/2 → f (3/2) = 3/2 → f 1 ≤ 1) ∧
+  (∀ f : ℝ → ℝ, MidpointConvex f →
+     f (1/2) = 3/2 → f (3/2) = 1/2 → f 1 ≤ 1) ∧
+  (∀ f : ℝ → ℝ, MidpointConvex f →
+     f (1/2) = 1/2 → f (3/2) = 1/2 → f 1 ≤ 1/2) ∧
+  (∀ f : ℝ → ℝ, MidpointConvex f →
+     f (1/2) = 3/2 → f (3/2) = 3/2 → f 1 ≤ 3/2) ∧
+  (MidpointConvex idMap ∧
+   idMap (1/2) = 1/2 ∧
+   idMap (3/2) = 3/2 ∧
+   idMap 1 = 1 ∧
+   idMap 1 ≤ 1)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 31 META aggregator (`974ed24`); pinned here for
     traceability of the Wave 32 META layer. -/
@@ -153,10 +183,10 @@ structure Wave32MasterCapstone : Prop where
 /-- **Wave 32 additions hold axiom-free.** Provenness tags pinned
     via Section 4 citation theorems. -/
 theorem wave32_additions_hold : Wave32Additions :=
-  { ym_canonical_strict_monotone_sharp := by
-      unfold YMCanonicalStrictMonotoneSharpProven; trivial
-    ym_canonical_convex_off_cluster_bound := by
-      unfold YMCanonicalConvexOffClusterBoundProven; trivial
+  { ym_canonical_strict_monotone_sharp :=
+      ym_canonical_strict_monotone_realises_cluster_fix_only_at_pointwise
+    ym_canonical_convex_off_cluster_bound :=
+      ym_canonical_convex_imposes_off_cluster_bounds_at_one
     wave31_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave31_master_capstone
       unfold Wave31MasterCapstoneAggregatorProven; trivial }
@@ -210,8 +240,10 @@ theorem cite_ym_canonical_convex_off_cluster_bound :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem YMCanonicalStrictMonotoneSharpProven_holds : YMCanonicalStrictMonotoneSharpProven := trivial
-theorem YMCanonicalConvexOffClusterBoundProven_holds : YMCanonicalConvexOffClusterBoundProven := trivial
+theorem YMCanonicalStrictMonotoneSharpProven_holds : YMCanonicalStrictMonotoneSharpProven :=
+  ym_canonical_strict_monotone_realises_cluster_fix_only_at_pointwise
+theorem YMCanonicalConvexOffClusterBoundProven_holds : YMCanonicalConvexOffClusterBoundProven :=
+  ym_canonical_convex_imposes_off_cluster_bounds_at_one
 theorem Wave31MasterCapstoneAggregatorProven_holds : Wave31MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave31_master_capstone
   trivial
