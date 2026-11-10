@@ -102,9 +102,11 @@ namespace PrincipiaTractalis
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave53T3SymContinuousSpectralMeasureProven : Prop := True
+def Wave53T3SymContinuousSpectralMeasureProven : Prop :=
+  PrincipiaTractalis.T3SymContinuousSpectralMeasureAttempt.T3SymContinuousSpectralMeasureBundle
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave53StrongFormDivFreeNonConstantWitnessProven : Prop := True
+def Wave53StrongFormDivFreeNonConstantWitnessProven : Prop :=
+  PrincipiaTractalis.StrongFormDivFreeNonConstantWitness.Wave53BNonConstantWitnessStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave53GalerkinPDEBilinearBridgeProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -140,12 +142,10 @@ structure Wave53MasterCapstone : Prop where
   wave_53 : Wave53Additions
 
 theorem wave53_additions_hold : Wave53Additions :=
-  { wave53_t3_sym_continuous_spectral_measure := by
-      have _ := _root_.PrincipiaTractalis.T3SymContinuousSpectralMeasureAttempt.t3_sym_continuous_spectral_measure_attempt_capstone
-      unfold Wave53T3SymContinuousSpectralMeasureProven; trivial
-    wave53_strong_form_div_free_non_constant := by
-      have _ := _root_.PrincipiaTractalis.StrongFormDivFreeNonConstantWitness.strong_form_div_free_nonconstant_witness_capstone
-      unfold Wave53StrongFormDivFreeNonConstantWitnessProven; trivial
+  { wave53_t3_sym_continuous_spectral_measure :=
+      PrincipiaTractalis.T3SymContinuousSpectralMeasureAttempt.t3_sym_continuous_spectral_measure_attempt_capstone
+    wave53_strong_form_div_free_non_constant :=
+      PrincipiaTractalis.StrongFormDivFreeNonConstantWitness.strong_form_div_free_nonconstant_witness_capstone
     wave53_galerkin_pde_bilinear_bridge := by
       have _ := _root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.galerkin_pde_bilinear_bridge_attempt_capstone
       unfold Wave53GalerkinPDEBilinearBridgeProven; trivial
@@ -182,11 +182,9 @@ theorem wave53_master_capstone_axiom_free : True := trivial
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave53T3SymContinuousSpectralMeasureProven_holds : Wave53T3SymContinuousSpectralMeasureProven :=
-  have _ := _root_.PrincipiaTractalis.T3SymContinuousSpectralMeasureAttempt.t3_sym_continuous_spectral_measure_attempt_capstone
-  trivial
+  PrincipiaTractalis.T3SymContinuousSpectralMeasureAttempt.t3_sym_continuous_spectral_measure_attempt_capstone
 theorem Wave53StrongFormDivFreeNonConstantWitnessProven_holds : Wave53StrongFormDivFreeNonConstantWitnessProven :=
-  have _ := _root_.PrincipiaTractalis.StrongFormDivFreeNonConstantWitness.strong_form_div_free_nonconstant_witness_capstone
-  trivial
+  PrincipiaTractalis.StrongFormDivFreeNonConstantWitness.strong_form_div_free_nonconstant_witness_capstone
 theorem Wave53GalerkinPDEBilinearBridgeProven_holds : Wave53GalerkinPDEBilinearBridgeProven :=
   have _ := _root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.galerkin_pde_bilinear_bridge_attempt_capstone
   trivial
