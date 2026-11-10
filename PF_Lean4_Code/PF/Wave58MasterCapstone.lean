@@ -84,17 +84,28 @@ structure Wave58Additions : Prop where
       `PF/Analytic/T3SymMercerTailT3SymDischarge.lean`). -/
   t3sym_mercer_tail_reduction : True
   /-- BSD (A3): L-series absolute convergence on Re s > 3/2 from
-      Hasse-Weil tower bound (provenness marker — actual theorem is
-      `lSeriesSummable_of_hasseTower_on_open_halfplane`). -/
-  bsd_a3_strengthened : True
-  /-- BSD (A4): Wiles modularity → analytic continuation
-      (provenness marker — actual theorem is
-      `wave57BSD_A4_strengthened`). -/
-  bsd_a4_strengthened : True
-  /-- Jonquieres global identity IFF biconditional landed
-      (provenness marker — actual theorem is
-      `literal_iff_reduced_and_negReal_strong`). -/
-  jonquieres_global_identity_status : True
+      Hasse-Weil ε-tower bound. 2026-11-09 RESTATE: real statement of
+      `lSeriesSummable_of_hasseTower_on_open_halfplane`. -/
+  bsd_a3_strengthened :
+    ∀ {f : ℕ → ℂ},
+      PrincipiaTractalis.BSD_LSeriesAbsConvergenceDischarge.WilesEpsilonHasseTowerHolds f →
+      ∀ {s : ℂ}, (3 : ℝ) / 2 < s.re → LSeriesSummable f s
+  /-- BSD (A4): Wiles modularity → analytic continuation. 2026-11-09
+      RESTATE: real statement of `wave57BSD_A4_strengthened`. -/
+  bsd_a4_strengthened :
+    ∀ {f : ℕ → ℂ} {x : ℝ},
+      PrincipiaTractalis.BSDWilesModularityAttempt.Wiles1995ModularityTheorem →
+      PrincipiaTractalis.BSD_WilesModularityAnalyticContinuationDischarge.ModularFormYieldsAnalyticContinuation f x →
+      ∃ Λ : ℂ → ℂ,
+        (∀ s : ℂ, DifferentiableAt ℂ Λ s) ∧
+        (∀ s : ℂ, x < s.re → Λ s = LSeries f s)
+  /-- Jonquieres global identity IFF biconditional. 2026-11-09 RESTATE:
+      real biconditional from `literal_iff_reduced_and_negReal_strong`. -/
+  jonquieres_global_identity_status :
+    ∀ s : ℂ,
+      PrincipiaTractalis.Analytic.Sheaf.JonquieresGlobalIdentityHypothesis s ↔
+        (PrincipiaTractalis.Analytic.Sheaf.JonquieresGlobalIdentityHypothesisReduced s ∧
+          PrincipiaTractalis.Analytic.Sheaf.NegRealExtensionWithDiscAgreementHypothesis s)
   /-- The TF partial-trace projective compatibility — axiom-free
       backing for ProjectiveCompatibility on the genuine ch04
       Def 4.5 morphism. -/
@@ -182,9 +193,12 @@ theorem wave58_additions_hold : Wave58Additions where
   pf_complete_framework :=
     PF.Referee.PFCompleteFrameworkCapstone.pfCompleteFramework_realized
   t3sym_mercer_tail_reduction := trivial
-  bsd_a3_strengthened := trivial
-  bsd_a4_strengthened := trivial
-  jonquieres_global_identity_status := trivial
+  bsd_a3_strengthened :=
+    @PrincipiaTractalis.BSD_LSeriesAbsConvergenceDischarge.lSeriesSummable_of_hasseTower_on_open_halfplane
+  bsd_a4_strengthened :=
+    @PrincipiaTractalis.BSD_WilesModularityAnalyticContinuationDischarge.wave57BSD_A4_strengthened
+  jonquieres_global_identity_status :=
+    PrincipiaTractalis.Analytic.Sheaf.literal_iff_reduced_and_negReal_strong
   tf_partial_trace_compatibility :=
     PrincipiaTractalis.TimelessField.partialTraceMorphism_projective_compatible
   cross_millennium_rigidity :=
