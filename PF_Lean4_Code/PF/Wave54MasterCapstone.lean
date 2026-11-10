@@ -110,11 +110,14 @@ namespace PrincipiaTractalis
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave54T3SymConcentratedSpectralMeasureProven : Prop := True
+def Wave54T3SymConcentratedSpectralMeasureProven : Prop :=
+  PrincipiaTractalis.T3SymConcentratedSpectralMeasureAttempt.T3SymConcentratedSpectralMeasureBundle
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave54StrongFormDivFreeSinModeWitnessProven : Prop := True
+def Wave54StrongFormDivFreeSinModeWitnessProven : Prop :=
+  PrincipiaTractalis.StrongFormDivFreeSinModeWitness.Wave54BSinModeWitnessStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave54GalerkinPDEConcreteInstanceProven : Prop := True
+def Wave54GalerkinPDEConcreteInstanceProven : Prop :=
+  PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.ConcreteInstanceStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave54YMMassGapPropagationToyProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -145,15 +148,12 @@ structure Wave54MasterCapstone : Prop where
   wave_54 : Wave54Additions
 
 theorem wave54_additions_hold : Wave54Additions :=
-  { wave54_t3_sym_concentrated_spectral_measure := by
-      have _ := _root_.PrincipiaTractalis.T3SymConcentratedSpectralMeasureAttempt.t3_sym_concentrated_spectral_measure_attempt_capstone
-      unfold Wave54T3SymConcentratedSpectralMeasureProven; trivial
-    wave54_strong_form_div_free_sin_mode := by
-      have _ := _root_.PrincipiaTractalis.StrongFormDivFreeSinModeWitness.strong_form_div_free_sinmode_witness_capstone
-      unfold Wave54StrongFormDivFreeSinModeWitnessProven; trivial
-    wave54_galerkin_pde_concrete_instance := by
-      have _ := _root_.PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.galerkin_pde_concrete_instance_attempt_capstone
-      unfold Wave54GalerkinPDEConcreteInstanceProven; trivial
+  { wave54_t3_sym_concentrated_spectral_measure :=
+      PrincipiaTractalis.T3SymConcentratedSpectralMeasureAttempt.t3_sym_concentrated_spectral_measure_attempt_capstone
+    wave54_strong_form_div_free_sin_mode :=
+      PrincipiaTractalis.StrongFormDivFreeSinModeWitness.strong_form_div_free_sinmode_witness_capstone
+    wave54_galerkin_pde_concrete_instance :=
+      PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.galerkin_pde_concrete_instance_attempt_capstone
     wave54_ym_mass_gap_propagation_toy := by
       have _ := _root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.ym_mass_gap_propagation_toy_attempt_capstone
       unfold Wave54YMMassGapPropagationToyProven; trivial
@@ -178,14 +178,11 @@ theorem wave54_master_capstone_axiom_free : True := trivial
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave54T3SymConcentratedSpectralMeasureProven_holds : Wave54T3SymConcentratedSpectralMeasureProven :=
-  have _ := _root_.PrincipiaTractalis.T3SymConcentratedSpectralMeasureAttempt.t3_sym_concentrated_spectral_measure_attempt_capstone
-  trivial
+  PrincipiaTractalis.T3SymConcentratedSpectralMeasureAttempt.t3_sym_concentrated_spectral_measure_attempt_capstone
 theorem Wave54StrongFormDivFreeSinModeWitnessProven_holds : Wave54StrongFormDivFreeSinModeWitnessProven :=
-  have _ := _root_.PrincipiaTractalis.StrongFormDivFreeSinModeWitness.strong_form_div_free_sinmode_witness_capstone
-  trivial
+  PrincipiaTractalis.StrongFormDivFreeSinModeWitness.strong_form_div_free_sinmode_witness_capstone
 theorem Wave54GalerkinPDEConcreteInstanceProven_holds : Wave54GalerkinPDEConcreteInstanceProven :=
-  have _ := _root_.PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.galerkin_pde_concrete_instance_attempt_capstone
-  trivial
+  PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.galerkin_pde_concrete_instance_attempt_capstone
 theorem Wave54YMMassGapPropagationToyProven_holds : Wave54YMMassGapPropagationToyProven :=
   have _ := _root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.ym_mass_gap_propagation_toy_attempt_capstone
   trivial
