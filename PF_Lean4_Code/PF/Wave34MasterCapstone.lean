@@ -85,11 +85,14 @@ namespace PrincipiaTractalis
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `uniform_hadamard_bound_all_n_holds` (Wave 34 POSITIVE — discharges
     the Wave 33 named open Prop). -/
-def UniformHadamardBoundAllNDischargedProven : Prop := True
+def UniformHadamardBoundAllNDischargedProven : Prop :=
+  PrincipiaTractalis.NS3DGlobalKTAttempt.UniformHadamardBoundAllN
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `uniform_hadamard_discharges_galerkin_shadow_K_T` (Wave 34 — first
     unconditional Galerkin-shadow K_T = 2). -/
-def UnconditionalGalerkinShadowKTProven : Prop := True
+def UnconditionalGalerkinShadowKTProven : Prop :=
+  ∀ (T : ℝ), 0 < T →
+    PrincipiaTractalis.NS3DGlobalKTAttempt.GlobalKTGalerkinShadow T 2
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 33 META aggregator (`5088eff`); pinned here for traceability
     of the Wave 34 META layer. -/
@@ -147,10 +150,10 @@ structure Wave34MasterCapstone : Prop where
 /-- **Wave 34 additions hold axiom-free.** Provenness tags pinned
     via Section 4 citation theorems. -/
 theorem wave34_additions_hold : Wave34Additions :=
-  { uniform_hadamard_bound_all_n_discharged := by
-      unfold UniformHadamardBoundAllNDischargedProven; trivial
-    unconditional_galerkin_shadow_K_T := by
-      unfold UnconditionalGalerkinShadowKTProven; trivial
+  { uniform_hadamard_bound_all_n_discharged :=
+      PrincipiaTractalis.NS3DUniformHadamardDischargeAttempt.uniform_hadamard_bound_all_n_holds
+    unconditional_galerkin_shadow_K_T := fun T hT =>
+      PrincipiaTractalis.NS3DUniformHadamardDischargeAttempt.uniform_hadamard_discharges_galerkin_shadow_K_T T hT
     wave33_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave33_master_capstone
       unfold Wave33MasterCapstoneAggregatorProven; trivial }
@@ -206,8 +209,10 @@ theorem cite_unconditional_galerkin_shadow_K_T :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem UniformHadamardBoundAllNDischargedProven_holds : UniformHadamardBoundAllNDischargedProven := trivial
-theorem UnconditionalGalerkinShadowKTProven_holds : UnconditionalGalerkinShadowKTProven := trivial
+theorem UniformHadamardBoundAllNDischargedProven_holds : UniformHadamardBoundAllNDischargedProven :=
+  PrincipiaTractalis.NS3DUniformHadamardDischargeAttempt.uniform_hadamard_bound_all_n_holds
+theorem UnconditionalGalerkinShadowKTProven_holds : UnconditionalGalerkinShadowKTProven := fun T hT =>
+  PrincipiaTractalis.NS3DUniformHadamardDischargeAttempt.uniform_hadamard_discharges_galerkin_shadow_K_T T hT
 theorem Wave33MasterCapstoneAggregatorProven_holds : Wave33MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave33_master_capstone
   trivial
