@@ -72,6 +72,7 @@ import PF.AlgebraicGeometry.VoisinCodimTwoConcreteInstance
 import PF.NavierStokes.NSPDETypedUpgrade
 import PF.TuringEncoding.PolylogEigenvalueTypedUpgrade
 import PF.Analytic.OnLineSurjectivityBaseCaseDischarge
+import PF.RHSurjectivityTypedUpgrade
 
 namespace PrincipiaTractalis
 
@@ -145,10 +146,11 @@ structure Wave58Additions : Prop where
   ym_wightman_continuum_gaps_typed_upgrade :
     _root_.PrincipiaTractalis.YM_WightmanContinuumGapsTypedUpgrade.BochnerMinlosTypedStatement
   /-- RHSpectralSurjectivityConjecture decomposed into 5 typed
-      sub-clauses, 3 of 5 discharged axiom-free, 14 theorems
-      total. Provenness marker — actual content in
-      `PF/RHSurjectivityTypedUpgrade.lean`. -/
-  rh_surjectivity_typed_decomposition : True
+      sub-clauses, 3 of 5 discharged axiom-free. 2026-11-10 RESTATE:
+      pinned to the universally quantified (C1) DISCHARGED clause. -/
+  rh_surjectivity_typed_decomposition :
+    ∀ (α : _root_.PrincipiaTractalis.ScalingParameter) (eigenvalues : ℕ → ℝ),
+      _root_.PrincipiaTractalis.RHSurjectivityTypedUpgrade.RangeOnCriticalLine α eigenvalues
   /-- PolylogEigenvalueConjecture decomposed into 4 typed sub-Props
       with ENUM-LEVEL MIRROR DISCHARGE UNCONDITIONAL on alpha_at_enum.
       2026-11-10 RESTATE: pinned to the real decomposition biconditional
@@ -233,7 +235,8 @@ theorem wave58_additions_hold : Wave58Additions where
     (_root_.PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.voisinObstructionTypedUpgrade_capstone).1
   ym_wightman_continuum_gaps_typed_upgrade :=
     (_root_.PrincipiaTractalis.YM_WightmanContinuumGapsTypedUpgrade.ym_wightman_continuum_gaps_typed_upgrade_capstone).1
-  rh_surjectivity_typed_decomposition := trivial
+  rh_surjectivity_typed_decomposition :=
+    _root_.PrincipiaTractalis.RHSurjectivityTypedUpgrade.rangeOnCriticalLine_holds
   polylog_eigenvalue_typed_decomposition :=
     (_root_.PrincipiaTractalis.TuringEncoding.polylog_eigenvalue_typed_upgrade_capstone).1
   online_surjectivity_sub_decomposition := trivial
