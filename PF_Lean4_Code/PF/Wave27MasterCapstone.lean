@@ -76,10 +76,34 @@ namespace PrincipiaTractalis
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_heat_kernel_misses_cluster_fix` (`a666399`). -/
-def YMCanonicalHeatKernelNarrowedOutProven : Prop := True
+def YMCanonicalHeatKernelNarrowedOutProven : Prop :=
+  (∀ t : ℝ, heatKernelInducedMap t (1/2) = 1 + t^2/8 - t/2 ∧
+            heatKernelInducedMap t (3/2) = 1 + 9*t^2/8 - 3*t/2) ∧
+  (¬ ∃ t : ℝ, heatKernelInducedMap t (1/2) = 1/2 ∧
+              heatKernelInducedMap t (3/2) = 1/2) ∧
+  (¬ ∃ t : ℝ, heatKernelInducedMap t (1/2) = 1/2 ∧
+              heatKernelInducedMap t (3/2) = 3/2) ∧
+  (¬ ∃ t : ℝ, heatKernelInducedMap t (1/2) = 3/2 ∧
+              heatKernelInducedMap t (3/2) = 1/2) ∧
+  (¬ ∃ t : ℝ, heatKernelInducedMap t (1/2) = 3/2 ∧
+              heatKernelInducedMap t (3/2) = 3/2)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `cross_millennium_implication_chains_capstone` (`e7f6576`). -/
-def CrossMillenniumImplicationChainsProven : Prop := True
+def CrossMillenniumImplicationChainsProven : Prop :=
+  (∀ {aP : ℝ}, CrossMillenniumImplicationChains.RealisesP aP →
+     CrossMillenniumImplicationChains.RealisesYM (aP ^ 2))
+  ∧ (∀ {aYM aBSD : ℝ},
+      CrossMillenniumImplicationChains.RealisesYM aYM →
+      CrossMillenniumImplicationChains.RealisesBSD aBSD →
+      CrossMillenniumImplicationChains.RealisesNS (aYM * aBSD))
+  ∧ (∀ {aRH aNS : ℝ},
+      CrossMillenniumImplicationChains.RealisesRH aRH →
+      CrossMillenniumImplicationChains.RealisesNS aNS →
+      CrossMillenniumImplicationChains.RealisesBSD (aRH * aNS - aNS))
+  ∧ (∀ {aNS : ℝ}, CrossMillenniumImplicationChains.RealisesNS aNS →
+      CrossMillenniumImplicationChains.RealisesBSD (aNS / 2))
+  ∧ (∀ {aH : ℝ}, CrossMillenniumImplicationChains.RealisesHodge aH →
+      aH = CrossMillenniumSharedInvariants.α_Hodge)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 26 META aggregator (`cce19f1`); pinned here for
     traceability of the Wave 27 META layer. -/
@@ -165,11 +189,10 @@ structure Wave27MasterCapstone : Prop where
 /-- **Wave 27 additions hold axiom-free.** Provenness tags
     pinned via Section 4 citation theorems. -/
 theorem wave27_additions_hold : Wave27Additions :=
-  { ym_canonical_heat_kernel_narrow_out := by
-      unfold YMCanonicalHeatKernelNarrowedOutProven; trivial
-    cross_millennium_implication_chains := by
-      have _ := _root_.PrincipiaTractalis.CrossMillenniumImplicationChains.cross_millennium_implication_chains_capstone
-      unfold CrossMillenniumImplicationChainsProven; trivial
+  { ym_canonical_heat_kernel_narrow_out :=
+      ym_canonical_heat_kernel_misses_cluster_fix
+    cross_millennium_implication_chains :=
+      PrincipiaTractalis.CrossMillenniumImplicationChains.cross_millennium_implication_chains_capstone
     wave26_master_capstone_aggregator := by
       unfold Wave26MasterCapstoneAggregatorProven; trivial
     wave27_open_problems_banner := by
@@ -221,10 +244,10 @@ theorem cite_cross_millennium_implication_chains :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem YMCanonicalHeatKernelNarrowedOutProven_holds : YMCanonicalHeatKernelNarrowedOutProven := trivial
+theorem YMCanonicalHeatKernelNarrowedOutProven_holds : YMCanonicalHeatKernelNarrowedOutProven :=
+  ym_canonical_heat_kernel_misses_cluster_fix
 theorem CrossMillenniumImplicationChainsProven_holds : CrossMillenniumImplicationChainsProven :=
-  have _ := _root_.PrincipiaTractalis.CrossMillenniumImplicationChains.cross_millennium_implication_chains_capstone
-  trivial
+  PrincipiaTractalis.CrossMillenniumImplicationChains.cross_millennium_implication_chains_capstone
 theorem Wave26MasterCapstoneAggregatorProven_holds : Wave26MasterCapstoneAggregatorProven := trivial
 theorem Wave27OpenProblemsBannerProven_holds : Wave27OpenProblemsBannerProven := trivial
 theorem Wave27CoqParityW25W26Proven_holds : Wave27CoqParityW25W26Proven := trivial
