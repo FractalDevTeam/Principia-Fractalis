@@ -114,8 +114,12 @@ def Wave53GalerkinPDEBilinearBridgeProven : Prop :=
 def Wave53YMWightmanVacuumToyProven : Prop :=
   ∀ N : ℕ, @inner ℝ _ _ (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.vac N)
     (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.vac N) = 1
--- VACUITY BANNER: cite_wave47E rfl-only capstone; marker preserved.
-def Wave53HodgeCodim2CmAbelian5FoldProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to HodgeAlgebraicRepresentation clause (1) of hodge_codim_2_cmAbelian5Fold_first_principles_capstone.
+def Wave53HodgeCodim2CmAbelian5FoldProven : Prop :=
+  ∀ class_idx : ℕ,
+    _root_.PrincipiaTractalis.MillenniumSix.HodgeAlgebraicRepresentation
+      _root_.PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.cmAbelian5FoldCodim2Substrate.toHodgeAmbient11
+      class_idx
 -- 2026-11-10 RESTATE: pinned to L_partial_E32a3_at_1_real > 0 clause (C1) of bsd_rank_zero_full_argument_attempt_capstone.
 def Wave53BSDRankZeroFullArgumentProven : Prop :=
   0 < _root_.PrincipiaTractalis.BSDLPartialEvaluationAttempt.L_partial_E32a3_at_1_real
@@ -157,9 +161,8 @@ theorem wave53_additions_hold : Wave53Additions :=
       (_root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.galerkin_pde_bilinear_bridge_attempt_capstone).1
     wave53_ym_wightman_vacuum_toy :=
       (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.ym_wightman_vacuum_toy_attempt_capstone).1
-    wave53_hodge_codim_2_cm_abelian_5fold := by
-      have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.hodge_codim_2_cmAbelian5Fold_first_principles_capstone
-      unfold Wave53HodgeCodim2CmAbelian5FoldProven; trivial
+    wave53_hodge_codim_2_cm_abelian_5fold := fun class_idx =>
+      (_root_.PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.hodge_codim_2_cmAbelian5Fold_first_principles_capstone class_idx).1
     wave53_bsd_rank_zero_full_argument :=
       (_root_.PrincipiaTractalis.BSDRankZeroFullArgumentAttempt.bsd_rank_zero_full_argument_attempt_capstone).1
     wave53_bsd_modular_form_an_agreement :=
@@ -193,9 +196,8 @@ theorem Wave53GalerkinPDEBilinearBridgeProven_holds : Wave53GalerkinPDEBilinearB
   (_root_.PrincipiaTractalis.GalerkinPDEBilinearBridgeAttempt.galerkin_pde_bilinear_bridge_attempt_capstone).1
 theorem Wave53YMWightmanVacuumToyProven_holds : Wave53YMWightmanVacuumToyProven :=
   (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.ym_wightman_vacuum_toy_attempt_capstone).1
-theorem Wave53HodgeCodim2CmAbelian5FoldProven_holds : Wave53HodgeCodim2CmAbelian5FoldProven :=
-  have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.hodge_codim_2_cmAbelian5Fold_first_principles_capstone
-  trivial
+theorem Wave53HodgeCodim2CmAbelian5FoldProven_holds : Wave53HodgeCodim2CmAbelian5FoldProven := fun class_idx =>
+  (_root_.PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt.hodge_codim_2_cmAbelian5Fold_first_principles_capstone class_idx).1
 theorem Wave53BSDRankZeroFullArgumentProven_holds : Wave53BSDRankZeroFullArgumentProven :=
   (_root_.PrincipiaTractalis.BSDRankZeroFullArgumentAttempt.bsd_rank_zero_full_argument_attempt_capstone).1
 theorem Wave53BSDModularFormAnAgreementProven_holds : Wave53BSDModularFormAnAgreementProven :=

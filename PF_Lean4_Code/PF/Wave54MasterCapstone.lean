@@ -124,8 +124,12 @@ def Wave54YMMassGapPropagationToyProven : Prop :=
     @inner ℝ _ _ (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.vac N)
       (_root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.propagator N m t
         (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.vac N)) = 1
--- VACUITY BANNER: cite_wave47E rfl-only; marker preserved.
-def Wave54HodgeCodim2CmAbelian6FoldProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to HodgeAlgebraicRepresentation clause (1) of hodge_codim_2_cmAbelian6Fold_first_principles_capstone.
+def Wave54HodgeCodim2CmAbelian6FoldProven : Prop :=
+  ∀ class_idx : ℕ,
+    _root_.PrincipiaTractalis.MillenniumSix.HodgeAlgebraicRepresentation
+      _root_.PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.cmAbelian6FoldCodim2Substrate.toHodgeAmbient11
+      class_idx
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave53MasterCapstoneAggregatorProven : Prop := True
 
@@ -160,9 +164,8 @@ theorem wave54_additions_hold : Wave54Additions :=
       PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.galerkin_pde_concrete_instance_attempt_capstone
     wave54_ym_mass_gap_propagation_toy :=
       (_root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.ym_mass_gap_propagation_toy_attempt_capstone).1
-    wave54_hodge_codim_2_cm_abelian_6fold := by
-      have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.hodge_codim_2_cmAbelian6Fold_first_principles_capstone
-      unfold Wave54HodgeCodim2CmAbelian6FoldProven; trivial
+    wave54_hodge_codim_2_cm_abelian_6fold := fun class_idx =>
+      (_root_.PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.hodge_codim_2_cmAbelian6Fold_first_principles_capstone class_idx).1
     wave53_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave53_master_capstone
       unfold Wave53MasterCapstoneAggregatorProven; trivial }
@@ -190,9 +193,8 @@ theorem Wave54GalerkinPDEConcreteInstanceProven_holds : Wave54GalerkinPDEConcret
   PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.galerkin_pde_concrete_instance_attempt_capstone
 theorem Wave54YMMassGapPropagationToyProven_holds : Wave54YMMassGapPropagationToyProven :=
   (_root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.ym_mass_gap_propagation_toy_attempt_capstone).1
-theorem Wave54HodgeCodim2CmAbelian6FoldProven_holds : Wave54HodgeCodim2CmAbelian6FoldProven :=
-  have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.hodge_codim_2_cmAbelian6Fold_first_principles_capstone
-  trivial
+theorem Wave54HodgeCodim2CmAbelian6FoldProven_holds : Wave54HodgeCodim2CmAbelian6FoldProven := fun class_idx =>
+  (_root_.PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.hodge_codim_2_cmAbelian6Fold_first_principles_capstone class_idx).1
 theorem Wave53MasterCapstoneAggregatorProven_holds : Wave53MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave53_master_capstone
   trivial
