@@ -118,9 +118,13 @@ def Wave54StrongFormDivFreeSinModeWitnessProven : Prop :=
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave54GalerkinPDEConcreteInstanceProven : Prop :=
   PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.ConcreteInstanceStatus
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave54YMMassGapPropagationToyProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
+-- 2026-11-10 RESTATE: pinned to vacuum propagator preservation clause (1) of ym_mass_gap_propagation_toy_attempt_capstone.
+def Wave54YMMassGapPropagationToyProven : Prop :=
+  ∀ N : ℕ, ∀ m t : ℝ,
+    @inner ℝ _ _ (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.vac N)
+      (_root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.propagator N m t
+        (_root_.PrincipiaTractalis.YMWightmanVacuumToyAttempt.vac N)) = 1
+-- VACUITY BANNER: cite_wave47E rfl-only; marker preserved.
 def Wave54HodgeCodim2CmAbelian6FoldProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave53MasterCapstoneAggregatorProven : Prop := True
@@ -154,9 +158,8 @@ theorem wave54_additions_hold : Wave54Additions :=
       PrincipiaTractalis.StrongFormDivFreeSinModeWitness.strong_form_div_free_sinmode_witness_capstone
     wave54_galerkin_pde_concrete_instance :=
       PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.galerkin_pde_concrete_instance_attempt_capstone
-    wave54_ym_mass_gap_propagation_toy := by
-      have _ := _root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.ym_mass_gap_propagation_toy_attempt_capstone
-      unfold Wave54YMMassGapPropagationToyProven; trivial
+    wave54_ym_mass_gap_propagation_toy :=
+      (_root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.ym_mass_gap_propagation_toy_attempt_capstone).1
     wave54_hodge_codim_2_cm_abelian_6fold := by
       have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.hodge_codim_2_cmAbelian6Fold_first_principles_capstone
       unfold Wave54HodgeCodim2CmAbelian6FoldProven; trivial
@@ -186,8 +189,7 @@ theorem Wave54StrongFormDivFreeSinModeWitnessProven_holds : Wave54StrongFormDivF
 theorem Wave54GalerkinPDEConcreteInstanceProven_holds : Wave54GalerkinPDEConcreteInstanceProven :=
   PrincipiaTractalis.GalerkinPDEConcreteInstanceAttempt.galerkin_pde_concrete_instance_attempt_capstone
 theorem Wave54YMMassGapPropagationToyProven_holds : Wave54YMMassGapPropagationToyProven :=
-  have _ := _root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.ym_mass_gap_propagation_toy_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.YMMassGapPropagationToyAttempt.ym_mass_gap_propagation_toy_attempt_capstone).1
 theorem Wave54HodgeCodim2CmAbelian6FoldProven_holds : Wave54HodgeCodim2CmAbelian6FoldProven :=
   have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt.hodge_codim_2_cmAbelian6Fold_first_principles_capstone
   trivial
