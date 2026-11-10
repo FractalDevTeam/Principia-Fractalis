@@ -66,6 +66,9 @@ import PF.CrossMillenniumDerivedConsequences
 import PF.YM_BochnerMinlosConcreteWitness
 import PF.YM_SchwartzReflectionConcreteWitness
 import PF.YM_WightmanReconstructionConcreteWitness
+import PF.YM_WightmanContinuumGapsTypedUpgrade
+import PF.AlgebraicGeometry.VoisinObstructionTypedUpgrade
+import PF.AlgebraicGeometry.VoisinCodimTwoConcreteInstance
 
 namespace PrincipiaTractalis
 
@@ -129,10 +132,12 @@ structure Wave58Additions : Prop where
       (provenness marker — actual content in
       `PF/AlgebraicGeometry/VoisinObstructionTypedUpgrade.lean`). -/
   voisin_codim_two_typed_upgrade : True
-  /-- Wave 47B YM Wightman/OS continuum gap typed upgrade landed
-      (provenness marker — actual content in
-      `PF/YM_WightmanContinuumGapsTypedUpgrade.lean`). -/
-  ym_wightman_continuum_gaps_typed_upgrade : True
+  /-- Wave 47B YM Wightman/OS continuum gap typed upgrade landed.
+      2026-11-10 RESTATE: pinned to BochnerMinlosTypedStatement, the
+      first typed clause of the ym_wightman_continuum_gaps_typed_upgrade
+      capstone. -/
+  ym_wightman_continuum_gaps_typed_upgrade :
+    _root_.PrincipiaTractalis.YM_WightmanContinuumGapsTypedUpgrade.BochnerMinlosTypedStatement
   /-- RHSpectralSurjectivityConjecture decomposed into 5 typed
       sub-clauses, 3 of 5 discharged axiom-free, 14 theorems
       total. Provenness marker — actual content in
@@ -162,10 +167,12 @@ structure Wave58Additions : Prop where
   online_surjectivity_base_case_discharge : True
   /-- Voisin codim-2 typed predicate discharged axiom-free on TWO
       concrete substrate instances: abelian-3-fold (Mumford) +
-      Dwork pencil quintic (Yui/Lefschetz). 10 theorems on 2
-      classically-known cases. Provenness marker — actual content
-      in `PF/AlgebraicGeometry/VoisinCodimTwoConcreteInstance.lean`. -/
-  voisin_codim_two_concrete_instance_discharge : True
+      Dwork pencil quintic (Yui/Lefschetz). 2026-11-10 RESTATE:
+      pinned to the abelian-3-fold clause of the concrete-instance
+      capstone. -/
+  voisin_codim_two_concrete_instance_discharge :
+    _root_.PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.VoisinCodimTwoCycleClassExistsHypothesis
+      _root_.PrincipiaTractalis.AlgebraicGeometry.VoisinCodimTwoConcreteInstance.abelianThreeFoldInstance
   /-- BochnerMinlos strengthened typed predicate discharged
       axiom-free via mathlib's gaussianReal 0 1 with explicit
       characteristic functional charFun μ t = exp(-t²/2). 2026-11-10
@@ -210,13 +217,15 @@ theorem wave58_additions_hold : Wave58Additions where
     PF.CrossMillenniumDerivedConsequences.framework_alpha_values_match_rigidity
   t3sym_compactness_HSNuclear_typed_upgrade := trivial
   voisin_codim_two_typed_upgrade := trivial
-  ym_wightman_continuum_gaps_typed_upgrade := trivial
+  ym_wightman_continuum_gaps_typed_upgrade :=
+    (_root_.PrincipiaTractalis.YM_WightmanContinuumGapsTypedUpgrade.ym_wightman_continuum_gaps_typed_upgrade_capstone).1
   rh_surjectivity_typed_decomposition := trivial
   polylog_eigenvalue_typed_decomposition := trivial
   online_surjectivity_sub_decomposition := trivial
   ns_pde_typed_upgrade_with_wave33_discharge := trivial
   online_surjectivity_base_case_discharge := trivial
-  voisin_codim_two_concrete_instance_discharge := trivial
+  voisin_codim_two_concrete_instance_discharge :=
+    (_root_.PrincipiaTractalis.AlgebraicGeometry.VoisinCodimTwoConcreteInstance.voisinCodimTwoConcreteInstance_capstone).1
   bochner_minlos_gaussian_concrete_witness :=
     (_root_.PrincipiaTractalis.YM_BochnerMinlosConcreteWitness.bochnerMinlos_concrete_witness_capstone).1
   online_surjectivity_k1_k2_finite_cascade := trivial
