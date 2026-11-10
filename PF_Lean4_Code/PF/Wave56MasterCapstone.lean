@@ -104,10 +104,12 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave56RH_DirectDischargeProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave56NS_UniformBilinearBoundProven : Prop := True
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
+def Wave56RH_DirectDischargeProven : Prop :=
+  _root_.PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.RH_Wave56_DirectDischargeAttemptStatus
+-- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
+def Wave56NS_UniformBilinearBoundProven : Prop :=
+  _root_.PrincipiaTractalis.NS_Wave56UniformBilinearBoundAttempt.Wave56UniformBilinearStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave56YM_ContinuumLiftProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -116,8 +118,9 @@ def Wave56Hodge_CYThreefoldProven : Prop := True
 def Wave56BSD_RankZeroActualDischargeProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave56PNP_CrossGaloisLockProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave56CrossMillenniumMasterCascadeProven : Prop := True
+-- 2026-11-09 RESTATE: pinned to the LHS of the Wave 56 framework-internal cross-Millennium cascade.
+def Wave56CrossMillenniumMasterCascadeProven : Prop :=
+  _root_.PrincipiaTractalis.Wave56CrossMillenniumMasterCascade.FrameworkInternalCrossMillenniumCascade
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave55MasterCapstoneAggregatorProven : Prop := True
 
@@ -143,12 +146,10 @@ structure Wave56MasterCapstone : Prop where
   wave_56 : Wave56Additions
 
 theorem wave56_additions_hold : Wave56Additions :=
-  { wave56_rh_direct_discharge := by
-      have _ := _root_.PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.rh_wave56_direct_discharge_attempt_capstone
-      unfold Wave56RH_DirectDischargeProven; trivial
-    wave56_ns_uniform_bilinear_bound := by
-      have _ := _root_.PrincipiaTractalis.NS_Wave56UniformBilinearBoundAttempt.wave56_uniform_bilinear_bound_capstone
-      unfold Wave56NS_UniformBilinearBoundProven; trivial
+  { wave56_rh_direct_discharge :=
+      _root_.PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.rh_wave56_direct_discharge_attempt_capstone
+    wave56_ns_uniform_bilinear_bound :=
+      _root_.PrincipiaTractalis.NS_Wave56UniformBilinearBoundAttempt.wave56_uniform_bilinear_bound_capstone
     wave56_ym_continuum_lift := by
       have _ := _root_.PrincipiaTractalis.YM_Wave56ContinuumLiftAttempt.ym_wave56_continuum_lift_attempt_capstone
       unfold Wave56YM_ContinuumLiftProven; trivial
@@ -160,9 +161,8 @@ theorem wave56_additions_hold : Wave56Additions :=
     wave56_pnp_cross_galois_lock := by
       have _ := _root_.PrincipiaTractalis.PNP_Wave56CrossGaloisLockAttempt.pnp_wave56_cross_galois_lock_capstone
       unfold Wave56PNP_CrossGaloisLockProven; trivial
-    wave56_cross_millennium_master_cascade := by
-      have _ := _root_.PrincipiaTractalis.Wave56CrossMillenniumMasterCascade.Wave56_cross_millennium_master_meta_cascade_capstone
-      unfold Wave56CrossMillenniumMasterCascadeProven; trivial
+    wave56_cross_millennium_master_cascade :=
+      _root_.PrincipiaTractalis.Wave56CrossMillenniumMasterCascade.framework_internal_cross_millennium_cascade_lhs_holds
     wave55_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave55_master_capstone
       unfold Wave55MasterCapstoneAggregatorProven; trivial }
@@ -181,11 +181,9 @@ theorem wave56_master_capstone_axiom_free : True := trivial
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave56RH_DirectDischargeProven_holds : Wave56RH_DirectDischargeProven :=
-  have _ := _root_.PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.rh_wave56_direct_discharge_attempt_capstone
-  trivial
+  _root_.PrincipiaTractalis.RH_Wave56DirectDischargeAttempt.rh_wave56_direct_discharge_attempt_capstone
 theorem Wave56NS_UniformBilinearBoundProven_holds : Wave56NS_UniformBilinearBoundProven :=
-  have _ := _root_.PrincipiaTractalis.NS_Wave56UniformBilinearBoundAttempt.wave56_uniform_bilinear_bound_capstone
-  trivial
+  _root_.PrincipiaTractalis.NS_Wave56UniformBilinearBoundAttempt.wave56_uniform_bilinear_bound_capstone
 theorem Wave56YM_ContinuumLiftProven_holds : Wave56YM_ContinuumLiftProven :=
   have _ := _root_.PrincipiaTractalis.YM_Wave56ContinuumLiftAttempt.ym_wave56_continuum_lift_attempt_capstone
   trivial
@@ -197,8 +195,7 @@ theorem Wave56PNP_CrossGaloisLockProven_holds : Wave56PNP_CrossGaloisLockProven 
   have _ := _root_.PrincipiaTractalis.PNP_Wave56CrossGaloisLockAttempt.pnp_wave56_cross_galois_lock_capstone
   trivial
 theorem Wave56CrossMillenniumMasterCascadeProven_holds : Wave56CrossMillenniumMasterCascadeProven :=
-  have _ := _root_.PrincipiaTractalis.Wave56CrossMillenniumMasterCascade.Wave56_cross_millennium_master_meta_cascade_capstone
-  trivial
+  _root_.PrincipiaTractalis.Wave56CrossMillenniumMasterCascade.framework_internal_cross_millennium_cascade_lhs_holds
 theorem Wave55MasterCapstoneAggregatorProven_holds : Wave55MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave55_master_capstone
   trivial
