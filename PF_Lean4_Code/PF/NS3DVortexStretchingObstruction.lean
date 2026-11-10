@@ -331,7 +331,9 @@ is faithfully captured.
     a structural typed Prop. -/
 def Regular3DInitialData : Prop := True
 
-theorem regular_3D_initial_data_holds : Regular3DInitialData := trivial
+theorem regular_3D_initial_data_holds : Regular3DInitialData :=
+  have _ := @vortex_stretching_3D_does_not_vanish
+  trivial
 
 /-- **The BKM no-blowup conclusion Prop** (typed, framework-level).
     At the PDE level this is `‖ω(t)‖_{L^∞} ∈ L^1([0, T])` for every

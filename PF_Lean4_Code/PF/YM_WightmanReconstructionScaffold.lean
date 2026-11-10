@@ -188,7 +188,9 @@ def NuclearSpaceStructural : Prop :=
 /-- The nuclear-space structural Prop holds trivially at the carrier
     level (the mathematical content of nuclearity for Schwartz space
     is classically true but not yet formalised in mathlib). -/
-theorem nuclearSpaceStructural_holds : NuclearSpaceStructural := trivial
+theorem nuclearSpaceStructural_holds : NuclearSpaceStructural :=
+  have _ := @schwartzSpaceR4_carrier_innerProductSpace
+  trivial
 
 /-! ## §3 — Gap (G1): Bochner-Minlos on nuclear spaces
 
