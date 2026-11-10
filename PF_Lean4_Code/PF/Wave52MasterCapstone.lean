@@ -115,8 +115,13 @@ def Wave52T3SymCanonicalAlphaCarrierProven : Prop :=
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave52KatoBilinearEstimateProven : Prop :=
   PrincipiaTractalis.KatoBilinearEstimateAttempt.WaveFiftyOneCKatoEncoding
--- VACUITY BANNER: parametric by n/t/x; marker preserved as Prop := True.
-def Wave52YMRankKProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to Rank-3 sum decomposition clause (1) of ym_reflection_positivity_3plus1d_rankK_attempt_capstone.
+def Wave52YMRankKProven : Prop :=
+  ∀ n : ℕ, ∀ t : Fin n → ℝ, ∀ x : Fin n → EuclideanSpace ℝ (Fin 3),
+    _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.osGramMatrix3p1Rank3 t x =
+      _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.osGramSummand1_3p1 t x +
+      _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.osGramSummand2_3p1 t x +
+      _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.osGramSummand3_3p1 t x
 -- 2026-11-10 RESTATE: pinned to clause (1) (1,1) HodgeAlgebraicRepresentation of hodge_codim_2_cmAbelian4Fold_first_principles_capstone.
 def Wave52HodgeCmAbelian4FoldProven : Prop :=
   ∀ class_idx : ℕ,
@@ -163,9 +168,8 @@ theorem wave52_additions_hold : Wave52Additions :=
       PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.t3_sym_canonical_alpha_carrier_attempt_capstone
     wave52_kato_bilinear_estimate :=
       PrincipiaTractalis.KatoBilinearEstimateAttempt.kato_bilinear_estimate_attempt_capstone
-    wave52_ym_rank_k := by
-      have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.ym_reflection_positivity_3plus1d_rankK_attempt_capstone
-      unfold Wave52YMRankKProven; trivial
+    wave52_ym_rank_k :=
+      (_root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.ym_reflection_positivity_3plus1d_rankK_attempt_capstone).1
     wave52_hodge_cm_abelian_4fold := fun class_idx =>
       (_root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.hodge_codim_2_cmAbelian4Fold_first_principles_capstone class_idx).1
     wave52_bsd_L_partial_oscillation_analysis :=
@@ -200,8 +204,7 @@ theorem Wave52T3SymCanonicalAlphaCarrierProven_holds : Wave52T3SymCanonicalAlpha
 theorem Wave52KatoBilinearEstimateProven_holds : Wave52KatoBilinearEstimateProven :=
   PrincipiaTractalis.KatoBilinearEstimateAttempt.kato_bilinear_estimate_attempt_capstone
 theorem Wave52YMRankKProven_holds : Wave52YMRankKProven :=
-  have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.ym_reflection_positivity_3plus1d_rankK_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRankKAttempt.ym_reflection_positivity_3plus1d_rankK_attempt_capstone).1
 theorem Wave52HodgeCmAbelian4FoldProven_holds : Wave52HodgeCmAbelian4FoldProven := fun class_idx =>
   (_root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.hodge_codim_2_cmAbelian4Fold_first_principles_capstone class_idx).1
 theorem Wave52BSDLPartialOscillationAnalysisProven_holds : Wave52BSDLPartialOscillationAnalysisProven :=
