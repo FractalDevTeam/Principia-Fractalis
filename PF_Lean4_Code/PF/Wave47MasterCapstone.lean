@@ -92,7 +92,8 @@ def Wave47BSDLFunctionEvaluationProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave47PolylogConjectureProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave47FrameworkResourceSynthesisProven : Prop := True
+def Wave47FrameworkResourceSynthesisProven : Prop :=
+  PrincipiaTractalis.FrameworkResourceSynthesisWave47.FrameworkResourceSynthesisWave47
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave46MasterCapstoneAggregatorProven : Prop := True
 
@@ -137,8 +138,8 @@ theorem wave47_additions_hold : Wave47Additions :=
     wave47_polylog_conjecture := by
       have _ := _root_.PrincipiaTractalis.PolylogConjectureAttemptWave47.polylog_conjecture_attempt_wave47_capstone
       unfold Wave47PolylogConjectureProven; trivial
-    wave47_framework_resource_synthesis := by
-      unfold Wave47FrameworkResourceSynthesisProven; trivial
+    wave47_framework_resource_synthesis :=
+      PrincipiaTractalis.FrameworkResourceSynthesisWave47.framework_resource_synthesis_wave47_bundle
     wave46_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave46_master_capstone
       unfold Wave46MasterCapstoneAggregatorProven; trivial }
@@ -178,7 +179,8 @@ theorem Wave47BSDLFunctionEvaluationProven_holds : Wave47BSDLFunctionEvaluationP
 theorem Wave47PolylogConjectureProven_holds : Wave47PolylogConjectureProven :=
   have _ := _root_.PrincipiaTractalis.PolylogConjectureAttemptWave47.polylog_conjecture_attempt_wave47_capstone
   trivial
-theorem Wave47FrameworkResourceSynthesisProven_holds : Wave47FrameworkResourceSynthesisProven := trivial
+theorem Wave47FrameworkResourceSynthesisProven_holds : Wave47FrameworkResourceSynthesisProven :=
+  PrincipiaTractalis.FrameworkResourceSynthesisWave47.framework_resource_synthesis_wave47_bundle
 theorem Wave46MasterCapstoneAggregatorProven_holds : Wave46MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave46_master_capstone
   trivial
