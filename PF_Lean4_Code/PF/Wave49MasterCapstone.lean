@@ -106,7 +106,8 @@ namespace PrincipiaTractalis
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave49NS3DMultiDimFourierDensityProven : Prop := True
+def Wave49NS3DMultiDimFourierDensityProven : Prop :=
+  PrincipiaTractalis.NS3DMultiDimFourierDensityAttempt.WaveFortyEightDMultiDimNarrowing
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave49RHSpectralSurjectivityAttemptProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -144,9 +145,8 @@ structure Wave49MasterCapstone : Prop where
   wave_49 : Wave49Additions
 
 theorem wave49_additions_hold : Wave49Additions :=
-  { wave49_ns_3d_multi_dim_fourier_density := by
-      have _ := _root_.PrincipiaTractalis.NS3DMultiDimFourierDensityAttempt.ns_3d_multi_dim_fourier_density_attempt_capstone
-      unfold Wave49NS3DMultiDimFourierDensityProven; trivial
+  { wave49_ns_3d_multi_dim_fourier_density :=
+      PrincipiaTractalis.NS3DMultiDimFourierDensityAttempt.ns_3d_multi_dim_fourier_density_attempt_capstone
     wave49_rh_spectral_surjectivity_attempt := by
       have _ := _root_.PrincipiaTractalis.RHSpectralSurjectivityAttempt.rh_spectral_surjectivity_attempt_capstone
       unfold Wave49RHSpectralSurjectivityAttemptProven; trivial
@@ -186,8 +186,7 @@ theorem wave49_master_capstone_axiom_free : True := trivial
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave49NS3DMultiDimFourierDensityProven_holds : Wave49NS3DMultiDimFourierDensityProven :=
-  have _ := _root_.PrincipiaTractalis.NS3DMultiDimFourierDensityAttempt.ns_3d_multi_dim_fourier_density_attempt_capstone
-  trivial
+  PrincipiaTractalis.NS3DMultiDimFourierDensityAttempt.ns_3d_multi_dim_fourier_density_attempt_capstone
 theorem Wave49RHSpectralSurjectivityAttemptProven_holds : Wave49RHSpectralSurjectivityAttemptProven :=
   have _ := _root_.PrincipiaTractalis.RHSpectralSurjectivityAttempt.rh_spectral_surjectivity_attempt_capstone
   trivial
