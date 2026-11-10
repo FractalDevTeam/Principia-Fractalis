@@ -100,8 +100,10 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave57PNP_WitnessExistenceProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to the (1) equivalence of wave57_pnp_witness_existence_scaffold_capstone.
+def Wave57PNP_WitnessExistenceProven : Prop :=
+  _root_.PrincipiaTractalis.PNP_Wave56CrossGaloisLockAttempt.PvsNP_via_Hodge_disc5_Bridge_Open ↔
+    _root_.PrincipiaTractalis.TuringEncoding.ClassP ≠ _root_.PrincipiaTractalis.TuringEncoding.ClassNP
 -- 2026-11-09 RESTATE: pinned to real Status bundle from imported scaffold.
 def Wave57NS_HsSigmaScaffoldProven : Prop :=
   _root_.PrincipiaTractalis.NS3D_HsSigmaScaffold.Wave57HsSigmaScaffoldStatus
@@ -113,12 +115,15 @@ def Wave57RH_HardyToFullStripProven : Prop :=
   _root_.PrincipiaTractalis.RH_HardyToFullStripScaffold.Wave57HardyScaffoldStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave57Hodge_QuinticCYCodim2Proven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave57YM_WightmanReconstructionProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave57YM_OSRPInteractionProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave57BSD_LSeriesConvergenceProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to NuclearSpaceStructural clause (2) of ym_wightman_reconstruction_scaffold_capstone.
+def Wave57YM_WightmanReconstructionProven : Prop :=
+  _root_.PrincipiaTractalis.YM_WightmanReconstructionScaffold.NuclearSpaceStructural
+-- 2026-11-10 RESTATE: pinned to the propagator symmetry clause (1) of ym_osrp_interaction_scaffold_capstone.
+def Wave57YM_OSRPInteractionProven : Prop :=
+  ∀ t : ℝ, (_root_.PrincipiaTractalis.YM_OSRPInteractionScaffold.interactingPropagatorMat t).IsSymm
+-- 2026-11-10 RESTATE: pinned to IntegerCoefficientsOfFrobeniusTraces (A1) clause of bsd_LSeries_convergence_scaffold_capstone.
+def Wave57BSD_LSeriesConvergenceProven : Prop :=
+  _root_.PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.IntegerCoefficientsOfFrobeniusTraces
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave56MasterCapstoneAggregatorProven : Prop := True
 
@@ -151,9 +156,8 @@ structure Wave57MasterCapstone : Prop where
   wave_57 : Wave57Additions
 
 theorem wave57_additions_hold : Wave57Additions :=
-  { wave57_pnp_witness_existence := by
-      have _ := _root_.PrincipiaTractalis.PNP_WitnessExistenceScaffold.wave57_pnp_witness_existence_scaffold_capstone
-      unfold Wave57PNP_WitnessExistenceProven; trivial
+  { wave57_pnp_witness_existence :=
+      (_root_.PrincipiaTractalis.PNP_WitnessExistenceScaffold.wave57_pnp_witness_existence_scaffold_capstone).1
     wave57_ns_hs_sigma_scaffold :=
       _root_.PrincipiaTractalis.NS3D_HsSigmaScaffold.wave57_hs_sigma_scaffold_capstone
     wave57_rh_mayer_n_to_infinity :=
@@ -163,15 +167,12 @@ theorem wave57_additions_hold : Wave57Additions :=
     wave57_hodge_quintic_cy_codim2 := by
       have _ := _root_.PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.wave57_hodge_quintic_codim2_scaffold_capstone
       unfold Wave57Hodge_QuinticCYCodim2Proven; trivial
-    wave57_ym_wightman_reconstruction := by
-      have _ := _root_.PrincipiaTractalis.YM_WightmanReconstructionScaffold.ym_wightman_reconstruction_scaffold_capstone
-      unfold Wave57YM_WightmanReconstructionProven; trivial
-    wave57_ym_osrp_interaction := by
-      have _ := _root_.PrincipiaTractalis.YM_OSRPInteractionScaffold.ym_osrp_interaction_scaffold_capstone
-      unfold Wave57YM_OSRPInteractionProven; trivial
-    wave57_bsd_lseries_convergence := by
-      have _ := _root_.PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.bsd_LSeries_convergence_scaffold_capstone
-      unfold Wave57BSD_LSeriesConvergenceProven; trivial
+    wave57_ym_wightman_reconstruction :=
+      (_root_.PrincipiaTractalis.YM_WightmanReconstructionScaffold.ym_wightman_reconstruction_scaffold_capstone).2.1
+    wave57_ym_osrp_interaction :=
+      (_root_.PrincipiaTractalis.YM_OSRPInteractionScaffold.ym_osrp_interaction_scaffold_capstone).1
+    wave57_bsd_lseries_convergence :=
+      (_root_.PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.bsd_LSeries_convergence_scaffold_capstone).1
     wave56_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave56_master_capstone
       unfold Wave56MasterCapstoneAggregatorProven; trivial }
@@ -192,8 +193,7 @@ theorem wave57_master_capstone_axiom_free : True :=
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave57PNP_WitnessExistenceProven_holds : Wave57PNP_WitnessExistenceProven :=
-  have _ := _root_.PrincipiaTractalis.PNP_WitnessExistenceScaffold.wave57_pnp_witness_existence_scaffold_capstone
-  trivial
+  (_root_.PrincipiaTractalis.PNP_WitnessExistenceScaffold.wave57_pnp_witness_existence_scaffold_capstone).1
 theorem Wave57NS_HsSigmaScaffoldProven_holds : Wave57NS_HsSigmaScaffoldProven :=
   _root_.PrincipiaTractalis.NS3D_HsSigmaScaffold.wave57_hs_sigma_scaffold_capstone
 theorem Wave57RH_MayerNToInfinityProven_holds : Wave57RH_MayerNToInfinityProven :=
@@ -204,14 +204,11 @@ theorem Wave57Hodge_QuinticCYCodim2Proven_holds : Wave57Hodge_QuinticCYCodim2Pro
   have _ := _root_.PrincipiaTractalis.Hodge_QuinticCYCodim2Scaffold.wave57_hodge_quintic_codim2_scaffold_capstone
   trivial
 theorem Wave57YM_WightmanReconstructionProven_holds : Wave57YM_WightmanReconstructionProven :=
-  have _ := _root_.PrincipiaTractalis.YM_WightmanReconstructionScaffold.ym_wightman_reconstruction_scaffold_capstone
-  trivial
+  (_root_.PrincipiaTractalis.YM_WightmanReconstructionScaffold.ym_wightman_reconstruction_scaffold_capstone).2.1
 theorem Wave57YM_OSRPInteractionProven_holds : Wave57YM_OSRPInteractionProven :=
-  have _ := _root_.PrincipiaTractalis.YM_OSRPInteractionScaffold.ym_osrp_interaction_scaffold_capstone
-  trivial
+  (_root_.PrincipiaTractalis.YM_OSRPInteractionScaffold.ym_osrp_interaction_scaffold_capstone).1
 theorem Wave57BSD_LSeriesConvergenceProven_holds : Wave57BSD_LSeriesConvergenceProven :=
-  have _ := _root_.PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.bsd_LSeries_convergence_scaffold_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.bsd_LSeries_convergence_scaffold_capstone).1
 theorem Wave56MasterCapstoneAggregatorProven_holds : Wave56MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave56_master_capstone
   trivial
