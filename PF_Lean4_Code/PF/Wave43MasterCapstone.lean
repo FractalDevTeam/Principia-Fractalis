@@ -58,8 +58,11 @@ def Wave43GaloisRigidConditionalDischargeProven : Prop :=
   (HasGaloisRigidQRealisation .YM → ∃ b : ℝ, RealisesP b) ∧
   (HasGaloisRigidQRealisation .YM →
       (∃ a : ℝ, RealisesYM a) ∧ (∃ b : ℝ, RealisesP b))
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave43StieltjesHodgeAbelian3FoldSpectralBridgeProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to e1-preservation clause (a) of stieltjes_hodge_abelian_3fold_spectral_bridge_capstone.
+def Wave43StieltjesHodgeAbelian3FoldSpectralBridgeProven : Prop :=
+  ∀ n1 n2 n3 : ℤ,
+    ((_root_.PrincipiaTractalis.StieltjesHodgeAbelian3FoldSpectralBridge.stieltjesToHodgeThreeClass n1 n2 n3).e1 : ℝ) =
+      ((n1 : ℝ) + (n2 : ℝ) + (n3 : ℝ))
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave42MasterCapstoneAggregatorProven : Prop := True
 
@@ -106,9 +109,8 @@ structure Wave43MasterCapstone : Prop where
 theorem wave43_additions_hold : Wave43Additions :=
   { wave43_galois_rigid_conditional_discharge :=
       PrincipiaTractalis.GaloisRigidConditionalDischarge.galois_rigid_conditional_discharge_capstone
-    wave43_stieltjes_hodge_abelian_3fold_spectral_bridge := by
-      have _ := _root_.PrincipiaTractalis.StieltjesHodgeAbelian3FoldSpectralBridge.stieltjes_hodge_abelian_3fold_spectral_bridge_capstone
-      unfold Wave43StieltjesHodgeAbelian3FoldSpectralBridgeProven; trivial
+    wave43_stieltjes_hodge_abelian_3fold_spectral_bridge :=
+      (_root_.PrincipiaTractalis.StieltjesHodgeAbelian3FoldSpectralBridge.stieltjes_hodge_abelian_3fold_spectral_bridge_capstone).1
     wave42_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave42_master_capstone
       unfold Wave42MasterCapstoneAggregatorProven; trivial }
@@ -140,8 +142,7 @@ theorem cite_wave43_stieltjes_hodge_abelian_3fold_spectral_bridge :
 theorem Wave43GaloisRigidConditionalDischargeProven_holds : Wave43GaloisRigidConditionalDischargeProven :=
   PrincipiaTractalis.GaloisRigidConditionalDischarge.galois_rigid_conditional_discharge_capstone
 theorem Wave43StieltjesHodgeAbelian3FoldSpectralBridgeProven_holds : Wave43StieltjesHodgeAbelian3FoldSpectralBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.StieltjesHodgeAbelian3FoldSpectralBridge.stieltjes_hodge_abelian_3fold_spectral_bridge_capstone
-  trivial
+  (_root_.PrincipiaTractalis.StieltjesHodgeAbelian3FoldSpectralBridge.stieltjes_hodge_abelian_3fold_spectral_bridge_capstone).1
 theorem Wave42MasterCapstoneAggregatorProven_holds : Wave42MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave42_master_capstone
   trivial

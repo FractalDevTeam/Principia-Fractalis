@@ -54,9 +54,11 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
+-- 2026-11-10 RESTATE: pinned to disjointness/exhaustivity clause (1) of galois_orbit_millennium_discriminator_capstone.
 /-- `galois_orbit_millennium_discriminator_capstone` (Wave 42A). -/
-def Wave42GaloisOrbitMillenniumDiscriminatorProven : Prop := True
+def Wave42GaloisOrbitMillenniumDiscriminatorProven : Prop :=
+  _root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_rigid_millennium_problems ∩
+    _root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_twisted_millennium_problems = ∅
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `stieltjes_hodge_codim_2_spectral_bridge_capstone` (Wave 42B). -/
 def Wave42StieltjesHodgeCodim2SpectralBridgeProven : Prop :=
@@ -129,9 +131,8 @@ structure Wave42MasterCapstone : Prop where
 /-! ## Section 3 — Capstone proofs -/
 
 theorem wave42_additions_hold : Wave42Additions :=
-  { wave42_galois_orbit_millennium_discriminator := by
-      have _ := _root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_orbit_millennium_discriminator_capstone
-      unfold Wave42GaloisOrbitMillenniumDiscriminatorProven; trivial
+  { wave42_galois_orbit_millennium_discriminator :=
+      (_root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_orbit_millennium_discriminator_capstone).1
     wave42_stieltjes_hodge_codim_2_spectral_bridge :=
       PrincipiaTractalis.stieltjes_hodge_codim_2_spectral_bridge_capstone
     wave41_master_capstone_aggregator := by
@@ -173,8 +174,7 @@ theorem cite_wave42_stieltjes_hodge_codim_2_spectral_bridge :
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave42GaloisOrbitMillenniumDiscriminatorProven_holds : Wave42GaloisOrbitMillenniumDiscriminatorProven :=
-  have _ := _root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_orbit_millennium_discriminator_capstone
-  trivial
+  (_root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_orbit_millennium_discriminator_capstone).1
 theorem Wave42StieltjesHodgeCodim2SpectralBridgeProven_holds : Wave42StieltjesHodgeCodim2SpectralBridgeProven :=
   PrincipiaTractalis.stieltjes_hodge_codim_2_spectral_bridge_capstone
 theorem Wave41MasterCapstoneAggregatorProven_holds : Wave41MasterCapstoneAggregatorProven :=
