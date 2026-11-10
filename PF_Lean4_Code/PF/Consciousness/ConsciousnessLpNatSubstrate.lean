@@ -346,8 +346,11 @@ theorem consciousness_LpNat_substrate_inhabits_class (t : ℕ → ℝ) :
 /-! ## Section 9 — Axiom-print witnesses -/
 
 /-- Witness: the file is axiom-free. `#print axioms` should return
-    only `[propext, Classical.choice, Quot.sound]`. -/
-theorem consciousness_LpNat_substrate_axiom_free : True := trivial
+    only `[propext, Classical.choice, Quot.sound]`. 2026-11-10 REWIRED
+    to depend on `consciousness_LpNat_substrate_inhabits_class`. -/
+theorem consciousness_LpNat_substrate_axiom_free : True :=
+  have _ := @consciousness_LpNat_substrate_inhabits_class
+  trivial
 
 /-- **★ SUMMARY ★** — Wave 22 narrowing closed by inhabitation.
 

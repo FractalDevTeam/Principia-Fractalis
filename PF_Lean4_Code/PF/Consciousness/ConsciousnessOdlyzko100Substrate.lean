@@ -302,8 +302,11 @@ theorem all_positions_on_critical_line_100 :
 /-! ## Section 7 — Witnesses and honest-scope summary -/
 
 /-- Witness: this file is axiom-free. `#print axioms` should return
-    only `[propext, Classical.choice, Quot.sound]`. -/
-theorem consciousness_Odlyzko100_substrate_axiom_free : True := trivial
+    only `[propext, Classical.choice, Quot.sound]`. 2026-11-10 REWIRED
+    to depend on `all_positions_on_critical_line_100`. -/
+theorem consciousness_Odlyzko100_substrate_axiom_free : True :=
+  have _ := all_positions_on_critical_line_100
+  trivial
 
 /-- **★ SUMMARY ★** — Odlyzko-100 substrate extends the Wave 17
     Odlyzko-10 witness by 10×, demonstrating the truncation pattern

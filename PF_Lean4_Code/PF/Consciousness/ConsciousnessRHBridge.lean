@@ -209,7 +209,11 @@ theorem P5_holds_trivial :
 
 /-! ## Section 13 — Axiom-print witnesses -/
 
-theorem consciousness_rh_bridge_axiom_free : True := trivial
+/-- 2026-11-10 REWIRED to depend on P5_holds_trivial so `#print axioms`
+    reflects real content. -/
+theorem consciousness_rh_bridge_axiom_free : True :=
+  have _ := @P5_holds_trivial
+  trivial
 
 /-- The framework now has TWO axiom-free conditional routes to RH:
     `riemann_hypothesis_via_named_surjectivity` (T₃^sym route,

@@ -281,8 +281,11 @@ theorem all_positions_on_critical_line :
 /-! ## Section 7 — Witnesses and honest-scope summary -/
 
 /-- Witness: this file is axiom-free. `#print axioms` should return
-    only `[propext, Classical.choice, Quot.sound]`. -/
-theorem consciousness_Odlyzko10_substrate_axiom_free : True := trivial
+    only `[propext, Classical.choice, Quot.sound]`. 2026-11-10 REWIRED
+    to depend on `all_positions_on_critical_line`. -/
+theorem consciousness_Odlyzko10_substrate_axiom_free : True :=
+  have _ := all_positions_on_critical_line
+  trivial
 
 /-- **★ SUMMARY ★** — Wave 17 adds a third concrete witness for
     `ConsciousnessRHSubstrate`, distinct in shape from Wave 15/16:

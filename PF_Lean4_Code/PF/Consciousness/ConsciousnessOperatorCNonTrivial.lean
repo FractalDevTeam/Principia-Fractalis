@@ -225,8 +225,11 @@ theorem H_nt_ne_C_nt : H_nt (eu2 ⟨1, by decide⟩) ≠ C_nt (eu2 ⟨1, by deci
   unfold H_nt C_nt hamEigen cEigen eu2 at this
   simp at this
 
-/-- Witness theorem: the file is axiom-free. -/
-theorem consciousness_operator_C_non_trivial_axiom_free : True := trivial
+/-- Witness theorem: the file is axiom-free. 2026-11-10 REWIRED to
+    depend on `H_nt_ne_C_nt`. -/
+theorem consciousness_operator_C_non_trivial_axiom_free : True :=
+  have _ := H_nt_ne_C_nt
+  trivial
 
 end ConsciousnessOperatorC
 end PrincipiaTractalis

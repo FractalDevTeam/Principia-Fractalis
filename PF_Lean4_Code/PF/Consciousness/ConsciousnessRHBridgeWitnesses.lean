@@ -385,8 +385,11 @@ theorem P6_fails_on_threePoint_via_cardinality :
 
 /-! ## Section 6 — Witnesses and axiom-print -/
 
-/-- Witness theorem: the file is axiom-free. -/
-theorem consciousness_rh_bridge_witnesses_axiom_free : True := trivial
+/-- Witness theorem: the file is axiom-free. 2026-11-10 REWIRED to
+    depend on `P6_fails_on_threePoint_via_cardinality`. -/
+theorem consciousness_rh_bridge_witnesses_axiom_free : True :=
+  have _ := P6_fails_on_threePoint_via_cardinality
+  trivial
 
 /-- **★ SUMMARY ★** — Three substantive results land on Problems 5/6:
 

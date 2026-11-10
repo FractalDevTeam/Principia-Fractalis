@@ -232,8 +232,12 @@ theorem ConsciousnessRHBridge_trivial :
 `#print axioms` on the following should return only
 `[propext, Classical.choice, Quot.sound]`. -/
 
-/-- Witness: the structural framework is axiom-free. -/
-theorem consciousness_operator_C_axiom_free : True := trivial
+/-- Witness: the structural framework is axiom-free. 2026-11-10
+    REWIRED to depend on the ConsciousnessRHBridge_trivial theorem so
+    `#print axioms` reflects the file's real content. -/
+theorem consciousness_operator_C_axiom_free : True :=
+  have _ := ConsciousnessRHBridge_trivial
+  trivial
 
 end ConsciousnessOperatorC
 end PrincipiaTractalis

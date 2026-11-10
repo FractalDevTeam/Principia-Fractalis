@@ -841,8 +841,11 @@ theorem consciousness_RH_wave36_infiniteSubstrate_witness :
    H36_not_multiplicative,
    infiniteOdlyzkoSubstrate_S_infinite⟩
 
-/-- Axiom-print witness for this file. -/
-theorem consciousness_rh_bridge_wave36_witnesses_axiom_free : True := trivial
+/-- Axiom-print witness for this file. 2026-11-10 REWIRED to depend
+    on `consciousness_RH_wave36_infiniteSubstrate_witness`. -/
+theorem consciousness_rh_bridge_wave36_witnesses_axiom_free : True :=
+  have _ := consciousness_RH_wave36_infiniteSubstrate_witness
+  trivial
 
 /-- **Strategic-assessment marker**: with Wave 36, the consciousness
     ↔ RH route has its FIRST proven (P5) iff on an infinite-dim

@@ -314,8 +314,11 @@ theorem CNM_not_diagonal_multiplication :
 /-! ## Section 7 — Axiom-print witness and honest-scope summary -/
 
 /-- Witness theorem: this file is axiom-free. `#print axioms`
-    should return only `[propext, Classical.choice, Quot.sound]`. -/
-theorem consciousness_non_multiplicative_C_axiom_free : True := trivial
+    should return only `[propext, Classical.choice, Quot.sound]`.
+    2026-11-10 REWIRED to depend on `CNM_not_diagonal_multiplication`. -/
+theorem consciousness_non_multiplicative_C_axiom_free : True :=
+  have _ := CNM_not_diagonal_multiplication
+  trivial
 
 /-- **★ SUMMARY ★** — First non-multiplicative-C (P5) witness.
 

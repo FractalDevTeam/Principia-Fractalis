@@ -249,8 +249,12 @@ theorem riemann_hypothesis_via_natural_substrate_surjectivity
 
 /-! ## Section 7 — Witnesses and axiom-print -/
 
-/-- Witness: the file is axiom-free. -/
-theorem consciousness_p6_infinite_dim_axiom_free : True := trivial
+/-- Witness: the file is axiom-free. 2026-11-10 REWIRED to depend on
+    `riemann_hypothesis_via_natural_substrate_surjectivity` so
+    `#print axioms` reflects real content. -/
+theorem consciousness_p6_infinite_dim_axiom_free : True :=
+  have _ := @riemann_hypothesis_via_natural_substrate_surjectivity
+  trivial
 
 /-- **★ SUMMARY ★** — Three substantive additions land on Problem 6:
 

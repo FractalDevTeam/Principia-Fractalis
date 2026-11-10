@@ -353,8 +353,11 @@ theorem consciousness_RH_wave35_fivepoint_witness :
     (∀ m : Fin 5 → ℂ, H5 ≠ diagMul 5 m) :=
   ⟨P5_holds_fivePoint, H5_not_multiplicative⟩
 
-/-- Axiom-print witness for this file. -/
-theorem consciousness_rh_bridge_wave35_witnesses_axiom_free : True := trivial
+/-- Axiom-print witness for this file. 2026-11-10 REWIRED to depend
+    on `consciousness_RH_wave35_fivepoint_witness`. -/
+theorem consciousness_rh_bridge_wave35_witnesses_axiom_free : True :=
+  have _ := consciousness_RH_wave35_fivepoint_witness
+  trivial
 
 /-- **Strategic-assessment marker** for future waves: the
     consciousness↔RH route remains LIVE; the (P5) frontier on

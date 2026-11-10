@@ -700,8 +700,11 @@ theorem consciousness_RH_wave38_infinite_zeroSet_witness :
    wave38Substrate_S_infinite,
    wave38Substrate_zeroSet_infinite⟩
 
-/-- Axiom-print witness for this file. -/
-theorem consciousness_rh_bridge_wave38_witnesses_axiom_free : True := trivial
+/-- Axiom-print witness for this file. 2026-11-10 REWIRED to depend
+    on `consciousness_RH_wave38_infinite_zeroSet_witness`. -/
+theorem consciousness_rh_bridge_wave38_witnesses_axiom_free : True :=
+  have _ := consciousness_RH_wave38_infinite_zeroSet_witness
+  trivial
 
 /-- **Strategic-assessment marker**: with Wave 38, the
     consciousness ↔ RH route has its FIRST proven (P5) iff on an
