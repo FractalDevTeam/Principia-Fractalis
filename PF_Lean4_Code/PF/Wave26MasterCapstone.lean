@@ -77,25 +77,69 @@ namespace PrincipiaTractalis
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `consciousness_LpNat_substrate_inhabits_class` (`7463651`). -/
-def ConsciousnessLpNatInhabitsResidualHPClassProven : Prop := True
+def ConsciousnessLpNatInhabitsResidualHPClassProven : Prop :=
+  ∀ (t : ℕ → ℝ),
+    InhabitsResidualHPClass (lpNatSubstrate t)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `YM_quadratic_kernel_mechanism_does_not_fix_cluster` (`3fe9934`). -/
-def YMQuadraticKernelMechanismNarrowedOutProven : Prop := True
+def YMQuadraticKernelMechanismNarrowedOutProven : Prop :=
+  QuadraticClusterFixingUnlocked ∧
+  QuadKernelGramMechanismNarrowedOut ∧
+  (quadKernelGramMap 2 (1/2) = 1/2) ∧
+  (quadKernelGramMap 2 (3/2) = 9/2)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `local_vortex_stretching_bound_off_diagonal_at_n_le_three`
     (`8bd8a73`, Wave 24 introducing n ∈ {0,1}). -/
-def NS3DOffDiagonalBoundAtN01Proven : Prop := True
+def NS3DOffDiagonalBoundAtN01Proven : Prop :=
+  ∀ (T : ℝ), 0 < T →
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 0 ∧
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 1
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `local_vortex_stretching_bound_off_diagonal_at_n_le_three`
     (`bf796f3`, Wave 25 extending to n ∈ {2,3}). -/
-def NS3DOffDiagonalBoundAtN23Proven : Prop := True
+def NS3DOffDiagonalBoundAtN23Proven : Prop :=
+  ∀ (T : ℝ), 0 < T →
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 0 ∧
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 1 ∧
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 2 ∧
+    PrincipiaTractalis.NS3DOffDiagonalVortexStretching.LocalVortexStretchingBoundOffDiagonal T 3 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 0 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 1 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 2 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 3 ∧
+    (∀ (ω : PrincipiaTractalis.NS3DVortexStretchingObstruction.Vorticity3DState 1)
+       (g : PrincipiaTractalis.NS3DVortexStretchingObstruction.VelocityGradient3DState 1)
+       (o : PrincipiaTractalis.NS3DOffDiagonalVortexStretching.OffDiagonalGradient3DState 1),
+       ‖PrincipiaTractalis.NS3DVortexStretchingObstruction.VortexStretching3D ω g‖ +
+         ‖PrincipiaTractalis.NS3DOffDiagonalVortexStretching.VortexStretching3DOffDiagonal ω o‖
+         ≤ 1 * ‖ω‖ * ‖g‖ + 2 * ‖ω‖ * ‖o‖)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_mixed_order_kernel_calculus_cluster_fix_witness`
     (`a2679aa`). -/
-def YMMixedOrderKernelCalculusRealisationProven : Prop := True
+def YMMixedOrderKernelCalculusRealisationProven : Prop :=
+  QuadraticClusterFixingUnlocked ∧
+  (mixedOrderKernelMap 1 (-2) (5/4) (1/2) = 1/2 ∧
+   mixedOrderKernelMap 1 (-2) (5/4) (3/2) = 1/2) ∧
+  (mixedOrderKernelMap 1 (-1) (3/4) (1/2) = 1/2 ∧
+   mixedOrderKernelMap 1 (-1) (3/4) (3/2) = 3/2) ∧
+  ((1 : ℝ) ≠ 0 ∧ (-2 : ℝ) ≠ 0 ∧ ((5 : ℝ)/4) ≠ 0) ∧
+  ((1 : ℝ) ≠ 0 ∧ (-1 : ℝ) ≠ 0 ∧ ((3 : ℝ)/4) ≠ 0) ∧
+  QuadKernelGramMechanismNarrowedOut
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `weierstrass_hodge_retry_capstone` (`4375e60`). -/
-def WeierstrassHodgeRetryCapstoneProven : Prop := True
+def WeierstrassHodgeRetryCapstoneProven : Prop :=
+  ∀ (class_idx : ℕ),
+  (MillenniumSix.HodgeAlgebraicRepresentation
+     (PrincipiaTractalis.AlgebraicGeometry.WeierstrassHodgeBridgeRetry.E32a3_retry_substrate).toHodgeAmbient class_idx ∧
+   ∃ Z : (PrincipiaTractalis.AlgebraicGeometry.WeierstrassHodgeBridgeRetry.E32a3_retry_substrate).Points → ℤ,
+     ((Finset.univ.sum Z : ℤ) : ℚ) =
+       (PrincipiaTractalis.AlgebraicGeometry.WeierstrassHodgeBridgeRetry.E32a3_retry_substrate).cohomologyClass) ∧
+  (MillenniumSix.HodgeAlgebraicRepresentation
+     (PrincipiaTractalis.AlgebraicGeometry.WeierstrassHodgeBridgeRetry.E37a1_retry_substrate).toHodgeAmbient class_idx ∧
+   ∃ Z : (PrincipiaTractalis.AlgebraicGeometry.WeierstrassHodgeBridgeRetry.E37a1_retry_substrate).Points → ℤ,
+     ((Finset.univ.sum Z : ℤ) : ℚ) =
+       (PrincipiaTractalis.AlgebraicGeometry.WeierstrassHodgeBridgeRetry.E37a1_retry_substrate).cohomologyClass) ∧
+  BSDGaloisPairConcordance.E_rank_zero.Δ ≠ BSDGaloisPairConcordance.E_rank_one.Δ
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Coq parity Wave 23–24 (`b366e90`, NOT a Lean deliverable). -/
 def Wave25CoqParityW23W24Proven : Prop := True
@@ -211,18 +255,19 @@ structure Wave26MasterCapstone : Prop where
 /-- **Wave 25+26 additions hold axiom-free.** Provenness tags
     pinned via Section 4 citation theorems. -/
 theorem wave25_26_additions_hold : Wave25_26Additions :=
-  { consciousness_lpnat_inhabits_residual_class := by
-      unfold ConsciousnessLpNatInhabitsResidualHPClassProven; trivial
-    ym_quadratic_kernel_narrow_out := by
-      unfold YMQuadraticKernelMechanismNarrowedOutProven; trivial
-    ns3d_off_diagonal_bound_n01 := by
-      unfold NS3DOffDiagonalBoundAtN01Proven; trivial
-    ns3d_off_diagonal_bound_n23 := by
-      unfold NS3DOffDiagonalBoundAtN23Proven; trivial
-    ym_mixed_order_kernel_realisation := by
-      unfold YMMixedOrderKernelCalculusRealisationProven; trivial
-    hodge_weierstrass_retry_capstone := by
-      unfold WeierstrassHodgeRetryCapstoneProven; trivial
+  { consciousness_lpnat_inhabits_residual_class := fun t =>
+      consciousness_LpNat_substrate_inhabits_class t
+    ym_quadratic_kernel_narrow_out :=
+      YM_quadratic_kernel_mechanism_does_not_fix_cluster
+    ns3d_off_diagonal_bound_n01 := fun T hT =>
+      ⟨PrincipiaTractalis.NS3DOffDiagonalVortexStretching.local_vortex_stretching_bound_off_diagonal_at_n_zero T hT,
+       PrincipiaTractalis.NS3DOffDiagonalVortexStretching.local_vortex_stretching_bound_off_diagonal_at_n_one T hT⟩
+    ns3d_off_diagonal_bound_n23 := fun T hT =>
+      PrincipiaTractalis.NS3DOffDiagonalAtNTwoThree.local_vortex_stretching_bound_off_diagonal_at_n_le_three T hT
+    ym_mixed_order_kernel_realisation :=
+      ym_mixed_order_kernel_calculus_cluster_fix_witness
+    hodge_weierstrass_retry_capstone := fun class_idx =>
+      PrincipiaTractalis.AlgebraicGeometry.WeierstrassHodgeBridgeRetry.weierstrass_hodge_retry_capstone class_idx
     wave25_coq_parity_w23_w24 := by
       unfold Wave25CoqParityW23W24Proven; trivial
     wave25_26_manuscript_propagation := by
@@ -298,12 +343,19 @@ theorem cite_weierstrass_hodge_retry_capstone :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem ConsciousnessLpNatInhabitsResidualHPClassProven_holds : ConsciousnessLpNatInhabitsResidualHPClassProven := trivial
-theorem YMQuadraticKernelMechanismNarrowedOutProven_holds : YMQuadraticKernelMechanismNarrowedOutProven := trivial
-theorem NS3DOffDiagonalBoundAtN01Proven_holds : NS3DOffDiagonalBoundAtN01Proven := trivial
-theorem NS3DOffDiagonalBoundAtN23Proven_holds : NS3DOffDiagonalBoundAtN23Proven := trivial
-theorem YMMixedOrderKernelCalculusRealisationProven_holds : YMMixedOrderKernelCalculusRealisationProven := trivial
-theorem WeierstrassHodgeRetryCapstoneProven_holds : WeierstrassHodgeRetryCapstoneProven := trivial
+theorem ConsciousnessLpNatInhabitsResidualHPClassProven_holds : ConsciousnessLpNatInhabitsResidualHPClassProven := fun t =>
+  consciousness_LpNat_substrate_inhabits_class t
+theorem YMQuadraticKernelMechanismNarrowedOutProven_holds : YMQuadraticKernelMechanismNarrowedOutProven :=
+  YM_quadratic_kernel_mechanism_does_not_fix_cluster
+theorem NS3DOffDiagonalBoundAtN01Proven_holds : NS3DOffDiagonalBoundAtN01Proven := fun T hT =>
+  ⟨PrincipiaTractalis.NS3DOffDiagonalVortexStretching.local_vortex_stretching_bound_off_diagonal_at_n_zero T hT,
+   PrincipiaTractalis.NS3DOffDiagonalVortexStretching.local_vortex_stretching_bound_off_diagonal_at_n_one T hT⟩
+theorem NS3DOffDiagonalBoundAtN23Proven_holds : NS3DOffDiagonalBoundAtN23Proven := fun T hT =>
+  PrincipiaTractalis.NS3DOffDiagonalAtNTwoThree.local_vortex_stretching_bound_off_diagonal_at_n_le_three T hT
+theorem YMMixedOrderKernelCalculusRealisationProven_holds : YMMixedOrderKernelCalculusRealisationProven :=
+  ym_mixed_order_kernel_calculus_cluster_fix_witness
+theorem WeierstrassHodgeRetryCapstoneProven_holds : WeierstrassHodgeRetryCapstoneProven := fun class_idx =>
+  PrincipiaTractalis.AlgebraicGeometry.WeierstrassHodgeBridgeRetry.weierstrass_hodge_retry_capstone class_idx
 theorem Wave25CoqParityW23W24Proven_holds : Wave25CoqParityW23W24Proven := trivial
 theorem Wave25_26ManuscriptPropagationProven_holds : Wave25_26ManuscriptPropagationProven := trivial
 
