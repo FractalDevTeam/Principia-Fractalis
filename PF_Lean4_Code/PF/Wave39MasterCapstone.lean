@@ -64,8 +64,11 @@ namespace PrincipiaTractalis
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- `h3_icosahedral_consciousness_operator_bridge_capstone` (Wave 39A). -/
-def Wave39H3ConsciousnessBridgeProven : Prop := True
+/-- `h3_icosahedral_consciousness_operator_bridge_capstone` (Wave 39A).
+    2026-11-10 RESTATE: pinned to index-set alignment clause (1). -/
+def Wave39H3ConsciousnessBridgeProven : Prop :=
+  ((3 : ℕ) = PrincipiaFractalis.H3CoxeterOrigin.H3_exponent_gap - 1 ∧
+    (4 : ℕ) = PrincipiaFractalis.H3CoxeterOrigin.H3_exponent_gap)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_pade_one_one_operator_level_instance_capstone` (Wave 39C). -/
 def Wave39YMPadeOperatorInstanceProven : Prop :=
@@ -83,8 +86,11 @@ def Wave39YMPadeOperatorInstanceProven : Prop :=
   (padeOffCluster (-3/4) 4 2 1) 0 0 ≠
     (polynomialOffCluster 1 (-1) (3/4)) 0 0
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- `bsd_rank_distinction_capstone` (Wave 39B). -/
-def Wave39BSDRankDistinctionProven : Prop := True
+/-- `bsd_rank_distinction_capstone` (Wave 39B).
+    2026-11-10 RESTATE: pinned to (O1) L-order-of-vanishing clause (A1). -/
+def Wave39BSDRankDistinctionProven : Prop :=
+  _root_.PrincipiaTractalis.BSDRankDistinctionAttempt.LOrderOfVanishingAtOne 0 = 0 ∧
+    _root_.PrincipiaTractalis.BSDRankDistinctionAttempt.LOrderOfVanishingAtOne 1 = 1
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 38 META aggregator (`f90488e`). -/
 def Wave38MasterCapstoneAggregatorProven : Prop := True
@@ -148,14 +154,13 @@ structure Wave39MasterCapstone : Prop where
 /-! ## Section 3 — Capstone proofs -/
 
 theorem wave39_additions_hold : Wave39Additions :=
-  { wave39_h3_consciousness_bridge := by
-      have _ := _root_.PrincipiaTractalis.H3IcosahedralConsciousnessOperatorBridge.h3_icosahedral_consciousness_operator_bridge_capstone
-      unfold Wave39H3ConsciousnessBridgeProven; trivial
+  { wave39_h3_consciousness_bridge :=
+      (_root_.PrincipiaTractalis.H3IcosahedralConsciousnessOperatorBridge.h3_icosahedral_consciousness_operator_bridge_capstone).1
     wave39_ym_pade_operator_instance :=
       ym_canonical_pade_one_one_operator_level_instance_capstone
-    wave39_bsd_rank_distinction := by
-      have _ := _root_.PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone
-      unfold Wave39BSDRankDistinctionProven; trivial
+    wave39_bsd_rank_distinction :=
+      ⟨(_root_.PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone).1,
+       (_root_.PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone).2.1⟩
     wave38_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave38_master_capstone
       unfold Wave38MasterCapstoneAggregatorProven; trivial }
@@ -198,13 +203,12 @@ theorem cite_wave39_bsd_rank_distinction :
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave39H3ConsciousnessBridgeProven_holds : Wave39H3ConsciousnessBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.H3IcosahedralConsciousnessOperatorBridge.h3_icosahedral_consciousness_operator_bridge_capstone
-  trivial
+  (_root_.PrincipiaTractalis.H3IcosahedralConsciousnessOperatorBridge.h3_icosahedral_consciousness_operator_bridge_capstone).1
 theorem Wave39YMPadeOperatorInstanceProven_holds : Wave39YMPadeOperatorInstanceProven :=
   ym_canonical_pade_one_one_operator_level_instance_capstone
 theorem Wave39BSDRankDistinctionProven_holds : Wave39BSDRankDistinctionProven :=
-  have _ := _root_.PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone
-  trivial
+  ⟨(_root_.PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone).1,
+   (_root_.PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone).2.1⟩
 theorem Wave38MasterCapstoneAggregatorProven_holds : Wave38MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave38_master_capstone
   trivial
