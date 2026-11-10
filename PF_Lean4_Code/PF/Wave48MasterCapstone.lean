@@ -87,24 +87,32 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave48RHAnalyticPosBijectionParityProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave48YMReflectionPositivityToyProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to the re-indexed carrier identity clause (1) of rh_analytic_pos_bijection_parity_attempt_capstone.
+def Wave48RHAnalyticPosBijectionParityProven : Prop :=
+  ∀ k : ℕ, _root_.PrincipiaTractalis.RHAnalyticPosBijectionParityAttempt.eigSeqEven (2 * k) =
+    _root_.PrincipiaTractalis.RHAnalyticPosBijectionAttempt.eigSeq k
+-- 2026-11-10 RESTATE: pinned to theta involution on Fin 2 clause (1) of ym_reflection_positivity_toy_attempt_capstone.
+def Wave48YMReflectionPositivityToyProven : Prop :=
+  ∀ f : EuclideanSpace ℝ (Fin 2), _root_.PrincipiaTractalis.YMReflectionPositivityToyAttempt.thetaToy
+    (_root_.PrincipiaTractalis.YMReflectionPositivityToyAttempt.thetaToy f) = f
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave48NSLayer2bSobolevTorusSkeletonProven : Prop :=
   PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.Layer2bSobolevTorusSkeletonStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave48NSGalerkinDensityProven : Prop :=
   PrincipiaTractalis.NS3DGalerkinDensityAttempt.WaveFortyEightGalerkinDensityNarrowing
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave48HodgeMumfordFirstPrinciplesInventoryProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave48BSDFrobeniusTraceProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave48RHT3PerturbationLemmaProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave48PolylogIBMEmpiricalGaloisCascadeProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to MumfordFirstPrinciplesPrerequisites clause (1) of hodge_mumford_abelian_first_principles_inventory_capstone.
+def Wave48HodgeMumfordFirstPrinciplesInventoryProven : Prop :=
+  _root_.PrincipiaTractalis.HodgeMumfordAbelianFirstPrinciplesInventory.MumfordFirstPrinciplesPrerequisites
+-- 2026-11-10 RESTATE: pinned to E_rank_zero_intModel.a4 = -1 clause (T1) of bsd_frobenius_trace_attempt_capstone.
+def Wave48BSDFrobeniusTraceProven : Prop :=
+  _root_.PrincipiaTractalis.BSDFrobeniusTraceAttempt.E_rank_zero_intModel.a₄ = -1
+-- 2026-11-10 RESTATE: pinned to epsilonSchedule 10 = 1/10 clause (1) of rh_t3_perturbation_lemma_attempt_capstone.
+def Wave48RHT3PerturbationLemmaProven : Prop :=
+  _root_.PrincipiaTractalis.RHT3PerturbationLemmaAttempt.epsilonSchedule 10 = 1/10
+-- 2026-11-10 RESTATE: pinned to WaveCorrespondenceGaloisOrbitMembership clause (C1) of polylog_ibm_empirical_galois_cascade_capstone.
+def Wave48PolylogIBMEmpiricalGaloisCascadeProven : Prop :=
+  _root_.PrincipiaTractalis.PolylogIBMEmpiricalGaloisCascade.WaveCorrespondenceGaloisOrbitMembership
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave47MasterCapstoneAggregatorProven : Prop := True
 
@@ -128,28 +136,22 @@ structure Wave48MasterCapstone : Prop where
   wave_48 : Wave48Additions
 
 theorem wave48_additions_hold : Wave48Additions :=
-  { wave48_rh_parity_discharge := by
-      have _ := _root_.PrincipiaTractalis.RHAnalyticPosBijectionParityAttempt.rh_analytic_pos_bijection_parity_attempt_capstone
-      unfold Wave48RHAnalyticPosBijectionParityProven; trivial
-    wave48_ym_reflection_positivity_toy := by
-      have _ := _root_.PrincipiaTractalis.YMReflectionPositivityToyAttempt.ym_reflection_positivity_toy_attempt_capstone
-      unfold Wave48YMReflectionPositivityToyProven; trivial
+  { wave48_rh_parity_discharge :=
+      (_root_.PrincipiaTractalis.RHAnalyticPosBijectionParityAttempt.rh_analytic_pos_bijection_parity_attempt_capstone).1
+    wave48_ym_reflection_positivity_toy :=
+      (_root_.PrincipiaTractalis.YMReflectionPositivityToyAttempt.ym_reflection_positivity_toy_attempt_capstone).1
     wave48_ns_layer_2b_skeleton :=
       PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.ns_3d_layer2b_sobolev_torus_skeleton_capstone
     wave48_ns_galerkin_density :=
       PrincipiaTractalis.NS3DGalerkinDensityAttempt.ns_3d_galerkin_density_attempt_capstone
-    wave48_hodge_mumford_inventory := by
-      have _ := _root_.PrincipiaTractalis.HodgeMumfordAbelianFirstPrinciplesInventory.hodge_mumford_abelian_first_principles_inventory_capstone
-      unfold Wave48HodgeMumfordFirstPrinciplesInventoryProven; trivial
-    wave48_bsd_frobenius_trace := by
-      have _ := _root_.PrincipiaTractalis.BSDFrobeniusTraceAttempt.bsd_frobenius_trace_attempt_capstone
-      unfold Wave48BSDFrobeniusTraceProven; trivial
-    wave48_rh_t3_perturbation := by
-      have _ := _root_.PrincipiaTractalis.RHT3PerturbationLemmaAttempt.rh_t3_perturbation_lemma_attempt_capstone
-      unfold Wave48RHT3PerturbationLemmaProven; trivial
-    wave48_polylog_ibm_galois_cascade := by
-      have _ := _root_.PrincipiaTractalis.PolylogIBMEmpiricalGaloisCascade.polylog_ibm_empirical_galois_cascade_capstone
-      unfold Wave48PolylogIBMEmpiricalGaloisCascadeProven; trivial
+    wave48_hodge_mumford_inventory :=
+      (_root_.PrincipiaTractalis.HodgeMumfordAbelianFirstPrinciplesInventory.hodge_mumford_abelian_first_principles_inventory_capstone).1
+    wave48_bsd_frobenius_trace :=
+      (_root_.PrincipiaTractalis.BSDFrobeniusTraceAttempt.bsd_frobenius_trace_attempt_capstone).1
+    wave48_rh_t3_perturbation :=
+      (_root_.PrincipiaTractalis.RHT3PerturbationLemmaAttempt.rh_t3_perturbation_lemma_attempt_capstone).1
+    wave48_polylog_ibm_galois_cascade :=
+      (_root_.PrincipiaTractalis.PolylogIBMEmpiricalGaloisCascade.polylog_ibm_empirical_galois_cascade_capstone).1
     wave47_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave47_master_capstone
       unfold Wave47MasterCapstoneAggregatorProven; trivial }
@@ -170,27 +172,21 @@ theorem wave48_master_capstone_axiom_free : True :=
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave48RHAnalyticPosBijectionParityProven_holds : Wave48RHAnalyticPosBijectionParityProven :=
-  have _ := _root_.PrincipiaTractalis.RHAnalyticPosBijectionParityAttempt.rh_analytic_pos_bijection_parity_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.RHAnalyticPosBijectionParityAttempt.rh_analytic_pos_bijection_parity_attempt_capstone).1
 theorem Wave48YMReflectionPositivityToyProven_holds : Wave48YMReflectionPositivityToyProven :=
-  have _ := _root_.PrincipiaTractalis.YMReflectionPositivityToyAttempt.ym_reflection_positivity_toy_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.YMReflectionPositivityToyAttempt.ym_reflection_positivity_toy_attempt_capstone).1
 theorem Wave48NSLayer2bSobolevTorusSkeletonProven_holds : Wave48NSLayer2bSobolevTorusSkeletonProven :=
   PrincipiaTractalis.NS3DLayer2bSobolevTorusSkeleton.ns_3d_layer2b_sobolev_torus_skeleton_capstone
 theorem Wave48NSGalerkinDensityProven_holds : Wave48NSGalerkinDensityProven :=
   PrincipiaTractalis.NS3DGalerkinDensityAttempt.ns_3d_galerkin_density_attempt_capstone
 theorem Wave48HodgeMumfordFirstPrinciplesInventoryProven_holds : Wave48HodgeMumfordFirstPrinciplesInventoryProven :=
-  have _ := _root_.PrincipiaTractalis.HodgeMumfordAbelianFirstPrinciplesInventory.hodge_mumford_abelian_first_principles_inventory_capstone
-  trivial
+  (_root_.PrincipiaTractalis.HodgeMumfordAbelianFirstPrinciplesInventory.hodge_mumford_abelian_first_principles_inventory_capstone).1
 theorem Wave48BSDFrobeniusTraceProven_holds : Wave48BSDFrobeniusTraceProven :=
-  have _ := _root_.PrincipiaTractalis.BSDFrobeniusTraceAttempt.bsd_frobenius_trace_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDFrobeniusTraceAttempt.bsd_frobenius_trace_attempt_capstone).1
 theorem Wave48RHT3PerturbationLemmaProven_holds : Wave48RHT3PerturbationLemmaProven :=
-  have _ := _root_.PrincipiaTractalis.RHT3PerturbationLemmaAttempt.rh_t3_perturbation_lemma_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.RHT3PerturbationLemmaAttempt.rh_t3_perturbation_lemma_attempt_capstone).1
 theorem Wave48PolylogIBMEmpiricalGaloisCascadeProven_holds : Wave48PolylogIBMEmpiricalGaloisCascadeProven :=
-  have _ := _root_.PrincipiaTractalis.PolylogIBMEmpiricalGaloisCascade.polylog_ibm_empirical_galois_cascade_capstone
-  trivial
+  (_root_.PrincipiaTractalis.PolylogIBMEmpiricalGaloisCascade.polylog_ibm_empirical_galois_cascade_capstone).1
 theorem Wave47MasterCapstoneAggregatorProven_holds : Wave47MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave47_master_capstone
   trivial
