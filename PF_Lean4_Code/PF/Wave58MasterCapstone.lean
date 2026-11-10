@@ -73,6 +73,7 @@ import PF.NavierStokes.NSPDETypedUpgrade
 import PF.TuringEncoding.PolylogEigenvalueTypedUpgrade
 import PF.Analytic.OnLineSurjectivityBaseCaseDischarge
 import PF.RHSurjectivityTypedUpgrade
+import PF.Analytic.OnLineSurjectivitySubDecomposition
 
 namespace PrincipiaTractalis
 
@@ -162,10 +163,13 @@ structure Wave58Additions : Prop where
        _root_.PrincipiaTractalis.TuringEncoding.PolylogSubProp_alpha_NP_quadratic ∧
        _root_.PrincipiaTractalis.TuringEncoding.PolylogSubProp_alpha_NP_pos)
   /-- OnLineSurjectivity (RH C3) sub-decomposition: 4 typed sub-Props
-      along orthogonal axes + 2 exact equivalences axiom-free +
-      C2 bridge. Provenness marker — actual content in
-      `PF/Analytic/OnLineSurjectivitySubDecomposition.lean`. -/
-  online_surjectivity_sub_decomposition : True
+      along orthogonal axes + 2 exact equivalences axiom-free + C2
+      bridge. 2026-11-10 RESTATE: pinned to the strip-decomposition
+      exact equivalence (SD2). -/
+  online_surjectivity_sub_decomposition :
+    ∀ (α : _root_.PrincipiaTractalis.ScalingParameter) (eigenvalues : ℕ → ℝ),
+      (∀ T : ℕ, _root_.PrincipiaTractalis.OnLineSurjectivitySubDecomposition.OnLineSurjectivityUpToHeight α eigenvalues T) ↔
+        _root_.PrincipiaTractalis.RHSurjectivityTypedUpgrade.OnLineSurjectivityClause α eigenvalues
   /-- NS PDE typed upgrade with Wave 33 UniformHadamardBoundAllN
       DISCHARGED AXIOM-FREE via pointwise Cauchy-Schwarz. 2026-11-10
       RESTATE: pinned to the Wave58NSPDETypedUpgradeStatus bundle. -/
@@ -239,7 +243,8 @@ theorem wave58_additions_hold : Wave58Additions where
     _root_.PrincipiaTractalis.RHSurjectivityTypedUpgrade.rangeOnCriticalLine_holds
   polylog_eigenvalue_typed_decomposition :=
     (_root_.PrincipiaTractalis.TuringEncoding.polylog_eigenvalue_typed_upgrade_capstone).1
-  online_surjectivity_sub_decomposition := trivial
+  online_surjectivity_sub_decomposition :=
+    _root_.PrincipiaTractalis.OnLineSurjectivitySubDecomposition.strip_decomposition_iff_C3
   ns_pde_typed_upgrade_with_wave33_discharge :=
     PF.NavierStokes.NSPDETypedUpgrade.wave58_NS_typed_upgrade_capstone
   online_surjectivity_base_case_discharge :=
