@@ -56,10 +56,24 @@ namespace PrincipiaTractalis
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `consciousness_RH_wave38_infinite_zeroSet_witness` (Wave 38A). -/
-def Wave38InfiniteZeroSetProven : Prop := True
+def Wave38InfiniteZeroSetProven : Prop :=
+  CommutatorVanishesAtRHZeros wave38Substrate ∧
+  (∀ m : ℕ → ℂ, H38 ≠ fun f n => m n * f n) ∧
+  Infinite wave38Substrate.base.S ∧
+  (∃ f : ℕ → ℕ, Function.Injective f ∧ ∀ k, wave38Substrate.zeroSet (f k))
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `bsd_L_function_bridge_rank_zero_capstone` (Wave 38B). -/
-def Wave38BSDLFunctionBridgeProven : Prop := True
+def Wave38BSDLFunctionBridgeProven : Prop :=
+  ((595 : ℝ)/1000 < MillenniumSix.bsd_distinguished_eigenvalue ∧
+   MillenniumSix.bsd_distinguished_eigenvalue < (596 : ℝ)/1000) ∧
+  ((6 : ℝ)/10 < PrincipiaTractalis.BSDLFunctionBridgeRank0.L_E32a3_at_1 ∧
+   PrincipiaTractalis.BSDLFunctionBridgeRank0.L_E32a3_at_1 < (7 : ℝ)/10) ∧
+  MillenniumSix.bsd_distinguished_eigenvalue < PrincipiaTractalis.BSDLFunctionBridgeRank0.L_E32a3_at_1 ∧
+  0 < PrincipiaTractalis.BSDLFunctionBridgeRank0.L_E32a3_at_1 ∧
+  PrincipiaTractalis.BSDLFunctionBridgeRank0.L_E32a3_at_1 ≠ 0 ∧
+  BSDGaloisPairConcordance.E_rank_zero.Δ = 64 ∧
+  BSDGaloisPairConcordance.E_rank_zero.Δ ≠ 0 ∧
+  (∃ _inst : BSDRankBlindUniversalConcordance.BSDFrameworkInstance BSDGaloisPairConcordance.E_rank_zero 0, True)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 36+37 META aggregator (`0351711`). -/
 def Wave36_37MasterCapstoneAggregatorProven : Prop := True
@@ -114,10 +128,10 @@ structure Wave38MasterCapstone : Prop where
 /-! ## Section 3 — Capstone proofs -/
 
 theorem wave38_additions_hold : Wave38Additions :=
-  { wave38_infinite_zeroSet := by
-      unfold Wave38InfiniteZeroSetProven; trivial
-    wave38_bsd_L_function_bridge := by
-      unfold Wave38BSDLFunctionBridgeProven; trivial
+  { wave38_infinite_zeroSet :=
+      consciousness_RH_wave38_infinite_zeroSet_witness
+    wave38_bsd_L_function_bridge :=
+      PrincipiaTractalis.BSDLFunctionBridgeRank0.bsd_L_function_bridge_rank_zero_capstone
     wave36_37_master_capstone_aggregator := by
       unfold Wave36_37MasterCapstoneAggregatorProven; trivial }
 
@@ -153,8 +167,10 @@ theorem cite_wave38_bsd_L_function_bridge :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem Wave38InfiniteZeroSetProven_holds : Wave38InfiniteZeroSetProven := trivial
-theorem Wave38BSDLFunctionBridgeProven_holds : Wave38BSDLFunctionBridgeProven := trivial
+theorem Wave38InfiniteZeroSetProven_holds : Wave38InfiniteZeroSetProven :=
+  consciousness_RH_wave38_infinite_zeroSet_witness
+theorem Wave38BSDLFunctionBridgeProven_holds : Wave38BSDLFunctionBridgeProven :=
+  PrincipiaTractalis.BSDLFunctionBridgeRank0.bsd_L_function_bridge_rank_zero_capstone
 theorem Wave36_37MasterCapstoneAggregatorProven_holds : Wave36_37MasterCapstoneAggregatorProven := trivial
 
 end PrincipiaTractalis
