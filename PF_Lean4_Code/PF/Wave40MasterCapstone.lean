@@ -60,9 +60,11 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
+-- 2026-11-10 RESTATE: pinned to clause (1) scale-set admissibility of b_clean_phase_consciousness_commutator_bridge_capstone.
 /-- `b_clean_phase_consciousness_commutator_bridge_capstone` (Wave 40C). -/
-def Wave40BCleanConsciousnessBridgeProven : Prop := True
+def Wave40BCleanConsciousnessBridgeProven : Prop :=
+  ((1/2 : ℝ) < _root_.PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.offZeroScaleLow ∧
+    (1/2 : ℝ) < _root_.PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.offZeroScaleHigh)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `framework_headline_wave_29_to_39_update_capstone` (Wave 40D). -/
 def Wave40FrameworkHeadlineWave29To39UpdateProven : Prop :=
@@ -124,9 +126,8 @@ structure Wave40MasterCapstone : Prop where
 /-! ## Section 3 — Capstone proofs -/
 
 theorem wave40_additions_hold : Wave40Additions :=
-  { wave40_b_clean_consciousness_bridge := by
-      have _ := _root_.PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.b_clean_phase_consciousness_commutator_bridge_capstone
-      unfold Wave40BCleanConsciousnessBridgeProven; trivial
+  { wave40_b_clean_consciousness_bridge :=
+      (_root_.PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.b_clean_phase_consciousness_commutator_bridge_capstone).1
     wave40_framework_headline_update :=
       PrincipiaTractalis.FrameworkHeadlineWave29To39Update.framework_headline_wave_29_to_39_update_capstone
     wave39_master_capstone_aggregator := by
@@ -170,8 +171,7 @@ theorem cite_wave40_framework_headline_update :
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave40BCleanConsciousnessBridgeProven_holds : Wave40BCleanConsciousnessBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.b_clean_phase_consciousness_commutator_bridge_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.b_clean_phase_consciousness_commutator_bridge_capstone).1
 theorem Wave40FrameworkHeadlineWave29To39UpdateProven_holds : Wave40FrameworkHeadlineWave29To39UpdateProven :=
   PrincipiaTractalis.FrameworkHeadlineWave29To39Update.framework_headline_wave_29_to_39_update_capstone
 theorem Wave39MasterCapstoneAggregatorProven_holds : Wave39MasterCapstoneAggregatorProven :=
