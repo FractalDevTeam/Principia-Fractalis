@@ -67,27 +67,118 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- `YM_uniform_concentration_via_kernel_structure_final_verdict` (7a417eb). -/
-def YMKernelStructureObstructionProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- `local_vortex_stretching_bound_at_n_le_two` (9ce926a). -/
-def NS3DLocalBoundLeTwoProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- `local_vortex_stretching_bound_at_n_le_three` (ea71d91). -/
-def NS3DLocalBoundLeThreeProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- `principiaFractalisFrameworkHeadline_holds` (2c642f4). -/
-def FrameworkHeadline19FieldProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- `cross_millennium_shared_invariants_capstone` (9371c0e). -/
-def CrossMillenniumSharedInvariantsProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- `YM_uniform_concentration_via_multiscale_averaging_blocked` (6f6ee74). -/
-def YMMultiscaleAveragingNegativeProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-/-- `bsd_rank_blind_universal_concordance` (b85d981). -/
-def BSDRankBlindUniversalProven : Prop := True
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `YM_uniform_concentration_via_kernel_structure_final_verdict` (7a417eb):
+    kernel self-similarity at α=a=2, induced eigenvalue contraction
+    `λ ↦ λ/2 + r`, inductive-step obstruction, level-1 concentration base. -/
+def YMKernelStructureObstructionProven : Prop :=
+  -- (a) Kernel self-similarity holds at α = a = 2
+  (∀ t : ℝ, PrincipiaTractalis.IntegralKernel.fractalKernelDist 2 2 (t / 2) =
+            (1/2) * PrincipiaTractalis.IntegralKernel.fractalKernelDist 2 2 t + Real.cos (Real.pi * t / 2)) ∧
+  -- (b) Induced eigenvalue contraction
+  (∀ r lam : ℝ, selfSimilarContractionMap r lam = (1/2)*lam + r) ∧
+  -- (c) Obstruction
+  InductiveStepBlocked ∧
+  -- (d) Level-1 concentration base
+  (∃ σ : Fin (2^1) → ℝ,
+     SpectrumConcentratesNearHalfAndThreeHalves 1 σ (1/4))
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `local_vortex_stretching_bound_at_n_le_two` (9ce926a): for every
+    T > 0, `LocalVortexStretchingBound T n` holds at n ∈ {0, 1, 2}.
+    Local-in-time diagonal Galerkin shadow; NOT a Clay discharge. -/
+def NS3DLocalBoundLeTwoProven : Prop :=
+  ∀ (T : ℝ), 0 < T →
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 0 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 1 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 2
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `local_vortex_stretching_bound_at_n_le_three` (ea71d91): for every
+    T > 0, `LocalVortexStretchingBound T n` holds at n ∈ {0, 1, 2, 3}.
+    Local-in-time only. -/
+def NS3DLocalBoundLeThreeProven : Prop :=
+  ∀ (T : ℝ), 0 < T →
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 0 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 1 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 2 ∧
+    PrincipiaTractalis.NS3DLocalRegularityViaBKM.LocalVortexStretchingBound T 3
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `principiaFractalisFrameworkHeadline_holds` (2c642f4): the
+    19-field framework headline META, each clause backed by an
+    existing axiom-free theorem. Bundling ≠ discharge. -/
+def FrameworkHeadline19FieldProven : Prop :=
+  PrincipiaFractalisFrameworkHeadline
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `cross_millennium_shared_invariants_capstone` (9371c0e): the
+    11 axiom-free algebraic invariants linking the 9 α-instances
+    (α_P² = α_YM, α_RH² = 9/4, α_QG² = 2π, etc.). Algebraic skeleton. -/
+def CrossMillenniumSharedInvariantsProven : Prop :=
+  -- (1) P² = YM
+  CrossMillenniumSharedInvariants.α_P ^ 2 = CrossMillenniumSharedInvariants.α_YM
+  -- (2) RH² = 9/4
+  ∧ CrossMillenniumSharedInvariants.α_RH ^ 2 = 9 / 4
+  -- (3) QG² = 2π
+  ∧ CrossMillenniumSharedInvariants.α_QG ^ 2 = 2 * Real.pi
+  -- (4) Hodge² = Hodge + 1
+  ∧ CrossMillenniumSharedInvariants.α_Hodge ^ 2 =
+      CrossMillenniumSharedInvariants.α_Hodge + 1
+  -- (5) NS = 2 · BSD
+  ∧ CrossMillenniumSharedInvariants.α_NS = 2 * CrossMillenniumSharedInvariants.α_BSD
+  -- (6) NS = YM · BSD
+  ∧ CrossMillenniumSharedInvariants.α_NS =
+      CrossMillenniumSharedInvariants.α_YM * CrossMillenniumSharedInvariants.α_BSD
+  -- (7) YM = Poincaré + 1
+  ∧ CrossMillenniumSharedInvariants.α_YM =
+      CrossMillenniumSharedInvariants.α_Poincare + 1
+  -- (8) RH · NS = NS + BSD
+  ∧ CrossMillenniumSharedInvariants.α_RH * CrossMillenniumSharedInvariants.α_NS =
+      CrossMillenniumSharedInvariants.α_NS + CrossMillenniumSharedInvariants.α_BSD
+  -- (9) RH · YM = 3
+  ∧ CrossMillenniumSharedInvariants.α_RH * CrossMillenniumSharedInvariants.α_YM = 3
+  -- (10) NP - Hodge = 1/4
+  ∧ CrossMillenniumSharedInvariants.α_NP - CrossMillenniumSharedInvariants.α_Hodge = 1/4
+  -- (11) QG² = YM · π
+  ∧ CrossMillenniumSharedInvariants.α_QG ^ 2 =
+      CrossMillenniumSharedInvariants.α_YM * Real.pi
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `YM_uniform_concentration_via_multiscale_averaging_blocked` (6f6ee74):
+    averaged contraction factor A_2 = 3/4, cluster stabilisation fails,
+    generic-slope ruling, level-1 base, single-scale obstruction. -/
+def YMMultiscaleAveragingNegativeProven : Prop :=
+  -- (a) Averaged contraction factor explicit: A_2 = 3/4
+  averagedContractionFactor 2 = 3 / 4 ∧
+  -- (b) No residual stabilises the cluster at k = 2 under averaging
+  (¬ ∃ R : ℝ,
+     (averagedContractionMap 2 R (1/2) = 1/2 ∨
+      averagedContractionMap 2 R (1/2) = 3/2) ∧
+     (averagedContractionMap 2 R (3/2) = 1/2 ∨
+      averagedContractionMap 2 R (3/2) = 3/2)) ∧
+  -- (c) Generic-slope statement
+  (∀ A : ℝ, A ≠ 0 → A ≠ 1 → A ≠ -1 →
+     ¬ ∃ R : ℝ,
+       (A * (1/2) + R = 1/2 ∨ A * (1/2) + R = 3/2) ∧
+       (A * (3/2) + R = 1/2 ∨ A * (3/2) + R = 3/2)) ∧
+  -- (d) Level-1 base
+  (∃ σ : Fin (2^1) → ℝ,
+     SpectrumConcentratesNearHalfAndThreeHalves 1 σ (1/4)) ∧
+  -- (e) Single-scale obstruction still in force
+  InductiveStepBlocked
+/-- **(2026-11-09 content restatement)** Propositional content of
+    `bsd_rank_blind_universal_concordance` (b85d981): parametric
+    `BSDFrameworkInstance E r` instances across `Fin 4` rank classes;
+    uniform eigenvalue bracket and Galois-pair separation. Concordance
+    ≠ discharge. -/
+def BSDRankBlindUniversalProven : Prop :=
+  -- (U1) Every Fin-4 rank class has at least one concrete curve instance.
+  (∀ r : Fin 4, ∃ E : WeierstrassCurve ℚ,
+    BSDRankBlindUniversalConcordance.BSDFrameworkInstance E r.val) ∧
+  -- (U2) Uniform eigenvalue-anchor bracket across the four instances.
+  (∀ _r : Fin 4,
+      (595 : ℝ)/1000 < MillenniumSix.bsd_distinguished_eigenvalue ∧
+      MillenniumSix.bsd_distinguished_eigenvalue < (596 : ℝ)/1000) ∧
+  -- (U3) Uniform Galois-pair separation across the four instances.
+  (∀ _r : Fin 4,
+      MillenniumSix.bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_RH ∧
+      MillenniumSix.bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_NP)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Ch 29 manuscript propagation (7110dc5, NOT a Lean deliverable). -/
 def Wave22ManuscriptCh29PropagationProven : Prop := True
@@ -175,21 +266,19 @@ structure Wave22_23MasterCapstone : Prop where
 /-- **Wave-22+23 additions hold axiom-free.** Provenness tags
     pinned via Section 4 citation theorems. -/
 theorem wave22_23_additions_hold : Wave22_23Additions :=
-  { ym_kernel_structure_obstruction := by
-      unfold YMKernelStructureObstructionProven; trivial
-    ns3d_local_bound_le_two := by
-      unfold NS3DLocalBoundLeTwoProven; trivial
-    ns3d_local_bound_le_three := by
-      unfold NS3DLocalBoundLeThreeProven; trivial
-    framework_headline_19_field := by
-      unfold FrameworkHeadline19FieldProven; trivial
-    cross_millennium_shared_invariants := by
-      have _ := _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.cross_millennium_shared_invariants_capstone
-      unfold CrossMillenniumSharedInvariantsProven; trivial
-    ym_multiscale_averaging_negative := by
-      unfold YMMultiscaleAveragingNegativeProven; trivial
-    bsd_rank_blind_universal := by
-      unfold BSDRankBlindUniversalProven; trivial
+  { ym_kernel_structure_obstruction :=
+      YM_uniform_concentration_via_kernel_structure_final_verdict
+    ns3d_local_bound_le_two := fun T hT =>
+      PrincipiaTractalis.NS3DLocalRegularityAtNGeqOneRetry.local_vortex_stretching_bound_at_n_le_two T hT
+    ns3d_local_bound_le_three := fun T hT =>
+      PrincipiaTractalis.NS3DLocalRegularityAtNEqThree.local_vortex_stretching_bound_at_n_le_three T hT
+    framework_headline_19_field := principiaFractalisFrameworkHeadline_holds
+    cross_millennium_shared_invariants :=
+      PrincipiaTractalis.CrossMillenniumSharedInvariants.cross_millennium_shared_invariants_capstone
+    ym_multiscale_averaging_negative :=
+      YM_uniform_concentration_via_multiscale_averaging_blocked
+    bsd_rank_blind_universal :=
+      PrincipiaTractalis.BSDRankBlindUniversalConcordance.bsd_rank_blind_universal_concordance
     wave22_manuscript_ch29 := by
       unfold Wave22ManuscriptCh29PropagationProven; trivial
     wave22_coq_parity_stubs := by
@@ -271,15 +360,20 @@ theorem cite_bsd_rank_blind_universal :
 
 /-! ## §X — 11 individual `_holds` discharge theorems for Wave 22+23 provenness tags -/
 
-theorem YMKernelStructureObstructionProven_holds : YMKernelStructureObstructionProven := trivial
-theorem NS3DLocalBoundLeTwoProven_holds : NS3DLocalBoundLeTwoProven := trivial
-theorem NS3DLocalBoundLeThreeProven_holds : NS3DLocalBoundLeThreeProven := trivial
-theorem FrameworkHeadline19FieldProven_holds : FrameworkHeadline19FieldProven := trivial
+theorem YMKernelStructureObstructionProven_holds : YMKernelStructureObstructionProven :=
+  YM_uniform_concentration_via_kernel_structure_final_verdict
+theorem NS3DLocalBoundLeTwoProven_holds : NS3DLocalBoundLeTwoProven := fun T hT =>
+  PrincipiaTractalis.NS3DLocalRegularityAtNGeqOneRetry.local_vortex_stretching_bound_at_n_le_two T hT
+theorem NS3DLocalBoundLeThreeProven_holds : NS3DLocalBoundLeThreeProven := fun T hT =>
+  PrincipiaTractalis.NS3DLocalRegularityAtNEqThree.local_vortex_stretching_bound_at_n_le_three T hT
+theorem FrameworkHeadline19FieldProven_holds : FrameworkHeadline19FieldProven :=
+  principiaFractalisFrameworkHeadline_holds
 theorem CrossMillenniumSharedInvariantsProven_holds : CrossMillenniumSharedInvariantsProven :=
-  have _ := _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.cross_millennium_shared_invariants_capstone
-  trivial
-theorem YMMultiscaleAveragingNegativeProven_holds : YMMultiscaleAveragingNegativeProven := trivial
-theorem BSDRankBlindUniversalProven_holds : BSDRankBlindUniversalProven := trivial
+  PrincipiaTractalis.CrossMillenniumSharedInvariants.cross_millennium_shared_invariants_capstone
+theorem YMMultiscaleAveragingNegativeProven_holds : YMMultiscaleAveragingNegativeProven :=
+  YM_uniform_concentration_via_multiscale_averaging_blocked
+theorem BSDRankBlindUniversalProven_holds : BSDRankBlindUniversalProven :=
+  PrincipiaTractalis.BSDRankBlindUniversalConcordance.bsd_rank_blind_universal_concordance
 theorem Wave22ManuscriptCh29PropagationProven_holds : Wave22ManuscriptCh29PropagationProven := trivial
 theorem Wave22CoqParityStubsProven_holds : Wave22CoqParityStubsProven := trivial
 theorem Wave22OpenProblemsBannerProven_holds : Wave22OpenProblemsBannerProven := trivial
