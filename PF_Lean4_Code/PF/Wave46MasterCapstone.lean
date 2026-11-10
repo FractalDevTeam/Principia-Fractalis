@@ -70,7 +70,8 @@ namespace PrincipiaTractalis
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave46YMConditionalDischargeViaGaloisRigidityProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave46CrossMillenniumOpenFrontierInventoryProven : Prop := True
+def Wave46CrossMillenniumOpenFrontierInventoryProven : Prop :=
+  PrincipiaTractalis.CrossMillenniumOpenFrontierInventory.Inventory
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave45MasterCapstoneAggregatorProven : Prop := True
 
@@ -117,9 +118,8 @@ theorem wave46_additions_hold : Wave46Additions :=
   { wave46_YM_conditional_discharge_via_galois_rigidity := by
       have _ := _root_.PrincipiaTractalis.YMConditionalDischargeViaGaloisRigidity.YM_conditional_discharge_via_galois_rigidity_capstone
       unfold Wave46YMConditionalDischargeViaGaloisRigidityProven; trivial
-    wave46_cross_millennium_open_frontier_inventory := by
-      have _ := _root_.PrincipiaTractalis.CrossMillenniumOpenFrontierInventory.cross_millennium_open_frontier_inventory_capstone
-      unfold Wave46CrossMillenniumOpenFrontierInventoryProven; trivial
+    wave46_cross_millennium_open_frontier_inventory :=
+      PrincipiaTractalis.CrossMillenniumOpenFrontierInventory.cross_millennium_open_frontier_inventory_capstone
     wave45_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave45_master_capstone
       unfold Wave45MasterCapstoneAggregatorProven; trivial }
@@ -150,8 +150,7 @@ theorem Wave46YMConditionalDischargeViaGaloisRigidityProven_holds : Wave46YMCond
   have _ := _root_.PrincipiaTractalis.YMConditionalDischargeViaGaloisRigidity.YM_conditional_discharge_via_galois_rigidity_capstone
   trivial
 theorem Wave46CrossMillenniumOpenFrontierInventoryProven_holds : Wave46CrossMillenniumOpenFrontierInventoryProven :=
-  have _ := _root_.PrincipiaTractalis.CrossMillenniumOpenFrontierInventory.cross_millennium_open_frontier_inventory_capstone
-  trivial
+  PrincipiaTractalis.CrossMillenniumOpenFrontierInventory.cross_millennium_open_frontier_inventory_capstone
 theorem Wave45MasterCapstoneAggregatorProven_holds : Wave45MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave45_master_capstone
   trivial
