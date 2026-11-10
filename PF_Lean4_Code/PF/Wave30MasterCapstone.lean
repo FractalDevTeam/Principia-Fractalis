@@ -89,11 +89,44 @@ namespace PrincipiaTractalis
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_pade_two_two_realises_cluster_fix_outside_lower_families`
     (Wave 30 POSITIVE). -/
-def YMCanonicalPade22RealisesProven : Prop := True
+def YMCanonicalPade22RealisesProven : Prop :=
+  (∀ a₀ a₁ a₂ b₀ b₁ b₂ : ℝ, padeTwoTwoMap a₀ a₁ a₂ b₀ b₁ b₂ (1/2) = (a₀ + a₁/2 + a₂/4) / (b₀ + b₁/2 + b₂/4)) ∧
+  (∀ a₀ a₁ a₂ b₀ b₁ b₂ : ℝ, padeTwoTwoMap a₀ a₁ a₂ b₀ b₁ b₂ (3/2) = (a₀ + 3*a₁/2 + 9*a₂/4) / (b₀ + 3*b₁/2 + 9*b₂/4)) ∧
+  (padeTwoTwoMap (7/8) (-1) 1 1 0 1 (1/2) = 1/2 ∧ padeTwoTwoMap (7/8) (-1) 1 1 0 1 (3/2) = 1/2) ∧
+  (padeTwoTwoMap (-3/4) (9/4) 1 1 0 1 (1/2) = 1/2 ∧ padeTwoTwoMap (-3/4) (9/4) 1 1 0 1 (3/2) = 3/2) ∧
+  (padeTwoTwoMap (11/4) (-9/4) 1 1 0 1 (1/2) = 3/2 ∧ padeTwoTwoMap (11/4) (-9/4) 1 1 0 1 (3/2) = 1/2) ∧
+  (padeTwoTwoMap (9/8) 1 1 1 0 1 (1/2) = 3/2 ∧ padeTwoTwoMap (9/8) 1 1 1 0 1 (3/2) = 3/2) ∧
+  ((1 : ℝ) ≠ 0) ∧
+  (padeTwoTwoMap (7/8) (-1) 1 1 0 1 100 ≠ mixedOrderKernelMap 1 (-2) (5/4) 100) ∧
+  (padeTwoTwoMap (7/8) (-1) 1 1 0 1 100 ≠ padeOneOneMap (1/2) (1/2) 1 1 100) ∧
+  (padeTwoTwoMap (-3/4) (9/4) 1 1 0 1 100 ≠ mixedOrderKernelMap 1 (-1) (3/4) 100) ∧
+  (padeTwoTwoMap (-3/4) (9/4) 1 1 0 1 100 ≠ padeOneOneMap (-3/4) 4 2 1 100)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_two_pole_stieltjes_realises_cluster_fix_outside_polynomial_and_pade_families`
     (Wave 30 POSITIVE, functional-level). -/
-def YMCanonicalTwoPoleStieltjesRealisesProven : Prop := True
+def YMCanonicalTwoPoleStieltjesRealisesProven : Prop :=
+  (∀ a1 a2 mu1 mu2 beta : ℝ,
+      twoPoleStieltjesMap a1 a2 mu1 mu2 beta (1/2) =
+        a1 / (mu1 - 1/2) + a2 / (mu2 - 1/2) + beta) ∧
+  (∀ a1 a2 mu1 mu2 beta : ℝ,
+      twoPoleStieltjesMap a1 a2 mu1 mu2 beta (3/2) =
+        a1 / (mu1 - 3/2) + a2 / (mu2 - 3/2) + beta) ∧
+  (twoPoleStieltjesMap (-1) 1 0 2 (-13/6) (1/2) = 1/2 ∧
+   twoPoleStieltjesMap (-1) 1 0 2 (-13/6) (3/2) = 1/2) ∧
+  (twoPoleStieltjesMap 1 (-1/4) 0 2 (8/3) (1/2) = 1/2 ∧
+   twoPoleStieltjesMap 1 (-1/4) 0 2 (8/3) (3/2) = 3/2) ∧
+  (twoPoleStieltjesMap (-1) (1/4) 0 2 (-2/3) (1/2) = 3/2 ∧
+   twoPoleStieltjesMap (-1) (1/4) 0 2 (-2/3) (3/2) = 1/2) ∧
+  (twoPoleStieltjesMap (-1) 1 0 2 (-7/6) (1/2) = 3/2 ∧
+   twoPoleStieltjesMap (-1) 1 0 2 (-7/6) (3/2) = 3/2) ∧
+  (((-1 : ℝ) ≠ 0) ∧ ((1 : ℝ) ≠ 0) ∧ ((1/4 : ℝ) ≠ 0) ∧
+   ((-1/4 : ℝ) ≠ 0) ∧ ((0 : ℝ) ≠ (2 : ℝ)) ∧
+   ((0 : ℝ) ≠ (1/2 : ℝ)) ∧ ((0 : ℝ) ≠ (3/2 : ℝ)) ∧
+   ((2 : ℝ) ≠ (1/2 : ℝ)) ∧ ((2 : ℝ) ≠ (3/2 : ℝ))) ∧
+  (twoPoleStieltjesMap (-1) 1 0 2 (-13/6) 100 ≠ mixedOrderKernelMap 1 (-2) (5/4) 100) ∧
+  (twoPoleStieltjesMap 1 (-1/4) 0 2 (8/3) 100 ≠ mixedOrderKernelMap 1 (-1) (3/4) 100) ∧
+  (twoPoleStieltjesMap (-1) 1 0 2 (-13/6) 100 ≠ padeOneOneMap (1/2) (1/2) 1 1 100) ∧
+  (twoPoleStieltjesMap 1 (-1/4) 0 2 (8/3) 100 ≠ padeOneOneMap (-3/4) 4 2 1 100)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 29 META aggregator (`e0a35f0`); pinned here for
     traceability of the Wave 30 META layer. -/
@@ -159,10 +192,10 @@ structure Wave30MasterCapstone : Prop where
 /-- **Wave 30 additions hold axiom-free.** Provenness tags pinned
     via Section 4 citation theorems. -/
 theorem wave30_additions_hold : Wave30Additions :=
-  { ym_canonical_pade_two_two_realises := by
-      unfold YMCanonicalPade22RealisesProven; trivial
-    ym_canonical_two_pole_stieltjes_realises := by
-      unfold YMCanonicalTwoPoleStieltjesRealisesProven; trivial
+  { ym_canonical_pade_two_two_realises :=
+      ym_canonical_pade_two_two_realises_cluster_fix_outside_lower_families
+    ym_canonical_two_pole_stieltjes_realises :=
+      ym_canonical_two_pole_stieltjes_realises_cluster_fix_outside_polynomial_and_pade_families
     wave29_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave29_master_capstone
       unfold Wave29MasterCapstoneAggregatorProven; trivial }
@@ -223,8 +256,10 @@ theorem cite_ym_canonical_two_pole_stieltjes_realises :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem YMCanonicalPade22RealisesProven_holds : YMCanonicalPade22RealisesProven := trivial
-theorem YMCanonicalTwoPoleStieltjesRealisesProven_holds : YMCanonicalTwoPoleStieltjesRealisesProven := trivial
+theorem YMCanonicalPade22RealisesProven_holds : YMCanonicalPade22RealisesProven :=
+  ym_canonical_pade_two_two_realises_cluster_fix_outside_lower_families
+theorem YMCanonicalTwoPoleStieltjesRealisesProven_holds : YMCanonicalTwoPoleStieltjesRealisesProven :=
+  ym_canonical_two_pole_stieltjes_realises_cluster_fix_outside_polynomial_and_pade_families
 theorem Wave29MasterCapstoneAggregatorProven_holds : Wave29MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave29_master_capstone
   trivial
