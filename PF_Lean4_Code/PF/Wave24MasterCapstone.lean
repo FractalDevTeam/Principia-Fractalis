@@ -57,20 +57,58 @@ import PF.PolylogResonanceOrthogonalityCapstone
 
 namespace PrincipiaTractalis
 
+-- 2026-11-10: targeted opens for restated content-bearing defs
+open PrincipiaTractalis.MillenniumSix (bsd_distinguished_eigenvalue)
+-- alpha_RH resolved via FrameworkApplicationCapstone (top-level PrincipiaTractalis)
+-- alpha_NP qualified explicitly below (multiple alpha_NP defs across the corpus)
+open PrincipiaTractalis.BSDRankBlindUniversalConcordance (BSDFrameworkInstance)
+open PrincipiaTractalis.NS3DLocalRegularityViaBKM (LocalVortexStretchingBound)
+open PrincipiaTractalis.PolylogReformulated (PolylogResonanceConjecture PolylogAlgebraicContent)
+open PrincipiaTractalis.TuringEncoding (PolylogEigenvalueConjecture ClassP ClassNP)
+open PrincipiaTractalis.PolylogHSCompactness (twoVecRayleighQuotient)
+open PrincipiaTractalis.Operators (groundStateValue)
+
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `YM_non_affine_quadratic_cluster_fixing_unlocked` (f706266). -/
-def YMNonAffineQuadraticUnlockProven : Prop := True
+def YMNonAffineQuadraticUnlockProven : Prop :=
+  MultiscaleAveragingBlocked ∧
+  QuadraticClusterFixingUnlocked ∧
+  (∃ α β γ : ℝ, α ≠ 0 ∧
+     quadraticEigenvalueMap α β γ (1/2) = 1/2 ∧
+     quadraticEigenvalueMap α β γ (3/2) = 1/2) ∧
+  (∃ α β γ : ℝ, α ≠ 0 ∧
+     quadraticEigenvalueMap α β γ (1/2) = 1/2 ∧
+     quadraticEigenvalueMap α β γ (3/2) = 3/2)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `bsd_rank_six_universal_concordance` (d58f5ac). -/
-def BSDRankSixUniversalConcordanceProven : Prop := True
+def BSDRankSixUniversalConcordanceProven : Prop :=
+  (∀ r : Fin 6, ∃ E : WeierstrassCurve ℚ, BSDFrameworkInstance E r.val) ∧
+  (∀ _r : Fin 6,
+      (595 : ℝ)/1000 < bsd_distinguished_eigenvalue ∧
+      bsd_distinguished_eigenvalue < (596 : ℝ)/1000) ∧
+  (∀ _r : Fin 6,
+      bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_RH ∧
+      bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_NP)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `local_vortex_stretching_bound_at_n_le_five` (b82e930). -/
-def NS3DLocalBoundLeFiveProven : Prop := True
+def NS3DLocalBoundLeFiveProven : Prop :=
+  ∀ (T : ℝ), 0 < T →
+    LocalVortexStretchingBound T 0 ∧
+    LocalVortexStretchingBound T 1 ∧
+    LocalVortexStretchingBound T 2 ∧
+    LocalVortexStretchingBound T 3 ∧
+    LocalVortexStretchingBound T 4 ∧
+    LocalVortexStretchingBound T 5
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `polylog_resonance_pnp_orthogonality_citable` (f860989). -/
-def PolylogResonanceOrthogonalityProven : Prop := True
+def PolylogResonanceOrthogonalityProven : Prop :=
+  ∀ {α : ℝ}, Real.sqrt 2 ≤ α →
+    PolylogResonanceConjecture α ∧
+    (PolylogAlgebraicContent ↔ PolylogEigenvalueConjecture) ∧
+    (PolylogAlgebraicContent → ClassP ≠ ClassNP) ∧
+    (∃ θ : ℝ, twoVecRayleighQuotient α θ < groundStateValue α)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Ch 34 manuscript propagation (8b115d1, NOT a Lean deliverable). -/
 def Wave24ManuscriptCh34PropagationProven : Prop := True
@@ -136,14 +174,14 @@ structure Wave24MasterCapstone : Prop where
 /-- **Wave-24 additions hold axiom-free.** Provenness tags
     pinned via Section 4 citation theorems. -/
 theorem wave24_additions_hold : Wave24Additions :=
-  { ym_non_affine_quadratic_unlock := by
-      unfold YMNonAffineQuadraticUnlockProven; trivial
-    bsd_rank_six_universal_concordance := by
-      unfold BSDRankSixUniversalConcordanceProven; trivial
-    ns3d_local_bound_le_five := by
-      unfold NS3DLocalBoundLeFiveProven; trivial
-    polylog_resonance_orthogonality := by
-      unfold PolylogResonanceOrthogonalityProven; trivial
+  { ym_non_affine_quadratic_unlock :=
+      YM_non_affine_quadratic_cluster_fixing_unlocked
+    bsd_rank_six_universal_concordance :=
+      PrincipiaTractalis.BSDRankFourFiveFrameworks.bsd_rank_six_universal_concordance
+    ns3d_local_bound_le_five := fun T hT =>
+      PrincipiaTractalis.NS3DLocalRegularityAtNEqFourFive.local_vortex_stretching_bound_at_n_le_five T hT
+    polylog_resonance_orthogonality := fun {α} hα =>
+      PrincipiaTractalis.PolylogOrthogonality.polylog_resonance_pnp_orthogonality_citable hα
     wave24_manuscript_ch34 := by
       unfold Wave24ManuscriptCh34PropagationProven; trivial }
 
@@ -202,10 +240,14 @@ theorem cite_polylog_resonance_orthogonality :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem YMNonAffineQuadraticUnlockProven_holds : YMNonAffineQuadraticUnlockProven := trivial
-theorem BSDRankSixUniversalConcordanceProven_holds : BSDRankSixUniversalConcordanceProven := trivial
-theorem NS3DLocalBoundLeFiveProven_holds : NS3DLocalBoundLeFiveProven := trivial
-theorem PolylogResonanceOrthogonalityProven_holds : PolylogResonanceOrthogonalityProven := trivial
+theorem YMNonAffineQuadraticUnlockProven_holds : YMNonAffineQuadraticUnlockProven :=
+  YM_non_affine_quadratic_cluster_fixing_unlocked
+theorem BSDRankSixUniversalConcordanceProven_holds : BSDRankSixUniversalConcordanceProven :=
+  PrincipiaTractalis.BSDRankFourFiveFrameworks.bsd_rank_six_universal_concordance
+theorem NS3DLocalBoundLeFiveProven_holds : NS3DLocalBoundLeFiveProven := fun T hT =>
+  PrincipiaTractalis.NS3DLocalRegularityAtNEqFourFive.local_vortex_stretching_bound_at_n_le_five T hT
+theorem PolylogResonanceOrthogonalityProven_holds : PolylogResonanceOrthogonalityProven := fun {α} hα =>
+  PrincipiaTractalis.PolylogOrthogonality.polylog_resonance_pnp_orthogonality_citable hα
 theorem Wave24ManuscriptCh34PropagationProven_holds : Wave24ManuscriptCh34PropagationProven := trivial
 
 end PrincipiaTractalis
