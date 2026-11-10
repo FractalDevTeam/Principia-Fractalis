@@ -121,18 +121,27 @@ def Wave51T3SymSurrogateSurjectivityProven : Prop :=
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51NSWave35P1JointDischargeProven : Prop :=
   PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.Wave51JointDischargeStatus
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave51NSVortexStretchingUniformGalerkinProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
+-- 2026-11-10 RESTATE: pinned to clause (1) uniform per-n diagonal bound of ns_3d_vortex_stretching_uniform_galerkin_attempt_capstone.
+def Wave51NSVortexStretchingUniformGalerkinProven : Prop :=
+  ∀ n : ℕ, ∀ (ω : _root_.PrincipiaTractalis.NS3DVortexStretchingObstruction.Vorticity3DState n)
+    (g : _root_.PrincipiaTractalis.NS3DVortexStretchingObstruction.VelocityGradient3DState n),
+    ‖_root_.PrincipiaTractalis.NS3DVortexStretchingObstruction.VortexStretching3D ω g‖ ≤ 2 * ‖ω‖ * ‖g‖
+-- VACUITY BANNER: parametric by n, t, x; marker preserved as Prop := True.
 def Wave51YMReflectionPositivity3plus1DRank2Proven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
+-- VACUITY BANNER: cite_wave47E rfl-only; marker preserved.
 def Wave51HodgeMixedCmRankOneProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave51BSDLPartialEvaluationExtendedProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave51BSDCoatesWilesRankZeroProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave51NSYMBSDTranscendentalRatioBridgeProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to a_p 37 = -2 clause (T1) of bsd_L_partial_evaluation_extended_attempt_capstone.
+def Wave51BSDLPartialEvaluationExtendedProven : Prop :=
+  _root_.PrincipiaTractalis.BSDFrobeniusTraceAttempt.a_p 37 = -2
+-- 2026-11-10 RESTATE: pinned to hasCM E_rank_zero clause (T1) of bsd_coates_wiles_rank_zero_attempt_capstone.
+def Wave51BSDCoatesWilesRankZeroProven : Prop :=
+  _root_.PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.hasCM
+    _root_.PrincipiaTractalis.BSDGaloisPairConcordance.E_rank_zero
+-- 2026-11-10 RESTATE: pinned to alpha_NS / alpha_YM = alpha_BSD clause (1) of ns_ym_bsd_transcendental_ratio_bridge_capstone.
+def Wave51NSYMBSDTranscendentalRatioBridgeProven : Prop :=
+  _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NS /
+    _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM =
+    _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.α_BSD
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50MasterCapstoneAggregatorProven : Prop := True
 
@@ -160,24 +169,20 @@ theorem wave51_additions_hold : Wave51Additions :=
       PrincipiaTractalis.T3SymSurrogateSurjectivityAttempt.t3_sym_surrogate_surjectivity_attempt_capstone
     wave51_ns_wave35_p1_joint_discharge :=
       PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.ns_3d_mathlib_sobolev_div_free_attempt_wave51_capstone
-    wave51_ns_vortex_stretching_uniform_galerkin := by
-      have _ := _root_.PrincipiaTractalis.NS3DVortexStretchingUniformGalerkinAttempt.ns_3d_vortex_stretching_uniform_galerkin_attempt_capstone
-      unfold Wave51NSVortexStretchingUniformGalerkinProven; trivial
+    wave51_ns_vortex_stretching_uniform_galerkin :=
+      (_root_.PrincipiaTractalis.NS3DVortexStretchingUniformGalerkinAttempt.ns_3d_vortex_stretching_uniform_galerkin_attempt_capstone).1
     wave51_ym_reflection_positivity_3plus1D_rank2 := by
       have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRank2Attempt.ym_reflection_positivity_3plus1d_rank2_attempt_capstone
       unfold Wave51YMReflectionPositivity3plus1DRank2Proven; trivial
     wave51_hodge_mixed_cm_rank_one := by
       have _ := _root_.PrincipiaTractalis.HodgeCodim2MixedCmRankOneAttempt.hodge_codim_2_mixedCmRankOne_first_principles_capstone
       unfold Wave51HodgeMixedCmRankOneProven; trivial
-    wave51_bsd_L_partial_evaluation_extended := by
-      have _ := _root_.PrincipiaTractalis.BSDLPartialEvaluationExtendedAttempt.bsd_L_partial_evaluation_extended_attempt_capstone
-      unfold Wave51BSDLPartialEvaluationExtendedProven; trivial
-    wave51_bsd_coates_wiles_rank_zero := by
-      have _ := _root_.PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.bsd_coates_wiles_rank_zero_attempt_capstone
-      unfold Wave51BSDCoatesWilesRankZeroProven; trivial
-    wave51_ns_ym_bsd_transcendental_ratio_bridge := by
-      have _ := _root_.PrincipiaTractalis.NSYMBSDTranscendentalRatioBridge.ns_ym_bsd_transcendental_ratio_bridge_capstone
-      unfold Wave51NSYMBSDTranscendentalRatioBridgeProven; trivial
+    wave51_bsd_L_partial_evaluation_extended :=
+      (_root_.PrincipiaTractalis.BSDLPartialEvaluationExtendedAttempt.bsd_L_partial_evaluation_extended_attempt_capstone).1
+    wave51_bsd_coates_wiles_rank_zero :=
+      (_root_.PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.bsd_coates_wiles_rank_zero_attempt_capstone).1
+    wave51_ns_ym_bsd_transcendental_ratio_bridge :=
+      (_root_.PrincipiaTractalis.NSYMBSDTranscendentalRatioBridge.ns_ym_bsd_transcendental_ratio_bridge_capstone).1
     wave50_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave50_master_capstone
       unfold Wave50MasterCapstoneAggregatorProven; trivial }
@@ -202,8 +207,7 @@ theorem Wave51T3SymSurrogateSurjectivityProven_holds : Wave51T3SymSurrogateSurje
 theorem Wave51NSWave35P1JointDischargeProven_holds : Wave51NSWave35P1JointDischargeProven :=
   PrincipiaTractalis.NS3DMathlibSobolevDivFreeAttemptWave51.ns_3d_mathlib_sobolev_div_free_attempt_wave51_capstone
 theorem Wave51NSVortexStretchingUniformGalerkinProven_holds : Wave51NSVortexStretchingUniformGalerkinProven :=
-  have _ := _root_.PrincipiaTractalis.NS3DVortexStretchingUniformGalerkinAttempt.ns_3d_vortex_stretching_uniform_galerkin_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.NS3DVortexStretchingUniformGalerkinAttempt.ns_3d_vortex_stretching_uniform_galerkin_attempt_capstone).1
 theorem Wave51YMReflectionPositivity3plus1DRank2Proven_holds : Wave51YMReflectionPositivity3plus1DRank2Proven :=
   have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DRank2Attempt.ym_reflection_positivity_3plus1d_rank2_attempt_capstone
   trivial
@@ -211,14 +215,11 @@ theorem Wave51HodgeMixedCmRankOneProven_holds : Wave51HodgeMixedCmRankOneProven 
   have _ := _root_.PrincipiaTractalis.HodgeCodim2MixedCmRankOneAttempt.hodge_codim_2_mixedCmRankOne_first_principles_capstone
   trivial
 theorem Wave51BSDLPartialEvaluationExtendedProven_holds : Wave51BSDLPartialEvaluationExtendedProven :=
-  have _ := _root_.PrincipiaTractalis.BSDLPartialEvaluationExtendedAttempt.bsd_L_partial_evaluation_extended_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDLPartialEvaluationExtendedAttempt.bsd_L_partial_evaluation_extended_attempt_capstone).1
 theorem Wave51BSDCoatesWilesRankZeroProven_holds : Wave51BSDCoatesWilesRankZeroProven :=
-  have _ := _root_.PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.bsd_coates_wiles_rank_zero_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt.bsd_coates_wiles_rank_zero_attempt_capstone).1
 theorem Wave51NSYMBSDTranscendentalRatioBridgeProven_holds : Wave51NSYMBSDTranscendentalRatioBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.NSYMBSDTranscendentalRatioBridge.ns_ym_bsd_transcendental_ratio_bridge_capstone
-  trivial
+  (_root_.PrincipiaTractalis.NSYMBSDTranscendentalRatioBridge.ns_ym_bsd_transcendental_ratio_bridge_capstone).1
 theorem Wave50MasterCapstoneAggregatorProven_holds : Wave50MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave50_master_capstone
   trivial
