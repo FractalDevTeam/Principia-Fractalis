@@ -70,6 +70,7 @@ import PF.YM_WightmanContinuumGapsTypedUpgrade
 import PF.AlgebraicGeometry.VoisinObstructionTypedUpgrade
 import PF.AlgebraicGeometry.VoisinCodimTwoConcreteInstance
 import PF.NavierStokes.NSPDETypedUpgrade
+import PF.TuringEncoding.PolylogEigenvalueTypedUpgrade
 
 namespace PrincipiaTractalis
 
@@ -145,10 +146,15 @@ structure Wave58Additions : Prop where
       `PF/RHSurjectivityTypedUpgrade.lean`. -/
   rh_surjectivity_typed_decomposition : True
   /-- PolylogEigenvalueConjecture decomposed into 4 typed sub-Props
-      with ENUM-LEVEL MIRROR DISCHARGE UNCONDITIONAL on
-      alpha_at_enum. 11 theorems total. Provenness marker — actual
-      content in `PF/TuringEncoding/PolylogEigenvalueTypedUpgrade.lean`. -/
-  polylog_eigenvalue_typed_decomposition : True
+      with ENUM-LEVEL MIRROR DISCHARGE UNCONDITIONAL on alpha_at_enum.
+      2026-11-10 RESTATE: pinned to the real decomposition biconditional
+      from `polylog_eigenvalue_typed_upgrade_capstone` clause (1). -/
+  polylog_eigenvalue_typed_decomposition :
+    _root_.PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture ↔
+      (_root_.PrincipiaTractalis.TuringEncoding.PolylogSubProp_alpha_P_sq_eq_two ∧
+       _root_.PrincipiaTractalis.TuringEncoding.PolylogSubProp_alpha_P_pos ∧
+       _root_.PrincipiaTractalis.TuringEncoding.PolylogSubProp_alpha_NP_quadratic ∧
+       _root_.PrincipiaTractalis.TuringEncoding.PolylogSubProp_alpha_NP_pos)
   /-- OnLineSurjectivity (RH C3) sub-decomposition: 4 typed sub-Props
       along orthogonal axes + 2 exact equivalences axiom-free +
       C2 bridge. Provenness marker — actual content in
@@ -219,7 +225,8 @@ theorem wave58_additions_hold : Wave58Additions where
   ym_wightman_continuum_gaps_typed_upgrade :=
     (_root_.PrincipiaTractalis.YM_WightmanContinuumGapsTypedUpgrade.ym_wightman_continuum_gaps_typed_upgrade_capstone).1
   rh_surjectivity_typed_decomposition := trivial
-  polylog_eigenvalue_typed_decomposition := trivial
+  polylog_eigenvalue_typed_decomposition :=
+    (_root_.PrincipiaTractalis.TuringEncoding.polylog_eigenvalue_typed_upgrade_capstone).1
   online_surjectivity_sub_decomposition := trivial
   ns_pde_typed_upgrade_with_wave33_discharge :=
     PF.NavierStokes.NSPDETypedUpgrade.wave58_NS_typed_upgrade_capstone
