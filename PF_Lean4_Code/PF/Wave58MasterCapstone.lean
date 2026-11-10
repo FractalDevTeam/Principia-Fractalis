@@ -74,6 +74,7 @@ import PF.TuringEncoding.PolylogEigenvalueTypedUpgrade
 import PF.Analytic.OnLineSurjectivityBaseCaseDischarge
 import PF.RHSurjectivityTypedUpgrade
 import PF.Analytic.OnLineSurjectivitySubDecomposition
+import PF.Analytic.OnLineSurjectivityCascadeK1K2
 
 namespace PrincipiaTractalis
 
@@ -199,11 +200,20 @@ structure Wave58Additions : Prop where
   bochner_minlos_gaussian_concrete_witness :
     _root_.PrincipiaTractalis.YM_BochnerMinlosConcreteWitness.BochnerMinlosConcreteTypedStatement
   /-- OnLineSurjectivity per-zero cascade extended to k=1, k=2 via
-      Odlyzko ordinates t2, t3 + finite-prefix forward chaining
-      `kth_cascade_to_finite` discharging for ANY N : ℕ on a single
-      witness. Provenness marker — actual content in
-      `PF/Analytic/OnLineSurjectivityCascadeK1K2.lean`. -/
-  online_surjectivity_k1_k2_finite_cascade : True
+      Odlyzko ordinates t2, t3 + finite-prefix forward chaining.
+      2026-11-10 RESTATE: pinned to the (C1) triple-anchor inversion
+      from the capstone. -/
+  online_surjectivity_k1_k2_finite_cascade :
+    ∀ (t1 t2 t3 : ℝ), 0 < t1 → 0 < t2 → 0 < t3 →
+      _root_.PrincipiaTractalis.eigenvalueToT
+          _root_.PrincipiaTractalis.OnLineSurjectivityBaseCaseDischarge.α_unit
+          (_root_.PrincipiaTractalis.OnLineSurjectivityCascadeK1K2.eigenvalues_anchoredAt3 t1 t2 t3 0) = t1 ∧
+      _root_.PrincipiaTractalis.eigenvalueToT
+          _root_.PrincipiaTractalis.OnLineSurjectivityBaseCaseDischarge.α_unit
+          (_root_.PrincipiaTractalis.OnLineSurjectivityCascadeK1K2.eigenvalues_anchoredAt3 t1 t2 t3 1) = t2 ∧
+      _root_.PrincipiaTractalis.eigenvalueToT
+          _root_.PrincipiaTractalis.OnLineSurjectivityBaseCaseDischarge.α_unit
+          (_root_.PrincipiaTractalis.OnLineSurjectivityCascadeK1K2.eigenvalues_anchoredAt3 t1 t2 t3 2) = t3
   /-- Schwartz (G2) time-reflection concrete witness on 𝓢(ℝ⁴, ℝ)
       via SchwartzMap.compCLMOfContinuousLinearEquiv on the
       time-axis ContinuousLinearEquiv. 2026-11-10 RESTATE: pinned to the
@@ -253,7 +263,8 @@ theorem wave58_additions_hold : Wave58Additions where
     (_root_.PrincipiaTractalis.AlgebraicGeometry.VoisinCodimTwoConcreteInstance.voisinCodimTwoConcreteInstance_capstone).1
   bochner_minlos_gaussian_concrete_witness :=
     (_root_.PrincipiaTractalis.YM_BochnerMinlosConcreteWitness.bochnerMinlos_concrete_witness_capstone).1
-  online_surjectivity_k1_k2_finite_cascade := trivial
+  online_surjectivity_k1_k2_finite_cascade :=
+    (_root_.PrincipiaTractalis.OnLineSurjectivityCascadeK1K2.cascade_extension_k1_k2_capstone).1
   schwartz_time_reflection_concrete_witness :=
     (_root_.PrincipiaTractalis.YM_SchwartzReflectionConcreteWitness.schwartzReflection_concrete_witness_capstone).1
   wightman_reconstruction_concrete_witness :=
