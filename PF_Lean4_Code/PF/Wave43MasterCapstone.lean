@@ -39,10 +39,25 @@ import PF.StieltjesHodgeAbelian3FoldSpectralBridge
 
 namespace PrincipiaTractalis
 
+-- 2026-11-10: targeted opens for restated content-bearing defs
+open PrincipiaTractalis.GaloisRigidConditionalDischarge (HasGaloisRigidQRealisation)
+open PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator (IsGaloisRigid galois_rigid_millennium_problems MillenniumProblem)
+open PrincipiaTractalis.CrossMillenniumImplicationChains (RealisesP RealisesRH RealisesYM)
+
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave43GaloisRigidConditionalDischargeProven : Prop := True
+def Wave43GaloisRigidConditionalDischargeProven : Prop :=
+  HasGaloisRigidQRealisation .Poincare ∧
+  HasGaloisRigidQRealisation .RH ∧
+  HasGaloisRigidQRealisation .YM ∧
+  (∀ p ∈ galois_rigid_millennium_problems, HasGaloisRigidQRealisation p) ∧
+  (∀ p : MillenniumProblem, HasGaloisRigidQRealisation p ↔ IsGaloisRigid p) ∧
+  (HasGaloisRigidQRealisation .RH → ∃ a : ℝ, RealisesRH a) ∧
+  (HasGaloisRigidQRealisation .YM → ∃ a : ℝ, RealisesYM a) ∧
+  (HasGaloisRigidQRealisation .YM → ∃ b : ℝ, RealisesP b) ∧
+  (HasGaloisRigidQRealisation .YM →
+      (∃ a : ℝ, RealisesYM a) ∧ (∃ b : ℝ, RealisesP b))
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave43StieltjesHodgeAbelian3FoldSpectralBridgeProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -89,9 +104,8 @@ structure Wave43MasterCapstone : Prop where
   wave_43 : Wave43Additions
 
 theorem wave43_additions_hold : Wave43Additions :=
-  { wave43_galois_rigid_conditional_discharge := by
-      have _ := _root_.PrincipiaTractalis.GaloisRigidConditionalDischarge.galois_rigid_conditional_discharge_capstone
-      unfold Wave43GaloisRigidConditionalDischargeProven; trivial
+  { wave43_galois_rigid_conditional_discharge :=
+      PrincipiaTractalis.GaloisRigidConditionalDischarge.galois_rigid_conditional_discharge_capstone
     wave43_stieltjes_hodge_abelian_3fold_spectral_bridge := by
       have _ := _root_.PrincipiaTractalis.StieltjesHodgeAbelian3FoldSpectralBridge.stieltjes_hodge_abelian_3fold_spectral_bridge_capstone
       unfold Wave43StieltjesHodgeAbelian3FoldSpectralBridgeProven; trivial
@@ -122,8 +136,7 @@ theorem cite_wave43_stieltjes_hodge_abelian_3fold_spectral_bridge :
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave43GaloisRigidConditionalDischargeProven_holds : Wave43GaloisRigidConditionalDischargeProven :=
-  have _ := _root_.PrincipiaTractalis.GaloisRigidConditionalDischarge.galois_rigid_conditional_discharge_capstone
-  trivial
+  PrincipiaTractalis.GaloisRigidConditionalDischarge.galois_rigid_conditional_discharge_capstone
 theorem Wave43StieltjesHodgeAbelian3FoldSpectralBridgeProven_holds : Wave43StieltjesHodgeAbelian3FoldSpectralBridgeProven :=
   have _ := _root_.PrincipiaTractalis.StieltjesHodgeAbelian3FoldSpectralBridge.stieltjes_hodge_abelian_3fold_spectral_bridge_capstone
   trivial
