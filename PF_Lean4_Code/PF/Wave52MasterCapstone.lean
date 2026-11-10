@@ -115,16 +115,21 @@ def Wave52T3SymCanonicalAlphaCarrierProven : Prop :=
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave52KatoBilinearEstimateProven : Prop :=
   PrincipiaTractalis.KatoBilinearEstimateAttempt.WaveFiftyOneCKatoEncoding
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
+-- VACUITY BANNER: parametric by n/t/x; marker preserved as Prop := True.
 def Wave52YMRankKProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
+-- VACUITY BANNER: cite_wave47E capstone is a reflexive rfl placeholder; marker preserved.
 def Wave52HodgeCmAbelian4FoldProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave52BSDLPartialOscillationAnalysisProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave52BSDWilesModularityProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave52PNPRHRigidByQuadraticBridgeProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to clause (C1) closed-form L_partial_at_37 of bsd_L_partial_oscillation_analysis_attempt_capstone.
+def Wave52BSDLPartialOscillationAnalysisProven : Prop :=
+  _root_.PrincipiaTractalis.BSDLPartialOscillationAnalysisAttempt.L_partial_at_37 = 247357937827 / 483183820800
+-- 2026-11-10 RESTATE: pinned to ModularFormCompanion clause (T1) of bsd_wiles_modularity_attempt_capstone.
+def Wave52BSDWilesModularityProven : Prop :=
+  _root_.PrincipiaTractalis.BSDWilesModularityAttempt.ModularFormCompanion
+    _root_.PrincipiaTractalis.BSDGaloisPairConcordance.E_rank_zero 32
+-- 2026-11-10 RESTATE: pinned to the rigid-by-quadratic identity alpha_P^2 / alpha_RH^2 = 8/9 clause (1) of pnp_rh_rigid_by_quadratic_bridge_capstone.
+def Wave52PNPRHRigidByQuadraticBridgeProven : Prop :=
+  _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.α_P ^ 2 /
+    _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH ^ 2 = 8 / 9
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51MasterCapstoneAggregatorProven : Prop := True
 
@@ -160,15 +165,12 @@ theorem wave52_additions_hold : Wave52Additions :=
     wave52_hodge_cm_abelian_4fold := by
       have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.hodge_codim_2_cmAbelian4Fold_first_principles_capstone
       unfold Wave52HodgeCmAbelian4FoldProven; trivial
-    wave52_bsd_L_partial_oscillation_analysis := by
-      have _ := _root_.PrincipiaTractalis.BSDLPartialOscillationAnalysisAttempt.bsd_L_partial_oscillation_analysis_attempt_capstone
-      unfold Wave52BSDLPartialOscillationAnalysisProven; trivial
-    wave52_bsd_wiles_modularity := by
-      have _ := _root_.PrincipiaTractalis.BSDWilesModularityAttempt.bsd_wiles_modularity_attempt_capstone
-      unfold Wave52BSDWilesModularityProven; trivial
-    wave52_pnp_rh_rigid_by_quadratic_bridge := by
-      have _ := _root_.PrincipiaTractalis.PNPRHRigidByQuadraticBridge.pnp_rh_rigid_by_quadratic_bridge_capstone
-      unfold Wave52PNPRHRigidByQuadraticBridgeProven; trivial
+    wave52_bsd_L_partial_oscillation_analysis :=
+      (_root_.PrincipiaTractalis.BSDLPartialOscillationAnalysisAttempt.bsd_L_partial_oscillation_analysis_attempt_capstone).1
+    wave52_bsd_wiles_modularity :=
+      (_root_.PrincipiaTractalis.BSDWilesModularityAttempt.bsd_wiles_modularity_attempt_capstone).1
+    wave52_pnp_rh_rigid_by_quadratic_bridge :=
+      (_root_.PrincipiaTractalis.PNPRHRigidByQuadraticBridge.pnp_rh_rigid_by_quadratic_bridge_capstone).1
     wave51_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave51_master_capstone
       unfold Wave51MasterCapstoneAggregatorProven; trivial }
@@ -201,14 +203,11 @@ theorem Wave52HodgeCmAbelian4FoldProven_holds : Wave52HodgeCmAbelian4FoldProven 
   have _ := _root_.PrincipiaTractalis.HodgeCodim2CmAbelian4FoldAttempt.hodge_codim_2_cmAbelian4Fold_first_principles_capstone
   trivial
 theorem Wave52BSDLPartialOscillationAnalysisProven_holds : Wave52BSDLPartialOscillationAnalysisProven :=
-  have _ := _root_.PrincipiaTractalis.BSDLPartialOscillationAnalysisAttempt.bsd_L_partial_oscillation_analysis_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDLPartialOscillationAnalysisAttempt.bsd_L_partial_oscillation_analysis_attempt_capstone).1
 theorem Wave52BSDWilesModularityProven_holds : Wave52BSDWilesModularityProven :=
-  have _ := _root_.PrincipiaTractalis.BSDWilesModularityAttempt.bsd_wiles_modularity_attempt_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDWilesModularityAttempt.bsd_wiles_modularity_attempt_capstone).1
 theorem Wave52PNPRHRigidByQuadraticBridgeProven_holds : Wave52PNPRHRigidByQuadraticBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.PNPRHRigidByQuadraticBridge.pnp_rh_rigid_by_quadratic_bridge_capstone
-  trivial
+  (_root_.PrincipiaTractalis.PNPRHRigidByQuadraticBridge.pnp_rh_rigid_by_quadratic_bridge_capstone).1
 theorem Wave51MasterCapstoneAggregatorProven_holds : Wave51MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave51_master_capstone
   trivial
