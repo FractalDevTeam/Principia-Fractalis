@@ -87,7 +87,16 @@ namespace PrincipiaTractalis
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_operator_monotone_realises_cluster_fix_only_at_pointwise_and_degenerate_collapses`
     (Wave 31 PARTIAL — first partial-elimination). -/
-def YMCanonicalOperatorMonotonePartialProven : Prop := True
+def YMCanonicalOperatorMonotonePartialProven : Prop :=
+  (linearMonotoneMap 0 1 (1/2) = 1/2 ∧ linearMonotoneMap 0 1 (3/2) = 3/2) ∧
+  (linearMonotoneMap (1/2) 0 (1/2) = 1/2 ∧ linearMonotoneMap (1/2) 0 (3/2) = 1/2) ∧
+  (linearMonotoneMap (3/2) 0 (1/2) = 3/2 ∧ linearMonotoneMap (3/2) 0 (3/2) = 3/2) ∧
+  (∀ alpha beta : ℝ, 0 ≤ beta →
+     ¬ (linearMonotoneMap alpha beta (1/2) = 3/2 ∧
+        linearMonotoneMap alpha beta (3/2) = 1/2)) ∧
+  (∀ f : ℝ → ℝ, Monotone f →
+     ¬ (f (1/2) = 3/2 ∧ f (3/2) = 1/2)) ∧
+  ((0 : ℝ) < 1)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_asymmetric_pade_realises_cluster_fix_outside_symmetric_families`
     (Wave 31 POSITIVE — asymmetric Padé multi-family). -/
@@ -161,8 +170,8 @@ structure Wave31MasterCapstone : Prop where
 /-- **Wave 31 additions hold axiom-free.** Provenness tags pinned
     via Section 4 citation theorems. -/
 theorem wave31_additions_hold : Wave31Additions :=
-  { ym_canonical_operator_monotone_partial := by
-      unfold YMCanonicalOperatorMonotonePartialProven; trivial
+  { ym_canonical_operator_monotone_partial :=
+      ym_canonical_operator_monotone_realises_cluster_fix_only_at_pointwise_and_degenerate_collapses
     ym_canonical_asymmetric_pade_realises := by
       unfold YMCanonicalAsymmetricPadeRealisesProven; trivial
     wave30_master_capstone_aggregator := by
@@ -220,7 +229,8 @@ theorem cite_ym_canonical_asymmetric_pade_realises :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem YMCanonicalOperatorMonotonePartialProven_holds : YMCanonicalOperatorMonotonePartialProven := trivial
+theorem YMCanonicalOperatorMonotonePartialProven_holds : YMCanonicalOperatorMonotonePartialProven :=
+  ym_canonical_operator_monotone_realises_cluster_fix_only_at_pointwise_and_degenerate_collapses
 theorem YMCanonicalAsymmetricPadeRealisesProven_holds : YMCanonicalAsymmetricPadeRealisesProven := trivial
 theorem Wave30MasterCapstoneAggregatorProven_holds : Wave30MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave30_master_capstone
