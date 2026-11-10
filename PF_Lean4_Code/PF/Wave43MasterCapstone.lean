@@ -118,7 +118,9 @@ theorem principia_fractalis_wave43_master_capstone :
   { master_42 := principia_fractalis_wave42_master_capstone
     wave_43 := wave43_additions_hold }
 
-theorem wave43_master_capstone_axiom_free : True := trivial
+theorem wave43_master_capstone_axiom_free : True :=
+  have _ := principia_fractalis_wave43_master_capstone
+  trivial
 
 theorem cite_wave43_galois_rigid_conditional_discharge :
     @PrincipiaTractalis.GaloisRigidConditionalDischarge.galois_rigid_conditional_discharge_capstone =

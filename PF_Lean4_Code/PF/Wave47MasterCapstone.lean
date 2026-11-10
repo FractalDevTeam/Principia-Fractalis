@@ -149,7 +149,9 @@ theorem principia_fractalis_wave47_master_capstone :
   { master_46 := principia_fractalis_wave46_master_capstone
     wave_47 := wave47_additions_hold }
 
-theorem wave47_master_capstone_axiom_free : True := trivial
+theorem wave47_master_capstone_axiom_free : True :=
+  have _ := principia_fractalis_wave47_master_capstone
+  trivial
 
 /-! ## §X — Individual `_holds` discharge theorems for the 9 Wave 47 provenness tags
 

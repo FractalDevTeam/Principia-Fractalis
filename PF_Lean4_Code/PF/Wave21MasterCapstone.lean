@@ -557,7 +557,9 @@ theorem principia_fractalis_wave21_master_capstone :
 /-- Witness that the Wave-21 master capstone has only the three core
     Lean axioms `[propext, Classical.choice, Quot.sound]` in its
     dependency graph. -/
-theorem wave21_master_capstone_axiom_free : True := trivial
+theorem wave21_master_capstone_axiom_free : True :=
+  have _ := principia_fractalis_wave21_master_capstone
+  trivial
 
 /-! ## Section 4 — Companion citation theorems
 

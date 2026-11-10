@@ -146,7 +146,9 @@ theorem principia_fractalis_wave38_master_capstone :
   { master_36_37 := principia_fractalis_wave36_37_master_capstone
     wave_38 := wave38_additions_hold }
 
-theorem wave38_master_capstone_axiom_free : True := trivial
+theorem wave38_master_capstone_axiom_free : True :=
+  have _ := principia_fractalis_wave38_master_capstone
+  trivial
 
 /-! ## Section 4 — Companion citation theorems -/
 

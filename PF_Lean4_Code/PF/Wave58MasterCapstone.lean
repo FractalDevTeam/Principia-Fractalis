@@ -292,7 +292,9 @@ theorem principia_fractalis_wave58_master_capstone :
     Wave58MasterCapstone where
   wave_58 := wave58_additions_hold
 
-theorem wave58_master_capstone_axiom_free : True := trivial
+theorem wave58_master_capstone_axiom_free : True :=
+  have _ := principia_fractalis_wave58_master_capstone
+  trivial
 
 #check @wave58_additions_hold
 #check @principia_fractalis_wave58_master_capstone

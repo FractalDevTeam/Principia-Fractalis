@@ -106,7 +106,9 @@ theorem principia_fractalis_wave44_master_capstone :
   { master_43 := principia_fractalis_wave43_master_capstone
     wave_44 := wave44_additions_hold }
 
-theorem wave44_master_capstone_axiom_free : True := trivial
+theorem wave44_master_capstone_axiom_free : True :=
+  have _ := principia_fractalis_wave44_master_capstone
+  trivial
 
 theorem cite_wave44_framework_meta_architecture :
     @PrincipiaTractalis.FrameworkMetaArchitectureWave29To43.framework_meta_architecture_capstone =

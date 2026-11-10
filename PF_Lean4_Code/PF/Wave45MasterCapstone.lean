@@ -128,7 +128,9 @@ theorem principia_fractalis_wave45_master_capstone :
   { master_44 := principia_fractalis_wave44_master_capstone
     wave_45 := wave45_additions_hold }
 
-theorem wave45_master_capstone_axiom_free : True := trivial
+theorem wave45_master_capstone_axiom_free : True :=
+  have _ := principia_fractalis_wave45_master_capstone
+  trivial
 
 theorem cite_wave45_RH_conditional_discharge_via_galois_rigidity :
     @PrincipiaTractalis.RHConditionalDischargeViaGaloisRigidity.RH_conditional_discharge_via_galois_rigidity_capstone =

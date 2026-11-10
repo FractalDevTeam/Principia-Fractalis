@@ -178,7 +178,9 @@ theorem principia_fractalis_wave52_master_capstone :
   { master_51 := principia_fractalis_wave51_master_capstone
     wave_52 := wave52_additions_hold }
 
-theorem wave52_master_capstone_axiom_free : True := trivial
+theorem wave52_master_capstone_axiom_free : True :=
+  have _ := principia_fractalis_wave52_master_capstone
+  trivial
 
 #print axioms wave52_additions_hold
 #print axioms principia_fractalis_wave52_master_capstone

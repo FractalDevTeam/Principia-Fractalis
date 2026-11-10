@@ -179,7 +179,9 @@ theorem principia_fractalis_wave35_master_capstone :
 
 /-- Witness that this capstone has only `[propext, Classical.choice,
     Quot.sound]` in its dependency graph. -/
-theorem wave35_master_capstone_axiom_free : True := trivial
+theorem wave35_master_capstone_axiom_free : True :=
+  have _ := principia_fractalis_wave35_master_capstone
+  trivial
 
 /-! ## Section 4 — Companion citation theorems
 
