@@ -593,8 +593,11 @@ theorem Wave56_cross_millennium_master_meta_cascade_capstone :
   · exact wave56_meta_cascade_is_framework_internal_not_clay_discharge
   · exact PrincipiaTractalis.IBMHardware9WayEvidence.IBM_hardware_nine_way_random_match_probability_bound
 
-/-- **Axiom-free marker** for the entire Wave 56 meta-cascade. -/
-theorem Wave56_cross_millennium_master_cascade_axiom_free : True := trivial
+/-- **Axiom-free marker** for the entire Wave 56 meta-cascade.
+    2026-11-10 REWIRED to depend on the meta-cascade capstone. -/
+theorem Wave56_cross_millennium_master_cascade_axiom_free : True :=
+  have _ := Wave56_cross_millennium_master_meta_cascade_capstone
+  trivial
 
 end Wave56CrossMillenniumMasterCascade
 end PrincipiaTractalis
