@@ -46,6 +46,10 @@ import PF.AlphaOfClassNoGoSingleCitation
 
 namespace PrincipiaTractalis
 
+-- 2026-11-10: targeted opens for restated content-bearing defs
+open PrincipiaTractalis.TuringEncoding (PolylogEigenvalueConjecture ClassP ClassNP Language)
+open PrincipiaTractalis.CrossMillenniumImplicationChains (RealisesP RealisesYM)
+
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -53,7 +57,26 @@ namespace PrincipiaTractalis
 def Wave41CrossQuadraticFieldBridgeProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `alpha_of_class_no_go_single_citation_capstone` (Wave 41B). -/
-def Wave41AlphaOfClassNoGoSingleCitationProven : Prop := True
+def Wave41AlphaOfClassNoGoSingleCitationProven : Prop :=
+  (PolylogEigenvalueConjecture → ClassP ≠ ClassNP)
+  ∧
+  ((∃ f : Set Language → ℝ,
+      ((f ClassP) ^ 2 = 2 ∧ 0 < f ClassP) ∧
+      (16 * (f ClassNP) ^ 2 - 24 * (f ClassNP) - 11 = 0 ∧
+       0 < f ClassNP)) ↔
+    ClassP ≠ ClassNP)
+  ∧
+  (∀ f : Set Language → ℝ,
+    f ClassP = Real.sqrt 2 → f ClassNP = phi + 1/4 →
+    ClassP ≠ ClassNP)
+  ∧
+  (∀ f : Set Language → ℝ,
+    f ClassP = Real.sqrt 2 → f ClassNP = phi + 1/4 →
+    ClassP ≠ ClassNP
+    ∧ RealisesP (Real.sqrt 2)
+    ∧ (∃ a : ℝ, RealisesYM a))
+  ∧
+  True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 40 META aggregator (`5cb28f2`). -/
 def Wave40MasterCapstoneAggregatorProven : Prop := True
@@ -110,9 +133,8 @@ theorem wave41_additions_hold : Wave41Additions :=
   { wave41_cross_quadratic_field_bridge := by
       have _ := _root_.PrincipiaTractalis.CrossQuadraticFieldBridge.cross_quadratic_field_bridge_capstone
       unfold Wave41CrossQuadraticFieldBridgeProven; trivial
-    wave41_alpha_of_class_no_go_single_citation := by
-      have _ := _root_.PrincipiaTractalis.AlphaOfClassNoGoSingleCitation.alpha_of_class_no_go_single_citation_capstone
-      unfold Wave41AlphaOfClassNoGoSingleCitationProven; trivial
+    wave41_alpha_of_class_no_go_single_citation :=
+      PrincipiaTractalis.AlphaOfClassNoGoSingleCitation.alpha_of_class_no_go_single_citation_capstone
     wave40_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave40_master_capstone
       unfold Wave40MasterCapstoneAggregatorProven; trivial }
@@ -153,8 +175,7 @@ theorem Wave41CrossQuadraticFieldBridgeProven_holds : Wave41CrossQuadraticFieldB
   have _ := _root_.PrincipiaTractalis.CrossQuadraticFieldBridge.cross_quadratic_field_bridge_capstone
   trivial
 theorem Wave41AlphaOfClassNoGoSingleCitationProven_holds : Wave41AlphaOfClassNoGoSingleCitationProven :=
-  have _ := _root_.PrincipiaTractalis.AlphaOfClassNoGoSingleCitation.alpha_of_class_no_go_single_citation_capstone
-  trivial
+  PrincipiaTractalis.AlphaOfClassNoGoSingleCitation.alpha_of_class_no_go_single_citation_capstone
 theorem Wave40MasterCapstoneAggregatorProven_holds : Wave40MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave40_master_capstone
   trivial
