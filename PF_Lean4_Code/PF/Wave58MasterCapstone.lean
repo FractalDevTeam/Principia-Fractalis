@@ -69,6 +69,7 @@ import PF.YM_WightmanReconstructionConcreteWitness
 import PF.YM_WightmanContinuumGapsTypedUpgrade
 import PF.AlgebraicGeometry.VoisinObstructionTypedUpgrade
 import PF.AlgebraicGeometry.VoisinCodimTwoConcreteInstance
+import PF.NavierStokes.NSPDETypedUpgrade
 
 namespace PrincipiaTractalis
 
@@ -154,12 +155,10 @@ structure Wave58Additions : Prop where
       `PF/Analytic/OnLineSurjectivitySubDecomposition.lean`. -/
   online_surjectivity_sub_decomposition : True
   /-- NS PDE typed upgrade with Wave 33 UniformHadamardBoundAllN
-      DISCHARGED AXIOM-FREE via pointwise Cauchy-Schwarz.
-      NavierStokesGlobalSmoothPredicateTyped is the new typed
-      predicate carrying real PDE-level hypothesis content.
-      Provenness marker — actual content in
-      `PF/NavierStokes/NSPDETypedUpgrade.lean`. -/
-  ns_pde_typed_upgrade_with_wave33_discharge : True
+      DISCHARGED AXIOM-FREE via pointwise Cauchy-Schwarz. 2026-11-10
+      RESTATE: pinned to the Wave58NSPDETypedUpgradeStatus bundle. -/
+  ns_pde_typed_upgrade_with_wave33_discharge :
+    PF.NavierStokes.NSPDETypedUpgrade.Wave58NSPDETypedUpgradeStatus
   /-- OnLineSurjectivity per-zero base case discharged axiom-free
       via Hardy 1914 t1 anchor (concrete witness construction).
       Provenness marker — actual content in
@@ -222,7 +221,8 @@ theorem wave58_additions_hold : Wave58Additions where
   rh_surjectivity_typed_decomposition := trivial
   polylog_eigenvalue_typed_decomposition := trivial
   online_surjectivity_sub_decomposition := trivial
-  ns_pde_typed_upgrade_with_wave33_discharge := trivial
+  ns_pde_typed_upgrade_with_wave33_discharge :=
+    PF.NavierStokes.NSPDETypedUpgrade.wave58_NS_typed_upgrade_capstone
   online_surjectivity_base_case_discharge := trivial
   voisin_codim_two_concrete_instance_discharge :=
     (_root_.PrincipiaTractalis.AlgebraicGeometry.VoisinCodimTwoConcreteInstance.voisinCodimTwoConcreteInstance_capstone).1
