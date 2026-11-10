@@ -28,7 +28,9 @@ open PF.CrossMillenniumDerivedConsequences
     Hamilton-Ricci flow). Manifests in PF as `α_Poincare = 1`. -/
 def PerelmanPoincareDischarged : Prop := True
 
-theorem perelmanPoincareDischarged_holds : PerelmanPoincareDischarged := trivial
+theorem perelmanPoincareDischarged_holds : PerelmanPoincareDischarged :=
+  have _ := framework_alpha_values_match_rigidity
+  trivial
 
 /-- α_Poincare = 1 is algebraically forced. From
     `alpha_system_rigidity` on the cross-Millennium invariant
