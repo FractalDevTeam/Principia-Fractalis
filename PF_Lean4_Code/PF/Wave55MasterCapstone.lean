@@ -138,10 +138,12 @@ def Wave55BRHMayerEigenvalueCarrierProven : Prop :=
 -- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
 def Wave55CYMInteractingHamiltonianProven : Prop :=
   _root_.PrincipiaTractalis.YMInteractingHamiltonianAttempt.InteractingHamiltonianStatus
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55CYMInteractingHamiltonianEmpiricalAnchorProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55FBSDMordellWeilRankZeroTypedProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to alpha_YM = 2 clause (D1) of ym_interacting_hamiltonian_empirical_anchor_capstone.
+def Wave55CYMInteractingHamiltonianEmpiricalAnchorProven : Prop :=
+  _root_.PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM = 2
+-- 2026-11-10 RESTATE: pinned to BSDSandwichOnLValue clause (C1) of bsd_mordell_weil_rank_zero_typed_capstone.
+def Wave55FBSDMordellWeilRankZeroTypedProven : Prop :=
+  _root_.PrincipiaTractalis.BSDMordellWeilRankZeroTyped.BSDSandwichOnLValue
 -- 2026-11-09 RESTATE: pinned to real Status bundle from imported module.
 def Wave55GRigidGaloisDiscriminantAxisProven : Prop :=
   _root_.PrincipiaTractalis.RigidGaloisDiscriminantAxis.GaloisDiscriminantAxisStatus
@@ -153,24 +155,35 @@ def Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven : Prop :=
   _root_.PrincipiaTractalis.RHMayerEigenvalueCarrierEmpiricalAnchor.EmpiricallyAnchoredMayerCarrierStatus
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave55DHodgeCodim2UniruledThreefoldVoisin2018Proven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
+-- VACUITY BANNER: polylog bridge is Iff with PolylogEigenvalueConjecture — parametric; marker preserved.
 def Wave55EPolylogConjecturePrimeDecoupledProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55RfIntegerAlphaDichotomyProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
+-- 2026-11-10 RESTATE: pinned to IBMHardwareAlphaBSDEmpiricalAnchor clause (C1) of bsd_mordell_weil_rank_zero_typed_empirical_anchor_capstone.
+def Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven : Prop :=
+  _root_.PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor.IBMHardwareAlphaBSDEmpiricalAnchor
+-- 2026-11-10 RESTATE: pinned to even-k fractalResonance constancy clause (1) of RfIntegerAlphaDichotomy_capstone.
+def Wave55RfIntegerAlphaDichotomyProven : Prop :=
+  ∀ (k : ℕ) (s : ℂ), Even k →
+    _root_.PrincipiaTractalis.Consciousness.fractalResonance (k : ℝ) s =
+    _root_.PrincipiaTractalis.Consciousness.fractalResonance 0 s
+-- VACUITY BANNER: Ch2PhiBridgeDischarge is a parametric inequality; marker preserved.
 def Wave55PhiCh2PhiBridgeDischargeProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55LambdaE6ChernWeil78piFirstPrinciplesProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55Ch11AnomalyCancellationRefutationProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55AppA_R_f_ResonanceCoefficientsRefutationProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55Ch19MassFormulaRefutationProven : Prop := True
--- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave55PhiPSLQRelationsProven : Prop := True
+-- 2026-11-10 RESTATE: pinned to dim_E6 = 78 clause (i) of e6_chern_weil_78pi_first_principles_capstone.
+def Wave55LambdaE6ChernWeil78piFirstPrinciplesProven : Prop :=
+  _root_.PrincipiaTractalis.Cosmology.E6ChernWeil78piFirstPrinciples.dim_E6 = 78
+-- 2026-11-10 RESTATE: pinned to anomaly_cancel_predicted < 1/1000 clause (1) of Ch11AnomalyCancellationRefutation_capstone.
+def Wave55Ch11AnomalyCancellationRefutationProven : Prop :=
+  _root_.PrincipiaTractalis.Ch11Refutation.anomaly_cancel_predicted < (1 / 1000 : ℝ)
+-- 2026-11-10 RESTATE: pinned to R_f_one_one_value negativity clause (2) of AppA_R_f_ResonanceCoefficients_refutation_capstone.
+def Wave55AppA_R_f_ResonanceCoefficientsRefutationProven : Prop :=
+  _root_.PrincipiaTractalis.Consciousness.R_f_one_one_value < 0
+-- 2026-11-10 RESTATE: pinned to predicted != claimed universal clause of Ch19MassFormulaRefutation_capstone.
+def Wave55Ch19MassFormulaRefutationProven : Prop :=
+  ∀ (predicted_m1 claimed_m1 : ℝ),
+    predicted_m1 > 2 * 10 ^ 17 → claimed_m1 ≤ 1 / 1000 → predicted_m1 ≠ claimed_m1
+-- 2026-11-10 RESTATE: pinned to Poincare-polynomial relation clause (1) of phi_pslq_relations_capstone.
+def Wave55PhiPSLQRelationsProven : Prop :=
+  1 - 7 * _root_.PrincipiaTractalis.MillenniumSix.alpha_value _root_.PrincipiaTractalis.MillenniumSix.AlphaClass8.Poincare +
+    6 * _root_.PrincipiaTractalis.MillenniumSix.alpha_value _root_.PrincipiaTractalis.MillenniumSix.AlphaClass8.Poincare ^ 2 = 0
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave54MasterCapstoneAggregatorProven : Prop := True
 
@@ -217,8 +230,7 @@ theorem Wave55ANS3DGenuineConvolutionBilinearProven_holds : Wave55ANS3DGenuineCo
 /-- Discharge for the `Wave55AppA_R_f_ResonanceCoefficientsRefutationProven` marker.
     Cites `_root_.PrincipiaTractalis.Consciousness.AppA_R_f_ResonanceCoefficients_refutation_capstone`. -/
 theorem Wave55AppA_R_f_ResonanceCoefficientsRefutationProven_holds : Wave55AppA_R_f_ResonanceCoefficientsRefutationProven :=
-  have _ := _root_.PrincipiaTractalis.Consciousness.AppA_R_f_ResonanceCoefficients_refutation_capstone
-  trivial
+  (_root_.PrincipiaTractalis.Consciousness.AppA_R_f_ResonanceCoefficients_refutation_capstone).2.1
 
 /-- Discharge for the `Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven` marker.
     2026-11-09: returns the real Status bundle, projected from the C4 slot of the capstone ∧-chain. -/
@@ -233,8 +245,7 @@ theorem Wave55BRHMayerEigenvalueCarrierProven_holds : Wave55BRHMayerEigenvalueCa
 /-- Discharge for the `Wave55CYMInteractingHamiltonianEmpiricalAnchorProven` marker.
     Cites `_root_.PrincipiaTractalis.YMInteractingHamiltonianEmpiricalAnchor.ym_interacting_hamiltonian_empirical_anchor_capstone`. -/
 theorem Wave55CYMInteractingHamiltonianEmpiricalAnchorProven_holds : Wave55CYMInteractingHamiltonianEmpiricalAnchorProven :=
-  have _ := _root_.PrincipiaTractalis.YMInteractingHamiltonianEmpiricalAnchor.ym_interacting_hamiltonian_empirical_anchor_capstone
-  trivial
+  (_root_.PrincipiaTractalis.YMInteractingHamiltonianEmpiricalAnchor.ym_interacting_hamiltonian_empirical_anchor_capstone).1
 
 /-- Discharge for the `Wave55CYMInteractingHamiltonianProven` marker.
     2026-11-09: now returns the real Status bundle directly. -/
@@ -244,14 +255,12 @@ theorem Wave55CYMInteractingHamiltonianProven_holds : Wave55CYMInteractingHamilt
 /-- Discharge for the `Wave55Ch11AnomalyCancellationRefutationProven` marker.
     Cites `_root_.PrincipiaTractalis.Ch11Refutation.Ch11AnomalyCancellationRefutation_capstone`. -/
 theorem Wave55Ch11AnomalyCancellationRefutationProven_holds : Wave55Ch11AnomalyCancellationRefutationProven :=
-  have _ := _root_.PrincipiaTractalis.Ch11Refutation.Ch11AnomalyCancellationRefutation_capstone
-  trivial
+  (_root_.PrincipiaTractalis.Ch11Refutation.Ch11AnomalyCancellationRefutation_capstone).1
 
 /-- Discharge for the `Wave55Ch19MassFormulaRefutationProven` marker.
     Cites `_root_.PrincipiaTractalis.Ch19Refutation.Ch19MassFormulaRefutation_capstone`. -/
 theorem Wave55Ch19MassFormulaRefutationProven_holds : Wave55Ch19MassFormulaRefutationProven :=
-  have _ := _root_.PrincipiaTractalis.Ch19Refutation.Ch19MassFormulaRefutation_capstone
-  trivial
+  _root_.PrincipiaTractalis.Ch19Refutation.ch19_mass_formula_predicted_ne_claimed
 
 /-- Discharge for the `Wave55DHodgeCodim2UniruledThreefoldVoisin2018Proven` marker.
     Cites `_root_.PrincipiaTractalis.HodgeCodim2UniruledThreefoldVoisin2018Attempt.cite_wave47E_escape_capstone`. -/
@@ -268,14 +277,12 @@ theorem Wave55EPolylogConjecturePrimeDecoupledProven_holds : Wave55EPolylogConje
 /-- Discharge for the `Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven` marker.
     Cites `_root_.PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor.bsd_mordell_weil_rank_zero_typed_empirical_anchor_capstone`. -/
 theorem Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven_holds : Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven :=
-  have _ := _root_.PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor.bsd_mordell_weil_rank_zero_typed_empirical_anchor_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor.bsd_mordell_weil_rank_zero_typed_empirical_anchor_capstone).1
 
 /-- Discharge for the `Wave55FBSDMordellWeilRankZeroTypedProven` marker.
     Cites `_root_.PrincipiaTractalis.BSDMordellWeilRankZeroTyped.bsd_mordell_weil_rank_zero_typed_capstone`. -/
 theorem Wave55FBSDMordellWeilRankZeroTypedProven_holds : Wave55FBSDMordellWeilRankZeroTypedProven :=
-  have _ := _root_.PrincipiaTractalis.BSDMordellWeilRankZeroTyped.bsd_mordell_weil_rank_zero_typed_capstone
-  trivial
+  (_root_.PrincipiaTractalis.BSDMordellWeilRankZeroTyped.bsd_mordell_weil_rank_zero_typed_capstone).1
 
 /-- Discharge for the `Wave55GRigidGaloisDiscriminantAxisProven` marker.
     2026-11-09: now returns the real Status bundle directly. -/
@@ -290,8 +297,7 @@ theorem Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven_holds : Wave55HRigid
 /-- Discharge for the `Wave55LambdaE6ChernWeil78piFirstPrinciplesProven` marker.
     Cites `_root_.PrincipiaTractalis.Cosmology.E6ChernWeil78piFirstPrinciples.e6_chern_weil_78pi_first_principles_capstone`. -/
 theorem Wave55LambdaE6ChernWeil78piFirstPrinciplesProven_holds : Wave55LambdaE6ChernWeil78piFirstPrinciplesProven :=
-  have _ := _root_.PrincipiaTractalis.Cosmology.E6ChernWeil78piFirstPrinciples.e6_chern_weil_78pi_first_principles_capstone
-  trivial
+  (_root_.PrincipiaTractalis.Cosmology.E6ChernWeil78piFirstPrinciples.e6_chern_weil_78pi_first_principles_capstone).1
 
 /-- Discharge for the `Wave55PhiCh2PhiBridgeDischargeProven` marker.
     Cites `_root_.PrincipiaTractalis.Consciousness.ch2_phi_bridge_inequality_pure_bipartite_finite_dim`. -/
@@ -302,14 +308,12 @@ theorem Wave55PhiCh2PhiBridgeDischargeProven_holds : Wave55PhiCh2PhiBridgeDischa
 /-- Discharge for the `Wave55PhiPSLQRelationsProven` marker.
     Cites `_root_.PrincipiaTractalis.Analytic.phi_pslq_relations_capstone`. -/
 theorem Wave55PhiPSLQRelationsProven_holds : Wave55PhiPSLQRelationsProven :=
-  have _ := _root_.PrincipiaTractalis.Analytic.phi_pslq_relations_capstone
-  trivial
+  (_root_.PrincipiaTractalis.Analytic.phi_pslq_relations_capstone).1
 
 /-- Discharge for the `Wave55RfIntegerAlphaDichotomyProven` marker.
     Cites `_root_.PrincipiaTractalis.Consciousness.RfIntegerAlphaDichotomy_capstone`. -/
 theorem Wave55RfIntegerAlphaDichotomyProven_holds : Wave55RfIntegerAlphaDichotomyProven :=
-  have _ := _root_.PrincipiaTractalis.Consciousness.RfIntegerAlphaDichotomy_capstone
-  trivial
+  (_root_.PrincipiaTractalis.Consciousness.RfIntegerAlphaDichotomy_capstone).1
 
 /-! ## Section 1 — The Wave 55 Additions Bundle -/
 
