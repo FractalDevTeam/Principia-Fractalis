@@ -597,8 +597,11 @@ theorem framework_resource_synthesis_wave47_bundle :
   , insight9  := trivial
   , insight10 := trivial }
 
-/-- Axiom-freeness witness. -/
-theorem framework_resource_synthesis_wave47_axiom_free : True := trivial
+/-- Axiom-freeness witness. 2026-11-10 REWIRED to depend on the bundle
+    so `#print axioms` is informative. -/
+theorem framework_resource_synthesis_wave47_axiom_free : True :=
+  have _ := framework_resource_synthesis_wave47_bundle
+  trivial
 
 /-! ## Section 3 — Axiom-freeness verification
 

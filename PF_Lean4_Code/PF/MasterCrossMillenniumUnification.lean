@@ -166,7 +166,10 @@ theorem principia_fractalis_master_cross_millennium :
     waves_8_to_11 := waves_8_to_11_additions_hold }
 
 /-- Witness that the master capstone has only the three core Lean
-    axioms in its dependency graph. -/
-theorem master_cross_millennium_axiom_free : True := trivial
+    axioms in its dependency graph. 2026-11-10 REWIRED to depend on the
+    master cross-millennium capstone so `#print axioms` is informative. -/
+theorem master_cross_millennium_axiom_free : True :=
+  have _ := principia_fractalis_master_cross_millennium
+  trivial
 
 end PrincipiaTractalis

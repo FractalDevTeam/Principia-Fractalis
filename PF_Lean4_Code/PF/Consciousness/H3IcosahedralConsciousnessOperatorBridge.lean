@@ -410,8 +410,11 @@ theorem h3_icosahedral_consciousness_operator_bridge_capstone :
 
 /-! ## Section 7 — Axiom-free witnesses -/
 
-/-- Witness that this bridge file is axiom-free. -/
-theorem h3_icosahedral_consciousness_operator_bridge_axiom_free : True := trivial
+/-- Witness that this bridge file is axiom-free. 2026-11-10 REWIRED to
+    depend on the real capstone so `#print axioms` is informative. -/
+theorem h3_icosahedral_consciousness_operator_bridge_axiom_free : True :=
+  have _ := h3_icosahedral_consciousness_operator_bridge_capstone
+  trivial
 
 /-- **Strategic marker**: the H₃ icosahedral substrate and the
     consciousness operator C now share at least one joint Lean

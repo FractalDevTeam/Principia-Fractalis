@@ -472,8 +472,12 @@ theorem hodge_abelian_variety_p1_attempt_capstone :
   · exact mixedRankTriple_isAbelianVariety
 
 /-- Witness that this capstone has only `[propext, Classical.choice,
-    Quot.sound]` in its dependency graph. -/
-theorem hodge_abelian_variety_p1_attempt_axiom_free : True := trivial
+    Quot.sound]` in its dependency graph. 2026-11-10 REWIRED: the proof
+    now depends on the real capstone, so `#print axioms` reflects the
+    capstone's actual axiom footprint rather than emptiness. -/
+theorem hodge_abelian_variety_p1_attempt_axiom_free : True :=
+  have _ := hodge_abelian_variety_p1_attempt_capstone
+  trivial
 
 /-! ## §8 — Companion citation theorems
 

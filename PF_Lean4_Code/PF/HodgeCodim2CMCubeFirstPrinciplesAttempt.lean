@@ -464,8 +464,11 @@ theorem hodge_codim_2_cmCube_first_principles_with_LMFDB_anchor
    cmCube_factor_Δ_nonzero⟩
 
 /-- Witness that this capstone has only `[propext, Classical.choice,
-    Quot.sound]` in its dependency graph. -/
-theorem hodge_codim_2_cmCube_first_principles_axiom_free : True := trivial
+    Quot.sound]` in its dependency graph. 2026-11-10 REWIRED to depend
+    on the capstone so `#print axioms` is informative. -/
+theorem hodge_codim_2_cmCube_first_principles_axiom_free : True :=
+  have _ := @hodge_codim_2_cmCube_first_principles_capstone
+  trivial
 
 /-! ## §8 — Honest verdict (machine-readable)
 

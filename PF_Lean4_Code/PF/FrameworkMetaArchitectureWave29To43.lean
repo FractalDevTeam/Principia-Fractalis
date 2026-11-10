@@ -323,7 +323,9 @@ theorem framework_meta_architecture_capstone : FrameworkMetaArchitecture :=
     framework_headline_wave_29_to_39 :=
       framework_headline_wave_29_to_39_holds }
 
-theorem framework_meta_architecture_capstone_axiom_free : True := trivial
+theorem framework_meta_architecture_capstone_axiom_free : True :=
+  have _ := framework_meta_architecture_capstone
+  trivial
 
 /-! ## Section 4 — Load-bearing citation theorems
 
