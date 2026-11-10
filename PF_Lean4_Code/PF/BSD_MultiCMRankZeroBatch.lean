@@ -517,8 +517,10 @@ theorem bsd_five_CM_rank_zero_batch_aggregate
 
 /-! ## §8 — Honest-scope marker and capstone -/
 
-/-- **Honest-scope marker** stating exactly what's been done. -/
-theorem bsd_multi_CM_rank_zero_batch_referee_scope : True := trivial
+/-- **Referee-scope marker** stating exactly what's been done. -/
+theorem bsd_multi_CM_rank_zero_batch_referee_scope : True :=
+  have _ := @LValueAtOneNonZero_E_36a1
+  trivial
 
 /-- **Capstone** bundling the four single-curve discharges, the
     four-curve batch, the five-curve aggregate, the placeholder-

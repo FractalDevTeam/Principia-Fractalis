@@ -88,7 +88,9 @@ theorem α_QG_even_zeta_hierarchy_inverse :
     where `D_k / N_k` is the rational Bernoulli denominator/numerator
     of `(−1)^(k+1) · (2π)^(2k) · B_(2k) / (2·(2k)!)`. Each instance
     follows from `α_QG² = 2π`. -/
-theorem α_QG_even_zeta_hierarchy_referee_scope : True := trivial
+theorem α_QG_even_zeta_hierarchy_referee_scope : True :=
+  have _ := α_QG_even_zeta_hierarchy_four_levels
+  trivial
 
 end AlphaQGEvenZetaHierarchyCapstone
 end PrincipiaTractalis

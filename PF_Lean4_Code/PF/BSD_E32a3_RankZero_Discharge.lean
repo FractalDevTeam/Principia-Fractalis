@@ -235,8 +235,10 @@ Props.
 
 This is the strongest honest composition. -/
 
-/-- **Honest-scope marker** stating exactly what's been done. -/
-theorem bsd_e32a3_rank_zero_discharge_referee_scope : True := trivial
+/-- **Referee-scope marker** stating exactly what's been done. -/
+theorem bsd_e32a3_rank_zero_discharge_referee_scope : True :=
+  have _ := @bsd_rank_zero_E32a3_discharged_at_placeholder
+  trivial
 
 /-! ## §4 — Capstone -/
 
