@@ -110,7 +110,16 @@ namespace PrincipiaTractalis
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_pade_one_one_realises_cluster_fix_outside_polynomial_family`
     (Wave 29 POSITIVE). -/
-def YMCanonicalPadeOneOneRealisesProven : Prop := True
+def YMCanonicalPadeOneOneRealisesProven : Prop :=
+  (∀ a₀ a₁ b₀ b₁ : ℝ, padeOneOneMap a₀ a₁ b₀ b₁ (1/2) = (a₀ + a₁/2) / (b₀ + b₁/2)) ∧
+  (∀ a₀ a₁ b₀ b₁ : ℝ, padeOneOneMap a₀ a₁ b₀ b₁ (3/2) = (a₀ + 3*a₁/2) / (b₀ + 3*b₁/2)) ∧
+  (padeOneOneMap (1/2) (1/2) 1 1 (1/2) = 1/2 ∧ padeOneOneMap (1/2) (1/2) 1 1 (3/2) = 1/2) ∧
+  (padeOneOneMap (-3/4) 4 2 1 (1/2) = 1/2 ∧ padeOneOneMap (-3/4) 4 2 1 (3/2) = 3/2) ∧
+  (padeOneOneMap (11/4) (-1) 1 1 (1/2) = 3/2 ∧ padeOneOneMap (11/4) (-1) 1 1 (3/2) = 1/2) ∧
+  (padeOneOneMap (3/2) (3/2) 1 1 (1/2) = 3/2 ∧ padeOneOneMap (3/2) (3/2) 1 1 (3/2) = 3/2) ∧
+  ((1 : ℝ) ≠ 0) ∧
+  (padeOneOneMap (1/2) (1/2) 1 1 100 ≠ mixedOrderKernelMap 1 (-2) (5/4) 100) ∧
+  (padeOneOneMap (-3/4) 4 2 1 100 ≠ mixedOrderKernelMap 1 (-1) (3/4) 100)
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_partial_fraction_misses_cluster_fix`
     (Wave 29 NEGATIVE narrow-out). -/
@@ -118,11 +127,43 @@ def YMCanonicalPartialFractionNarrowedOutProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `mathlib_grounded_dim_1_2_3_master_capstone` (Wave 29 Hodge
     dim=3 abelian-3-fold mathlib bridge). -/
-def HodgeMathlibAbelian3FoldBridgeProven : Prop := True
+def HodgeMathlibAbelian3FoldBridgeProven : Prop :=
+  ∀ (class_idx : ℕ),
+  (MillenniumSix.HodgeAlgebraicRepresentation
+     (PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.E32a3_cubed_threefold_substrate).toHodgeAmbient class_idx ∧
+   (∃ Z : Fin (PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.E32a3_cubed_threefold_substrate).h_one_one → ℤ,
+      Z = (PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.E32a3_cubed_threefold_substrate).cohomologyClass) ∧
+   (PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.E32a3_cubed_threefold_substrate).canonical_trivial ∧
+   (PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.E32a3_cubed_threefold_substrate).h_one_one ≤ 20) ∧
+  (MillenniumSix.HodgeAlgebraicRepresentation
+     (PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.E32a3_x_E37a1_x_E389a1_threefold_substrate).toHodgeAmbient class_idx ∧
+   (∃ Z : Fin (PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.E32a3_x_E37a1_x_E389a1_threefold_substrate).h_one_one → ℤ,
+      Z = (PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.E32a3_x_E37a1_x_E389a1_threefold_substrate).cohomologyClass) ∧
+   (PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.E32a3_x_E37a1_x_E389a1_threefold_substrate).canonical_trivial ∧
+   (PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.E32a3_x_E37a1_x_E389a1_threefold_substrate).h_one_one ≤ 20) ∧
+  BSDGaloisPairConcordance.E_rank_zero.Δ ≠ BSDGaloisPairConcordance.E_rank_one.Δ
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `cross_millennium_more_invariants_capstone` (Wave 29: 17 new
     α-invariants extending Wave 22's 11, total 28). -/
-def CrossMillenniumMoreInvariantsProven : Prop := True
+def CrossMillenniumMoreInvariantsProven : Prop :=
+  1 / CrossMillenniumSharedInvariants.α_P = CrossMillenniumSharedInvariants.α_P / 2
+  ∧ 1 / CrossMillenniumSharedInvariants.α_RH = 2 / 3
+  ∧ 1 / CrossMillenniumSharedInvariants.α_YM = 1 / 2
+  ∧ 1 / CrossMillenniumSharedInvariants.α_BSD = 4 / (3 * Real.pi)
+  ∧ 1 / CrossMillenniumSharedInvariants.α_NS = 2 / (3 * Real.pi)
+  ∧ CrossMillenniumSharedInvariants.α_P ^ 3 = 2 * CrossMillenniumSharedInvariants.α_P
+  ∧ CrossMillenniumSharedInvariants.α_RH ^ 3 = 27 / 8
+  ∧ CrossMillenniumSharedInvariants.α_YM ^ 3 = 8
+  ∧ CrossMillenniumSharedInvariants.α_Hodge ^ 3 = 2 * CrossMillenniumSharedInvariants.α_Hodge + 1
+  ∧ CrossMillenniumSharedInvariants.α_Hodge ^ 4 = 3 * CrossMillenniumSharedInvariants.α_Hodge + 2
+  ∧ CrossMillenniumSharedInvariants.α_QG ^ 4 = 4 * Real.pi ^ 2
+  ∧ CrossMillenniumSharedInvariants.α_Hodge * CrossMillenniumSharedInvariants.α_NP =
+      (5/4) * CrossMillenniumSharedInvariants.α_Hodge + 1
+  ∧ CrossMillenniumSharedInvariants.α_NP ^ 2 = (3/2) * CrossMillenniumSharedInvariants.α_Hodge + 17/16
+  ∧ CrossMillenniumSharedInvariants.α_RH * CrossMillenniumSharedInvariants.α_BSD = 9 * Real.pi / 8
+  ∧ CrossMillenniumSharedInvariants.α_YM * CrossMillenniumSharedInvariants.α_BSD = CrossMillenniumSharedInvariants.α_NS
+  ∧ CrossMillenniumSharedInvariants.α_NS + CrossMillenniumSharedInvariants.α_BSD = 9 * Real.pi / 4
+  ∧ CrossMillenniumSharedInvariants.α_BSD + CrossMillenniumSharedInvariants.α_BSD = CrossMillenniumSharedInvariants.α_NS
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 28 META aggregator (`73d677e`); pinned here for
     traceability of the Wave 29 META layer. -/
@@ -221,16 +262,14 @@ structure Wave29MasterCapstone : Prop where
 /-- **Wave 29 additions hold axiom-free.** Provenness tags pinned
     via Section 4 citation theorems. -/
 theorem wave29_additions_hold : Wave29Additions :=
-  { ym_canonical_pade_one_one_realises := by
-      unfold YMCanonicalPadeOneOneRealisesProven; trivial
+  { ym_canonical_pade_one_one_realises :=
+      ym_canonical_pade_one_one_realises_cluster_fix_outside_polynomial_family
     ym_canonical_partial_fraction_narrow_out := by
       unfold YMCanonicalPartialFractionNarrowedOutProven; trivial
-    hodge_mathlib_abelian_3fold_bridge := by
-      have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.mathlib_abelian_3fold_hodge_bridge_capstone
-      unfold HodgeMathlibAbelian3FoldBridgeProven; trivial
-    cross_millennium_more_invariants := by
-      have _ := _root_.PrincipiaTractalis.CrossMillenniumMoreInvariants.cross_millennium_more_invariants_capstone
-      unfold CrossMillenniumMoreInvariantsProven; trivial
+    hodge_mathlib_abelian_3fold_bridge := fun class_idx =>
+      PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.mathlib_abelian_3fold_hodge_bridge_capstone class_idx
+    cross_millennium_more_invariants :=
+      PrincipiaTractalis.CrossMillenniumMoreInvariants.cross_millennium_more_invariants_capstone
     wave28_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave28_master_capstone
       unfold Wave28MasterCapstoneAggregatorProven; trivial }
@@ -300,14 +339,13 @@ theorem cite_cross_millennium_more_invariants :
 
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
-theorem YMCanonicalPadeOneOneRealisesProven_holds : YMCanonicalPadeOneOneRealisesProven := trivial
+theorem YMCanonicalPadeOneOneRealisesProven_holds : YMCanonicalPadeOneOneRealisesProven :=
+  ym_canonical_pade_one_one_realises_cluster_fix_outside_polynomial_family
 theorem YMCanonicalPartialFractionNarrowedOutProven_holds : YMCanonicalPartialFractionNarrowedOutProven := trivial
-theorem HodgeMathlibAbelian3FoldBridgeProven_holds : HodgeMathlibAbelian3FoldBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.mathlib_abelian_3fold_hodge_bridge_capstone
-  trivial
+theorem HodgeMathlibAbelian3FoldBridgeProven_holds : HodgeMathlibAbelian3FoldBridgeProven := fun class_idx =>
+  PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge.mathlib_abelian_3fold_hodge_bridge_capstone class_idx
 theorem CrossMillenniumMoreInvariantsProven_holds : CrossMillenniumMoreInvariantsProven :=
-  have _ := _root_.PrincipiaTractalis.CrossMillenniumMoreInvariants.cross_millennium_more_invariants_capstone
-  trivial
+  PrincipiaTractalis.CrossMillenniumMoreInvariants.cross_millennium_more_invariants_capstone
 theorem Wave28MasterCapstoneAggregatorProven_holds : Wave28MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave28_master_capstone
   trivial
