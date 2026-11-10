@@ -118,11 +118,14 @@ namespace PrincipiaTractalis
 /-! ## Section 0 — Provenness tags -/
 
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave50T3SymSpectralWitnessProven : Prop := True
+def Wave50T3SymSpectralWitnessProven : Prop :=
+  PrincipiaTractalis.T3SymSpectralWitnessAttempt.T3SymSpectralWitnessBundle
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave50SobolevHSScaleProven : Prop := True
+def Wave50SobolevHSScaleProven : Prop :=
+  PrincipiaTractalis.SobolevHSScaleOnTorus3Attempt.WaveFortyEightDSobolevHSNarrowing
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
-def Wave50DivFreeFourierDensityProven : Prop := True
+def Wave50DivFreeFourierDensityProven : Prop :=
+  PrincipiaTractalis.DivFreeFourierDensityOnTorus3Attempt.WaveFortyEightDDivFreeNarrowing
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50YMReflectionPositivity3plus1DProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
@@ -156,15 +159,12 @@ structure Wave50MasterCapstone : Prop where
   wave_50 : Wave50Additions
 
 theorem wave50_additions_hold : Wave50Additions :=
-  { wave50_t3_sym_spectral_witness := by
-      have _ := _root_.PrincipiaTractalis.T3SymSpectralWitnessAttempt.t3_sym_spectral_witness_attempt_capstone
-      unfold Wave50T3SymSpectralWitnessProven; trivial
-    wave50_sobolev_hs_scale := by
-      have _ := _root_.PrincipiaTractalis.SobolevHSScaleOnTorus3Attempt.sobolev_HS_scale_on_torus3_attempt_capstone
-      unfold Wave50SobolevHSScaleProven; trivial
-    wave50_div_free_fourier_density := by
-      have _ := _root_.PrincipiaTractalis.DivFreeFourierDensityOnTorus3Attempt.div_free_fourier_density_on_torus3_attempt_capstone
-      unfold Wave50DivFreeFourierDensityProven; trivial
+  { wave50_t3_sym_spectral_witness :=
+      PrincipiaTractalis.T3SymSpectralWitnessAttempt.t3_sym_spectral_witness_attempt_capstone
+    wave50_sobolev_hs_scale :=
+      PrincipiaTractalis.SobolevHSScaleOnTorus3Attempt.sobolev_HS_scale_on_torus3_attempt_capstone
+    wave50_div_free_fourier_density :=
+      PrincipiaTractalis.DivFreeFourierDensityOnTorus3Attempt.div_free_fourier_density_on_torus3_attempt_capstone
     wave50_ym_reflection_positivity_3plus1D := by
       have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DAttempt.ym_reflection_positivity_3plus1d_attempt_capstone
       unfold Wave50YMReflectionPositivity3plus1DProven; trivial
@@ -198,14 +198,11 @@ theorem wave50_master_capstone_axiom_free : True := trivial
 /-! ## §X — Individual `_holds` theorems for provenness tags -/
 
 theorem Wave50T3SymSpectralWitnessProven_holds : Wave50T3SymSpectralWitnessProven :=
-  have _ := _root_.PrincipiaTractalis.T3SymSpectralWitnessAttempt.t3_sym_spectral_witness_attempt_capstone
-  trivial
+  PrincipiaTractalis.T3SymSpectralWitnessAttempt.t3_sym_spectral_witness_attempt_capstone
 theorem Wave50SobolevHSScaleProven_holds : Wave50SobolevHSScaleProven :=
-  have _ := _root_.PrincipiaTractalis.SobolevHSScaleOnTorus3Attempt.sobolev_HS_scale_on_torus3_attempt_capstone
-  trivial
+  PrincipiaTractalis.SobolevHSScaleOnTorus3Attempt.sobolev_HS_scale_on_torus3_attempt_capstone
 theorem Wave50DivFreeFourierDensityProven_holds : Wave50DivFreeFourierDensityProven :=
-  have _ := _root_.PrincipiaTractalis.DivFreeFourierDensityOnTorus3Attempt.div_free_fourier_density_on_torus3_attempt_capstone
-  trivial
+  PrincipiaTractalis.DivFreeFourierDensityOnTorus3Attempt.div_free_fourier_density_on_torus3_attempt_capstone
 theorem Wave50YMReflectionPositivity3plus1DProven_holds : Wave50YMReflectionPositivity3plus1DProven :=
   have _ := _root_.PrincipiaTractalis.YMReflectionPositivity3plus1DAttempt.ym_reflection_positivity_3plus1d_attempt_capstone
   trivial
