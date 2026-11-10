@@ -130,10 +130,13 @@ structure Wave58Additions : Prop where
       marker — actual content in
       `PF/Analytic/T3SymCompactnessAttempt.lean`). -/
   t3sym_compactness_HSNuclear_typed_upgrade : True
-  /-- Voisin Hodge codim-2 obstruction typed upgrade landed
-      (provenness marker — actual content in
-      `PF/AlgebraicGeometry/VoisinObstructionTypedUpgrade.lean`). -/
-  voisin_codim_two_typed_upgrade : True
+  /-- Voisin Hodge codim-2 obstruction typed upgrade landed. 2026-11-10
+      RESTATE: pinned to the first typed implication from
+      `voisinObstructionTypedUpgrade_capstone`. -/
+  voisin_codim_two_typed_upgrade :
+    ∀ (X : _root_.PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.SmoothProjectiveVarietyDimGeqThree),
+      _root_.PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.VoisinCodimTwoCycleClassExistsHypothesis X →
+      _root_.PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionAtCodimTwoCY3
   /-- Wave 47B YM Wightman/OS continuum gap typed upgrade landed.
       2026-11-10 RESTATE: pinned to BochnerMinlosTypedStatement, the
       first typed clause of the ym_wightman_continuum_gaps_typed_upgrade
@@ -221,7 +224,8 @@ theorem wave58_additions_hold : Wave58Additions where
   cross_millennium_rigidity :=
     PF.CrossMillenniumDerivedConsequences.framework_alpha_values_match_rigidity
   t3sym_compactness_HSNuclear_typed_upgrade := trivial
-  voisin_codim_two_typed_upgrade := trivial
+  voisin_codim_two_typed_upgrade :=
+    (_root_.PrincipiaTractalis.AlgebraicGeometry.VoisinObstructionTypedUpgrade.voisinObstructionTypedUpgrade_capstone).1
   ym_wightman_continuum_gaps_typed_upgrade :=
     (_root_.PrincipiaTractalis.YM_WightmanContinuumGapsTypedUpgrade.ym_wightman_continuum_gaps_typed_upgrade_capstone).1
   rh_surjectivity_typed_decomposition := trivial
