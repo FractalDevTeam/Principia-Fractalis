@@ -71,6 +71,7 @@ import PF.AlgebraicGeometry.VoisinObstructionTypedUpgrade
 import PF.AlgebraicGeometry.VoisinCodimTwoConcreteInstance
 import PF.NavierStokes.NSPDETypedUpgrade
 import PF.TuringEncoding.PolylogEigenvalueTypedUpgrade
+import PF.Analytic.OnLineSurjectivityBaseCaseDischarge
 
 namespace PrincipiaTractalis
 
@@ -168,11 +169,15 @@ structure Wave58Additions : Prop where
       RESTATE: pinned to the Wave58NSPDETypedUpgradeStatus bundle. -/
   ns_pde_typed_upgrade_with_wave33_discharge :
     PF.NavierStokes.NSPDETypedUpgrade.Wave58NSPDETypedUpgradeStatus
-  /-- OnLineSurjectivity per-zero base case discharged axiom-free
-      via Hardy 1914 t1 anchor (concrete witness construction).
-      Provenness marker — actual content in
-      `PF/Analytic/OnLineSurjectivityBaseCaseDischarge.lean`. -/
-  online_surjectivity_base_case_discharge : True
+  /-- OnLineSurjectivity per-zero base case discharged axiom-free via
+      Hardy 1914 t1 anchor (concrete witness construction). 2026-11-10
+      RESTATE: pinned to the concrete Hardy-witness clause (W3) of
+      `base_case_discharge_capstone`. -/
+  online_surjectivity_base_case_discharge :
+    _root_.PrincipiaTractalis.RHSurjectivityTypedUpgrade.FirstZetaZeroInEigenvalueImage
+      _root_.PrincipiaTractalis.OnLineSurjectivityBaseCaseDischarge.α_unit
+      (_root_.PrincipiaTractalis.OnLineSurjectivityBaseCaseDischarge.eigenvalues_anchoredAt
+        _root_.PrincipiaTractalis.RHSurjectivityTypedUpgrade.t1_Hardy)
   /-- Voisin codim-2 typed predicate discharged axiom-free on TWO
       concrete substrate instances: abelian-3-fold (Mumford) +
       Dwork pencil quintic (Yui/Lefschetz). 2026-11-10 RESTATE:
@@ -234,7 +239,8 @@ theorem wave58_additions_hold : Wave58Additions where
   online_surjectivity_sub_decomposition := trivial
   ns_pde_typed_upgrade_with_wave33_discharge :=
     PF.NavierStokes.NSPDETypedUpgrade.wave58_NS_typed_upgrade_capstone
-  online_surjectivity_base_case_discharge := trivial
+  online_surjectivity_base_case_discharge :=
+    (_root_.PrincipiaTractalis.OnLineSurjectivityBaseCaseDischarge.base_case_discharge_capstone).2.2.1
   voisin_codim_two_concrete_instance_discharge :=
     (_root_.PrincipiaTractalis.AlgebraicGeometry.VoisinCodimTwoConcreteInstance.voisinCodimTwoConcreteInstance_capstone).1
   bochner_minlos_gaussian_concrete_witness :=
