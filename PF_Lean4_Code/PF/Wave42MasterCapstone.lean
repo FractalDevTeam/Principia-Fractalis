@@ -59,7 +59,24 @@ namespace PrincipiaTractalis
 def Wave42GaloisOrbitMillenniumDiscriminatorProven : Prop := True
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `stieltjes_hodge_codim_2_spectral_bridge_capstone` (Wave 42B). -/
-def Wave42StieltjesHodgeCodim2SpectralBridgeProven : Prop := True
+def Wave42StieltjesHodgeCodim2SpectralBridgeProven : Prop :=
+  (∀ n1 n2 : ℤ,
+    ((stieltjesToHodgeTwoClass n1 n2).trace : ℝ) = ((n1 : ℝ) + (n2 : ℝ))) ∧
+  (∀ n1 n2 : ℤ,
+    ((stieltjesToHodgeTwoClass n1 n2).det : ℝ) = ((n1 : ℝ) * (n2 : ℝ))) ∧
+  (∀ (H : HodgeTwoClassStructure) (mu1 mu2 beta : ℝ),
+    (hodgeTwoClassToStieltjes H mu1 mu2 beta).trace = (H.trace : ℝ)) ∧
+  (∀ (H : HodgeTwoClassStructure) (mu1 mu2 beta : ℝ),
+    (hodgeTwoClassToStieltjes H mu1 mu2 beta).det = (H.det : ℝ)) ∧
+  (∀ (H : HodgeTwoClassStructure),
+    stieltjesToHodgeTwoClass H.z0 H.z1 = H) ∧
+  (stieltjes_collapse_low_S.trace = (hodge_two_class_minus_one_one.trace : ℝ)) ∧
+  (stieltjes_collapse_low_S.det = (hodge_two_class_minus_one_one.det : ℝ)) ∧
+  (stieltjes_collapse_high_S.trace = (hodge_two_class_minus_one_one.trace : ℝ)) ∧
+  (stieltjes_collapse_high_S.det = (hodge_two_class_minus_one_one.det : ℝ)) ∧
+  (hodge_two_class_minus_one_one.trace = 0 ∧
+   hodge_two_class_minus_one_one.det = -1) ∧
+  (∀ n : ℤ, ((1 : ℝ) / 4) ≠ (n : ℝ))
 -- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 41 META aggregator (`54f7a4c`). -/
 def Wave41MasterCapstoneAggregatorProven : Prop := True
@@ -115,9 +132,8 @@ theorem wave42_additions_hold : Wave42Additions :=
   { wave42_galois_orbit_millennium_discriminator := by
       have _ := _root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_orbit_millennium_discriminator_capstone
       unfold Wave42GaloisOrbitMillenniumDiscriminatorProven; trivial
-    wave42_stieltjes_hodge_codim_2_spectral_bridge := by
-      have _ := _root_.PrincipiaTractalis.stieltjes_hodge_codim_2_spectral_bridge_capstone
-      unfold Wave42StieltjesHodgeCodim2SpectralBridgeProven; trivial
+    wave42_stieltjes_hodge_codim_2_spectral_bridge :=
+      PrincipiaTractalis.stieltjes_hodge_codim_2_spectral_bridge_capstone
     wave41_master_capstone_aggregator := by
       have _ := _root_.PrincipiaTractalis.principia_fractalis_wave41_master_capstone
       unfold Wave41MasterCapstoneAggregatorProven; trivial }
@@ -158,8 +174,7 @@ theorem Wave42GaloisOrbitMillenniumDiscriminatorProven_holds : Wave42GaloisOrbit
   have _ := _root_.PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_orbit_millennium_discriminator_capstone
   trivial
 theorem Wave42StieltjesHodgeCodim2SpectralBridgeProven_holds : Wave42StieltjesHodgeCodim2SpectralBridgeProven :=
-  have _ := _root_.PrincipiaTractalis.stieltjes_hodge_codim_2_spectral_bridge_capstone
-  trivial
+  PrincipiaTractalis.stieltjes_hodge_codim_2_spectral_bridge_capstone
 theorem Wave41MasterCapstoneAggregatorProven_holds : Wave41MasterCapstoneAggregatorProven :=
   have _ := _root_.PrincipiaTractalis.principia_fractalis_wave41_master_capstone
   trivial
