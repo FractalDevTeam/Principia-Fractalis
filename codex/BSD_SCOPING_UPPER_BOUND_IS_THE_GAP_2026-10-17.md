@@ -203,14 +203,42 @@ unstateable without `L(E,s)`.
 
 | # | step | cost | status |
 |---|---|---|---|
-| 1 | Retire/repoint the **8 redundant** Heegner mirrors at the genuine theorems | near zero | pure cleanup |
-| 2 | Instantiate genuine `rank ≥ 1` for **E91a1, E102a1, E131a1, E141a1** | mechanical | all deps exist (r174/r176/r202 + generator) |
-| 3 | **First rank UPPER bound via 2-descent**, on a newly chosen curve with rational 2-torsion | real project, elementary | the only route to "rank exactly" |
-| 4 | Combine with an existing lower bound ⇒ **first exact rank in the repo** | follows from 3 | the genuine milestone |
+| 1 | Retire/repoint the **8 redundant** Heegner mirrors at the genuine theorems | near zero | pure cleanup — still pending |
+| 2 | Instantiate genuine `rank ≥ 1` for **E91a1, E102a1, E131a1, E141a1** | mechanical | **DONE 2026-11-11** — all four files `E*a1RankOneCapstone_2026_11_11.lean` (plus `E91a1RankOneCapstone_2026_10_22.lean`) |
+| 3 | **First rank UPPER bound via 2-descent**, on a newly chosen curve with rational 2-torsion | real project, elementary | **DONE 2026-10-17** — see Ch24 note below |
+| 4 | Combine with an existing lower bound ⇒ **first exact rank in the repo** | follows from 3 | **DONE 2026-10-17** — see Ch24 note below |
 
-**JUDGEMENT: step 3 is the honest BSD milestone.** Steps 1–2 are tidying and
-mechanical extension; step 3 is the first piece of real new mathematics on this
-axis, and it is reachable without any L-function.
+**POST-SCOPING UPDATE (2026-11-11).** Steps 3 and 4 were discharged the same
+day this doc was written. `Ch24Descent2TorsionRatBridge_2026_10_17.lean` landed
+commit `0b7604e3` on 2026-10-17 with
+
+   `Ecurve_rank_eq_zero : Module.rank ℤ Ecurve.toAffine.Point = 0`   for   `E : y² = x³ + x`
+
+on `[propext, Classical.choice, Quot.sound]`, no sorry, no native_decide. The
+technique is Fermat's infinite descent via mathlib's `not_fermat_42`, split
+across three files (`Core` + `Bookkeeping` + `RatBridge`). The curve chosen is
+NOT in the Heegner family — it is y² = x³ + x (conductor 64), with rational
+2-torsion `{O, (0, 0)}`, rank 0. That's step 3 (upper bound = 0) and step 4
+(first exact rank in the repo) in a single theorem.
+
+**Original judgement: step 3 was the honest BSD milestone.** Steps 1 and 2
+remain tidying/mechanical. Step 3 is done but by a narrower technique (direct
+Fermat on a single curve) than the full 2-descent/Selmer machinery the scoping
+doc envisioned. **Candidates for future work** on this lane:
+
+* Second rank-0 curve, same technique, different curve (would need the
+  DIFFERENCE Fermat `a⁴ − b⁴ ≠ c²` for e.g. y² = x³ − x, ~100-300 Lean lines;
+  mathlib has only the sum form).
+* Rank EXACTLY 1 on a congruent-number curve with full rational 2-torsion
+  (e.g. y² = x³ − 25x, n=5). Rank ≥ 1 via the gap-curve orbit pattern; rank
+  ≤ 1 via proper 2-descent — the full Selmer machinery the original doc
+  envisioned. Multi-week.
+* The 8 redundant Heegner mirror retirements (step 1), still pending.
+
+**Original judgement retained for historical record.** Steps 1–2 are tidying
+and mechanical extension; step 3 is the first piece of real new mathematics on
+this axis, and it is reachable without any L-function. **Both
+have now happened.**
 
 **Reachability across all five axes now scoped:** **NS first** (carrier change +
 one lemma), **YM second** (one mathlib instance, then reflection positivity),
