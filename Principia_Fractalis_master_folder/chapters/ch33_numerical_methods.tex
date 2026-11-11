@@ -492,7 +492,7 @@ All results in this book were computed to 150-digit precision using these method
 All code examples in Chapter 31 use these libraries, available open-source.
 
 \paragraph{Verification status (2026-07-23).}
-To hold this chapter to the standard of the machine-checked corpus, here is the honest status of its principal content:
+Per the per-chapter verification protocol, the status of this chapter's principal content:
 \begin{itemize}
 \item \textbf{PROVEN (kernel-verified)} --- none of \emph{this} chapter's specific numerical outputs. The only machine-verified results in the book are the operator-algebra substrate theorems (Lean~4, mathlib, kernel axioms $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ only, zero project axioms): $\mathcal{T}_\infty$ is the Glimm $3^\infty$ UHF factor with a faithful, unique tracial state and $C^*$-simplicity (development arc r102--r113). Those live in Chapter~\ref{ch:timeless-field}, not here.
 \item \textbf{Standard classical methodology (correct, by reference).} The algorithms in this chapter --- the power method, inverse iteration, implicitly restarted Arnoldi, Euler--Maclaurin and Riemann--Siegel evaluation of $\zeta$, Gauss--Kronrod and Filon quadrature, interval arithmetic, and Richardson extrapolation --- are textbook numerical analysis. They are correct as described and are not novel claims of the framework; the convergence and complexity statements (e.g.\ Theorems~\ref{thm:arith-complexity}, \ref{thm:power-convergence}, \ref{thm:ritz}) are classical.

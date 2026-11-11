@@ -352,7 +352,7 @@ This limit exists due to compatibility and defines a trace. \textbf{Faithfulness
 \end{proof}
 
 \paragraph{Machine-verification status of Theorem~\ref{thm:existence-uniqueness} (updated 2026-07-23).}
-To keep this chapter to the same standard as the formal corpus, here is the honest ledger of which parts of the theorem are kernel-verified in Lean~4 and which rest on classical literature:
+To keep this chapter to the same standard as the formal corpus, here is the ledger of which parts of the theorem are kernel-verified in Lean~4 and which rest on classical literature:
 \begin{itemize}
 \item \textbf{Formalized, unconditional} (Lean~4, mathlib \texttt{v4.24.0-rc1}, kernel axioms $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ only): the construction of $\mathcal{T}_\infty$ as inductive limit + completion with a \texttt{CStarAlgebra} instance; the canonical trace $\tau$ with additivity, unitality, 1-Lipschitz continuity, traciality, Hermiticity, positivity; \textbf{faithfulness of $\tau$} (\texttt{UHF\_trace\_faithful}); \textbf{$C^*$-simplicity} of $\mathcal{T}_\infty$ --- every two-sided ideal is trivial (\texttt{substrate\_completion\_simple\_unconditional}, the Glimm 1960 theorem); the trace-preserving conditional expectations $E_k$ with their contraction properties.
 \item \textbf{Classical, by reference --- not formalized}: nuclearity of $\mathcal{T}_\infty$ (and everything downstream of it in Lemma~\ref{lem:nuclear-structure}: tensor uniqueness, amenability, Connes embedding); uniqueness of $\mathcal{T}_\infty$ up to isomorphism (the Glimm classification of $M_{3^\infty}$); uniqueness of the tracial state. These are standard results we cite, not results we have machine-checked; formalizing them is future work.
