@@ -37,6 +37,9 @@ Authors: Pablo Cohen. 2026-11-11.
 import PF.E80b_RankOne_2026_11_11
 import PF.DuplicationFormula_r178
 import PF.DuplicationHeightBound37a1_r133
+import PF.NonTorsionFromOrbit_2026_10_21
+import PF.CanonicalHeightGeneric_r171
+import Mathlib.Tactic.NormNum.GCD
 
 namespace PrincipiaTractalis
 namespace E80b_RankOneCapstonePartial20261111
@@ -44,6 +47,7 @@ namespace E80b_RankOneCapstonePartial20261111
 open WeierstrassCurve WeierstrassCurve.Affine
 open PrincipiaTractalis.E80b_RankOne20261111
 open PrincipiaTractalis.NaiveHeightQ
+open PrincipiaTractalis.CanonicalHeightGeneric
 open PrincipiaTractalis.DuplicationBezout
 open PrincipiaTractalis.DuplicationSize
 open PrincipiaTractalis.DuplicationHeight
@@ -180,6 +184,215 @@ theorem threshold : kap < naiveHeight (xs 3) := by
   norm_num [CL, SF1, SG1, SF2, SG2, cF10, cF11, cF12, cF13, cG10, cG11,
     cG12, cG13, cF20, cF21, cF22, cF23, cG20, cG21, cG22, cG23]
 
+/-! ## §6 — orbit values are not 2-torsion -/
+
+/-- `h(x) > 5` forces `x ∉ {0, 5, -5}`.  Because `naiveHeight 0 = 1`,
+`naiveHeight 5 = 5`, `naiveHeight (-5) = 5`. -/
+theorem not_torsion_of_height_gt_five {x : ℚ} (hh : 5 < naiveHeight x) :
+    x ≠ 0 ∧ x ≠ 5 ∧ x ≠ -5 := by
+  refine ⟨?_, ?_, ?_⟩ <;> intro heq <;> rw [heq] at hh <;>
+    simp [naiveHeight] at hh
+
+/-- Explicit non-torsion at the first three orbit values. -/
+theorem xs_zero_not_torsion : xs 0 ≠ 0 ∧ xs 0 ≠ 5 ∧ xs 0 ≠ -5 := by
+  rw [xs_zero]; refine ⟨?_, ?_, ?_⟩ <;> norm_num
+
+theorem xs_one_not_torsion : xs 1 ≠ 0 ∧ xs 1 ≠ 5 ∧ xs 1 ≠ -5 := by
+  rw [xs_one]; refine ⟨?_, ?_, ?_⟩ <;> norm_num
+
+theorem xs_two_not_torsion : xs 2 ≠ 0 ∧ xs 2 ≠ 5 ∧ xs 2 ≠ -5 := by
+  rw [xs_two]; refine ⟨?_, ?_, ?_⟩ <;> norm_num
+
+/-! ## §7 — the height step at any level where `xs n` is not 2-torsion -/
+
+/-- Conditional height step: at every `n` where `xs n ∉ {0, 5, -5}`,
+`h(xs n)^4 ≤ κ · h(xs (n+1))`. Uses the scaffold's
+`Psi_ne_zero_at_not_torsion` and r176's `nh_pow_le_of_disc_ne_zero`. -/
+theorem height_step_at (n : ℕ)
+    (hnt : xs n ≠ 0 ∧ xs n ≠ 5 ∧ xs n ≠ -5) :
+    naiveHeight (xs n) ^ 4 ≤ kap * naiveHeight (xs (n + 1)) := by
+  have hΨ := Psi_ne_zero_at_not_torsion (xs n) hnt.1 hnt.2.1 hnt.2.2
+  have h := nh_pow_le_of_disc_ne_zero (hrel := hrel80b) (x := xs n)
+    (hΨ := hΨ) hΔ80b
+  rw [← xs_succ n] at h
+  have hgoal : ((naiveHeight (xs n) : ℤ)) ^ 4
+      ≤ (kap : ℤ) * ((naiveHeight (xs (n + 1)) : ℤ)) := by
+    rw [naiveHeight_eq_nh, naiveHeight_eq_nh, kap_cast]
+    exact h
+  exact_mod_cast hgoal
+
+/-! ## §8 — propagation: `kap < h(xs (n+3))` for all `n`
+
+Height-growth induction: given `kap < h(xs k)` and `xs k ∉ {0, 5, -5}`,
+the height step gives `kap * h(xs (k+1)) ≥ h(xs k)^4`. Since
+`h(xs k) ≥ kap + 1` (nat inequality, kap pos), `h(xs k)^4 ≥ (kap+1)^4`.
+Expanding, `(kap+1)^4 = kap^4 + 4kap^3 + 6kap^2 + 4kap + 1 > kap^2 + kap`
+when `kap ≥ 1`. So `kap * h(xs (k+1)) > kap^2 + kap = kap (kap + 1)`,
+giving `h(xs (k+1)) > kap + 1 > kap`. -/
+
+theorem xs_shifted_above_kap : ∀ n, kap < naiveHeight (xs (n + 3)) := by
+  intro n
+  induction n with
+  | zero =>
+      show kap < naiveHeight (xs 3)
+      exact threshold
+  | succ k ih =>
+      -- ih : kap < h(xs (k + 3))
+      -- Derive xs (k+3) ∉ {0, 5, -5} from h > kap ≥ 6 > 5.
+      have hh_gt_five : 5 < naiveHeight (xs (k + 3)) := by
+        have h1 : 6 ≤ kap := kap_ge_six
+        omega
+      have hnt := not_torsion_of_height_gt_five hh_gt_five
+      -- Height step applies at xs (k + 3).
+      have hstep := height_step_at (k + 3) hnt
+      -- Now argue kap < h(xs (k + 4)).
+      -- From ih: h(xs (k+3)) ≥ kap + 1.
+      -- h(xs (k+3))^4 ≥ (kap + 1)^4 ≥ (kap + 1)^2 = kap^2 + 2kap + 1 > kap(kap+1).
+      -- hstep: kap * h(xs (k+4)) ≥ h(xs (k+3))^4 > kap(kap+1).
+      -- So h(xs (k+4)) > kap + 1 > kap. ✓
+      have hkap_pos : 0 < kap := kap_pos
+      have h1 : kap + 1 ≤ naiveHeight (xs (k + 3)) := ih
+      -- (kap+1)^4 ≥ (kap+1)^2 via (kap+1) ≥ 1
+      have hsq : (kap + 1) ^ 2 ≤ naiveHeight (xs (k + 3)) ^ 2 :=
+        Nat.pow_le_pow_left h1 2
+      have hquad : naiveHeight (xs (k + 3)) ^ 2
+          ≤ naiveHeight (xs (k + 3)) ^ 4 :=
+        Nat.pow_le_pow_right (one_le_naiveHeight _) (by decide)
+      -- so (kap+1)^2 ≤ h^4 ≤ kap * h(next)
+      have hbound : (kap + 1) ^ 2 ≤ kap * naiveHeight (xs (k + 3 + 1)) :=
+        hsq.trans (hquad.trans hstep)
+      -- (kap+1)^2 = kap^2 + 2kap + 1 = kap * (kap + 2) + 1 > kap * (kap + 1)
+      have hexpand : kap * (kap + 1) < (kap + 1) ^ 2 := by
+        have : (kap + 1) ^ 2 = kap * (kap + 1) + (kap + 1) := by ring
+        omega
+      have hmul : kap * (kap + 1) < kap * naiveHeight (xs (k + 3 + 1)) :=
+        lt_of_lt_of_le hexpand hbound
+      have hnew : kap + 1 < naiveHeight (xs (k + 3 + 1)) :=
+        (Nat.mul_lt_mul_left hkap_pos).mp hmul
+      show kap < naiveHeight (xs (k + 1 + 3))
+      have heq : k + 3 + 1 = k + 1 + 3 := by omega
+      rw [← heq]
+      omega
+
+/-- The non-torsion invariant for the shifted orbit. -/
+theorem xs_shifted_not_torsion (n : ℕ) :
+    xs (n + 3) ≠ 0 ∧ xs (n + 3) ≠ 5 ∧ xs (n + 3) ≠ -5 := by
+  have h1 : kap < naiveHeight (xs (n + 3)) := xs_shifted_above_kap n
+  have h2 : 5 < naiveHeight (xs (n + 3)) := by
+    have h3 : 6 ≤ kap := kap_ge_six
+    omega
+  exact not_torsion_of_height_gt_five h2
+
+/-! ## §9 — the shifted height step and r130's driver -/
+
+/-- Height step along the shifted chain. -/
+theorem height_step_shifted (n : ℕ) :
+    naiveHeight (xs (n + 3)) ^ 4 ≤ kap * naiveHeight (xs (n + 3 + 1)) :=
+  height_step_at (n + 3) (xs_shifted_not_torsion n)
+
+/-- **The chain from `8 P_80b` on takes infinitely many values.** -/
+theorem xs_shifted_infinite : (Set.range fun n => xs (n + 3)).Infinite := by
+  refine infinite_of_duplication_step (κ := kap) (fun n => xs (n + 3)) kap_pos
+    (fun n => ?_) threshold
+  show naiveHeight (xs (n + 3)) ^ 4 ≤ kap * naiveHeight (xs (n + 3 + 1))
+  exact height_step_shifted n
+
+/-! ## §10 — bundled induction on the point-group orbit
+
+Because E_80b has full rational 2-torsion, r200's `X_dbl_of_ne_zero`
+with its curve-wide `h2tor` does not apply.  We take the E_102a1-style
+per-point route and carry both invariants in one existential:
+
+  `2^n • P_80b ≠ 0`  and  `X(2^n • P_80b) = xs n`,
+
+using `two_smul_ne_zero_of_x_not_torsion` at each step. The crucial
+non-torsion invariant `xs n ∉ {0, 5, -5}` splits:
+
+  * n = 0, 1, 2 — by explicit norm_num (xs_zero/one/two_not_torsion).
+  * n ≥ 3     — by the height-growth propagation. -/
+
+/-- Curve-specific non-torsion invariant at every orbit level. -/
+theorem xs_not_torsion (n : ℕ) :
+    xs n ≠ 0 ∧ xs n ≠ 5 ∧ xs n ≠ -5 := by
+  rcases Nat.lt_or_ge n 3 with hlt | hge
+  · -- Case n < 3: explicit check
+    interval_cases n
+    · exact xs_zero_not_torsion
+    · exact xs_one_not_torsion
+    · exact xs_two_not_torsion
+  · -- Case n ≥ 3: use shifted propagation
+    obtain ⟨k, rfl⟩ := Nat.exists_eq_add_of_le hge
+    rw [Nat.add_comm]
+    exact xs_shifted_not_torsion k
+
+/-- **The orbit, bundled.** -/
+theorem smul_P_80b_affine_xs (n : ℕ) :
+    ∃ (xn yn : ℚ) (h : E_80b.toAffine.Nonsingular xn yn),
+      ((2 : ℤ) ^ n) • P_80b = Point.some h ∧ xn = xs n := by
+  induction n with
+  | zero =>
+      refine ⟨-4, 6, P_80b_nonsingular, ?_, xs_zero.symm⟩
+      show ((2 : ℤ) ^ 0) • P_80b = Point.some P_80b_nonsingular
+      simp [P_80b]
+  | succ k ih =>
+      obtain ⟨xk, yk, hk, hpk_eq, hxk_eq⟩ := ih
+      -- xk = xs k ∉ {0, 5, -5}
+      have hnt := xs_not_torsion k
+      have hxk_nt : xk ≠ 0 ∧ xk ≠ 5 ∧ xk ≠ -5 := by
+        rw [hxk_eq]; exact hnt
+      have h2k : (2 : ℕ) • Point.some hk ≠ 0 :=
+        two_smul_ne_zero_of_x_not_torsion hk hxk_nt.1 hxk_nt.2.1 hxk_nt.2.2
+      have hy : yk ≠ E_80b.toAffine.negY xk yk :=
+        y_ne_negY_of_two_smul_ne_zero hk h2k
+      have hkp1_rw : ((2 : ℤ) ^ (k + 1)) • P_80b
+          = Point.some hk + Point.some hk := by
+        rw [two_pow_succ_zsmul, hpk_eq]
+      have hXkp1 : X (((2 : ℤ) ^ (k + 1)) • P_80b) = xs (k + 1) := by
+        rw [hkp1_rw, X_dbl b₂_eq b₄_eq b₆_eq b₈_eq hk hy, hxk_eq, xs_succ]
+      rcases hcase : ((2 : ℤ) ^ (k + 1)) • P_80b with _ | @⟨xkp1, ykp1, hkp1⟩
+      · exfalso
+        apply h2k
+        rw [two_nsmul, ← hpk_eq, ← two_pow_succ_zsmul]
+        exact hcase
+      · refine ⟨xkp1, ykp1, hkp1, rfl, ?_⟩
+        rw [hcase] at hXkp1
+        simpa [X_some] using hXkp1
+
+/-- r199 `X` on `2^n • P_80b` equals `xs n`, unconditionally. -/
+theorem X_two_pow_smul (n : ℕ) :
+    X (((2 : ℤ) ^ n) • P_80b) = xs n := by
+  obtain ⟨xn, yn, hn, heq, hxn⟩ := smul_P_80b_affine_xs n
+  rw [heq, X_some]
+  exact hxn
+
+/-- Bridge between r199's generic `X` and `NonTorsionFromOrbit`'s local `X`. -/
+theorem X_bridge (R : E_80b.toAffine.Point) :
+    NonTorsionFromOrbit20261021.X R = X R := by
+  cases R <;> rfl
+
+theorem orbit_infinite :
+    (Set.range fun n =>
+      NonTorsionFromOrbit20261021.X (((2 : ℤ) ^ (n + 3)) • P_80b)).Infinite := by
+  have hfun : (fun n : ℕ =>
+      NonTorsionFromOrbit20261021.X (((2 : ℤ) ^ (n + 3)) • P_80b))
+      = fun n : ℕ => xs (n + 3) := by
+    funext n
+    rw [X_bridge, X_two_pow_smul]
+  rw [hfun]
+  exact xs_shifted_infinite
+
+/-! ## §11 — the capstones -/
+
+/-- **`P_80b = (-4, 6)` has infinite order in `E_80b(ℚ)`.** -/
+theorem P_80b_nonTorsion : ¬ IsOfFinAddOrder P_80b :=
+  NonTorsionFromOrbit20261021.nonTorsion_of_doubling_orbit_infinite P_80b 3
+    orbit_infinite
+
+/-- **THE FLAG — `rank E_80b(ℚ) ≥ 1`.**  A lower bound, nothing more. -/
+theorem E_80b_rank_ge_one : 1 ≤ Module.rank ℤ E_80b.toAffine.Point :=
+  NonTorsionFromOrbit20261021.rank_ge_one_of_doubling_orbit_infinite P_80b 3
+    orbit_infinite
+
 end E80b_RankOneCapstonePartial20261111
 end PrincipiaTractalis
 
@@ -194,6 +407,15 @@ end PrincipiaTractalis
 #print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.xs_three
 #print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.naiveHeight_xs_three
 #print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.threshold
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.not_torsion_of_height_gt_five
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.xs_shifted_above_kap
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.xs_shifted_not_torsion
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.xs_shifted_infinite
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.xs_not_torsion
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.X_two_pow_smul
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.X_bridge
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.P_80b_nonTorsion
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.E_80b_rank_ge_one
 
 -- Computed curve constant for the record: kap = 144750000000000.
 #eval PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.kap
