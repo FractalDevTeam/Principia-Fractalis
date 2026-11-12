@@ -182,6 +182,43 @@ theorem avgMinus_continuous (G : BoundedContinuousFunction (GaugeField L) ℂ) :
       gluePlusMinus_continuous.comp h₁
     exact G.continuous.comp h₂
 
+/-! ## §L²-boundedness of `avgMinus` — the step-3c.4c hypothesis
+
+Target: `‖avgMinus G‖_{L²(μ_Gibbs)} ≤ C · ‖G‖_{L²(μ_Gibbs)}` for some
+finite `C` and all bounded-continuous `G`, with `C = e^{β·(S_max − S_min)}`.
+
+Full proof outline:
+1. **Jensen**: `|avgMinus G U|² ≤ ∫ |G(glue (proj U) V)|² dμ_minus(V)`
+   (since μ_minus is a probability measure, Cauchy-Schwarz gives this).
+2. **Integrate**: `‖avgMinus G‖²_{L²(μ_Gibbs)} ≤ ∫∫ |G(glue (proj U) V)|²
+   dμ_minus dμ_Gibbs`.
+3. **Product-measure factorization**: `wilsonBaseMeasure = Haar_nm ⊗ μ_minus`
+   (via the LatticeLink partition → non-minus ⊕ minus; mathlib's
+   `Measure.pi` factoring on finite disjoint unions).
+4. **Fubini + `μ_Gibbs = exp(-βS)·μ_base`**: both sides unfold to
+   integrals over `(U_nm, V, V')` with weight `exp(-βS)` applied once
+   to `glue U_nm V'` on the avg-side vs `glue U_nm V` on the direct side.
+5. **Pointwise bound**: the integrand ratio is
+   `W(U_nm)·exp(βS(glue U_nm V))` where `W(U_nm) := ∫ exp(-βS(glue U_nm V'))
+   dμ_minus(V')`.  Using `S_min ≤ S ≤ S_max` (continuous on compact)
+   this is bounded by `C := e^{β(S_max − S_min)}`.
+
+Each step is doable in mathlib but the product-measure factorization
+(step 3) is the main structural work. Estimated 100-150 lines total.
+
+Below, we state this as a named hypothesis `WilsonAvgMinusL2Bound` and
+derive the density composition conditional on it. Discharging the
+hypothesis is a dedicated-session task. -/
+
+/-- **The L²-boundedness of `avgMinus` on bounded continuous input**,
+stated as a named hypothesis (see outline above for the proof plan). -/
+def WilsonAvgMinusL2Bound (L : ℕ) [NeZero L] (β : ℝ) : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ G : BoundedContinuousFunction (GaugeField L) ℂ,
+      eLpNorm (avgMinus (G : GaugeField L → ℂ)) 2 (wilsonGibbsMeasure L β)
+        ≤ ENNReal.ofReal C *
+          eLpNorm (G : GaugeField L → ℂ) 2 (wilsonGibbsMeasure L β)
+
 end PF.YangMills
 
 /-! ## §Axiom check -/
@@ -191,3 +228,4 @@ end PF.YangMills
 #print axioms PF.YangMills.avgMinus_eq_of_supportedOnPlusZero
 #print axioms PF.YangMills.gluePlusMinus_continuous
 #print axioms PF.YangMills.avgMinus_continuous
+#print axioms PF.YangMills.WilsonAvgMinusL2Bound
