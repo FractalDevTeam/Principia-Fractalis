@@ -27,6 +27,7 @@ Authors: Pablo Cohen. 2026-11-12.
 
 import PF.YangMills.WilsonNonMinusProjection_2026_11_12
 import PF.YangMills.WilsonGibbsMeasurePreserving_2026_11_11
+import Mathlib.Topology.ContinuousMap.Bounded.Basic
 
 namespace PF.YangMills
 
@@ -112,6 +113,75 @@ theorem avgMinus_eq_of_supportedOnPlusZero
   simp_rw [h_const]
   simp
 
+/-! ## §Continuity of `avgMinus` under bounded continuous input
+
+For bounded continuous `G : BoundedContinuousFunction (GaugeField L) ℂ`, the averaged
+`avgMinus G` is continuous.  Proof: mathlib's `continuous_of_dominated`
+on the parametric integral, with domination by the global bound on
+`G`. -/
+
+/-- `gluePlusMinus` is continuous in both arguments (coordinate
+projection on a finite product). -/
+theorem gluePlusMinus_continuous :
+    Continuous (fun p : NonMinusGauge L × MinusGauge L =>
+      gluePlusMinus p.1 p.2) := by
+  refine continuous_pi fun ℓ => ?_
+  by_cases h : linkSector ℓ ≠ LinkSector.minus
+  · -- The link is non-minus: the glue entry is p.1 ⟨ℓ, h⟩.
+    simp only [gluePlusMinus]
+    have : (fun p : NonMinusGauge L × MinusGauge L =>
+        if h' : linkSector ℓ ≠ LinkSector.minus
+          then p.1 ⟨ℓ, h'⟩
+          else p.2 ⟨ℓ, not_not.mp (fun hne => h' hne)⟩)
+          = fun p => p.1 ⟨ℓ, h⟩ := by
+      funext p
+      rw [dif_pos h]
+    rw [this]
+    exact (continuous_apply _).comp continuous_fst
+  · -- The link is minus: the glue entry is p.2 ⟨ℓ, _⟩.
+    simp only [gluePlusMinus]
+    have hh : linkSector ℓ = LinkSector.minus := not_not.mp h
+    have : (fun p : NonMinusGauge L × MinusGauge L =>
+        if h' : linkSector ℓ ≠ LinkSector.minus
+          then p.1 ⟨ℓ, h'⟩
+          else p.2 ⟨ℓ, not_not.mp (fun hne => h' hne)⟩)
+          = fun p => p.2 ⟨ℓ, hh⟩ := by
+      funext p
+      rw [dif_neg h]
+    rw [this]
+    exact (continuous_apply _).comp continuous_snd
+
+/-- **`avgMinus (G : BoundedContinuousFunction (GaugeField L) ℂ)` is continuous.**  Direct from
+mathlib's `continuous_of_dominated` applied to the parametric integral,
+with domination by the uniform bound on bounded-continuous `G`. -/
+theorem avgMinus_continuous (G : BoundedContinuousFunction (GaugeField L) ℂ) :
+    Continuous (avgMinus (G : GaugeField L → ℂ)) := by
+  unfold avgMinus
+  refine continuous_of_dominated (bound := fun _ : MinusGauge L => ‖G‖) ?_ ?_ ?_ ?_
+  -- hF_meas: for each U, the integrand in V is measurable (in fact continuous).
+  · intro U
+    refine Continuous.aestronglyMeasurable ?_
+    have h₁ : Continuous (fun V : MinusGauge L => (projectNonMinus U, V)) :=
+      continuous_const.prodMk continuous_id
+    have h₂ : Continuous (fun V : MinusGauge L =>
+        gluePlusMinus (projectNonMinus U) V) :=
+      gluePlusMinus_continuous.comp h₁
+    exact G.continuous.comp h₂
+  -- h_bound: uniform bound by ‖G‖ (bounded continuous).
+  · intro U
+    filter_upwards with V
+    exact G.norm_coe_le_norm _
+  -- bound_integrable: constant is integrable on finite measure.
+  · exact integrable_const _
+  -- h_cont: for each V, U ↦ G(glue (projNonMinus U) V) is continuous.
+  · filter_upwards with V
+    have h₁ : Continuous (fun U : GaugeField L => (projectNonMinus U, V)) :=
+      projectNonMinus_continuous.prodMk continuous_const
+    have h₂ : Continuous (fun U : GaugeField L =>
+        gluePlusMinus (projectNonMinus U) V) :=
+      gluePlusMinus_continuous.comp h₁
+    exact G.continuous.comp h₂
+
 end PF.YangMills
 
 /-! ## §Axiom check -/
@@ -119,3 +189,5 @@ end PF.YangMills
 #print axioms PF.YangMills.projectNonMinus_gluePlusMinus
 #print axioms PF.YangMills.avgMinus_supportedOnPlusZero
 #print axioms PF.YangMills.avgMinus_eq_of_supportedOnPlusZero
+#print axioms PF.YangMills.gluePlusMinus_continuous
+#print axioms PF.YangMills.avgMinus_continuous
