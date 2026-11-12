@@ -135,6 +135,51 @@ theorem kap_pos : 0 < kap := by
   norm_num [CL, SF1, SG1, SF2, SG2, cF10, cF11, cF12, cF13, cG10, cG11,
     cG12, cG13, cF20, cF21, cF22, cF23, cG20, cG21, cG22, cG23]
 
+/-- `kap ≥ 6` on E_80b.  Needed so that `h > kap` implies `h > 5` and
+hence `xs ∉ {0, 5, -5}` on the orbit. (Actually `kap = 144 750 000 000 000`.) -/
+theorem kap_ge_six : 6 ≤ kap := by
+  show 6 ≤ (CL 0 (-50) 0 (-625)).toNat
+  norm_num [CL, SF1, SG1, SF2, SG2, cF10, cF11, cF12, cF13, cG10, cG11,
+    cG12, cG13, cF20, cF21, cF22, cF23, cG20, cG21, cG22, cG23]
+
+/-! ## §5 — `xs 3` and the threshold -/
+
+/-- `x(8 P_80b) = 62425319345774489875576913540908007654663493663770881
+                / 28667777423930631959129990083752908396266457397504`.
+Both numerator and denominator are 53/50-digit integers; `norm_num`
+dispatches the identity in ~1.5 seconds. -/
+theorem xs_three :
+    xs 3 = 62425319345774489875576913540908007654663493663770881
+         / 28667777423930631959129990083752908396266457397504 := by
+  show xs (2 + 1) = _
+  rw [xs_succ, xs_two, dblQ_eq_fg80b]
+  norm_num [f80b, g80b]
+
+/-- `naiveHeight (x(8 P_80b)) = 62 425 319 345 774 489 875 576 913
+540 908 007 654 663 493 663 770 881` (53 digits).  The fraction is
+reduced, certified by `norm_num`'s gcd extension. -/
+theorem naiveHeight_xs_three :
+    naiveHeight (xs 3) = 62425319345774489875576913540908007654663493663770881 := by
+  have h3 : xs 3 =
+      ((62425319345774489875576913540908007654663493663770881 : ℤ) : ℚ)
+      / ((28667777423930631959129990083752908396266457397504 : ℤ) : ℚ) := by
+    rw [xs_three]; norm_num
+  have hg : Int.gcd 62425319345774489875576913540908007654663493663770881
+                    28667777423930631959129990083752908396266457397504 = 1 := by
+    norm_num
+  rw [h3, DuplicationHeightBound37a1.naiveHeight_div_int
+    62425319345774489875576913540908007654663493663770881
+    28667777423930631959129990083752908396266457397504 (by norm_num), hg]
+  norm_num
+
+/-- **The threshold check**: the orbit clears the curve constant at `n = 3`.
+`κ = 1.45 × 10¹⁴ < 6.24 × 10⁵² = h(xs 3)`. -/
+theorem threshold : kap < naiveHeight (xs 3) := by
+  rw [naiveHeight_xs_three]
+  show (CL 0 (-50) 0 (-625)).toNat < 62425319345774489875576913540908007654663493663770881
+  norm_num [CL, SF1, SG1, SF2, SG2, cF10, cF11, cF12, cF13, cG10, cG11,
+    cG12, cG13, cF20, cF21, cF22, cF23, cG20, cG21, cG22, cG23]
+
 end E80b_RankOneCapstonePartial20261111
 end PrincipiaTractalis
 
@@ -145,6 +190,10 @@ end PrincipiaTractalis
 #print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.xs_one
 #print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.xs_two
 #print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.kap_pos
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.kap_ge_six
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.xs_three
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.naiveHeight_xs_three
+#print axioms PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.threshold
 
 -- Computed curve constant for the record: kap = 144750000000000.
 #eval PrincipiaTractalis.E80b_RankOneCapstonePartial20261111.kap
