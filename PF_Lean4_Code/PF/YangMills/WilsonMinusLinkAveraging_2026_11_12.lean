@@ -187,37 +187,67 @@ theorem avgMinus_continuous (G : BoundedContinuousFunction (GaugeField L) ℂ) :
 Target: `‖avgMinus G‖_{L²(μ_Gibbs)} ≤ C · ‖G‖_{L²(μ_Gibbs)}` for some
 finite `C` and all bounded-continuous `G`, with `C = e^{β·(S_max − S_min)}`.
 
+**UPDATE 2026-11-12**: on a thorough search of the YM tree, the key
+infrastructure for this proof IS ALREADY PRESENT:
+
+* **`wilsonBaseMeasure_split_minus`** (`WilsonSectorMeasureSplit_2026_10_20`)
+  — the measure-preserving sector split via
+  `measurePreserving_piEquivPiSubtypeProd` of `wilsonBaseMeasure` as
+  `Haar_minus ⊗ Haar_nonMinus`.
+* **`wilsonBaseMeasure_integral_split`** (same file) — Bochner Fubini
+  on the split.
+* **`wilsonBase_measurePreserving_split`** (`WilsonBaseMeasureSplit_r362`)
+  — same for arbitrary decidable predicate.
+* **`expWilsonActionPlusR_bddAbove_pos`** (`WilsonSectorActionBounded_r360`)
+  — bounded-above-by-positive for exp(-β·wilsonActionPlusR). Similar
+  lemmas for `_Zero` and `_MinusR`.
+
+Missing from the tree:
+* A strict LOWER bound `exp(-β·wilsonActionTotal) ≥ m > 0` (follows from
+  continuity + compactness + positivity — mathlib has
+  `IsCompact.exists_forall_le` for continuous functions on compact).
+* The composition into the final `avgMinus` L²-bound — the main work.
+
+Updated effort estimate: **~80-120 Lean lines** using the existing
+infrastructure (vs. the ~150+ lines of from-scratch work previously
+estimated).
+
 Full proof outline:
 1. **Jensen**: `|avgMinus G U|² ≤ ∫ |G(glue (proj U) V)|² dμ_minus(V)`
-   (since μ_minus is a probability measure, Cauchy-Schwarz gives this).
-2. **Integrate**: `‖avgMinus G‖²_{L²(μ_Gibbs)} ≤ ∫∫ |G(glue (proj U) V)|²
-   dμ_minus dμ_Gibbs`.
-3. **Product-measure factorization**: `wilsonBaseMeasure = Haar_nm ⊗ μ_minus`
-   (via the LatticeLink partition → non-minus ⊕ minus; mathlib's
-   `Measure.pi` factoring on finite disjoint unions).
-4. **Fubini + `μ_Gibbs = exp(-βS)·μ_base`**: both sides unfold to
-   integrals over `(U_nm, V, V')` with weight `exp(-βS)` applied once
-   to `glue U_nm V'` on the avg-side vs `glue U_nm V` on the direct side.
-5. **Pointwise bound**: the integrand ratio is
-   `W(U_nm)·exp(βS(glue U_nm V))` where `W(U_nm) := ∫ exp(-βS(glue U_nm V'))
-   dμ_minus(V')`.  Using `S_min ≤ S ≤ S_max` (continuous on compact)
-   this is bounded by `C := e^{β(S_max − S_min)}`.
-
-Each step is doable in mathlib but the product-measure factorization
-(step 3) is the main structural work. Estimated 100-150 lines total.
+   (via Cauchy-Schwarz on probability μ_minus).
+2. **Integrate over μ_Gibbs**: use `wilsonGibbsMeasure =
+   wilsonBaseMeasure.withDensity (ENNReal.ofReal (exp(-βS)))` and
+   mathlib's `integral_withDensity_eq_integral_smul`.
+3. **Apply `wilsonBaseMeasure_integral_split`** on both sides to get
+   iterated-integral form over `(U_nonMinus, V_minus, V_minus')`.
+4. **Pointwise bound**: the integrand ratio is bounded by
+   `C := max_U [exp(βS(U))] · max_U [exp(-βS(U))]` (bounds on exp(-βS)
+   from `expWilsonActionTotal_bddAbove_pos` + its lower-bound companion).
+5. **Conclude** the L²-bound.
 
 Below, we state this as a named hypothesis `WilsonAvgMinusL2Bound` and
 derive the density composition conditional on it. Discharging the
-hypothesis is a dedicated-session task. -/
+hypothesis is bounded dedicated-session work on top of existing
+infrastructure. -/
 
 /-- **The L²-boundedness of `avgMinus` on bounded continuous input**,
-stated as a named hypothesis (see outline above for the proof plan). -/
+stated as a named hypothesis (see outline above for the proof plan).
+
+The hypothesis uses the stronger form `‖avgMinus (G - H)‖ ≤ C ·
+‖G - H‖` for `G, H` bounded continuous — which, by linearity of the
+Bochner integral in the integrand, is equivalent to `‖avgMinus G‖ ≤
+C · ‖G‖` for individual bounded-continuous `G`. The pair form is used
+directly in the density composition below. -/
 def WilsonAvgMinusL2Bound (L : ℕ) [NeZero L] (β : ℝ) : Prop :=
   ∃ C : ℝ, 0 ≤ C ∧
-    ∀ G : BoundedContinuousFunction (GaugeField L) ℂ,
-      eLpNorm (avgMinus (G : GaugeField L → ℂ)) 2 (wilsonGibbsMeasure L β)
+    ∀ G H : BoundedContinuousFunction (GaugeField L) ℂ,
+      eLpNorm (fun U => avgMinus (G : GaugeField L → ℂ) U -
+                        avgMinus (H : GaugeField L → ℂ) U) 2
+        (wilsonGibbsMeasure L β)
         ≤ ENNReal.ofReal C *
-          eLpNorm (G : GaugeField L → ℂ) 2 (wilsonGibbsMeasure L β)
+          eLpNorm (fun U => (G : GaugeField L → ℂ) U -
+                             (H : GaugeField L → ℂ) U) 2
+            (wilsonGibbsMeasure L β)
 
 end PF.YangMills
 
