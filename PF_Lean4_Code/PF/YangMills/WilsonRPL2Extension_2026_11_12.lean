@@ -44,9 +44,51 @@ hypothesis.  Each `MemLp 2 ∧ supportedOnPlusZero` function admits a
 sequence of continuous `supportedOnPlusZero` approximants converging in
 `L²(μ_Gibbs)`.
 
-This is step 3 of the L² extension plan.  See
-`codex/YM_L2_EXTENSION_SCOPING_2026-11-11.md` for the approach to
-proving it (conditional expectation / minus-link averaging). -/
+## Proof outline — pushforward-through-projection approach
+
+The cleanest proof uses the fact that `LatticeLink L` partitions into
+`minusLinks` (where `linkSector = .minus`) and `nonMinusLinks` (where
+`linkSector ≠ .minus`).  Define:
+
+* `nonMinusGauge L := NonMinusLinks L → SU2`,
+* `projectNonMinus : GaugeField L → nonMinusGauge L` (natural projection
+  by domain restriction).
+* `ν := (μ_Gibbs).map projectNonMinus` (pushforward measure on
+  `nonMinusGauge L`).
+
+**Key observation.** `supportedOnPlusZero F` is exactly the statement
+that `F` **factors through** `projectNonMinus`: there exists
+`F_restricted : nonMinusGauge L → ℂ` with `F = F_restricted ∘ projectNonMinus`.
+
+Under this factoring:
+
+1. `MemLp F 2 μ_Gibbs ↔ MemLp F_restricted 2 ν`
+2. `L²(μ_Gibbs)` norms on `F` match `L²(ν)` norms on `F_restricted` (by
+   the change-of-variable formula for pushforward).
+3. On `nonMinusGauge L` — a finite product of compact Lie groups, hence
+   Polish — `ν` is a finite measure and so weakly regular.
+
+Apply mathlib's `MemLp.exists_boundedContinuous_eLpNorm_sub_le` to
+`F_restricted` with measure `ν`: get `G'_n : nonMinusGauge L → ℂ`
+bounded-continuous with `eLpNorm (F_restricted - G'_n) 2 ν → 0`.
+
+**Lift back.** Define `F_n := G'_n ∘ projectNonMinus`. Then:
+* `F_n` is continuous (composition).
+* `F_n` is `supportedOnPlusZero` by construction
+  (`projectNonMinus U = projectNonMinus U'` whenever `U, U'` agree on
+  non-minus links, which is exactly `supportedOnPlusZero`).
+* `eLpNorm (F - F_n) 2 μ_Gibbs = eLpNorm (F_restricted - G'_n) 2 ν → 0`.
+
+## Lean-side cost
+
+Estimated 80–150 Lean lines across 3 ingredients:
+1. Define `NonMinusLinks`, `nonMinusGauge`, `projectNonMinus` and prove
+   measurability and continuity.  (~30 lines)
+2. `supportedOnPlusZero F ↔ ∃ F', F = F' ∘ projectNonMinus`. (~25 lines)
+3. The L²-norm pushforward identity + mathlib density composition. (~40
+   lines, incl. the `WeaklyRegular` inferencing on `ν`.)
+
+Pending a dedicated session. -/
 def WilsonL2DensityHypothesis (L : ℕ) [NeZero L] (β : ℝ) : Prop :=
   ∀ F : GaugeField L → ℂ,
     MemLp F 2 (wilsonGibbsMeasure L β) → supportedOnPlusZero F →
