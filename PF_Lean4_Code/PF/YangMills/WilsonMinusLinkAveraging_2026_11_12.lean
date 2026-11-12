@@ -212,18 +212,52 @@ Updated effort estimate: **~80-120 Lean lines** using the existing
 infrastructure (vs. the ~150+ lines of from-scratch work previously
 estimated).
 
-Full proof outline:
-1. **Jensen**: `|avgMinus G U|² ≤ ∫ |G(glue (proj U) V)|² dμ_minus(V)`
-   (via Cauchy-Schwarz on probability μ_minus).
-2. **Integrate over μ_Gibbs**: use `wilsonGibbsMeasure =
-   wilsonBaseMeasure.withDensity (ENNReal.ofReal (exp(-βS)))` and
-   mathlib's `integral_withDensity_eq_integral_smul`.
-3. **Apply `wilsonBaseMeasure_integral_split`** on both sides to get
-   iterated-integral form over `(U_nonMinus, V_minus, V_minus')`.
-4. **Pointwise bound**: the integrand ratio is bounded by
-   `C := max_U [exp(βS(U))] · max_U [exp(-βS(U))]` (bounds on exp(-βS)
-   from `expWilsonActionTotal_bddAbove_pos` + its lower-bound companion).
-5. **Conclude** the L²-bound.
+Full proof outline (concrete chain):
+
+**Setup.** `wilsonActionTotal` is continuous (`wilsonActionTotal_continuous`)
+on the compact `GaugeField L`. Hence `isCompact_univ.bddAbove_image /
+bddBelow_image` give `S_min ≤ wilsonActionTotal U ≤ S_max`. For β ≥ 0,
+`m := exp(-β·S_max) ≤ exp(-β·wilsonActionTotal U) ≤ exp(-β·S_min) =: M`
+with `m > 0`.
+
+**Step 1: Jensen on μ_minus** (probability measure):
+
+   `|avgMinus K U|² = |∫ K(glue (proj U) V') dμ_minus(V')|²
+                   ≤ ∫ |K(glue (proj U) V')|² dμ_minus(V')`
+
+(via `norm_integral_le_integral_norm` and Cauchy-Schwarz for probability measure).
+
+**Step 2: Fubini-unfold `‖K‖²_{L²(μ_Gibbs)}` via existing infrastructure**.
+Both `∫|avgMinus K|² dμ_Gibbs` and `∫|K|² dμ_Gibbs` unfold through:
+
+   `μ_Gibbs = μ_base.withDensity (exp(-β·S))`
+   `μ_base = Haar_minus ⊗ Haar_nonMinus` via `wilsonBaseMeasure_split_minus`.
+
+So:
+- `∫|K|² dμ_Gibbs = (1/Z) ∫∫ |K(glue W V)|² exp(-β·S(glue W V))
+                     dμ_minus(V) dμ_nonMinus(W)`.
+- `∫|avgMinus K|² dμ_Gibbs ≤ (1/Z) ∫∫ |K(glue W V')|² exp(-β·S(glue W V))
+                              dμ_minus(V) dμ_minus(V') dμ_nonMinus(W)` (via Step 1).
+
+**Step 3: Pointwise ratio bound.** The integrand of the Fubini-unfolded
+`avgMinus K`²-integral has `|K(glue W V')|² · exp(-β·S(glue W V))` while
+the direct `K`²-integral has `|K(glue W V)|² · exp(-β·S(glue W V))`.
+Both integrals share the factor `exp(-β·S(glue W V))`; only the
+argument of `|K|²` differs (V' vs V).  Separately:
+
+   `∫ exp(-β·S(glue W V)) dμ_minus(V) ∈ [m, M]` (bound by extremes).
+
+So we get `‖avgMinus K‖² ≤ (M/m) · ‖K‖²`, giving `C = √(M/m)`.
+
+**Mathlib lemmas cited**:
+* `IsCompact.bddAbove_image` + `IsCompact.bddBelow_image` (from `IsCompact.image`).
+* `Real.exp_pos`, `Real.exp_le_exp` (monotonicity).
+* `wilsonActionTotal_continuous` (already in tree).
+* `norm_integral_le_integral_norm` + probability measure Cauchy-Schwarz.
+* `integral_withDensity_eq_integral_smul` (integral vs withDensity).
+* `wilsonBaseMeasure_integral_split` (EXISTS 2026-10-20) — Fubini via sector split.
+* `integral_prod` (Fubini on product).
+* `lintegral_mono` / `integral_mono_of_nonneg` (bound chain).
 
 Below, we state this as a named hypothesis `WilsonAvgMinusL2Bound` and
 derive the density composition conditional on it. Discharging the
