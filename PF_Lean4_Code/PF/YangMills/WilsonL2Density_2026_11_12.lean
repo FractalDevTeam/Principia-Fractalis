@@ -18,13 +18,37 @@ threading `AEStronglyMeasurable` through the factoring
 `F = F' ∘ projectNonMinus`, which has a subtle interaction with the
 non-injectivity of `projectNonMinus` (many `U` map to the same `U'`).
 
-The cleanest route to the density lift from here: use mathlib's
-`MemLp.exists_boundedContinuous_eLpNorm_sub_le` on `F` directly on
-`(wilsonGibbsMeasure L β)` (which is `WeaklyRegular` as a finite
-measure on a Polish space), then project the resulting bounded
-continuous approximation into the `supportedOnPlusZero` subspace via
-an explicit averaging operator on the minus-link factor.  Still
-~50 lines of careful proof work, pending.
+## Route A — pushforward (attempted this session, obstructed)
+
+Apply mathlib's `MemLp.exists_boundedContinuous_eLpNorm_sub_le` to the
+factored `F'` on `(wilsonProjectedGibbsMeasure L β)`.  **Obstruction**:
+the AEStronglyMeasurable chain for `F'` on the pushforward would
+require `projectNonMinus` to be a measurable embedding, which it is
+not (many-to-one).  A workaround via a strongly-measurable
+ae-representative fails because the ae-null-set transfer
+`A μ_Gibbs-null → collapseMinus⁻¹ A ν-null` does not hold in general —
+`collapseMinus` sends ν-measurable sets to the minus-1 slice (which is
+μ_Gibbs-null for continuous base measure), so preimages don't cleanly
+transfer.
+
+## Route B — conditional expectation (recommended)
+
+Apply mathlib's density directly to `F` on `μ_Gibbs` (which is
+`WeaklyRegular` as a finite measure on a Polish space).  Get bounded
+continuous `G_n` with `eLpNorm (F - G_n) 2 μ_Gibbs ≤ 1/n`.  Project
+`G_n` via the **minus-link averaging operator** (conditional
+expectation):
+
+    `(avg G_n)(U) := ∫ G_n(gluePlusMinus U.nonMinus V.minus) d Haar_minus V`.
+
+This operator is linear, continuous (parametric integration on
+compact), `supportedOnPlusZero`-preserving, and an L² contraction
+(Jensen).  So `eLpNorm (F - avg G_n) 2 μ_Gibbs ≤ eLpNorm (F - G_n) 2
+μ_Gibbs → 0`.
+
+Estimated ~70-100 lines of mathlib navigation (product-measure
+factoring + parametric integral continuity + Jensen contraction).
+Pending a dedicated session.
 
 SPDX-License-Identifier: Apache-2.0
 Authors: Pablo Cohen. 2026-11-12.
