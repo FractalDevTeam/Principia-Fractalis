@@ -80,8 +80,32 @@ theorem wilson_rp_scalar (hL : Even L) (β : ℝ)
   have h := hPSD.2 (fun _ => 1)
   simpa [dotProduct, Matrix.mulVec, Fin.sum_univ_one, Matrix.of_apply] using h
 
+/-! ## §3 — real-inequality forms
+
+The `ComplexOrder` partial order couples `0 ≤ z` to `0 ≤ z.re ∧ z.im = 0`.
+For downstream callers that prefer real-valued inequalities (and don't want
+to import `ComplexOrder`), these spell it out. -/
+
+/-- **Real part of the scalar θ-crossed Gram entry is non-negative.** -/
+theorem wilson_rp_scalar_re (hL : Even L) (β : ℝ)
+    (F : GaugeField L → ℂ) (hF_support : supportedOnPlusZero F)
+    (hF_cont : Continuous F) :
+    0 ≤ (∫ U, star (F (timeReflectionGaugeField U)) * F U
+          ∂(wilsonGibbsMeasure L β)).re :=
+  (Complex.nonneg_iff.mp (wilson_rp_scalar hL β F hF_support hF_cont)).1
+
+/-- **Imaginary part of the scalar θ-crossed Gram entry vanishes.** -/
+theorem wilson_rp_scalar_im (hL : Even L) (β : ℝ)
+    (F : GaugeField L → ℂ) (hF_support : supportedOnPlusZero F)
+    (hF_cont : Continuous F) :
+    (∫ U, star (F (timeReflectionGaugeField U)) * F U
+          ∂(wilsonGibbsMeasure L β)).im = 0 :=
+  ((Complex.nonneg_iff.mp (wilson_rp_scalar hL β F hF_support hF_cont)).2).symm
+
 end PF.YangMills
 
 /-! ## §Axiom check -/
 #print axioms PF.YangMills.wilson_rp_gram_hermitian
 #print axioms PF.YangMills.wilson_rp_scalar
+#print axioms PF.YangMills.wilson_rp_scalar_re
+#print axioms PF.YangMills.wilson_rp_scalar_im
