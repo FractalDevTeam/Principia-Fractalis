@@ -78,9 +78,56 @@ theorem wilsonGibbsMeasure_measurePreserving_timeReflection (β : ℝ) :
   -- Step 2: Change of variable via θ MP on μ_base.
   exact hθ_mp.setLIntegral_comp_preimage hs hw_meas
 
+/-! ## §2 — integral- and L²-norm-level consequences
+
+The measure-preservation lemma immediately gives the integral invariance
+`∫ F(θU) dμ_Gibbs = ∫ F(U) dμ_Gibbs` via `MeasurePreserving.integral_comp`
+on the measurable involutive embedding `θ`.  In particular, squared L²
+norms are θ-invariant: `∫ |F(θU)|² dμ_Gibbs = ∫ |F(U)|² dμ_Gibbs`.  This
+is the isometry at the heart of the L²-extension density argument.
+-/
+
+/-- `θ` as a `MeasurableEmbedding` (follows from being an involutive
+measurable map, via `MeasurableEquiv.ofInvolutive`). -/
+theorem timeReflectionGaugeField_measurableEmbedding :
+    MeasurableEmbedding
+      (timeReflectionGaugeField : GaugeField L → GaugeField L) :=
+  (MeasurableEquiv.ofInvolutive timeReflectionGaugeField
+    timeReflectionGaugeField_involutive
+    timeReflectionGaugeField_measurable).measurableEmbedding
+
+/-- **Integral invariance on the Gibbs measure.** -/
+theorem integral_wilsonGibbs_timeReflection (β : ℝ)
+    (F : GaugeField L → ℂ) :
+    ∫ U, F (timeReflectionGaugeField U) ∂(wilsonGibbsMeasure L β)
+      = ∫ U, F U ∂(wilsonGibbsMeasure L β) :=
+  (wilsonGibbsMeasure_measurePreserving_timeReflection β).integral_comp
+    timeReflectionGaugeField_measurableEmbedding F
+
+/-- **Real-valued integral invariance on the Gibbs measure.** -/
+theorem integral_wilsonGibbs_timeReflection_real (β : ℝ)
+    (F : GaugeField L → ℝ) :
+    ∫ U, F (timeReflectionGaugeField U) ∂(wilsonGibbsMeasure L β)
+      = ∫ U, F U ∂(wilsonGibbsMeasure L β) :=
+  (wilsonGibbsMeasure_measurePreserving_timeReflection β).integral_comp
+    timeReflectionGaugeField_measurableEmbedding F
+
+/-- **Squared-L²-norm invariance on the Gibbs measure.** The integral of
+`|F(θU)|² = |F(U)|²` as a real number: direct application of
+`integral_wilsonGibbs_timeReflection_real` to `fun U => ‖F U‖²`. -/
+theorem integral_norm_sq_wilsonGibbs_timeReflection (β : ℝ)
+    (F : GaugeField L → ℂ) :
+    ∫ U, ‖F (timeReflectionGaugeField U)‖ ^ 2 ∂(wilsonGibbsMeasure L β)
+      = ∫ U, ‖F U‖ ^ 2 ∂(wilsonGibbsMeasure L β) :=
+  integral_wilsonGibbs_timeReflection_real β (fun U => ‖F U‖ ^ 2)
+
 end
 
 end PF.YangMills
 
 /-! ## §Axiom check -/
 #print axioms PF.YangMills.wilsonGibbsMeasure_measurePreserving_timeReflection
+#print axioms PF.YangMills.timeReflectionGaugeField_measurableEmbedding
+#print axioms PF.YangMills.integral_wilsonGibbs_timeReflection
+#print axioms PF.YangMills.integral_wilsonGibbs_timeReflection_real
+#print axioms PF.YangMills.integral_norm_sq_wilsonGibbs_timeReflection
