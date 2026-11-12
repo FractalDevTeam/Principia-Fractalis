@@ -68,13 +68,40 @@ Given two pairs `(F, F_n)` and `(G, G_n)` with `F_n → F` and
 
 converges to `∫ star(F (θU)) * G U ∂μ_Gibbs`.
 
-The proof is a standard ε/2 argument: split `⟨F_n, G_n⟩ - ⟨F, G⟩` as
-`⟨F_n - F, G_n⟩ + ⟨F, G_n - G⟩`, apply `wilson_rp_gram_bound` (step 1)
-to each term, use boundedness of `‖G_n‖` (eventually) via the triangle
-inequality, and conclude.
+## Proof outline
 
-Estimated proof size: 50–80 Lean lines.  Named here so that
-`wilson_reflection_positivity_of_L2` can cite it. -/
+The proof is a standard ε/2 argument with ENNReal-Real bridging. Explicit
+steps:
+
+1. **Convert the `eLpNorm` Tendsto hypotheses to real form.**  For each
+   `MemLp f 2 μ`, `(eLpNorm f 2 μ).toReal = (∫ ‖f‖² ∂μ)^(1/2)` via
+   `eLpNorm_eq_integral_rpow_norm` (with `p = 2`).  Compose with
+   `ENNReal.tendsto_toReal` applied at `0` (which is ≠ ∞) to get
+   `Tendsto (fun n => (∫ ‖F - F_n n‖² ∂μ)^(1/2)) atTop (𝓝 0)` in ℝ.
+
+2. **Algebraic split.**  Write `star(F_n(θU)) * G_n U - star(F(θU)) * G U`
+   as `star((F_n - F)(θU)) * G_n U + star(F(θU)) * (G_n - G) U` and
+   apply `integral_add` (both summands integrable via `MemLp.integrable_mul`
+   + `MemLp.comp_measurePreserving` on the `F ∘ θ` side).
+
+3. **Bound each summand via `wilson_rp_gram_bound`.**
+   - `‖∫ star((F_n - F)(θU)) * G_n U‖ ≤ ‖F_n - F‖_{L²} · ‖G_n‖_{L²}`.
+   - `‖∫ star(F(θU)) * (G_n - G) U‖ ≤ ‖F‖_{L²} · ‖G_n - G‖_{L²}`.
+
+4. **Bound `‖G_n‖_{L²}` eventually.**  Triangle: `‖G_n‖ ≤ ‖G‖ + ‖G_n - G‖`.
+   Since `‖G_n - G‖ → 0`, eventually `‖G_n‖ ≤ ‖G‖ + 1`.  So there's a
+   global bound `M = ‖G‖ + 1` on `‖G_n‖` for all large `n`.
+
+5. **ε/2 argument.**  Given ε > 0, pick `N` so large that for `n ≥ N`:
+   - `‖F_n - F‖_{L²} · M < ε / 2`
+   - `‖F‖_{L²} · ‖G_n - G‖_{L²} < ε / 2`
+   - Triangle: `‖∫ ... - ∫ ...‖ < ε`.
+
+Estimated full proof size: 80–120 Lean lines, dominated by the
+`eLpNorm`–integral bridge in step 1 and the integrability bookkeeping
+in step 2.  Named here so that `wilson_reflection_positivity_of_L2`
+can cite it.  Build-committed as a hypothesis pending a focused
+dedicated session. -/
 def WilsonL2GramEntryTendsto (L : ℕ) [NeZero L] (β : ℝ) : Prop :=
   ∀ (F G : GaugeField L → ℂ) (F_n G_n : ℕ → GaugeField L → ℂ),
     MemLp F 2 (wilsonGibbsMeasure L β) →
