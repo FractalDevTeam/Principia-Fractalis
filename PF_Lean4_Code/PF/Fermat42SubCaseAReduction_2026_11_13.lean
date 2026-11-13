@@ -50,12 +50,14 @@ def Fermat42Double_impossible : Prop :=
 /-- **Sub-gap 3**: `b² = (m − 2k)(m + 2k)` with coprime factors
 (both odd), so each factor is a perfect square.
 
-Standard coprime-square-product lemma.  Named for the descent. -/
+Standard coprime-square-product lemma.  Named for the descent.
+Requires `0 ≤ m - 2*k` (the square itself). -/
 def Fermat42SubCaseA_squareSplit : Prop :=
-  ∀ m k b : ℤ, m % 2 = 1 → IsCoprime m (2 * k) →
+  ∀ m k b : ℤ, 0 ≤ m - 2 * k → 0 ≤ m + 2 * k →
+    IsCoprime (m - 2 * k) (m + 2 * k) →
     b ^ 2 = (m - 2 * k) * (m + 2 * k) →
     ∃ s t : ℤ, m - 2 * k = s ^ 2 ∧ m + 2 * k = t ^ 2 ∧
-      s * t = b ∧ IsCoprime s t ∧ s % 2 = 1 ∧ t % 2 = 1
+      s * t = b ∧ IsCoprime s t
 
 /-- **Case A reduction**: under the Case A hypothesis, we derive
 an auxiliary `2a² = s⁴ + t⁴` instance that must be contradicted. -/
@@ -78,8 +80,64 @@ theorem fermat42Sub_caseA_reduces
   have hb_fact : b ^ 2 = (m - 2 * k) * (m + 2 * k) := by
     rw [hb_sq]; ring
   -- Apply sub-gap 3: square split.
-  obtain ⟨s, t, hs_eq, ht_eq, hst_eq, hst_coprime, hs_odd, ht_odd⟩ :=
-    hSplit3 m k b hm_odd hmn_coprime hb_fact
+  -- m - 2k ≥ 0 and m + 2k ≥ 0 (from b² = (m - 2k)(m + 2k) ≥ 0, m ≥ 0, k > 0).
+  have hk_pos : 0 < k := by linarith
+  have hm_plus_nn : 0 ≤ m + 2 * k := by linarith [_h_m_nn]
+  have hm_minus_nn : 0 ≤ m - 2 * k := by
+    have hbsq_nn : 0 ≤ b ^ 2 := sq_nonneg b
+    rw [hb_fact] at hbsq_nn
+    by_contra h_lt
+    push_neg at h_lt
+    have h_neg : m - 2 * k < 0 := h_lt
+    have h_sum_pos : 0 < m + 2 * k ∨ m + 2 * k = 0 := by
+      rcases lt_or_eq_of_le hm_plus_nn with h | h
+      · left; exact h
+      · right; exact h.symm
+    rcases h_sum_pos with h_sum_pos | h_sum_zero
+    · have : (m - 2 * k) * (m + 2 * k) < 0 :=
+        mul_neg_of_neg_of_pos h_neg h_sum_pos
+      linarith
+    · rw [h_sum_zero] at hb_fact; simp at hb_fact
+      have : b = 0 := by nlinarith [sq_nonneg b, hb_fact]
+      -- b = 0 contradicts _h_min.1.2.1.
+      exact _h_min.1.2.1 this
+  -- Coprimality of (m - 2k) and (m + 2k):
+  -- From `IsCoprime m (2k)`: derive `IsCoprime (m - 2k) (2k)` via add_mul.
+  -- Then derive `IsCoprime (m - 2k) (m + 2k) = IsCoprime (m - 2k) ((m - 2k) + 4k)`.
+  have hcop1 : IsCoprime (m - 2 * k) (2 * k) := by
+    -- m - 2k = m + (-1) * (2k).  IsCoprime m (2k) ⟹ IsCoprime (m + (-1)*(2k)) (2k).
+    have := hmn_coprime.add_mul_right_left (-1)
+    simpa using this
+  -- Derive IsCoprime (m - 2k) 2 from m - 2k odd.
+  have hm_minus_odd : (m - 2 * k) % 2 = 1 := by
+    rw [Int.sub_emod, hm_odd]; simp [Int.mul_emod]
+  have hcop_two : IsCoprime (m - 2 * k) (2 : ℤ) := by
+    refine (Int.isCoprime_iff_gcd_eq_one).mpr ?_
+    rw [Int.gcd]
+    have h2 : Int.natAbs 2 = 2 := rfl
+    rw [h2]
+    have hodd : Odd (m - 2 * k) := by
+      rw [Int.odd_iff]; exact hm_minus_odd
+    have h_natabs_odd : Odd (Int.natAbs (m - 2 * k)) :=
+      Int.natAbs_odd.mpr hodd
+    exact (Nat.Coprime.symm (Nat.coprime_two_left.mpr h_natabs_odd))
+  -- IsCoprime (m - 2k) (4k) from IsCoprime (m-2k) 2 and IsCoprime (m-2k) (2k).
+  -- 4k = 2 * (2k).
+  have hcop_4k : IsCoprime (m - 2 * k) (4 * k) := by
+    have h_4k : (4 * k : ℤ) = 2 * (2 * k) := by ring
+    rw [h_4k]
+    exact hcop_two.mul_right hcop1
+  -- IsCoprime (m - 2k) (m + 2k) = IsCoprime (m - 2k) ((m - 2k) + 4k).
+  -- Use `add_mul_right_right` after rewriting (m + 2k) = (m - 2k) + 4k = (m - 2k) + 1 * (4k).
+  -- Actually: IsCoprime x (y + z * x) ← IsCoprime x y, where we want the reverse direction.
+  -- We have IsCoprime (m-2k) (4k) and want IsCoprime (m-2k) ((m-2k) + 4k).
+  -- Use `IsCoprime.of_add_mul_left_right` reversed?  Or use the explicit `add_mul` iff.
+  have hpair_coprime : IsCoprime (m - 2 * k) (m + 2 * k) := by
+    have hrw : m + 2 * k = 4 * k + 1 * (m - 2 * k) := by ring
+    rw [hrw]
+    exact hcop_4k.add_mul_right_right 1
+  obtain ⟨s, t, hs_eq, ht_eq, hst_eq, hst_coprime⟩ :=
+    hSplit3 m k b hm_minus_nn hm_plus_nn hpair_coprime hb_fact
   -- From m - 2k = s² and m + 2k = t²: 2m = s² + t², 2(2k) = t² - s².
   -- Then a² = m² + (2k)² = ((s²+t²)/2)² + ((t²-s²)/2)² = (s⁴+t⁴)/2.
   have ha_dbl : 2 * a ^ 2 = s ^ 4 + t ^ 4 := by
