@@ -99,7 +99,35 @@ theorem fermat42Double_parity {s t a : ℤ} (hs_ne : s ≠ 0) (ht_ne : t ≠ 0)
     · -- Both odd: this contradicts h_not_both.
       exact h_not_both hs_od ht_od
 
+/-- Helper: `s % 2 = 1 → s² % 8 = 1`. -/
+private lemma odd_sq_mod_eight (s : ℤ) (hs : s % 2 = 1) : s ^ 2 % 8 = 1 := by
+  obtain ⟨k, hk⟩ : ∃ k, s = 2 * k + 1 := ⟨s / 2, by omega⟩
+  subst hk
+  have h_expand : (2 * k + 1) ^ 2 = 4 * k * (k + 1) + 1 := by ring
+  rw [h_expand]
+  rcases Int.emod_two_eq_zero_or_one k with hk_ev | hk_od
+  · obtain ⟨j, hj⟩ : ∃ j, k = 2 * j := ⟨k / 2, by omega⟩
+    subst hj
+    have h : 4 * (2 * j) * (2 * j + 1) + 1 = 8 * (j * (2 * j + 1)) + 1 := by ring
+    rw [h]; omega
+  · obtain ⟨j, hj⟩ : ∃ j, k = 2 * j + 1 := ⟨k / 2, by omega⟩
+    subst hj
+    have h : 4 * (2 * j + 1) * (2 * j + 1 + 1) + 1 = 8 * ((2 * j + 1) * (j + 1)) + 1 := by
+      ring
+    rw [h]; omega
+
+/-- **`u` mod-4 characterization**: given `s, t` odd with
+`2a² = s⁴ + t⁴`, we have `(s² + t²) / 2 ≡ 1 (mod 4)`. -/
+theorem fermat42Double_u_mod_four {s t a : ℤ} (hs_odd : s % 2 = 1)
+    (ht_odd : t % 2 = 1) (ha_eq : 2 * a ^ 2 = s ^ 4 + t ^ 4) :
+    ∀ u : ℤ, 2 * u = s ^ 2 + t ^ 2 → u % 4 = 1 := by
+  intro u hu_def
+  have h_ssq_mod : s ^ 2 % 8 = 1 := odd_sq_mod_eight s hs_odd
+  have h_tsq_mod : t ^ 2 % 8 = 1 := odd_sq_mod_eight t ht_odd
+  omega
+
 end PF.Fermat42Sub
 
 /-! ## §Axiom check -/
 #print axioms PF.Fermat42Sub.fermat42Double_parity
+#print axioms PF.Fermat42Sub.fermat42Double_u_mod_four
