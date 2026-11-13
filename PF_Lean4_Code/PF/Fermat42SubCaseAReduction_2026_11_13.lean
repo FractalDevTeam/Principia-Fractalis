@@ -44,7 +44,7 @@ infinite descent.
 
 Stated as a named Prop.  Discharging requires ~50-80 Lean lines. -/
 def Fermat42Double_impossible : Prop :=
-  ∀ s t a : ℤ, s ≠ 0 → t ≠ 0 → a ≠ 0 → IsCoprime s t →
+  ∀ s t a : ℤ, s ≠ 0 → t ≠ 0 → a ≠ 0 → IsCoprime s t → s ^ 2 ≠ t ^ 2 →
     2 * a ^ 2 ≠ s ^ 4 + t ^ 4
 
 /-- **Sub-gap 3**: `b² = (m − 2k)(m + 2k)` with coprime factors
@@ -164,8 +164,14 @@ theorem fermat42Sub_caseA_reduces
   have hs_ne : s ≠ 0 := left_ne_zero_of_mul hst_ne
   have ht_ne : t ≠ 0 := right_ne_zero_of_mul hst_ne
   have ha_ne : a ≠ 0 := ne_of_gt _ha_pos
+  -- s² ≠ t² from k > 0 (i.e., n = 2k > 0) and `t² - s² = 4k > 0`.
+  have hst_sq_ne : s ^ 2 ≠ t ^ 2 := by
+    intro h_eq
+    have h_ts : t ^ 2 - s ^ 2 = 4 * k := by linarith [ht_eq, hs_eq]
+    rw [h_eq] at h_ts
+    linarith [hk_pos]
   -- Apply sub-gap: 2a² = s⁴ + t⁴ is impossible.
-  exact hDouble s t a hs_ne ht_ne ha_ne hst_coprime ha_dbl
+  exact hDouble s t a hs_ne ht_ne ha_ne hst_coprime hst_sq_ne ha_dbl
 
 end PF.Fermat42Sub
 
