@@ -7,8 +7,7 @@
 * `fermat42SubCaseA_squareSplit_holds`
 * `fermat42SubCaseB_fourthPowerSplit_holds`
 
-All three follow from mathlib's `Int.sq_of_gcd_eq_one` plus sign and
-parity bookkeeping.
+All follow from `Int.sq_of_gcd_eq_one` + sign/parity bookkeeping.
 
 SPDX-License-Identifier: Apache-2.0
 Authors: Pablo Cohen. 2026-11-13.
@@ -87,8 +86,7 @@ theorem fermat42SubCaseA_squareSplit_holds : Fermat42SubCaseA_squareSplit := by
   obtain ⟨t, ht⟩ := Int.sq_of_gcd_eq_one h_gcd_sym h_eq_sym
   have hs_eq : m - 2 * k = s ^ 2 := eq_sq_of_nonneg_of_or hm_minus_nn hs
   have ht_eq : m + 2 * k = t ^ 2 := eq_sq_of_nonneg_of_or hm_plus_nn ht
-  have hb_sq' : b ^ 2 = (s * t) ^ 2 := by
-    rw [hb_sq, hs_eq, ht_eq]; ring
+  have hb_sq' : b ^ 2 = (s * t) ^ 2 := by rw [hb_sq, hs_eq, ht_eq]; ring
   have hb_cases : b = s * t ∨ b = -(s * t) := by
     have h : (b - s * t) * (b + s * t) = 0 := by linear_combination hb_sq'
     rcases mul_eq_zero.mp h with h1 | h1
@@ -129,14 +127,135 @@ private lemma coprime_mul_eq_sq_split {u v c : ℤ}
     · right; linarith
   exact ⟨e, f, he_eq, hf_eq, h_cases⟩
 
--- Sub-gap 3 (`Fermat42SubCaseB_fourthPowerSplit`) requires iterating
--- `coprime_mul_eq_sq_split` (above helper) twice with sign/coprimality
--- management.  Full discharge is a dedicated session (~80-100 lines).
--- The structural pieces (helper lemma, coprimality derivation chain)
--- are prepared for the follow-up.
+/-- **Discharge of `Fermat42SubCaseB_fourthPowerSplit`**.
+Iterates `coprime_mul_eq_sq_split` twice (on `uv = (i²)²` then on
+the roots via `|e|·|f| = i²`), with sign adjustment. -/
+theorem fermat42SubCaseB_fourthPowerSplit_holds :
+    Fermat42SubCaseB_fourthPowerSplit := by
+  intro a i j ha_pos hi_odd hj_ne haij_coprime ha_eq
+  have hj_sq_pos : 0 < j ^ 2 := by positivity
+  have hi_ne : i ≠ 0 := by
+    intro h; rw [h] at hi_odd; norm_num at hi_odd
+  have hi_sq_pos : 0 < i ^ 2 := by positivity
+  have ha_sq_eq : a ^ 2 = i ^ 4 + 4 * j ^ 4 := by linarith
+  have ha_ge : 2 * j ^ 2 < a := by
+    have h1 : (2 * j ^ 2) ^ 2 < a ^ 2 := by
+      rw [ha_sq_eq]
+      have h2 : (2 * j ^ 2) ^ 2 = 4 * j ^ 4 := by ring
+      have hi4_pos : 0 < i ^ 4 := by positivity
+      linarith
+    nlinarith [h1, sq_nonneg (2 * j ^ 2), ha_pos]
+  have ha_minus_pos : 0 < a - 2 * j ^ 2 := by linarith
+  have ha_plus_pos : 0 < a + 2 * j ^ 2 := by positivity
+  have h_prod_sq : (a - 2 * j ^ 2) * (a + 2 * j ^ 2) = (i ^ 2) ^ 2 := by
+    have h : (a - 2 * j ^ 2) * (a + 2 * j ^ 2) = a ^ 2 - 4 * j ^ 4 := by ring
+    rw [h, show (i ^ 2 : ℤ) ^ 2 = i ^ 4 from by ring]; linarith
+  -- a odd.
+  have ha_odd : a % 2 = 1 := by
+    have h_i2_odd : i ^ 2 % 2 = 1 := by
+      rw [show i ^ 2 = i * i from sq i, Int.mul_emod, hi_odd]; decide
+    have h_i4_odd : i ^ 4 % 2 = 1 := by
+      rw [show i ^ 4 = i ^ 2 * i ^ 2 from by ring, Int.mul_emod, h_i2_odd]; decide
+    have h_4j4_even : (4 * j ^ 4) % 2 = 0 := by
+      rw [show (4 : ℤ) * j ^ 4 = 2 * (2 * j ^ 4) from by ring]
+      exact Int.mul_emod_right 2 _
+    have h_asq_odd : a ^ 2 % 2 = 1 := by
+      rw [ha_sq_eq, Int.add_emod, h_i4_odd, h_4j4_even]; decide
+    rcases Int.emod_two_eq_zero_or_one a with h | h
+    · exfalso
+      have : a ^ 2 % 2 = 0 := by
+        rw [show a ^ 2 = a * a from sq a, Int.mul_emod, h]; decide
+      rw [this] at h_asq_odd; norm_num at h_asq_odd
+    · exact h
+  -- Coprime pair (a - 2j², a + 2j²).
+  have hpair : IsCoprime (a - 2 * j ^ 2) (a + 2 * j ^ 2) := by
+    have hdiff_odd : (a - 2 * j ^ 2) % 2 = 1 := by
+      have h_2jsq_even : (2 * j ^ 2) % 2 = 0 := Int.mul_emod_right 2 _
+      rw [Int.sub_emod, ha_odd, h_2jsq_even]; rfl
+    have hdiff_two : IsCoprime (a - 2 * j ^ 2) (2 : ℤ) := by
+      refine (Int.isCoprime_iff_gcd_eq_one).mpr ?_
+      rw [Int.gcd]
+      have h2 : Int.natAbs 2 = 2 := rfl
+      rw [h2]
+      exact Nat.Coprime.symm
+        (Nat.coprime_two_left.mpr (Int.natAbs_odd.mpr (Int.odd_iff.mpr hdiff_odd)))
+    have ha_j : IsCoprime a j := haij_coprime.of_mul_right_right
+    have ha_jsq : IsCoprime a (j ^ 2) := by
+      rw [show (j : ℤ) ^ 2 = j * j from sq j]
+      exact ha_j.mul_right ha_j
+    have hdiff_jsq : IsCoprime (a - 2 * j ^ 2) (j ^ 2) := by
+      have : a - 2 * j ^ 2 = a + (-2) * j ^ 2 := by ring
+      rw [this]; exact ha_jsq.add_mul_right_left (-2)
+    have hdiff_4jsq : IsCoprime (a - 2 * j ^ 2) (4 * j ^ 2) := by
+      have h22 : IsCoprime (a - 2 * j ^ 2) ((2 : ℤ) * 2) :=
+        hdiff_two.mul_right hdiff_two
+      have h_rw : (4 : ℤ) * j ^ 2 = (2 * 2) * (j ^ 2) := by ring
+      rw [h_rw]
+      exact h22.mul_right hdiff_jsq
+    have h_sum_rw : a + 2 * j ^ 2 = 4 * j ^ 2 + 1 * (a - 2 * j ^ 2) := by ring
+    rw [h_sum_rw]
+    exact hdiff_4jsq.add_mul_right_right 1
+  -- First iteration: `(a-2j²)(a+2j²) = (i²)²`.
+  obtain ⟨e, f, he_eq, hf_eq, _⟩ :=
+    coprime_mul_eq_sq_split ha_minus_pos.le ha_plus_pos.le hpair h_prod_sq
+  -- Define e' = |e|, f' = |f| (nonneg).
+  set e' : ℤ := |e| with he'_def
+  set f' : ℤ := |f| with hf'_def
+  have he'_nn : 0 ≤ e' := abs_nonneg e
+  have hf'_nn : 0 ≤ f' := abs_nonneg f
+  have he'_sq : e' ^ 2 = e ^ 2 := sq_abs e
+  have hf'_sq : f' ^ 2 = f ^ 2 := sq_abs f
+  have hu_e' : a - 2 * j ^ 2 = e' ^ 2 := by rw [he'_sq]; exact he_eq
+  have hv_f' : a + 2 * j ^ 2 = f' ^ 2 := by rw [hf'_sq]; exact hf_eq
+  -- e' · f' = i² (nonneg since both nonneg).
+  have hef'_prod : e' * f' = i ^ 2 := by
+    have h1 : (e' * f') ^ 2 = (i ^ 2) ^ 2 := by
+      have hef_sq : (e' * f') ^ 2 = e' ^ 2 * f' ^ 2 := by ring
+      rw [hef_sq, ← hu_e', ← hv_f']
+      exact h_prod_sq
+    have h_ef_nn : 0 ≤ e' * f' := mul_nonneg he'_nn hf'_nn
+    have h_isq_nn : 0 ≤ i ^ 2 := sq_nonneg i
+    have h2 : (e' * f' - i ^ 2) * (e' * f' + i ^ 2) = 0 := by linear_combination h1
+    rcases mul_eq_zero.mp h2 with h | h
+    · linarith
+    · -- e'f' + i² = 0 with both nonneg → both zero; contradiction with i ≠ 0.
+      have h_sum : e' * f' + i ^ 2 = 0 := h
+      have h_isq_zero : i ^ 2 = 0 := by linarith
+      have : i = 0 := pow_eq_zero_iff (n := 2) (by norm_num) |>.mp h_isq_zero
+      exact absurd this hi_ne
+  -- Coprime e', f' (from coprime e, f via squares; and e', f' = |e|, |f|).
+  have hef_coprime : IsCoprime e f := by
+    have h_sq_coprime : IsCoprime (e ^ 2) (f ^ 2) := by
+      rw [← he_eq, ← hf_eq]; exact hpair
+    rw [show e ^ 2 = e * e from sq e, show f ^ 2 = f * f from sq f] at h_sq_coprime
+    exact (h_sq_coprime.of_mul_left_left).of_mul_right_left
+  have hef'_coprime : IsCoprime e' f' := by
+    rw [he'_def, hf'_def]
+    rcases abs_cases e with ⟨he_abs, _⟩ | ⟨he_abs, _⟩
+    · rcases abs_cases f with ⟨hf_abs, _⟩ | ⟨hf_abs, _⟩
+      · rw [he_abs, hf_abs]; exact hef_coprime
+      · rw [he_abs, hf_abs]; exact hef_coprime.neg_right
+    · rcases abs_cases f with ⟨hf_abs, _⟩ | ⟨hf_abs, _⟩
+      · rw [he_abs, hf_abs]; exact hef_coprime.neg_left
+      · rw [he_abs, hf_abs]; exact (hef_coprime.neg_left).neg_right
+  -- Second iteration: e' · f' = i² = c² with c = i.
+  obtain ⟨p, q, hp_eq, hq_eq, h_pq_cases⟩ :=
+    coprime_mul_eq_sq_split he'_nn hf'_nn hef'_coprime hef'_prod
+  -- Recover u = p⁴, v = q⁴.
+  have hu_p4 : a - 2 * j ^ 2 = p ^ 4 := by
+    rw [hu_e', hp_eq]; ring
+  have hv_q4 : a + 2 * j ^ 2 = q ^ 4 := by
+    rw [hv_f', hq_eq]; ring
+  -- Sign adjustment for pq = i.
+  rcases h_pq_cases with hpq_pos | hpq_neg
+  · exact ⟨p, q, hpq_pos, hu_p4, hv_q4⟩
+  · refine ⟨-p, q, ?_, ?_, hv_q4⟩
+    · rw [neg_mul]; linarith
+    · rw [hu_p4]; ring
 
 end PF.Fermat42Sub
 
 /-! ## §Axiom check -/
 #print axioms PF.Fermat42Sub.fermat42SubCaseB_squareSplit_holds
 #print axioms PF.Fermat42Sub.fermat42SubCaseA_squareSplit_holds
+#print axioms PF.Fermat42Sub.fermat42SubCaseB_fourthPowerSplit_holds
