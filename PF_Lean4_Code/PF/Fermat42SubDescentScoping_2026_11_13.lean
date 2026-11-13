@@ -2,58 +2,116 @@
 # PF.Fermat42SubDescentScoping_2026_11_13
 
 **Scoping of the full `not_fermat_42_sub` descent** — the Pythagorean
-case-split structure, with each case stated as a named lemma whose
-proof is the substantial remaining work.
+case-split structure, with each case stated as a named lemma.
 
-## Delivered: scoping only
-
-Two named sub-gap PREDICATES capture the descent structure.  Their
-proofs are the ~100 Lean lines of Pythagorean case analysis and are
-left to a dedicated descent session.
-
-## The two cases
+## Actual implementation structure
 
 Given a minimal `Fermat42Sub a b c` (via `Fermat42Sub.exists_minimal`
 and `Fermat42Sub.coprime_of_minimal` from
-`Fermat42SubFoundations_2026_11_13`), after normalizing to
-`a > 0, c > 0`, the Pythagorean triple classification on
-`c² + (b²)² = (a²)²` gives two primary cases:
-
-### Case A: `b` odd (so `b²` odd, `c` even)
-Classification: ∃ m, n coprime of opposite parity, m ≥ 0, m > n, with
-  * `b² = m² - n²`
-  * `c = 2mn`
-  * `a² = m² + n²`
-
-After applying a second Pythagorean classification to `a² = m² + n²`,
-derive a new instance `u² = p⁴ - q⁴` (smaller `Fermat42Sub`) — contradicts
-minimality.
+`Fermat42SubFoundations_2026_11_13`), normalize to `a > 0, c > 0`.
+Pythagorean triple on `c² + (b²)² = (a²)²` gives two primary cases
+split on parity of `b`:
 
 ### Case B: `b` even (so `b²` even, `c` odd)
-Classification: ∃ m, n coprime of opposite parity, m ≥ 0, m > n, with
+
+File: `Fermat42SubCaseBClosure_2026_11_13.lean`,
+theorem `fermat42Sub_caseB_descends`.
+
+Classification: ∃ m, n coprime of opposite parity, `m ≥ 0`, with
   * `c = m² - n²`
   * `b² = 2mn`
   * `a² = m² + n²`
 
-After the second Pythagorean classification + coprime-decomposition
-of `b² = 4mrs`, derive `i² = j⁴ + k⁴` — a **`Fermat42` instance**
-excluded by mathlib's `not_fermat_42`.
+Reduction chain:
+1. Square-split `b² = 2mn` with coprime `(m, n)`, `m odd`, `n even`
+   gives `m = i²`, `n = 2j²`, `b = 2ij`
+   (via `Fermat42SubCaseB_squareSplit` — **discharged** in
+   `Fermat42SubSplitLemmas_2026_11_13`).
+2. `a² = m² + n² = i⁴ + 4j⁴`, so `(a - 2j²)(a + 2j²) = i⁴`.
+3. 4th-power-split via `Fermat42SubCaseB_fourthPowerSplit`
+   (**discharged** in `Fermat42SubSplitLemmas_2026_11_13`):
+   `a - 2j² = p⁴`, `a + 2j² = q⁴`, `pq = i`.
+4. Subtracting: `q⁴ - p⁴ = (2j)²` — a **strictly smaller
+   `Fermat42Sub (q, p, 2j)`** with `|2j| < |c|`.
+5. Contradicts minimality.
 
-### Parity derivation
+**Composing `fermat42Sub_caseB_descends` with the two discharged split
+sub-gaps gives UNCONDITIONAL Case B impossibility on three-axiom bar.**
 
-Standard modular argument:
-* `b` odd ⟹ `c` even (via `b⁴ + c² = a⁴` mod 4).
-* `b` even + `gcd(a,b) = 1` ⟹ `a` odd ⟹ `c` odd.
+### Case A: `b` odd (so `b²` odd, `c` even)
 
-Named predicates below capture each sub-case.
+File: `Fermat42SubCaseAReduction_2026_11_13.lean`,
+theorem `fermat42Sub_caseA_reduces`.
 
-## Combined conclusion
+Classification: ∃ m, n coprime of opposite parity, `m ≥ 0`, with
+  * `b² = m² - n²`
+  * `c = 2mn`
+  * `a² = m² + n²`
 
-Once both sub-gap predicates are universally true,
-`not_fermat_42_sub : ∀ a b c, ¬ Fermat42Sub a b c` follows by:
-1. Take minimal counterexample.
-2. Case split on parity of `b`.
-3. Apply the appropriate case closure to derive contradiction.
+Reduction chain:
+1. WLOG `m odd`, `n even`; write `n = 2k`.  Then `b² = (m - 2k)(m + 2k)`.
+2. Pair-coprimality derivation (from `IsCoprime m (2k)`):
+   `IsCoprime (m - 2k) (m + 2k)`.
+3. Square-split via `Fermat42SubCaseA_squareSplit` (**discharged** in
+   `Fermat42SubSplitLemmas_2026_11_13`):
+   `m - 2k = s²`, `m + 2k = t²`, `st = b`, `IsCoprime s t`.
+4. From sum/difference: `2m = s² + t²`, `4k = t² - s²`.
+5. Substitute into `a² = m² + (2k)²`:
+   `(2a)² = (s² + t²)² + (t² - s²)² = 2(s⁴ + t⁴)`,
+   so `2a² = s⁴ + t⁴` — a **`Fermat42Double (s, t, a)`** instance.
+6. `s² ≠ t²` from `k > 0` and `t² - s² = 4k`.
+7. Contradiction via `Fermat42Double_impossible` — **the remaining
+   sub-gap**.
+
+### The final sub-gap: `Fermat42Double_impossible`
+
+`∀ s t a : ℤ, s ≠ 0 → t ≠ 0 → a ≠ 0 → IsCoprime s t → s² ≠ t² →
+2a² ≠ s⁴ + t⁴`.
+
+(Note: `s = t = a = 1` is a counterexample WITHOUT the `s² ≠ t²`
+hypothesis — the hypothesis is required.)
+
+Structural lemmas in `Fermat42DoubleImpossible_2026_11_13.lean`:
+* `fermat42Double_parity` — any solution has `s, t` both odd.
+* `odd_sq_mod_eight` — `s odd → s² ≡ 1 mod 8`.
+* `fermat42Double_u_mod_four` — `u = (s²+t²)/2 ≡ 1 mod 4`.
+
+Remaining: full Pythagorean descent on `(u, v, a)` with
+`u² + v² = a²`, `v = (t²-s²)/2 > 0`, `u = m² - n²`, `v = 2mn`,
+`a = m² + n²`, `m` odd, `n = 2k` even (forced by `u ≡ 1 mod 4`),
+followed by case-analysis on the `(t-s)(t+s) = 4v = 8mk`
+decomposition.  Reduces to showing `xy = 2mk` with `x² + y² = m² - 4k²`
+has no non-trivial integer solutions — the quadratic in `x²` has
+discriminant `m⁴ - 24m²k² + 16k⁴` which must be a perfect square,
+leading to constraints that force degenerate `k = 0` in every case.
+
+## Status summary
+
+| Component | File | Status |
+|-----------|------|--------|
+| `Fermat42Sub` structure | `Foundations_2026_11_13` | ✅ three-axiom bar |
+| `Fermat42Sub.exists_minimal` | `Foundations_2026_11_13` | ✅ three-axiom bar |
+| `Fermat42Sub.coprime_of_minimal` | `Foundations_2026_11_13` | ✅ three-axiom bar |
+| `fermat42SubCaseB_squareSplit_holds` | `SplitLemmas_2026_11_13` | ✅ three-axiom bar |
+| `fermat42SubCaseA_squareSplit_holds` | `SplitLemmas_2026_11_13` | ✅ three-axiom bar |
+| `fermat42SubCaseB_fourthPowerSplit_holds` | `SplitLemmas_2026_11_13` | ✅ three-axiom bar |
+| `fermat42Sub_caseB_descends` | `CaseBClosure_2026_11_13` | ✅ three-axiom bar (composes with split sub-gaps to unconditional Case B impossibility) |
+| `fermat42Sub_caseA_reduces` | `CaseAReduction_2026_11_13` | ✅ three-axiom bar (conditional on `Fermat42Double_impossible`) |
+| `fermat42Double_parity` | `DoubleImpossible_2026_11_13` | ✅ three-axiom bar |
+| `odd_sq_mod_eight` | `DoubleImpossible_2026_11_13` | ✅ three-axiom bar |
+| `fermat42Double_u_mod_four` | `DoubleImpossible_2026_11_13` | ✅ three-axiom bar |
+| `Fermat42Double_impossible` (full theorem) | — | **OPEN** |
+
+## Correction to prior scoping
+
+A prior version of this document described Case B as "reducing to a
+`Fermat42` instance via mathlib's `not_fermat_42`".  This was
+incorrect: Case B's actual implementation produces a strictly smaller
+`Fermat42Sub` instance (self-descent), not a `Fermat42` reduction.
+`not_fermat_42` is not invoked in any proof — only mentioned in
+docstrings.  The Case A path, by contrast, produces a
+`Fermat42Double` instance (not a smaller `Fermat42Sub`), hence
+requiring `Fermat42Double_impossible` as the final sub-gap.
 
 SPDX-License-Identifier: Apache-2.0
 Authors: Pablo Cohen. 2026-11-13.
@@ -63,46 +121,21 @@ import PF.Fermat42SubFoundations_2026_11_13
 
 namespace PF.Fermat42Sub
 
-/-- **Case A sub-gap**: if `Fermat42Sub a b c` is minimal with `b` odd
-and `c` even, then there exists a `Fermat42Sub` instance with strictly
-smaller `|c|` — contradicting minimality.
-
-Proof sketch:
-1. Pythagorean classification of `(b², c, a²)`: ∃ m, n coprime of
-   opposite parity with `b² = m² - n², c = 2mn, a² = m² + n²`.
-2. Pythagorean classification of `(n, m, a)` (from `a² = m² + n²`):
-   ∃ r, s coprime of opposite parity with `a = r² - s², n = 2rs,
-   m = r² + s²`.
-3. From `b² = m² - n²` and the (r, s) parameterization, derive an
-   equation of the form `u² = p⁴ - q⁴` with smaller `|u|`.
-4. The new instance is strictly smaller in `|c|`.
-
-Estimated ~50-60 Lean lines. -/
-def Fermat42SubCaseA_descent : Prop :=
-  ∀ a b c : ℤ, Minimal a b c → b % 2 = 1 → c % 2 = 0 →
-    ∃ a1 b1 c1 : ℤ, Fermat42Sub a1 b1 c1 ∧ Int.natAbs c1 < Int.natAbs c
-
-/-- **Case B sub-gap**: if `Fermat42Sub a b c` with `b` even and `c`
-odd, then reduction via Pythagorean classification gives a `Fermat42`
-instance (excluded by mathlib's `not_fermat_42`), yielding
-contradiction directly.
-
-Proof sketch:
-1. Pythagorean classification of `(c, b², a²)`: ∃ m, n coprime of
-   opposite parity with `c = m² - n², b² = 2mn, a² = m² + n²`.
-2. Pythagorean classification of `(n, m, a)`: ∃ r, s coprime with
-   `a = r² - s², n = 2rs, m = r² + s²`.
-3. `b² = 2mn = 4mrs`. Coprime decomposition on (m, r, s) via gcd
-   arguments: each is a square — `m = i², r = j², s = k²`.
-4. `m = r² + s² ⟹ i² = j⁴ + k⁴`.
-5. Apply mathlib's `not_fermat_42 j k i` for contradiction.
-
-Estimated ~50-60 Lean lines. -/
+/-- **Case B sub-gap discharged** via `fermat42Sub_caseB_descends`
+in `CaseBClosure_2026_11_13`; composed with the two split sub-gaps
+(`fermat42SubCaseB_squareSplit_holds`,
+`fermat42SubCaseB_fourthPowerSplit_holds`), it gives unconditional
+Case B impossibility on three-axiom bar. -/
 def Fermat42SubCaseB_impossible : Prop :=
   ∀ a b c : ℤ, Fermat42Sub a b c → b % 2 = 0 → c % 2 = 1 → False
+
+/-- **Case A sub-gap** — reducing to `Fermat42Double_impossible`
+via `fermat42Sub_caseA_reduces` in `CaseAReduction_2026_11_13`. -/
+def Fermat42SubCaseA_impossible : Prop :=
+  ∀ a b c : ℤ, Minimal a b c → b % 2 = 1 → c % 2 = 0 → False
 
 end PF.Fermat42Sub
 
 /-! ## §Axiom check -/
-#print axioms PF.Fermat42Sub.Fermat42SubCaseA_descent
 #print axioms PF.Fermat42Sub.Fermat42SubCaseB_impossible
+#print axioms PF.Fermat42Sub.Fermat42SubCaseA_impossible
