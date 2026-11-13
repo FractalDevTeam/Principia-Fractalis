@@ -132,9 +132,84 @@ theorem gluePlusMinus_eq_piEquivSymm (W : NonMinusGauge L) (V : MinusGauge L) :
       unfold isMinusLink at h; exact h
     simp [dif_pos hne, h]
 
+/-- **Fubini reassemble** — the "assembly" direction.  For any
+measurable `f : GaugeField L → ℝ≥0∞`,
+
+  `∫⁻ W, ∫⁻ V, f (gluePlusMinus W V) ∂minusHaarMeasure ∂nonMinusHaarMeasure
+      = ∫⁻ U, f U ∂wilsonBaseMeasure L`.
+
+Proof: via the sector-split MeasurePreserving `wilsonBaseMeasure_split_minus`
+and `lintegral_prod_swap`.  Pattern mirrors mathlib's `lintegral_prod_symm`. -/
+theorem wilsonBaseMeasure_lintegral_reassemble_glue
+    (f : GaugeField L → ℝ≥0∞) (hf : Measurable f) :
+    ∫⁻ W, ∫⁻ V, f (gluePlusMinus W V) ∂(minusHaarMeasure L)
+        ∂(nonMinusHaarMeasure L)
+      = ∫⁻ U, f U ∂(wilsonBaseMeasure L) := by
+  have hMP := wilsonBaseMeasure_split_minus (L := L)
+  set e := MeasurableEquiv.piEquivPiSubtypeProd
+      (fun _ : LatticeLink L => SU2) (isMinusLink : LatticeLink L → Prop) with he_def
+  -- Measurability of `f ∘ e.symm`.
+  have h_fe_meas :
+      Measurable (fun p : (MinusLinks L → SU2) × (NonMinusLinks L → SU2) =>
+                    f (e.symm p)) :=
+    hf.comp e.symm.measurable
+  -- Step 1: Transport RHS via hMP to the product space.
+  --   ∫⁻ U, f U ∂μ_base = ∫⁻ p, f (e.symm p) ∂(μ_minus × μ_nonMinus).
+  have hRHS :
+      ∫⁻ U, f U ∂(wilsonBaseMeasure L)
+        = ∫⁻ p : (MinusLinks L → SU2) × (NonMinusLinks L → SU2),
+            f (e.symm p)
+              ∂((minusHaarMeasure L).prod (nonMinusHaarMeasure L)) := by
+    have := hMP.lintegral_comp h_fe_meas
+    -- `this : ∫⁻ a, (fun p => f (e.symm p)) (e a) ∂μ_base = ∫⁻ p, f (e.symm p) ∂(prod)`.
+    -- LHS simplifies to `∫⁻ a, f a ∂μ_base`.
+    simpa [MeasurableEquiv.symm_apply_apply] using this
+  -- Step 2: Apply `lintegral_prod_swap` to flip the product order.
+  --   ∫⁻ q, (f ∘ e.symm) q.swap ∂(nonMinus × minus) = ∫⁻ p, (f ∘ e.symm) p ∂(minus × nonMinus).
+  have h_swap :
+      ∫⁻ p : (MinusLinks L → SU2) × (NonMinusLinks L → SU2),
+            f (e.symm p)
+              ∂((minusHaarMeasure L).prod (nonMinusHaarMeasure L))
+        = ∫⁻ q : (NonMinusLinks L → SU2) × (MinusLinks L → SU2),
+            f (e.symm q.swap)
+              ∂((nonMinusHaarMeasure L).prod (minusHaarMeasure L)) := by
+    exact (MeasureTheory.lintegral_prod_swap (μ := minusHaarMeasure L)
+            (ν := nonMinusHaarMeasure L) (fun p => f (e.symm p))).symm
+  -- Step 3: Rewrite the LHS of the goal using `lintegral_prod` (Tonelli), reverse direction.
+  have h_LHS_prod :
+      ∫⁻ W, ∫⁻ V, f (gluePlusMinus W V) ∂(minusHaarMeasure L)
+          ∂(nonMinusHaarMeasure L)
+        = ∫⁻ q : (NonMinusLinks L → SU2) × (MinusLinks L → SU2),
+            f (gluePlusMinus q.1 q.2)
+              ∂((nonMinusHaarMeasure L).prod (minusHaarMeasure L)) := by
+    have h_glue_meas :
+        Measurable (fun q : (NonMinusLinks L → SU2) × (MinusLinks L → SU2) =>
+                      f (gluePlusMinus q.1 q.2)) := by
+      refine hf.comp ?_
+      refine gluePlusMinus_continuous.measurable.comp ?_
+      exact Measurable.prodMk measurable_fst measurable_snd
+    exact (MeasureTheory.lintegral_prod _ h_glue_meas.aemeasurable).symm
+  -- Step 4: Identify `f (gluePlusMinus q.1 q.2)` with `f (e.symm q.swap)`.
+  -- `gluePlusMinus q.1 q.2 = e.symm (q.2, q.1) = e.symm q.swap`.
+  have h_glue_eq_eswap :
+      ∀ q : (NonMinusLinks L → SU2) × (MinusLinks L → SU2),
+        f (gluePlusMinus q.1 q.2) = f (e.symm q.swap) := by
+    intro q
+    rw [gluePlusMinus_eq_piEquivSymm]
+    rfl
+  -- Combine: LHS = ∫⁻ q, f(glue q.1 q.2) d(ν_nm × μ_m) = ∫⁻ q, f(e.symm q.swap) d(ν_nm × μ_m)
+  --        = ∫⁻ p, f(e.symm p) d(μ_m × ν_nm)                              [h_swap.symm]
+  --        = ∫⁻ U, f U dμ_base                                             [hRHS.symm]
+  rw [h_LHS_prod]
+  rw [show (fun q : (NonMinusLinks L → SU2) × (MinusLinks L → SU2) =>
+              f (gluePlusMinus q.1 q.2))
+        = (fun q => f (e.symm q.swap)) from funext h_glue_eq_eswap]
+  rw [← h_swap, ← hRHS]
+
 end PF.YangMills
 
 /-! ## §Axiom check -/
 #print axioms PF.YangMills.nonMinusHaarMeasure_isProbabilityMeasure
 #print axioms PF.YangMills.wilsonBaseMeasure_lintegral_collapse_projectNonMinus
 #print axioms PF.YangMills.gluePlusMinus_eq_piEquivSymm
+#print axioms PF.YangMills.wilsonBaseMeasure_lintegral_reassemble_glue
