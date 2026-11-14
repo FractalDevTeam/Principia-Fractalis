@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Mathlib PR submission -- run FROM YOUR LAPTOP with gh authenticated.
-#   ./submit_pr.sh pr5   -> Gram determinant => linear independence
-#   ./submit_pr.sh pr7   -> Hilbert-Schmidt operators on l^2
-#   ./submit_pr.sh pr8   -> compact transfer operators (AFTER pr7 exists)
+#   ./submit_pr.sh pr5                -> Gram determinant => linear independence
+#   ./submit_pr.sh pr7                -> Hilbert-Schmidt operators on l^2
+#   ./submit_pr.sh pr8                -> compact transfer operators (AFTER pr7 exists)
+#   ./submit_pr.sh not_fermat_42_sub  -> Fermat's n=4 difference form (a^4 - b^4 ≠ c^2)
 # (pr6 TateLimit is intentionally absent: placement is waiting on the Zulip
 #  thread "Tate's telescoping limit -- placement?"; submit after a reply.)
 set -euo pipefail
@@ -32,7 +33,13 @@ case "${1:-}" in
     BRANCH="pc/transfer-operator-compact"
     TITLE="feat(Analysis/Normed/Operator): transfer operators of contracting systems are compact"
     ;;
-  *) echo "usage: $0 {pr5|pr7|pr8}"; exit 1 ;;
+  not_fermat_42_sub)
+    SRC="$REPO_ROOT/mathlib_candidates/NotFermat42Sub.lean"
+    DST="Mathlib/NumberTheory/FLT/FourSub.lean"
+    BRANCH="pc/not-fermat-42-sub"
+    TITLE="feat(NumberTheory/FLT): Fermat n=4 difference form, \`a^4 - b^4 ≠ c^2\`"
+    ;;
+  *) echo "usage: $0 {pr5|pr7|pr8|not_fermat_42_sub}"; exit 1 ;;
 esac
 
 BODY_FILE="$HERE/body_${1}.md"
