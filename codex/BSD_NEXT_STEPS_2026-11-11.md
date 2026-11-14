@@ -4,6 +4,27 @@
 **Author:** Pablo Cohen.
 **Head at write time:** `c6bb035d` on `master`.
 
+> **2026-11-14 amendment.** Target **A** (second rank-$0$ curve via
+> Fermat descent) **DONE**.  `Ecurve32a2_rank_eq_zero` for
+> $y^2 = x^3 - x$ landed via
+> `PF.Ch24DescentSub2TorsionRatBridge_2026_11_14` (commit `a0c42bd8`),
+> supported by `PF.not_fermat_42_sub` (commit `3d3b44f6`) and
+> `fermat42Double_impossible_unconditional` (commit `5e294d36`).
+> The rough plan in section A below predicted the strategy correctly;
+> actual execution is split across more files than one FermatDescentSub +
+> capstone (specifically: Fermat42Sub{Foundations, CaseAReduction,
+> CaseBClosure, SplitLemmas, DescentStep, MinimalMinimal, Assembly},
+> Fermat42DoubleImpossible for the inner $2a^2 = s^4 + t^4$ descent,
+> and Ch24DescentSub2Torsion\{Core, Bookkeeping, RatBridge\} for the
+> elliptic-curve side).  Mathlib upstream staged at
+> [PR #46025](https://github.com/leanprover-community/mathlib4/pull/46025).
+>
+> Target **B.rank-1** remains pending, same scope (multi-week).  Section B
+> below is the canonical plan for that line of work.
+>
+> Target **D** (Heegner-mirror retirement) was done 2026-11-11
+> via `f0052c1a` (leaf bridge).
+
 ## Status
 
 All four Rio-audit items from `BSD_SCOPING_UPPER_BOUND_IS_THE_GAP_2026-10-17.md` are either done or pending as pure cleanup:
