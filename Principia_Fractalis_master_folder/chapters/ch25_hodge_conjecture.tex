@@ -648,6 +648,46 @@ The Hodge Conjecture reveals consciousness as the fundamental bridge between top
 \item Extension to mixed Hodge structures and motives (Research Problem 3)
 \end{enumerate}
 
+\subsection*{Honest scope, rev 2 (2026-11-14)}
+\label{sec:ch25-rev2-scope}
+
+\paragraph{What the Lean corpus proves.}  The algebraic de Rham complex
+is formalised at the affine level: the differential $d^1 \circ d^0 = 0$
+identity for the degree-$1$ / degree-$0$ Leibniz structure
+(\texttt{PF/AlgebraicDeRhamD1\_r345.lean},
+\texttt{PF/AlgebraicDeRhamD1Leibniz\_r356.lean}), the affine form
+vocabulary (\texttt{PF/AlgebraicDeRhamAffineForms\_r343.lean}), the
+wedge product (\texttt{PF/AlgebraicDeRhamWedge\_r344.lean}), and the
+degree-$1$ descent (\texttt{PF/AlgebraicDeRhamD1Descent\_r355.lean}).
+All on the three-axiom bar $[\mathtt{propext},
+\mathtt{Classical.choice}, \mathtt{Quot.sound}]$.
+
+\paragraph{What the Lean corpus does \emph{not} prove.}
+\begin{itemize}
+\item There is no de Rham cohomology construction here --- the
+  $d \circ d = 0$ identity is the building block, not the cohomology.
+\item There is no gluing of affine pieces to varieties, no projective
+  / general scheme / complex manifold machinery.
+\item Mathlib has no Kähler manifolds, no complex manifolds in the
+  analytic-geometric sense needed, no Hodge decomposition, no
+  harmonic-form theory.  These are prerequisite libraries not yet in
+  mathlib; the Hodge Conjecture formalisation programme is parked
+  pending them.
+\item The chapter's spectral-concentration $\to$ algebraicity mechanism
+  is a conjectural link (Conjecture~\ref{conj:crystallization-algebraicity}),
+  not a theorem.
+\end{itemize}
+
+\paragraph{The Hodge Conjecture remains open.}  Nothing in this corpus
+closes it, and rev 2 does not claim otherwise.  What rev 2 \emph{does}
+provide is an honest statement of the building blocks that are
+kernel-verified, and an explicit list of what is missing for the
+formalisation to progress.  The algebraic de Rham results are
+\emph{negative by design}: they state exactly what is formalised and
+what the next prerequisite (Kähler / complex-manifold infrastructure
+in mathlib) must deliver before the conjectural chain above can be
+attacked.
+
 \section*{Exercises}
 
 \begin{enumerate}
