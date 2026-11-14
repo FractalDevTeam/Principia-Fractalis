@@ -550,6 +550,75 @@ private theorem fermat42Double_m2k_add_t_coprime
   have h_nat : d ∣ 1 := by exact_mod_cast this
   exact Nat.dvd_one.mp h_nat
 
+/-- **Half-factor data (s-side)** — extract `A, B` with
+`m - 2k - s = 2A`, `m - 2k + s = 2B`, `A * B = 2k²`, `IsCoprime A B`. -/
+private theorem fermat42Double_m2k_half_factors_s
+    (s m k : ℤ) (hs_odd : s % 2 = 1) (hk_pos : 0 < k) (hm_odd : m % 2 = 1)
+    (hmk_coprime : IsCoprime m k)
+    (hs_sq : s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2) :
+    ∃ A B : ℤ, m - 2 * k - s = 2 * A ∧ m - 2 * k + s = 2 * B ∧
+      A * B = 2 * k ^ 2 ∧ IsCoprime A B := by
+  have hAeven : (m - 2 * k - s) % 2 = 0 := by omega
+  have hBeven : (m - 2 * k + s) % 2 = 0 := by omega
+  obtain ⟨A, hA⟩ : (2 : ℤ) ∣ (m - 2 * k - s) := Int.dvd_of_emod_eq_zero hAeven
+  obtain ⟨B, hB⟩ : (2 : ℤ) ∣ (m - 2 * k + s) := Int.dvd_of_emod_eq_zero hBeven
+  have hm2k_cop_s : IsCoprime (m - 2 * k) s :=
+    fermat42Double_m2k_sub_s_coprime s m k hs_odd hk_pos hm_odd hmk_coprime hs_sq
+  refine ⟨A, B, hA, hB, ?_, ?_⟩
+  · -- A * B = 2k²: compute via 4AB = (m-2k-s)(m-2k+s) = 8k²
+    have h4AB : 4 * (A * B) = 8 * k ^ 2 := by
+      have h1 : (m - 2 * k - s) * (m - 2 * k + s) = 8 * k ^ 2 := by
+        have : (m - 2 * k - s) * (m - 2 * k + s) = (m - 2 * k) ^ 2 - s ^ 2 := by ring
+        rw [this]; linarith [hs_sq]
+      have h2 : (2 * A) * (2 * B) = 8 * k ^ 2 := by rw [← hA, ← hB]; exact h1
+      linarith [h2]
+    linarith [h4AB]
+  · -- IsCoprime A B: from IsCoprime (m - 2k) s and 2A = m - 2k - s, 2B = m - 2k + s.
+    -- gcd(A, B) | A + B = (m - 2k) (via (2A + 2B)/2) and | B - A = s (via (2B - 2A)/2).
+    -- So 2·gcd(A, B) | gcd(m - 2k, s) = 1... hmm, gcd(A, B) | gcd(m-2k, s) more precisely.
+    -- Use Bezout: IsCoprime (m - 2k) s ⟹ ∃ u v, u(m-2k) + vs = 1.
+    --   Then u(2A + 2B)/2... but division by 2 doesn't preserve Bezout.
+    -- Alt: ∃ u v, u(m - 2k) + vs = 1. Express via A, B: m - 2k = A + B, s = B - A.
+    --   u(A + B) + v(B - A) = 1, i.e., (u - v)A + (u + v)B = 1.
+    --   So IsCoprime A B with witnesses (u - v, u + v).
+    obtain ⟨u, v, huv⟩ := hm2k_cop_s
+    refine ⟨u - v, u + v, ?_⟩
+    have h_mk_eq : m - 2 * k = A + B := by linarith [hA, hB]
+    have h_s_eq : s = B - A := by linarith [hA, hB]
+    have : (u - v) * A + (u + v) * B = u * (m - 2 * k) + v * s := by
+      rw [h_mk_eq, h_s_eq]; ring
+    rw [this]; exact huv
+
+/-- **Half-factor data (t-side)** — extract `C, D` with
+`m + 2k - t = 2C`, `m + 2k + t = 2D`, `C * D = 2k²`, `IsCoprime C D`. -/
+private theorem fermat42Double_m2k_half_factors_t
+    (t m k : ℤ) (ht_odd : t % 2 = 1) (hk_pos : 0 < k) (hm_odd : m % 2 = 1)
+    (hmk_coprime : IsCoprime m k)
+    (ht_sq : t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2) :
+    ∃ C D : ℤ, m + 2 * k - t = 2 * C ∧ m + 2 * k + t = 2 * D ∧
+      C * D = 2 * k ^ 2 ∧ IsCoprime C D := by
+  have hCeven : (m + 2 * k - t) % 2 = 0 := by omega
+  have hDeven : (m + 2 * k + t) % 2 = 0 := by omega
+  obtain ⟨C, hC⟩ : (2 : ℤ) ∣ (m + 2 * k - t) := Int.dvd_of_emod_eq_zero hCeven
+  obtain ⟨D, hD⟩ : (2 : ℤ) ∣ (m + 2 * k + t) := Int.dvd_of_emod_eq_zero hDeven
+  have hm2k_cop_t : IsCoprime (m + 2 * k) t :=
+    fermat42Double_m2k_add_t_coprime t m k ht_odd hk_pos hm_odd hmk_coprime ht_sq
+  refine ⟨C, D, hC, hD, ?_, ?_⟩
+  · have h4CD : 4 * (C * D) = 8 * k ^ 2 := by
+      have h1 : (m + 2 * k - t) * (m + 2 * k + t) = 8 * k ^ 2 := by
+        have : (m + 2 * k - t) * (m + 2 * k + t) = (m + 2 * k) ^ 2 - t ^ 2 := by ring
+        rw [this]; linarith [ht_sq]
+      have h2 : (2 * C) * (2 * D) = 8 * k ^ 2 := by rw [← hC, ← hD]; exact h1
+      linarith [h2]
+    linarith [h4CD]
+  · obtain ⟨u, v, huv⟩ := hm2k_cop_t
+    refine ⟨u - v, u + v, ?_⟩
+    have h_mk_eq : m + 2 * k = C + D := by linarith [hC, hD]
+    have h_t_eq : t = D - C := by linarith [hC, hD]
+    have : (u - v) * C + (u + v) * D = u * (m + 2 * k) + v * t := by
+      rw [h_mk_eq, h_t_eq]; ring
+    rw [this]; exact huv
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
