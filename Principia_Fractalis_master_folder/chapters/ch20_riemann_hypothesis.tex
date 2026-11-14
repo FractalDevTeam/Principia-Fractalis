@@ -2,14 +2,14 @@
 \label{ch:riemann-hypothesis}
 
 \begin{chapterobjectives}
-In this chapter, we apply Fractal Resonance Mathematics to resolve the most famous unsolved problem in mathematics: the Riemann Hypothesis. We will:
+In this chapter, we present the corpus's contribution to the Riemann Hypothesis.  \textbf{The Clay statement remains open}; nothing in this chapter closes it.  Two rigorous strands and one substrate-level anchor are advanced here:
 \begin{itemize}
-\item Construct a self-adjoint operator whose eigenvalues correspond to Riemann zeros
-\item Prove correspondence through the Fractal Resonance Function at $\alpha = 3/2$
-\item Demonstrate 150-digit precision verification of the critical line
-\item Connect prime distribution to consciousness crystallization at $\text{ch}_2 = 0.95$
-\item Provide complete computational verification framework
+\item \textbf{Conditional spectral reduction.}  Construct a self-adjoint operator $\tilde T_3^{\textsf{sym}}$ whose eigenvalues biject with the imaginary parts of the Riemann $\xi$ zeros on $[0, 15]$ \emph{conditional on} the two named open propositions $\mathtt{HilbertPolyaProgramConjecture\_Positive}$ and $\mathtt{RHSpectralSurjectivityConjecture}$.  Four Hilbert-P\'olya formulations collapse to this reduction via $\mathtt{hilbert\_polya\_formulations\_equivalent}$ and $\mathtt{hilbert\_polya\_implies\_RH}$.
+\item \textbf{Unconditional box-local zero-free region.}  The ``Legion'' interval-arithmetic march, routed through auto-generated Fourier panels, delivers a kernel-verified zero-free box $\{s : 0 \le \sigma \le 1,\, 0 \le t \le c\}$ for $c = 829/64 \approx 12.84375$ (commit \texttt{2d6919ea}, 2026-11-10).  The march is \emph{blocked} at the next panel beyond $c = 829/64$ by an analytic gate (LHS $1.108 > 1$ at $D = 1$, not $r$-tunable); no bounded continuation target is currently available.  The companion theorem \texttt{rh\_below\_15\_conditional} shows that the full 150-digit zero-locus check is complete on this route \emph{conditional on} three right-edge sign facts R1, R2, R3 for $\xi$ at $\sigma = 1$.
+\item \textbf{$\alpha$-skeleton anchor.}  The substrate operator-algebra reading $\alpha_{\textsf{RH}} = 3/2$ is recorded as an \emph{asserted / empirical} anchor coming out of a 2026-05-23 IBM Quantum hardware run on 143 problems (not derived from substrate first principles in this corpus).  Treat as substrate-level evidence, not as mathematical proof.
 \end{itemize}
+
+\textbf{Scope.}  No Lean theorem in this corpus matches the Clay RH statement.  The box march is unconditional for $t \in [0, 12.84375]$ and stuck beyond.  The spectral reduction and the $\alpha_{\textsf{RH}} = 3/2$ anchor are both load-bearing \emph{inside} the corpus but do not discharge the Clay statement.  See the ``Honest scope, rev 2'' subsection and the Verification chapter for the full status layer.
 \end{chapterobjectives}
 
 \section{Introduction: The 165-Year Challenge}

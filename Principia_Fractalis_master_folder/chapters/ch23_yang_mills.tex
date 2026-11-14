@@ -13,6 +13,19 @@ In this chapter, we address the Yang-Mills existence and mass gap problem, provi
 \end{itemize}
 
 \textbf{Note}: This chapter presents computational evidence and empirical measurements validated through comparison with lattice QCD results. The analytical measure-theoretic construction requires further development.
+
+\emph{Positive rigorous result, 2026-10-29 / 2026-11-13.}  Independent of the refuted mass-gap formula above, the corpus now carries an unconditional, three-axiom-bar lattice reflection-positivity theorem for the Wilson action on finite even periodic $SU(2)$ lattices:
+\begin{itemize}
+\item \texttt{wilson\_reflection\_positivity\_of\_continuous}
+  (\texttt{PF/YangMills/WilsonFubiniClosed\_r385.lean}, 2026-10-29) --- the
+  $\theta$-crossed Gram matrix is \texttt{PosSemidef} for continuous
+  $F : \mathrm{Fin}\,K \to C_c(\mathtt{GaugeField}\ L \to \mathbb{C})$
+  supported on $\Lambda_+ \cup \Lambda_0$.
+\item \texttt{wilson\_reflection\_positivity\_of\_L2\_strong}
+  (head commit \texttt{f29288c4}, 2026-11-13) --- extension to
+  \texttt{StronglyMeasurable} $+\,$\texttt{MemLp}\,2 $+\,$\texttt{supportedOnPlusZero} test functions, closing all five L²-extension steps.
+\end{itemize}
+The Clay mass-gap statement remains open; reflection positivity is the first of the Osterwalder--Schrader axioms required to reconstruct a Wightman QFT, which in turn is prerequisite to a mass-gap argument.  No path in this corpus produces the thermodynamic / continuum limit; no non-abelian gauge group beyond $SU(2)$ is treated.
 \end{chapterobjectives}
 
 \section{Introduction: The Mystery of the Strong Force}

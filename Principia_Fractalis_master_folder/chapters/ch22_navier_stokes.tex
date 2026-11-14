@@ -2,7 +2,11 @@
 \label{ch:navier-stokes}
 
 \begin{chapterobjectives}
-In this chapter, we give a conditional, heuristic reduction of the third Millennium Problem through vortex emergence theory. \textbf{Global existence and smoothness for 3D Navier--Stokes is \emph{not} proven here and remains open}; the Clay statement is untouched. The Clay bar is the named open proposition \texttt{VortexStretchingBoundedHypothesis} / \texttt{NS3DVortexStretchingObstruction} --- see the Verification status paragraph below. We will:
+In this chapter, we give a conditional, heuristic reduction of the third Millennium Problem through vortex emergence theory. \textbf{Global existence and smoothness for 3D Navier--Stokes is \emph{not} proven here and remains open}; the Clay statement is untouched.
+
+\emph{Status update, 2026-11-10} (commit \texttt{909d944f}, file \texttt{PF/NavierStokes/NS3DVortexStretchingBoundedDischarge.lean}).  The hypothesis \texttt{VortexStretchingBoundedHypothesis}, previously named as the single Clay bar in earlier revisions, is now \textbf{discharged at every Galerkin cutoff $n$} on the three-axiom bar $[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$.  The remaining Clay bar is the three-item \emph{Route A} chain, blocked on mathlib's absence of $L^2$-sided convolution and Minkowski-integral infrastructure: (i) Schwartz dense in $L^2$ (via mollification, reduces to (iii)); (ii) convergence of Galerkin to the weak formulation (depends on (i)); (iii) the direct Young inequality $\lVert f \star g\rVert_{L^2} \le \lVert f\rVert_{L^1}\,\lVert g\rVert_{L^2}$ for the exponent triple $(p, q, r) = (1, 2, 2)$.  Build order is (iii) first; see \texttt{codex/NS\_ROUTEA\_GAP\_IS\_ORDERED\_2026-10-29.md}.
+
+We will:
 \begin{itemize}
 \item Discover counter-rotating vortex configurations that prevent singularities
 \item Prove that zero-energy emergence points transform potential infinities

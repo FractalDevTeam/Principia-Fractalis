@@ -16,6 +16,22 @@ In this chapter, we provide \textbf{rigorous mathematical foundations and comput
 \end{itemize}
 
 \textbf{Status}: We establish rigorous foundations and provide strong numerical evidence, accompanied by deep conjectures requiring further proof. The research program outlined in Section 11 identifies key open problems for establishing these conjectures rigorously.
+
+\emph{Scope of the Lean name \texttt{P\_neq\_NP}.}  The theorem
+\texttt{PF.SpectralGap.P\_neq\_NP} type-checks on the three-axiom bar
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$,
+but the statement it proves is the \emph{real-number inequality}
+$\mathtt{spectral\_gap} \ne 0$ --- \textbf{not} $\mathbf{P} \ne \mathbf{NP}$
+as complexity classes.  The V2/V3 ``class separation bridge''
+(\texttt{enum\_to\_class\_separation\_bridge\_V\{2,3\}\_iff\_literal\_P\_neq\_NP\_V\{2,3\}})
+makes the step from the real-number fact to the literal
+Clay statement \emph{conditional} on the still-open premise that the
+spectral gap of the fractal operators \emph{is} a faithful separator.
+No Lean theorem in this corpus matches the Clay $\mathbf{P} \ne \mathbf{NP}$
+statement.  The empirical anchor $\alpha_{\textsf{P vs NP}} = \varphi + 1/4$
+is an \emph{asserted / empirical} IBM-run reading (same 2026-05-23 hardware
+run as $\alpha_{\textsf{RH}} = 3/2$), not derived from substrate first
+principles here.
 \end{chapterobjectives}
 
 \section{Introduction: The 54-Year Question}

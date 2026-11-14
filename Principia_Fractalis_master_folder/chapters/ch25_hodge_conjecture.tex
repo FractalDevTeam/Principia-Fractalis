@@ -14,6 +14,28 @@ In this final millennium problem chapter, we address the Hodge Conjecture throug
 \end{itemize}
 
 \textbf{Note}: This chapter presents computational evidence and algorithmic methods. The complete analytical proof of consciousness crystallization dynamics requires advanced algebraic geometry beyond the scope of this text.
+
+\emph{Status, 2026-11-14.}  \textbf{Hodge is the weakest Clay axis in this corpus and its Clay statement is untouched.}  The audit record is explicit:
+\begin{itemize}
+\item \textbf{No positive Hodge content is kernel-verified.}  Mathlib
+  currently has \emph{no} K\"ahler manifolds, Hodge decomposition,
+  harmonic forms, complex manifolds, algebraic cycles, Chow groups,
+  or cycle class map.  Unlike Yang--Mills (which admits a finite
+  lattice regularization whose rigorous content is already in the
+  tree), Hodge is intrinsically about smooth projective varieties
+  over $\mathbb{C}$; no finite-regularization surrogate is available
+  whose solution would imply anything.
+\item \textbf{The only kernel-verified Hodge-adjacent content is
+  negative.}  \texttt{PF/Analytic/Ch20Ch25NumericObstructions.lean}
+  refutes several of this chapter's worked examples by comparing with
+  LMFDB-sourced Hodge numbers for the named varieties.
+\item \textbf{Historical \texttt{ARCHIVE/*/Hodge\_Conjecture\_COMPLETE.lean}
+  files are inconsistent.}  Single-axiom instances entail \texttt{False}
+  (machine-demonstrated 2026-10-17 in the audit note
+  \texttt{codex/HODGE\_SCOPING\_BLOCKED\_2026-10-17.md}).  Retained for
+  historical record only; no downstream file imports them.
+\end{itemize}
+Hodge is \textsc{parked} pending mathlib's acquisition of complex-geometry infrastructure.  Read what follows as framework-level computational evidence, not as a path to the Clay statement.
 \end{chapterobjectives}
 
 \section{Introduction: Topology Meets Algebra}

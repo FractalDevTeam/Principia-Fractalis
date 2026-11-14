@@ -13,7 +13,26 @@ In this chapter, we address the Birch and Swinnerton-Dyer conjecture through fra
 \item Connect to consciousness crystallization at arithmetic-geometric duality
 \end{itemize}
 
-\textbf{Note}: This chapter presents computational evidence and numerical validation. The complete analytical proof of measure convergence and spectral analysis requires extensive functional analysis beyond the scope of this text.
+\textbf{Note}: This chapter presents computational evidence and numerical validation for the fractal-resonance route. The complete analytical proof of measure convergence and spectral analysis requires extensive functional analysis beyond the scope of this text.  \textbf{The Clay BSD statement remains open}: no path in this corpus produces an \emph{analytic} rank, so the equality $\mathrm{rank}\,E(\mathbb{Q}) = \mathrm{ord}_{s=1} L(E, s)$ is not touched.
+
+\emph{Positive rigorous results on the algebraic side.}  The corpus does carry a growing set of \textbf{exact algebraic-rank theorems} on the three-axiom bar $[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$, independent of the fractal construction:
+\begin{itemize}
+\item \textbf{Two exact rank-$0$ curves} via Fermat infinite descent:
+  $y^2 = x^3 + x$ (LMFDB 64.a4, 2026-10-17) and $y^2 = x^3 - x$
+  (LMFDB 32.a2, 2026-11-14) --- the two rational $2$-isogenies of
+  the congruent-number curve $E_1$ at $n = 1$.  Capstones
+  \texttt{Ecurve\_rank\_eq\_zero} and \texttt{Ecurve32a2\_rank\_eq\_zero}.
+  The mathlib-absent \emph{difference form} $a^4 - b^4 \ne c^2$ needed
+  for the second was proved here (\texttt{PF.not\_fermat\_42\_sub}) and
+  staged for mathlib upstream as PR \#46025.
+\item \textbf{Five exact rank-$\ge 1$ bounds} via explicit multi-smul
+  non-torsion witnesses: $E_{91.a1}$, $E_{102.a1}$, $E_{131.a1}$,
+  $E_{141.a1}$ (all four BSD scoping gap curves from the 2026-10-17
+  Rio audit) plus $E_{80.b}$ (congruent-number $n = 5$ with full
+  2-torsion propagation).  Capstones
+  \texttt{E\_\{curve\}\_rank\_ge\_one}.
+\end{itemize}
+These are \emph{algebraic} ranks of specific curves; they are not Clay-form statements about the full BSD equality.  See the ``Honest scope, rev 2'' note later in the chapter.
 \end{chapterobjectives}
 
 \section{Introduction: The Arithmetic-Geometric Mystery}
