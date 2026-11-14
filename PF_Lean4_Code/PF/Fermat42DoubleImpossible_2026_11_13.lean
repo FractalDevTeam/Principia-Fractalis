@@ -687,6 +687,44 @@ private theorem fermat42Double_sq_split_two_odd_even
     · left; linarith
     · right; linarith
 
+/-- **Positivity of `m - 2k`** — from the Pythagorean setup (Stage 1 output),
+`m > 2k` holds, so `m - 2k > 0`.
+
+Follows from `u = m² - 4k² > 0` (since `u > 0` and `u = m² - n²`, `n = 2k`),
+hence `m² > (2k)²`, and `m > 0, k > 0` gives `m > 2k`. -/
+private theorem fermat42Double_m_gt_2k
+    (m k : ℤ) (hm_pos : 0 < m) (hk_pos : 0 < k)
+    (hu_pos : 0 < m ^ 2 - 4 * k ^ 2) :
+    2 * k < m := by
+  -- m² > 4k² = (2k)². Since m > 0 and 2k > 0, m > 2k.
+  have h1 : m ^ 2 > (2 * k) ^ 2 := by nlinarith
+  have h2 : 0 < 2 * k := by linarith
+  nlinarith [sq_nonneg (m - 2 * k), sq_nonneg (m + 2 * k)]
+
+/-- **Half-factor positivity (s-side)** — `(m - 2k - s)/2 > 0` and `(m - 2k + s)/2 > 0`.
+
+Follows from `m - 2k > 0` (`m > 2k`) and `(m - 2k)² > s²` (from `s² = (m - 2k)² - 8k²`
+with `k ≠ 0`), so `m - 2k > |s|`, hence both `m - 2k ± s > 0`. -/
+private theorem fermat42Double_half_factors_s_pos
+    (s m k A B : ℤ) (hs_ne : s ≠ 0) (hm_pos : 0 < m) (hk_pos : 0 < k)
+    (hu_pos : 0 < m ^ 2 - 4 * k ^ 2)
+    (hs_sq : s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2)
+    (hA : m - 2 * k - s = 2 * A) (hB : m - 2 * k + s = 2 * B) :
+    0 < A ∧ 0 < B := by
+  have hm2k_pos : 2 * k < m := fermat42Double_m_gt_2k m k hm_pos hk_pos hu_pos
+  have h_m2k : 0 < m - 2 * k := by linarith
+  have h_sq_lt : s ^ 2 < (m - 2 * k) ^ 2 := by
+    have hksq_pos : 0 < 8 * k ^ 2 := by positivity
+    linarith [hs_sq]
+  -- From h_sq_lt and h_m2k, we have |s| < m - 2k. Both directions follow.
+  constructor
+  · -- s < m - 2k (then m - 2k - s > 0, so 2A > 0, so A > 0).
+    have h : s < m - 2 * k := by nlinarith [h_sq_lt, h_m2k, sq_nonneg (m - 2 * k - s), sq_nonneg (m - 2 * k + s)]
+    linarith
+  · -- -s < m - 2k (then m - 2k + s > 0, so 2B > 0, so B > 0).
+    have h : -s < m - 2 * k := by nlinarith [h_sq_lt, h_m2k, sq_nonneg (m - 2 * k - s), sq_nonneg (m - 2 * k + s)]
+    linarith
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
