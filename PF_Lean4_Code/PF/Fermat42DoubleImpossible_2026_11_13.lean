@@ -947,6 +947,19 @@ private theorem fermat42Double_quadruple_extraction
         show (δ : ℤ) ^ 2 = |δ| ^ 2 from (sq_abs δ).symm, hγ_rw, hδ_rw]
     try ring
 
+/-- **Key relation** — from the quadruple identities, derive
+`4·a·b·c·d = (c² - b²)·(2a² - d²)`. -/
+private theorem fermat42Double_key_relation
+    (a b c d k : ℤ) (hk_abcd : k = a * b * c * d)
+    (m : ℤ) (hm_minus : m - 2 * k = 2 * a ^ 2 * b ^ 2 + c ^ 2 * d ^ 2)
+    (hm_plus : m + 2 * k = 2 * a ^ 2 * c ^ 2 + b ^ 2 * d ^ 2) :
+    4 * (a * b * c * d) = (c ^ 2 - b ^ 2) * (2 * a ^ 2 - d ^ 2) := by
+  have h_diff : 4 * k = (2 * a ^ 2 * c ^ 2 + b ^ 2 * d ^ 2) -
+                       (2 * a ^ 2 * b ^ 2 + c ^ 2 * d ^ 2) := by
+    linarith [hm_plus, hm_minus]
+  rw [hk_abcd] at h_diff
+  linear_combination h_diff
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
