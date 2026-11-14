@@ -619,6 +619,74 @@ private theorem fermat42Double_m2k_half_factors_t
       rw [h_mk_eq, h_t_eq]; ring
     rw [this]; exact huv
 
+/-- Helper: `x ≥ 0` and `x = y² ∨ x = -y² → x = y²`. -/
+private lemma eq_sq_of_nonneg_of_or' {x y : ℤ} (hx : 0 ≤ x)
+    (h : x = y ^ 2 ∨ x = -y ^ 2) : x = y ^ 2 := by
+  rcases h with h | h
+  · exact h
+  · have hneg : -y ^ 2 ≤ 0 := neg_nonpos.mpr (sq_nonneg y)
+    have hx_eq_zero : x = 0 := le_antisymm (h ▸ hneg) hx
+    have hy_sq_zero : y ^ 2 = 0 := by linarith [hx_eq_zero, h]
+    have hy_zero : y = 0 :=
+      pow_eq_zero_iff (by norm_num : (2 : ℕ) ≠ 0) |>.mp hy_sq_zero
+    rw [hx_eq_zero, hy_zero]; ring
+
+/-- Helper: for coprime `u, v ≥ 0` with `uv = c²`: `u = e²`, `v = f²`, `ef = ±c`. -/
+private lemma coprime_mul_eq_sq_split_local {u v c : ℤ}
+    (hu_nn : 0 ≤ u) (hv_nn : 0 ≤ v) (huv_coprime : IsCoprime u v)
+    (huv : u * v = c ^ 2) :
+    ∃ e f : ℤ, u = e ^ 2 ∧ v = f ^ 2 ∧ (e * f = c ∨ e * f = -c) := by
+  have h_gcd : Int.gcd u v = 1 := isCoprime_iff_gcd_eq_one.mp huv_coprime
+  obtain ⟨e, he⟩ := Int.sq_of_gcd_eq_one h_gcd huv
+  have h_gcd' : Int.gcd v u = 1 := isCoprime_iff_gcd_eq_one.mp huv_coprime.symm
+  have huv' : v * u = c ^ 2 := by linarith
+  obtain ⟨f, hf⟩ := Int.sq_of_gcd_eq_one h_gcd' huv'
+  have he_eq : u = e ^ 2 := eq_sq_of_nonneg_of_or' hu_nn he
+  have hf_eq : v = f ^ 2 := eq_sq_of_nonneg_of_or' hv_nn hf
+  have h_prod : (e * f) ^ 2 = c ^ 2 := by
+    have : (e * f) ^ 2 = e ^ 2 * f ^ 2 := by ring
+    rw [this, ← he_eq, ← hf_eq, huv]
+  have h_cases : e * f = c ∨ e * f = -c := by
+    have h : (e * f - c) * (e * f + c) = 0 := by linear_combination h_prod
+    rcases mul_eq_zero.mp h with h1 | h1
+    · left; linarith
+    · right; linarith
+  exact ⟨e, f, he_eq, hf_eq, h_cases⟩
+
+/-- **UFD split for `A·B = 2k²`** with `A` odd, `B` even, `A, B ≥ 0`, `IsCoprime A B`:
+produce `α, β` with `A = β²`, `B = 2α²`, `α·β = ±k`. -/
+private theorem fermat42Double_sq_split_two_odd_even
+    (A B k : ℤ) (hA_nn : 0 ≤ A) (hB_nn : 0 ≤ B) (hA_odd : A % 2 = 1)
+    (hAB_cop : IsCoprime A B) (hAB : A * B = 2 * k ^ 2) (hk_ne : k ≠ 0) :
+    ∃ α β : ℤ, A = β ^ 2 ∧ B = 2 * α ^ 2 ∧ (α * β = k ∨ α * β = -k) := by
+  have hB_even : B % 2 = 0 := by
+    by_contra h
+    have hB_odd : B % 2 = 1 := by omega
+    have hAB_odd : (A * B) % 2 = 1 := by
+      rw [Int.mul_emod, hA_odd, hB_odd]; decide
+    have h2k2_even : (2 * k ^ 2) % 2 = 0 := Int.mul_emod_right 2 _
+    rw [hAB] at hAB_odd
+    rw [hAB_odd] at h2k2_even
+    norm_num at h2k2_even
+  obtain ⟨B', hB'⟩ : (2 : ℤ) ∣ B := Int.dvd_of_emod_eq_zero hB_even
+  have hAB' : A * B' = k ^ 2 := by
+    have : A * (2 * B') = 2 * k ^ 2 := by rw [← hB']; exact hAB
+    linarith
+  have hAB'_cop : IsCoprime A B' := by
+    obtain ⟨u, v, huv⟩ := hAB_cop
+    -- u*A + v*B = 1 with B = 2B', so u*A + (2v)*B' = 1.
+    refine ⟨u, 2 * v, ?_⟩
+    have : u * A + 2 * v * B' = u * A + v * B := by rw [hB']; ring
+    rw [this]; exact huv
+  have hB'_nn : 0 ≤ B' := by nlinarith [hB_nn, hB']
+  obtain ⟨β, α, hA_eq, hB'_eq, hcases⟩ :=
+    coprime_mul_eq_sq_split_local hA_nn hB'_nn hAB'_cop hAB'
+  refine ⟨α, β, hA_eq, ?_, ?_⟩
+  · rw [hB', hB'_eq]
+  · rcases hcases with h | h
+    · left; linarith
+    · right; linarith
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
