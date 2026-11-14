@@ -810,6 +810,65 @@ private theorem fermat42Double_t_side_split
     exact ⟨C, D, γ, δ, hC, hD, hC_pos, hD_pos, hCD_cop, hCD_prod,
            Or.inl ⟨hC_eq, hD_eq⟩, hcases⟩
 
+/-- **UFD 4-way split** — `αβ = γδ` in ℤ with positive values yields
+`α = e·α', γ = e·γ', β = γ'·f, δ = α'·f` where `e = gcd(α, γ)`.
+
+Standard integer UFD factorization via `Int.exists_gcd_one`. -/
+private theorem fermat42Double_four_way_split
+    (α β γ δ : ℤ) (hα_pos : 0 < α) (hβ_pos : 0 < β) (hγ_pos : 0 < γ) (hδ_pos : 0 < δ)
+    (heq : α * β = γ * δ) :
+    ∃ e α' γ' f : ℤ, 0 < e ∧ 0 < α' ∧ 0 < γ' ∧ 0 < f ∧
+      IsCoprime α' γ' ∧
+      α = e * α' ∧ γ = e * γ' ∧ β = γ' * f ∧ δ = α' * f := by
+  have hgcd_pos : 0 < Int.gcd α γ :=
+    Int.gcd_pos_of_ne_zero_left γ (Int.ne_of_gt hα_pos)
+  obtain ⟨α', γ', h_cop_gcd, hα_eq, hγ_eq⟩ := Int.exists_gcd_one hgcd_pos
+  set e : ℤ := (Int.gcd α γ : ℤ) with he_def
+  have he_pos : 0 < e := by rw [he_def]; exact_mod_cast hgcd_pos
+  have hα_rw : α = e * α' := by rw [hα_eq]; ring
+  have hγ_rw : γ = e * γ' := by rw [hγ_eq]; ring
+  have hα'_pos : 0 < α' := by
+    rcases lt_trichotomy α' 0 with h | h | h
+    · exfalso; have : α < 0 := by rw [hα_rw]; exact mul_neg_of_pos_of_neg he_pos h
+      linarith
+    · exfalso; rw [h, mul_zero] at hα_rw; linarith
+    · exact h
+  have hγ'_pos : 0 < γ' := by
+    rcases lt_trichotomy γ' 0 with h | h | h
+    · exfalso; have : γ < 0 := by rw [hγ_rw]; exact mul_neg_of_pos_of_neg he_pos h
+      linarith
+    · exfalso; rw [h, mul_zero] at hγ_rw; linarith
+    · exact h
+  have h_cop_cop : IsCoprime α' γ' := Int.isCoprime_iff_gcd_eq_one.mpr h_cop_gcd
+  have h_α'β : α' * β = γ' * δ := by
+    have hne : e ≠ 0 := Int.ne_of_gt he_pos
+    have h1 : e * (α' * β) = e * (γ' * δ) := by
+      calc e * (α' * β) = (e * α') * β := by ring
+        _ = α * β := by rw [← hα_rw]
+        _ = γ * δ := heq
+        _ = (e * γ') * δ := by rw [← hγ_rw]
+        _ = e * (γ' * δ) := by ring
+    exact mul_left_cancel₀ hne h1
+  have hγ'_dvd_β : γ' ∣ β := by
+    have h1 : γ' ∣ α' * β := ⟨δ, by linarith [h_α'β]⟩
+    exact h_cop_cop.symm.dvd_of_dvd_mul_left h1
+  obtain ⟨f, hf⟩ := hγ'_dvd_β
+  have hf_pos : 0 < f := by
+    rcases lt_trichotomy f 0 with h | h | h
+    · exfalso; have : β < 0 := by rw [hf]; exact mul_neg_of_pos_of_neg hγ'_pos h
+      linarith
+    · exfalso; rw [h, mul_zero] at hf; linarith
+    · exact h
+  have hδ_eq : δ = α' * f := by
+    have hγ'_ne : γ' ≠ 0 := Int.ne_of_gt hγ'_pos
+    have h2 : γ' * (α' * f) = γ' * δ := by
+      calc γ' * (α' * f) = α' * (γ' * f) := by ring
+        _ = α' * β := by rw [← hf]
+        _ = γ' * δ := h_α'β
+    exact (mul_left_cancel₀ hγ'_ne h2).symm
+  exact ⟨e, α', γ', f, he_pos, hα'_pos, hγ'_pos, hf_pos, h_cop_cop,
+         hα_rw, hγ_rw, hf, hδ_eq⟩
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
