@@ -233,31 +233,18 @@ theorem fermat42Double_impossible_of_assembler
     · exact h hp
     · exact h hq
 
-/-- **Stage 2 sub-gap** — assumes Pythagorean (m, k) structure as input. -/
-def Fermat42DoubleStage2 : Prop :=
-  ∀ s t a m k : ℤ,
-    s ≠ 0 → t ≠ 0 → 0 < a →
-    IsCoprime s t →
-    s ^ 2 < t ^ 2 →
-    s % 2 = 1 → t % 2 = 1 →
-    0 < m → 0 < k → m % 2 = 1 →
-    IsCoprime m k →
-    s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2 →
-    t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2 →
-    a = m ^ 2 + 4 * k ^ 2 →
-    2 * a ^ 2 = s ^ 4 + t ^ 4 →
-    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 + 4 * p * q - q ^ 2 = 0) ∨
-    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 - 4 * p * q - q ^ 2 = 0)
-
-/-- Stage 1 core — assumes `a > 0, s² < t²` (WLOG handled by caller). -/
-private theorem fermat42Double_stage1_core
-    (hStage2 : Fermat42DoubleStage2)
+/-- **Reusable Pythagorean setup** — from the Fermat42Double hypothesis
+with `a > 0, s² < t²`, produces `(m, k)` with the full descent-chain
+identities ready for Stage 2 / descent step application. -/
+private theorem fermat42Double_pythagorean_setup
     (s t a : ℤ) (hs_ne : s ≠ 0) (ht_ne : t ≠ 0) (ha_pos : 0 < a)
     (hst_coprime : IsCoprime s t) (hst_lt : s ^ 2 < t ^ 2)
     (hs_odd : s % 2 = 1) (ht_odd : t % 2 = 1)
     (h_eq : 2 * a ^ 2 = s ^ 4 + t ^ 4) :
-    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 + 4 * p * q - q ^ 2 = 0) ∨
-    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 - 4 * p * q - q ^ 2 = 0) := by
+    ∃ m k : ℤ, 0 < m ∧ 0 < k ∧ m % 2 = 1 ∧ IsCoprime m k ∧
+      s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2 ∧
+      t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2 ∧
+      a = m ^ 2 + 4 * k ^ 2 := by
   have hs2_mod : s ^ 2 % 2 = 1 := by
     rw [show s ^ 2 = s * s from sq s, Int.mul_emod, hs_odd]; decide
   have ht2_mod : t ^ 2 % 2 = 1 := by
@@ -394,28 +381,125 @@ private theorem fermat42Double_stage1_core
     have : t ^ 2 = u + v := h_sum_eq.symm
     rw [this, hu_mk, hv_mk]; ring
   have ha_mk : a = m ^ 2 + 4 * k ^ 2 := by rw [ha_eq_mn, hk_def]; ring
-  exact hStage2 s t a m k hs_ne ht_ne ha_pos hst_coprime hst_lt hs_odd ht_odd
-    hm_pos hk_pos hm_odd hmk_coprime hs_sq ht_sq ha_mk h_eq
+  exact ⟨m, k, hm_pos, hk_pos, hm_odd, hmk_coprime, hs_sq, ht_sq, ha_mk⟩
 
-/-- **Stage 1**: reduces `Fermat42DoubleAssembler` to `Fermat42DoubleStage2`. -/
+/-- **Stage 2 sub-gap** — assumes Pythagorean (m, k) structure as input,
+produces the key quadratic witness.  Note: likely vacuously true since
+the actual descent produces a smaller `Fermat42Double` instance (see
+`Fermat42DoubleDescentStep`), not a key quadratic.  Kept for the
+composition theorem `fermat42Double_impossible_of_assembler`. -/
+def Fermat42DoubleStage2 : Prop :=
+  ∀ s t a m k : ℤ,
+    s ≠ 0 → t ≠ 0 → 0 < a →
+    IsCoprime s t →
+    s ^ 2 < t ^ 2 →
+    s % 2 = 1 → t % 2 = 1 →
+    0 < m → 0 < k → m % 2 = 1 →
+    IsCoprime m k →
+    s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2 →
+    t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2 →
+    a = m ^ 2 + 4 * k ^ 2 →
+    2 * a ^ 2 = s ^ 4 + t ^ 4 →
+    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 + 4 * p * q - q ^ 2 = 0) ∨
+    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 - 4 * p * q - q ^ 2 = 0)
+
+/-- **Stage 1 (quadratic route)**: reduces `Fermat42DoubleAssembler` to
+`Fermat42DoubleStage2` via the Pythagorean setup. -/
 theorem fermat42Double_assembler_of_stage2
     (hStage2 : Fermat42DoubleStage2) :
     Fermat42DoubleAssembler := by
   intro s t a hs_ne ht_ne ha_ne hst_coprime hst_sq_ne hs_odd ht_odd h_eq
-  -- WLOG a > 0.
-  have h_abs_eq : 2 * |a| ^ 2 = s ^ 4 + t ^ 4 := by
-    rw [sq_abs]; exact h_eq
-  have h_abs_ne : |a| ≠ 0 := abs_ne_zero.mpr ha_ne
+  have h_abs_eq : 2 * |a| ^ 2 = s ^ 4 + t ^ 4 := by rw [sq_abs]; exact h_eq
   have h_abs_pos : 0 < |a| := abs_pos.mpr ha_ne
-  -- Split s² vs t².
   rcases lt_trichotomy (s ^ 2) (t ^ 2) with h_lt | h_eq2 | h_gt
-  · exact fermat42Double_stage1_core hStage2 s t |a| hs_ne ht_ne h_abs_pos
-      hst_coprime h_lt hs_odd ht_odd h_abs_eq
+  · obtain ⟨m, k, hm_pos, hk_pos, hm_odd, hmk_cop, hs_sq, ht_sq, ha_mk⟩ :=
+      fermat42Double_pythagorean_setup s t |a| hs_ne ht_ne h_abs_pos
+        hst_coprime h_lt hs_odd ht_odd h_abs_eq
+    exact hStage2 s t |a| m k hs_ne ht_ne h_abs_pos hst_coprime h_lt hs_odd ht_odd
+      hm_pos hk_pos hm_odd hmk_cop hs_sq ht_sq ha_mk h_abs_eq
   · exact absurd h_eq2 hst_sq_ne
   · have hts_coprime : IsCoprime t s := hst_coprime.symm
     have h_abs_eq_sw : 2 * |a| ^ 2 = t ^ 4 + s ^ 4 := by linarith
-    exact fermat42Double_stage1_core hStage2 t s |a| ht_ne hs_ne h_abs_pos
-      hts_coprime h_gt ht_odd hs_odd h_abs_eq_sw
+    obtain ⟨m, k, hm_pos, hk_pos, hm_odd, hmk_cop, hs_sq, ht_sq, ha_mk⟩ :=
+      fermat42Double_pythagorean_setup t s |a| ht_ne hs_ne h_abs_pos
+        hts_coprime h_gt ht_odd hs_odd h_abs_eq_sw
+    exact hStage2 t s |a| m k ht_ne hs_ne h_abs_pos hts_coprime h_gt ht_odd hs_odd
+      hm_pos hk_pos hm_odd hmk_cop hs_sq ht_sq ha_mk h_abs_eq_sw
+
+/-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
+counterexample with Pythagorean (m, k) structure, produces a strictly
+smaller `Fermat42Double` counterexample `(b, c, e)` with
+`e.natAbs < a.natAbs`.
+
+This is the classical Fermat descent step: UFD-split the two factorizations
+`(m - 2k)² - s² = 8k²` and `(m + 2k)² - t² = 8k²`, derive the relation
+`(c² - b²)(d² - 2a²) = 4abcd` on the quadruple `(a, b, c, d)`, solve as
+quadratic in `d` to force the discriminant `2(b⁴ + c⁴)` to be a perfect
+square, yielding `2e² = b⁴ + c⁴` with `e = ⌊√(2(b⁴ + c⁴))⌋ / 2`.
+
+Composed via strong induction on `a.natAbs`, this closes
+`Fermat42Double_impossible`. -/
+def Fermat42DoubleDescentStep : Prop :=
+  ∀ s t a m k : ℤ,
+    s ≠ 0 → t ≠ 0 → 0 < a →
+    IsCoprime s t →
+    s ^ 2 < t ^ 2 →
+    s % 2 = 1 → t % 2 = 1 →
+    0 < m → 0 < k → m % 2 = 1 →
+    IsCoprime m k →
+    s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2 →
+    t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2 →
+    a = m ^ 2 + 4 * k ^ 2 →
+    2 * a ^ 2 = s ^ 4 + t ^ 4 →
+    ∃ b c e : ℤ, b ≠ 0 ∧ c ≠ 0 ∧ e ≠ 0 ∧ IsCoprime b c ∧ b ^ 2 ≠ c ^ 2 ∧
+      2 * e ^ 2 = b ^ 4 + c ^ 4 ∧ e.natAbs < a.natAbs
+
+/-- **`Fermat42Double_impossible` via descent step** — strong induction
+on `a.natAbs` composed with the Pythagorean setup + descent step. -/
+theorem fermat42Double_impossible_of_descent_step
+    (hDescent : Fermat42DoubleDescentStep) :
+    Fermat42Double_impossible := by
+  have H : ∀ n : ℕ, ∀ s t a : ℤ, a.natAbs = n →
+      s ≠ 0 → t ≠ 0 → a ≠ 0 → IsCoprime s t → s ^ 2 ≠ t ^ 2 →
+      2 * a ^ 2 ≠ s ^ 4 + t ^ 4 := by
+    intro n
+    induction n using Nat.strong_induction_on with
+    | _ n ih =>
+      intro s t a hn hs_ne ht_ne ha_ne hst_coprime hst_sq_ne h_eq
+      obtain ⟨hs_odd, ht_odd⟩ :=
+        fermat42Double_parity hs_ne ht_ne hst_coprime h_eq
+      -- WLOG a > 0.
+      have h_abs_eq : 2 * |a| ^ 2 = s ^ 4 + t ^ 4 := by rw [sq_abs]; exact h_eq
+      have h_abs_pos : 0 < |a| := abs_pos.mpr ha_ne
+      have h_abs_natAbs : |a|.natAbs = n := by rw [Int.natAbs_abs]; exact hn
+      -- WLOG s^2 < t^2.
+      rcases lt_trichotomy (s ^ 2) (t ^ 2) with h_lt | h_eq2 | h_gt
+      · obtain ⟨m, k, hm_pos, hk_pos, hm_odd, hmk_cop, hs_sq, ht_sq, ha_mk⟩ :=
+          fermat42Double_pythagorean_setup s t |a| hs_ne ht_ne h_abs_pos
+            hst_coprime h_lt hs_odd ht_odd h_abs_eq
+        obtain ⟨b, c, e, hb_ne, hc_ne, he_ne, hbc_cop, hbc_sq_ne, h_new, h_lt_abs⟩ :=
+          hDescent s t |a| m k hs_ne ht_ne h_abs_pos hst_coprime h_lt hs_odd ht_odd
+            hm_pos hk_pos hm_odd hmk_cop hs_sq ht_sq ha_mk h_abs_eq
+        have h_lt_n : e.natAbs < n := h_abs_natAbs ▸ h_lt_abs
+        have : 2 * e ^ 2 ≠ b ^ 4 + c ^ 4 :=
+          ih e.natAbs h_lt_n b c e rfl hb_ne hc_ne he_ne hbc_cop hbc_sq_ne
+        exact this h_new
+      · exact hst_sq_ne h_eq2
+      · have hts_coprime : IsCoprime t s := hst_coprime.symm
+        have hts_sq_ne : t ^ 2 ≠ s ^ 2 := fun h => hst_sq_ne h.symm
+        have h_abs_eq_sw : 2 * |a| ^ 2 = t ^ 4 + s ^ 4 := by linarith
+        obtain ⟨m, k, hm_pos, hk_pos, hm_odd, hmk_cop, hs_sq, ht_sq, ha_mk⟩ :=
+          fermat42Double_pythagorean_setup t s |a| ht_ne hs_ne h_abs_pos
+            hts_coprime h_gt ht_odd hs_odd h_abs_eq_sw
+        obtain ⟨b, c, e, hb_ne, hc_ne, he_ne, hbc_cop, hbc_sq_ne, h_new, h_lt_abs⟩ :=
+          hDescent t s |a| m k ht_ne hs_ne h_abs_pos hts_coprime h_gt ht_odd hs_odd
+            hm_pos hk_pos hm_odd hmk_cop hs_sq ht_sq ha_mk h_abs_eq_sw
+        have h_lt_n : e.natAbs < n := h_abs_natAbs ▸ h_lt_abs
+        have : 2 * e ^ 2 ≠ b ^ 4 + c ^ 4 :=
+          ih e.natAbs h_lt_n b c e rfl hb_ne hc_ne he_ne hbc_cop hbc_sq_ne
+        exact this h_new
+  intro s t a hs_ne ht_ne ha_ne hst_coprime hst_sq_ne h_eq
+  exact H a.natAbs s t a rfl hs_ne ht_ne ha_ne hst_coprime hst_sq_ne h_eq
 
 end PF.Fermat42Sub
 
@@ -427,3 +511,4 @@ end PF.Fermat42Sub
 #print axioms PF.Fermat42Sub.fermat42_key_quadratic_variant
 #print axioms PF.Fermat42Sub.fermat42Double_impossible_of_assembler
 #print axioms PF.Fermat42Sub.fermat42Double_assembler_of_stage2
+#print axioms PF.Fermat42Sub.fermat42Double_impossible_of_descent_step
