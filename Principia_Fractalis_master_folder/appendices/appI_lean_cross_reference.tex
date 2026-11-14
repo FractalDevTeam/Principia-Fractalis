@@ -240,6 +240,26 @@ Ch~\ref{ch:birch-swinnerton-dyer} (BSD, \textbf{V2})
 & \texttt{WeierstrassCurve $\mathbb{Q}$} universal carrier replaces V1 $\text{Fin}\,6$ (V2.1.0); ranks routed through structurally distinct typed Props.
 & \texttt{PF.Referee.BSDCapstoneTypedBridgeV2.PF\_BSD\_capstone\_yields\_Clay\_BSD\_standardV2}; \texttt{algebraicRankV2\_routed\_via\_RankWitnessTyped}; \texttt{analyticRankV2\_routed\_via\_SelmerRankEquals}; \texttt{PF\_BSD\_capstoneV2\_implies\_V1}.
 & --- \\
+Ch~\ref{ch:birch-swinnerton-dyer} (BSD, \textbf{Two exact rank-$0$ curves via Fermat descent}, 2026-10-17 + 2026-11-14)
+& Both rational $2$-isogenies of the congruent-number curve $E_1$ at
+$n = 1$ have rank exactly zero over $\mathbb{Q}$, three-axiom bar
+$[propext, Classical.choice, Quot.sound]$: $y^2 = x^3 + x$ (LMFDB
+64.a4, conductor 64, landed 2026-10-17) and $y^2 = x^3 - x$ (LMFDB
+32.a2, conductor 32, the congruent-number curve $E_1$, landed
+2026-11-14 as a mirror of the 2026-10-17 descent using today's
+$a^4 - b^4 \ne c^2$ difference form). No analytic-rank machinery,
+no $L$-function appears anywhere; the proofs run entirely through
+classical infinite descent.
+& \texttt{PF.Ch24Descent2TorsionRatBridge20261017.Ecurve\_rank\_eq\_zero}
+(for $y^2 = x^3 + x$, mathlib's
+\texttt{not\_fermat\_42}~--- sum form);
+\texttt{PrincipiaTractalis.Ch24DescentSubRatBridge20261114.Ecurve32a2\_rank\_eq\_zero}
+(for $y^2 = x^3 - x$, this corpus's \texttt{PF.not\_fermat\_42\_sub}~---
+difference form, staged for mathlib as
+\href{https://github.com/leanprover-community/mathlib4/pull/46025}{PR \#46025}).
+Supporting: \texttt{fermat42Double\_impossible\_unconditional}
+(2026-11-14 full-day descent for $2a^2 = s^4 + t^4$).
+& --- \\
 Ch~\ref{ch:birch-swinnerton-dyer} (BSD, \textbf{Bounded encoding} + tree-state diagnostic, 2026-09-12)
 & \textbf{Two-rank-witness encoding} paired with \textbf{tree-completeness asymmetry diagnostics.} The encoding carries two independent rank-lower-bound fields with typed evidence; the diagnostics report that the current Lean tree exposes \texttt{RankWitnessTyped}-shape algebraic evidence via the Heegner cascade but no kernel-verified analytic-rank machinery. \emph{Not a Clay discharge; not a BSD proof; not a BSD gap on \(E_{37.a1}\).} The diagnostic theorems measure LEAN TREE state, not curve arithmetic: \texttt{RankWitnessTyped $E$ 1} ignores $E$ and reduces to $\exists$ one nonzero rational; \texttt{r\_an\_lb = 0} records absent tree machinery, not analytic rank zero (LMFDB records analytic rank of $E_{37.a1}$ equal to 1). Matches book Ch.~\ref{ch:birch-swinnerton-dyer} post-2026-07-31 falsification-cascade scoping: BSD remains open, Mestre--Nagao is the surviving substrate signal (\texttt{PF/EllipticTrace\_r194.lean}).
 & Structural: \texttt{PrincipiaTractalis.BSD.BoundedEncoding.StandardBSDEncoding\_Bounded}; \texttt{no\_analytic\_rank\_ge\_one\_evidence\_yet}; \texttt{bounded\_witness\_forces\_analytic\_zero}; \texttt{bounded\_encoding\_projectionAsymmetry\_from\_algebraic\_lb}; \texttt{bounded\_encoding\_ClayPredicate\_falsifiable\_via\_algebraic\_lb}. Tree-state diagnostics on $E_{37.a1}$: \texttt{treeStateInstance\_E37a1}; \texttt{boundedEncoding\_projectionAsymmetry\_at\_E37a1}; \texttt{boundedEncoding\_ClayPredicate\_falsified\_by\_treeAsymmetry} (all in \texttt{PF/BSD\_BoundedEncodingHonest.lean}; charter \texttt{codex/BSD\_HONEST\_REWRITE\_CHARTER\_2026-09-12.md}). Provenance aliases for the original commit-\texttt{b00cf776} names \texttt{bounded\_encoding\_exhibits\_bsd\_gap} and \texttt{bounded\_Clay\_BSD\_not\_provable\_under\_populated\_algebraic}, and for the original commit-\texttt{146c153d} names \texttt{witness\_E37a1}, \texttt{sigmaWitness\_E37a1}, \texttt{bounded\_encoding\_gap\_at\_E37a1}, \texttt{bounded\_Clay\_BSD\_fails\_unconditionally}, all retained as \texttt{@[deprecated]} (the pre-reclassification names were overclaims; see file docstring \S Epistemic Status).
