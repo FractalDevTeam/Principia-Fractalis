@@ -233,6 +233,190 @@ theorem fermat42Double_impossible_of_assembler
     · exact h hp
     · exact h hq
 
+/-- **Stage 2 sub-gap** — assumes Pythagorean (m, k) structure as input. -/
+def Fermat42DoubleStage2 : Prop :=
+  ∀ s t a m k : ℤ,
+    s ≠ 0 → t ≠ 0 → 0 < a →
+    IsCoprime s t →
+    s ^ 2 < t ^ 2 →
+    s % 2 = 1 → t % 2 = 1 →
+    0 < m → 0 < k → m % 2 = 1 →
+    IsCoprime m k →
+    s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2 →
+    t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2 →
+    a = m ^ 2 + 4 * k ^ 2 →
+    2 * a ^ 2 = s ^ 4 + t ^ 4 →
+    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 + 4 * p * q - q ^ 2 = 0) ∨
+    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 - 4 * p * q - q ^ 2 = 0)
+
+/-- Stage 1 core — assumes `a > 0, s² < t²` (WLOG handled by caller). -/
+private theorem fermat42Double_stage1_core
+    (hStage2 : Fermat42DoubleStage2)
+    (s t a : ℤ) (hs_ne : s ≠ 0) (ht_ne : t ≠ 0) (ha_pos : 0 < a)
+    (hst_coprime : IsCoprime s t) (hst_lt : s ^ 2 < t ^ 2)
+    (hs_odd : s % 2 = 1) (ht_odd : t % 2 = 1)
+    (h_eq : 2 * a ^ 2 = s ^ 4 + t ^ 4) :
+    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 + 4 * p * q - q ^ 2 = 0) ∨
+    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 - 4 * p * q - q ^ 2 = 0) := by
+  have hs2_mod : s ^ 2 % 2 = 1 := by
+    rw [show s ^ 2 = s * s from sq s, Int.mul_emod, hs_odd]; decide
+  have ht2_mod : t ^ 2 % 2 = 1 := by
+    rw [show t ^ 2 = t * t from sq t, Int.mul_emod, ht_odd]; decide
+  have h2_dvd_sum : (2 : ℤ) ∣ (s ^ 2 + t ^ 2) := by
+    apply Int.dvd_of_emod_eq_zero
+    rw [Int.add_emod, hs2_mod, ht2_mod]; decide
+  obtain ⟨u, hu_def⟩ := h2_dvd_sum
+  have h2_dvd_diff : (2 : ℤ) ∣ (t ^ 2 - s ^ 2) := by
+    apply Int.dvd_of_emod_eq_zero
+    rw [Int.sub_emod, ht2_mod, hs2_mod]; decide
+  obtain ⟨v, hv_def⟩ := h2_dvd_diff
+  have hs2_pos : 0 < s ^ 2 :=
+    (sq_nonneg s).lt_of_ne (fun h => hs_ne (pow_eq_zero_iff (by norm_num : (2 : ℕ) ≠ 0) |>.mp h.symm))
+  have ht2_pos : 0 < t ^ 2 :=
+    (sq_nonneg t).lt_of_ne (fun h => ht_ne (pow_eq_zero_iff (by norm_num : (2 : ℕ) ≠ 0) |>.mp h.symm))
+  have hu_pos : 0 < u := by linarith
+  have hv_pos : 0 < v := by linarith
+  have h_sum_eq : u + v = t ^ 2 := by linarith
+  have h_diff_eq : u - v = s ^ 2 := by linarith
+  have hu_mod4 : u % 4 = 1 :=
+    fermat42Double_u_mod_four hs_odd ht_odd h_eq u (by linarith)
+  have hu_odd : u % 2 = 1 := by omega
+  have hv_mod4 : v % 4 = 0 := by
+    have h8s : s ^ 2 % 8 = 1 := odd_sq_mod_eight s hs_odd
+    have h8t : t ^ 2 % 8 = 1 := odd_sq_mod_eight t ht_odd
+    omega
+  have h_pyth : u ^ 2 + v ^ 2 = a ^ 2 := by
+    have h1 : (2 * u) ^ 2 + (2 * v) ^ 2 = 4 * a ^ 2 := by
+      rw [← hu_def]
+      have hv2 : 2 * v = t ^ 2 - s ^ 2 := by linarith
+      rw [hv2]
+      have : (s ^ 2 + t ^ 2) ^ 2 + (t ^ 2 - s ^ 2) ^ 2 = 2 * (s ^ 4 + t ^ 4) := by ring
+      rw [this, ← h_eq]; ring
+    nlinarith [h1]
+  -- gcd(u, v) = 1 via Bezout from IsCoprime (s²) (t²) and u ± v identities.
+  have huv_gcd : Int.gcd u v = 1 := by
+    have hst2_cop : IsCoprime (s ^ 2) (t ^ 2) := hst_coprime.pow
+    obtain ⟨x, y, hxy⟩ := hst2_cop
+    have hgu : (Int.gcd u v : ℤ) ∣ u := Int.gcd_dvd_left u v
+    have hgv : (Int.gcd u v : ℤ) ∣ v := Int.gcd_dvd_right u v
+    have hdvd_1 : (Int.gcd u v : ℤ) ∣ (1 : ℤ) := by
+      have : (1 : ℤ) = (u - v) * x + (u + v) * y := by rw [h_diff_eq, h_sum_eq]; linarith
+      rw [this]
+      exact dvd_add (dvd_mul_of_dvd_left (dvd_sub hgu hgv) _)
+                    (dvd_mul_of_dvd_left (dvd_add hgu hgv) _)
+    have : Int.gcd u v ∣ 1 := by exact_mod_cast hdvd_1
+    exact Nat.dvd_one.mp this
+  have huv_coprime : IsCoprime u v := Int.isCoprime_iff_gcd_eq_one.mpr huv_gcd
+  -- Pythagorean classification on (u, v, a) directly.
+  have h_pyth_tri : PythagoreanTriple u v a := by
+    show u * u + v * v = a * a
+    nlinarith [h_pyth]
+  obtain ⟨m, n, hv_eq, hu_eq, ha_eq_mn, hmn_gcd, hmn_par, hm_nn⟩ :=
+    h_pyth_tri.coprime_classification' huv_gcd hu_odd ha_pos
+  -- hv_eq : u = m^2 - n^2, hu_eq : v = 2*m*n, ha_eq_mn : a = m^2 + n^2
+  -- Wait — the variable names are swapped. Let me re-read.
+  -- `coprime_classification'` returns: x = m² - n², y = 2*m*n, z = m² + n².
+  -- Applied to h_pyth_tri.symm variant (u, v, a) — but mathlib's PythagoreanTriple x y z
+  -- means x² + y² = z². So we want to apply with x = u (odd), y = v, z = a (positive).
+  -- The pythagoreanTriple_comm.mp converts PythagoreanTriple v u a to PythagoreanTriple u v a.
+  -- So after .mp, triple is (u, v, a) with u odd.
+  -- Classification: u = m² - n², v = 2mn, a = m² + n².
+  -- So hv_eq : u = m² - n², hu_eq : v = 2*m*n, ha_eq_mn : a = m² + n².
+  -- The naming is: first binder is x-equation, second is y-equation, third is z-equation.
+  -- Variable names in classification' are also m, n.
+  -- m parity: u = m² - n² ≡ 1 mod 4 forces m odd, n even.
+  have hmn_coprime : IsCoprime m n := Int.isCoprime_iff_gcd_eq_one.mpr hmn_gcd
+  have hm_odd : m % 2 = 1 := by
+    rcases hmn_par with ⟨hm_ev, hn_od⟩ | ⟨hm_od, _⟩
+    · exfalso
+      obtain ⟨m₀, hm₀⟩ : (2 : ℤ) ∣ m := Int.dvd_of_emod_eq_zero hm_ev
+      have hm2 : m ^ 2 % 4 = 0 := by
+        rw [hm₀]
+        have : (2 * m₀) ^ 2 = 4 * (m₀ ^ 2) := by ring
+        rw [this, Int.mul_emod_right]
+      have hn2 : n ^ 2 % 4 = 1 := by
+        have h8 : n ^ 2 % 8 = 1 := odd_sq_mod_eight n hn_od
+        omega
+      have hu4 : u % 4 = 3 := by rw [hv_eq]; omega
+      omega
+    · exact hm_od
+  have hn_even : n % 2 = 0 := by
+    rcases hmn_par with ⟨hm_ev, _⟩ | ⟨_, hn_ev⟩
+    · exfalso; omega
+    · exact hn_ev
+  obtain ⟨k, hk_def⟩ : (2 : ℤ) ∣ n := Int.dvd_of_emod_eq_zero hn_even
+  -- m > 0, k > 0 required.
+  -- From ha_eq_mn : a = m² + n² = m² + 4k². And a > 0.
+  -- From hv_eq : u = m² - n² with u > 0. So m² > n² ≥ 0, m² > 0.
+  have hm_ne : m ≠ 0 := by
+    intro h
+    rw [h] at hv_eq
+    simp at hv_eq
+    -- hv_eq : u = -n^2, but u > 0 and -n² ≤ 0.
+    have : u ≤ 0 := by rw [hv_eq]; nlinarith [sq_nonneg n]
+    linarith
+  have hm_pos : 0 < m := lt_of_le_of_ne hm_nn (Ne.symm hm_ne)
+  have hn_ne : n ≠ 0 := by
+    intro h
+    rw [h] at hu_eq
+    -- hu_eq : v = 2*m*0 = 0, but v > 0.
+    simp at hu_eq
+    linarith
+  have hk_ne : k ≠ 0 := by
+    intro h
+    rw [h] at hk_def
+    simp at hk_def
+    exact hn_ne hk_def
+  have hk_pos : 0 < k := by
+    -- k = n / 2 and n > 0 (since v = 2mn > 0 and m > 0 ⟹ n > 0).
+    have hn_pos : 0 < n := by
+      by_contra h_not_pos
+      push_neg at h_not_pos
+      have hn_le : n ≤ 0 := h_not_pos
+      have : v ≤ 0 := by
+        rw [hu_eq]
+        have : 2 * m * n ≤ 0 := by nlinarith
+        exact this
+      linarith
+    have : 0 < 2 * k := by linarith [hk_def ▸ hn_pos]
+    linarith
+  -- IsCoprime m k: from IsCoprime m n and n = 2k.
+  have hmk_coprime : IsCoprime m k := by
+    rw [hk_def] at hmn_coprime
+    exact hmn_coprime.of_mul_right_right
+  -- Derive s² = (m - 2k)² - 8k², t² = (m + 2k)² - 8k².
+  have hu_mk : u = m ^ 2 - 4 * k ^ 2 := by rw [hv_eq, hk_def]; ring
+  have hv_mk : v = 4 * m * k := by rw [hu_eq, hk_def]; ring
+  have hs_sq : s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2 := by
+    have : s ^ 2 = u - v := h_diff_eq.symm
+    rw [this, hu_mk, hv_mk]; ring
+  have ht_sq : t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2 := by
+    have : t ^ 2 = u + v := h_sum_eq.symm
+    rw [this, hu_mk, hv_mk]; ring
+  have ha_mk : a = m ^ 2 + 4 * k ^ 2 := by rw [ha_eq_mn, hk_def]; ring
+  exact hStage2 s t a m k hs_ne ht_ne ha_pos hst_coprime hst_lt hs_odd ht_odd
+    hm_pos hk_pos hm_odd hmk_coprime hs_sq ht_sq ha_mk h_eq
+
+/-- **Stage 1**: reduces `Fermat42DoubleAssembler` to `Fermat42DoubleStage2`. -/
+theorem fermat42Double_assembler_of_stage2
+    (hStage2 : Fermat42DoubleStage2) :
+    Fermat42DoubleAssembler := by
+  intro s t a hs_ne ht_ne ha_ne hst_coprime hst_sq_ne hs_odd ht_odd h_eq
+  -- WLOG a > 0.
+  have h_abs_eq : 2 * |a| ^ 2 = s ^ 4 + t ^ 4 := by
+    rw [sq_abs]; exact h_eq
+  have h_abs_ne : |a| ≠ 0 := abs_ne_zero.mpr ha_ne
+  have h_abs_pos : 0 < |a| := abs_pos.mpr ha_ne
+  -- Split s² vs t².
+  rcases lt_trichotomy (s ^ 2) (t ^ 2) with h_lt | h_eq2 | h_gt
+  · exact fermat42Double_stage1_core hStage2 s t |a| hs_ne ht_ne h_abs_pos
+      hst_coprime h_lt hs_odd ht_odd h_abs_eq
+  · exact absurd h_eq2 hst_sq_ne
+  · have hts_coprime : IsCoprime t s := hst_coprime.symm
+    have h_abs_eq_sw : 2 * |a| ^ 2 = t ^ 4 + s ^ 4 := by linarith
+    exact fermat42Double_stage1_core hStage2 t s |a| ht_ne hs_ne h_abs_pos
+      hts_coprime h_gt ht_odd hs_odd h_abs_eq_sw
+
 end PF.Fermat42Sub
 
 /-! ## §Axiom check -/
@@ -242,3 +426,4 @@ end PF.Fermat42Sub
 #print axioms PF.Fermat42Sub.fermat42_key_quadratic_no_solutions
 #print axioms PF.Fermat42Sub.fermat42_key_quadratic_variant
 #print axioms PF.Fermat42Sub.fermat42Double_impossible_of_assembler
+#print axioms PF.Fermat42Sub.fermat42Double_assembler_of_stage2
