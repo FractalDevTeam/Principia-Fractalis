@@ -456,6 +456,60 @@ private theorem fermat42Double_descent_factorization_facts
   · omega
   · omega
 
+/-- **Coprimality lemma** — `IsCoprime (m - 2k) s` from `IsCoprime m k` + identity.
+
+Proof chain:
+* `IsCoprime (m - 2k) k` via `IsCoprime.add_mul_right_left`
+* `d := gcd(m - 2k, s)` divides `8k²` via `(m - 2k)² - s² = 8k²`
+* `d` is coprime to `k` (from `d ∣ (m - 2k)`)
+* Hence `d ∣ 8` (dividing 8k² and coprime to `k²`)
+* `d` odd (dividing `m - 2k` which is odd) forces `d ∣ gcd(8, odd) = 1`. -/
+private theorem fermat42Double_m2k_sub_s_coprime
+    (s m k : ℤ) (hs_odd : s % 2 = 1) (hk_pos : 0 < k) (hm_odd : m % 2 = 1)
+    (hmk_coprime : IsCoprime m k)
+    (hs_sq : s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2) :
+    IsCoprime (m - 2 * k) s := by
+  -- IsCoprime (m - 2k) k.
+  have hmk_sub_cop_k : IsCoprime (m - 2 * k) k := by
+    have h_rw : m - 2 * k = m + (-2) * k := by ring
+    rw [h_rw]
+    exact hmk_coprime.add_mul_right_left (-2)
+  -- Apply gcd argument.
+  rw [Int.isCoprime_iff_gcd_eq_one]
+  set d := Int.gcd (m - 2 * k) s
+  have hd_dvd_mk : (d : ℤ) ∣ (m - 2 * k) := Int.gcd_dvd_left (m - 2 * k) s
+  have hd_dvd_s : (d : ℤ) ∣ s := Int.gcd_dvd_right (m - 2 * k) s
+  -- d | 8k² from d | (m - 2k)² - s² = 8k².
+  have hd_dvd_8ksq : (d : ℤ) ∣ 8 * k ^ 2 := by
+    have h3 : (m - 2 * k) ^ 2 - s ^ 2 = 8 * k ^ 2 := by linarith [hs_sq]
+    rw [← h3]
+    exact dvd_sub (dvd_pow hd_dvd_mk (by norm_num))
+                  (dvd_pow hd_dvd_s (by norm_num))
+  -- d odd via IsCoprime (m - 2k) 2 + divisibility.
+  have hm2k_odd : (m - 2 * k) % 2 = 1 := by omega
+  have hmk_sub_cop_2 : IsCoprime (m - 2 * k) (2 : ℤ) := by
+    obtain ⟨q, hq⟩ : ∃ q, m - 2 * k = 2 * q + 1 := ⟨(m - 2 * k - 1) / 2, by omega⟩
+    exact ⟨1, -q, by linarith [hq]⟩
+  have hd_cop_2 : IsCoprime (d : ℤ) 2 :=
+    hmk_sub_cop_2.of_isCoprime_of_dvd_left hd_dvd_mk
+  -- IsCoprime d 8 (from IsCoprime d 2, by cube).
+  have hd_cop_8 : IsCoprime (d : ℤ) 8 := by
+    have h : IsCoprime (d : ℤ) (2 ^ 3) := hd_cop_2.pow_right
+    simpa [show (2 : ℤ) ^ 3 = 8 from by norm_num] using h
+  -- IsCoprime d k via IsCoprime (m - 2k) k + divisibility.
+  have hd_cop_k : IsCoprime (d : ℤ) k :=
+    hmk_sub_cop_k.of_isCoprime_of_dvd_left hd_dvd_mk
+  -- IsCoprime d k² (pow of IsCoprime d k).
+  have hd_cop_ksq : IsCoprime (d : ℤ) (k ^ 2) := hd_cop_k.pow_right
+  -- From d | 8k² and IsCoprime d k²: d | 8.
+  have hd_dvd_8 : (d : ℤ) ∣ 8 := by
+    have h1 : (d : ℤ) ∣ 8 * k ^ 2 := hd_dvd_8ksq
+    exact hd_cop_ksq.dvd_of_dvd_mul_right h1
+  -- From d | 8 and IsCoprime d 8: d | 1.
+  have : (d : ℤ) ∣ 1 := hd_cop_8.dvd_of_dvd_mul_left (by simpa using hd_dvd_8)
+  have h_nat : d ∣ 1 := by exact_mod_cast this
+  exact Nat.dvd_one.mp h_nat
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
