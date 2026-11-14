@@ -665,10 +665,46 @@ $\mathcal{R}_f(2,s)=\zeta(s)$.
 \textbf{What survives, and it is not small.} The finite-dimensional
 Osterwalder--Schrader reflection-positivity work is independently
 kernel-verified and is untouched by any of the above
-(\texttt{YM\_OSRPInteractionScaffold}); it simply does not lift to the
+(\texttt{YM\_OSRPInteractionScaffold}); the remaining lift is to the
 continuum.
 
-\textbf{Future Work}: The complete analytical construction using Minlos theorem, verification of Osterwalder-Schrader axioms, and proof of continuum limit convergence remain open problems requiring advanced measure theory and functional analysis.
+\paragraph{Reflection positivity on $L^2$ test functions (rev 2, 2026-11-13).}
+
+The $2026$-$10$-$29$ ``finite-dimensional'' scaffold stated reflection
+positivity for \emph{continuous} test functions:
+$$
+  \texttt{wilson\_reflection\_positivity\_of\_continuous}: \text{ the
+  $\theta$-crossed Gram matrix is positive semidefinite for } F : \mathrm{Fin}\,K
+  \to C_c(\mathtt{GaugeField}\ L \to \mathbb{C}).
+$$
+The ``continuum lift'' direction of this lane has two layers.  The first
+layer, extending from continuous to $L^2$ test functions, is \emph{done}:
+\begin{center}
+\texttt{wilson\_reflection\_positivity\_of\_L2\_strong}\ (hL : Even L) (β : ℝ)
+(F : Fin K → GaugeField L → ℂ)
+\end{center}
+with \texttt{StronglyMeasurable} $+$ \texttt{MemLp 2} $+$
+\texttt{supportedOnPlusZero} inputs, yielding the $\theta$-crossed Gram
+matrix \texttt{PosSemidef} unconditionally on the three-axiom bar.  All five
+extension steps closed over 2026-11-11 to 2026-11-13: Cauchy--Schwarz
+(step 1), $\theta$-invariance (step 2), density via Route A pushforward
+through \texttt{projectNonMinus} using mathlib's
+\texttt{MemLp.exists\_boundedContinuous\_eLpNorm\_sub\_le} on
+\texttt{WeaklyRegular (wilsonProjectedGibbsMeasure L β)} (step 3), Jensen
+contraction on \texttt{avgMinus} (step 3c.4c), PSD limit (step 4), Gram
+convergence (step 5a).  Head commit \texttt{f29288c4} on
+\texttt{origin/master}, 20-commit arc from \texttt{4fee7918}.
+
+What this lift does \emph{not} do: lattice reflection positivity on $L^2$ is
+still per-lattice-$L$ (finite-dimensional base measure); the second layer ---
+thermodynamic limit $L \to \infty$ and Osterwalder--Schrader reconstruction
+to continuum relativistic quantum fields --- is open.  That is the
+multi-year programme the chapter has always disclosed.  The lift from
+continuous to $L^2$ reduces the work needed for the subsequent steps
+(nuclear GNS, Wightman reconstruction, continuum limit) by providing the
+right test-function class.
+
+\textbf{Future Work}: The complete analytical construction using Minlos theorem, verification of the remaining Osterwalder--Schrader axioms, and proof of continuum limit convergence remain open problems requiring advanced measure theory and functional analysis.  The $L^2$ reflection positivity landed 2026-11-13 closes one named sub-step of that programme.
 
 \section*{Exercises}
 
