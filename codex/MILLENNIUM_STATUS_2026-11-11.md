@@ -6,6 +6,25 @@ audit closed), the natural next question is where other axes stand. This memo
 is the honest answer. It corrects two prior scoping docs that are stale, and
 names one concrete next-step target that is bounded.
 
+> **2026-11-14 amendment.** BSD **NEXT (A)** below — the second rank-$0$ curve
+> via `a⁴ − b⁴ ≠ c²` — **LANDED** today.
+> - `PF.not_fermat_42_sub` assembled at commit `3d3b44f6` (full Pythagorean
+>   descent to the mathlib-absent difference form, composed with
+>   `Fermat42Double_impossible` fully unconditional at `5e294d36`).
+> - `Ecurve32a2_rank_eq_zero : Module.rank ℤ Ecurve.toAffine.Point = 0` for
+>   $y^2 = x^3 - x$ (LMFDB 32.a2, conductor 32) at commit `a0c42bd8`, mirror
+>   of the 2026-10-17 $y^2 = x^3 + x$ descent, three-axiom bar.
+> - The mathlib-upstream companion file is in flight as
+>   [PR #46025](https://github.com/leanprover-community/mathlib4/pull/46025).
+>
+> Together with the 2026-10-17 `Ecurve_rank_eq_zero` for $y^2 = x^3 + x$,
+> the corpus now carries **two exact rank-$0$ curves** — both rational
+> 2-isogenies of the congruent-number curve $E_1$ at $n = 1$.
+>
+> BSD BLOCKER (A) is no longer a blocker. The next bounded target on the BSD
+> axis is now **B.rank $\le$ 1** (full Selmer machinery for an exact rank-$1$
+> curve, multi-week per the original Rio scoping).
+
 Each axis section follows the same structure: **DEPLOYED** (what's in the tree
 on three-axiom bar), **FRONTIER** (what's one step away), **BLOCKER** (what's
 blocking the next layer), **NEXT** (a specific, bounded target).
@@ -177,18 +196,25 @@ with the test functions in `L²`. Bounded project, days not weeks.
 ### FRONTIER
 
 Per `codex/BSD_NEXT_STEPS_2026-11-11.md`:
-* **(A)** Second rank-0 curve via `a⁴ − b⁴ ≠ c²`. Day-long. Pending.
+* **(A)** Second rank-0 curve via `a⁴ − b⁴ ≠ c²`. **DONE 2026-11-14** —
+  `Ecurve32a2_rank_eq_zero` (y² = x³ − x) + `PF.not_fermat_42_sub`
+  (commits `3d3b44f6`, `fe933243`, `ee36311a`, `a0c42bd8`). Mathlib PR
+  #46025 in flight for upstream of the difference form.
 * **(B.rank≤1)** Full Selmer machinery for exact rank 1. Multi-week.
   Pending.
 
 ### BLOCKER
 
-(A) blocks on mathlib having only `a⁴ + b⁴ ≠ c²`, not the difference form.
+~~(A) blocks on mathlib having only `a⁴ + b⁴ ≠ c²`, not the difference form.~~
+Resolved 2026-11-14 by assembling `PF.not_fermat_42_sub` locally (full
+Pythagorean descent to the difference form; also staged for mathlib upstream).
 (B.rank≤1) blocks on mathlib having no Selmer/descent-via-isogeny machinery.
 
 ### NEXT
 
-(A) is the bounded one. Scope in the BSD_NEXT_STEPS doc.
+~~(A) is the bounded one.~~ (A) done. Next bounded target on the BSD axis
+is **(B.rank≤1)** — multi-week, full 2-descent with Selmer-group
+computation. No in-session bounded target remaining on BSD after today.
 
 ---
 
