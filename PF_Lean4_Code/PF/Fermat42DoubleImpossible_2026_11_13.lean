@@ -869,6 +869,84 @@ private theorem fermat42Double_four_way_split
   exact ⟨e, α', γ', f, he_pos, hα'_pos, hγ'_pos, hf_pos, h_cop_cop,
          hα_rw, hγ_rw, hf, hδ_eq⟩
 
+/-- **Quadruple extraction** — combines the s-side + t-side square splits
+with the four-way UFD split to produce positive `(a, b, c, d)` with
+`k = a·b·c·d` and the key identities. -/
+private theorem fermat42Double_quadruple_extraction
+    (s t m k : ℤ) (hs_ne : s ≠ 0) (ht_ne : t ≠ 0)
+    (hs_odd : s % 2 = 1) (ht_odd : t % 2 = 1)
+    (hm_pos : 0 < m) (hk_pos : 0 < k) (hm_odd : m % 2 = 1)
+    (hmk_cop : IsCoprime m k)
+    (hu_pos : 0 < m ^ 2 - 4 * k ^ 2)
+    (hs_sq : s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2)
+    (ht_sq : t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2) :
+    ∃ a b c d : ℤ, 0 < a ∧ 0 < b ∧ 0 < c ∧ 0 < d ∧
+      k = a * b * c * d ∧
+      m - 2 * k = 2 * a ^ 2 * b ^ 2 + c ^ 2 * d ^ 2 ∧
+      m + 2 * k = 2 * a ^ 2 * c ^ 2 + b ^ 2 * d ^ 2 := by
+  obtain ⟨A, B, α, β, hA_def, hB_def, hA_pos, hB_pos, _, hAB_prod, hAB_case, hαβ⟩ :=
+    fermat42Double_s_side_split s m k hs_ne hs_odd hm_pos hk_pos hm_odd hmk_cop hu_pos hs_sq
+  obtain ⟨C, D, γ, δ, hC_def, hD_def, hC_pos, hD_pos, _, hCD_prod, hCD_case, hγδ⟩ :=
+    fermat42Double_t_side_split t m k ht_ne ht_odd hm_pos hk_pos hm_odd hmk_cop ht_sq
+  -- Normalize to positive via |·|.
+  have hk_ne : k ≠ 0 := Int.ne_of_gt hk_pos
+  have hα'β'_eq : |α| * |β| = k := by
+    rw [← abs_mul]
+    rcases hαβ with heq | heq
+    · rw [heq, abs_of_pos hk_pos]
+    · rw [heq, abs_neg, abs_of_pos hk_pos]
+  have hγ'δ'_eq : |γ| * |δ| = k := by
+    rw [← abs_mul]
+    rcases hγδ with heq | heq
+    · rw [heq, abs_of_pos hk_pos]
+    · rw [heq, abs_neg, abs_of_pos hk_pos]
+  have hα'_pos : 0 < |α| := by
+    by_contra h; push_neg at h
+    have : |α| = 0 := le_antisymm h (abs_nonneg α)
+    rw [this, zero_mul] at hα'β'_eq
+    exact hk_ne hα'β'_eq.symm
+  have hβ'_pos : 0 < |β| := by
+    by_contra h; push_neg at h
+    have : |β| = 0 := le_antisymm h (abs_nonneg β)
+    rw [this, mul_zero] at hα'β'_eq
+    exact hk_ne hα'β'_eq.symm
+  have hγ'_pos : 0 < |γ| := by
+    by_contra h; push_neg at h
+    have : |γ| = 0 := le_antisymm h (abs_nonneg γ)
+    rw [this, zero_mul] at hγ'δ'_eq
+    exact hk_ne hγ'δ'_eq.symm
+  have hδ'_pos : 0 < |δ| := by
+    by_contra h; push_neg at h
+    have : |δ| = 0 := le_antisymm h (abs_nonneg δ)
+    rw [this, mul_zero] at hγ'δ'_eq
+    exact hk_ne hγ'δ'_eq.symm
+  -- Apply four-way split.
+  have heq_prod : |α| * |β| = |γ| * |δ| := by rw [hα'β'_eq, hγ'δ'_eq]
+  obtain ⟨a, b, c, d, ha_pos, hb_pos, hc_pos, hd_pos, hbc_cop,
+          hα_rw, hγ_rw, hβ_rw, hδ_rw⟩ :=
+    fermat42Double_four_way_split |α| |β| |γ| |δ| hα'_pos hβ'_pos hγ'_pos hδ'_pos heq_prod
+  refine ⟨a, b, c, d, ha_pos, hb_pos, hc_pos, hd_pos, ?_, ?_, ?_⟩
+  · -- k = a*b*c*d.
+    rw [← hα'β'_eq, hα_rw, hβ_rw]; ring
+  · -- m - 2k = 2a²b² + c²d²: m - 2k = A + B = 2α² + β² (either case) = 2|α|² + |β|² = 2(ab)² + (cd)².
+    have h_AB_sum : A + B = 2 * α ^ 2 + β ^ 2 := by
+      rcases hAB_case with ⟨hA_eq, hB_eq⟩ | ⟨hA_eq, hB_eq⟩
+      · rw [hA_eq, hB_eq]; ring
+      · rw [hA_eq, hB_eq]
+    have h_m2k : m - 2 * k = A + B := by linarith [hA_def, hB_def]
+    rw [h_m2k, h_AB_sum, show (α : ℤ) ^ 2 = |α| ^ 2 from (sq_abs α).symm,
+        show (β : ℤ) ^ 2 = |β| ^ 2 from (sq_abs β).symm, hα_rw, hβ_rw]
+    try ring
+  · -- m + 2k = 2a²c² + b²d².
+    have h_CD_sum : C + D = 2 * γ ^ 2 + δ ^ 2 := by
+      rcases hCD_case with ⟨hC_eq, hD_eq⟩ | ⟨hC_eq, hD_eq⟩
+      · rw [hC_eq, hD_eq]; ring
+      · rw [hC_eq, hD_eq]
+    have h_m2k : m + 2 * k = C + D := by linarith [hC_def, hD_def]
+    rw [h_m2k, h_CD_sum, show (γ : ℤ) ^ 2 = |γ| ^ 2 from (sq_abs γ).symm,
+        show (δ : ℤ) ^ 2 = |δ| ^ 2 from (sq_abs δ).symm, hγ_rw, hδ_rw]
+    try ring
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
