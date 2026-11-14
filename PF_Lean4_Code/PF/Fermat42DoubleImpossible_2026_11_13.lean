@@ -960,6 +960,51 @@ private theorem fermat42Double_key_relation
   rw [hk_abcd] at h_diff
   linear_combination h_diff
 
+/-- **Smaller Fermat42Double extraction** — from the key relation,
+derive `∃ e, 2e² = b⁴ + c⁴`.
+
+Proof chain:
+* Completing the square on the key relation: `(2(c² - b²)·d + 4abc)² = 8a²(b⁴ + c⁴)`.
+* Set `M := 2(c² - b²)·d + 4abc`.  Then `M² = 8a²(b⁴ + c⁴) = (2a)²·2(b⁴ + c⁴)`.
+* `(2a)² ∣ M²` via `Int.pow_dvd_pow_iff` gives `2a ∣ M`.  Write `M = 2a·e'`.
+* `e'² = 2(b⁴ + c⁴)`.  `2 ∣ e'²` so `2 ∣ e'`.  Write `e' = 2e''`.
+* `4e''² = 2(b⁴ + c⁴)`, i.e., `2e''² = b⁴ + c⁴`. -/
+private theorem fermat42Double_smaller_equation
+    (a b c d : ℤ) (ha_pos : 0 < a) (hb_pos : 0 < b) (hc_pos : 0 < c) (hd_pos : 0 < d)
+    (h_key : 4 * (a * b * c * d) = (c ^ 2 - b ^ 2) * (2 * a ^ 2 - d ^ 2)) :
+    ∃ e : ℤ, 2 * e ^ 2 = b ^ 4 + c ^ 4 := by
+  -- Step 1: (2(c² - b²)d + 4abc)² = 8a²(b⁴ + c⁴).
+  have h_sq_eq : (2 * (c ^ 2 - b ^ 2) * d + 4 * a * b * c) ^ 2 = 8 * a ^ 2 * (b ^ 4 + c ^ 4) := by
+    linear_combination 4 * (c ^ 2 - b ^ 2) * h_key
+  set M : ℤ := 2 * (c ^ 2 - b ^ 2) * d + 4 * a * b * c with hM_def
+  -- Step 2: (2a)² ∣ M² via M² = (2a)² · 2(b⁴ + c⁴).
+  have h_2a_sq_dvd : (2 * a) ^ 2 ∣ M ^ 2 := by
+    refine ⟨2 * (b ^ 4 + c ^ 4), ?_⟩
+    linear_combination h_sq_eq
+  -- Step 3: 2a ∣ M.
+  have h_2a_dvd : (2 * a) ∣ M :=
+    (Int.pow_dvd_pow_iff two_ne_zero).mp h_2a_sq_dvd
+  obtain ⟨e', hM_eq⟩ := h_2a_dvd
+  -- Step 4: e'² = 2(b⁴ + c⁴).
+  have h_e'_sq : e' ^ 2 = 2 * (b ^ 4 + c ^ 4) := by
+    have h1 : M ^ 2 = (2 * a) ^ 2 * e' ^ 2 := by rw [hM_eq]; ring
+    have h2a_sq_pos : 0 < (2 * a) ^ 2 := by positivity
+    have h2a_sq_ne : (2 * a) ^ 2 ≠ 0 := Int.ne_of_gt h2a_sq_pos
+    have h3 : (2 * a) ^ 2 * e' ^ 2 = (2 * a) ^ 2 * (2 * (b ^ 4 + c ^ 4)) := by
+      rw [← h1, h_sq_eq]; ring
+    exact mul_left_cancel₀ h2a_sq_ne h3
+  -- Step 5: 2 ∣ e' via e'² = 2·(b⁴+c⁴) (so 2 ∣ e'², hence 2 ∣ e').
+  have h_two_prime : Prime (2 : ℤ) := Int.prime_two
+  have h_two_dvd_e' : (2 : ℤ) ∣ e' := by
+    have h_two_dvd_sq : (2 : ℤ) ∣ e' ^ 2 := ⟨b ^ 4 + c ^ 4, h_e'_sq⟩
+    exact h_two_prime.dvd_of_dvd_pow h_two_dvd_sq
+  obtain ⟨e'', he'_eq⟩ := h_two_dvd_e'
+  refine ⟨e'', ?_⟩
+  -- Step 6: 2e''² = b⁴ + c⁴ from (2e'')² = e'² = 2(b⁴+c⁴).
+  have h1 : (2 * e'') ^ 2 = 2 * (b ^ 4 + c ^ 4) := by rw [← he'_eq]; exact h_e'_sq
+  have h2 : 4 * e'' ^ 2 = 2 * (b ^ 4 + c ^ 4) := by linear_combination h1
+  linarith
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
