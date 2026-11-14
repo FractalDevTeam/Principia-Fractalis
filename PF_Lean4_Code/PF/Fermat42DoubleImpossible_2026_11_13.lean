@@ -181,6 +181,58 @@ theorem fermat42_key_quadratic_no_solutions (p q : ℤ) (h : p ^ 2 + 4 * p * q -
   refine ⟨?_, h2⟩
   linarith
 
+/-- **Variant: `p² - 4pq - q² = 0` also has only `p = q = 0`.**
+By the substitution `p → -p`: `(-p)² - 4(-p)q - q² = p² + 4pq - q² = 0`,
+reducing to the prior lemma. -/
+theorem fermat42_key_quadratic_variant (p q : ℤ) (h : p ^ 2 - 4 * p * q - q ^ 2 = 0) :
+    p = 0 ∧ q = 0 := by
+  have h' : (-p) ^ 2 + 4 * (-p) * q - q ^ 2 = 0 := by linear_combination h
+  obtain ⟨hnp, hq⟩ := fermat42_key_quadratic_no_solutions (-p) q h'
+  refine ⟨?_, hq⟩
+  linarith
+
+/-- **Pythagorean descent assembler (named sub-gap)** — the ~200-line
+assembly that takes the Fermat42Double hypothesis, runs
+`coprime_classification'` on `(u, v, a)`, writes `n = 2k`, performs the
+coprime-factorization case analysis on `(t - s)(t + s) = 8mk` and
+`(m - 2k)² - s² = 8k²`, and in each case derives either `k = 0`
+(immediate contradiction) or produces integers `(p, q)` satisfying
+`p² + 4pq - q² = 0` (closed via `fermat42_key_quadratic_no_solutions`).
+
+This is the mechanical case-enumeration piece; its ~200-line
+discharge is left to a dedicated session.  Note that the *hard
+mathematical content* — the irrationality of √5 forcing
+`p² + 4pq - q² = 0 ↔ p = q = 0` — is already fully proved above
+(`int_sq_eq_five_sq_imp_zero` + `fermat42_key_quadratic_no_solutions`). -/
+def Fermat42DoubleAssembler : Prop :=
+  ∀ s t a : ℤ, s ≠ 0 → t ≠ 0 → a ≠ 0 → IsCoprime s t → s ^ 2 ≠ t ^ 2 →
+    s % 2 = 1 → t % 2 = 1 →
+    2 * a ^ 2 = s ^ 4 + t ^ 4 →
+    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 + 4 * p * q - q ^ 2 = 0) ∨
+    (∃ p q : ℤ, (p ≠ 0 ∨ q ≠ 0) ∧ p ^ 2 - 4 * p * q - q ^ 2 = 0)
+
+/-- **`Fermat42Double_impossible` holds** conditional on the
+Pythagorean assembler.  Composition: parity reduction forces `s, t`
+odd, then the assembler produces either variant of the key quadratic,
+and the key-quadratic lemma forces `p = q = 0`, contradicting the
+assembler's output. -/
+theorem fermat42Double_impossible_of_assembler
+    (hAssemble : Fermat42DoubleAssembler) :
+    Fermat42Double_impossible := by
+  intro s t a hs_ne ht_ne ha_ne hst_coprime hst_sq_ne h_eq
+  obtain ⟨hs_odd, ht_odd⟩ :=
+    fermat42Double_parity hs_ne ht_ne hst_coprime h_eq
+  rcases hAssemble s t a hs_ne ht_ne ha_ne hst_coprime hst_sq_ne hs_odd ht_odd h_eq
+      with ⟨p, q, hpq_ne, hquad⟩ | ⟨p, q, hpq_ne, hquad⟩
+  · obtain ⟨hp, hq⟩ := fermat42_key_quadratic_no_solutions p q hquad
+    rcases hpq_ne with h | h
+    · exact h hp
+    · exact h hq
+  · obtain ⟨hp, hq⟩ := fermat42_key_quadratic_variant p q hquad
+    rcases hpq_ne with h | h
+    · exact h hp
+    · exact h hq
+
 end PF.Fermat42Sub
 
 /-! ## §Axiom check -/
@@ -188,3 +240,5 @@ end PF.Fermat42Sub
 #print axioms PF.Fermat42Sub.fermat42Double_u_mod_four
 #print axioms PF.Fermat42Sub.int_sq_eq_five_sq_imp_zero
 #print axioms PF.Fermat42Sub.fermat42_key_quadratic_no_solutions
+#print axioms PF.Fermat42Sub.fermat42_key_quadratic_variant
+#print axioms PF.Fermat42Sub.fermat42Double_impossible_of_assembler
