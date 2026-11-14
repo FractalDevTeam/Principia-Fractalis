@@ -725,6 +725,91 @@ private theorem fermat42Double_half_factors_s_pos
     have h : -s < m - 2 * k := by nlinarith [h_sq_lt, h_m2k, sq_nonneg (m - 2 * k - s), sq_nonneg (m - 2 * k + s)]
     linarith
 
+/-- **Half-factor positivity (t-side)** — mirror of the s-side lemma. -/
+private theorem fermat42Double_half_factors_t_pos
+    (t m k C D : ℤ) (ht_ne : t ≠ 0) (hm_pos : 0 < m) (hk_pos : 0 < k)
+    (ht_sq : t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2)
+    (hC : m + 2 * k - t = 2 * C) (hD : m + 2 * k + t = 2 * D) :
+    0 < C ∧ 0 < D := by
+  have h_m2k_pos : 0 < m + 2 * k := by linarith
+  have h_sq_lt : t ^ 2 < (m + 2 * k) ^ 2 := by
+    have hksq_pos : 0 < 8 * k ^ 2 := by positivity
+    linarith [ht_sq]
+  constructor
+  · have h : t < m + 2 * k := by
+      nlinarith [h_sq_lt, h_m2k_pos, sq_nonneg (m + 2 * k - t), sq_nonneg (m + 2 * k + t)]
+    linarith
+  · have h : -t < m + 2 * k := by
+      nlinarith [h_sq_lt, h_m2k_pos, sq_nonneg (m + 2 * k - t), sq_nonneg (m + 2 * k + t)]
+    linarith
+
+/-- **S-side quadruple extraction** — given the Pythagorean setup, extract
+`(α, β)` with `A = β²` or `A = 2α²` (parity case) and `α·β = ±k`.
+
+Combines half-factor extraction, positivity, and UFD split. -/
+private theorem fermat42Double_s_side_split
+    (s m k : ℤ) (hs_ne : s ≠ 0) (hs_odd : s % 2 = 1)
+    (hm_pos : 0 < m) (hk_pos : 0 < k) (hm_odd : m % 2 = 1)
+    (hmk_cop : IsCoprime m k)
+    (hu_pos : 0 < m ^ 2 - 4 * k ^ 2)
+    (hs_sq : s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2) :
+    ∃ A B α β : ℤ, m - 2 * k - s = 2 * A ∧ m - 2 * k + s = 2 * B ∧
+      0 < A ∧ 0 < B ∧ IsCoprime A B ∧ A * B = 2 * k ^ 2 ∧
+      ((A = β ^ 2 ∧ B = 2 * α ^ 2) ∨ (A = 2 * α ^ 2 ∧ B = β ^ 2)) ∧
+      (α * β = k ∨ α * β = -k) := by
+  have hk_ne : k ≠ 0 := Int.ne_of_gt hk_pos
+  obtain ⟨A, B, hA, hB, hAB_prod, hAB_cop⟩ :=
+    fermat42Double_m2k_half_factors_s s m k hs_odd hk_pos hm_odd hmk_cop hs_sq
+  obtain ⟨hA_pos, hB_pos⟩ :=
+    fermat42Double_half_factors_s_pos s m k A B hs_ne hm_pos hk_pos hu_pos hs_sq hA hB
+  -- Parity case on A.
+  rcases Int.emod_two_eq_zero_or_one A with hA_ev | hA_od
+  · have hB_odd : B % 2 = 1 := by omega
+    obtain ⟨α, β, hB_eq, hA_eq, hcases⟩ :=
+      fermat42Double_sq_split_two_odd_even B A k hB_pos.le hA_pos.le hB_odd
+        hAB_cop.symm (by linarith) hk_ne
+    refine ⟨A, B, α, β, hA, hB, hA_pos, hB_pos, hAB_cop, hAB_prod,
+            Or.inr ⟨hA_eq, hB_eq⟩, ?_⟩
+    rcases hcases with h | h
+    · left; linarith
+    · right; linarith
+  · obtain ⟨α, β, hA_eq, hB_eq, hcases⟩ :=
+      fermat42Double_sq_split_two_odd_even A B k hA_pos.le hB_pos.le hA_od
+        hAB_cop hAB_prod hk_ne
+    exact ⟨A, B, α, β, hA, hB, hA_pos, hB_pos, hAB_cop, hAB_prod,
+           Or.inl ⟨hA_eq, hB_eq⟩, hcases⟩
+
+/-- **T-side quadruple extraction** — mirror for the t-factorization. -/
+private theorem fermat42Double_t_side_split
+    (t m k : ℤ) (ht_ne : t ≠ 0) (ht_odd : t % 2 = 1)
+    (hm_pos : 0 < m) (hk_pos : 0 < k) (hm_odd : m % 2 = 1)
+    (hmk_cop : IsCoprime m k)
+    (ht_sq : t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2) :
+    ∃ C D γ δ : ℤ, m + 2 * k - t = 2 * C ∧ m + 2 * k + t = 2 * D ∧
+      0 < C ∧ 0 < D ∧ IsCoprime C D ∧ C * D = 2 * k ^ 2 ∧
+      ((C = δ ^ 2 ∧ D = 2 * γ ^ 2) ∨ (C = 2 * γ ^ 2 ∧ D = δ ^ 2)) ∧
+      (γ * δ = k ∨ γ * δ = -k) := by
+  have hk_ne : k ≠ 0 := Int.ne_of_gt hk_pos
+  obtain ⟨C, D, hC, hD, hCD_prod, hCD_cop⟩ :=
+    fermat42Double_m2k_half_factors_t t m k ht_odd hk_pos hm_odd hmk_cop ht_sq
+  obtain ⟨hC_pos, hD_pos⟩ :=
+    fermat42Double_half_factors_t_pos t m k C D ht_ne hm_pos hk_pos ht_sq hC hD
+  rcases Int.emod_two_eq_zero_or_one C with hC_ev | hC_od
+  · have hD_odd : D % 2 = 1 := by omega
+    obtain ⟨γ, δ, hD_eq, hC_eq, hcases⟩ :=
+      fermat42Double_sq_split_two_odd_even D C k hD_pos.le hC_pos.le hD_odd
+        hCD_cop.symm (by linarith) hk_ne
+    refine ⟨C, D, γ, δ, hC, hD, hC_pos, hD_pos, hCD_cop, hCD_prod,
+            Or.inr ⟨hC_eq, hD_eq⟩, ?_⟩
+    rcases hcases with h | h
+    · left; linarith
+    · right; linarith
+  · obtain ⟨γ, δ, hC_eq, hD_eq, hcases⟩ :=
+      fermat42Double_sq_split_two_odd_even C D k hC_pos.le hD_pos.le hC_od
+        hCD_cop hCD_prod hk_ne
+    exact ⟨C, D, γ, δ, hC, hD, hC_pos, hD_pos, hCD_cop, hCD_prod,
+           Or.inl ⟨hC_eq, hD_eq⟩, hcases⟩
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
