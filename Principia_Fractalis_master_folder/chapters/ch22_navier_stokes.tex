@@ -398,7 +398,7 @@ Since potential singularities spontaneously reorganize into stable emergence poi
 Therefore, smooth solutions exist globally: $\mathbf{u} \in C^\infty(\mathbb{R}^3 \times [0, \infty))$.
 \end{proof}
 
-\noindent\emph{Scope note (2026-07-23): this is a heuristic/physical argument, not a machine-checked proof. The no-blowup statement is exactly the Clay bar --- the named \emph{open} proposition \texttt{VortexStretchingBoundedHypothesis} / \texttt{NS3DVortexStretchingObstruction} (bucket-3). Global regularity of 3D Navier--Stokes is not established here and remains open. See the Verification status ledger below.}
+\noindent\emph{Scope note (2026-07-23; amended 2026-11-14): this is a heuristic/physical argument, not a machine-checked proof.  The no-blowup statement is exactly the Clay bar.  As of 2026-11-10, the previously-named \texttt{VortexStretchingBoundedHypothesis} is \emph{discharged} at every Galerkin truncation $n$ on the three-axiom bar (file \texttt{PF/NS3DVortexStretchingBoundedDischarge.lean}, commit \texttt{909d944f}).  The current Clay bar is the Route A three-item ordered chain: Schwartz dense in $L^2$, Galerkin $\to$ weak formulation, and the direct Young inequality $\lVert f \star g\rVert_{L^2} \le \lVert f\rVert_{L^1}\lVert g\rVert_{L^2}$ for $(1, 2, 2)$; build order is Young first (per \texttt{codex/NS\_ROUTEA\_GAP\_IS\_ORDERED\_2026-10-29.md}).  Global regularity of 3D Navier--Stokes is not established here and remains open.  See the Verification status ledger below.}
 
 \subsection{Energy Budget at Emergence Points}
 
