@@ -764,21 +764,39 @@ upstream at \href{https://github.com/leanprover-community/mathlib4/pull/46025}
 2026-11-14.  Mathlib currently has only the sum form; this PR closes the
 companion difference form.
 
+\paragraph{Second exact rank (2026-11-14): $y^2 = x^3 - x$, rank $= 0$.}
+
+The curve $E_{32.\text{a}2}: y^2 = x^3 - x$ (conductor $32$, LMFDB
+32.a2, the congruent-number curve $E_1$) also has rank exactly zero
+over $\mathbb{Q}$, delivered the same day as
+\texttt{not\_fermat\_42\_sub}.  The proof is the mirror of the Ch24
+2-torsion descent, in three files:
+\begin{itemize}
+\item \texttt{PF/Ch24DescentSub2TorsionCore\_2026\_11\_14.lean} ---
+  mirror descent core via \texttt{not\_fermat\_42\_sub};
+\item \texttt{PF/Ch24DescentSub2TorsionBookkeeping\_2026\_11\_14.lean}
+  --- lowest-terms normalisation on $Y^2 = ab(a^2 - b^2)$;
+\item \texttt{PF/Ch24DescentSub2TorsionRatBridge\_2026\_11\_14.lean}
+  --- $\mathbb{Q}$ layer and the capstone
+  \texttt{Ecurve32a2\_rank\_eq\_zero}:
+  $\mathtt{Module.rank}\ \mathbb{Z}\ E_{32.\text{a}2}.\mathtt{toAffine.Point}
+  = 0$.
+\end{itemize}
+Together with
+\texttt{Ch24Descent2TorsionRatBridge\_2026\_10\_17.Ecurve\_rank\_eq\_zero}
+(for $y^2 = x^3 + x$, 2026-10-17), this establishes rank $0$ for both
+rational $2$-isogenies of the congruent-number curve $E_1$.  The
+corpus now carries \textbf{two independent exact rank-$0$ curves} on
+the three-axiom bar.
+
 \paragraph{Honest scope, rev 2.}
 
-The second exact rank-$0$ \emph{curve} proof ($y^2 = x^3 - x$,
-$E_{32.\text{a}2}$) now has its Diophantine prerequisite satisfied by
-\texttt{not\_fermat\_42\_sub}, but the \emph{curve-specific} bookkeeping
-parallel to the three Ch24 files (mirror for $y^2 = x^3 - x$) is not yet
-written; expected size $\approx 400$--$600$ Lean lines, one dedicated session.
-With that mirror, the corpus will carry two independent exact rank-$0$
-curves.  Rank-exactly-$1$ for a specific curve (versus the eleven rank-$\ge
-1$ bounds above) still requires full $2$-descent with Selmer-group
-computation; $E_{11.\text{a}1}$ at rank $0$ via conductor-driven
-modular-symbol descent is the lightest-weight next exact-rank target but
-remains open.  No path in this corpus produces an \emph{analytic} rank, so
-BSD's equality $\rank E(\mathbb{Q}) = \ord_{s=1} L(E, s)$ remains exactly as
-open as before.
+Rank-exactly-$1$ for a specific curve (versus the eleven rank-$\ge 1$
+bounds above) still requires full $2$-descent with Selmer-group
+computation; no implementation exists in this corpus yet.  No path in
+this corpus produces an \emph{analytic} rank, so BSD's equality
+$\rank E(\mathbb{Q}) = \ord_{s=1} L(E, s)$ remains exactly as open as
+before.
 
 \section{Conclusion}
 
