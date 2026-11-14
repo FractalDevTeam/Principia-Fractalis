@@ -69,14 +69,27 @@ if [ "$1" = "pr8" ]; then
   fi
 fi
 
-# register module(s) in Mathlib.lean (sorted insert)
+# register module(s) in Mathlib.lean.  Module-system mathlib (>= v4.35) uses
+# 'public import' lines after a 'module' header; we can't naively sort the
+# file because the header must stay at top.  Instead, insert the new entry
+# in alphabetical order among the 'public import' block.
 MOD="$(echo "$DST" | sed 's#/#.#g; s#\.lean$##')"
 for M in ${MODNAME_EXTRA:-} "$MOD"; do
   [ -z "$M" ] && continue
-  grep -qx "import $M" Mathlib.lean || {
-    printf 'import %s\n' "$M" >> Mathlib.lean
-    LC_ALL=C sort -o Mathlib.lean Mathlib.lean
-  }
+  # Already there in either plain or 'public import' form? Skip.
+  grep -qE "^(public )?import $M$" Mathlib.lean && continue
+  # Find the alphabetically-previous 'public import' line and insert after.
+  PREV=$(grep -E "^public import " Mathlib.lean | awk -v m="public import $M" '$0 < m {p=$0} END {print p}')
+  if [ -n "$PREV" ]; then
+    # Escape forward slashes and dots in the pattern for sed.
+    PREV_ESC=$(printf '%s' "$PREV" | sed 's/[.*[\&^$/]/\\&/g')
+    sed -i "/^${PREV_ESC}\$/a\\
+public import $M" Mathlib.lean
+  else
+    # No previous entry (empty file or new header style): fall back to
+    # appending (mathlib CI will catch misplacement).
+    printf 'public import %s\n' "$M" >> Mathlib.lean
+  fi
 done
 
 git add -A
