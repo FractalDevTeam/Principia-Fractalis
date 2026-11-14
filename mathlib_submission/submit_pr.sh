@@ -70,26 +70,42 @@ if [ "$1" = "pr8" ]; then
 fi
 
 # register module(s) in Mathlib.lean.  Module-system mathlib (>= v4.35) uses
-# 'public import' lines after a 'module' header; we can't naively sort the
-# file because the header must stay at top.  Instead, insert the new entry
-# in alphabetical order among the 'public import' block.
+# 'public import' lines after a 'module' header; the file must be
+# byte-identical to what `lake exe mk_all` would generate (ASCII-sorted
+# module-name block, 'Std' then 'Batteries' prepended, module-name
+# aggregator excluded from its own import list).
+#
+# The previous sed-based insertion was not idempotent across re-runs and
+# accumulated damage (deleted entries, reordered Std/Batteries, lost
+# 'public meta' prefixes).  Use Python to do a clean "re-sort within the
+# existing import block" insertion that preserves every other line.
 MOD="$(echo "$DST" | sed 's#/#.#g; s#\.lean$##')"
 for M in ${MODNAME_EXTRA:-} "$MOD"; do
   [ -z "$M" ] && continue
   # Already there in either plain or 'public import' form? Skip.
   grep -qE "^(public )?import $M$" Mathlib.lean && continue
-  # Find the alphabetically-previous 'public import' line and insert after.
-  PREV=$(grep -E "^public import " Mathlib.lean | awk -v m="public import $M" '$0 < m {p=$0} END {print p}')
-  if [ -n "$PREV" ]; then
-    # Escape forward slashes and dots in the pattern for sed.
-    PREV_ESC=$(printf '%s' "$PREV" | sed 's/[.*[\&^$/]/\\&/g')
-    sed -i "/^${PREV_ESC}\$/a\\
-public import $M" Mathlib.lean
-  else
-    # No previous entry (empty file or new header style): fall back to
-    # appending (mathlib CI will catch misplacement).
-    printf 'public import %s\n' "$M" >> Mathlib.lean
-  fi
+  python3 - "$M" Mathlib.lean <<'PYEOF'
+import sys
+mod, path = sys.argv[1], sys.argv[2]
+new_line = f"public import {mod}"
+with open(path, "r", encoding="utf-8") as f:
+    lines = f.read().splitlines()
+# Find the 'public import' block.  mk_all orders these ascii-lex.
+pub_indices = [i for i, l in enumerate(lines) if l.startswith("public import ")]
+if not pub_indices:
+    # Empty block: append after module header if present, else prepend.
+    insert_at = 1 if lines and lines[0].startswith("module") else 0
+else:
+    # Insert BEFORE the first existing entry that sorts >= new_line.
+    insert_at = pub_indices[-1] + 1
+    for idx in pub_indices:
+        if lines[idx] >= new_line:
+            insert_at = idx
+            break
+lines.insert(insert_at, new_line)
+with open(path, "w", encoding="utf-8") as f:
+    f.write("\n".join(lines) + "\n")
+PYEOF
 done
 
 git add -A
