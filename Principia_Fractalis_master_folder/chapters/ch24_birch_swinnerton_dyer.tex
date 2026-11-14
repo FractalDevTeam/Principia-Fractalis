@@ -819,22 +819,41 @@ before.
 
 \section{Conclusion}
 
-We have presented computational evidence for the Birch and Swinnerton-Dyer conjecture through fractal resonance:
+\textbf{The Clay BSD statement remains open; nothing in this chapter closes it.}  The analytic-rank machinery ($L$-function order of vanishing at $s = 1$) is absent from this corpus, so the equality $\mathrm{rank}\,E(\mathbb{Q}) = \mathrm{ord}_{s=1} L(E, s)$ is not touched.  What this chapter and its Lean companion do deliver:
 
 \begin{itemize}
-\item \textbf{Framework}: Fractal L-function at $\alpha = 3\pi/4$ with base-3 digital sum
-\item \textbf{Golden Threshold}: Eigenvalue concentration at $\varphi/e \approx 0.595$
-\item \textbf{Rank Formula}: Multiplicity at threshold equals algebraic rank
-\item \textbf{Algorithm}: $O(N_E^{1/2+\varepsilon})$ complexity for rank computation
-\item \textbf{Validation}: reported as 100\% success on tested curves
-(conductor $< 100{,}000$) --- but see the verification-status paragraph above:
-an independent test of the multiplicity formula did \emph{not} reproduce this,
-while a dominant-eigenvalue signal monotone in rank did appear
-\item \textbf{Consciousness}: Super-crystallization (ch$_2 = 1.0356$) at arithmetic-geometric duality
-\item \textbf{$\Sha$ Bound}: Concrete finite upper bound from fractal structure
+\item \textbf{Algebraic-rank theorems, three-axiom bar
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$.}
+The corpus now carries two exact rank-$0$ curves and five rank-$\ge 1$
+bounds, all kernel-verified, with no \texttt{sorry} and no
+\texttt{native\_decide}.  Rank-$0$:
+$y^2 = x^3 + x$ (LMFDB 64.a4, 2026-10-17,
+\texttt{Ecurve\_rank\_eq\_zero}) and
+$y^2 = x^3 - x$ (LMFDB 32.a2, the congruent-number curve $E_1$,
+2026-11-14, \texttt{Ecurve32a2\_rank\_eq\_zero}).  Rank-$\ge 1$:
+$E_{91.\text{a}1}$, $E_{102.\text{a}1}$, $E_{131.\text{a}1}$,
+$E_{141.\text{a}1}$, $E_{80.\text{b}}$ (congruent-number $n = 5$).
+Supporting: \texttt{PF.not\_fermat\_42\_sub}
+(mathlib-absent difference form $a^4 - b^4 \ne c^2$, staged upstream
+as PR~\#46025).
+\item \textbf{Framework (fractal resonance reading).} Fractal L-function
+at $\alpha = 3\pi/4$ with base-3 digital sum; golden-threshold
+reading at $\varphi/e \approx 0.595$; multiplicity-equals-rank formula.
+\item \textbf{Algorithm.} $O(N_E^{1/2+\varepsilon})$ complexity for rank
+computation under the framework reading.
+\item \textbf{Validation (empirical).} Reported as 100\% success on
+tested curves (conductor $< 100{,}000$) --- but see the
+verification-status paragraph above: an independent test of the
+multiplicity formula did \emph{not} reproduce this, while a
+dominant-eigenvalue signal monotone in rank did appear.
+\item \textbf{Consciousness (empirical hypothesis, untested).}
+Super-crystallization $\mathrm{ch}_2 = 1.0356$ at arithmetic-geometric
+duality.
+\item \textbf{$\Sha$ bound (framework reading).} Concrete finite upper
+bound from fractal structure.
 \end{itemize}
 
-The emergence of rational points at the golden threshold reveals BSD as a \textit{resonance phenomenon}—the rank counts how many independent "modes" resonate at the unique frequency $\varphi/e$.
+The load-bearing kernel-verified content is item 1 (seven specific curves with explicit algebraic-rank statements).  Items 2--6 are framework readings and empirical content; they do not advance the Clay BSD equality.  The ``golden-threshold'' narrative is a resonance-phenomenon interpretation at the framework layer, not a theorem.
 
 \textbf{Future Work}: The complete analytical proof requires establishing:
 \begin{enumerate}
