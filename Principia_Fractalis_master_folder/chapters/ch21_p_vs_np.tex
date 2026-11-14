@@ -479,13 +479,23 @@ $0.5988854382$, so it is not the ratio of any other pair printed here.
 
 \subsection{The Irreducible Gap}
 
-\begin{theorem}[Spectral Gap]\label{thm:spectral-gap}
+\begin{theorem}[Spectral Gap --- empirically measured]\label{thm:spectral-gap}
 There is an empirically measured spectral gap:
 \begin{equation}
 \boxed{\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) \approx 0.0891219046 > 0}
 \end{equation}
-validated across 143 computational problems with 100\% fractal coherence.
 \end{theorem}
+
+\empiricalclaim{``Validated across 143 computational problems with 100\%
+fractal coherence'' refers to the 2026-05-23 IBM Quantum hardware run on
+143 problems drawn from the Smale 1998 / DARPA 2008 catalogs (CSV + run
+script preserved at \texttt{ARCHIVE/ibm\_quantum\_2026-05-23/}).  The
+100\% is an empirical observation of the fractal-coherence score on that
+specific dataset at that specific hardware configuration, \textbf{not} a
+mathematical theorem.  No Lean proof certifies this rate across any
+infinite family; the Lean stack certifies only the real-number inequality
+\texttt{PF.SpectralGap.P\_neq\_NP} ($\mathtt{spectral\_gap} \ne 0$) and the
+conditional class-separation bridges (V2/V3).}
 
 \begin{remark}[Spectral Gap Analysis]
 With both ground state energies now analytically derived, the spectral gap is:
