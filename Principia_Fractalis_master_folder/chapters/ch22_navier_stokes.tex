@@ -333,10 +333,12 @@ The dimension $\log 2 / \log 3$ connects to the ternary (base-3) structure of re
 
 \section{Resolution of Navier-Stokes}
 
+\noindent\textbf{Read this section with the scope note (below, line 401) in hand.}  The section title is retained for continuity of cross-references; \emph{Resolution} here means a \emph{heuristic / substrate-level reduction}, not a Clay-form proof.  Global regularity of 3D Navier--Stokes is not established in this corpus and remains open.  As of 2026-11-10 the previously-named \texttt{VortexStretchingBoundedHypothesis} is \emph{discharged} at every Galerkin truncation; the Clay bar is now the Route A three-item chain (see the Scope note).
+
 \subsection{Why Infinities Cannot Occur}
 
-\begin{theorem}[No Finite-Time Blowup]\label{thm:no-blowup}
-Solutions to the Navier-Stokes equations with smooth initial data cannot develop finite-time singularities.
+\begin{theorem}[No Finite-Time Blowup --- conditional]\label{thm:no-blowup}
+Conditional on the Route A three-item chain (Schwartz dense in $L^2$ via mollification; Galerkin $\to$ weak formulation; direct Young for $L^1 \star L^2 \to L^2$), solutions to the Navier--Stokes equations with smooth initial data cannot develop finite-time singularities.  As of 2026-11-10, the specific hypothesis \texttt{VortexStretchingBoundedHypothesis} on which this statement previously rested is \emph{discharged} at every Galerkin cutoff $n$ on the three-axiom bar.
 \end{theorem}
 
 \begin{proof}
