@@ -16,6 +16,99 @@ This book is under active development. Version numbers follow semantic versionin
 
 \section*{Version Log}
 
+\subsection*{Version 2.8.0 (November 14, 2026) -- SECOND EXACT RANK-$0$ BSD CURVE LANDED + FERMAT $n = 4$ DIFFERENCE FORM ASSEMBLED + MATHLIB PR \#46025 IN FLIGHT + YM WILSON RP EXTENDED TO $L^2$}
+\begin{itemize}
+
+\item \textbf{HEAD commit:} \texttt{a2899107}.  The 2.7.2$\,\to\,$2.8.0
+delta spans 2026-10-01 through 2026-11-14 and is dominated by
+Clay-axis Lean progress (not prose).  Only the structurally load-bearing
+landings are itemised here; detailed per-day diaries live in
+\texttt{codex/} memos dated within the window.
+
+\item \textbf{First exact rank in the corpus (2026-10-17,
+\texttt{fc22a618} + \texttt{f11e1eba} + \texttt{0b7604e3}).}
+\texttt{Ecurve\_rank\_eq\_zero}: \texttt{Module.rank $\mathbb{Z}$
+Ecurve.toAffine.Point = 0} for $E : y^2 = x^3 + x$ (LMFDB 64.a4,
+conductor 64), three-axiom bar $[propext, Classical.choice,
+Quot.sound]$.  Classical infinite descent via mathlib's
+\texttt{not\_fermat\_42} (sum form).  Three files:
+\texttt{Ch24Descent2Torsion\{Core,Bookkeeping,RatBridge\}\_2026\_10\_17.lean}.
+
+\item \textbf{Yang--Mills Wilson reflection positivity extended to
+$L^2$ (2026-11-13, \texttt{f29288c4}).}
+\texttt{wilson\_reflection\_positivity\_of\_L2\_strong} delivers the
+$\theta$-crossed Gram-matrix PSD statement for finite even periodic
+lattices with \texttt{StronglyMeasurable}$\,+\,$\texttt{MemLp}~2
+$+\,$\texttt{supportedOnPlusZero} inputs, unconditional on three-axiom
+bar.  Extension of the 2026-10-29 continuous-functions version
+(\texttt{wilson\_reflection\_positivity\_of\_continuous}).
+
+\item \textbf{Five rank-$\ge 1$ BSD curves + congruent-$n = 5$ full
+2-torsion (2026-11-11, \texttt{80554abe}~$\to$~\texttt{f2393f64}).}
+\texttt{rank\_ge\_one} theorems for $E_{91.a1}$, $E_{102.a1}$,
+$E_{131.a1}$, $E_{141.a1}$ (four BSD scoping gap curves from the
+2026-10-17 Rio audit) and \texttt{E\_80b} (congruent-number $n = 5$,
+with full 2-torsion propagation).  All three-axiom bar.
+
+\item \textbf{Fermat $n = 4$ difference form \texttt{not\_fermat\_42\_sub}
+(2026-11-14, \texttt{3d3b44f6}).}
+\texttt{PF.not\_fermat\_42\_sub : $\forall$ a b c, a $\ne$ 0 $\to$
+b $\ne$ 0 $\to$ c $\ne$ 0 $\to$ a$^4$ $-$ b$^4$ $\ne$ c$^2$}.
+Full Pythagorean descent over
+$\texttt{Fermat42Sub.exists\_minimal}\,+\,$absolute-value
+normalisation$\,+\,$primitive Pythagorean classification on
+$(b^2, c, a^2)$ or $(c, b^2, a^2)$ by parity of $b$, closing with
+\texttt{fermat42Sub\_caseA\_reduces},
+\texttt{fermat42Sub\_caseB\_descends}, and its parity mirror.
+Supported by \texttt{fermat42Double\_impossible\_unconditional}
+(2026-11-14, \texttt{5e294d36}) which closes the Nov-13 conditional
+assembler for $2a^2 = s^4 + t^4$.  Mathlib carried only the sum form;
+this corpus now carries the difference form.
+
+\item \textbf{Second exact rank in the corpus (2026-11-14,
+\texttt{fe933243}, \texttt{ee36311a}, \texttt{a0c42bd8}).}
+\texttt{Ecurve32a2\_rank\_eq\_zero} for $E : y^2 = x^3 - x$ (LMFDB
+32.a2, conductor 32, the congruent-number curve $E_1$).  Mirror of the
+2026-10-17 descent, now powered by today's
+\texttt{PF.not\_fermat\_42\_sub}.  Together with \texttt{64.a4}, the
+corpus now carries \textbf{two exact rank-$0$ curves} on the
+three-axiom bar --- both rational $2$-isogenies of the
+congruent-number curve $E_1$ at $n = 1$.  No $L$-function appears
+anywhere.
+
+\item \textbf{Mathlib upstream (2026-11-14, in flight).}
+\texttt{Mathlib/NumberTheory/FLT/FourSub.lean} (single-file consolidated
+companion, no \texttt{PF.*} imports, mathlib naming conventions) staged
+as
+\href{https://github.com/leanprover-community/mathlib4/pull/46025}
+{PR~\#46025 against \texttt{leanprover-community/mathlib4:master}}.
+Completes the Fermat $n = 4$ pair upstream (sum form
+\texttt{not\_fermat\_42} already in mathlib).
+
+\item \textbf{Prior-work consolidation (2026-11-09 $\to$ 2026-11-10,
+60+ commits).}  Wave MasterCapstone defect sweep: non-permanent
+\texttt{True := trivial} markers 284 $\to$ 182; NS vortex-stretching
+bound discharged at every Galerkin level
+(\texttt{NS3DVortexStretchingBoundedDischarge.lean}, \texttt{909d944f}).
+Book banned-phrase scrub landed (\texttt{efa73f5b}): 21 performative
+hits removed across 16 chapters~$+$~3 frontmatter/backmatter/appendix
+files; main.pdf converged at 1025 pages.
+
+\item \textbf{Appendix I row added for the exact-rank-$0$ results.}
+Appendix~\ref{sec:lean-xref-millennium}'s BSD table previously listed
+V1/V2/Bounded-encoding rows only; a dedicated row has been added for
+the two exact rank-$0$ curves and the mathlib PR.
+
+\item \textbf{What did \emph{not} change.}  RH stays at
+\texttt{rh\_below\_15\_conditional} with the box-local Fourier march
+blocked at $c = 829/64$ (gate \texttt{lhs} $=\;1.108 > 1$ at $D = 1$,
+not $r$-tunable); P vs NP stays parked; Hodge stays parked (mathlib
+has no K\"ahler / complex-manifold machinery to stand on); analytic
+rank machinery still absent, so BSD's analytic~$=$~algebraic equality
+remains as open as before.
+
+\end{itemize}
+
 \subsection*{Version 2.7.2 (September 29, 2026, evening) -- NAVIER--STOKES ANCHOR MADE LOAD-BEARING FROM $H_3$ EXPONENT SUM + BOTH ANCHORS ON ONE COMBINATORIAL DATUM + GATE STRIPPER FIX}
 \begin{itemize}
 
