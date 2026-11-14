@@ -880,7 +880,7 @@ private theorem fermat42Double_quadruple_extraction
     (hu_pos : 0 < m ^ 2 - 4 * k ^ 2)
     (hs_sq : s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2)
     (ht_sq : t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2) :
-    ∃ a b c d : ℤ, 0 < a ∧ 0 < b ∧ 0 < c ∧ 0 < d ∧
+    ∃ a b c d : ℤ, 0 < a ∧ 0 < b ∧ 0 < c ∧ 0 < d ∧ IsCoprime b c ∧
       k = a * b * c * d ∧
       m - 2 * k = 2 * a ^ 2 * b ^ 2 + c ^ 2 * d ^ 2 ∧
       m + 2 * k = 2 * a ^ 2 * c ^ 2 + b ^ 2 * d ^ 2 := by
@@ -925,7 +925,7 @@ private theorem fermat42Double_quadruple_extraction
   obtain ⟨a, b, c, d, ha_pos, hb_pos, hc_pos, hd_pos, hbc_cop,
           hα_rw, hγ_rw, hβ_rw, hδ_rw⟩ :=
     fermat42Double_four_way_split |α| |β| |γ| |δ| hα'_pos hβ'_pos hγ'_pos hδ'_pos heq_prod
-  refine ⟨a, b, c, d, ha_pos, hb_pos, hc_pos, hd_pos, ?_, ?_, ?_⟩
+  refine ⟨a, b, c, d, ha_pos, hb_pos, hc_pos, hd_pos, hbc_cop, ?_, ?_, ?_⟩
   · -- k = a*b*c*d.
     rw [← hα'β'_eq, hα_rw, hβ_rw]; ring
   · -- m - 2k = 2a²b² + c²d²: m - 2k = A + B = 2α² + β² (either case) = 2|α|² + |β|² = 2(ab)² + (cd)².
