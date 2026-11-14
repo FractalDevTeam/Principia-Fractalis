@@ -58,16 +58,23 @@ Problem.} The Millennium chapters (Riemann Hypothesis, P versus NP,
 Yang--Mills, Navier--Stokes, Hodge, Birch--Swinnerton-Dyer) are machine-checked
 \emph{conditional reductions}: each is an implication whose hypothesis is a
 named open proposition carried explicitly in the corpus
-(e.g.\ \texttt{PolylogEigenvalueConjecture} for P versus NP,
-\texttt{VortexStretchingBoundedHypothesis} for Navier--Stokes, the
-Hilbert--P\'olya and spectral-surjectivity conjectures for the Riemann
+(e.g.\ \texttt{PolylogEigenvalueConjecture} for P versus NP;
+for Navier--Stokes, the Route A three-item chain --- Schwartz dense in
+$L^2$, Galerkin $\to$ weak formulation, and the direct Young inequality
+$\lVert f \star g\rVert_{L^2} \le \lVert f\rVert_{L^1}\lVert g\rVert_{L^2}$
+for $(1, 2, 2)$ --- after \texttt{VortexStretchingBoundedHypothesis}
+itself was \emph{discharged} 2026-11-10;
+the Hilbert--P\'olya and spectral-surjectivity conjectures for the Riemann
 Hypothesis). The reduction is verified; the antecedent is open. Each chapter's
 own verification ledger states this in that chapter's terms --- for instance,
 ``The Riemann Hypothesis is \emph{not} proven here and remains open.'' Where the
 corpus formalises a Millennium statement unconditionally, it is a bounded or
 classically-known instance (for example, the Riemann Hypothesis restricted to a
-finite rectangle, classically known since Riemann), and its value is that it is
-\emph{formalised}, not that it advances the open problem.
+finite rectangle, classically known since Riemann; or the \emph{algebraic}
+rank of a specific elliptic curve as a three-axiom-bar Lean theorem ---
+this revision adds two such rank-$0$ cases and five rank-$\ge 1$ cases, see
+``New results'' below), and its value is that it is \emph{formalised}, not
+that it advances the open problem.
 
 \section*{What is ASSERTED or EMPIRICAL}
 
@@ -166,6 +173,47 @@ $R$-module structure is available on the exterior power at this pin. This work
 is the \emph{local} building block of algebraic de Rham cohomology; gluing it to
 a variety is unpriced, with the sheaf-cohomology layers it needs absent
 entirely. \textbf{It does not touch the Hodge conjecture.}
+
+\paragraph{Algebraic rank of specific elliptic curves on the three-axiom bar.}
+On the BSD axis, the \emph{algebraic} side was previously empty in Lean.
+Revision 2 lands \textbf{two exact rank-$0$ curves} and \textbf{five
+rank-$\ge 1$ curves}, all on $[\mathtt{propext}, \mathtt{Classical.choice},
+\mathtt{Quot.sound}]$, with no \texttt{sorry} and no \texttt{native\_decide}.
+The two rank-$0$ cases are
+$y^2 = x^3 + x$ (LMFDB 64.a4, 2026-10-17,
+\texttt{Ecurve\_rank\_eq\_zero}) and
+$y^2 = x^3 - x$ (LMFDB 32.a2, the congruent-number curve $E_1$,
+2026-11-14, \texttt{Ecurve32a2\_rank\_eq\_zero}) --- together the
+two rational $2$-isogenies of $E_1$ at $n = 1$.  The second route
+required the mathlib-absent \emph{difference form} of Fermat's
+$n = 4$ theorem, $a^4 - b^4 \ne c^2$, which was proved here as
+\texttt{PF.not\_fermat\_42\_sub} and simultaneously staged for
+mathlib upstream as
+\href{https://github.com/leanprover-community/mathlib4/pull/46025}
+{PR \#46025}.  The five rank-$\ge 1$ cases are $E_{91.\text{a}1}$,
+$E_{102.\text{a}1}$, $E_{131.\text{a}1}$, $E_{141.\text{a}1}$
+(all four BSD scoping gap curves from the 2026-10-17 Rio audit)
+and $E_{80.\text{b}}$ (congruent-number $n = 5$, with full
+$2$-torsion propagation).  No path in the corpus produces an
+\emph{analytic} rank, so the Clay BSD equality
+$\mathrm{rank}\,E(\mathbb{Q}) = \mathrm{ord}_{s=1} L(E, s)$ remains
+untouched.  What is new is that the algebraic side admits concrete,
+kernel-verified instances --- in both directions (rank zero \emph{and}
+rank-at-least-one), on specific curves, by classical methods.
+
+\paragraph{Yang--Mills Wilson reflection positivity on $SU(2)$ lattices.}
+For finite even periodic lattices and $SU(2)$ gauge group: the
+$\theta$-crossed Gram matrix is \texttt{PosSemidef} for continuous
+$F : \mathrm{Fin}\,K \to C_c(\mathtt{GaugeField}\ L \to \mathbb{C})$
+supported on $\Lambda_+ \cup \Lambda_0$
+(\texttt{wilson\_reflection\_positivity\_of\_continuous},
+2026-10-29), and for \texttt{StronglyMeasurable} $+\,$\texttt{MemLp}\,2
+$+\,$\texttt{supportedOnPlusZero} test functions
+(\texttt{wilson\_reflection\_positivity\_of\_L2\_strong},
+2026-11-13).  Both unconditional on the three-axiom bar.  Reflection
+positivity is the first Osterwalder--Schrader axiom; mass gap remains
+open; no path here produces the thermodynamic / continuum limit, and
+no non-abelian group beyond $SU(2)$ is treated.
 
 \section*{Negative results, which are also results}
 
