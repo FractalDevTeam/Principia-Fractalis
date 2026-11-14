@@ -426,6 +426,36 @@ theorem fermat42Double_assembler_of_stage2
     exact hStage2 t s |a| m k ht_ne hs_ne h_abs_pos hts_coprime h_gt ht_odd hs_odd
       hm_pos hk_pos hm_odd hmk_cop hs_sq ht_sq ha_mk h_abs_eq_sw
 
+/-- **Descent factorization facts** — given the Pythagorean (m, k) structure
+from Stage 1, derive:
+* `(m - 2k)² - s² = 8k²`, factoring as `(m - 2k - s)(m - 2k + s) = 8k²`
+* `(m + 2k)² - t² = 8k²`, factoring as `(m + 2k - t)(m + 2k + t) = 8k²`
+* Each pair of factors has both elements even (parity: m - 2k, m + 2k odd; s, t odd).
+* Each pair's elements are coprime after dividing by 2.
+
+These are the structural prerequisites for the UFD-split Fermat descent. -/
+private theorem fermat42Double_descent_factorization_facts
+    (s t m k : ℤ) (hs_odd : s % 2 = 1) (ht_odd : t % 2 = 1)
+    (hk_pos : 0 < k) (hm_odd : m % 2 = 1)
+    (hmk_coprime : IsCoprime m k)
+    (hs_sq : s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2)
+    (ht_sq : t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2) :
+    (m - 2 * k - s) * (m - 2 * k + s) = 8 * k ^ 2 ∧
+    (m + 2 * k - t) * (m + 2 * k + t) = 8 * k ^ 2 ∧
+    (m - 2 * k - s) % 2 = 0 ∧ (m - 2 * k + s) % 2 = 0 ∧
+    (m + 2 * k - t) % 2 = 0 ∧ (m + 2 * k + t) % 2 = 0 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+  · -- (m - 2k - s)(m - 2k + s) = (m - 2k)² - s² = 8k²
+    have h1 : (m - 2 * k - s) * (m - 2 * k + s) = (m - 2 * k) ^ 2 - s ^ 2 := by ring
+    rw [h1]; linarith [hs_sq]
+  · have h1 : (m + 2 * k - t) * (m + 2 * k + t) = (m + 2 * k) ^ 2 - t ^ 2 := by ring
+    rw [h1]; linarith [ht_sq]
+  · -- m - 2k - s even: m odd, 2k even, s odd ⟹ odd - even - odd = even.
+    omega
+  · omega
+  · omega
+  · omega
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
@@ -438,7 +468,10 @@ quadratic in `d` to force the discriminant `2(b⁴ + c⁴)` to be a perfect
 square, yielding `2e² = b⁴ + c⁴` with `e = ⌊√(2(b⁴ + c⁴))⌋ / 2`.
 
 Composed via strong induction on `a.natAbs`, this closes
-`Fermat42Double_impossible`. -/
+`Fermat42Double_impossible`.
+
+Structural prerequisites (parity, coprime factors, product = 8k²) are
+discharged in `fermat42Double_descent_factorization_facts`. -/
 def Fermat42DoubleDescentStep : Prop :=
   ∀ s t a m k : ℤ,
     s ≠ 0 → t ≠ 0 → 0 < a →
