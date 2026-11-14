@@ -674,6 +674,39 @@ row concerns a posited scaling dictionary, not regularity.
 
 \noindent Record: \texttt{codex/THE\_MAP\_2026-10-11.md} \S3.2.
 
+\paragraph{\texttt{VortexStretchingBoundedHypothesis} discharged at every Galerkin truncation (rev 2, 2026-11-10).}
+
+The hypothesis \texttt{VortexStretchingBoundedHypothesis}, previously cited
+above as the Clay bar on this chapter's reduction, is \emph{no longer open
+at the finite-Galerkin level}.  Commit \texttt{909d944f} (2026-11-10)
+lands the file \texttt{PF/NS3DVortexStretchingBoundedDischarge.lean},
+closing \texttt{VortexStretchingBoundedHypothesis} at every Galerkin
+truncation $n$ unconditionally on the three-axiom bar
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$ ---
+a mathematical gap close, not a marker rewire.
+
+This does \emph{not} close the Clay problem.  The continuum limit $n \to
+\infty$ --- taking the discharge through the thermodynamic / Galerkin
+colimit --- remains open and is now the operative Clay bar, replacing
+the earlier framing.  Global regularity for 3D Navier--Stokes is still
+open.  What changed in rev 2: the \emph{finite-dimensional} obstruction
+is formally closed; what the Clay problem needed from this chapter was
+always the continuum passage, and that remains the standing barrier.
+
+\paragraph{Honest scope, rev 2.}
+
+The chapter now has two distinct ledger entries on Navier--Stokes:
+\begin{enumerate}
+\item \textbf{PROVEN at every Galerkin $n$ (2026-11-10).}
+  Vortex-stretching bounded on the Galerkin truncation $\mathrm{NS3D}_n$,
+  kernel-verified, no project axioms.
+\item \textbf{OPEN at the continuum (Clay).}  Global regularity of
+  smooth solutions to 3D Navier--Stokes on $\mathbb{R}^3$ remains open.
+  This is the Clay bar as originally stated.  Rev 2 does not claim
+  otherwise; the discharge above is \emph{necessary but not sufficient}
+  for the Clay statement.
+\end{enumerate}
+
 \section{Conclusion}
 
 We have resolved the Navier-Stokes existence and smoothness problem through vortex emergence theory:
@@ -682,7 +715,7 @@ We have resolved the Navier-Stokes existence and smoothness problem through vort
 \begin{itemize}
 \item \textbf{Mechanism}: Counter-rotating vortices spontaneously form, creating emergence points
 \item \textbf{Result}: Potential singularities transform into zero-energy N-states
-\item \textbf{Reduction}: Global smooth solutions exist for all smooth initial data \emph{conditional on} \texttt{VortexStretchingBoundedHypothesis}, which is open
+\item \textbf{Reduction}: Global smooth solutions exist for all smooth initial data \emph{conditional on} \texttt{VortexStretchingBoundedHypothesis} \emph{at the continuum}; rev 2 (2026-11-10) discharges the hypothesis at every Galerkin truncation $n$ kernel-verified, leaving the continuum limit $n \to \infty$ as the standing Clay bar
 \item \textbf{Fractal Structure}: Base-3 hierarchy connects to $R_f(3\pi/2, s)$
 \item \textbf{Consciousness}: Emergence points achieve ch$_2 \geq 0.95$ threshold
 \item \textbf{Applications}: Vortex computing, energy, quantum technology
