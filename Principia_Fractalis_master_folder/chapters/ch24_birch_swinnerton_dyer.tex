@@ -674,6 +674,112 @@ this arc does not bear on it.
 \noindent Script: \texttt{codex/rf\_falsification\_checks\_2026-08-06.py}.
 Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S2.2, \S4.3.
 
+\subsection{Exact rank via Fermat descent (rev 2, 2026-11-14)}
+\label{sec:ch24-rev2-fermat-descent}
+
+The rank \emph{lower} bounds above do not touch BSD's full statement; they are
+one side of Mordell--Weil.  Rev 2 adds the first \emph{exact} rank results in
+the corpus --- rank \emph{upper} bounds proven by classical Fermat infinite
+descent, kernel-verified on the three-axiom bar
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$ with no
+project axioms, no \texttt{sorry}, no \texttt{native\_decide}.
+
+\paragraph{First exact rank (2026-10-17): $y^2 = x^3 + x$, rank $= 0$.}
+
+The curve $E_{64.\text{a}4}: y^2 = x^3 + x$ (conductor $64$) has rank exactly
+zero over $\mathbb{Q}$.  The proof is $2$-torsion Fermat descent in three
+files:
+\begin{itemize}
+\item \texttt{PF/Ch24Descent2TorsionCore\_2026\_10\_17.lean} --- descent core;
+\item \texttt{PF/Ch24Descent2TorsionBookkeeping\_2026\_10\_17.lean} ---
+  lowest-terms normalisation and the rank-from-2-torsion bridge;
+\item \texttt{PF/Ch24Descent2TorsionRatBridge\_2026\_10\_17.lean} --- $\mathbb{Q}$
+  layer and the capstone \texttt{Ecurve\_rank\_eq\_zero}:
+  $\mathtt{Module.rank}\ \mathbb{Z}\ E_{\text{curve}}.\mathtt{toAffine.Point}
+  = 0$.
+\end{itemize}
+The descent chain reduces to mathlib's \texttt{Int.Fermat42.not\_fermat\_42}
+(the sum form $a^4 + b^4 \neq c^2$, \texttt{Mathlib.NumberTheory.FLT.Four}),
+discharging the required Diophantine contradiction.
+
+\paragraph{Difference-form Fermat descent (2026-11-13..14): \texttt{not\_fermat\_42\_sub}.}
+
+Mathlib provides only the sum form of Fermat's $n = 4$ theorem.  The
+symmetric curve $y^2 = x^3 - x$ (the congruent-number curve for $n = 1$,
+$E_{32.\text{a}2}$, rank $0$) requires the \emph{difference} form
+$a^4 - b^4 \neq c^2$, which was previously a named hypothesis in the corpus.
+Rev 2 delivers the full kernel proof:
+\begin{center}
+\texttt{PF.not\_fermat\_42\_sub} : $\forall a, b, c : \mathbb{Z}$,
+  $a \neq 0 \to b \neq 0 \to c \neq 0 \to a^4 - b^4 \neq c^2$.
+\end{center}
+This is the classical theorem of Fermat, companion to mathlib's
+\texttt{not\_fermat\_42}; together they close both diophantine shapes of the
+$n = 4$ case.  Dependencies and site in the corpus:
+\begin{itemize}
+\item \texttt{PF/Fermat42SubFoundations\_2026\_11\_13.lean} ---
+  \texttt{Fermat42Sub} predicate, \texttt{Minimal},
+  \texttt{exists\_minimal}, \texttt{coprime\_of\_minimal};
+\item \texttt{PF/Fermat42SubCaseAReduction\_2026\_11\_13.lean} --- Case A
+  reduction ($b$ odd) to the auxiliary equation $2a^2 = s^4 + t^4$;
+\item \texttt{PF/Fermat42SubCaseBClosure\_2026\_11\_13.lean} --- Case B
+  descent ($b$ even) to a strictly smaller \texttt{Fermat42Sub} via
+  square-split and $4$th-power-split;
+\item \texttt{PF/Fermat42SubSplitLemmas\_2026\_11\_13.lean} --- discharge of
+  the three coprime-product-is-$n$th-power split sub-gaps via mathlib's
+  \texttt{Int.sq\_of\_gcd\_eq\_one};
+\item \texttt{PF/Fermat42DoubleImpossible\_2026\_11\_13.lean} (1{,}212 lines)
+  --- the classical descent proving $2a^2 \neq s^4 + t^4$ for coprime
+  $s, t, a$ with $s^2 \neq t^2$.  Infinite descent on $|a|$ through: Pythagorean
+  classification of $u^2 + v^2 = a^2$ with $u = (s^2 + t^2)/2$,
+  $v = (t^2 - s^2)/2$; two parallel coprime factorisations yielding a
+  quadruple $(a', b, c, d)$ with $k = a'bcd$ and the key relation
+  $4a'bcd = (c^2 - b^2)(2a'^2 - d^2)$; completing the square to force
+  $\bigl(2(c^2 - b^2)d + 4a'bc\bigr)^2 = 8a'^2 \cdot (b^4 + c^4)$, which
+  yields a strictly smaller $2e^2 = b^4 + c^4$ with
+  $|e| \le k^2 < 8k^2 + 4k + 1 \le a$ --- closing the descent.  The
+  irrationality of $\sqrt{5}$ enters as an auxiliary lemma
+  (\texttt{int\_sq\_eq\_five\_sq\_imp\_zero}, infinite descent on
+  $\mathtt{y.natAbs}$) for a specific key quadratic.
+  Capstone: \texttt{fermat42Double\_impossible\_unconditional}.
+\item \texttt{PF/Fermat42SubAssembly\_2026\_11\_14.lean} --- assembly:
+  \texttt{Fermat42Sub.exists\_minimal} $+$ absolute-value normalisation $+$
+  primitive Pythagorean triple $(b^2)^2 + c^2 = (a^2)^2$ with
+  $\gcd(b^2, c) = 1$ via Bézout $+$ case split on parity of $b$ $+$ parity
+  mirror \texttt{fermat42Sub\_caseB\_descends\_mirror} for the $c \equiv 3
+  \pmod 4$ branch.  Capstone: \texttt{PF.not\_fermat\_42\_sub}.
+\end{itemize}
+
+Verification: every declaration in the chain reports axioms
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$; the
+chain's size is 2{,}418 lines across six files; the full axiom certification
+survives \texttt{\#print axioms} on the final theorem.
+
+\paragraph{Mathlib submission.}
+
+The consolidated single-file companion (\texttt{Mathlib/NumberTheory/FLT/FourSub.lean},
+2{,}121 lines, no \texttt{PF.*} imports, mathlib namespace conventions) is
+upstream at \href{https://github.com/leanprover-community/mathlib4/pull/46025}
+{PR \#46025 against \texttt{leanprover-community/mathlib4}:master}, submitted
+2026-11-14.  Mathlib currently has only the sum form; this PR closes the
+companion difference form.
+
+\paragraph{Honest scope, rev 2.}
+
+The second exact rank-$0$ \emph{curve} proof ($y^2 = x^3 - x$,
+$E_{32.\text{a}2}$) now has its Diophantine prerequisite satisfied by
+\texttt{not\_fermat\_42\_sub}, but the \emph{curve-specific} bookkeeping
+parallel to the three Ch24 files (mirror for $y^2 = x^3 - x$) is not yet
+written; expected size $\approx 400$--$600$ Lean lines, one dedicated session.
+With that mirror, the corpus will carry two independent exact rank-$0$
+curves.  Rank-exactly-$1$ for a specific curve (versus the eleven rank-$\ge
+1$ bounds above) still requires full $2$-descent with Selmer-group
+computation; $E_{11.\text{a}1}$ at rank $0$ via conductor-driven
+modular-symbol descent is the lightest-weight next exact-rank target but
+remains open.  No path in this corpus produces an \emph{analytic} rank, so
+BSD's equality $\rank E(\mathbb{Q}) = \ord_{s=1} L(E, s)$ remains exactly as
+open as before.
+
 \section{Conclusion}
 
 We have presented computational evidence for the Birch and Swinnerton-Dyer conjecture through fractal resonance:
