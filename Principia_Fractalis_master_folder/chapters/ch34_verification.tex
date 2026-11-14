@@ -1114,3 +1114,86 @@ grep.
 theorem, no $\alpha$-value, and no Millennium status changes anywhere in it. The
 Clay problems open before this audit are open after it. What changed is which
 layer of this project is allowed to report status.
+
+\paragraph{Verification update (2026-11-14): kernel-verified results added
+since the 2026-10-21 audit (arc 2026-10-29 $\to$ 2026-11-14).}
+
+This entry records a handful of concrete Lean landings since the
+preceding verification update.  Each row below is phrased as what
+\emph{is} kernel-verified on the three-axiom bar
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$,
+with the Lean capstone name as the auditable citation.  Nothing below
+changes the Clay status of any Millennium problem.
+
+\begin{itemize}
+\item \textbf{YM lattice reflection positivity, continuous
+test functions} (2026-10-29).
+$\theta$-crossed Gram matrix is \texttt{PosSemidef} for continuous
+$F : \mathrm{Fin}\,K \to C_c(\mathtt{GaugeField}\ L \to \mathbb{C})$
+supported on $\Lambda_+ \cup \Lambda_0$ on finite even periodic
+$SU(2)$ lattices.  Capstone
+\texttt{wilson\_reflection\_positivity\_of\_continuous}, file
+\texttt{PF/YangMills/WilsonFubiniClosed\_r385.lean}.
+
+\item \textbf{YM lattice reflection positivity, $L^2$ extension}
+(2026-11-13, head commit \texttt{f29288c4}).  Same conclusion for
+\texttt{StronglyMeasurable} $+\,$\texttt{MemLp}\,2 $+\,$\texttt{supportedOnPlusZero} test functions.  Capstone
+\texttt{wilson\_reflection\_positivity\_of\_L2\_strong}.  Reflection
+positivity is the first Osterwalder--Schrader axiom; mass gap remains
+open, continuum limit not attempted here.
+
+\item \textbf{NS vortex-stretching bound discharged at every Galerkin
+cutoff} (2026-11-10, commit \texttt{909d944f}).  The hypothesis
+\texttt{VortexStretchingBoundedHypothesis} --- previously carried as
+the single Clay bar in earlier revisions of Ch.~\ref{ch:navier-stokes}
+--- is now unconditional at every $n$.  File
+\texttt{PF/NS3DVortexStretchingBoundedDischarge.lean}.  The remaining
+NS bar is the three-item Route A chain, build order Young
+$(1, 2, 2)$ first.
+
+\item \textbf{BSD exact rank-$\ge 1$ on four gap curves + the
+congruent-$n = 5$ curve with full 2-torsion propagation}
+(2026-11-11, commits \texttt{80554abe} $\to$ \texttt{c6bb035d}).
+Rank-$\ge 1$ landed on $E_{91.\text{a}1}, E_{102.\text{a}1},
+E_{131.\text{a}1}, E_{141.\text{a}1}$ (completing the 2026-10-17 Rio
+audit's step~2) and on $E_{80.\text{b}}$ (congruent $n = 5$).
+Capstones named \texttt{E\_<curve>\_rank\_ge\_one}.
+
+\item \textbf{BSD second exact rank-$0$ curve}
+(2026-11-14, commits \texttt{fe933243}, \texttt{ee36311a},
+\texttt{a0c42bd8}).  \texttt{Ecurve32a2\_rank\_eq\_zero} for
+$E : y^2 = x^3 - x$ (LMFDB 32.a2, conductor 32, the
+congruent-number curve $E_1$).  Mirror of the 2026-10-17 descent for
+$y^2 = x^3 + x$, now powered by the mathlib-absent difference form
+\texttt{PF.not\_fermat\_42\_sub} (commit \texttt{3d3b44f6}) and the
+unconditional inner descent
+\texttt{fermat42Double\_impossible\_unconditional}
+(commit \texttt{5e294d36}).  The difference form is staged for
+mathlib upstream as
+\href{https://github.com/leanprover-community/mathlib4/pull/46025}
+{PR \#46025}.
+
+\item \textbf{Hodge audit closed negatively.}
+\texttt{PF/Ch20Ch25NumericObstructions.lean} refutes several of
+Ch.~\ref{ch:hodge-conjecture}'s worked examples by comparing with
+LMFDB-sourced Hodge numbers; the \texttt{ARCHIVE/*/Hodge\_Conjecture\_COMPLETE.lean}
+files are machine-demonstrated to be inconsistent (single-axiom
+instance $\Rightarrow$ \texttt{False}).  Hodge is \textsc{parked}
+pending mathlib's acquisition of complex-geometry infrastructure.
+\end{itemize}
+
+\noindent\textbf{What did \emph{not} change.}  RH remains conditional
+on R1, R2, R3 (box march blocked at $c = 829/64$; obstruction is
+pointwise-gate-bound, not $r$-tunable).  P vs NP's
+\texttt{P\_neq\_NP} remains a real-number inequality, not a literal
+class separation; the bridge to the Clay form is conditional on the
+faithful-separator premise.  Hodge remains parked.  The
+$\alpha$-skeleton anchors $\alpha_{\textsf{RH}} = 3/2$ and
+$\alpha_{\textsf{P vs NP}} = \varphi + 1/4$ are still
+asserted/empirical readings from the 2026-05-23 IBM Quantum run on
+143 problems, not derived from substrate first principles here.
+
+\noindent Scope of this entry.  Same as the 2026-10-21 entry: this
+records practice and additions, not a Millennium status change.  The
+six Clay problems open before 2026-10-21 remain open after
+2026-11-14.
