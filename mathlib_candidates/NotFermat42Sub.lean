@@ -2,16 +2,19 @@
 Copyright (c) 2026 Pablo Cohen. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Pablo Cohen
+
+Note: on mathlib master (Lean >= 4.36), this file needs a `module` header
+and `public import` conventions.  See the parallel copy at
+Mathlib/NumberTheory/FLT/FourSub.lean on the PR branch.  The local
+candidate here is kept in pre-module-system form to compile against the
+PF-pinned mathlib v4.24.0-rc1.
 -/
-module
-
-public import Mathlib.NumberTheory.FLT.Basic
-public import Mathlib.NumberTheory.FLT.Four
-public import Mathlib.NumberTheory.PythagoreanTriples
-public import Mathlib.RingTheory.Int.Basic
-public import Mathlib.RingTheory.Coprime.Lemmas
-
 import Mathlib.Data.Nat.Factors
+import Mathlib.NumberTheory.FLT.Basic
+import Mathlib.NumberTheory.FLT.Four
+import Mathlib.NumberTheory.PythagoreanTriples
+import Mathlib.RingTheory.Int.Basic
+import Mathlib.RingTheory.Coprime.Lemmas
 import Mathlib.Tactic.LinearCombination
 
 /-!
@@ -55,8 +58,6 @@ forces `2 e ^ 2 = b ^ 4 + c ^ 4` with `|e| ≤ k ^ 2 < a`.
 * `Fermat42Sub` — the difference-form predicate.
 * `not_fermat_42_sub` — no non-zero integer solutions.
 -/
-
-@[expose] public section
 
 noncomputable section
 
