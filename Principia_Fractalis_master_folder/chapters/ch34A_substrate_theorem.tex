@@ -231,6 +231,19 @@ $\ell^2(\mathbb{R})$. Lean witness:
 Scope: the witness is on a toy Hamiltonian on
 $\ell^2$, not on the full Wightman QFT continuum.
 
+\emph{Rev 2 addition (2026-10-29, 2026-11-13): lattice reflection
+positivity on finite even periodic $SU(2)$ lattices, unconditional
+on the three-axiom bar.}
+\texttt{wilson\_\allowbreak{}reflection\_\allowbreak{}positivity\_\allowbreak{}of\_\allowbreak{}continuous}
+(continuous test functions,
+\texttt{PF/\allowbreak{}YangMills/\allowbreak{}WilsonFubiniClosed\_\allowbreak{}r385.lean})
+and
+\texttt{wilson\_\allowbreak{}reflection\_\allowbreak{}positivity\_\allowbreak{}of\_\allowbreak{}L2\_\allowbreak{}strong}
+(StronglyMeasurable + MemLp 2 + supportedOnPlusZero test
+functions, head commit \texttt{f29288c4}).  This closes the first
+Osterwalder--Schrader axiom on the lattice side; the continuum
+limit and the mass gap itself remain open.
+
 \item[\textnormal{(C3) Birch and Swinnerton-Dyer.}]
 The typed Clay-BSD statement is discharged on the Fin~6
 LMFDB-restricted encoding (rank-blind concordance across six
@@ -243,6 +256,24 @@ Scope: conditional on Gross-Zagier + Kolyvagin
 (both classical, both cited; not formalized in mathlib at
 HEAD~\texttt{42990ea}).
 
+\emph{Rev 2 additions (2026-10-17, 2026-11-14): two \textbf{exact
+rank-$0$} curves and five \textbf{rank-$\ge 1$} curves,
+unconditional on the three-axiom bar.}
+\texttt{Ecurve\_\allowbreak{}rank\_\allowbreak{}eq\_\allowbreak{}zero}
+for $y^2 = x^3 + x$ (LMFDB 64.a4) via mathlib's
+\texttt{not\_\allowbreak{}fermat\_\allowbreak{}42} (sum form);
+\texttt{Ecurve32a2\_\allowbreak{}rank\_\allowbreak{}eq\_\allowbreak{}zero}
+for $y^2 = x^3 - x$ (LMFDB 32.a2, congruent-number curve $E_1$) via
+this corpus's own
+\texttt{PF.\allowbreak{}not\_\allowbreak{}fermat\_\allowbreak{}42\_\allowbreak{}sub}
+(difference form, mathlib-absent; staged upstream as PR \#46025).
+Rank-$\ge 1$ on
+$E_{91.\text{a}1}, E_{102.\text{a}1}, E_{131.\text{a}1},
+E_{141.\text{a}1}, E_{80.\text{b}}$ via explicit multi-smul
+non-torsion witnesses, no Heegner machinery, no Gross-Zagier
+conditional.  These advance the \emph{algebraic} side only; the
+Clay BSD equality (analytic rank = algebraic rank) remains open.
+
 \item[\textnormal{(C4) Navier-Stokes 3D smoothness.}]
 $\alpha_{\text{NS}} = 2 \alpha_{\text{BSD}}$, and the
 substrate-level NS-3D smoothness composite discharge holds
@@ -251,6 +282,15 @@ on the trivial datum (Wave~58 cascade). Lean witness:
 Scope: lifting to literal Clay requires the named
 $\nabla u$ mathlib gap; substrate composite is axiom-free
 under Fujita-Kato hypothesis.
+
+\emph{Rev 2 addition (2026-11-10): the previously-named
+\texttt{VortexStretchingBoundedHypothesis} is discharged at
+every Galerkin truncation $n$ on the three-axiom bar.} File
+\texttt{PF/\allowbreak{}NS3DVortexStretchingBoundedDischarge.lean},
+commit \texttt{909d944f}.  Remaining Clay bar: Route A three-item
+ordered chain (Young for $L^1 \star L^2 \to L^2$ first;
+Schwartz dense in $L^2$ via mollification; Galerkin $\to$ weak
+formulation).
 
 \item[\textnormal{(C5) Hodge conjecture.}]
 The typed Clay-Hodge statement is discharged on the
