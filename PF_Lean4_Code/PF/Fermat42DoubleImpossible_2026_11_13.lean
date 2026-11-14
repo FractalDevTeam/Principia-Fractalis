@@ -510,6 +510,46 @@ private theorem fermat42Double_m2k_sub_s_coprime
   have h_nat : d ∣ 1 := by exact_mod_cast this
   exact Nat.dvd_one.mp h_nat
 
+/-- **Coprimality lemma (second factorization)** — `IsCoprime (m + 2k) t`
+from `IsCoprime m k` + identity `t² = (m + 2k)² - 8k²`.
+
+Proof structure identical to `fermat42Double_m2k_sub_s_coprime` with
+`m - 2k → m + 2k` and `s → t`. -/
+private theorem fermat42Double_m2k_add_t_coprime
+    (t m k : ℤ) (ht_odd : t % 2 = 1) (hk_pos : 0 < k) (hm_odd : m % 2 = 1)
+    (hmk_coprime : IsCoprime m k)
+    (ht_sq : t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2) :
+    IsCoprime (m + 2 * k) t := by
+  have hmk_add_cop_k : IsCoprime (m + 2 * k) k := by
+    have h_rw : m + 2 * k = m + 2 * k := rfl
+    exact hmk_coprime.add_mul_right_left 2
+  rw [Int.isCoprime_iff_gcd_eq_one]
+  set d := Int.gcd (m + 2 * k) t
+  have hd_dvd_mk : (d : ℤ) ∣ (m + 2 * k) := Int.gcd_dvd_left (m + 2 * k) t
+  have hd_dvd_t : (d : ℤ) ∣ t := Int.gcd_dvd_right (m + 2 * k) t
+  have hd_dvd_8ksq : (d : ℤ) ∣ 8 * k ^ 2 := by
+    have h3 : (m + 2 * k) ^ 2 - t ^ 2 = 8 * k ^ 2 := by linarith [ht_sq]
+    rw [← h3]
+    exact dvd_sub (dvd_pow hd_dvd_mk (by norm_num))
+                  (dvd_pow hd_dvd_t (by norm_num))
+  have hm2k_odd : (m + 2 * k) % 2 = 1 := by omega
+  have hmk_add_cop_2 : IsCoprime (m + 2 * k) (2 : ℤ) := by
+    obtain ⟨q, hq⟩ : ∃ q, m + 2 * k = 2 * q + 1 := ⟨(m + 2 * k - 1) / 2, by omega⟩
+    exact ⟨1, -q, by linarith [hq]⟩
+  have hd_cop_2 : IsCoprime (d : ℤ) 2 :=
+    hmk_add_cop_2.of_isCoprime_of_dvd_left hd_dvd_mk
+  have hd_cop_8 : IsCoprime (d : ℤ) 8 := by
+    have h : IsCoprime (d : ℤ) (2 ^ 3) := hd_cop_2.pow_right
+    simpa [show (2 : ℤ) ^ 3 = 8 from by norm_num] using h
+  have hd_cop_k : IsCoprime (d : ℤ) k :=
+    hmk_add_cop_k.of_isCoprime_of_dvd_left hd_dvd_mk
+  have hd_cop_ksq : IsCoprime (d : ℤ) (k ^ 2) := hd_cop_k.pow_right
+  have hd_dvd_8 : (d : ℤ) ∣ 8 :=
+    hd_cop_ksq.dvd_of_dvd_mul_right hd_dvd_8ksq
+  have : (d : ℤ) ∣ 1 := hd_cop_8.dvd_of_dvd_mul_left (by simpa using hd_dvd_8)
+  have h_nat : d ∣ 1 := by exact_mod_cast this
+  exact Nat.dvd_one.mp h_nat
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
