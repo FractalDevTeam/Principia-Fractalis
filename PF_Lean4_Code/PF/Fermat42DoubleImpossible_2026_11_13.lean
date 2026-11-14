@@ -1005,6 +1005,105 @@ private theorem fermat42Double_smaller_equation
   have h2 : 4 * e'' ^ 2 = 2 * (b ^ 4 + c ^ 4) := by linear_combination h1
   linarith
 
+/-- Core of the descent step — used by `fermat42Double_descent_step_holds`
+(declared below `Fermat42DoubleDescentStep` def). -/
+private theorem fermat42Double_descent_step_body
+    (s t a m k : ℤ) (hs_ne : s ≠ 0) (ht_ne : t ≠ 0) (ha_pos : 0 < a)
+    (_hst_coprime : IsCoprime s t) (_hst_lt : s ^ 2 < t ^ 2)
+    (hs_odd : s % 2 = 1) (ht_odd : t % 2 = 1)
+    (hm_pos : 0 < m) (hk_pos : 0 < k) (hm_odd : m % 2 = 1)
+    (hmk_cop : IsCoprime m k)
+    (hs_sq : s ^ 2 = (m - 2 * k) ^ 2 - 8 * k ^ 2)
+    (ht_sq : t ^ 2 = (m + 2 * k) ^ 2 - 8 * k ^ 2)
+    (ha_eq : a = m ^ 2 + 4 * k ^ 2)
+    (_h_eq : 2 * a ^ 2 = s ^ 4 + t ^ 4) :
+    ∃ b c e : ℤ, b ≠ 0 ∧ c ≠ 0 ∧ e ≠ 0 ∧ IsCoprime b c ∧ b ^ 2 ≠ c ^ 2 ∧
+      2 * e ^ 2 = b ^ 4 + c ^ 4 ∧ e.natAbs < a.natAbs := by
+  have hs2_pos : 0 < s ^ 2 :=
+    (sq_nonneg s).lt_of_ne (fun h => hs_ne (pow_eq_zero_iff (by norm_num : (2 : ℕ) ≠ 0) |>.mp h.symm))
+  have ht2_pos : 0 < t ^ 2 :=
+    (sq_nonneg t).lt_of_ne (fun h => ht_ne (pow_eq_zero_iff (by norm_num : (2 : ℕ) ≠ 0) |>.mp h.symm))
+  have hu_pos : 0 < m ^ 2 - 4 * k ^ 2 := by
+    have hsum : s ^ 2 + t ^ 2 = 2 * (m ^ 2 - 4 * k ^ 2) := by linarith [hs_sq, ht_sq]
+    linarith
+  obtain ⟨a', b, c, d, ha'_pos, hb_pos, hc_pos, hd_pos, hbc_cop, hk_abcd, h_m_minus, h_m_plus⟩ :=
+    fermat42Double_quadruple_extraction s t m k hs_ne ht_ne hs_odd ht_odd hm_pos hk_pos hm_odd
+      hmk_cop hu_pos hs_sq ht_sq
+  have h_key :=
+    fermat42Double_key_relation a' b c d k hk_abcd m h_m_minus h_m_plus
+  obtain ⟨e, h_new_eq⟩ :=
+    fermat42Double_smaller_equation a' b c d ha'_pos hb_pos hc_pos hd_pos h_key
+  have hb_ne_c : b ≠ c := by
+    intro hbc
+    have h1 : m - 2 * k = 2 * a' ^ 2 * b ^ 2 + c ^ 2 * d ^ 2 := h_m_minus
+    have h2 : m + 2 * k = 2 * a' ^ 2 * c ^ 2 + b ^ 2 * d ^ 2 := h_m_plus
+    rw [hbc] at h1 h2
+    linarith
+  have hb_sq_ne : b ^ 2 ≠ c ^ 2 := by
+    intro h
+    apply hb_ne_c
+    have : b = c ∨ b = -c := by
+      have h1 : (b - c) * (b + c) = 0 := by linear_combination h
+      rcases mul_eq_zero.mp h1 with h2 | h2
+      · left; linarith
+      · right; linarith
+    rcases this with h | h
+    · exact h
+    · exfalso; linarith
+  have hb_ne : b ≠ 0 := Int.ne_of_gt hb_pos
+  have hc_ne : c ≠ 0 := Int.ne_of_gt hc_pos
+  have he_ne : e ≠ 0 := by
+    intro he
+    rw [he] at h_new_eq; simp at h_new_eq
+    have hb4_pos : 0 < b ^ 4 := by positivity
+    have hc4_pos : 0 < c ^ 4 := by positivity
+    linarith
+  -- Size bound: |e| < a.
+  have ha'_ge_1 : 1 ≤ a' := ha'_pos
+  have hd_ge_1 : 1 ≤ d := hd_pos
+  have hb_ge_1 : 1 ≤ b := hb_pos
+  have hc_ge_1 : 1 ≤ c := hc_pos
+  have hk_ge_1 : 1 ≤ k := hk_pos
+  have hb_le_k : b ≤ k := by
+    have h1 : (1 : ℤ) ≤ a' * c * d := by
+      have h : 0 < a' * c * d := mul_pos (mul_pos ha'_pos hc_pos) hd_pos
+      linarith
+    have h2 : b ≤ b * (a' * c * d) := le_mul_of_one_le_right hb_pos.le h1
+    have h3 : b * (a' * c * d) = a' * b * c * d := by ring
+    rw [h3] at h2
+    linarith [h2, hk_abcd]
+  have hc_le_k : c ≤ k := by
+    have h1 : (1 : ℤ) ≤ a' * b * d := by
+      have h : 0 < a' * b * d := mul_pos (mul_pos ha'_pos hb_pos) hd_pos
+      linarith
+    have h2 : c ≤ c * (a' * b * d) := le_mul_of_one_le_right hc_pos.le h1
+    have h3 : c * (a' * b * d) = a' * b * c * d := by ring
+    rw [h3] at h2
+    linarith [h2, hk_abcd]
+  have h_m_gt_2k : 2 * k < m := fermat42Double_m_gt_2k m k hm_pos hk_pos hu_pos
+  have h_a_ge : 8 * k ^ 2 + 4 * k + 1 ≤ a := by
+    have h_m_ge : 2 * k + 1 ≤ m := h_m_gt_2k
+    have h_m_sq_ge : (2 * k + 1) ^ 2 ≤ m ^ 2 := by nlinarith
+    linarith [ha_eq, h_m_sq_ge]
+  have h_e_sq_le : e ^ 2 ≤ k ^ 4 := by
+    have hb4_le : b ^ 4 ≤ k ^ 4 := pow_le_pow_left₀ hb_pos.le hb_le_k 4
+    have hc4_le : c ^ 4 ≤ k ^ 4 := pow_le_pow_left₀ hc_pos.le hc_le_k 4
+    linarith [h_new_eq]
+  have h_e_lt_a : e.natAbs < a.natAbs := by
+    have h_e_abs_sq : (e.natAbs : ℤ) ^ 2 ≤ k ^ 4 := by
+      rw [show ((e.natAbs : ℤ)) = |e| from (Int.abs_eq_natAbs e).symm, sq_abs]
+      exact h_e_sq_le
+    have h_e_abs_le_ksq : (e.natAbs : ℤ) ≤ k ^ 2 := by
+      have h_e_nn : 0 ≤ (e.natAbs : ℤ) := Int.natCast_nonneg _
+      have h_k_sq_nn : 0 ≤ k ^ 2 := sq_nonneg _
+      have h_ksq4 : (k ^ 2) ^ 2 = k ^ 4 := by ring
+      nlinarith [h_e_abs_sq, sq_nonneg ((e.natAbs : ℤ) - k ^ 2), h_ksq4]
+    have h_a_cast : (a.natAbs : ℤ) = a := Int.natAbs_of_nonneg ha_pos.le
+    have h_e_lt_a_int : (e.natAbs : ℤ) < (a.natAbs : ℤ) := by
+      rw [h_a_cast]; linarith [h_e_abs_le_ksq, h_a_ge, hk_pos]
+    exact_mod_cast h_e_lt_a_int
+  exact ⟨b, c, e, hb_ne, hc_ne, he_ne, hbc_cop, hb_sq_ne, h_new_eq, h_e_lt_a⟩
+
 /-- **`Fermat42DoubleDescentStep` sub-gap** — from a `Fermat42Double`
 counterexample with Pythagorean (m, k) structure, produces a strictly
 smaller `Fermat42Double` counterexample `(b, c, e)` with
@@ -1083,6 +1182,21 @@ theorem fermat42Double_impossible_of_descent_step
   intro s t a hs_ne ht_ne ha_ne hst_coprime hst_sq_ne h_eq
   exact H a.natAbs s t a rfl hs_ne ht_ne ha_ne hst_coprime hst_sq_ne h_eq
 
+/-- **Discharge of `Fermat42DoubleDescentStep`** — the top-level theorem
+composing the descent-step body with its type. -/
+theorem fermat42Double_descent_step_holds : Fermat42DoubleDescentStep := by
+  intro s t a m k hs_ne ht_ne ha_pos hst_coprime hst_lt hs_odd ht_odd
+    hm_pos hk_pos hm_odd hmk_cop hs_sq ht_sq ha_eq h_eq
+  exact fermat42Double_descent_step_body s t a m k hs_ne ht_ne ha_pos
+    hst_coprime hst_lt hs_odd ht_odd hm_pos hk_pos hm_odd hmk_cop hs_sq ht_sq ha_eq h_eq
+
+/-- **★★★ `Fermat42Double_impossible` IS UNCONDITIONAL ★★★**
+
+Composition of the strong-induction wrapper `fermat42Double_impossible_of_descent_step`
+with the full descent-step discharge `fermat42Double_descent_step_holds`. -/
+theorem fermat42Double_impossible_unconditional : Fermat42Double_impossible :=
+  fermat42Double_impossible_of_descent_step fermat42Double_descent_step_holds
+
 end PF.Fermat42Sub
 
 /-! ## §Axiom check -/
@@ -1094,3 +1208,5 @@ end PF.Fermat42Sub
 #print axioms PF.Fermat42Sub.fermat42Double_impossible_of_assembler
 #print axioms PF.Fermat42Sub.fermat42Double_assembler_of_stage2
 #print axioms PF.Fermat42Sub.fermat42Double_impossible_of_descent_step
+#print axioms PF.Fermat42Sub.fermat42Double_descent_step_holds
+#print axioms PF.Fermat42Sub.fermat42Double_impossible_unconditional
