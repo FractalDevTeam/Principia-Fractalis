@@ -75,7 +75,7 @@ theorem fermat_n_four_classically_kernel_verified :
     was absent from mathlib at HEAD; the project supplies it. -/
 theorem fermat_n_four_difference_form_kernel_verified :
     ∀ a b c : ℤ, a ≠ 0 → b ≠ 0 → c ≠ 0 → a ^ 4 - b ^ 4 ≠ c ^ 2 :=
-  PF.Fermat42Sub.not_fermat_42_sub
+  PF.not_fermat_42_sub
 
 end PF.Referee.FermatCapstoneTypedBridge
 

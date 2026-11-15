@@ -47,8 +47,8 @@ import PF.NS3DGlobalKTAttempt
 namespace PF.Referee.NavierStokesCapstoneTypedBridgeSubstrate
 
 open PF.Referee.StandardClayStatements
-open PrincipiaTractalis
-  (UniformVortexStretchingBoundAllN all_n_diag_uniform)
+open PrincipiaTractalis.NS3DGlobalKTAttempt (UniformVortexStretchingBoundAllN)
+open PrincipiaTractalis.NS3DUniformHadamardDischargeAttempt (all_n_diag_uniform)
 
 /-! ## §1 — Substrate-anchored NS encoding -/
 
