@@ -31,7 +31,7 @@ All four Rio-audit items from `BSD_SCOPING_UPPER_BOUND_IS_THE_GAP_2026-10-17.md`
 
 | Rio step | state |
 |---|---|
-| 1 — Retire/repoint 8 redundant Heegner mirrors | pending (near-zero cost cleanup) |
+| 1 — Retire/repoint 8 redundant Heegner mirrors | **DONE** 2026-11-11 (`f0052c1a`, leaf-file bridge) |
 | 2 — Instantiate `rank ≥ 1` on E_91a1 / E_102a1 / E_131a1 / E_141a1 | **DONE** 2026-11-11 |
 | 3 — First rank UPPER bound via 2-descent | **DONE** 2026-10-17 (`Ch24Descent2TorsionRatBridge_2026_10_17`) |
 | 4 — Combine 2 + 3 → first exact rank in the repo | **DONE** 2026-10-17 (same file — rank = 0 for E : y² = x³ + x) |
