@@ -61,7 +61,7 @@ forces `2 e ^ 2 = b ^ 4 + c ^ 4` with `|e| ≤ k ^ 2 < a`.
 
 noncomputable section
 
-/-! ## Section: Fermat42SubFoundations_2026_11_13 -/
+/-! ## Foundations: predicate, minimality, coprimality -/
 
 /-- Three non-zero integers `a`, `b`, `c` with `a^4 - b^4 = c^2`.
 
@@ -147,7 +147,7 @@ theorem coprime_of_minimal {a b c : ℤ} (h : Minimal a b c) : IsCoprime a b := 
 
 end Fermat42Sub
 
-/-! ## Section: Fermat42SubCaseAReduction_2026_11_13 -/
+/-! ## Case A: `b` odd — reduction to `2 a² = s⁴ + t⁴` -/
 
 namespace Fermat42Sub
 /-- **Auxiliary Diophantine equation**: `2a² = s⁴ + t⁴` has no
@@ -292,7 +292,7 @@ theorem fermat42Sub_caseA_reduces
 
 end Fermat42Sub
 
-/-! ## Section: Fermat42SubCaseBClosure_2026_11_13 -/
+/-! ## Case B: `b` even — direct descent to a smaller `Fermat42Sub` -/
 
 namespace Fermat42Sub
 /-- **Sub-gap 1**: `b² = 2mn` with `gcd(m, n) = 1`, `m` odd, `n` even
@@ -430,7 +430,7 @@ theorem fermat42Sub_caseB_descends
 
 end Fermat42Sub
 
-/-! ## Section: Fermat42SubSplitLemmas_2026_11_13 -/
+/-! ## Coprime-square-product splits used in Cases A and B -/
 
 namespace Fermat42Sub
 open Int
@@ -669,7 +669,7 @@ theorem fermat42SubCaseB_fourthPowerSplit_holds :
 
 end Fermat42Sub
 
-/-! ## Section: Fermat42DoubleImpossible_2026_11_13 -/
+/-! ## Auxiliary: `2 a² = s⁴ + t⁴` has no non-trivial coprime solution -/
 
 namespace Fermat42Sub
 open Int
@@ -1824,16 +1824,15 @@ theorem fermat42Double_descent_step_holds : Fermat42DoubleDescentStep := by
   exact fermat42Double_descent_step_body s t a m k hs_ne ht_ne ha_pos
     hst_coprime hst_lt hs_odd ht_odd hm_pos hk_pos hm_odd hmk_cop hs_sq ht_sq ha_eq h_eq
 
-/-- **★★★ `Fermat42Double_impossible` IS UNCONDITIONAL ★★★**
-
-Composition of the strong-induction wrapper `fermat42Double_impossible_of_descent_step`
+/-- `Fermat42Double_impossible` unconditional.  Composition of the
+strong-induction wrapper `fermat42Double_impossible_of_descent_step`
 with the full descent-step discharge `fermat42Double_descent_step_holds`. -/
 theorem fermat42Double_impossible_unconditional : Fermat42Double_impossible :=
   fermat42Double_impossible_of_descent_step fermat42Double_descent_step_holds
 
 end Fermat42Sub
 
-/-! ## Section: Fermat42SubAssembly_2026_11_14 -/
+/-! ## Assembly: `not_fermat_42_sub` -/
 
 namespace Fermat42Sub
 
