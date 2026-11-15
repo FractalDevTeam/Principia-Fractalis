@@ -715,18 +715,16 @@ The chapter now has two distinct ledger entries on Navier--Stokes:
 
 \section{Conclusion}
 
-\textbf{The Navier--Stokes Clay statement remains open; nothing in this chapter closes it.}  What this chapter and its Lean companion do deliver, and the honest shape of each deliverable:
+\textbf{The Navier--Stokes Clay statement remains open; nothing in this chapter closes it.}  What this chapter and its Lean companion do deliver:
 
 \begin{itemize}
 \item \textbf{Mechanism (framework reading).} Counter-rotating vortices spontaneously form, creating emergence points.  Heuristic / substrate-level content, not a Clay-form proof.
 \item \textbf{Result (framework reading).} Potential singularities transform into zero-energy N-states.
 \item \textbf{Reduction (kernel-verified sub-step).} At every Galerkin truncation $n$, the vortex-stretching bound previously named \texttt{VortexStretchingBoundedHypothesis} is \emph{discharged} on the three-axiom bar $[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$ (commit \texttt{909d944f}, 2026-11-10, file \texttt{PF/NS3DVortexStretchingBoundedDischarge.lean}).  The standing Clay bar is now the \emph{Route A} three-item ordered chain: (i) Schwartz dense in $L^2$ via mollification; (ii) convergence of Galerkin to the weak formulation; (iii) the direct Young inequality $\lVert f \star g\rVert_{L^2} \le \lVert f\rVert_{L^1}\lVert g\rVert_{L^2}$ for $(p, q, r) = (1, 2, 2)$.  Build order is (iii) first (per \texttt{codex/NS\_ROUTEA\_GAP\_IS\_ORDERED\_2026-10-29.md}).  The continuum limit $n \to \infty$ sits behind (ii).
-\item \textbf{Fractal structure (framework reading).} Base-3 hierarchy connects to $\mathcal{R}_f(3\pi/2, s)$.  $\alpha_{\textsf{NS}} = 3\pi/2$ is \emph{asserted framework structure}, not an anchored value (the 2026-10-21 audit reclassified this: Clay lists Navier--Stokes \emph{Active}; no settled external anchor exists on this axis).
+\item \textbf{Fractal structure (framework reading).} Base-3 hierarchy connects to $\mathcal{R}_f(3\pi/2, s)$.  $\alpha_{\textsf{NS}} = 3\pi/2$ is asserted framework structure, not an anchored value (the 2026-10-21 audit reclassified this: Clay lists Navier--Stokes \emph{Active}; no settled external anchor exists on this axis).
 \item \textbf{Consciousness (empirical hypothesis, untested).} Emergence points achieve $\mathrm{ch}_2 \ge 0.95$ threshold.  Awaits experiment.
 \item \textbf{Applications.} Vortex computing, energy, quantum technology.  Speculative engineering, not mathematical content.
-\end{itemize}
-
-The chapter's load-bearing claim is item 3 (Galerkin-level discharge, kernel-verified).  Items 1, 2, 4, 5 are framework / heuristic / empirical content and are flagged as such.  The Route A three-item chain is the honest remaining distance to a Clay-form argument along this lane; the Clay statement itself may be approachable by a different route entirely.
+\end{itemize>
 
 \section{External Work on Navier--Stokes / Euler Blow-Up (2026)}
 \label{sec:openai-2026-corroboration}

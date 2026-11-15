@@ -573,17 +573,15 @@ frontier is the $\tilde{T}_3^{\textsf{sym}}$ named-open propositions.
 
 \section{Conclusion}
 
-\textbf{The Riemann Hypothesis remains open; nothing in this chapter closes the Clay statement.}  What this chapter and its Lean companion do deliver, and the honest shape of each deliverable:
+\textbf{The Riemann Hypothesis remains open; nothing in this chapter closes the Clay statement.}  What this chapter and its Lean companion do deliver:
 
 \begin{itemize}
 \item \textbf{Constructed} a self-adjoint operator $\tilde{T}_3$ whose eigenvalues biject with the imaginary parts of the Riemann $\xi$ zeros on $[0, 15]$ \emph{conditional on} the two named open propositions \texttt{HilbertPolyaProgramConjecture\_Positive} and \texttt{RHSpectralSurjectivityConjecture}.  The reduction is machine-checked; the antecedent is the open content.
 \item \textbf{Interval-verified} a box-local zero-free region on $\{0 \le \sigma \le 1,\, 0 \le t \le c\}$ for $c = 829/64 \approx 12.84375$ (commit \texttt{2d6919ea}, 2026-11-10) via the ``Legion'' interval-arithmetic march on auto-generated Fourier panels.  The march is \emph{blocked} at the next panel (pointwise gate LHS $1.108 > 1$ at $D = 1$, not $r$-tunable); no bounded continuation target is currently available.  The 150-digit precision claim lives on this route: \texttt{rh\_below\_15\_conditional} shows the full $[0, 15]$ check completes \emph{conditional on} three right-edge sign facts R1, R2, R3 for $\xi$ at $\sigma = 1$.
 \item \textbf{Collapsed} four Hilbert--P\'olya formulations to a single reduction via \texttt{hilbert\_polya\_formulations\_equivalent} and \texttt{hilbert\_polya\_implies\_RH}.
-\item \textbf{Corroborated} the 9-class $\alpha$-skeleton reading at $\alpha_{\textsf{RH}} = 3/2$ via the universal coupling $\alpha = \pi/(10|\lambda|)$ (Sec.~\ref{sec:substrate-self-corroboration-book}).  This is \emph{substrate-level evidence}, not mathematical proof: $\alpha_{\textsf{RH}} = 3/2$ is an \emph{asserted / empirical} anchor from the 2026-05-23 IBM Quantum hardware run on 143 problems, not derived from substrate first principles in this corpus.
-\item \textbf{Framework interpretation} connecting to consciousness crystallization at $\mathrm{ch}_2 = 0.95$: this is an empirical hypothesis, \emph{untested}; it awaits experiment and is not established by any computation in this book.
-\end{itemize}
-
-The chapter's load-bearing claim is item 2 (the unconditional box-local zero-free region) together with the conditional reductions in items 1 and 3.  The remaining items are framework readings, flagged here as substrate evidence and empirical hypotheses rather than as proof.
+\item \textbf{Corroborated} the 9-class $\alpha$-skeleton reading at $\alpha_{\textsf{RH}} = 3/2$ via the universal coupling $\alpha = \pi/(10|\lambda|)$ (Sec.~\ref{sec:substrate-self-corroboration-book}).  This is substrate-level evidence, not mathematical proof: $\alpha_{\textsf{RH}} = 3/2$ is an asserted/empirical anchor from the 2026-05-23 IBM Quantum hardware run on 143 problems, not derived from substrate first principles in this corpus.
+\item \textbf{Framework interpretation} connecting to consciousness crystallization at $\mathrm{ch}_2 = 0.95$: empirical hypothesis, untested; awaits experiment.
+\end{itemize>
 
 \section*{Exercises}
 
