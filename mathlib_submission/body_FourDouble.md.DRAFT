@@ -1,0 +1,50 @@
+<!-- PR body DRAFT for PR A of the follow-up series after #46025.  Do NOT submit until Zulip placement reply received. -->
+
+### Disclosure
+
+This contribution was AI-assisted (Claude Opus 4.7).  The mathematics is classical Fermat infinite descent (Fermat 1659 / Euler 1770 for the n = 4 case) and is not AI-invented; the proof structure was iterated through CI with AI assistance to get it compiling under the module system and the strict style linters.  This replaces the closed PR #46025 per [@wwylele's suggestion](https://github.com/leanprover-community/mathlib4/pull/46025#issuecomment-6881XXXXXX) and following the [Zulip thread on placement](https://leanprover.zulipchat.com/#narrow/channel/217875-Is-there-code-for-X.3F/topic/Fermat.20right.20triangle.20theorem/).
+
+### Scope
+
+Adds `fermat42Double_impossible`: the equation `2 * a ^ 2 = s ^ 4 + t ^ 4` has no non-zero integer solutions with `IsCoprime s t` and `s ^ 2 ≠ t ^ 2`.  This is the auxiliary descent form used in Fermat's own proof of the `n = 4` case of Fermat's Last Theorem, and is equivalent (modulo standard reductions) to the statement "no right triangle with integer sides has a square area" (the Fermat right triangle theorem).
+
+### What is in this PR
+
+* New file `Mathlib/NumberTheory/FLT/FourDouble.lean` (~1200 lines, candidate location pending the Zulip reply).
+* `Fermat42DoubleImpossible : Prop` — the predicate (matching the shape of mathlib's existing `Fermat42` for the sum form in `Mathlib.NumberTheory.FLT.Four`).
+* `fermat42Double_impossible_unconditional : Fermat42DoubleImpossible` — the unconditional discharge via strong-induction wrapper + descent-step body.
+* `fermat42Double_impossible` — the direct-statement interface users will typically want.
+* Supporting lemmas: parity (`fermat42Double_parity`), mod-four normalisation (`fermat42Double_u_mod_four`), auxiliary quadratic (`fermat42_key_quadratic_no_solutions` + variant), descent-step body (`fermat42Double_descent_step_body`), strong-induction wrapper (`fermat42Double_impossible_of_descent_step`).
+
+### What is NOT in this PR
+
+* No scope creep to the difference-form `a ^ 4 - b ^ 4 ≠ c ^ 2` (will be a follow-up PR if this one lands).
+* No corollary `fermat_right_triangle_theorem` phrased in the right-triangle-area form — happy to add if reviewers prefer, flagged in the Zulip thread as an option.
+* No changes to `Mathlib.NumberTheory.FLT.Four`.
+
+### Proof sketch
+
+Classical Fermat infinite descent on `a.natAbs`.
+
+1. Parity reduction: `s, t` both odd (`fermat42Double_parity`), so `u = (s^2 + t^2)/2 ≡ 1 mod 4`, `v = (t^2 - s^2)/2`.
+2. Pythagorean classification on `u^2 + v^2 = a^2`: with `u` odd there are coprime `m, k` with `u = m^2 - 4k^2`, `v = 4mk`, `a = m^2 + 4k^2` (or symmetric).
+3. UFD square-splits on `(m - 2k)(m + 2k) = s^2 * t^2` yield half-factor data `(A, B, C, D)` with `A * B = 2 * k^2`.
+4. Quadruple extraction: `(A, B, C, D)` yields coprime `(b, c, d)` with `k = a * b * c * d` (abusing `a` for the inner level) and the key relation `4 * a * b * c * d = (c^2 - b^2) * (2 * a^2 - d^2)`.
+5. Completing the square: `(2 (c^2 - b^2) d + 4 a b c)^2 = 8 a^2 * (b^4 + c^4)`, hence `2 * e^2 = b^4 + c^4` with `e = (c^2 - b^2) d + 2 a b c` / something — explicit in-file.
+6. Size bound: `|e| ≤ k^2 < 8 k^2 + 4 k + 1 ≤ a`.
+7. Strong induction on `natAbs` closes the descent.
+
+### Style checklist
+
+* No file-level `set_option linter.* false` disables.
+* No star emphasis in docstrings.
+* All definition names in CamelCase (no `_impossible`-style underscores in `def`-level names, per the underscore-in-type-name linter).
+* Line count: ~1215 in current draft, aiming for < 1000 after a cleanup pass that factors out the intermediate Prop abstractions (`Fermat42DoubleAssembler`, `Fermat42DoubleStage2`, `Fermat42DoubleDescentStep`) that were artifacts of CI iteration.
+
+### Next steps if accepted
+
+PR B will add the `Fermat42Sub` predicate parallel to mathlib's `Fermat42`.  PR C will assemble `not_fermat_42_sub : a ^ 4 - b ^ 4 ≠ c ^ 2` from this result plus PR B.  Each will be independently submittable.
+
+### Author
+
+Pablo Cohen (DrDMT-VR), author of the [Principia Fractalis](https://github.com/FractalDevTeam/Principia-Fractalis) Lean 4 corpus where this content currently lives as `PF/Fermat42DoubleImpossible_2026_11_13.lean`.
