@@ -243,8 +243,8 @@ If you only have five minutes, read sections 1 (the big map) and 2 (the apex the
   <li>Part VI — Consciousness pillar (ch<sub>2</sub> = 19/20, Φ bound, regime dichotomy)</li>
   <li>Non-Clay unifications — H<sub>3</sub> Coxeter, Weinstein-GU, BRST E<sub>6</sub>, vortices</li>
   <li>Substrate → Observable map — the "theory of everything" axis</li>
-  <li>Verification layer — three provers, 8,591 files, 0 sorry</li>
-  <li>Wave 18–58 hierarchy — 41 capstone waves (one-line table)</li>
+  <li>Verification layer — three provers, 10,774 files, 0 sorry</li>
+  <li>Wave 18–58 hierarchy — 36 capstone waves (one-line table)</li>
   <li>Summary table — every axis, Clay and non-Clay (23 rows)</li>
   <li>Where each thing lives — file map (book + Lean + codex)</li>
   <li>Reading guide for a referee — 12 steps, apex-first</li>
@@ -445,16 +445,16 @@ flowchart TB
 <p>Each identity is a kernel-verified theorem in <code>PF/CrossMillenniumSharedInvariants.lean</code> on the three-axiom bar. The identities are shown here as a two-column table instead of a flowchart because they are static algebraic facts, not dependency relations.</p>
 
 <table>
-<thead><tr><th style="width:5%;">#</th><th style="width:40%;">Identity</th><th style="width:5%;">#</th><th style="width:40%;">Identity</th></tr></thead>
+<thead><tr><th style="width:5%;">#</th><th style="width:38%;">Identity (Lean theorem name)</th><th style="width:5%;">#</th><th style="width:38%;">Identity (Lean theorem name)</th></tr></thead>
 <tbody>
-<tr><td>1</td><td>α<sub>P</sub>² = α<sub>YM</sub> &nbsp;<em>(√2² = 2)</em></td><td>9</td><td>α<sub>RH</sub> · α<sub>YM</sub> = 3</td></tr>
-<tr><td>2</td><td>α<sub>RH</sub>² = 9/4</td><td>10</td><td>α<sub>NP</sub> − α<sub>Hodge</sub> = 1/4</td></tr>
-<tr><td>3</td><td>α<sub>QG</sub>² = 2π</td><td>11</td><td>α<sub>QG</sub>² = α<sub>YM</sub> · π</td></tr>
-<tr><td>4</td><td>α<sub>Hodge</sub>² = α<sub>Hodge</sub> + 1 &nbsp;<em>(φ identity)</em></td><td>12</td><td>resonance-period identities (α<sub>P</sub>, α<sub>NP</sub>)</td></tr>
-<tr><td>5</td><td>α<sub>NS</sub> = 2·α<sub>BSD</sub></td><td>13</td><td>H<sub>3</sub> Coxeter h = 10 → α<sub>Poincaré</sub></td></tr>
-<tr><td>6</td><td>α<sub>NS</sub> = α<sub>YM</sub> · α<sub>BSD</sub></td><td>14</td><td>Σ(H<sub>3</sub> exponents {1,5,9}) = 15 → α<sub>NS</sub></td></tr>
-<tr><td>7</td><td>α<sub>YM</sub> = α<sub>Poincaré</sub> + 1</td><td>15</td><td>constraint-satisfaction + parametric uniqueness (2 views)</td></tr>
-<tr><td>8</td><td>α<sub>RH</sub> · α<sub>NS</sub> = α<sub>NS</sub> + α<sub>BSD</sub></td><td></td><td></td></tr>
+<tr><td>1</td><td>α<sub>P</sub>² = α<sub>YM</sub> &nbsp;<em>(√2² = 2)</em><br/><code>α_P_sq_eq_α_YM</code></td><td>9</td><td>α<sub>RH</sub> · α<sub>YM</sub> = 3<br/><code>α_RH_mul_YM_eq_three</code></td></tr>
+<tr><td>2</td><td>α<sub>RH</sub>² = 9/4<br/><code>α_RH_sq_eq_nine_fourths</code></td><td>10</td><td>α<sub>Poincaré</sub> · α<sub>YM</sub> = α<sub>P</sub>²<br/><code>α_Poincare_mul_YM_eq_α_P_sq</code></td></tr>
+<tr><td>3</td><td>α<sub>QG</sub>² = 2π<br/><code>α_QG_sq_eq_two_pi</code></td><td>11</td><td>α<sub>NP</sub> − α<sub>Hodge</sub> = 1/4<br/><code>α_NP_sub_Hodge_eq_quarter</code></td></tr>
+<tr><td>4</td><td>α<sub>Hodge</sub>² = α<sub>Hodge</sub> + 1 &nbsp;<em>(φ identity)</em><br/><code>α_Hodge_sq_eq_self_plus_one</code></td><td>12</td><td>α<sub>NP</sub> + α<sub>Hodge</sub> = 2·α<sub>Hodge</sub> + 1/4<br/><code>α_NP_add_Hodge_form</code></td></tr>
+<tr><td>5</td><td>α<sub>NS</sub> = 2·α<sub>BSD</sub><br/><code>α_NS_eq_two_α_BSD</code></td><td>13</td><td>α<sub>QG</sub>² = α<sub>YM</sub> · π<br/><code>α_QG_sq_eq_α_YM_mul_pi</code></td></tr>
+<tr><td>6</td><td>α<sub>NS</sub> = α<sub>YM</sub> · α<sub>BSD</sub><br/><code>α_NS_eq_α_YM_mul_α_BSD</code></td><td>14</td><td>α<sub>QG</sub>² = (4/3) · α<sub>NS</sub><br/><code>α_QG_sq_eq_four_thirds_α_NS</code></td></tr>
+<tr><td>7</td><td>α<sub>YM</sub> = α<sub>Poincaré</sub> + 1<br/><code>α_YM_eq_α_Poincare_plus_one</code></td><td>15</td><td>α<sub>QG</sub>² = (8/3) · α<sub>BSD</sub><br/><code>α_QG_sq_eq_eight_thirds_α_BSD</code></td></tr>
+<tr><td>8</td><td>α<sub>RH</sub> · α<sub>NS</sub> = α<sub>NS</sub> + α<sub>BSD</sub><br/><code>α_RH_mul_NS_eq_NS_plus_BSD</code></td><td colspan="2"><em>Plus:</em> <code>cross_millennium_shared_invariants_capstone</code> (aggregator) and <code>…_rigidity_remark</code> (meta). H<sub>3</sub> Coxeter bridge h(H<sub>3</sub>)=10 and Σ(exponents)=15 live in <code>PF/NSAlphaFromH3ExponentSum_r340.lean</code>, not in this file.</td></tr>
 </tbody>
 </table>
 
@@ -508,7 +508,7 @@ flowchart LR
     end
 
     subgraph RH["<b>RH</b> (ch20) — OPEN"]
-      RH_L["Legion box march:<br/>zero-free up to t = 829/64<br/>UNCONDITIONAL"]:::proven
+      RH_L["Legion box march:<br/>zero-free up to t = 828/64 ≈ 12.9375<br/>UNCONDITIONAL (head commit 2b1d07d2, 2026-11-08)"]:::proven
       RH_15["rh_below_15 (|t| ≤ 15)<br/>CONDITIONAL on R1∧R2∧R3"]:::cond
       RH_S["Typed capstone: α_RH² = 9/4"]:::proven
     end
@@ -612,7 +612,7 @@ The cosmology pillar is <em>honest</em> about what works and what doesn't. Λ<su
 <h2>6. Part VI — Consciousness pillar (ch30–ch32)</h2>
 
 <div class="what">
-The consciousness pillar is anchored to a single quantitative constant: the <strong>second Chern character threshold</strong> ch<sub>2</sub> = 19/20 = 0.95. Above this value the system is classical; below it the system is quantum. The IIT integrated-information measure Φ inherits a lower bound from this threshold. Clinical and neuroscience protocols are proposed but untested.
+The consciousness pillar is anchored to a single quantitative constant: the <strong>second Chern character threshold</strong> ch<sub>2</sub> = 19/20 = 0.95. Above this value the system is classical; below it the system is quantum. The IIT integrated-information measure Φ inherits a lower bound from this threshold. <strong>All three anchors are labeled <span class="tag tag-empirical">EMPIRICAL — UNTESTED</span></strong> per <code>revision2_changes.tex</code> L103–105: the ch<sub>2</sub> value is a framework constant, not an empirically validated claim. Clinical and neuroscience protocols are proposed but untested.
 </div>
 
 <div class="diagram">
@@ -621,11 +621,11 @@ flowchart LR
     classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
     classDef empirical fill:#d6d6f7,stroke:#4a4ab0,color:#1a1a52
 
-    CH2["<b>ch₂ = 19/20 = 0.95</b><br/>decoherence threshold<br/>(second Chern character at crystallization)<br/>PROVEN as framework anchor"]:::proven
+    CH2["<b>ch₂ = 19/20 = 0.95</b><br/>decoherence threshold<br/>(second Chern character at crystallization)<br/>EMPIRICAL — UNTESTED<br/>(framework anchor only; revision2_changes L103)"]:::empirical
 
-    DICH["<b>Regime dichotomy (C14)</b><br/>ch₂ < 0.95 ⇒ QUANTUM regime<br/>ch₂ ≥ 0.95 ⇒ CLASSICAL regime<br/>PROVEN"]:::proven
+    DICH["<b>Regime dichotomy (C14)</b><br/>ch₂ &lt; 0.95 ⇒ QUANTUM regime<br/>ch₂ ≥ 0.95 ⇒ CLASSICAL regime<br/>EMPIRICAL — UNTESTED"]:::empirical
 
-    PHI["<b>IIT Φ lower bound (C15)</b><br/>if 19/20 ≤ 1 − exp(−Φ/2)<br/>then Φ ≥ 2·log 20 ≈ 5.99<br/>PROVEN"]:::proven
+    PHI["<b>IIT Φ lower bound (C15)</b><br/>if 19/20 ≤ 1 − exp(−Φ/2)<br/>then Φ ≥ 2·log 20 ≈ 5.99<br/>EMPIRICAL — UNTESTED"]:::empirical
 
     CLIN["<b>ch30 — Clinical applications</b><br/>surgical / anesthesia validation<br/>EMPIRICAL — UNTESTED"]:::empirical
 
@@ -734,10 +734,10 @@ The theory distinguishes a <em>program</em> (K-theoretic axioms + computational 
      SECTION 9 — VERIFICATION
 ============================================================ -->
 <div class="page-break"></div>
-<h2>9. Verification layer — three provers, 8,591 files, zero sorry</h2>
+<h2>9. Verification layer — three provers, 10,774 files, zero sorry</h2>
 
 <div class="what">
-The corpus is formally verified by three independent provers. Lean 4 is primary. Rocq/Coq re-verifies substrate rigidity. Lean4Lean is a partial third prover (P vs NP spectral-gap pillar is re-verified; RH/YM/BSD pillars gated on API drift). Across all 8,591 Lean files: zero <code>sorry</code>, zero <code>sorryAx</code>, zero <code>native_decide</code>, zero <code>ofReduceBool</code>, zero project-level <code>axiom</code>.
+The corpus is formally verified by three independent provers. Lean 4 is primary. Rocq/Coq re-verifies substrate rigidity. Lean4Lean is a partial third prover (P vs NP spectral-gap pillar is re-verified; RH/YM/BSD pillars gated on API drift). Across all 10,774 Lean files: zero <code>sorry</code>, zero <code>sorryAx</code>, zero <code>native_decide</code>, zero <code>ofReduceBool</code>, zero project-level <code>axiom</code>.
 </div>
 
 <div class="diagram">
@@ -748,10 +748,10 @@ flowchart TB
 
     subgraph CORPUS["Corpus accounting (ch34 Verification Chapter)"]
       direction LR
-      C1["<b>8,591</b> Lean files total"]:::proven
+      C1["<b>10,774</b> Lean files total"]:::proven
       C2["<b>1,477</b> in transitive<br/>import closure of root"]:::proven
       C3["<b>933</b> pass FULL gate<br/>(olean + 3-axiom bar +<br/>no escape hatches + non-vacuity)"]:::proven
-      C4["Across ALL 8,591:<br/>0 sorry · 0 sorryAx · 0 native_decide<br/>0 ofReduceBool · 0 project-level axiom"]:::proven
+      C4["Across ALL 10,774:<br/>0 sorry · 0 sorryAx · 0 native_decide<br/>0 ofReduceBool · 0 project-level axiom"]:::proven
     end
 
     subgraph DATED["Dated verification updates (ch34)"]
@@ -788,7 +788,7 @@ The corpus is clean. No escape hatches. Three provers. The dated-updates column 
      SECTION 10 — WAVES
 ============================================================ -->
 <div class="page-break"></div>
-<h2>10. Wave 18–58 hierarchy — 41 capstone waves</h2>
+<h2>10. Wave 18–58 hierarchy — 36 capstone waves</h2>
 
 <div class="what">
 Each "Wave" is a MasterCapstone Lean file aggregating axiom-free landings from that development phase. Reading the waves gives the chronological progression of the framework.
@@ -866,7 +866,7 @@ The complete axis-by-axis status table. This is the single reference most refere
 <tr><td>α-skeleton (9 constants)</td><td>I (ch07)</td><td><span class="tag tag-open">ASSERTED</span> + IBM</td><td>15 invariants + K-theoretic obstruction</td><td>feeds every row below</td><td>values not derived from substrate</td></tr>
 <tr><td>Poincaré</td><td>IV</td><td><span class="tag tag-external">SETTLED</span></td><td>α<sub>Poincaré</sub>=1 via h(H<sub>3</sub>)=10</td><td>W_α cascade ceiling</td><td>—</td></tr>
 <tr><td>Fermat n=4</td><td>aux</td><td><span class="tag tag-external">SETTLED</span></td><td>mathlib not_fermat_42 + PF.not_fermat_42_sub</td><td>both sum + difference forms</td><td>—</td></tr>
-<tr><td>Riemann Hypothesis</td><td>IV (ch20)</td><td><span class="tag tag-open">OPEN</span></td><td>Legion box march 829/64; rh_below_15 conditional</td><td>α<sub>RH</sub>² = 9/4</td><td>Full 15-line; three sign facts</td></tr>
+<tr><td>Riemann Hypothesis</td><td>IV (ch20)</td><td><span class="tag tag-open">OPEN</span></td><td>Legion box march to t ≈ 12.9375 (828/64), head <code>2b1d07d2</code>; rh_below_15 conditional</td><td>α<sub>RH</sub>² = 9/4</td><td>Full 15-line; three sign facts</td></tr>
 <tr><td>P vs NP</td><td>IV (ch21)</td><td><span class="tag tag-open">OPEN</span></td><td>SpectralGap.P_neq_NP real-number inequality</td><td>α<sub>NP</sub> − α<sub>Hodge</sub> = 1/4</td><td>Literal class separation; faithful-separator premise</td></tr>
 <tr><td>Yang-Mills Mass Gap</td><td>IV (ch23)</td><td><span class="tag tag-open">OPEN</span></td><td>Wilson RP SU(2) continuous + L²</td><td>α<sub>YM</sub> = α<sub>Poincaré</sub> + 1 = 2 > 0</td><td>Continuum SU(3); mass gap</td></tr>
 <tr><td>Navier-Stokes 3D</td><td>IV (ch22)</td><td><span class="tag tag-open">OPEN</span></td><td>VortexStretching at every Galerkin n</td><td>UniformVortexStretchingBoundAllN 1 1</td><td>Uniform-in-n; infinite-dim limit</td></tr>
@@ -879,7 +879,7 @@ The complete axis-by-axis status table. This is the single reference most refere
 <tr><td>Big Bang Lithium</td><td>V (ch29)</td><td><span class="tag tag-open">FAILS</span></td><td>—</td><td>—</td><td>0.7016 vs required 0.3053</td></tr>
 <tr><td>Muon g−2</td><td>V (ch29)</td><td>WITHDRAWN</td><td>—</td><td>—</td><td>Zero DoF</td></tr>
 <tr><td>ANITA events</td><td>V (ch29)</td><td><span class="tag tag-open">FAILS</span></td><td>—</td><td>—</td><td>Off by one base-3 rung</td></tr>
-<tr><td>Consciousness ch<sub>2</sub> = 19/20</td><td>VI</td><td><span class="tag tag-proven">PROVEN</span> (anchor)</td><td>ch<sub>2</sub> threshold + Φ ≥ 2·log 20</td><td>—</td><td>Empirical validation of threshold</td></tr>
+<tr><td>Consciousness ch<sub>2</sub> = 19/20</td><td>VI</td><td><span class="tag tag-empirical">EMPIRICAL</span> — UNTESTED</td><td>Framework anchor (constant value defined); clinical/IIT claims await experiment per revision2_changes L103</td><td>—</td><td>Empirical validation of threshold; clinical trials</td></tr>
 <tr><td>Weinstein-GU rescue</td><td>App. E</td><td><span class="tag tag-proven">PROVEN</span> (C16)</td><td>|Ψ|² = ch<sub>2</sub> = 0.95; ℝ<sup>13</sup> → ℝ<sup>4</sup></td><td>—</td><td>Full dynamical derivation</td></tr>
 <tr><td>BRST E<sub>6</sub></td><td>App. B</td><td><span class="tag tag-proven">PROVEN</span> (C17)</td><td>H² = 78 = dim E<sub>6</sub></td><td>—</td><td>Full BRST dynamical content</td></tr>
 <tr><td>Counter-rotating vortices</td><td>C18</td><td><span class="tag tag-proven">PROVEN</span></td><td>7-clause free-energy bundle</td><td>—</td><td>—</td></tr>
@@ -923,7 +923,7 @@ F (solutions) · G (notation) · Grothendieck · H (numerical) · I (Lean xref)
 J (refinement) · K (residual) · L (substrate bundle closure)
 </pre>
 
-<h3>Lean corpus — <code>PF_Lean4_Code/PF/</code> (8,591 .lean files)</h3>
+<h3>Lean corpus — <code>PF_Lean4_Code/PF/</code> (10,774 .lean files)</h3>
 <pre>
 SubstrateRigidity.lean                — T_infinity_rigidity (A1)
 CrossMillenniumSharedInvariants.lean  — 15 axiom-free α-identities (C8)
@@ -948,13 +948,26 @@ BSD/
 ├── Fermat42DoubleImpossible_2026_11_13.lean           — Fermat descent lemma (PROVEN)
 └── E{91,102,131,141}a1RankOneCapstone + E80b          — BSD rank-≥1 (PROVEN)
 
-Wave{18..58}MasterCapstone*.lean      — 41 aggregator waves
+Wave{18..58}MasterCapstone*.lean      — 36 aggregator waves (18, 21, 23-24, 26-58; 36/37 merged; gaps at 19, 20, 22, 25)
 
 Referee/                              — <b>2026-11-15 typed substrate capstone family</b>
-├── Standard{Poincare,Fermat}Statement.lean
-├── {Poincare,Fermat}CapstoneTypedBridge.lean
-├── Standard{RH,PvsNP,YM,NS3D,BSD,Hodge}SubstrateStatement.lean
-└── {RH,PvsNP,YM,NavierStokes,BSD,Hodge}CapstoneTypedBridgeSubstrate.lean
+├── StandardClayStatements.lean                        — shared six-axis encoding definitions
+├── StandardPoincareStatement.lean                     — Poincaré encoding
+├── StandardFermatStatement.lean                       — Fermat encoding
+├── StandardRHSubstrateStatement.lean                  — RH encoding
+├── StandardPvsNPSubstrateStatement.lean               — P vs NP encoding
+├── StandardYMSubstrateStatement.lean                  — YM encoding
+├── StandardNS3DSubstrateStatement.lean                — NS encoding (thin re-export of StandardClayStatements)
+├── StandardBSDSubstrateStatement.lean                 — BSD encoding
+├── StandardHodgeSubstrateStatement.lean               — Hodge encoding
+├── PoincareCapstoneTypedBridge.lean                   — Poincaré typed capstone (W_α cascade ceiling)
+├── FermatCapstoneTypedBridge.lean                     — Fermat typed capstone (n=4 sum + difference)
+├── RHCapstoneTypedBridgeSubstrate.lean                — RH typed capstone (α_RH² = 9/4)
+├── PvsNPCapstoneTypedBridgeSubstrate.lean             — PvsNP typed capstone (α_NP − α_Hodge = 1/4)
+├── YMCapstoneTypedBridgeSubstrate.lean                — YM typed capstone (α_YM = α_Poincaré + 1 = 2 > 0)
+├── NavierStokesCapstoneTypedBridgeSubstrate.lean      — NS typed capstone (uniform-all-n Galerkin bound)
+├── BSDCapstoneTypedBridgeSubstrate.lean               — BSD typed capstone (α_NS = 2·α_BSD)
+└── HodgeCapstoneTypedBridgeSubstrate.lean             — Hodge typed capstone (α_Hodge² = α_Hodge + 1)
 </pre>
 
 <h3>Codex — <code>codex/</code> (planning + status)</h3>

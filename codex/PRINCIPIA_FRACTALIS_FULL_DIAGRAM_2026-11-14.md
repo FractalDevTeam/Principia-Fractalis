@@ -19,8 +19,8 @@
 | §6 | **Part VI — Consciousness pillar** (ch₂ = 19/20, Φ bound, regime dichotomy) |
 | §7 | **Non-Clay unifications** — Weinstein-GU, BRST E₆, counter-rotating vortices, H₃ Coxeter bridge |
 | §8 | **Substrate → Observable map** — the "theory of everything" axis |
-| §9 | **Verification layer** — Lean 4 + Rocq + Lean4Lean, 8,591 files, 0 sorry |
-| §10 | **Wave 18–58 hierarchy** — 41 capstone waves |
+| §9 | **Verification layer** — Lean 4 + Rocq + Lean4Lean, 10,774 files, 0 sorry |
+| §10 | **Wave 18–58 hierarchy** — 36 capstone waves |
 | §11 | **Summary table** — every axis, Clay and non-Clay |
 | §12 | **Where each thing lives** — file map (book + Lean + codex) |
 | §13 | **Reading guide for a referee** |
@@ -216,7 +216,7 @@ flowchart LR
     end
 
     subgraph RH["RH (ch20) — OPEN"]
-      RH_L["Legion box march to 829/64 unconditional"]:::proven
+      RH_L["Legion box march to t ≈ 12.9375 (828/64) unconditional<br/>head commit 2b1d07d2 (2026-11-08)"]:::proven
       RH_15["rh_below_15_conditional on R1∧R2∧R3"]:::cond
       RH_HP["Hilbert-Pólya equivalences conditional"]:::cond
       RH_S["PF_RH_capstone_substrate via α_RH² = 9/4"]:::proven
@@ -292,7 +292,7 @@ flowchart LR
     classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
     classDef empirical fill:#d6d6f7,stroke:#4a4ab0,color:#1a1a52
 
-    CH2["ch₂ = 19/20 = 0.95<br/>decoherence threshold<br/>(second Chern character at crystallization)<br/>kernel-verified as framework anchor"]:::proven
+    CH2["ch₂ = 19/20 = 0.95<br/>decoherence threshold<br/>(second Chern character at crystallization)<br/>EMPIRICAL — UNTESTED<br/>(framework anchor only; revision2_changes L103)"]:::empirical
 
     DICH["Regime dichotomy<br/>ch₂ < 0.95 ⇒ quantum regime<br/>ch₂ ≥ 0.95 ⇒ classical regime<br/>(C14)"]:::proven
 
@@ -374,10 +374,10 @@ flowchart LR
     classDef cond fill:#fde4a7,stroke:#b8860b,color:#5c4216
 
     subgraph CORPUS["Corpus accounting (ch34 Verification Chapter)"]
-      C1["8,591 Lean files total"]:::proven
+      C1["10,774 Lean files total"]:::proven
       C2["1,477 in transitive import closure of root"]:::proven
       C3["933 of 1,477 pass FULL gate<br/>(olean currency + 3-axiom bar +<br/>no escape hatches + non-vacuity)"]:::proven
-      C4["Across all 8,591:<br/>0 sorry, 0 sorryAx, 0 native_decide,<br/>0 ofReduceBool, 0 project-level axiom"]:::proven
+      C4["Across all 10,774:<br/>0 sorry, 0 sorryAx, 0 native_decide,<br/>0 ofReduceBool, 0 project-level axiom"]:::proven
     end
 
     subgraph DATED["Dated updates (ch34)"]
@@ -451,7 +451,7 @@ All waves pushed to origin/master; markers inventory tracked in MEMORY.md (curre
 | α-skeleton (9 constants) | I (ch07) | ASSERTED + IBM-corroborated | 15 invariants + K-theoretic obstruction PROVEN | (feeds every row below) | α-values not derived from substrate |
 | Poincaré | IV (ch_) | SETTLED (external) | α\_Poincaré = 1 via h(H₃) = 10 | `PF_Poincare_capstone` via W\_α cascade ceiling | — |
 | Fermat n=4 | aux | SETTLED | mathlib `not_fermat_42` + `PF.not_fermat_42_sub` | `fermat_n_four_classically` + `_difference_form` | — |
-| RH | IV (ch20) | **OPEN** | Legion box march 829/64; rh\_below\_15 conditional | `PF_RH_capstone_substrate` via α\_RH² = 9/4 | Full 15-line; three sign facts |
+| RH | IV (ch20) | **OPEN** | Legion box march to t ≈ 12.9375 (828/64), head 2b1d07d2; rh\_below\_15 conditional | `PF_RH_capstone_substrate` via α\_RH² = 9/4 | Full 15-line; three sign facts |
 | P vs NP | IV (ch21) | **OPEN** | SpectralGap.P\_neq\_NP real-number inequality | `PF_PvsNP_capstone_substrate` via α\_NP − α\_Hodge = 1/4 | Literal class sep; faithful-separator premise |
 | YM Mass Gap | IV (ch23) | **OPEN** | Wilson RP SU(2) continuous + L² | `PF_YM_capstone_substrate` via α\_YM = α\_Poincaré + 1 = 2 > 0 | Continuum limit; full SU(3); mass gap |
 | NS Smoothness | IV (ch22) | **OPEN** | VortexStretching at every Galerkin n | `PF_NS_capstone_substrate` via UniformVortexStretchingBoundAllN 1 1 | Uniform-in-n / infinite-dim limit |
@@ -464,7 +464,7 @@ All waves pushed to origin/master; markers inventory tracked in MEMORY.md (curre
 | Big Bang Lithium | V (ch29) | EMPIRICAL (**fails**) | — | — | 0.7016 vs required 0.3053 |
 | Muon g−2 | V (ch29) | WITHDRAWN (zero DoF) | — | — | — |
 | ANITA events | V (ch29) | EMPIRICAL (**fails**) | — | — | Off by one base-3 rung |
-| Consciousness ch\_2 = 19/20 | VI (ch30–32) | PROVEN (framework anchor) | ch\_2 threshold + Φ ≥ 2·log 20 | — | Empirical validation of threshold |
+| Consciousness ch\_2 = 19/20 | VI (ch30–32) | EMPIRICAL — UNTESTED | Framework anchor (constant value defined); clinical/IIT claims await experiment per revision2_changes.tex L103–105 | — | Empirical validation of threshold; clinical trials |
 | Weinstein-GU rescue | Appendix E | PROVEN (C16) | |Ψ\_RQG|² = ch\_2 = 0.95 holographic ℝ¹³ → ℝ⁴ | — | Full dynamical derivation |
 | BRST E₆ (dim 78 = 48+26+4) | Appendix B | PROVEN (C17) | H² = 78 = dim E₆ | — | Full BRST dynamical content |
 | Counter-rotating vortices | aux (C18) | PROVEN | 7-clause free-energy bundle | — | — |
@@ -511,10 +511,12 @@ PF_Lean4_Code/PF/
 ├── E{91,102,131,141}a1RankOneCapstone_2026_*.lean + E80bRankOneCapstone — BSD rank-≥1
 ├── Wave{18..58}MasterCapstone*.lean   — 41 aggregator waves
 ├── Referee/                            — 2026-11-15 typed substrate capstone family
-│   ├── Standard{Poincare,Fermat,RHSubstrate,PvsNPSubstrate,YMSubstrate,
-│   │             NS3D,BSDSubstrate,HodgeSubstrate}Statement.lean
+│   ├── StandardClayStatements.lean                        — shared six-axis encodings
+│   ├── Standard{Poincare,Fermat}Statement.lean
+│   ├── Standard{RH,PvsNP,YM,NS3D,BSD,Hodge}SubstrateStatement.lean
+│   │   (NS3D substrate statement is a thin re-export of StandardClayStatements)
 │   └── {Poincare,Fermat,RH,PvsNP,YM,NavierStokes,BSD,Hodge}CapstoneTypedBridge{,Substrate}.lean
-└── (8,591 total .lean files, 1,477 in root transitive closure)
+└── (10,774 total .lean files, 1,477 in root transitive closure)
 
 codex/
 ├── PRINCIPIA_FRACTALIS_FULL_DIAGRAM_2026-11-14.md   — this document
@@ -539,7 +541,7 @@ codex/
 6. **The H₃ Coxeter bridge** (`PF/NSAlphaFromH3ExponentSum_r340.lean`) grounds BOTH π-anchors (α\_Poincaré = π/(10·λ) and α\_NS = π/(10·(1/15))) in the same icosahedral exponent datum {1, 5, 9}. This is the point that eliminates circularity in the NS realization predicate.
 7. **The six Clay chapters each open with a scope paragraph** naming (a) what IS kernel-verified, (b) what is conditional on which named antecedents, (c) what is substrate reading / empirical. These are the referee-defensive entry points.
 8. **The 2026-11-15 typed substrate capstone family** (`PF/Referee/*.lean`) is the Lean-verified kernel for the eight-axis contract: Poincaré + Fermat + six open Clays. Each capstone discharges the typed statement (every anchor-value satisfies its axis-specific cross-Millennium identity) on the three-axiom bar. Scope caveat: typed contract is NOT the full Clay statement; Clay statements for six open axes remain open at the analytic/geometric layer.
-9. **For cosmology/consciousness honesty**: §5 and §6 here, plus ch26–ch32. Three cosmological predictions explicitly FAIL; one gives 0.86σ soft agreement. Consciousness threshold ch₂ = 19/20 is proven as a framework anchor; its empirical validation is UNTESTED.
+9. **For cosmology/consciousness honesty**: §5 and §6 here, plus ch26–ch32. Three cosmological predictions explicitly FAIL; one gives 0.86σ soft agreement. Consciousness threshold ch₂ = 19/20 is defined as a framework anchor constant; all consciousness claims (threshold, regime dichotomy, Φ bound, clinical protocols) are labeled EMPIRICAL — UNTESTED per `revision2_changes.tex` L103–105.
 10. **For verification detail**: ch34 Verification chapter has dated entries from 2026-07-23 through 2026-11-15 recording every kernel-level landing.
 11. **For specific Lean theorem lookups**: appendix I is the per-chapter cross-reference table.
 12. **For the honest gap inventory**: `codex/FRAMEWORK_CLAIMS_GAP_INVENTORY_2026-11-15.md` is the single source of truth on remaining open items. §XII documents the 2026-11-15 typed-capstone landings and what remains open.
