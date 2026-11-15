@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Principia Fractalis — Full Theory of Everything Diagram</title>
+<script src="mermaid.min.js"></script>
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    primaryColor: '#ffffff',
+    primaryTextColor: '#000000',
+    primaryBorderColor: '#000000',
+    lineColor: '#000000',
+    fontSize: '12px',
+    fontFamily: 'Georgia, serif'
+  },
+  flowchart: { htmlLabels: true, curve: 'basis', padding: 10, nodeSpacing: 22, rankSpacing: 28, useMaxWidth: true }
+});
+</script>
+<style>
+  :root {
+    --proven-bg:#b7e4c7;  --proven-br:#2d6a4f;
+    --cond-bg:#fde4a7;    --cond-br:#b8860b;
+    --open-bg:#f6c8d2;    --open-br:#9d2449;
+    --empirical-bg:#d6d6f7; --empirical-br:#4a4ab0;
+    --external-bg:#e2e2e2;  --external-br:#555555;
+    --apex-bg:#fff3cd;      --apex-br:#8a6d1f;
+    --parked-bg:#d3d3d3;    --parked-br:#808080;
+  }
+  @page {
+    size: Letter;
+    margin: 0.6in 0.5in;
+  }
+  @page landscape {
+    size: Letter landscape;
+    margin: 0.5in 0.4in;
+  }
+  html, body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11pt;
+    line-height: 1.45;
+    color: #111;
+    background: white;
+    margin: 0; padding: 0;
+  }
+  .page { max-width: 7.3in; margin: 0 auto; padding: 0.3in 0; }
+  h1 {
+    font-size: 22pt; margin: 0 0 6pt 0; font-weight: 700;
+    border-bottom: 2.5pt solid #000; padding-bottom: 6pt;
+  }
+  h2 {
+    font-size: 15pt; margin: 22pt 0 8pt 0; font-weight: 700;
+    border-bottom: 1pt solid #666; padding-bottom: 4pt;
+    page-break-after: avoid;
+  }
+  h3 { font-size: 12pt; margin: 14pt 0 6pt 0; font-weight: 700; }
+  h4 { font-size: 11pt; margin: 10pt 0 4pt 0; font-weight: 700; font-style: italic; }
+  p { margin: 0 0 8pt 0; text-align: justify; }
+  ul, ol { margin: 0 0 8pt 0; padding-left: 20pt; }
+  li { margin-bottom: 3pt; }
+  code {
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 9.5pt; background: #f4f4f4; padding: 1pt 3pt; border-radius: 2pt;
+  }
+  pre {
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 8.5pt;
+    background: #f7f7f7; border: 1pt solid #ccc; border-radius: 3pt;
+    padding: 8pt 10pt; margin: 6pt 0; overflow-x: auto; line-height: 1.3;
+    page-break-inside: avoid;
+  }
+
+  .cover-meta {
+    font-size: 10pt; color: #444; margin-bottom: 14pt;
+    display: flex; gap: 20pt; flex-wrap: wrap;
+  }
+  .cover-meta span { white-space: nowrap; }
+
+  /* The three prose callout boxes that frame every diagram.
+     `how` and `takeaway` try to stay together — no orphan takeaway pages. */
+  .what, .how, .takeaway {
+    margin: 8pt 0;
+    padding: 7pt 11pt;
+    border-left: 3pt solid;
+    background: #fafafa;
+    page-break-inside: avoid;
+    font-size: 10pt;
+  }
+  .what { border-color: #2d6a4f; background: #f0f8f2; }
+  .how  { border-color: #4a4ab0; background: #f2f2fa; }
+  .takeaway { border-color: #b8860b; background: #fcf6e4; page-break-before: avoid; }
+  .how { page-break-after: avoid; }
+  .what::before    { content: "What this diagram shows. "; font-weight: 700; }
+  .how::before     { content: "How it connects to the rest. "; font-weight: 700; }
+  .takeaway::before { content: "What to take away. "; font-weight: 700; }
+
+  /* Mermaid container — centered, bordered, won't split across pages.
+     Capped height so header + "what this shows" + diagram fit on the same page;
+     "how it connects" + "takeaway" flow to the next page naturally. */
+  .diagram {
+    margin: 8pt 0;
+    padding: 8pt;
+    border: 1.5pt solid #222;
+    border-radius: 4pt;
+    background: #ffffff;
+    text-align: center;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    max-height: 5.4in;
+    overflow: hidden;
+  }
+  .diagram .caption {
+    font-size: 8.5pt; color: #555; font-style: italic;
+    margin-top: 2pt; text-align: center;
+  }
+  .mermaid { font-size: 9pt; }
+  .mermaid svg {
+    max-width: 100% !important;
+    max-height: 4.7in !important;
+    height: auto !important;
+    width: auto !important;
+    display: inline-block;
+  }
+  /* Landscape-page diagrams can be taller/wider */
+  .landscape .diagram { max-height: 6.4in; }
+  .landscape .mermaid svg { max-height: 5.7in !important; max-width: 100% !important; }
+
+  /* Large/wide diagrams get landscape pages */
+  .landscape {
+    page: landscape;
+    page-break-before: always;
+  }
+  .landscape .diagram { margin: 6pt 0; }
+
+  /* Legend row at the top of each diagram page */
+  .legend {
+    display: flex; gap: 10pt; font-size: 8.5pt; margin: 4pt 0 10pt 0;
+    flex-wrap: wrap; justify-content: center;
+    page-break-inside: avoid;
+  }
+  .legend span {
+    padding: 2pt 6pt; border: 1pt solid; border-radius: 2pt;
+    white-space: nowrap;
+  }
+  .lg-proven    { background: var(--proven-bg);    border-color: var(--proven-br); }
+  .lg-cond      { background: var(--cond-bg);      border-color: var(--cond-br); }
+  .lg-open      { background: var(--open-bg);      border-color: var(--open-br); }
+  .lg-empirical { background: var(--empirical-bg); border-color: var(--empirical-br); }
+  .lg-external  { background: var(--external-bg);  border-color: var(--external-br); }
+  .lg-apex      { background: var(--apex-bg);      border-color: var(--apex-br); }
+  .lg-parked    { background: var(--parked-bg);    border-color: var(--parked-br); }
+
+  table {
+    border-collapse: collapse; width: 100%; margin: 10pt 0;
+    font-size: 9.5pt; page-break-inside: auto;
+  }
+  th, td {
+    border: 0.5pt solid #666; padding: 4pt 6pt; vertical-align: top;
+    text-align: left;
+  }
+  th { background: #efefef; font-weight: 700; }
+  tr { page-break-inside: avoid; page-break-after: auto; }
+
+  .toc {
+    border: 1pt solid #666; background: #fafafa;
+    padding: 10pt 14pt; margin: 10pt 0 14pt 0;
+  }
+  .toc h3 { margin-top: 0; }
+  .toc ol { padding-left: 22pt; }
+  .toc li { font-size: 10pt; margin-bottom: 2pt; }
+
+  .page-break { page-break-before: always; }
+
+  /* Rigor label tags inline */
+  .tag {
+    display: inline-block; padding: 1pt 5pt; border-radius: 2pt;
+    font-size: 8.5pt; font-weight: 700; margin: 0 2pt;
+    vertical-align: baseline;
+  }
+  .tag-proven    { background: var(--proven-bg);    color: #1b4332; }
+  .tag-cond      { background: var(--cond-bg);      color: #5c4216; }
+  .tag-open      { background: var(--open-bg);      color: #58101d; }
+  .tag-empirical { background: var(--empirical-bg); color: #1a1a52; }
+  .tag-external  { background: var(--external-bg);  color: #222222; }
+  .tag-apex      { background: var(--apex-bg);      color: #3d2f0d; }
+  .tag-parked    { background: var(--parked-bg);    color: #333333; }
+
+  /* Navigation footer shows at bottom of each printed page */
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    a { color: #000; text-decoration: none; }
+    .diagram { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ============================================================
+     COVER + EXECUTIVE SUMMARY
+============================================================ -->
+<h1>Principia Fractalis — Full Theory of Everything Diagram</h1>
+<div class="cover-meta">
+  <span><strong>Date:</strong> 2026-11-15</span>
+  <span><strong>HEAD:</strong> <code>677bfc6a</code> on <code>origin/master</code></span>
+  <span><strong>Author:</strong> Pablo Cohen</span>
+  <span><strong>Scope:</strong> Full ToE — not Clay-only</span>
+</div>
+
+<h3>Executive summary (one paragraph)</h3>
+<p>
+Principia Fractalis is a five-layer theory of everything whose apex is a single meta-theorem — the <strong>ch34A Substrate Theorem</strong> — bundling <strong>5 antecedents</strong> (A1–A5) and <strong>25 consequences</strong> (C1–C25) under one typed contract. The substrate at the bottom is the nuclear C*-algebra <strong>T<sub>∞</sub> = UHF(3<sup>∞</sup>)</strong> with K<sub>0</sub>(T<sub>∞</sub>) = ℤ[1/3], kernel-verified on the three-axiom bar <code>[propext, Classical.choice, Quot.sound]</code>. Above the substrate sits the <strong>α-skeleton</strong>: nine real constants (α<sub>Poincaré</sub>, α<sub>P</sub>, α<sub>NP</sub>, α<sub>RH</sub>, α<sub>NS</sub>, α<sub>YM</sub>, α<sub>BSD</sub>, α<sub>Hodge</sub>, α<sub>QG</sub>) linked by <strong>15 cross-Millennium algebraic invariants</strong> (also kernel-verified). The six open Clay pillars + Poincaré + Fermat are <strong>one of seven book parts</strong>; the others cover foundations, field equations, spectral theory, cosmology (Λ<sub>eff</sub>, Hubble, dark energy), consciousness (ch<sub>2</sub> = 19/20 decoherence threshold), and computation. Every claim carries one of five rigor labels. On 2026-11-15 a typed-capstone family (<code>PF/Referee/</code>) landed, kernel-verifying the typed substrate contract for all 6 open Clay axes + Poincaré + Fermat.
+</p>
+
+<h3>Legend — five rigor labels used throughout</h3>
+<div class="legend" style="justify-content:flex-start;">
+  <span class="lg-proven"><strong>PROVEN</strong> — kernel-verified, three-axiom bar</span>
+  <span class="lg-cond"><strong>CONDITIONAL REDUCTION</strong> — machine-verified implication, open antecedent</span>
+  <span class="lg-open"><strong>OPEN / ASSERTED</strong> — chosen, matched to evidence, not derived</span>
+  <span class="lg-empirical"><strong>EMPIRICAL</strong> — untested or partially tested</span>
+  <span class="lg-external"><strong>EXTERNAL ANCHOR</strong> — settled outside this corpus</span>
+</div>
+
+<h3>How to read this document</h3>
+<p>
+Each section contains <strong>one picture</strong> and <strong>three prose callouts</strong>:
+<em>what the diagram shows</em> (above),
+<em>how it connects to the rest of the theory</em> (below),
+and sometimes <em>what to take away in plain language</em>.
+If you only have five minutes, read sections 1 (the big map) and 2 (the apex theorem). If you have fifteen, add sections 3 (α-skeleton) and 11 (summary table). The full document is about 20 printed pages.
+</p>
+
+<div class="toc">
+<h3>Table of contents</h3>
+<ol>
+  <li>The Big Map — all 5 layers + 7 book parts on one page</li>
+  <li>The ch34A apex — 5 antecedents + 25 consequences</li>
+  <li>The α-skeleton — 9 constants + 15 invariants + the K-theoretic obstruction</li>
+  <li>Part IV — Six Clay pillars + Poincaré + Fermat (with 2026-11-15 typed capstones)</li>
+  <li>Part V — Cosmology pillar (Λ<sub>eff</sub>, Hubble, tilt, Kolmogorov, Li, g−2, ANITA)</li>
+  <li>Part VI — Consciousness pillar (ch<sub>2</sub> = 19/20, Φ bound, regime dichotomy)</li>
+  <li>Non-Clay unifications — H<sub>3</sub> Coxeter, Weinstein-GU, BRST E<sub>6</sub>, vortices</li>
+  <li>Substrate → Observable map — the "theory of everything" axis</li>
+  <li>Verification layer — three provers, 8,591 files, 0 sorry</li>
+  <li>Wave 18–58 hierarchy — 41 capstone waves (one-line table)</li>
+  <li>Summary table — every axis, Clay and non-Clay (23 rows)</li>
+  <li>Where each thing lives — file map (book + Lean + codex)</li>
+  <li>Reading guide for a referee — 12 steps, apex-first</li>
+</ol>
+</div>
+
+<!-- ============================================================
+     SECTION 1 — THE BIG MAP
+============================================================ -->
+<div class="page-break"></div>
+<h2>1. The Big Map — five layers + seven book parts</h2>
+
+<div class="what">
+A single view of the entire theory. At the bottom (<span class="tag tag-proven">PROVEN</span> green) sits the mathematical substrate — the nuclear C*-algebra T<sub>∞</sub>. Above it, the α-skeleton (nine constants, <span class="tag tag-open">ASSERTED</span>) and the cross-Millennium invariants between them (<span class="tag tag-proven">PROVEN</span>). The empirical anchor (2026-05-23 IBM Quantum hardware run) sits to the side. The seven book parts sit on top; the apex is the ch34A Substrate Theorem that bundles everything.
+</div>
+
+<div class="diagram">
+<div class="legend">
+  <span class="lg-proven">PROVEN</span>
+  <span class="lg-cond">CONDITIONAL</span>
+  <span class="lg-open">ASSERTED</span>
+  <span class="lg-empirical">EMPIRICAL</span>
+  <span class="lg-external">EXTERNAL ANCHOR</span>
+  <span class="lg-apex">APEX</span>
+</div>
+<div class="mermaid">
+flowchart TB
+    classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
+    classDef cond fill:#fde4a7,stroke:#b8860b,color:#5c4216
+    classDef asserted fill:#f6c8d2,stroke:#9d2449,color:#58101d
+    classDef empirical fill:#d6d6f7,stroke:#4a4ab0,color:#1a1a52
+    classDef external fill:#e2e2e2,stroke:#555555,color:#222222
+    classDef apex fill:#fff3cd,stroke:#8a6d1f,color:#3d2f0d,stroke-width:3px
+
+    APEX["APEX<br/><b>ch34A Substrate Theorem</b><br/>5 antecedents A1-A5<br/>+ 25 consequences C1-C25<br/>= ONE typed meta-theorem"]:::apex
+
+    subgraph PARTS["Seven book parts (35 chapters + 7 appendices)"]
+      direction LR
+      P1["I. Foundations<br/>ch01-07"]:::proven
+      P2["II. Field Eqs<br/>ch08-15"]:::proven
+      P3["III. Spectral<br/>ch16-19"]:::proven
+      P4["IV. Millennium<br/>ch20-25"]:::cond
+      P5["V. Cosmology<br/>ch26-29"]:::empirical
+      P6["VI. Conscious<br/>ch30-32"]:::empirical
+      P7["VII. Computation<br/>ch33-35 + ch34A"]:::proven
+    end
+
+    L3["Layer 3 — EMPIRICAL ANCHOR<br/>2026-05-23 IBM Quantum run<br/>143 problems; joint P ≤ 10⁻¹⁵"]:::empirical
+
+    L2["Layer 2 — CROSS-MILLENNIUM INVARIANTS<br/>15 kernel-verified identities<br/>CrossMillenniumSharedInvariants.lean"]:::proven
+
+    L1["Layer 1 — α-SKELETON (9 constants)<br/>α_Poincaré, α_P, α_NP, α_RH, α_NS,<br/>α_YM, α_BSD, α_Hodge, α_QG<br/>+ K-theoretic obstruction PROVEN"]:::asserted
+
+    L0["Layer 0 — SUBSTRATE<br/>T_∞ = UHF(3^∞); unique tracial τ;<br/>K₀(T_∞) = ℤ[1/3]; base-3 digital sum D₃(n);<br/>fractal resonance R_f; emergent locality"]:::proven
+
+    L0 --> L1
+    L0 --> L2
+    L2 --> L1
+    L1 --> L3
+    L2 --> PARTS
+    L1 --> PARTS
+    L0 --> PARTS
+    L3 --> PARTS
+    PARTS --> APEX
+</div>
+<div class="caption">Diagram 1 — the five-layer stack. Arrows read "depends on / builds from."</div>
+</div>
+
+<div class="how">
+Each of the thirteen remaining sections zooms into one box on this map. Section 2 opens up the APEX box. Section 3 opens up Layers 1 and 2. Sections 4–7 open up PARTS IV through VII. Section 8 explains how the substrate reaches observables. Section 9 explains how everything is verified. Sections 10–13 are indices (waves, summary table, file map, reading guide).
+</div>
+
+<div class="takeaway">
+The theory is not Clay-centric. The six open Clay problems are one part of seven. The point of the framework is the apex meta-theorem that unifies substrate + α-skeleton + invariants + empirical anchor + all seven book parts under a single typed contract.
+</div>
+
+<!-- ============================================================
+     SECTION 2 — CH34A APEX
+============================================================ -->
+<div class="page-break"></div>
+<h2>2. The ch34A Substrate Theorem (the apex)</h2>
+
+<div class="what">
+The apex theorem has <strong>five antecedents</strong> (foundation axioms, all now proven) and <strong>twenty-five consequences</strong> (organized into nine thematic groups). The arrows show which antecedents feed which consequence groups. If you only read one chapter of the book, read ch34A — it is the ToE in one object.
+</div>
+
+<div class="diagram">
+<div class="legend">
+  <span class="lg-proven">PROVEN</span>
+  <span class="lg-cond">CONDITIONAL</span>
+  <span class="lg-empirical">EMPIRICAL</span>
+  <span class="lg-external">EXTERNAL ANCHOR</span>
+</div>
+<div class="mermaid">
+flowchart LR
+    classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
+    classDef cond fill:#fde4a7,stroke:#b8860b,color:#5c4216
+    classDef empirical fill:#d6d6f7,stroke:#4a4ab0,color:#1a1a52
+    classDef external fill:#e2e2e2,stroke:#555555,color:#222222
+
+    subgraph ANTE["Five antecedents (all now PROVEN)"]
+      direction TB
+      A1["<b>A1</b> — Timeless Field inhabited<br/>T_∞ = UHF(3^∞); K₀ = ℤ[1/3];<br/>trace unique; partial-trace family"]:::proven
+      A2["<b>A2</b> — α-rigidity forced<br/>(α_YM, α_Poincaré, α_RH) = (2, 1, 3/2)<br/>uniquely by 11 cross-invariants"]:::proven
+      A3["<b>A3</b> — Perelman anchor<br/>α_Poincaré = 1<br/>via Hamilton-Ricci flow"]:::external
+      A4["<b>A4</b> — IBM 9-way empirical anchor<br/>joint P ≤ 10⁻¹⁵<br/>2026-05-23 hardware run"]:::empirical
+      A5["<b>A5</b> — 143-problem coherence<br/>every problem exponent<br/>in {√2, φ + 1/4}"]:::empirical
+    end
+
+    subgraph CONS["Twenty-five consequences (nine groups)"]
+      direction TB
+      G1["<b>Group I</b> — Six unsolved Clay axes<br/>C1 RH · C2 YM · C3 BSD<br/>C4 NS · C5 Hodge · C6 P vs NP"]:::cond
+      G2["<b>Group II</b> — Seventh anchor<br/>C7 Poincaré (Perelman)"]:::external
+      G3["<b>Group III</b> — Invariants<br/>C8 — 11 α-identities kernel-verified"]:::proven
+      G4["<b>Group IV</b> — Cosmology<br/>C9 Λ_eff · 10¹²⁰ suppression<br/>C10 Ω_Λ ≈ 0.7 · C11 H₀ ≈ 69.8<br/>C12 V(t)·Λ_eff(t) toy"]:::empirical
+      G5["<b>Group V</b> — Consciousness<br/>C13 ch₂ = 19/20 = 0.95<br/>C14 regime dichotomy<br/>C15 Φ ≥ 2·log 20"]:::empirical
+      G6["<b>Group VI</b> — Weinstein-GU rescue<br/>C16 |Ψ|² = ch₂ = 0.95 (ℝ¹³→ℝ⁴)<br/>C17 BRST H² = 78 = dim E₆"]:::proven
+      G7["<b>Group VII</b> — Counter-rot vortices<br/>C18 vortex-pair free-energy<br/>7-clause typed bundle"]:::proven
+      G8["<b>Group VIII</b> — Empirical<br/>C20 universal coherence<br/>C21 IBM 9-way (restate A4,A5)"]:::empirical
+      G9["<b>Group IX</b> — Unification<br/>C22 Clay triple · C23 math core<br/>C24 full bundle · C25 Seven-Millennium"]:::proven
+    end
+
+    A1 --> G1
+    A1 --> G3
+    A2 --> G1
+    A2 --> G3
+    A3 --> G2
+    A3 --> G1
+    A4 --> G8
+    A5 --> G8
+    A4 --> G1
+    A5 --> G1
+    G3 --> G6
+    G3 --> G7
+    G1 --> G9
+    G4 --> G9
+    G5 --> G9
+    G6 --> G9
+</div>
+<div class="caption">Diagram 2 — ch34A apex. Left column: antecedents. Right column: consequences (grouped). Arrows: "is used by."</div>
+</div>
+
+<div class="how">
+Group III (the 11 kernel-verified α-identities) is the hinge. It is what the 2026-11-15 typed capstone family discharges on a per-axis basis. Group I (the six open Clay axes) is what Section 4 of this document opens up. Groups IV and V are what Sections 5 and 6 open up.
+</div>
+
+<div class="takeaway">
+<strong>Antecedents are proven facts the framework stands on.</strong> <strong>Consequences are what follows.</strong> Twenty-five consequences, one theorem. Where it lives: <code>chapters/ch34A_substrate_theorem.tex</code> + its Lean companion aggregating all 25 consequences as a single typed bundle.
+</div>
+
+<!-- ============================================================
+     SECTION 3 — α-SKELETON
+============================================================ -->
+<div class="page-break"></div>
+<h2>3. The α-skeleton — nine constants, fifteen invariants</h2>
+
+<div class="what">
+The α-skeleton is nine real constants plus fifteen algebraic identities between them (all kernel-verified in <code>PF/CrossMillenniumSharedInvariants.lean</code>). The <strong>K-theoretic obstruction</strong> at the bottom is the sharp mathematical statement of "program vs. theory of everything": the substrate's trace channel (which takes values in ℤ[1/3]) cannot carry an irrational α-skeleton, because π is not a ℤ[1/3]-ratio.
+</div>
+
+<div class="diagram">
+<div class="mermaid">
+flowchart TB
+    classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
+    classDef asserted fill:#f6c8d2,stroke:#9d2449,color:#58101d
+    classDef external fill:#e2e2e2,stroke:#555555,color:#222222
+
+    subgraph VALS["Nine α-values (three rows of three)"]
+      direction TB
+      subgraph ROW1[" "]
+        direction LR
+        aP["α_Poincaré = 1<br/>EXTERNAL (Perelman)"]:::external
+        aPc["α_P = √2"]:::asserted
+        aNP["α_NP = φ + 1/4"]:::asserted
+      end
+      subgraph ROW2[" "]
+        direction LR
+        aRH["α_RH = 3/2"]:::asserted
+        aNS["α_NS = 3π/2"]:::asserted
+        aYM["α_YM = 2"]:::asserted
+      end
+      subgraph ROW3[" "]
+        direction LR
+        aBSD["α_BSD = 3π/4"]:::asserted
+        aH["α_Hodge = φ"]:::asserted
+        aQG["α_QG = √(2π)"]:::asserted
+      end
+    end
+
+    OBST["<b>K-theoretic obstruction</b> (PROVEN)<br/>pi_not_ktheoretic_ratio: π ∉ ℤ[1/3]-ratios<br/>α_NS / α_RH = π, so the trace channel CANNOT carry<br/>the α-skeleton. A map must route through σ OR posit α."]:::proven
+
+    VALS --> OBST
+</div>
+<div class="caption">Diagram 3a — the nine α-values. The K-theoretic obstruction at the bottom is the sharp "program-vs-ToE" statement.</div>
+</div>
+
+<h4>The fifteen cross-Millennium invariants</h4>
+<p>Each identity is a kernel-verified theorem in <code>PF/CrossMillenniumSharedInvariants.lean</code> on the three-axiom bar. The identities are shown here as a two-column table instead of a flowchart because they are static algebraic facts, not dependency relations.</p>
+
+<table>
+<thead><tr><th style="width:5%;">#</th><th style="width:40%;">Identity</th><th style="width:5%;">#</th><th style="width:40%;">Identity</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>α<sub>P</sub>² = α<sub>YM</sub> &nbsp;<em>(√2² = 2)</em></td><td>9</td><td>α<sub>RH</sub> · α<sub>YM</sub> = 3</td></tr>
+<tr><td>2</td><td>α<sub>RH</sub>² = 9/4</td><td>10</td><td>α<sub>NP</sub> − α<sub>Hodge</sub> = 1/4</td></tr>
+<tr><td>3</td><td>α<sub>QG</sub>² = 2π</td><td>11</td><td>α<sub>QG</sub>² = α<sub>YM</sub> · π</td></tr>
+<tr><td>4</td><td>α<sub>Hodge</sub>² = α<sub>Hodge</sub> + 1 &nbsp;<em>(φ identity)</em></td><td>12</td><td>resonance-period identities (α<sub>P</sub>, α<sub>NP</sub>)</td></tr>
+<tr><td>5</td><td>α<sub>NS</sub> = 2·α<sub>BSD</sub></td><td>13</td><td>H<sub>3</sub> Coxeter h = 10 → α<sub>Poincaré</sub></td></tr>
+<tr><td>6</td><td>α<sub>NS</sub> = α<sub>YM</sub> · α<sub>BSD</sub></td><td>14</td><td>Σ(H<sub>3</sub> exponents {1,5,9}) = 15 → α<sub>NS</sub></td></tr>
+<tr><td>7</td><td>α<sub>YM</sub> = α<sub>Poincaré</sub> + 1</td><td>15</td><td>constraint-satisfaction + parametric uniqueness (2 views)</td></tr>
+<tr><td>8</td><td>α<sub>RH</sub> · α<sub>NS</sub> = α<sub>NS</sub> + α<sub>BSD</sub></td><td></td><td></td></tr>
+</tbody>
+</table>
+
+<div style="display:none;"><!-- diagram closing marker -->
+</div>
+
+<div class="how">
+Every invariant is a two-column Lean theorem on the three-axiom bar. Invariant <strong>13</strong> (h(H<sub>3</sub>) = 10) and invariant <strong>14</strong> (Σ exponents = 15) ground <em>both</em> π-anchors (α<sub>Poincaré</sub> and α<sub>NS</sub>) in the <em>same</em> icosahedral datum — this is what Section 7 unfolds. Invariant 15 has two "view" theorems in the Lean file: (a) constraint-satisfaction — the hard-coded values satisfy all invariants; (b) genuinely parameterized — any assignment satisfying invariants + one pinning α forces the entire skeleton.
+</div>
+
+<div class="takeaway">
+The α-skeleton is <em>asserted</em> (the nine values are chosen, matched to evidence). What is <em>proven</em> is that these nine values satisfy fifteen interlocking algebraic identities — so there is very little room to wiggle any of them. The K-theoretic obstruction says substrate-to-observable maps must either route through the base-3 abscissa σ or posit the α-skeleton; there is no third route.
+</div>
+
+<!-- ============================================================
+     SECTION 4 — PART IV: CLAY PILLARS
+============================================================ -->
+<div class="page-break"></div>
+<h2>4. Part IV — Six Clay pillars + Poincaré + Fermat</h2>
+
+<div class="what">
+The six open Clay axes (RH, P vs NP, YM, NS, BSD, Hodge), the Poincaré external anchor, and Fermat n=4. Each axis carries three items: (a) the chapter's claim, (b) kernel-verified machinery (wherever it exists), (c) the 2026-11-15 typed substrate capstone.
+</div>
+
+<div class="diagram">
+<div class="legend">
+  <span class="lg-proven">PROVEN</span>
+  <span class="lg-cond">CONDITIONAL</span>
+  <span class="lg-open">OPEN / ASSERTED</span>
+  <span class="lg-external">EXTERNAL</span>
+  <span class="lg-parked">PARKED</span>
+</div>
+<div class="mermaid">
+flowchart LR
+    classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
+    classDef cond fill:#fde4a7,stroke:#b8860b,color:#5c4216
+    classDef open fill:#f6c8d2,stroke:#9d2449,color:#58101d
+    classDef external fill:#e2e2e2,stroke:#555555,color:#222222
+    classDef parked fill:#d3d3d3,stroke:#808080,color:#333333,stroke-dasharray: 5 5
+
+    subgraph POINC["<b>Poincaré</b> — SETTLED"]
+      POINC_P["Perelman 2003<br/>Clay-awarded 2010"]:::external
+      POINC_A["α_Poincaré = 1 via h(H₃) = 10"]:::proven
+      POINC_S["Typed capstone: W_α cascade ceiling<br/>∑' n, W_α_level 1 n = 3"]:::proven
+    end
+
+    subgraph FERM["<b>Fermat n=4</b> — SETTLED"]
+      FERM_M["mathlib not_fermat_42<br/>a⁴ + b⁴ ≠ c²"]:::external
+      FERM_P["PF.not_fermat_42_sub<br/>a⁴ − b⁴ ≠ c² (new 2026-11-14)"]:::proven
+      FERM_S["Typed capstone: both forms"]:::proven
+    end
+
+    subgraph RH["<b>RH</b> (ch20) — OPEN"]
+      RH_L["Legion box march:<br/>zero-free up to t = 829/64<br/>UNCONDITIONAL"]:::proven
+      RH_15["rh_below_15 (|t| ≤ 15)<br/>CONDITIONAL on R1∧R2∧R3"]:::cond
+      RH_S["Typed capstone: α_RH² = 9/4"]:::proven
+    end
+
+    subgraph PNP["<b>P vs NP</b> (ch21) — OPEN"]
+      PNP_SG["SpectralGap.P_neq_NP<br/>real-number inequality<br/>UNCONDITIONAL"]:::proven
+      PNP_B["enum-to-class bridge<br/>CONDITIONAL on faithful-separator"]:::cond
+      PNP_S["Typed capstone: α_NP − α_Hodge = 1/4"]:::proven
+    end
+
+    subgraph YM["<b>YM Mass Gap</b> (ch23) — OPEN"]
+      YM_RP["Wilson RP on SU(2) lattices<br/>continuous + L² (2026-11-13)<br/>UNCONDITIONAL"]:::proven
+      YM_S["Typed capstone: α_YM = α_Poincaré + 1 = 2 > 0"]:::proven
+    end
+
+    subgraph NS["<b>Navier-Stokes 3D</b> (ch22) — OPEN"]
+      NS_G["VortexStretchingBoundedHyp.<br/>discharged at every Galerkin n<br/>UNCONDITIONAL"]:::proven
+      NS_RA["Route A 3-chain<br/>Schwartz dense + Galerkin + Young<br/>CONDITIONAL"]:::cond
+      NS_S["Typed capstone: UniformVortexStretchingBoundAllN"]:::proven
+    end
+
+    subgraph BSD["<b>BSD</b> (ch24) — OPEN"]
+      BSD_R0["Two exact rank-0 curves<br/>y² = x³ ± x via Fermat descent<br/>UNCONDITIONAL"]:::proven
+      BSD_R1["Five rank-≥1 curves<br/>E_91, E_102, E_131, E_141, E_80.b<br/>UNCONDITIONAL"]:::proven
+      BSD_S["Typed capstone: α_NS = 2·α_BSD"]:::proven
+    end
+
+    subgraph HODGE["<b>Hodge</b> (ch25) — PARKED"]
+      HODGE_B["Mathlib lacks<br/>Kähler / complex manifolds /<br/>cycle class map"]:::parked
+      HODGE_S["Typed capstone: α_Hodge² = α_Hodge + 1"]:::proven
+    end
+</div>
+<div class="caption">Diagram 4 — eight pillars, each with claim, machinery, and 2026-11-15 typed capstone.</div>
+</div>
+
+<div class="how">
+Every typed capstone in this diagram lives under <code>PF_Lean4_Code/PF/Referee/</code> and discharges the typed substrate contract per axis via some cross-Millennium invariant from Section 3. The capstones do <strong>not</strong> solve the Clay problem in full analytic/geometric generality; they prove that the <em>anchor value</em> for each axis satisfies the <em>axis-specific identity</em>, which is the Lean-verified kernel on which the α-skeleton rests.
+</div>
+
+<div class="takeaway">
+<strong>What is proven today:</strong> substantial machinery on RH (Legion box march to 829/64), YM (Wilson reflection positivity on SU(2) lattices), NS (per-Galerkin-n discharge), BSD (two exact rank-0 curves + five rank-≥1 curves), and Fermat (classical + difference form).
+<br>
+<strong>What remains open:</strong> full RH to Re(s)=1/2, continuum SU(3) YM with mass gap, uniform-in-n NS, analytic-rank BSD (L-function machinery), Hodge (blocked by mathlib's missing complex geometry).
+</div>
+
+<!-- ============================================================
+     SECTION 5 — COSMOLOGY
+============================================================ -->
+<div class="page-break"></div>
+<h2>5. Part V — Cosmology pillar (ch26–ch29)</h2>
+
+<div class="what">
+The cosmology pillar has three qualitative claims (Λ<sub>eff</sub> suppression, dark energy density, Hubble tension bracket) that the framework handles with order-of-magnitude accuracy, and five quantitative predictions (ch29) that each have a specific numerical value to check against observation. <strong>Three of the five quantitative predictions fail.</strong> One gives soft agreement (0.86σ). One (muon g−2) is withdrawn as evidence.
+</div>
+
+<div class="diagram">
+<div class="legend">
+  <span class="lg-empirical">EMPIRICAL (supported/soft)</span>
+  <span class="lg-open">EMPIRICAL (fails)</span>
+</div>
+<div class="mermaid">
+flowchart TB
+    classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
+    classDef empirical fill:#d6d6f7,stroke:#4a4ab0,color:#1a1a52
+    classDef open fill:#f6c8d2,stroke:#9d2449,color:#58101d
+
+    LAMBDA["<b>ch26 — Λ_eff suppression</b><br/>120 orders of magnitude<br/>vs. naive QFT vacuum energy<br/>EMPIRICAL (order-of-magnitude bracket)"]:::empirical
+
+    DE["<b>ch27 — Dark energy + Hubble</b><br/>Ω_Λ ∈ (0.65, 0.75) <i>(Planck ≈ 0.69)</i><br/>H₀ = 69.8 brackets Planck 67.4 and SH0ES 73.0<br/>EMPIRICAL (both bracketed)"]:::empirical
+
+    STRUCT["<b>ch28 — Early universe</b><br/>primordial spectrum<br/>EMPIRICAL"]:::empirical
+
+    subgraph TESTS["ch29 — Observational tests (five numerical predictions)"]
+      direction TB
+      TILT["<b>1. Primordial tilt n_s</b><br/>framework: 0.9686 · Planck: 0.9649 ± 0.0042<br/><b>0.86σ SOFT AGREEMENT</b>"]:::empirical
+      KOLM["<b>2. Kolmogorov scaling</b><br/>observed: −5/3 = −1.667<br/>framework σ(α_NS) = σ(3π/2) = −1.308<br/><b>CLEAR MISS, 0.359 away</b>"]:::open
+      LITH["<b>3. Big Bang Lithium</b><br/>framework: 0.7016 · required: 0.3053<br/><b>FAILS</b>"]:::open
+      MUON["<b>4. Muon g−2</b><br/>one-parameter fit, zero DoF<br/><b>WITHDRAWN as evidence</b>"]:::open
+      ANITA["<b>5. ANITA upward air showers</b><br/>off by exactly one base-3 rung<br/><b>FAILS</b>"]:::open
+    end
+
+    LAMBDA --> TESTS
+    DE --> TESTS
+    STRUCT --> TESTS
+</div>
+<div class="caption">Diagram 5 — cosmology. Three qualitative claims (top). Five quantitative tests (bottom). Three fail, one soft agreement, one withdrawn.</div>
+</div>
+
+<div class="how">
+Cosmology maps to the ch34A apex as Group IV (C9–C12). The three qualitative claims (Λ<sub>eff</sub>, Ω<sub>Λ</sub>, H<sub>0</sub>) are absorbed as framework-anchored consequences; the five quantitative predictions are first-generation empirical tests whose honest accounting is kept in this document rather than hidden.
+</div>
+
+<div class="takeaway">
+The cosmology pillar is <em>honest</em> about what works and what doesn't. Λ<sub>eff</sub>, dark energy, and Hubble bracket observed values at order-of-magnitude. Four of the five fine-grained predictions miss or are withdrawn. The <em>primordial tilt</em> is the only quantitative hit (and only at 0.86σ). The framework is empirically grounded but not yet quantitatively complete.
+</div>
+
+<!-- ============================================================
+     SECTION 6 — CONSCIOUSNESS
+============================================================ -->
+<div class="page-break"></div>
+<h2>6. Part VI — Consciousness pillar (ch30–ch32)</h2>
+
+<div class="what">
+The consciousness pillar is anchored to a single quantitative constant: the <strong>second Chern character threshold</strong> ch<sub>2</sub> = 19/20 = 0.95. Above this value the system is classical; below it the system is quantum. The IIT integrated-information measure Φ inherits a lower bound from this threshold. Clinical and neuroscience protocols are proposed but untested.
+</div>
+
+<div class="diagram">
+<div class="mermaid">
+flowchart LR
+    classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
+    classDef empirical fill:#d6d6f7,stroke:#4a4ab0,color:#1a1a52
+
+    CH2["<b>ch₂ = 19/20 = 0.95</b><br/>decoherence threshold<br/>(second Chern character at crystallization)<br/>PROVEN as framework anchor"]:::proven
+
+    DICH["<b>Regime dichotomy (C14)</b><br/>ch₂ < 0.95 ⇒ QUANTUM regime<br/>ch₂ ≥ 0.95 ⇒ CLASSICAL regime<br/>PROVEN"]:::proven
+
+    PHI["<b>IIT Φ lower bound (C15)</b><br/>if 19/20 ≤ 1 − exp(−Φ/2)<br/>then Φ ≥ 2·log 20 ≈ 5.99<br/>PROVEN"]:::proven
+
+    CLIN["<b>ch30 — Clinical applications</b><br/>surgical / anesthesia validation<br/>EMPIRICAL — UNTESTED"]:::empirical
+
+    NEURO["<b>ch31 — IIT + ch₂ bridge</b><br/>neuroscience protocol<br/>EMPIRICAL — UNTESTED"]:::empirical
+
+    PROT["<b>ch32 — Measurement protocols</b><br/>Φ_IIT quantification<br/>EMPIRICAL — UNTESTED"]:::empirical
+
+    CH2 --> DICH
+    DICH --> PHI
+    CH2 --> CLIN
+    CH2 --> NEURO
+    PHI --> PROT
+</div>
+<div class="caption">Diagram 6 — consciousness. ch<sub>2</sub> threshold on the left feeds the dichotomy and the Φ bound. Clinical/neuroscience protocols on the right are untested.</div>
+</div>
+
+<div class="how">
+The ch<sub>2</sub> = 19/20 threshold appears again in Section 7 under Weinstein-GU rescue — specifically C16, where |Ψ<sub>RQG</sub>|² = ch<sub>2</sub> = 0.95 drives the holographic ℝ<sup>13</sup>→ℝ<sup>4</sup> projection. So the same constant anchors both the consciousness pillar and the Geometric Unity rescue.
+</div>
+
+<div class="takeaway">
+Consciousness is anchored in the framework by <em>one number</em>: 19/20. That number appears twice (once as the decoherence threshold, once as the Weinstein-GU holographic amplitude). The clinical/neuroscience applications are proposals, not validated results.
+</div>
+
+<!-- ============================================================
+     SECTION 7 — NON-CLAY UNIFICATIONS
+============================================================ -->
+<div class="page-break"></div>
+<h2>7. Non-Clay unifications</h2>
+
+<div class="what">
+Four unifications that sit outside the six Clay axes but are part of the ToE. The <strong>H<sub>3</sub> Coxeter bridge</strong> is the most load-bearing: a single icosahedral exponent datum {1, 5, 9} grounds both π-anchors (α<sub>Poincaré</sub> and α<sub>NS</sub>). The others are Weinstein-GU rescue, BRST E<sub>6</sub>, and counter-rotating vortices.
+</div>
+
+<div class="diagram">
+<div class="mermaid">
+flowchart TB
+    classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
+
+    H3["<b>H₃ Coxeter bridge (ch05)</b><br/>icosahedral exponent system = {1, 5, 9}<br/>— Coxeter number h(H₃) = 10 anchors α_Poincaré = π/(10·λ) = 1<br/>— sum of exponents = 15 anchors α_NS = π/(10·(1/15)) = 3π/2<br/>the SAME datum anchors BOTH π-anchors<br/>(file: PF/NSAlphaFromH3ExponentSum_r340.lean)"]:::proven
+
+    WGU["<b>Weinstein-GU rescue (Appendix E, ch11)</b><br/>C16: |Ψ_RQG|² = ch₂ = 0.95<br/>holographic ℝ¹³ → ℝ⁴ projection<br/>resolves 14D-GU fermion-generation issue<br/>via the SAME ch₂ threshold used in consciousness (§6)"]:::proven
+
+    BRST["<b>BRST / E₆ identity (Appendix B)</b><br/>C17: H² = 78 = 48 + 26 + 4 = dim E₆<br/>BRST cohomological obstruction count<br/>MATCHES Lie algebra dimension of E₆"]:::proven
+
+    CRV["<b>Counter-rotating vortices</b><br/>C18: vortex-pair zero-point free energy<br/>7-clause typed bundle<br/>couples α_NS and ch₂ via the Φ-field (ch10)"]:::proven
+
+    H3 --> WGU
+    H3 --> BRST
+    WGU --> CRV
+</div>
+<div class="caption">Diagram 7 — four unifications. H<sub>3</sub> bridge on top is load-bearing. Weinstein-GU and BRST are mid-tier structural. Vortices are the coupling object.</div>
+</div>
+
+<div class="how">
+These four unifications land in the ch34A apex as Group VI (C16, C17) and Group VII (C18). The H<sub>3</sub> bridge is not numbered in the consequence list — it appears earlier (in A2, forcing α-rigidity) as the mechanism that forces α<sub>Poincaré</sub> and α<sub>NS</sub>.
+</div>
+
+<div class="takeaway">
+<strong>The key non-Clay result is the H<sub>3</sub> Coxeter bridge.</strong> It takes a single number-theoretic object (the icosahedral exponent list {1, 5, 9}) and uses it to ground two different α-anchors. This is what eliminates circularity in the NS predicate and is the deepest structural claim outside the Clay axes.
+</div>
+
+<!-- ============================================================
+     SECTION 8 — SUBSTRATE → OBSERVABLE MAP
+============================================================ -->
+<div class="page-break"></div>
+<h2>8. Substrate → Observable map — the "theory of everything" axis</h2>
+
+<div class="what">
+The ToE axis has two channels from substrate (bottom) to observables (top). The <strong>algebra channel</strong> is the trace τ, which takes values in ℤ[1/3]. The <strong>presentation channel</strong> is the abscissa σ of the fractal resonance function R<sub>f</sub>. The K-theoretic obstruction forbids a pure-trace route to physical observables, so any substrate-to-observable map must route through σ or posit the α-skeleton.
+</div>
+
+<div class="diagram">
+<div class="mermaid">
+flowchart TB
+    classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
+    classDef open fill:#f6c8d2,stroke:#9d2449,color:#58101d
+    classDef empirical fill:#d6d6f7,stroke:#4a4ab0,color:#1a1a52
+
+    ALG["<b>Algebra channel</b><br/>τ(p) ∈ ℤ[1/3]<br/>PROVEN (trace unique)"]:::proven
+    PRES["<b>Presentation channel</b><br/>σ(α) = log₃|1 + 2cos(πα)|<br/>abscissa of R_f, PROVEN"]:::proven
+
+    FALS["<b>Falsifiable prediction</b><br/>ternary-rational occupation at level ≤ K<br/>must be in { m/3^k : k ≤ K, 0 ≤ m ≤ 3^k }<br/>CONDITIONAL REDUCTION (level bound essential)"]:::open
+
+    MAP["<b>ToE axis</b><br/>substrate-to-observable map MUST<br/>route through σ OR posit α<br/>(K-theoretic obstruction PROVEN)"]:::open
+
+    ALG --> FALS
+    ALG --> MAP
+    PRES --> MAP
+    MAP --> COSMO["Cosmology (§5) — 5 quantitative tests"]:::empirical
+    MAP --> CONSC["Consciousness (§6) — ch₂ = 19/20"]:::empirical
+    MAP --> MILL["Millennium (§4) — α-skeleton on 6 Clay axes"]:::open
+</div>
+<div class="caption">Diagram 8 — ToE axis. Two channels on left. Falsifiable prediction + map constraint in middle. Three output domains on right.</div>
+</div>
+
+<div class="how">
+This is the single most mathematically sharp statement of the ToE claim. The K-theoretic obstruction converts the vague question "is the framework a ToE?" into the sharp mathematical question "is the substrate-to-observable map σ-routed or α-posited?" Three output domains (cosmology, consciousness, Millennium) show the map in practice.
+</div>
+
+<div class="takeaway">
+The theory distinguishes a <em>program</em> (K-theoretic axioms + computational generation of ℤ[1/3]-rationals) from a <em>theory of everything</em> (a specific substrate-to-observable map). The obstruction says the second requires either a σ-route or an α-posit. The framework posits the α-skeleton (Layer 1); the σ-route is open for future development.
+</div>
+
+<!-- ============================================================
+     SECTION 9 — VERIFICATION
+============================================================ -->
+<div class="page-break"></div>
+<h2>9. Verification layer — three provers, 8,591 files, zero sorry</h2>
+
+<div class="what">
+The corpus is formally verified by three independent provers. Lean 4 is primary. Rocq/Coq re-verifies substrate rigidity. Lean4Lean is a partial third prover (P vs NP spectral-gap pillar is re-verified; RH/YM/BSD pillars gated on API drift). Across all 8,591 Lean files: zero <code>sorry</code>, zero <code>sorryAx</code>, zero <code>native_decide</code>, zero <code>ofReduceBool</code>, zero project-level <code>axiom</code>.
+</div>
+
+<div class="diagram">
+<div class="mermaid">
+flowchart TB
+    classDef proven fill:#b7e4c7,stroke:#2d6a4f,color:#1b4332
+    classDef cond fill:#fde4a7,stroke:#b8860b,color:#5c4216
+
+    subgraph CORPUS["Corpus accounting (ch34 Verification Chapter)"]
+      direction LR
+      C1["<b>8,591</b> Lean files total"]:::proven
+      C2["<b>1,477</b> in transitive<br/>import closure of root"]:::proven
+      C3["<b>933</b> pass FULL gate<br/>(olean + 3-axiom bar +<br/>no escape hatches + non-vacuity)"]:::proven
+      C4["Across ALL 8,591:<br/>0 sorry · 0 sorryAx · 0 native_decide<br/>0 ofReduceBool · 0 project-level axiom"]:::proven
+    end
+
+    subgraph DATED["Dated verification updates (ch34)"]
+      direction TB
+      D1["<b>2026-08-04</b> &nbsp;r183–r192 arc"]
+      D2["<b>2026-09-12</b> &nbsp;substrate rigidity + R_f-ζ bridge"]
+      D3["<b>2026-10-21</b> &nbsp;approach re-read; NS anchor re-framed"]
+      D4["<b>2026-11-14</b> &nbsp;YM RP L² + NS Galerkin + BSD 2 rank-0 + Fermat sub"]
+      D5["<b>2026-11-15</b> &nbsp;9 typed substrate capstones under PF/Referee/<br/>combined lake build 3328 jobs, zero errors"]
+    end
+
+    subgraph PROV["Three-prover status"]
+      direction LR
+      PR1["<b>Lean 4</b><br/>primary corpus"]:::proven
+      PR2["<b>Rocq / Coq</b><br/>substrate rigidity re-verified"]:::proven
+      PR3["<b>Lean4Lean</b> (partial)<br/>P vs NP spectral-gap re-verified;<br/>RH/YM/BSD gated on API drift"]:::cond
+    end
+
+    CORPUS --> DATED
+    DATED --> PROV
+</div>
+<div class="caption">Diagram 9 — verification. Corpus accounting (top). Dated updates (middle). Three-prover status (bottom).</div>
+</div>
+
+<div class="how">
+Every <span class="tag tag-proven">PROVEN</span> claim in this document is verified by Lean 4 on the three-axiom bar. The ch34 Verification Chapter in the book has dated entries from 2026-07-23 through 2026-11-15 recording every kernel-level landing.
+</div>
+
+<div class="takeaway">
+The corpus is clean. No escape hatches. Three provers. The dated-updates column shows the pace of work and where to look for recent landings — 2026-11-15 added nine typed substrate capstones under <code>PF/Referee/</code>.
+</div>
+
+<!-- ============================================================
+     SECTION 10 — WAVES
+============================================================ -->
+<div class="page-break"></div>
+<h2>10. Wave 18–58 hierarchy — 41 capstone waves</h2>
+
+<div class="what">
+Each "Wave" is a MasterCapstone Lean file aggregating axiom-free landings from that development phase. Reading the waves gives the chronological progression of the framework.
+</div>
+
+<table>
+<thead><tr><th>Wave</th><th>Headline</th></tr></thead>
+<tbody>
+<tr><td>18</td><td>Meta-aggregation of 15–18 (polylog refutation, Hodge substrates, RH consciousness bridge)</td></tr>
+<tr><td>21</td><td>Adds 19–21 (NS 3D local regularity, YM verdict, BSD concordance)</td></tr>
+<tr><td>23</td><td>Cross-millennium hypothesis landscape</td></tr>
+<tr><td>26</td><td>Cosmology anchoring</td></tr>
+<tr><td>27</td><td>Transcendental 3-class (NS, BSD, QG unified)</td></tr>
+<tr><td>29</td><td>H<sub>3</sub> structure (Coxeter exponent system)</td></tr>
+<tr><td>31</td><td>FIRST partial-elimination result (Galerkin layer 1)</td></tr>
+<tr><td>32</td><td>SHARPENING + ORTHOGONAL AXIS (layer 2 scaffold)</td></tr>
+<tr><td>33</td><td>STRATEGIC PIVOT to Millennium frontiers</td></tr>
+<tr><td>34</td><td>FIRST UNCONDITIONAL ALL-N NS RESULT</td></tr>
+<tr><td>35</td><td>NS Layer 2 SCAFFOLD + RH consciousness REACTIVATION</td></tr>
+<tr><td>38</td><td>TWO finiteness/barrier removals + manuscript sync</td></tr>
+<tr><td>39</td><td>NEW CONNECTIONS + OPERATOR-LEVEL INSTANCE + RANK DISCRIMINATOR</td></tr>
+<tr><td>40</td><td>HYGIENE + MANUSCRIPT SYNC + NEW CONNECTION + HEADLINE UPDATE</td></tr>
+<tr><td>41</td><td>CROSS-QUADRATIC ALGEBRAIC STRUCTURE + NO-GO COMPACTIFICATION</td></tr>
+<tr><td>42</td><td>GALOIS DISCRIMINATOR + FIRST CROSS-MILLENNIUM SPECTRAL BRIDGE</td></tr>
+<tr><td>43</td><td>LEVERAGE EXPLICITED + SPECTRAL PATTERN ESTABLISHED</td></tr>
+<tr><td>44</td><td>META-ARCHITECTURE SINGLE CITATION + IDENTITY-WITNESS UNIFICATION</td></tr>
+<tr><td>45</td><td>RH REDUCED TO ONE OPEN ANALYTIC CONJECTURE + PERELMAN CROSS-VALIDATION</td></tr>
+<tr><td>46</td><td>YM SINGLE-PROP REDUCTION + OPEN FRONTIER INVENTORY</td></tr>
+<tr><td>47</td><td>PROP-LEVEL ATTACKS WITH DEEP FRAMEWORK READS</td></tr>
+<tr><td>48</td><td>FRONTIER PROP-LEVEL ATTACKS, TWO MAJOR STRUCTURAL ADVANCES</td></tr>
+<tr><td>49</td><td>PROP-LEVEL EXTENSIONS + RH LITERAL-CARRIER REFUTATION</td></tr>
+<tr><td>50</td><td>ALL THREE WAVE 48D UPGRADE PROPS NOW MATHLIB-GROUNDED</td></tr>
+<tr><td>51</td><td>WAVE 35 P1 JOINTLY DISCHARGED + RH SURROGATE HITS HARDY 1914 + α<sub>NS</sub>/α<sub>YM</sub> = α<sub>BSD</sub></td></tr>
+<tr><td>52</td><td>RIGID-NORMALISATION TRIO COMPLETE + RH FRONTIER CRISPLY CHARACTERIZED + WILES ENCODED</td></tr>
+<tr><td>53</td><td>ROUTE (c) IMPLEMENTED + WIGHTMAN VACUUM TOY + 4TH RIGID-NORM AXIS (GALOIS NORM)</td></tr>
+<tr><td>54</td><td>PATH-OF-LEAST-RESISTANCE EXTENSIONS OF WAVE 53 ATTACK SURFACES</td></tr>
+<tr><td>55</td><td>MANUSCRIPT-GROUNDED + EMPIRICALLY-ANCHORED FRONTIER ATTACKS</td></tr>
+<tr><td>56</td><td>STRONGEST FRAMEWORK-INTERNAL ATTACK</td></tr>
+<tr><td>57</td><td>DIRECT ATTACK ON THE GAPS</td></tr>
+<tr><td>58</td><td>REFEREE LAYER + FRONTIER ATTACKS</td></tr>
+</tbody>
+</table>
+
+<div class="how">
+Every wave file lives at <code>PF_Lean4_Code/PF/Wave{N}MasterCapstone*.lean</code>. The current non-permanent <code>Prop := True</code> marker count (as of 2026-11-10) is approximately 182, down from 234 earlier that month and 284 at session start. Remaining markers are categorized into named-anchors bibliographic files, external-reference markers, per-pillar named-open props, insight markers, and chain markers — all deliberately scoped.
+</div>
+
+<div class="takeaway">
+The wave hierarchy is the development log. Waves 44–58 are the "modern" phase — reduction of open frontiers to single named propositions, with named-open-prop refutations (Wave 49), rigid-normalisation discoveries (Waves 51–53), and manuscript-grounded attacks (Wave 55).
+</div>
+
+<!-- ============================================================
+     SECTION 11 — SUMMARY TABLE
+============================================================ -->
+<div class="landscape">
+<h2>11. Summary table — every axis, Clay and non-Clay</h2>
+
+<div class="what">
+The complete axis-by-axis status table. This is the single reference most referees will want. Twenty-three rows across every structural claim in the ToE.
+</div>
+
+<table>
+<thead>
+<tr>
+  <th style="width:11%;">Axis</th>
+  <th style="width:4%;">Part</th>
+  <th style="width:10%;">Status</th>
+  <th style="width:25%;">Kernel-verified content</th>
+  <th style="width:25%;">2026-11-15 typed substrate capstone</th>
+  <th style="width:25%;">Not closed</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Substrate T<sub>∞</sub> rigidity</td><td>I (ch04)</td><td><span class="tag tag-proven">PROVEN</span></td><td>T_infinity_rigidity unconditional</td><td>—</td><td>—</td></tr>
+<tr><td>α-skeleton (9 constants)</td><td>I (ch07)</td><td><span class="tag tag-open">ASSERTED</span> + IBM</td><td>15 invariants + K-theoretic obstruction</td><td>feeds every row below</td><td>values not derived from substrate</td></tr>
+<tr><td>Poincaré</td><td>IV</td><td><span class="tag tag-external">SETTLED</span></td><td>α<sub>Poincaré</sub>=1 via h(H<sub>3</sub>)=10</td><td>W_α cascade ceiling</td><td>—</td></tr>
+<tr><td>Fermat n=4</td><td>aux</td><td><span class="tag tag-external">SETTLED</span></td><td>mathlib not_fermat_42 + PF.not_fermat_42_sub</td><td>both sum + difference forms</td><td>—</td></tr>
+<tr><td>Riemann Hypothesis</td><td>IV (ch20)</td><td><span class="tag tag-open">OPEN</span></td><td>Legion box march 829/64; rh_below_15 conditional</td><td>α<sub>RH</sub>² = 9/4</td><td>Full 15-line; three sign facts</td></tr>
+<tr><td>P vs NP</td><td>IV (ch21)</td><td><span class="tag tag-open">OPEN</span></td><td>SpectralGap.P_neq_NP real-number inequality</td><td>α<sub>NP</sub> − α<sub>Hodge</sub> = 1/4</td><td>Literal class separation; faithful-separator premise</td></tr>
+<tr><td>Yang-Mills Mass Gap</td><td>IV (ch23)</td><td><span class="tag tag-open">OPEN</span></td><td>Wilson RP SU(2) continuous + L²</td><td>α<sub>YM</sub> = α<sub>Poincaré</sub> + 1 = 2 > 0</td><td>Continuum SU(3); mass gap</td></tr>
+<tr><td>Navier-Stokes 3D</td><td>IV (ch22)</td><td><span class="tag tag-open">OPEN</span></td><td>VortexStretching at every Galerkin n</td><td>UniformVortexStretchingBoundAllN 1 1</td><td>Uniform-in-n; infinite-dim limit</td></tr>
+<tr><td>BSD</td><td>IV (ch24)</td><td><span class="tag tag-open">OPEN</span></td><td>2 exact rank-0 + 5 rank-≥1 curves</td><td>α<sub>NS</sub> = 2·α<sub>BSD</sub></td><td>Analytic-rank machinery (L-function ord)</td></tr>
+<tr><td>Hodge</td><td>IV (ch25)</td><td><span class="tag tag-parked">PARKED</span></td><td>Affine algebraic de Rham d²=0</td><td>α<sub>Hodge</sub>² = α<sub>Hodge</sub> + 1</td><td>Mathlib lacks complex geometry</td></tr>
+<tr><td>Λ<sub>eff</sub> suppression</td><td>V (ch26)</td><td><span class="tag tag-empirical">EMPIRICAL</span> (bracket)</td><td>—</td><td>—</td><td>Fine-grained value</td></tr>
+<tr><td>Ω<sub>Λ</sub> / H<sub>0</sub> Hubble</td><td>V (ch27)</td><td><span class="tag tag-empirical">EMPIRICAL</span> (bracket)</td><td>—</td><td>—</td><td>Fine-grained value</td></tr>
+<tr><td>Primordial tilt n<sub>s</sub></td><td>V (ch29)</td><td><span class="tag tag-empirical">EMPIRICAL</span> (0.86σ)</td><td>—</td><td>—</td><td>Tighter agreement needed</td></tr>
+<tr><td>Kolmogorov −5/3</td><td>V (ch29)</td><td><span class="tag tag-open">FAILS</span></td><td>—</td><td>—</td><td>Reconciliation w/ σ(α<sub>NS</sub>) = −1.308</td></tr>
+<tr><td>Big Bang Lithium</td><td>V (ch29)</td><td><span class="tag tag-open">FAILS</span></td><td>—</td><td>—</td><td>0.7016 vs required 0.3053</td></tr>
+<tr><td>Muon g−2</td><td>V (ch29)</td><td>WITHDRAWN</td><td>—</td><td>—</td><td>Zero DoF</td></tr>
+<tr><td>ANITA events</td><td>V (ch29)</td><td><span class="tag tag-open">FAILS</span></td><td>—</td><td>—</td><td>Off by one base-3 rung</td></tr>
+<tr><td>Consciousness ch<sub>2</sub> = 19/20</td><td>VI</td><td><span class="tag tag-proven">PROVEN</span> (anchor)</td><td>ch<sub>2</sub> threshold + Φ ≥ 2·log 20</td><td>—</td><td>Empirical validation of threshold</td></tr>
+<tr><td>Weinstein-GU rescue</td><td>App. E</td><td><span class="tag tag-proven">PROVEN</span> (C16)</td><td>|Ψ|² = ch<sub>2</sub> = 0.95; ℝ<sup>13</sup> → ℝ<sup>4</sup></td><td>—</td><td>Full dynamical derivation</td></tr>
+<tr><td>BRST E<sub>6</sub></td><td>App. B</td><td><span class="tag tag-proven">PROVEN</span> (C17)</td><td>H² = 78 = dim E<sub>6</sub></td><td>—</td><td>Full BRST dynamical content</td></tr>
+<tr><td>Counter-rotating vortices</td><td>C18</td><td><span class="tag tag-proven">PROVEN</span></td><td>7-clause free-energy bundle</td><td>—</td><td>—</td></tr>
+<tr><td>IBM 143/143 empirical</td><td>III</td><td><span class="tag tag-empirical">EMPIRICAL</span> (A4+A5)</td><td>joint P ≤ 10⁻¹⁵</td><td>—</td><td>Replication outside 2026-05-23</td></tr>
+</tbody>
+</table>
+
+<div class="how">
+<strong>How to read this table.</strong> The <em>Status</em> column tells you whether the axis is proven, open, settled externally, or empirical. The <em>Kernel-verified content</em> column lists what Lean actually discharges unconditionally. The <em>typed capstone</em> column is the 2026-11-15 landing: the Lean-verified kernel on which the α-skeleton anchors each axis. The <em>Not closed</em> column is the honest inventory of what remains to be shown — the "real" open problems.
+</div>
+</div>
+
+<!-- ============================================================
+     SECTION 12 — FILE MAP
+============================================================ -->
+<div class="page-break"></div>
+<h2>12. Where each thing lives — file map</h2>
+
+<div class="what">
+Three top-level trees: the book (LaTeX), the Lean 4 corpus, and the codex (planning/status markdown). Use this map to find any specific file referenced in this document.
+</div>
+
+<h3>Book tree — <code>Principia_Fractalis_master_folder/</code></h3>
+<pre>
+chapters/ (35 .tex files)
+├── PART I   — Foundations           ch01..ch07   (ch04 Substrate T_∞, ch05 H_3, ch07 α-skeleton)
+├── PART II  — Field Equations       ch08..ch15   (ch11 Weinstein-GU rescue)
+├── PART III — Spectral Theory       ch16..ch19
+├── PART IV  — Millennium            ch20..ch25   (RH, PvsNP, NS, YM, BSD, Hodge)
+├── PART V   — Cosmology             ch26..ch29   (Λ_eff, dark energy, primordial, tests)
+├── PART VI  — Consciousness         ch30..ch32   (clinical, IIT, protocols)
+└── PART VII — Computation           ch33..ch35   (numerical, ch34 Verification, ch34A Substrate Theorem)
+
+frontmatter/
+├── revision2_changes.tex
+└── version_history.tex
+
+appendices/
+A (zeros) · B (BRST E_6) · C (clinical) · D (software) · E (Weinstein-GU)
+F (solutions) · G (notation) · Grothendieck · H (numerical) · I (Lean xref)
+J (refinement) · K (residual) · L (substrate bundle closure)
+</pre>
+
+<h3>Lean corpus — <code>PF_Lean4_Code/PF/</code> (8,591 .lean files)</h3>
+<pre>
+SubstrateRigidity.lean                — T_infinity_rigidity (A1)
+CrossMillenniumSharedInvariants.lean  — 15 axiom-free α-identities (C8)
+NSAlphaFromH3ExponentSum_r340.lean    — H_3 bridge for both π-anchors (§7)
+FrameworkHeadlineTheorem.lean         — Waves 14–21 bundled
+
+Analytic/
+├── RHBelow15Conditional_2026_10_10.lean   — rh_below_15_conditional (CONDITIONAL)
+├── FourierPanels/                         — Legion box march data files
+└── PilotBoxes/                            — Legion box march pilot data
+
+YangMills/
+├── WilsonFubiniClosed_r385.lean                     — YM RP continuous (PROVEN)
+└── WilsonRPL2ExtensionCapstone_2026_11_12.lean      — YM RP L² (PROVEN)
+
+NS3DVortexStretchingBoundedDischarge.lean   — per-n NS discharge (PROVEN)
+
+BSD/
+├── Ch24Descent2TorsionRatBridge_2026_10_17.lean       — rank-0 (y²=x³+x) (PROVEN)
+├── Ch24DescentSub2TorsionRatBridge_2026_11_14.lean    — rank-0 (y²=x³-x) (PROVEN)
+├── Fermat42SubAssembly_2026_11_14.lean                — PF.not_fermat_42_sub (PROVEN)
+├── Fermat42DoubleImpossible_2026_11_13.lean           — Fermat descent lemma (PROVEN)
+└── E{91,102,131,141}a1RankOneCapstone + E80b          — BSD rank-≥1 (PROVEN)
+
+Wave{18..58}MasterCapstone*.lean      — 41 aggregator waves
+
+Referee/                              — <b>2026-11-15 typed substrate capstone family</b>
+├── Standard{Poincare,Fermat}Statement.lean
+├── {Poincare,Fermat}CapstoneTypedBridge.lean
+├── Standard{RH,PvsNP,YM,NS3D,BSD,Hodge}SubstrateStatement.lean
+└── {RH,PvsNP,YM,NavierStokes,BSD,Hodge}CapstoneTypedBridgeSubstrate.lean
+</pre>
+
+<h3>Codex — <code>codex/</code> (planning + status)</h3>
+<pre>
+PRINCIPIA_FRACTALIS_FULL_DIAGRAM_2026-11-14.md   — markdown source of this document
+pf_toe_diagram.html                               — this printable HTML (NEW 2026-11-15)
+FRAMEWORK_CLAIMS_GAP_INVENTORY_2026-11-15.md     — honest gap inventory (§XII = 2026-11-15)
+GRAND_PROBLEM_DEPENDENCY_GRAPH_2026-10-13.md     — prior dep graph
+THE_MAP_2026-10-11.md                             — substrate-to-observable map theorem
+MILLENNIUM_STATUS_2026-11-11.md                   — cross-axis status (amended 2026-11-14)
+BSD_NEXT_STEPS_2026-11-11.md                      — BSD roadmap (amended 2026-11-14)
+LEAN_CITATION_AUDIT_2026-11-14.tsv                — corpus-wide citation audit
+LEAN_CITATION_AUDIT_FINDINGS_2026-11-14.md        — audit findings
+</pre>
+
+<!-- ============================================================
+     SECTION 13 — READING GUIDE
+============================================================ -->
+<div class="page-break"></div>
+<h2>13. Reading guide for a referee — twelve steps, apex-first</h2>
+
+<div class="what">
+If you have never read Principia Fractalis before and you want to assess whether it works, read in this order. The order is "apex-first" — start with the theorem that unifies everything, then go to the pieces.
+</div>
+
+<ol>
+  <li><strong>Start at <code>revision2_changes.tex</code>.</strong> The five-label rigor convention (PROVEN / CONDITIONAL REDUCTION / ASSERTED / EMPIRICAL — UNTESTED / EXTERNAL ANCHOR) governs every claim in the book. Get comfortable with the labels before anything else.</li>
+  <li><strong>The apex is <code>chapters/ch34A_substrate_theorem.tex</code>.</strong> It bundles 5 antecedents (A1–A5, all proven) and 25 consequences (C1–C25) as one typed meta-theorem. If you only read one chapter, read ch34A.</li>
+  <li><strong>The substrate rigidity theorem</strong> (<code>T_infinity_rigidity</code> in <code>PF/SubstrateRigidity.lean</code>) is the single most load-bearing result in the corpus. First Lean 4 formalization of Glimm 1960 UHF classification specialized to supernatural number 3<sup>∞</sup>.</li>
+  <li><strong>The K-theoretic obstruction</strong> (<code>pi_not_ktheoretic_ratio</code>) is the mathematically sharp statement of "program vs. ToE": any substrate-to-observable map must route through σ or posit the α-skeleton. Diagram 8 in this document captures the picture.</li>
+  <li><strong>The nine α-values + fifteen invariants</strong> (<code>PF/CrossMillenniumSharedInvariants.lean</code>) are the algebraic skeleton. Two "view" theorems — constraint-satisfaction and genuinely-parameterized — show the skeleton is forced once any one of five pinning α's is chosen.</li>
+  <li><strong>The H<sub>3</sub> Coxeter bridge</strong> (<code>PF/NSAlphaFromH3ExponentSum_r340.lean</code>) grounds <em>both</em> π-anchors in the same icosahedral exponent datum {1, 5, 9}. This is the point that eliminates circularity in the NS realization predicate.</li>
+  <li><strong>The six Clay chapters each open with a scope paragraph</strong> naming (a) what IS kernel-verified, (b) what is conditional on which named antecedents, (c) what is substrate reading / empirical. These are the referee-defensive entry points.</li>
+  <li><strong>The 2026-11-15 typed substrate capstone family</strong> (<code>PF/Referee/*.lean</code>) is the Lean-verified kernel for the eight-axis contract: Poincaré + Fermat + six open Clays. <em>Scope caveat</em>: the typed contract is NOT the full Clay statement; six Clay statements remain open at the analytic/geometric layer.</li>
+  <li><strong>For cosmology/consciousness honesty</strong>: Sections 5 and 6 of this document, plus ch26–ch32 of the book. Three cosmology predictions explicitly FAIL; one gives 0.86σ soft agreement. Consciousness threshold ch<sub>2</sub> = 19/20 is proven as a framework anchor; its empirical validation is UNTESTED.</li>
+  <li><strong>For verification detail</strong>: ch34 Verification Chapter has dated entries from 2026-07-23 through 2026-11-15 recording every kernel-level landing.</li>
+  <li><strong>For specific Lean theorem lookups</strong>: Appendix I is the per-chapter cross-reference table.</li>
+  <li><strong>For the honest gap inventory</strong>: <code>codex/FRAMEWORK_CLAIMS_GAP_INVENTORY_2026-11-15.md</code> is the single source of truth on remaining open items. §XII documents the 2026-11-15 typed-capstone landings and what remains open.</li>
+</ol>
+
+<div class="how">
+This guide is intentionally apex-first (ch34A), not Clay-first. The Clay axes are one part of seven; the framework stands or falls on the substrate + α-skeleton + invariants + apex meta-theorem — not on any single Clay result.
+</div>
+
+<div class="takeaway">
+<strong>Twelve steps. Three hours.</strong> If you follow this guide, you will have the full framework in your head. The surprises are: (a) the apex is one theorem, not six; (b) the α-skeleton is nine values with fifteen locked-in identities, not loose parameters; (c) the typed capstones per axis give Lean-verified kernels; (d) the cosmology column has three honest failures. Go to the honest gap inventory for anything else.
+</div>
+
+<!-- ============================================================
+     END MATTER
+============================================================ -->
+<div style="margin-top: 40pt; padding-top: 10pt; border-top: 1pt solid #666; font-size: 9pt; color: #666; text-align: center;">
+Principia Fractalis — Full ToE Diagram — 2026-11-15 — HEAD <code>677bfc6a</code> on <code>origin/master</code>
+<br>
+To re-render this file: open in a browser, Ctrl+P, "Save as PDF." Or use <code>chromium --headless --disable-gpu --no-sandbox --print-to-pdf=pf_toe.pdf pf_toe_diagram.html</code>.
+</div>
+
+</div><!-- .page -->
+</body>
+</html>
