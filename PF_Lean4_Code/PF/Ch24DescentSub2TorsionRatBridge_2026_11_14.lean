@@ -22,7 +22,7 @@ hence `y = 0` in all three cases (the three 2-torsion points).
 has `y = 0` (equivalently, `(x, y) ∈ {(0, 0), (1, 0), (-1, 0)}`).
 
 §5: `Ecurve32a2_rank_eq_zero : Module.rank ℤ Ecurve.toAffine.Point = 0`
-for `Ecurve = ⟨0, 0, 0, -1, 0⟩` (LMFDB 32.a2, conductor 32).  Companion
+for `Ecurve = ⟨0, 0, 0, -1, 0⟩` (LMFDB 32.a3, conductor 32).  Companion
 to `Ch24Descent2TorsionRatBridge_2026_10_17.Ecurve_rank_eq_zero` for
 `y² = x³ + x` — together they cover both rational 2-isogenies of the
 congruent-number curve `E_1` at `n = 1`.
@@ -142,7 +142,7 @@ theorem Ecurve_two_torsion (P : Ecurve.toAffine.Point) : P + P = 0 := by
       refine WeierstrassCurve.Affine.Point.add_self_of_Y_eq ?_
       simp [WeierstrassCurve.Affine.negY, Ecurve, hy0]
 
-/-- `Module.rank ℤ E(ℚ) = 0` for `E : y² = x³ - x` (LMFDB 32.a2,
+/-- `Module.rank ℤ E(ℚ) = 0` for `E : y² = x³ - x` (LMFDB 32.a3,
 conductor 32).  Companion to `Ch24Descent2TorsionRatBridge_2026_10_17.Ecurve_rank_eq_zero`
 (for `y² = x³ + x`, 2026-10-17); together they handle both rational
 2-isogenies of the congruent-number curve `E_1` at `n = 1`.

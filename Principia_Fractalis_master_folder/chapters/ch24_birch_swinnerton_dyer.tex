@@ -18,8 +18,8 @@ In this chapter, we address the Birch and Swinnerton-Dyer conjecture through fra
 \emph{Positive rigorous results on the algebraic side.}  The corpus does carry a growing set of \textbf{exact algebraic-rank theorems} on the three-axiom bar $[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$, independent of the fractal construction:
 \begin{itemize}
 \item \textbf{Two exact rank-$0$ curves} via Fermat infinite descent:
-  $y^2 = x^3 + x$ (LMFDB 64.a4, 2026-10-17) and $y^2 = x^3 - x$
-  (LMFDB 32.a2, 2026-11-14) --- the two rational $2$-isogenies of
+  $y^2 = x^3 + x$ (conductor 64, 2026-10-17) and $y^2 = x^3 - x$
+  (LMFDB 32.a3, 2026-11-14) --- the two rational $2$-isogenies of
   the congruent-number curve $E_1$ at $n = 1$.  Capstones
   \texttt{Ecurve\_rank\_eq\_zero} and \texttt{Ecurve32a2\_rank\_eq\_zero}.
   The mathlib-absent \emph{difference form} $a^4 - b^4 \ne c^2$ needed
@@ -786,7 +786,7 @@ companion difference form.
 \paragraph{Second exact rank (2026-11-14): $y^2 = x^3 - x$, rank $= 0$.}
 
 The curve $E_{32.\text{a}2}: y^2 = x^3 - x$ (conductor $32$, LMFDB
-32.a2, the congruent-number curve $E_1$) also has rank exactly zero
+32.a3, the congruent-number curve $E_1$) also has rank exactly zero
 over $\mathbb{Q}$, delivered the same day as
 \texttt{not\_fermat\_42\_sub}.  The proof is the mirror of the Ch24
 2-torsion descent, in three files:
@@ -827,9 +827,9 @@ $[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$.}
 The corpus now carries two exact rank-$0$ curves and five rank-$\ge 1$
 bounds, all kernel-verified, with no \texttt{sorry} and no
 \texttt{native\_decide}.  Rank-$0$:
-$y^2 = x^3 + x$ (LMFDB 64.a4, 2026-10-17,
+$y^2 = x^3 + x$ (conductor 64, 2026-10-17,
 \texttt{Ecurve\_rank\_eq\_zero}) and
-$y^2 = x^3 - x$ (LMFDB 32.a2, the congruent-number curve $E_1$,
+$y^2 = x^3 - x$ (LMFDB 32.a3, the congruent-number curve $E_1$,
 2026-11-14, \texttt{Ecurve32a2\_rank\_eq\_zero}).  Rank-$\ge 1$:
 $E_{91.\text{a}1}$, $E_{102.\text{a}1}$, $E_{131.\text{a}1}$,
 $E_{141.\text{a}1}$, $E_{80.\text{b}}$ (congruent-number $n = 5$).

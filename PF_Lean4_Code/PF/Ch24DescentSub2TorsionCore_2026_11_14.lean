@@ -7,7 +7,7 @@ now using today's `not_fermat_42_sub` (landed 2026-11-14).**
 
 ## The curve and the strategy
 
-`E : y² = x³ - x` (conductor 32, LMFDB 32.a2, rank 0).
+`E : y² = x³ - x` (conductor 32, LMFDB 32.a3, rank 0).
 
 Three rational 2-torsion points: `(0, 0), (1, 0), (-1, 0)`.  Claim: these
 are the only rational points.
