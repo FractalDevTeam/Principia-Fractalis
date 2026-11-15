@@ -1,16 +1,16 @@
 /-
 # PF.Fermat42SubAssembly_2026_11_14
 
-**Full assembly of `not_fermat_42_sub`** — the "difference form" of
-Fermat's n = 4 theorem: `∀ a b c : ℤ, a ≠ 0 → b ≠ 0 → c ≠ 0 →
+Assembly of `not_fermat_42_sub`, the difference form of Fermat's
+n = 4 theorem: `∀ a b c : ℤ, a ≠ 0 → b ≠ 0 → c ≠ 0 →
 a ^ 4 - b ^ 4 ≠ c ^ 2`.
 
 Composes `fermat42Sub_caseA_reduces` + `fermat42Sub_caseB_descends`
-(and its parity mirror) with the discharged split sub-gaps and the
-now-unconditional `fermat42Double_impossible_unconditional`.
+(and its parity mirror) with the discharged split sub-gaps and
+`fermat42Double_impossible_unconditional`.
 
-All theorems on three-axiom bar `[propext, Classical.choice, Quot.sound]`,
-no sorry, no native_decide, no project axioms.
+Three-axiom bar `[propext, Classical.choice, Quot.sound]`.  No `sorry`,
+no `native_decide`, no project axioms.
 
 SPDX-License-Identifier: Apache-2.0
 Authors: Pablo Cohen. 2026-11-14.

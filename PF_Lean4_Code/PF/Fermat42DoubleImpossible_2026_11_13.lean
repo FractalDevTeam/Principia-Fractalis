@@ -1190,9 +1190,8 @@ theorem fermat42Double_descent_step_holds : Fermat42DoubleDescentStep := by
   exact fermat42Double_descent_step_body s t a m k hs_ne ht_ne ha_pos
     hst_coprime hst_lt hs_odd ht_odd hm_pos hk_pos hm_odd hmk_cop hs_sq ht_sq ha_eq h_eq
 
-/-- **★★★ `Fermat42Double_impossible` IS UNCONDITIONAL ★★★**
-
-Composition of the strong-induction wrapper `fermat42Double_impossible_of_descent_step`
+/-- `Fermat42Double_impossible` unconditional.  Composition of the
+strong-induction wrapper `fermat42Double_impossible_of_descent_step`
 with the full descent-step discharge `fermat42Double_descent_step_holds`. -/
 theorem fermat42Double_impossible_unconditional : Fermat42Double_impossible :=
   fermat42Double_impossible_of_descent_step fermat42Double_descent_step_holds

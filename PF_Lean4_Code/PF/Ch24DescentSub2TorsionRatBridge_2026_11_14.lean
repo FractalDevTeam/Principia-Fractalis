@@ -1,11 +1,10 @@
 /-
 # PF.Ch24DescentSub2TorsionRatBridge_2026_11_14
 
-**The `Rat` bridge for `y² = x³ - x` — mirror of
-Ch24Descent2TorsionRatBridge_2026_10_17, closing the second exact
-rank-0 BSD curve in the corpus.**
+The `Rat` bridge for `y² = x³ - x`, mirror of
+`Ch24Descent2TorsionRatBridge_2026_10_17`.
 
-## The computation
+## Computation
 
 For `(x, y) ∈ ℚ²` on `y² = x³ - x`, write `a = x.num`, `b = x.den > 0`,
 coprime.  From `x·b = a`,
@@ -14,29 +13,26 @@ coprime.  From `x·b = a`,
                 =  (xb)³b - (xb)b³  =  a³b - ab³  =  a·b·(a² - b²)`.
 
 So `Y := b²y` has `Y² ∈ ℤ`.  Since `ℤ` is integrally closed in `ℚ`,
-`Y ∈ ℤ`, and `descent_sub_lowest_terms` then forces `a = 0 ∨ a² = b²`,
+`Y ∈ ℤ`, and `descent_sub_lowest_terms` forces `a = 0 ∨ a² = b²`,
 hence `y = 0` in all three cases (the three 2-torsion points).
 
-## What this file concludes
+## Conclusions
 
 §4: `solutions_have_y_zero` — every rational solution of `y² = x³ - x`
 has `y = 0` (equivalently, `(x, y) ∈ {(0, 0), (1, 0), (-1, 0)}`).
 
-§5: **`Ecurve32a2_rank_eq_zero : Module.rank ℤ Ecurve.toAffine.Point = 0`**
+§5: `Ecurve32a2_rank_eq_zero : Module.rank ℤ Ecurve.toAffine.Point = 0`
+for `Ecurve = ⟨0, 0, 0, -1, 0⟩` (LMFDB 32.a2, conductor 32).  Companion
+to `Ch24Descent2TorsionRatBridge_2026_10_17.Ecurve_rank_eq_zero` for
+`y² = x³ + x` — together they cover both rational 2-isogenies of the
+congruent-number curve `E_1` at `n = 1`.
 
-for `Ecurve = ⟨0, 0, 0, -1, 0⟩` (LMFDB 32.a2, conductor 32, rank 0).
-**This is the SECOND exact rank theorem in the corpus**, after
-`Ch24Descent2TorsionRatBridge_2026_10_17.Ecurve_rank_eq_zero` for
-`y² = x³ + x` (2026-10-17).  The two together establish rank 0 for
-both quadratic twists of the arithmetic-geometric curve of the
-congruent-number problem at `n = 1`.
-
-The chain: `descent_sub_core` → `descent_sub_lowest_terms` → `Rat`
+Chain: `descent_sub_core` → `descent_sub_lowest_terms` → the `Rat`
 bridge here → `rank_eq_zero_of_two_torsion`, with
-`PF.not_fermat_42_sub` (landed 2026-11-14) as the Diophantine engine.
+`PF.not_fermat_42_sub` (2026-11-14) as the Diophantine engine.
 
-Three-axiom bar: `[propext, Classical.choice, Quot.sound]`.  No
-`sorry`, no project axioms, no `native_decide`.
+Three-axiom bar `[propext, Classical.choice, Quot.sound]`.  No `sorry`,
+no project axioms, no `native_decide`.
 
 Authors: Pablo Cohen. 2026-11-14.
 -/
@@ -146,21 +142,15 @@ theorem Ecurve_two_torsion (P : Ecurve.toAffine.Point) : P + P = 0 := by
       refine WeierstrassCurve.Affine.Point.add_self_of_Y_eq ?_
       simp [WeierstrassCurve.Affine.negY, Ecurve, hy0]
 
-/-- **★ SECOND EXACT RANK IN THE REPOSITORY ★**
+/-- `Module.rank ℤ E(ℚ) = 0` for `E : y² = x³ - x` (LMFDB 32.a2,
+conductor 32).  Companion to `Ch24Descent2TorsionRatBridge_2026_10_17.Ecurve_rank_eq_zero`
+(for `y² = x³ + x`, 2026-10-17); together they handle both rational
+2-isogenies of the congruent-number curve `E_1` at `n = 1`.
 
-`Module.rank ℤ E(ℚ) = 0` for `E : y² = x³ - x` (LMFDB 32.a2,
-conductor 32).
-
-Together with `Ch24Descent2TorsionRatBridge_2026_10_17.Ecurve_rank_eq_zero`
-(for `y² = x³ + x`, 2026-10-17), this establishes rank 0 for both
-quadratic twists of the arithmetic-geometric curve of the congruent-number
-problem at `n = 1` — both curves being the two rational 2-isogenies of the
-congruent-number elliptic curve `E_1 : y² = x³ - x`.
-
-The chain: `descent_sub_core` + `descent_sub_lowest_terms` + the `Rat`
-bridge above + `rank_eq_zero_of_two_torsion`, with `PF.not_fermat_42_sub`
-(the classical difference-form Fermat n = 4 theorem, landed 2026-11-14)
-as the Diophantine engine.  No `L`-function appears anywhere. -/
+Chain: `descent_sub_core` + `descent_sub_lowest_terms` + the `Rat`
+bridge above + `rank_eq_zero_of_two_torsion`, with
+`PF.not_fermat_42_sub` (the classical difference-form Fermat n = 4
+theorem, this corpus, 2026-11-14) as the Diophantine engine. -/
 theorem Ecurve32a2_rank_eq_zero : Module.rank ℤ Ecurve.toAffine.Point = 0 :=
   rank_eq_zero_of_two_torsion Ecurve_two_torsion
 
