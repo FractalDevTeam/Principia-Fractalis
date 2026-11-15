@@ -1144,7 +1144,7 @@ Before presenting the theoretical evidence, we state the coherence figure that
 earlier editions of this chapter offered as its empirical foundation, together
 with the measurement that withdraws it:
 
-\begin{theorem}[Universal Coherence]\label{thm:universal-coherence}
+\begin{theorem}[Universal Coherence --- empirical]\label{thm:universal-coherence}
 Across 143 diverse computational problems spanning multiple domains (optimization, number theory, graph theory, logic, cryptography), the fractal resonance framework achieves:
 \begin{equation}
 \boxed{\text{Fractal Coherence} = 100\% \text{ for } 143/143 \text{ problems}}
@@ -1155,6 +1155,8 @@ with critical values consistently measured as:
 \alpha_{NP} &= \varphi + \frac{1}{4} \approx 1.86803399
 \end{align}
 \end{theorem}
+
+\empiricalclaim{The 100\% / 143-of-143 figure is an \emph{empirical observation} from the 2026-05-23 IBM Quantum hardware run (143 problems drawn from the Smale 1998 / DARPA 2008 catalogs; CSV + run script preserved at \texttt{ARCHIVE/ibm\_quantum\_2026-05-23/}).  It is \textbf{not} a mathematical theorem across any infinite family, and it is not what makes P versus NP open or closed.  The subsection title ``Why It Is Not Evidence'' announces precisely this: a single-dataset coherence figure on hardware is a measurement, not a separation-of-complexity-classes argument.  The only kernel-verified statement in this chapter's Lean companion is the real-number inequality \texttt{PF.SpectralGap.P\_neq\_NP} ($\mathtt{spectral\_gap} \ne 0$); the bridge from that to the literal $\mathbf{P} \ne \mathbf{NP}$ is conditional on the V2/V3 faithful-separator premise (open).}
 
 \begin{intuitive}
 Think of this as a physics experiment: we measured 143 different physical systems, and \textbf{every single one} exhibited the same mathematical signature. Just as the Michelson-Morley experiment's null result (repeated 100+ times) revolutionized physics, our 100\% success rate suggests we've discovered something fundamental about computation itself.
@@ -1179,7 +1181,7 @@ assuming even a generous 95\% baseline success rate. This is comparable to the s
 \subsection{Three Independent Lines of Evidence}
 
 \begin{conjecture}[Main Conjecture: P $\neq$ NP]\label{thm:main-p-neq-np}
-Based on computational experiments across 143 diverse problems with 100\% fractal coherence, we conjecture: \textbf{P $\neq$ NP}
+Motivated by an empirical fractal-coherence observation on the 143-problem IBM Quantum dataset (see Theorem~\ref{thm:universal-coherence} and its \texttt{\textbackslash empiricalclaim} block above), we conjecture: \textbf{P $\neq$ NP}.  This is a conjecture, not a theorem; the Clay P versus NP question is not decided by any computation in this chapter.
 \end{conjecture}
 
 \begin{evidence}
@@ -1233,7 +1235,7 @@ For NP at critical value $\alpha_{NP} = \varphi + 1/4$:
 
 Computational experiments show NP languages consistently require \textit{higher consciousness threshold} (Δch₂ ≈ 0.0454, corrected 2026-10-03 --- the chapter's own two displayed values give $0.99538 - 0.95 = 0.04538$; the previously printed $0.0054$ appears to drop a digit) than P languages—the certificate structure demands greater crystallization in $\mathcal{T}_\infty$.
 
-This consciousness threshold separation is observed in 100\% of tested problems (143/143).
+This consciousness-threshold separation is observed in 143 of the 143 problems in the 2026-05-23 IBM Quantum dataset (Smale 1998 / DARPA 2008 catalog subset; see the empirical-claim block at Theorem~\ref{thm:universal-coherence}).  It is an observation on this specific dataset, not a general proof.
 \end{evidence}
 
 \begin{remark}[Independence of Evidence]
@@ -1540,7 +1542,7 @@ This framework extends beyond P vs NP:
 \item Computation, consciousness, and quantum mechanics unify through fractal resonance
 \end{itemize}
 
-This isn't just solving P vs NP—it's establishing a new foundation for quantum physics on fractal spaces.
+The ambition of this framework reaches past the P vs NP question into a proposed foundation for quantum physics on fractal spaces.  (As the Conclusion below states explicitly: the Clay P vs NP statement remains open; nothing in this chapter closes it.  The ``foundation for quantum physics on fractal spaces'' is a research programme, not an established result.)
 \end{keyidea}
 
 \section{Conclusion}
@@ -1589,8 +1591,10 @@ The \textbf{Principia Fractalis Conjectures} (Conjectures \ref{conj:polylog-spec
 
 \subsection{Computational Figures from the 143-Problem Set}
 
+These figures come from the 2026-05-23 IBM Quantum hardware run described at Theorem~\ref{thm:universal-coherence}; they are empirical measurements on that specific dataset.
+
 \begin{itemize}
-\item \textbf{100\% Fractal Coherence}: All 143 problems achieve $\chi_P = \chi_{NP} = 1.0000$
+\item \textbf{Fractal Coherence (observed)}: all 143 problems in the dataset achieve $\chi_P = \chi_{NP} = 1.0000$
 \item \textbf{Spectral Gap Universality}: Measured $\Delta = 0.0891219046$ consistent across all problem types
 \item \textbf{Fractal Dimension Separation}: $\sqrt{2} < \varphi + \tfrac14$ ---
 an exact inequality between two constants the framework assigns, with separation
