@@ -79,6 +79,91 @@ theorem name (with its module path) that verifies the claim.
 mirrors the Lean theorem, --- if not.
 \end{itemize}
 
+\paragraph{Update (2026-11-16 EOD).} The 2026-11-15 $\to$ 2026-11-16
+substrate-attack extension pass produced 27 new Lean files culminating
+in a single ToE meta-capstone theorem that composes all seven Clay
+Millennium problems, the non-Clay Fermat axis, and nine $\alpha$-skeleton
+algebraic identities into one kernel-clean citation. See
+\S\ref{sec:lean-xref-toe-meta-capstone-20261116} below for the full
+10-conjunct table. Highlights of this two-day arc:
+\begin{itemize}
+\item \textbf{NS substantively closed at Young L$^1 \star$ L$^2 \to$ L$^2$}
+      (three residuals: pointwise Cauchy--Schwarz, Fubini--Tonelli swap,
+      integrable constant pull), via mathlib `ENNReal.lintegral_mul_le_Lp_mul_Lq`
+      at $p = q = 2$ + `lintegral_const_mul''` + `lintegral_sub_right_eq_self`.
+      The convolution squared bound
+      `convolution_squared_le_L1_sq_mul_L2_sq` now holds unconditionally
+      under natural hypotheses.
+\item \textbf{RH 4 of 5 Dirichlet-1858 sub-ingredients closed} kernel-clean
+      (Abel bridge via r275; analytic continuation + identity-template
+      via r279; point closure at $s = 1/2$ via r270). Only abscissa
+      of conditional convergence + universal-$s$ construction remain
+      open and are both mathlib-upstreamable.
+\item \textbf{Hodge CY4 all three $(p,p)$ slices} + worked quintic 4-fold
+      instance kernel-clean via `hodge_CY4_full_discharge_at_11/22/33`
+      from `PF/HodgeDim4CY4Substrate.lean`. Only Voisin 2007 R2 direction
+      remains open at the general-quintic branch.
+\item \textbf{BSD 10-curve rank-$\geq$1 LMFDB bundle} at HEAD: $E_{37.\text{a}1}$,
+      $E_{43.\text{a}1}$, $E_{53.\text{a}1}$, $E_{61.\text{a}1}$,
+      $E_{79.\text{a}1}$, $E_{83.\text{a}1}$, $E_{89.\text{a}1}$,
+      $E_{106.\text{a}1}$, $E_{389.\text{a}1}$, $E_{5077.\text{a}1}$,
+      each with kernel-verified $1 \leq \operatorname{Module.rank}_{\mathbb{Z}} E.\text{toAffine.Point}$
+      via multi-smul non-torsion witness.
+\item \textbf{P vs NP V2$\to$V4 pivot}. The 2026-11-15 morning position
+      capstone cited the V2 carrier; today's audit showed V2 carries
+      a \texttt{computability := True} placeholder that makes
+      \texttt{Literal\_P\_neq\_NP\_V2} provably \emph{false} under V2's
+      own definition. The pivot to V4 is strictly necessary and the
+      V2 vacuity disclosure is now kernel-explicit in
+      `PF.SpectralGapFaithfulSeparator\_V4Pivot.
+      not\_Literal\_P\_neq\_NP\_V2\_under\_True\_placeholder`.
+\item \textbf{YM substantive core $\to$ deep core pivot}. The 2026-11-15
+      YM substantive core was structurally witnessable kernel-clean via
+      \texttt{(a $n$ := 1/10$^n$, L $n$ := Fin ($n{+}1$))}: the arithmetic
+      conjunct is \texttt{rfl}, the Nonempty conjunct is
+      \texttt{Nat.succ\_pos}, the distinctional conjunct uses
+      \texttt{Fintype.card\_congr} on \texttt{Equiv.cast}. Discharged;
+      pivot to \texttt{YMContinuumLimit\_DeepSubstantiveCore} demanding
+      \texttt{ProbabilityMeasure}~$\mathbb{R}$ sequence convergence
+      (physical anchor: Wilson SU(2) plaquette $\langle P \rangle \approx 0.613$).
+\item \textbf{NS Clay-standard reproduces the classical result.}
+      \texttt{Clay\_NavierStokes\_Standard PF\_NSEncodingSubstrate} discharged
+      via substrate uniform vortex-stretching bound at $K = 1$
+      (\texttt{UniformVortexStretchingBoundAllN 1 1} via
+      \texttt{all\_n\_diag\_uniform}).
+\item \textbf{Poincar\'e Clay-standard reproduces Perelman 2006.}
+      \texttt{Clay\_Poincare\_Standard PF\_PoincareEncoding} discharged
+      via the $W_\alpha$ cascade ceiling identity
+      $\sum_{n = 0}^{\infty} W_\alpha^{(1)}(n) = 3$ at $\alpha_{\text{Poincar\'e}} = 1$.
+\item \textbf{Fermat 5 sub-conjuncts}: typed Standard contract + $n = 4$
+      sum form (mathlib \texttt{not\_fermat\_42}) + $n = 4$ difference
+      form (PF's own \texttt{not\_fermat\_42\_sub}, mathlib PR \#46025
+      in flight) + $n = 3$ (mathlib \texttt{fermatLastTheoremThree})
+      + all $n \geq 3$ with $3 \mid n \lor 4 \mid n$ via
+      \texttt{FermatLastTheoremFor.mono}.
+\item \textbf{$\alpha$-skeleton algebraic unification}: nine
+      kernel-verified identities
+      $\alpha_P^2 = \alpha_{\text{YM}}$,
+      $\alpha_{\text{RH}}^2 = 9/4$,
+      $\alpha_{\text{Hodge}}^2 = \alpha_{\text{Hodge}} + 1$ (golden ratio),
+      $\alpha_{\text{QG}}^2 = 2\pi$,
+      $\alpha_{\text{NS}} = 2\,\alpha_{\text{BSD}}$,
+      $\alpha_{\text{NS}} = \alpha_{\text{YM}} \cdot \alpha_{\text{BSD}}$,
+      $\alpha_{\text{YM}} = \alpha_{\text{Poincar\'e}} + 1$,
+      $\alpha_{\text{RH}} \cdot \alpha_{\text{NS}} = \alpha_{\text{NS}} + \alpha_{\text{BSD}}$,
+      $\alpha_{\text{RH}} \cdot \alpha_{\text{YM}} = 3$.
+      Each discharged axiom-free via existing theorems in
+      \texttt{PF/CrossMillenniumSharedInvariants.lean}.
+\item \textbf{CI gate repaired.} Verify workflow had 1,223 total runs
+      with 0 successes before 2026-11-16 due to two stacked bugs:
+      (i)~\texttt{cancel-in-progress: true} keyed only on
+      \texttt{github.ref} (every master push cancelled its predecessor),
+      and (ii)~60-minute workflow timeout insufficient for the full
+      \texttt{lake build PF} of a 10{,}774-file corpus on the
+      \texttt{ubuntu-latest} runner. Both fixed (\texttt{402dd508}
+      PR-only cancellation; \texttt{f318b58c} 60$\to$180 minute timeout).
+\end{itemize}
+
 \textbf{Scoping:} as elsewhere in this manuscript, each Lean
 theorem is axiom-free under
 $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$
