@@ -57,10 +57,14 @@ jobs:
       # beats OOM-kill before the build can finish.
       - name: Add 10 GB swap (OOM defense for lake build PF)
         run: |
-          sudo fallocate -l 10G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
+          # ubuntu-latest already has /swapfile active; disable it first,
+          # then create a larger one at /mnt/swapfile (more disk space).
+          sudo swapoff -a || true
+          sudo rm -f /swapfile
+          sudo fallocate -l 10G /mnt/swapfile
+          sudo chmod 600 /mnt/swapfile
+          sudo mkswap /mnt/swapfile
+          sudo swapon /mnt/swapfile
           echo "Swap after setup:"
           free -h | grep -E "Swap|Mem"
         shell: bash
