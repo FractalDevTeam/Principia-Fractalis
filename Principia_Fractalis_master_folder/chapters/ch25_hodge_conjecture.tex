@@ -725,7 +725,7 @@ attacked.
 
 \item \textbf{(Cycle Class)} For a line $L \subset \mathbb{P}^2$, compute $\cl(L) \in H^2(\mathbb{P}^2)$ and verify it's a Hodge class.
 
-\item \textbf{(Consciousness Threshold)} Compute ch$_2$(Hodge) using $\alpha = \varphi$ and verify ch$_2 > 0.95$.
+\item \textbf{(Consciousness Threshold)} Compute ch$_2$(Hodge) using $\alpha = \varphi$ and verify ch$_2 > 0.95$.\footnote{``$\mathrm{ch}_2 > 0.95$'' here refers to the entanglement form $1 - \mathrm{Tr}(\rho_A^2)$, which is the form that carries this numeric threshold per the 2026-10-05 settlement (Ch.~6 Rem.~\ref{rem:ch2-matrix-range-2026-10-03}; kernel-checked at \texttt{PF\_Lean4\_Code/PF/Ch2ThresholdSelection.lean}). When this exercise is read on the Hodge/Chern--Weil form directly, the threshold must be converted through the entanglement form: $\mathrm{ch}_2 > 19/20 \iff d > 20$ where $d$ is the subsystem dimension.}
 
 \item \textbf{(Digital Sum)} Compute $D(n)$ in base 3 for $n = 1, 2, \ldots, 10$ and observe the pattern.
 \end{enumerate}

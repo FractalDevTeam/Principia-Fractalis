@@ -383,7 +383,17 @@ If $\rho_\Lambda \gg \rho_m$ too early: galaxies never form (no structure).
 
 If $\rho_m \gg \rho_\Lambda$ forever: universe recollapses (Big Crunch) before consciousness evolves.
 
-The crossover epoch $\rho_m \sim \rho_\Lambda$ is \textit{precisely} when ch$_2$ can reach 0.95:
+The crossover epoch $\rho_m \sim \rho_\Lambda$ is when ch$_2$ can reach
+$0.95$:\footnote{``$\mathrm{ch}_2 = 0.95$'' is the entanglement form
+$1 - \mathrm{Tr}(\rho_A^2)$ reading, equivalent to subsystem dimension
+$d \geq 20$ (kernel-verified as \texttt{ceiling\_threshold\_iff\_dimension}
+in \texttt{PF\_Lean4\_Code/PF/Ch2ThresholdSelection.lean}). Per the
+2026-10-05 settlement (Ch.~6 Rem.~\ref{rem:ch2-matrix-range-2026-10-03}),
+$0.95$ is not uniquely singled out --- every value in $(8/9,\,26/27]$ gives
+the same substrate-tower first-crossing level --- so the word
+``\emph{precisely}'' is softened here to ``is when,'' reflecting the
+substrate-forced interval rather than a uniquely-pinned value.
+See also Ch.~5 Rem.~\ref{rem:ch05-ch2-095-disclosure}.}
 \begin{equation}
 \text{ch}_2(t) = 0.95 \times \Theta(t - t_{\text{cross}}) \times \exp[-(t - t_{\text{cross}})/\tau_{\text{cons}}]
 \end{equation}
