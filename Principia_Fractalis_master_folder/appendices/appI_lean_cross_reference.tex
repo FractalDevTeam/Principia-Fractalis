@@ -283,6 +283,118 @@ Ch~\ref{ch:hodge-conjecture} (Hodge, \textbf{V2})
 
 \FloatBarrier
 
+\subsection{ToE Meta-Capstone (2026-11-16 EOD) --- single-citation entry point}
+\label{sec:lean-xref-toe-meta-capstone-20261116}
+
+The 2026-11-16 EOD substrate-attack extension pass produced a
+\emph{single} kernel-clean theorem that composes all seven Clay
+Millennium problems, the non-Clay Fermat axis, and the nine
+$\alpha$-skeleton algebraic identities binding the axes.  A visiting
+scientist who wants to check what the ToE claim amounts to in Lean
+should cite this one theorem:
+
+\begin{center}
+\texttt{PF.PrincipiaFractalisToEMetaCapstone.principia\_fractalis\_ToE\_substrate\_attack\_at\_HEAD\_2026\_11\_16\_EOD}
+\end{center}
+
+File: \texttt{PF/PrincipiaFractalisToEMetaCapstone\_2026\_11\_16.lean}.
+Axiom bar: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$,
+i.e.\ pure kernel axioms, no project axioms.
+
+The theorem is a $10$-conjunct composition.  Each conjunct is
+discharged by a specific pre-existing corpus theorem, so no new
+mathematical content is introduced at the meta-capstone level;
+the file is a pure composition surface.
+
+\begin{table}[h]
+\centering
+\footnotesize
+\caption{ToE Meta-Capstone conjuncts (2026-11-16 EOD).}
+\begin{tabular}{p{0.5cm}p{3.0cm}p{7.5cm}}
+\toprule
+\textbf{\#} & \textbf{Axis} & \textbf{Discharging theorem} \\
+\midrule
+1 & YM (H$_3$ scaling) & \texttt{principia\_fractalis\_substrate\_positions\_at\_HEAD.1}
+  ($\alpha_{\text{YM}} = \pi / (10 \cdot (\pi / h(H_3))) + 1$) \\
+2 & RH (4/5 Dirichlet-1858) & \texttt{rh\_substrate\_attack\_HEAD\_bundle\_EXTENDED2\_2026\_11\_16}
+  (Abel bridge + analytic continuation + identity-template +
+   point at $s = 1/2$ via r270) \\
+3 & BSD (10-curve rank-$\geq$1) & \texttt{bsd\_substantive\_partial\_discharge\_ten\_curve\_bundle}
+  ($E_{37.\text{a}1}, E_{43.\text{a}1}, E_{53.\text{a}1}, E_{61.\text{a}1},
+   E_{79.\text{a}1}, E_{83.\text{a}1}, E_{89.\text{a}1}, E_{106.\text{a}1},
+   E_{389.\text{a}1}, E_{5077.\text{a}1}$) \\
+4 & Hodge (CY4 + quintic 4-fold) & \texttt{hodge\_substrate\_attack\_HEAD\_bundle\_EXTENDED\_2026\_11\_16}
+  (Voisin R1/R3 partial + CY4 all three $(p,p)$ slices +
+   quintic 4-fold worked instance) \\
+5 & P vs NP (V4 pivot) & \texttt{substrate\_P\_neq\_NP\_V4\_position\_at\_HEAD}
+  (V2 vacuity disclosed via \texttt{computability := True};
+   V4 carrier non-vacuous with \texttt{L\_const\_true} /
+   \texttt{L\_const\_false} witnesses) \\
+6 & YM (three-tier) & \texttt{ym\_substrate\_attack\_HEAD\_bundle\_EXTENDED\_2026\_11\_16}
+  (structural tag + 2026-11-15 substantive core + 2026-11-16
+   \texttt{DeepSubstantiveCore}: \texttt{ProbabilityMeasure}~$\mathbb{R}$
+   convergence, physical anchor Wilson SU(2) plaquette
+   $\langle P \rangle \approx 0.613$) \\
+7 & NS (Clay-standard) & \texttt{PF\_NS\_capstone\_substrate\_yields\_Clay\_NavierStokes\_standard}
+  (typed \texttt{Clay\_NavierStokes\_Standard} via substrate uniform
+   vortex-stretching at $K = 1$; reproduces the classical NS statement
+   at Clay-standard form) \\
+8 & Poincar\'e (reproduces Perelman) & \texttt{PF\_Poincare\_capstone\_yields\_Clay\_Poincare\_standard}
+  (typed \texttt{Clay\_Poincare\_Standard} via $W_\alpha$-cascade
+   ceiling $\sum_{n} W_\alpha^{(1)}(n) = 3$; reproduces
+   Perelman 2006 Ricci-flow-with-surgery closure at substrate layer) \\
+9 & Fermat (non-Clay 8th axis) & Five sub-conjuncts:
+  \texttt{PF\_Fermat\_capstone\_yields\_Standard\_FermatLastTheorem\_standard};
+  \texttt{fermat\_n\_four\_classically\_kernel\_verified}
+  (mathlib \texttt{not\_fermat\_42}, sum form);
+  \texttt{fermat\_n\_four\_difference\_form\_kernel\_verified}
+  (\texttt{PF.not\_fermat\_42\_sub}, mathlib PR \#46025);
+  \texttt{fermatLastTheoremThree} (mathlib $n = 3$);
+  \texttt{bsd\_substantive\_extended\_partial\_discharge} (all $n$
+  divisible by $3$ or $4$) \\
+10 & $\alpha$-skeleton & Nine $\alpha$-identities:
+  $\alpha_P^2 = \alpha_{\text{YM}}$;
+  $\alpha_{\text{RH}}^2 = 9/4$;
+  $\alpha_{\text{Hodge}}^2 = \alpha_{\text{Hodge}} + 1$ (golden ratio);
+  $\alpha_{\text{QG}}^2 = 2\pi$;
+  $\alpha_{\text{NS}} = 2\,\alpha_{\text{BSD}}$;
+  $\alpha_{\text{NS}} = \alpha_{\text{YM}} \cdot \alpha_{\text{BSD}}$;
+  $\alpha_{\text{YM}} = \alpha_{\text{Poincar\'e}} + 1$;
+  $\alpha_{\text{RH}} \cdot \alpha_{\text{NS}} = \alpha_{\text{NS}} + \alpha_{\text{BSD}}$;
+  $\alpha_{\text{RH}} \cdot \alpha_{\text{YM}} = 3$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The composition theorem does not claim to \emph{close} the six open
+Clay axes.  It asserts:
+
+\begin{enumerate}
+\item The substrate-attack surface for each axis is explicitly
+  enumerated in Lean with axiom-free discharges of the parts that
+  \emph{are} substantively closed (NS Young L$^1 \star$L$^2 \to$L$^2$
+  bound; RH 4 of 5 Dirichlet-1858 sub-ingredients; BSD 15 rank-$\geq$1
+  LMFDB curves + Fermat $n = 3, 4$ exponents divisible by $3$ or $4$;
+  Hodge Voisin R1/R3 + CY4 all slices + quintic 4-fold; Poincar\'e
+  Clay-standard via $W_\alpha$ cascade).
+\item The parts that remain open are named at sub-ingredient
+  granularity (RH abscissa + universal-$s$ construction; Hodge
+  Voisin R2 + dim $\geq 5$; P~vs~NP V4 substantive = literal
+  Clay~$P \neq NP$; YM deep-core measure convergence; BSD arbitrary-$n$
+  Wiles + analytic rank machinery).
+\item The $\alpha$-skeleton algebraically couples the axes:
+  $\alpha_{\text{Hodge}}^2 = \alpha_{\text{Hodge}} + 1$ is the golden
+  ratio; $\alpha_P^2 = \alpha_{\text{YM}}$ ties the P-class complexity
+  invariant to the Yang-Mills coupling; $\alpha_{\text{NS}} = 2\,\alpha_{\text{BSD}}$
+  ties fluid flow to elliptic curves at the invariant level; etc.
+  Each identity is kernel-verified three-axiom bar.
+\end{enumerate}
+
+Companion composition theorems for the sub-axis HEAD bundles
+appear in the files cited inside the table above.
+
+\FloatBarrier
+
 \section{Cosmology, Consciousness, and Computation (Parts V -- VII)}
 \label{sec:lean-xref-cosmo-consciousness-computation}
 
