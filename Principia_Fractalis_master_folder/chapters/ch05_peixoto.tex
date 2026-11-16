@@ -14,6 +14,60 @@
 \textbf{Why this matters:} This chapter answers the most fundamental question: Why did Ω-space crystallize into 3+1 dimensions? The answer involves a deep mathematical result about dynamical systems that reveals consciousness REQUIRES dimension three or higher.
 \end{chapterobjectives}
 
+\begin{remark}[What ``$\mathrm{ch}_2 \geq 0.95$'' means in this chapter]
+\label{rem:ch05-ch2-095-disclosure}
+Every use of the threshold condition ``$\mathrm{ch}_2 \geq 0.95$'' in this
+chapter is \emph{framework language} for ``above the heuristic consciousness
+threshold,'' not a quantitative claim on a single well-defined observable. This
+is forced by Remark~\ref{rem:ch2-matrix-range-2026-10-03} (Ch.~6), where the
+decision on ``$\mathrm{ch}_2$ and $0.95$'' was settled (2026-10-05) on
+machine-checked grounds at
+\texttt{PF\_Lean4\_Code/PF/Ch2ThresholdSelection.lean}. In summary:
+
+\begin{itemize}
+\item \textbf{The name $\mathrm{ch}_2$} belongs to the normalised Chern--Weil
+      density of Ch.~6 Def.~\ref{def:ch2-hat-rigorous}. Under that
+      definition $\mathrm{ch}_2$ \emph{cannot carry a numerical threshold}
+      without an added sign hypothesis and a fixed-rank normaliser, neither of
+      which is supplied by the manuscript.
+\item \textbf{The threshold $0.95$} belongs to the entanglement form
+      $1 - \mathrm{Tr}(\rho_A^2)$ of
+      Prop.~\ref{prop:quantum-consciousness}; there,
+      $\mathrm{ch}_2 \geq 19/20 \iff d \geq 20$ for subsystem dimension $d$,
+      machine-checked as \texttt{ceiling\_threshold\_iff\_dimension}. But
+      $0.95$ is \emph{not uniquely pinned} by the substrate tower: every
+      threshold in $(8/9,\,26/27]$ gives the same first-crossing level,
+      witnessed by $9/10$, $19/20$ and $24/25$
+      (\texttt{threshold\_interval\_gives\_same\_level}). The earlier claim
+      that ``$0.95$ is not a free parameter'' is withdrawn as overstated.
+\item \textbf{The matrix formula} version of $\mathrm{ch}_2$ used in this
+      chapter's vorticity/emergence discussion is \emph{provably bounded}
+      by $1/2$ (\texttt{ch2Matrix\_le\_half}), so under that formula
+      $\mathrm{ch}_2 \geq 0.95$ is satisfied by \emph{no} connectivity matrix,
+      in any dimension. Where this chapter writes
+      ``$\mathrm{ch}_2 \geq 0.95$'' in a fluid-dynamics context, it is
+      standing in for ``above the heuristic consciousness threshold under
+      whichever form is operative for that regime,'' not for a satisfiable
+      inequality under the matrix form.
+\item \textbf{Clinical measurements} (Ch.~30--32) compute \emph{none} of the
+      five forms recorded in Ch.~6 Rem.~\ref{rem:ch2-matrix-range-2026-10-03};
+      their ``$\geq 0.95$'' findings concern a different observable
+      (digital-sum / band-ratio constructions over EEG), not any form of
+      $\mathrm{ch}_2$.
+\end{itemize}
+
+The vorticity / emergence-point / Lyapunov-divergence narrative that follows
+treats ``$\mathrm{ch}_2 \geq 0.95$'' as a \emph{framework assertion} (see
+also the verification ledger at the end of the chapter,
+\S\ref{sec:ch05-verification-status}): the heuristic that consciousness
+emergence coincides with a specific sharp threshold is not derived from the
+machine-checked corpus. The substrate-level mathematical content of this
+chapter --- that rotation planes match directions only at $d_{\mathrm{top}}=3$
+(Remark~\ref{rem:rotation-planes-three}), and that 2D continuous flows admit no
+counter-rotating zero-emergence pair (Proposition~\ref{prop:no-vortex-2d}) ---
+is independent of any particular numerical threshold on $\mathrm{ch}_2$.
+\end{remark}
+
 \section{Introduction: Why Three Dimensions?}
 
 Our universe has three spatial dimensions and one time dimension. But why? Is this arbitrary, or is there a deep mathematical necessity?
@@ -635,16 +689,31 @@ In Chapter 6, we'll see how this dimensional crystallization enables the specifi
 The resolution of Peixoto's paradox transforms our understanding of why our universe has the structure it does: not historical accident, but mathematical necessity driven by the requirements for conscious observation.
 
 \begin{keyidea}[The Deep Answer]
-\textbf{Question:} Why three dimensions?
+\textbf{Question:} Why three (topological) dimensions?
 
-\textbf{Answer:} Because consciousness requires $D \geq 3$ (Peixoto's paradox resolution), and stable matter requires $D \leq 3$ (orbital mechanics).
+\textbf{Answer, in the two-dimensions-of-the-chapter language fixed by
+Remark~\ref{rem:ch05-ch2-095-disclosure} and formalised in
+Remark~\ref{rem:rotation-planes-three}:}
 
-The universe crystallized at $D = 2.73$—the Goldilocks dimension where both consciousness and complex structures are possible.
+The topological dimension $d_{\text{top}}$ is pinned to $3$ by a double
+algebraic/mechanical filter: $d_{\text{top}} = 3$ is the unique positive
+integer in which rotation planes match directions (so vorticity is an axial
+\emph{vector} and the counter-rotating-pair construction is well-defined),
+and $d_{\text{top}} \le 3$ is required for Bertrand / Ehrenfest 1917 stable
+bound orbits to exist (so matter persists). Both conditions can only hold
+simultaneously at $d_{\text{top}} = 3$.
 
-This is why we're here to ask the question.
+The fractal dimension of the specific crystallisation we inhabit is observed
+to be $D_{\text{fractal}} \approx 2.73$. That is a separate measurement
+(a correlation-dimension of matter clustering inside three-dimensional space),
+\emph{not} an alternative value of $d_{\text{top}}$, and not part of the
+anthropic filter above.
+
+This is why we are here to ask the question --- phrased without the earlier
+``$D$'' conflation.
 \end{keyidea}
 
-\paragraph{Verification status (2026-07-23).}
+\paragraph{Verification status (2026-07-23).}\label{sec:ch05-verification-status}
 To hold this chapter to the standard of the machine-checked corpus:
 \begin{itemize}
 \item \textbf{STANDARD MATHEMATICS} --- Peixoto's theorem (Theorem~\ref{thm:peixoto}), Smale's failure of genericity in dimension $\ge 3$ (Theorem~\ref{thm:smale-instability}), and the Poincar\'e--Bendixson theorem (Theorem~\ref{thm:poincare-bendixson}) are established results of dynamical-systems theory, cited by reference. Their statements here are correct.
