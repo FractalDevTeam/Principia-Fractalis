@@ -37,7 +37,13 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # 60 minutes was insufficient: `lake build PF` compiles the full
+    # corpus (10,774+ Lean files), and any commit invalidates
+    # downstream caches of changed files. Measured run 43922364922 on
+    # commit 402dd508 hit exactly 60min 18s before timeout. Bumped to
+    # 180 to accommodate even near-cold rebuilds while staying well
+    # under GitHub's 360-minute per-job ceiling.
+    timeout-minutes: 180
 
     steps:
       - name: Checkout
