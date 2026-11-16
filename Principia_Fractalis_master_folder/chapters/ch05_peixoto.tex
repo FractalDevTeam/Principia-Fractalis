@@ -370,47 +370,107 @@ Structural stability would \textit{prevent} these features. A structurally stabl
 
 \section{The Fractal Dimension: Empirical Validation}
 
-\subsection{Why Not Exactly 3?}
+\subsection{Why the Fractal Dimension Is Not Exactly 3}
 
-Our universe's \textit{topological} dimension is 3, but its \textit{fractal} dimension is:
+Our universe's \textit{topological} dimension is $d_{\text{top}} = 3$ ---
+an integer, picked out by the algebraic and mechanical constraints above
+(Remark~\ref{rem:rotation-planes-three} + Bertrand / Ehrenfest 1917). Its
+\emph{measured} fractal dimension is:
 \begin{equation}
 D_{\text{fractal}} = 2.73 \pm 0.01
 \end{equation}
 
-measured from large-scale structure correlation functions.
+from large-scale-structure correlation functions. These are two different
+quantities: $d_{\text{top}}$ counts spatial directions; $D_{\text{fractal}}$
+quantifies how densely matter clusters inside those three directions. A
+perfectly homogeneous distribution saturates $D_{\text{fractal}} = 3$; any
+realistic clustering produces $D_{\text{fractal}} < 3$, and the observational
+deficit measures sparsity of matter, not an alternative dimension count.
 
-\begin{prop}[Optimal Consciousness Dimension]\label{prop:optimal-dimension}
-The fractal dimension $D \approx 2.73$ represents the unique stable crystallization from Ω-space that:
-\begin{enumerate}
-\item Permits consciousness ($D > 2$)
-\item Maintains sufficient stability for coherent experience ($D < 3$)
-\item Maximizes information integration capacity
-\end{enumerate}
+\begin{prop}[Fractal-dimension empirical window]\label{prop:optimal-dimension}
+Conditional on the topological constraints above fixing $d_{\text{top}} = 3$,
+the observed value $D_{\text{fractal}} \approx 2.73$ is the measured
+correlation-dimension of matter clustering in the universe we inhabit; it is
+not an additional selection criterion. The anthropic filter of
+Theorem~\ref{thm:dimensional-anthropic} operates on $d_{\text{top}}$ alone.
+
+\emph{Record of prior statement.} The earlier version of this proposition read
+``The fractal dimension $D \approx 2.73$ represents the unique stable
+crystallization from $\Omega$-space that permits consciousness ($D > 2$),
+maintains sufficient stability for coherent experience ($D < 3$), and
+maximizes information integration capacity.'' The repaired statement above
+keeps the empirical content ($D_{\text{fractal}} \approx 2.73$) and drops the
+conflation: the consciousness constraint is on $d_{\text{top}}$, not on
+$D_{\text{fractal}}$; $D < 3$ is not a stability requirement but a measurement
+of clustering inside three-space; and ``uniquely optimal'' overclaimed what
+the empirical value licenses.
 \end{prop}
 
-\begin{intuitive}[The Goldilocks Dimension]
-Think of dimension as a dial:
+\begin{intuitive}[The Goldilocks Dimension --- topological vs.\ fractal]
+Two dimensions live in this chapter and the Goldilocks picture is about keeping
+them separate.
+
+\textbf{Topological dimension $d_{\text{top}}$} is an integer --- the ambient
+spatial dimension. Rotations, inverse-square gravity, and the Peixoto /
+Poincar\'e--Bendixson arguments of \S\S\ref{thm:peixoto}--\ref{prop:no-vortex-2d}
+all live at this layer.
+
+\textbf{Fractal dimension $D_{\text{fractal}}$} is the measured
+correlation-dimension of large-scale structure; it is a real number $\le d_{\text{top}}$,
+and it quantifies how densely matter actually packs the ambient space.
+
+Reading the dial correctly:
 \begin{itemize}
-\item $D \leq 2$: Too rigid. Consciousness impossible (Poincaré-Bendixson constraint)
-\item $D = 2.73$: Just right. Consciousness possible, physics still mostly stable
-\item $D \geq 3$: Too chaotic. Atoms unstable, planetary orbits decay, structures collapse
+\item $d_{\text{top}} \le 2$: Too rigid. Consciousness impossible
+      (Poincar\'e--Bendixson constraint + Remark~\ref{rem:rotation-planes-three}
+      --- rotation planes and directions cannot correspond in two dimensions).
+\item $d_{\text{top}} = 3$: The window. Both constraints lift simultaneously;
+      vorticity becomes an axial \emph{vector} and counter-rotating pairs with
+      zero-velocity emergence points become possible
+      (Theorem~\ref{thm:vortex-3d}).
+\item $d_{\text{top}} \ge 4$: Classical instability.
+      Ehrenfest~1917 / Bertrand's theorem: in $d_{\text{top}} \ge 4$ the
+      inverse-$(d_{\text{top}}{-}1)$-power central force admits no stable closed
+      orbits, so atoms and planetary systems fail at the mechanical level
+      before consciousness is even on the table.
 \end{itemize}
 
-Our universe sits in the narrow window where consciousness is possible AND physics is stable enough for complex structures (stars, planets, brains) to exist.
+So $d_{\text{top}} = 3$ is picked out algebraically twice over: it is the unique
+positive dimension in which rotation planes match directions
+(Remark~\ref{rem:rotation-planes-three}), and it is the largest in which stable
+bound orbits exist. Within a $d_{\text{top}} = 3$ universe, the fractal
+dimension of actual large-scale structure is observed empirically to be
+\begin{equation}
+D_{\text{fractal}} \;=\; 2.73 \pm 0.01 ,
+\end{equation}
+which is a statement about how matter clusters inside three-dimensional space,
+not about the number of spatial dimensions.
 \end{intuitive}
 
 \subsection{Anthropic Selection}
 
 \begin{thm}[Dimensional Anthropic Principle]\label{thm:dimensional-anthropic}
-Among all possible crystallizations from Ω-space, only those with $2 < D < 3$ permit conscious observers. Therefore, conscious observers necessarily find themselves in universes with $D \approx 2.73$.
+Among all possible crystallizations from $\Omega$-space, only those with
+topological dimension $d_{\text{top}} = 3$ permit conscious observers: smaller
+$d_{\text{top}}$ fails the vorticity-vector requirement
+(Remark~\ref{rem:rotation-planes-three}) and Poincar\'e--Bendixson
+constraints, while $d_{\text{top}} \ge 4$ fails Bertrand / Ehrenfest stability
+for bound orbits. Conscious observers therefore necessarily find themselves in
+a $d_{\text{top}} = 3$ universe, whose large-scale structure separately
+exhibits fractal dimension $D_{\text{fractal}} \approx 2.73$.
 \end{thm}
 
-This is not circular reasoning—it's selection bias:
+This is not circular reasoning---it's selection bias, cleanly separated across
+the two dimensional notions:
 \begin{itemize}
-\item Ω-space contains infinite potential crystallizations
-\item Most have $D \neq 2.73$
-\item Only narrow range $2 < D < 3$ supports consciousness
-\item Therefore, we (conscious observers) necessarily observe $D \approx 2.73$
+\item $\Omega$-space contains crystallizations of every topological dimension.
+\item Only $d_{\text{top}} = 3$ passes \emph{both} filters simultaneously
+      (rotation-plane match + stable bound orbits).
+\item We therefore necessarily observe $d_{\text{top}} = 3$.
+\item The observed $D_{\text{fractal}} \approx 2.73$ is a separate statement
+      about matter clustering inside that three-dimensional space, not an
+      alternative dimension count. It is not required by anthropic selection;
+      it is a measured feature of the specific crystallisation we inhabit.
 \end{itemize}
 
 \section{Predictions and Signatures}
