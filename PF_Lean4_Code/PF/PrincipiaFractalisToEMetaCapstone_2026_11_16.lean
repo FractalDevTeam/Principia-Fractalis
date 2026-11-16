@@ -63,10 +63,11 @@ enumerated at sub-ingredient granularity in
 ## Main theorem
 
 `principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD` —
-**eight-conjunct kernel-clean composition covering all SEVEN Clay
-Millennium problems** (the six open Clay axes YM/RH/BSD/Hodge/P vs NP/NS
-+ the SOLVED Clay Poincaré via substrate reproduction of Perelman 2006)
-plus the YM deep-core refinement.
+**nine-conjunct kernel-clean composition covering all SEVEN Clay
+Millennium problems + the non-Clay auxiliary 8th axis (Fermat)**:
+the six open Clay axes YM/RH/BSD/Hodge/P vs NP/NS, the SOLVED Clay
+Poincaré via substrate reproduction of Perelman 2006, the YM deep-core
+refinement, and Fermat (sum form + difference form at n = 4).
 
 The seven Clay problems covered in ONE theorem:
 
@@ -94,6 +95,14 @@ uniform-in-n Galerkin-shadow vortex-stretching bound at K=1 discharges
 the Clay-standard typed contract `Clay_NavierStokes_Standard
 PF_NSEncodingSubstrate` axiom-free three-axiom bar.
 
+The Fermat conjunct (9) is the non-Clay 8th-axis anchor: the ToE needs
+to reproduce the n = 4 classical result in BOTH forms (sum and
+difference) because the difference form is the exact ingredient that
+unlocks the second rank-0 BSD curve in the corpus (y² = x³ − x, LMFDB
+32.a2, via Fermat descent — landed 2026-11-14).  Sum form cites mathlib's
+`not_fermat_42`; difference form cites PF's own `not_fermat_42_sub`
+(mathlib PR #46025 in flight).  Both are axiom-free three-axiom bar.
+
 SPDX-License-Identifier: Apache-2.0
 Author: Pablo Cohen.  2026-11-16.
 -/
@@ -106,6 +115,7 @@ import PF.SpectralGapFaithfulSeparator_V4Pivot_2026_11_15
 import PF.YangMills.YMContinuumSubstantiveCorePivot_2026_11_16
 import PF.Referee.PoincareCapstoneTypedBridge
 import PF.Referee.NavierStokesCapstoneTypedBridgeSubstrate
+import PF.Referee.FermatCapstoneTypedBridge
 
 namespace PF.PrincipiaFractalisToEMetaCapstone
 
@@ -136,6 +146,12 @@ open PF.Referee.NavierStokesCapstoneTypedBridgeSubstrate
    substrate_vortex_stretching_uniform_one)
 open PF.Referee.StandardClayStatements (Clay_NavierStokes_Standard)
 open PF.Referee.StandardPoincareStatement (Clay_Poincare_Standard)
+open PF.Referee.FermatCapstoneTypedBridge
+  (PF_FermatEncoding
+   PF_Fermat_capstone_yields_Standard_FermatLastTheorem_standard
+   fermat_n_four_classically_kernel_verified
+   fermat_n_four_difference_form_kernel_verified)
+open PF.Referee.StandardFermatStatement (Standard_FermatLastTheorem_Standard)
 open PF.BSDSubstratePositionFullRankOneBundle
   (bsd_substantive_partial_discharge_ten_curve_bundle)
 open PF.SpectralGapFaithfulSeparator_V4Pivot
@@ -256,7 +272,15 @@ theorem principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD :
     -- (8) POINCARÉ — Clay-standard typed contract via W_α cascade
     --     ceiling = 3 at α_Poincare = 1 (reproduces Perelman 2006
     --     result at substrate layer; axiom-free three-axiom bar).
-    Clay_Poincare_Standard PF_PoincareEncoding :=
+    Clay_Poincare_Standard PF_PoincareEncoding ∧
+    -- (9) FERMAT — the 8th-axis non-Clay auxiliary.  Three sub-conjuncts:
+    --     (9a) Typed Standard Fermat contract on PF_FermatEncoding.
+    --     (9b) n = 4 sum form:   a^4 + b^4 ≠ c^2  (mathlib `not_fermat_42`).
+    --     (9c) n = 4 difference form: a^4 − b^4 ≠ c^2  (PF's own
+    --          `not_fermat_42_sub`, mathlib PR #46025 in flight).
+    (Standard_FermatLastTheorem_Standard PF_FermatEncoding ∧
+     (∀ a b c : ℤ, a ≠ 0 → b ≠ 0 → a ^ 4 + b ^ 4 ≠ c ^ 2) ∧
+     (∀ a b c : ℤ, a ≠ 0 → b ≠ 0 → c ≠ 0 → a ^ 4 - b ^ 4 ≠ c ^ 2)) :=
   ⟨-- (1) YM via H₃ (first conjunct of 2026-11-15 morning meta).
    principia_fractalis_substrate_positions_at_HEAD.1,
    -- (2) RH 4-of-5.
@@ -272,7 +296,11 @@ theorem principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD :
    -- (7) NS Clay-standard via substrate.
    PF_NS_capstone_substrate_yields_Clay_NavierStokes_standard,
    -- (8) Poincaré Clay-standard via W_α cascade (reproduces Perelman).
-   PF_Poincare_capstone_yields_Clay_Poincare_standard⟩
+   PF_Poincare_capstone_yields_Clay_Poincare_standard,
+   -- (9) Fermat axis — typed contract + n=4 sum form + n=4 difference form.
+   PF_Fermat_capstone_yields_Standard_FermatLastTheorem_standard,
+   fermat_n_four_classically_kernel_verified,
+   fermat_n_four_difference_form_kernel_verified⟩
 
 /-! ## §2 — NS composition note.
 
