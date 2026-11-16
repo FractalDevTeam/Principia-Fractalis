@@ -49,6 +49,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 2026-11-16 repair: run 43933701501 on commit f318b58c survived the
+      # 180-min timeout but died at exit 143 (SIGTERM, OOM killer) ~91 min
+      # into `lake build PF`. ubuntu-latest has 7 GB RAM; the full corpus
+      # build (10,774+ files) can peak beyond that. Add 10 GB swap so Lean
+      # has virtual memory headroom. Swap is on SSD and is slow, but it
+      # beats OOM-kill before the build can finish.
+      - name: Add 10 GB swap (OOM defense for lake build PF)
+        run: |
+          sudo fallocate -l 10G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          echo "Swap after setup:"
+          free -h | grep -E "Swap|Mem"
+        shell: bash
+
       - name: Cache elan toolchain
         uses: actions/cache@v4
         with:
