@@ -28,8 +28,11 @@ permissions:
   contents: read
 
 concurrency:
+  # Only PR iterations supersede each other; master pushes queue instead,
+  # so a burst of commits produces a serial backlog of verdicts rather
+  # than a row of cancellations.
   group: verify-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   verify:
