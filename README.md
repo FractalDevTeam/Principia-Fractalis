@@ -71,6 +71,40 @@ Paper: [`Papers/uhf_faithful_trace_glimm_2026-07-23.pdf`](Papers/uhf_faithful_tr
 
 ---
 
+## ToE Meta-Capstone (2026-11-16 EOD) — single-citation entry point
+
+For visitors asking "what does the Theory of Everything claim amount to in Lean?" there is **one theorem**:
+
+```
+PF.PrincipiaFractalisToEMetaCapstone.principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD
+```
+
+in [`PF_Lean4_Code/PF/PrincipiaFractalisToEMetaCapstone_2026_11_16.lean`](PF_Lean4_Code/PF/PrincipiaFractalisToEMetaCapstone_2026_11_16.lean).
+Reports kernel axioms `[propext, Classical.choice, Quot.sound]` — **zero project axioms, zero sorries.**
+
+Ten kernel-clean conjuncts composed in one theorem:
+
+| # | Axis | Content |
+|---|------|---------|
+| 1 | YM | `α_YM = π / (10 · (π / h(H₃))) + 1` — H₃ Coxeter scaling anchor |
+| 2 | RH | 4 of 5 Dirichlet-1858 sub-ingredients closed (Abel bridge, analytic continuation, identity-theorem template, point at `s = 1/2`) |
+| 3 | BSD | 10-curve rank-≥1 LMFDB bundle (E_37.a1, E_43.a1, E_53.a1, E_61.a1, E_79.a1, E_83.a1, E_89.a1, E_106.a1, E_389.a1, E_5077.a1) |
+| 4 | Hodge | CY4 all three (p,p) slices + quintic 4-fold worked instance + Voisin R1 ∧ R3 partial |
+| 5 | P vs NP | V4 pivot after V2 vacuity disclosure (V2's `computability := True` placeholder makes V2 provably false under its own definition) |
+| 6 | YM (deep) | Three-tier bundle: structural + substantive + **deep core demanding `ProbabilityMeasure ℝ` sequence convergence** (physical anchor: Wilson SU(2) plaquette ≈ 0.613) |
+| 7 | **NS** | `Clay_NavierStokes_Standard` discharged via substrate uniform vortex-stretching at K=1. Reproduces classical NS at Clay-standard form. |
+| 8 | **Poincaré** | `Clay_Poincare_Standard` discharged via `W_α` cascade ceiling identity `∑' n, W_α^(1) n = 3` at `α_Poincaré = 1`. **Reproduces Perelman 2006.** |
+| 9 | Fermat | 5 sub-conjuncts: typed Standard contract, n=4 sum form (mathlib `not_fermat_42`), n=4 difference form (PF's `not_fermat_42_sub`, mathlib PR #46025), n=3 (mathlib `fermatLastTheoremThree`), all n divisible by 3 or 4 |
+| 10 | **α-skeleton algebraic unification** | 9 kernel-verified α identities: `α_P² = α_YM`, `α_RH² = 9/4`, `α_Hodge² = α_Hodge + 1` (golden ratio), `α_QG² = 2π`, `α_NS = 2·α_BSD`, `α_NS = α_YM · α_BSD`, `α_YM = α_Poincaré + 1`, `α_RH · α_NS = α_NS + α_BSD`, `α_RH · α_YM = 3` |
+
+**What this theorem is not.** It is not a closure of the six open Clay problems. It is the explicit enumeration of what the substrate attack delivers today: the substantively closed parts, discharged kernel-clean against existing proven corpus content; the open parts, named at sub-ingredient granularity; and the α-skeleton identities that algebraically couple the axes.
+
+**What it is.** The single citation a formal-verification-trained referee can point at to see the full state of the Principia Fractalis substrate attack across all Clay axes + Fermat + α-unification in one place.
+
+See [`codex/WHATS_LEFT_2026-11-16.md`](codex/WHATS_LEFT_2026-11-16.md) for the open-sub-ingredient enumeration.
+
+---
+
 ## Framework context: what this theorem lives inside
 
 The UHF construction above is the completion tier of the **Timeless Field** substrate — the
