@@ -116,6 +116,7 @@ import PF.YangMills.YMContinuumSubstantiveCorePivot_2026_11_16
 import PF.Referee.PoincareCapstoneTypedBridge
 import PF.Referee.NavierStokesCapstoneTypedBridgeSubstrate
 import PF.Referee.FermatCapstoneTypedBridge
+import PF.BSDSubstratePositionExtendedPartialDischarge_2026_11_15
 
 namespace PF.PrincipiaFractalisToEMetaCapstone
 
@@ -152,6 +153,9 @@ open PF.Referee.FermatCapstoneTypedBridge
    fermat_n_four_classically_kernel_verified
    fermat_n_four_difference_form_kernel_verified)
 open PF.Referee.StandardFermatStatement (Standard_FermatLastTheorem_Standard)
+open PF.BSDSubstratePositionExtendedPartialDischarge
+  (Wiles1995FLT_DivisibleBy3Or4_PartialClosed
+   bsd_substantive_extended_partial_discharge)
 open PF.BSDSubstratePositionFullRankOneBundle
   (bsd_substantive_partial_discharge_ten_curve_bundle)
 open PF.SpectralGapFaithfulSeparator_V4Pivot
@@ -273,14 +277,20 @@ theorem principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD :
     --     ceiling = 3 at α_Poincare = 1 (reproduces Perelman 2006
     --     result at substrate layer; axiom-free three-axiom bar).
     Clay_Poincare_Standard PF_PoincareEncoding ∧
-    -- (9) FERMAT — the 8th-axis non-Clay auxiliary.  Three sub-conjuncts:
+    -- (9) FERMAT — the 8th-axis non-Clay auxiliary.  Five sub-conjuncts:
     --     (9a) Typed Standard Fermat contract on PF_FermatEncoding.
     --     (9b) n = 4 sum form:   a^4 + b^4 ≠ c^2  (mathlib `not_fermat_42`).
     --     (9c) n = 4 difference form: a^4 − b^4 ≠ c^2  (PF's own
     --          `not_fermat_42_sub`, mathlib PR #46025 in flight).
+    --     (9d) n = 3 via mathlib `fermatLastTheoremThree`.
+    --     (9e) All n ≥ 3 with 3 ∣ n ∨ 4 ∣ n — aggregate partial closure
+    --          over the "half of exponents" that are reachable via
+    --          mathlib's descent + FermatLastTheoremFor.mono.
     (Standard_FermatLastTheorem_Standard PF_FermatEncoding ∧
      (∀ a b c : ℤ, a ≠ 0 → b ≠ 0 → a ^ 4 + b ^ 4 ≠ c ^ 2) ∧
-     (∀ a b c : ℤ, a ≠ 0 → b ≠ 0 → c ≠ 0 → a ^ 4 - b ^ 4 ≠ c ^ 2)) :=
+     (∀ a b c : ℤ, a ≠ 0 → b ≠ 0 → c ≠ 0 → a ^ 4 - b ^ 4 ≠ c ^ 2) ∧
+     FermatLastTheoremFor 3 ∧
+     Wiles1995FLT_DivisibleBy3Or4_PartialClosed) :=
   ⟨-- (1) YM via H₃ (first conjunct of 2026-11-15 morning meta).
    principia_fractalis_substrate_positions_at_HEAD.1,
    -- (2) RH 4-of-5.
@@ -297,10 +307,12 @@ theorem principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD :
    PF_NS_capstone_substrate_yields_Clay_NavierStokes_standard,
    -- (8) Poincaré Clay-standard via W_α cascade (reproduces Perelman).
    PF_Poincare_capstone_yields_Clay_Poincare_standard,
-   -- (9) Fermat axis — typed contract + n=4 sum form + n=4 difference form.
+   -- (9) Fermat axis.
    PF_Fermat_capstone_yields_Standard_FermatLastTheorem_standard,
    fermat_n_four_classically_kernel_verified,
-   fermat_n_four_difference_form_kernel_verified⟩
+   fermat_n_four_difference_form_kernel_verified,
+   fermatLastTheoremThree,
+   bsd_substantive_extended_partial_discharge⟩
 
 /-! ## §2 — NS composition note.
 
