@@ -56,26 +56,21 @@ theorem is renamed or removed, this file will fail to build.
     `rh_substrate_attack_HEAD_bundle_EXTENDED2_2026_11_16`.
 
 ### (4-construction-universal) Universal-s identity.
-- **Target statement:**
-    `∀ s : ℂ, s ≠ 1 → dirichletEtaExt s = (1 - 2^(1-s)) · riemannZeta s`
-- **Available ingredients:**
-    - `dirichletEta_eq_one_sub_two_cpow_mul_riemannZeta` in r268 [PROVED on 1 < re s]
-    - `dirichletEtaExt_differentiableOn_ne_one` in r278 [PROVED]
-    - `eqOn_dirichletEtaExt_of_analyticOnNhd_eventuallyEq` in r279 [PROVED identity template]
-- **Status:** [ ] OPEN. The composition is:
-    (a) LHS analytic on ℂ \ {1}: r278 `_differentiableOn_ne_one`.
-    (b) RHS analytic on ℂ \ {1}: `(1 - 2^(1-s))·ζ(s)` is analytic there
-        (the `(1 - 2^(1-s))` factor has a simple zero at s=1 cancelling
-        ζ's simple pole; we state on ℂ \ {1} to avoid the removable
-        singularity).
-    (c) LHS = RHS on open set 1 < re s: r268.
-    (d) Apply r279 identity template on connected open ℂ \ {1}.
+- **Theorem:**
+    `dirichletEtaExt_eq_one_sub_two_cpow_mul_riemannZeta_universal`
+    `: ∀ {s : ℂ}, s ≠ 1 → dirichletEtaExt s = (1 - 2^(1-s)) · riemannZeta s`
+- **File:** `PF/DirichletEtaExtUniversalIdentity_2026_11_16.lean`
+- **Commit:** `bb7ceaca`
+- **Status:** [X] closed kernel-clean (2026-11-16). Composition of r268
+    (identity on `1 < re s`) + r269 (`dirichletEtaExt = dirichletEta`
+    on `1 < re s`) + r278 (analyticity on `ℂ \ {1}`) + r279 (identity
+    theorem template).
 
 ## Open items at HEAD 2026-11-16 EOD
 
-1. **(4-construction-universal)** Compose r268 + r278 + r279 into
-   the universal-s identity theorem. Target: new file
-   `PF/DirichletEtaIdentityTheoremUniversal.lean` or extend r279.
+1. ~~**(4-construction-universal)** Compose r268 + r278 + r279 into
+   the universal-s identity theorem.~~ [closed at `bb7ceaca` in
+   `PF/DirichletEtaExtUniversalIdentity_2026_11_16.lean`]
 2. **Discharge of `DirichletEtaExt_DifferentiableAtOne`**: show that
    `dirichletEtaExt` is differentiable at s = 1. Limit value is `ln 2`;
    differentiability follows from the Abel summation structure. Needed
@@ -84,6 +79,13 @@ theorem is renamed or removed, this file will fail to build.
    reports "4 of 5 Dirichlet-1858 sub-ingredients" — (2) is closed but
    not yet composed into the bundle. Adding this bumps the count to 5 of 5
    under the sub-ingredient enumeration here.
+4. **Bridge R_f(1, s) to the universal-s identity.** Per the 2026-11-16
+   Rio academia co-scientist audit (`rio.pdf §5.1`):
+   `R_f(1, s) = Σ_{n≥1} (-1)^n · n^(-s) = -dirichletEta s` on `1 < re s`,
+   because `D_3(n) ≡ n (mod 2)` at `α = 1`. Combined with the now-closed
+   universal-s identity, this gives
+   `R_f(1, s) = -(1 - 2^(1-s)) · riemannZeta s` for all `s ≠ 1`.
+   Compose in a new file once the Lean definition of `R_f` is located.
 
 ## Downstream users
 
