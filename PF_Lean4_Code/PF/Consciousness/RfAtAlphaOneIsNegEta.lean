@@ -56,11 +56,14 @@ Stage L7 (Brick F) — R_f at α=1 collapses to -η.
 -/
 
 import PF.Consciousness.FractalResonance
+import PF.DirichletEtaComplex_r267
 
 namespace PrincipiaTractalis.Consciousness
 
 open Complex Real
 open PrincipiaTractalis.TuringEncoding
+open PrincipiaTractalis.DirichletEtaComplex
+  (dirichletEta dirichletEtaCoeff dirichletEta_summable)
 
 /-! ## Base-3 digital sum has the same parity as the integer -/
 
@@ -119,6 +122,44 @@ theorem fractalResonanceTerm_complex_alpha_one (s : ℂ) (n : ℕ) :
     fractalResonanceTerm_complex 1 s n = (-1 : ℂ)^n / (n : ℂ) ^ s := by
   unfold fractalResonanceTerm_complex
   rw [phaseFactor_alpha_one]
+
+/-! ## Bridge: R_f(1, s) = -dirichletEta(s) on 1 < re s -/
+
+/-- **R_f(1, s) = -dirichletEta s** — unconditional termwise identity.
+
+    Term-by-term: `(-1)^n / n^s = -((-1)^(n+1) / n^s)` for n ≥ 1,
+    matching the Dirichlet-eta LSeries term (which uses the `(-1)^(n+1)`
+    sign convention). Both sides are tsums over ℕ with term 0 at n = 0;
+    the equality holds for every `s : ℂ`, with classical interpretation
+    on the convergence region `1 < re s` where both sides are their
+    L-series values.
+
+    Discharges Rio audit §5.1 observation (rio.pdf): at α = 1,
+    `D_3(n) ≡ n (mod 2)` forces R_f(1, s) into the eta family.
+
+    Together with
+    `dirichletEtaExt_eq_one_sub_two_cpow_mul_riemannZeta_universal`
+    (closed at `bb7ceaca`), this gives
+    `R_f(1, s) = -(1 - 2^(1-s)) · riemannZeta s`
+    throughout `ℂ \ {1}` (via the analytic extension `dirichletEtaExt`
+    which agrees with `dirichletEta` on `1 < re s`). -/
+theorem fractalResonance_alpha_one_eq_neg_dirichletEta (s : ℂ) :
+    fractalResonance 1 s = -dirichletEta s := by
+  unfold fractalResonance dirichletEta LSeries
+  rw [← tsum_neg]
+  apply tsum_congr
+  intro n
+  by_cases hn : n = 0
+  · subst hn
+    simp [LSeries.term]
+  · rw [if_neg hn, fractalResonanceTerm_complex_alpha_one]
+    unfold LSeries.term dirichletEtaCoeff
+    rw [if_neg hn, if_neg hn]
+    -- (-1)^n / n^s = -((-1)^(n+1) / n^s)
+    have h_pow : (-1 : ℂ) ^ n = -((-1 : ℂ) ^ (n + 1)) := by
+      rw [pow_succ]; ring
+    rw [h_pow]
+    ring
 
 /-! ## At s = 1, R_f(1, 1) = -log 2 EXACTLY
 
