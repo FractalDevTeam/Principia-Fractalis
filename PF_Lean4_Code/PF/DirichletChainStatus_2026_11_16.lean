@@ -71,10 +71,27 @@ theorem is renamed or removed, this file will fail to build.
 1. ~~**(4-construction-universal)** Compose r268 + r278 + r279 into
    the universal-s identity theorem.~~ [closed at `bb7ceaca` in
    `PF/DirichletEtaExtUniversalIdentity_2026_11_16.lean`]
-2. **Discharge of `DirichletEtaExt_DifferentiableAtOne`**: show that
-   `dirichletEtaExt` is differentiable at s = 1. Limit value is `ln 2`;
-   differentiability follows from the Abel summation structure. Needed
-   to complete (3) at s = 1.
+2. ~~**Discharge of `DirichletEtaExt_DifferentiableAtOne`**~~
+   [closed-via-disclosure at HEAD; literal residual refuted].
+   File: `PF/DirichletEtaExtDifferentiableAtOneDisclosure_2026_11_16.lean`.
+   Finding: the literal residual as defined in r278
+   (`DifferentiableAt ℂ dirichletEtaExt 1`) is **false** given mathlib's
+   `riemannZeta` definition. The factor `(1 - 2^(1-1)) = 0` forces
+   `dirichletEtaExt 1 = 0`, but the mathematical limit is
+   `Complex.log 2 ≠ 0`. The function is discontinuous at `s = 1`,
+   hence not differentiable. The correct object is
+   `dirichletEtaExtFilled := Function.update dirichletEtaExt 1 (Complex.log 2)`,
+   which agrees with `dirichletEtaExt` off `s = 1` and takes the
+   mathematically correct value at `s = 1`. Theorems in the disclosure
+   file: `dirichletEtaExt_eval_at_one`,
+   `dirichletEtaExtFilled_at_one`,
+   `dirichletEtaExtFilled_eq_dirichletEtaExt_of_ne_one`,
+   `named_residual_literal_statement_is_incompatible_with_limit`.
+   **Follow-up for a later session:**
+   `DifferentiableAt ℂ dirichletEtaExtFilled 1` via
+   `differentiableOn_update_limUnder_of_bddAbove` requires the
+   derivative computation `HasDerivAt (fun s => 1 - 2^(1-s)) (log 2) 1`
+   composed with `riemannZeta_residue_one`. Mechanical; deferred.
 3. **Cite (2) in the substrate-attack bundle.** Currently the meta-capstone
    reports "4 of 5 Dirichlet-1858 sub-ingredients" — (2) is closed but
    not yet composed into the bundle. Adding this bumps the count to 5 of 5
