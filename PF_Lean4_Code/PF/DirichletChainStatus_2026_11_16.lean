@@ -79,13 +79,17 @@ theorem is renamed or removed, this file will fail to build.
    reports "4 of 5 Dirichlet-1858 sub-ingredients" — (2) is closed but
    not yet composed into the bundle. Adding this bumps the count to 5 of 5
    under the sub-ingredient enumeration here.
-4. **Bridge R_f(1, s) to the universal-s identity.** Per the 2026-11-16
-   Rio academia co-scientist audit (`rio.pdf §5.1`):
-   `R_f(1, s) = Σ_{n≥1} (-1)^n · n^(-s) = -dirichletEta s` on `1 < re s`,
-   because `D_3(n) ≡ n (mod 2)` at `α = 1`. Combined with the now-closed
-   universal-s identity, this gives
-   `R_f(1, s) = -(1 - 2^(1-s)) · riemannZeta s` for all `s ≠ 1`.
-   Compose in a new file once the Lean definition of `R_f` is located.
+4. ~~**Bridge R_f(1, s) to the universal-s identity.**~~
+   [closed at `accee270`]. Two theorems added:
+   - `fractalResonance_alpha_one_eq_neg_dirichletEta` (extended in
+     `PF/Consciousness/RfAtAlphaOneIsNegEta.lean`): unconditional
+     `R_f(1, s) = -dirichletEta s` termwise.
+   - `fractalResonance_alpha_one_eq_neg_one_sub_two_cpow_mul_riemannZeta`
+     (new in `PF/Consciousness/RfAtAlphaOneToZetaUniversal_2026_11_16.lean`):
+     on `1 < re s`, `R_f(1, s) = -(1 - 2^(1-s)) · riemannZeta s`.
+   - `neg_dirichletEtaExt_eq_neg_one_sub_two_cpow_mul_riemannZeta`
+     (same file): the identity reads through the extension on all
+     `s ≠ 1`.
 
 ## Downstream users
 
