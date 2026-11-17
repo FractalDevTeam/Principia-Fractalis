@@ -246,6 +246,34 @@ regime. The framework therefore has \textbf{one} settled external anchor
 and every value derived ``from the two anchors'' is conditional on one external
 result plus one assertion of the framework. The ``settled anchor'' framing was
 an error of ours, not of the cited authors.
+\item \textbf{The fractal-audio paper's p.20 system is not independently
+reproducible from the PDF (2026-11-16 external audit).}
+An external co-scientist audit of
+\texttt{.academia-profile/pdfs/academia-128468852.pdf} reconstructed the
+p.21 scalar formula $F(f,\alpha) = \sum_{n=1}^{M(f)} \cos(\pi \alpha\, S_3(n)/L_3(n))\, n^{-f/440}$
+with $M(f) = \min(50, \lfloor 20000/f \rfloor)$ \emph{exactly} from the
+printed code; sample values $F(20)=0.7592$, $F(440)=-0.2144$, $F(4000)=0.3609$
+check. That part of the paper stands. But the p.20 audio pipeline components
+---``Frequency Domain Mapping,'' ``Sacred Geometry Filter Banks,'' ``Inverse
+Fractal Transform,'' ``Harmonic Enhancement''---are \emph{named but not
+operationally specified} in the PDF. Under one disclosed signed
+FFT-multiplier implementation the auditor could extract from what is printed,
+Table 4's reported benchmarks (12.4\,ms$\to$2.7\,ms latency,
+$67.3\to 92.8$\,dB SNR, $0.83\%\to 0.11\%$ THD, $456.3\to 83.2$\,ops/sample)
+are \emph{not reproduced}; the chosen implementation gives worse
+clean-reference SNR than identity on most test signals at 10\,dB input SNR
+because the signed response inverts phase at 1\,kHz and 4\,kHz, and clean-tone
+THD+N sits at the float64 numerical floor ($\sim-245$\,dB) rather than the
+paper's $0.11\%$ hardware/system figure. This does \emph{not} touch the
+Lean-kernel-certified content of the book---the ToE meta-capstone, the
+$\alpha$-skeleton identities, the Clay-axis substrate discharges and the
+substrate algebra $\mathcal{T}_\infty$ are formal objects whose proofs are
+independent of the engineering pipeline on p.20---but it is a reproducibility
+negative result for \emph{that specific downstream paper's system claims}, and
+is entered here rather than buried. See
+\texttt{codex/FRACTAL\_AUDIO\_P20\_P21\_REPRODUCTION\_2026-11-16.md} for the
+audit's deliverables, operation count, and the specific implementation
+choices the auditor had to supply.
 \end{itemize}
 
 \section*{The state of the formal corpus, stated as a number}
