@@ -28,7 +28,8 @@ HEAD on origin/master: `62f79d56`. Last-rebuild main.pdf: 1074 pages.
 Remaining 30 per Appendix N (`appN_chapter_diagnostic_sheet.tex`) —
 cascade-impact apex:
 ```
-[P] Ch.34A Substrate Theorem                128 Lean cites to verify
+[X] Ch.34A Substrate Theorem                128 Lean cites verified 2026-11-17;
+                                            zero broken. See Ch34A_CITATION_AUDIT_2026_11_17.md.
 [P] Ch.34  Verification                     59 Lean cites + CI repair narrative
 [P] Ch.32  Consciousness Quantification     39 ch_2 mentions unaudited
 [P] Ch.24  Birch-Swinnerton-Dyer            16 Lean cites; 2026-11-14/16 closures not recorded
