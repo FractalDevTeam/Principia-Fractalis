@@ -198,6 +198,50 @@ theorem α_QG_sq_eq_eight_thirds_α_BSD : α_QG ^ 2 = (8 / 3) * α_BSD := by
   have := α_QG_sq_eq_two_pi
   linarith [this]
 
+/-! ## Section 6.5 — Chained invariants (2026-11-16 additions) -/
+
+/-- **`α_RH_mul_α_P_sq_eq_three`**: (3/2)·(√2)² = 3. Chains
+    `α_P_sq_eq_α_YM` with `α_RH_mul_YM_eq_three` to give a mixed
+    rational/irrational identity that depends on both the P-class
+    structure and the RH σ-resonance structure simultaneously. -/
+theorem α_RH_mul_α_P_sq_eq_three : α_RH * α_P ^ 2 = 3 := by
+  rw [α_P_sq_eq_α_YM]
+  exact α_RH_mul_YM_eq_three
+
+/-- **`α_RH_sq_plus_α_YM_sq_eq_twenty_five_fourths`**:
+    (3/2)² + 2² = 9/4 + 4 = 25/4 = (5/2)². The two integer/rational
+    α-values form a Pythagorean-style sum whose root is 5/2, placing
+    them on a 3-4-5 triangle (modulo the factor of 2 in the components).
+    No physical interpretation claimed — this is an algebraic fact
+    about the chosen α-values. -/
+theorem α_RH_sq_plus_α_YM_sq_eq_twenty_five_fourths :
+    α_RH ^ 2 + α_YM ^ 2 = 25 / 4 := by
+  unfold α_RH α_YM; norm_num
+
+/-- **`α_Hodge_sub_Poincare_eq_inv_α_Hodge`**: `φ - 1 = 1/φ`, the
+    defining reciprocal identity of the golden ratio, expressed in
+    α-skeleton form as `α_Hodge - α_Poincaré = 1/α_Hodge`. Combining
+    this with `α_Hodge_sq_eq_self_plus_one` gives both of the standard
+    characterisations of φ in one chapter. -/
+theorem α_Hodge_sub_Poincare_eq_inv_α_Hodge :
+    α_Hodge - α_Poincare = 1 / α_Hodge := by
+  unfold α_Hodge α_Poincare
+  have hsqrt5 : (0 : ℝ) ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
+  have hφpos : phi > 0 := by
+    unfold phi; linarith
+  have hφne : phi ≠ 0 := ne_of_gt hφpos
+  have hsq : phi ^ 2 = phi + 1 := phi_sq_eq
+  field_simp
+  linarith [hsq]
+
+/-- **`α_Poincare_plus_α_YM_eq_α_RH_mul_α_YM`**: 1 + 2 = 3 = (3/2)·2.
+    The sum of the two integer α-values equals the product of the
+    rational non-unit α-values. A clean rational identity linking the
+    integer and rational sectors of the skeleton. -/
+theorem α_Poincare_plus_α_YM_eq_α_RH_mul_α_YM :
+    α_Poincare + α_YM = α_RH * α_YM := by
+  unfold α_Poincare α_YM α_RH; norm_num
+
 /-! ## Section 7 — Capstone bundle -/
 
 /-- **Capstone**: a single typed bundle of ≥ 10 axiom-free algebraic
