@@ -92,10 +92,10 @@ theorem is renamed or removed, this file will fail to build.
    `differentiableOn_update_limUnder_of_bddAbove` requires the
    derivative computation `HasDerivAt (fun s => 1 - 2^(1-s)) (log 2) 1`
    composed with `riemannZeta_residue_one`. Mechanical; deferred.
-3. **Cite (2) in the substrate-attack bundle.** Currently the meta-capstone
-   reports "4 of 5 Dirichlet-1858 sub-ingredients" — (2) is closed but
-   not yet composed into the bundle. Adding this bumps the count to 5 of 5
-   under the sub-ingredient enumeration here.
+3. ~~**Cite (2) in the substrate-attack bundle.**~~ [closed at `62f79d56`]
+   `rh_substrate_attack_HEAD_bundle_5_of_5_2026_11_16` in
+   `PF/RHSubstratePositionFiveOfFive_2026_11_16.lean` adds the abscissa
+   conjunct via r277; count is now 5 of 5 kernel-clean.
 4. ~~**Bridge R_f(1, s) to the universal-s identity.**~~
    [closed at `accee270`]. Two theorems added:
    - `fractalResonance_alpha_one_eq_neg_dirichletEta` (extended in
