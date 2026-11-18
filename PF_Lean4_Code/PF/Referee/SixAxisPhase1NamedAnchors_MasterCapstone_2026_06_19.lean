@@ -188,7 +188,7 @@ theorem six_axis_phase1_named_anchors_master_capstone
 
 /-! ## §2 — Scope statement -/
 
-/-- **Scope-statement marker.** Substrate-level audit-trail improvement
+/-! **Scope-statement marker.** Substrate-level audit-trail improvement
     for referee-readability of the six per-axis typed Clay bridges
     via their explicit Wave 56 published-mathematics named anchors.
     NOT a literal Clay discharge of any of the six remaining

@@ -404,7 +404,7 @@ theorem polylog_conjecture_prime_decoupled_capstone :
   · exact empirical_pin_implies_prime_at_alpha_of_class
   · exact empirical_pin_implies_P_neq_NP_via_prime
 
-/-- **Wave 55E scope-statement marker** — the decoupled refactor
+/-! **Wave 55E scope-statement marker** — the decoupled refactor
     SEPARATES algebraic content from structural identification, but
     does NOT discharge any Millennium problem; the Wave 41B no-go on
     `alpha_of_class` is preserved exactly. -/
