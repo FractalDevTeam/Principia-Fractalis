@@ -255,7 +255,7 @@ theorem framework_unassailable_clay_closure_2026_06_18
 
 /-! ## §4 — Scope statement -/
 
-/-- **Scope-statement marker for the 2026-06-18 unassailable closure.**
+/-! **Scope-statement marker for the 2026-06-18 unassailable closure.**
 
     Substrate-level closure of the typed-Prop contract via the
     bulletproof V3 linkage:

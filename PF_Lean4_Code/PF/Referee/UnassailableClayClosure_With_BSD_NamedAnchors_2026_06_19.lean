@@ -128,7 +128,7 @@ theorem framework_bulletproofed_all_four_plus_BSD_substrate_inhabitance
 
 /-! ## §3 — Scope statement (no-axiom typed Prop) -/
 
-/-- **Scope-statement marker for the 2026-06-19 bulletproofed closure.**
+/-! **Scope-statement marker for the 2026-06-19 bulletproofed closure.**
 
     Substrate-level closure of the typed-Prop contract via the
     bulletproof V3 linkage, now bundled with the per-curve named-anchor
