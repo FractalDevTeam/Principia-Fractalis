@@ -1,0 +1,238 @@
+% ============================================================================
+% Ch.20 rev 2 (2026-11-18): LaTeX inserts integrating the Dirichlet eta
+% extension zero-structure (16 session commits) + FourierPanels preservation
+% (1 session commit).
+%
+% Three insert blocks. Paste each at the marked location in ch20_riemann_hypothesis.tex.
+% ============================================================================
+
+
+% ----------------------------------------------------------------------------
+% INSERT 1 — Chapter objectives: add 4th bullet for the eta-zero strand
+% Location: inside \begin{chapterobjectives} ... \end{chapterobjectives}
+%           BEFORE the existing "α-skeleton anchor" bullet (currently 4th).
+% ----------------------------------------------------------------------------
+
+\item \textbf{Dirichlet eta extension — complementary zero-structure
+(rev 2, 2026-11-18).}  The Euler identity
+$\eta(s) = (1 - 2^{1-s}) \zeta(s)$ lifts the Dirichlet eta function
+to a total analytic object on all of~$\mathbb{C}$.  The 2026-11-18
+chain delivers, on the three-axiom bar
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$:
+(a) the filled extension $\widetilde{\eta}_{\mathrm{ext}}$ is entire
+(Differentiable~$+$~AnalyticOnNhd on~$\mathbb{C}$); (b) a full
+pointwise iff characterisation of its zeros,
+$\widetilde{\eta}_{\mathrm{ext}}(s) = 0 \iff 2^{1-s} = 1 \lor
+\zeta(s) = 0$; (c) the ``extra'' zeros (where the factor vanishes)
+form the countably infinite family
+$s_k = 1 + 2\pi i k / \log 2$, $k \in \mathbb{Z}$, lying exactly on
+the critical line $\mathrm{Re}\,s = 1$ and disjoint from the
+$\zeta$-zeros; (d) no $\widetilde{\eta}_{\mathrm{ext}}$-zeros on
+$\mathrm{Re}\,s > 1$ and no nontrivial zeros on $\mathrm{Re}\,s \ge 1$.
+This is \emph{complementary} to the $\xi$-box march: it pins the
+geography of $\eta$-zeros across the whole plane rather than
+certifying positivity over a growing box.  The strand neither
+discharges RH nor claims to --- the ``nontrivial'' $\eta$-zeros
+live in $\mathrm{Re}\,s < 1$ and coincide there with the Riemann
+$\zeta$-zeros off the extra family.
+
+
+% ----------------------------------------------------------------------------
+% INSERT 2 — New subsection
+% Location: AFTER \subsection{Interval-arithmetic frontier on $\xi$ (rev 2, 2026-11-14)}
+%           and BEFORE \section{Conclusion}.
+% ----------------------------------------------------------------------------
+
+\subsection{Dirichlet eta extension: companion zero-structure (rev 2, 2026-11-18)}
+\label{sec:ch20-rev2-eta-structure}
+
+Parallel to the $\xi$-box march, the 2026-11-18 session landed the
+full pointwise zero-structure of the Dirichlet eta extension
+\[
+\widetilde{\eta}_{\mathrm{ext}}(s) = (1 - 2^{1-s}) \zeta(s),
+\qquad s \in \mathbb{C},
+\]
+with the removable singularity at $s = 1$ filled to Euler's classical
+value $\widetilde{\eta}_{\mathrm{filled}}(1) = \log 2$.  Every theorem
+below carries axioms exactly
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$;
+no \texttt{sorry}, no \texttt{native\_decide}, no project axioms.
+The 16 Lean modules under \texttt{PF/DirichletEta*\_2026\_11\_18.lean}
+and the generic Weierstrass Selmer helpers are the architecture.
+
+\paragraph{Entire and analytic everywhere.}
+Commits \texttt{7b2f9946}, \texttt{6131c331}, \texttt{35ef6f1f},
+\texttt{4f603cc4}:
+\begin{itemize}
+\item \texttt{dirichletEtaExtFilled\_differentiableAt\_atOne}
+  --- removable-singularity closure at $s = 1$ via mathlib's
+  \texttt{analyticAt\_of\_differentiable\_on\_punctured\_nhds\_of\_continuousAt},
+  routing the derivative of the factor $(1 - 2^{1-s})$ at $s = 1$
+  (equal to $\log 2$) through \texttt{HasDerivAt.const\_cpow} and
+  pairing it with \texttt{riemannZeta\_residue\_one}.
+\item \texttt{dirichletEtaExtFilled\_differentiable} ---
+  $\mathrm{Differentiable}\,\mathbb{C}\,\widetilde{\eta}_{\mathrm{filled}}$,
+  i.e.\ honestly entire.
+\item \texttt{dirichletEtaExtFilled\_analyticOnNhd} and
+  \texttt{dirichletEtaExtFilled\_analyticAt} --- analyticity
+  everywhere via \texttt{DifferentiableOn.analyticOnNhd} on
+  $\mathtt{Set.univ}$.
+\item \texttt{dirichletEtaExtFilled\_eventually\_ne\_zero\_near\_one}
+  --- the filled value $\log 2$ is nonzero, so the extension is
+  nonzero in a neighbourhood of~$s = 1$.
+\end{itemize}
+
+\paragraph{Zero characterisation: a disjoint union of two sources.}
+Commits \texttt{4ee47adb}, \texttt{e0f0bed6}, \texttt{1e0d9e42},
+\texttt{32fdd85c}:
+\begin{itemize}
+\item \texttt{dirichletEtaExt\_eq\_zero\_of\_two\_cpow\_eq\_one} ---
+  pointwise: whenever $2^{1-s} = 1$, $\widetilde{\eta}_{\mathrm{ext}}(s) = 0$.
+\item \texttt{dirichletEtaExt\_eq\_zero\_iff\_riemannZeta\_eq\_zero}
+  --- off the extra family ($2^{1-s} \ne 1$),
+  $\widetilde{\eta}_{\mathrm{ext}}(s) = 0 \Longleftrightarrow \zeta(s) = 0$.
+\item \texttt{dirichletEtaExt\_eq\_zero\_iff} --- the full iff:
+  $\widetilde{\eta}_{\mathrm{ext}}(s) = 0 \iff 2^{1-s} = 1 \lor \zeta(s) = 0$.
+\item \texttt{two\_cpow\_eq\_one\_iff\_mem\_extraFamily} --- the
+  factor's zero set is exactly the explicit image of
+  $\mathtt{extraFamily} : \mathbb{Z} \to \mathbb{C}$,
+  $\mathtt{extraFamily}\,k = 1 + 2\pi i k / \log 2$.
+\end{itemize}
+
+\paragraph{Extra family on the critical line, disjoint from $\zeta$-zeros.}
+Commits \texttt{fbde4a18}, \texttt{32b066cb}, \texttt{795a62f7}:
+\begin{itemize}
+\item \texttt{extraFamily\_injective} --- the parameterisation
+  $k \mapsto 1 + 2\pi i k / \log 2$ is injective on $\mathbb{Z}$, so
+  the extra family is a countably infinite set.
+\item \texttt{extraFamily\_re} --- every member satisfies
+  $(\mathtt{extraFamily}\,k).\mathtt{re} = 1$, i.e.\ the family
+  lies exactly on the critical line $\mathrm{Re}\,s = 1$.
+\item \texttt{extraFamily\_not\_riemannZeta\_zero} --- combined with
+  mathlib's \texttt{riemannZeta\_ne\_zero\_of\_one\_le\_re}, no
+  extra-family point is a $\zeta$-zero.  The full iff is therefore
+  a \emph{disjoint} union of two sources.
+\end{itemize}
+
+\paragraph{Half-plane geography.}
+Commits \texttt{5b3e6aa7}, \texttt{36b12c27}:
+\begin{itemize}
+\item \texttt{dirichletEtaExt\_ne\_zero\_of\_one\_lt\_re} --- no
+  zeros on the open half-plane $\mathrm{Re}\,s > 1$.  Proof route:
+  the factor satisfies $|1 - 2^{1-s}| \ge 1 - 2^{1 - \mathrm{Re}\,s}
+  > 0$ for $\mathrm{Re}\,s > 1$ (via
+  $\mathtt{norm\_cpow\_eq\_rpow\_re\_of\_pos}$ +
+  $\mathtt{Real.rpow\_lt\_one\_of\_one\_lt\_of\_neg}$), and
+  $\zeta(s) \ne 0$ there by the Euler product.
+\item \texttt{dirichletEtaExt\_eq\_zero\_iff\_mem\_extraFamily\_of\_one\_le\_re}
+  --- on the closed half-plane $\mathrm{Re}\,s \ge 1$, zeros of
+  $\widetilde{\eta}_{\mathrm{ext}}$ are \emph{exactly} the extra
+  family.  Hence \texttt{lt\_one\_of\_dirichletEtaExt\_zero\_of\_not\_extra}:
+  every nontrivial $\eta$-zero (not in the extra family) has
+  $\mathrm{Re}\,s < 1$.
+\end{itemize}
+
+\paragraph{Euler closed-form value table.}
+Commits \texttt{f59d10f9}, \texttt{8104e64a}, \texttt{b55bfa92}:
+\begin{align*}
+\widetilde{\eta}_{\mathrm{ext}}(-1) &= 1/4
+  &&\text{(Abel-summed }1 - 2 + 3 - 4 + \cdots\text{, via }\zeta(-1) = -1/12),\\
+\widetilde{\eta}_{\mathrm{ext}}(0) &= 1/2
+  &&\text{(via }\zeta(0) = -1/2),\\
+\widetilde{\eta}_{\mathrm{filled}}(1) &= \log 2
+  &&\text{(Euler's classical }\eta(1) = \log 2\text{, limit value)},\\
+\widetilde{\eta}_{\mathrm{ext}}(2) &= \pi^2/12
+  &&\text{(Euler 1735, via }\zeta(2) = \pi^2/6),\\
+\widetilde{\eta}_{\mathrm{ext}}(4) &= 7\pi^4/720
+  &&\text{(via }\zeta(4) = \pi^4/90).
+\end{align*}
+Lean names: \texttt{dirichletEtaExt\_at\_neg\_one},
+\texttt{dirichletEtaExt\_at\_zero}, \texttt{dirichletEtaExtFilled\_at\_one}
+(the $\log 2$ value is pinned in the disclosure file at commit
+\texttt{fb0dfa05}, prior to this session), \texttt{dirichletEtaExt\_at\_two},
+\texttt{dirichletEtaExt\_at\_four}.
+
+\paragraph{What this strand is and is not.}
+This chain pins the \emph{full pointwise zero structure} of
+$\widetilde{\eta}_{\mathrm{ext}}$ across all of~$\mathbb{C}$, and it
+localises the nontrivial zeros --- those not in the explicit extra
+family on $\mathrm{Re}\,s = 1$ --- to the half-plane
+$\mathrm{Re}\,s < 1$.  That half-plane contains the critical strip,
+and the nontrivial $\eta$-zeros there are, by the zero-correspondence
+theorem, \emph{exactly} the Riemann $\zeta$-zeros off the extra
+family.  The chain therefore \emph{transposes} the RH question from
+$\zeta$ to $\widetilde{\eta}_{\mathrm{ext}}$ without closing it:
+every nontrivial $\widetilde{\eta}_{\mathrm{ext}}$-zero lies on the
+critical line iff RH holds.
+
+Combined with the $\xi$-box march (Section~\ref{sec:ch20-rev2-frontier})
+and the operator-spectral reduction (Sections earlier), the
+2026-11-18 strand gives a \emph{third} rigorous route into the
+critical-strip zero-geography: a complete pointwise characterisation
+at the level of $\widetilde{\eta}_{\mathrm{ext}}$ rather than of
+$\xi$ or of $\tilde{T}_3^{\textsf{sym}}$.  None of the three strands
+closes the Clay statement.
+
+
+% ----------------------------------------------------------------------------
+% INSERT 3 — Paragraph to add to §Interval-arithmetic frontier
+% Location: INSIDE \subsection{Interval-arithmetic frontier on $\xi$ ...},
+%           AFTER \paragraph{Box march to $c = 829/64$ ...} and BEFORE
+%           \paragraph{Wall at $c = 829/64$ ...}.
+% ----------------------------------------------------------------------------
+
+\paragraph{Preservation of the c = 829/64 panel certification
+(2026-11-18).}
+
+The 300 Lean files backing the box march to $c = 829/64$ --- the
+auto-generated \texttt{PF/Analytic/FourierPanels/\allowbreak CoreDefs\_\allowbreak c829\_\allowbreak 64\_\allowbreak 2026\_\allowbreak 10\_\allowbreak 16.lean},
+\texttt{AnalyticTailBound\_c829\_64\_2026\_10\_20.lean}, the
+twelve \texttt{AssemblePart00..11\_c829\_64\_threehalves\_HYBRID\_2026\_10\_20.lean}
+files plus the apex
+\texttt{Assemble\_c829\_64\_threehalves\_HYBRID\_2026\_10\_20.lean},
+193 \texttt{Seg\{N\}Range\_c829\_64\_2026\_10\_16.lean} segments,
+88 \texttt{Seg\{N\}Midpoint\_c829\_64\_2026\_10\_20.lean} companions,
+the \texttt{OmegaTailBound}, \texttt{ResidueBound}, and two
+\texttt{PilotBoxes/R1\_c829\_64\_...} files --- had been sitting
+uncommitted in the working tree since 2026-10-16/10-20.  Commit
+\texttt{92524e10} (2026-11-18) locked all 300 files into git history
+plus the matching \texttt{PF/Analytic/\_buildorder.txt} (211
+ordered module names at $c = 829/64$).  Every file carries axioms
+exactly $[\mathtt{propext}, \mathtt{Classical.choice},
+\mathtt{Quot.sound}]$; no \texttt{sorry}, no \texttt{native\_decide},
+no project axioms.  The modules are not yet registered in the
+\texttt{PF.lean} root-import list, so \texttt{lake build PF}
+does not compile them as part of the corpus-wide target; a future
+wire-in commit is pending.  The preservation ensures the panel
+certification is now reproducibly traceable and no longer at risk
+of filesystem loss.
+
+
+% ----------------------------------------------------------------------------
+% INSERT 4 — Conclusion bullets to add
+% Location: Inside \section{Conclusion}, in the \begin{itemize} block,
+%           as a new bullet AFTER \textbf{Collapsed} ... Hilbert--P\'olya ...
+%           and BEFORE \textbf{Corroborated} ... α-skeleton reading.
+% ----------------------------------------------------------------------------
+
+\item \textbf{Characterised} the full pointwise zero structure of
+the Dirichlet eta extension
+$\widetilde{\eta}_{\mathrm{ext}}(s) = (1 - 2^{1-s}) \zeta(s)$ via
+the 2026-11-18 chain (16 Lean modules under
+\texttt{PF/DirichletEta*\_2026\_11\_18.lean}, all on three-axiom
+bar).  The filled extension is honestly entire; its zeros are a
+disjoint union of (a)~the explicit countably-infinite extra family
+$\{1 + 2\pi i k / \log 2 : k \in \mathbb{Z}\}$ on the critical line
+$\mathrm{Re}\,s = 1$, and (b)~the Riemann $\zeta$-zeros off that
+family (which live in $\mathrm{Re}\,s < 1$).  No nontrivial
+$\eta$-zeros occur on $\mathrm{Re}\,s \ge 1$.  Euler closed forms
+pinned at $\widetilde{\eta}(s)$ for $s \in \{-1, 0, 1, 2, 4\}$.
+\emph{Does not close RH}: the question ``do all nontrivial
+$\widetilde{\eta}_{\mathrm{ext}}$-zeros lie on $\mathrm{Re}\,s = 1/2$?''
+is RH transposed, not solved.
+
+\item \textbf{Preserved} the $c = 829/64$ Fourier panel certification
+backing the box march (commit \texttt{92524e10}, 2026-11-18, 300
+Lean files).  The panel modules carry the three-axiom bar
+individually and now live in git history; registering them in
+\texttt{PF.lean} for the corpus-wide build target is a follow-up.
