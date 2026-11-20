@@ -3,11 +3,15 @@ name: Verify (Lean 4 kernel-only axiom check)
 # Runs the corpus's own verification script on every push to master.
 # Outcome (PASS / FAIL) gates the green/red badge displayed in README.md.
 #
-# Runs on the self-hosted `acer` runner (192.168.0.94 Linux, 15 GB RAM,
-# 20 GB swap, 12 vCPU). Pull-request triggers are intentionally DISABLED:
-# with a public repository and a self-hosted runner, fork-PR workflows
-# would allow arbitrary code execution on the host machine. Verification
-# fires only on pushes to master, which the maintainer controls.
+# Runs on the GitHub-hosted `ubuntu-latest` runner as of the 2026-11-20
+# stopgap; see the note on the job below for why the self-hosted target
+# was reverted. Pull-request triggers are intentionally DISABLED: with a
+# public repository and a self-hosted runner, fork-PR workflows would
+# allow arbitrary code execution on the host machine. That exposure is
+# dormant while this runs GitHub-hosted, and the trigger stays off so it
+# does not come back silently the next time a self-hosted runner is
+# wired up. Verification fires only on pushes to master, which the
+# maintainer controls.
 #
 # What this workflow checks:
 #   - The PF target builds clean.
@@ -64,17 +68,42 @@ concurrency:
 
 jobs:
   verify:
-    runs-on: [self-hosted, linux, X64, acer]
-    # 180-minute cap retained as a sanity bound. The self-hosted Acer
-    # runner is not RAM-constrained the way `ubuntu-latest` was (15 GB
-    # physical + 20 GB swap vs. 16 GB total), so expected runtime is
-    # well under the cap. The cap just guarantees no runaway build can
-    # monopolise the host machine indefinitely.
-    timeout-minutes: 180
+    runs-on: ubuntu-latest
+    # 2026-11-20 STOPGAP. The previous value was
+    # `[self-hosted, linux, X64, acer]`, but no self-hosted runner has ever
+    # been registered on this repository: no Runner.Listener process, no
+    # runner directory, no systemd unit, no container, on either machine.
+    # Every run after that switch sat `queued` forever waiting for a label
+    # nothing answers — which is worse than failing, because the badge
+    # shows no change rather than going red. Reverted to the GitHub-hosted
+    # runner so the gate reports again.
+    #
+    # Known limitation of this stopgap: `ubuntu-latest` has ~16 GB of RAM,
+    # and the RiemannXiBox panels were measured on 2026-11-20 at a
+    # consistent 10.4-10.6 GB peak RSS each (11 of them, Legion WSL). The
+    # swap step below is what makes a 10.5 GB elaboration survivable here.
+    # This is still the weaker box; the durable fix is a registered runner
+    # on a host with real memory.
+    timeout-minutes: 350
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # The panels need ~10.5 GB each. A GitHub runner has ~16 GB with no
+      # usable swap by default, which leaves no margin for the rest of the
+      # build. Replace the small default swapfile with 14 GB.
+      - name: Provision swap for the panel elaborations
+        run: |
+          free -h
+          sudo swapoff -a || true
+          sudo fallocate -l 14G /mnt/swapfile
+          sudo chmod 600 /mnt/swapfile
+          sudo mkswap /mnt/swapfile
+          sudo swapon /mnt/swapfile
+          echo "--- after ---"
+          free -h
+        shell: bash
 
       # Runs in about a second, before anything expensive, and proves the
       # axiom classifier still detects sorryAx and project axioms. If a
