@@ -180,11 +180,201 @@ theorem third_deriv_move_past_pair (f : V → W) (x : V) (hf : ContDiffAt ℝ 3 
 
 end ThirdOrder
 
+/-! ## §3 — The Laplacian exchange
+
+With §1 (the Laplacian as a sum of second partials) and §2 (third-order
+symmetry) in place, `Δ` commutes with a partial derivative:
+
+    `∂ⱼ(Δu) = Δ(∂ⱼu)`
+
+Both sides expand to `∑ᵢ D³u(·,·,·)` with the `eⱼ` slot in different
+positions, and §2 moves it. Stated for the vector-valued partial, so no
+coordinate extraction is needed; the componentwise version then follows
+from mathlib's `ContDiffAt.laplacian_CLM_comp_left`. -/
+
+section LaplacianExchange
+
+variable {W W₁ W₂ : Type*} [NormedAddCommGroup W] [NormedSpace ℝ W]
+  [NormedAddCommGroup W₁] [NormedSpace ℝ W₁]
+  [NormedAddCommGroup W₂] [NormedSpace ℝ W₂]
+
+/-- Chain rule for a continuous linear map on the outside, applied form.
+    Generalises `fderiv_eval` (evaluation is one such map). -/
+theorem fderiv_clm_comp (L : W₁ →L[ℝ] W₂) (g : V → W₁) (x a : V)
+    (hg : DifferentiableAt ℝ g x) :
+    fderiv ℝ (fun y => L (g y)) x a = L (fderiv ℝ g x a) := by
+  have h : HasFDerivAt (fun y => L (g y)) (L.comp (fderiv ℝ g x)) x :=
+    L.hasFDerivAt.comp x hg.hasFDerivAt
+  rw [h.fderiv]; rfl
+
+/-- Second derivative through a continuous linear map on the outside:
+    `D²(L ∘ g) = L ∘ D²g`. Needs `g` differentiable near `x`, so that
+    `fderiv (L ∘ g)` and `L ∘ fderiv g` agree as functions there. -/
+theorem fderiv_fderiv_clm_comp (L : W₁ →L[ℝ] W₂) (g : V → W₁) (x a b : V)
+    (hg : ∀ᶠ y in nhds x, DifferentiableAt ℝ g y)
+    (hdg : DifferentiableAt ℝ (fderiv ℝ g) x) :
+    fderiv ℝ (fderiv ℝ (fun y => L (g y))) x a b
+      = L ((fderiv ℝ (fderiv ℝ g) x a) b) := by
+  have h1 : (fun y => fderiv ℝ (fun z => L (g z)) y) =ᶠ[nhds x]
+      (fun y => (ContinuousLinearMap.compL ℝ V W₁ W₂ L) (fderiv ℝ g y)) := by
+    filter_upwards [hg] with y hy
+    have h : HasFDerivAt (fun z => L (g z)) (L.comp (fderiv ℝ g y)) y :=
+      L.hasFDerivAt.comp y hy.hasFDerivAt
+    rw [h.fderiv]
+    rfl
+  rw [h1.fderiv_eq,
+      fderiv_clm_comp (ContinuousLinearMap.compL ℝ V W₁ W₂ L) (fderiv ℝ g) x a hdg]
+  rfl
+
+/-- `fderiv u` is differentiable near `x` when `u` is `C³` at `x`. -/
+theorem eventually_differentiableAt_fderiv (u : V → W) (x : V)
+    (hu : ContDiffAt ℝ 3 u x) :
+    ∀ᶠ y in nhds x, DifferentiableAt ℝ (fderiv ℝ u) y := by
+  have hev : ∀ᶠ y in nhds x, ContDiffAt ℝ 3 u y := hu.eventually (by norm_num)
+  filter_upwards [hev] with y hy
+  exact (hy.fderiv_right (by norm_num) : ContDiffAt ℝ 2 (fderiv ℝ u) y).differentiableAt
+    (by norm_num)
+
+/-- **★ The Laplacian commutes with a partial derivative**:
+    `∂ⱼ(Δu) = Δ(∂ⱼu)`.
+
+    Both sides are `∑ᵢ D³u` with the `eⱼ` direction in different slots;
+    `third_deriv_move_past_pair` moves it past the two Laplacian slots.
+    This is the exchange the vorticity transport derivation needed for
+    the viscous term, and it was the piece with no mathlib
+    infrastructure behind it. -/
+theorem laplacian_commutes_with_partial (u : V → W) (x : V)
+    (hu : ContDiffAt ℝ 3 u x) (j : Fin 3) :
+    fderiv ℝ (fun y => InnerProductSpace.laplacian u y) x
+        (EuclideanSpace.single j (1 : ℝ))
+      = InnerProductSpace.laplacian
+          (fun y => fderiv ℝ u y (EuclideanSpace.single j (1 : ℝ))) x := by
+  have hdF2 : DifferentiableAt ℝ (fderiv ℝ (fderiv ℝ u)) x :=
+    differentiableAt_fderiv_fderiv u x hu
+  have hev : ∀ᶠ y in nhds x, DifferentiableAt ℝ (fderiv ℝ u) y :=
+    eventually_differentiableAt_fderiv u x hu
+  -- expand the left side: differentiate the sum of second partials
+  have hL : fderiv ℝ (fun y => InnerProductSpace.laplacian u y) x
+      (EuclideanSpace.single j (1 : ℝ))
+      = ∑ i : Fin 3, fderiv ℝ (fderiv ℝ (fderiv ℝ u)) x
+          (EuclideanSpace.single j (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ))
+          (EuclideanSpace.single i (1 : ℝ)) := by
+    have hfun : (fun y => InnerProductSpace.laplacian u y)
+        = fun y => ∑ i : Fin 3, fderiv ℝ (fderiv ℝ u) y
+            (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ)) := by
+      funext y; exact laplacian_eq_sum_second_partials u y
+    rw [hfun, fderiv_fun_sum (fun i _ => ?_)]
+    · simp only [ContinuousLinearMap.coe_sum', Finset.sum_apply]
+      refine Finset.sum_congr rfl (fun i _ => ?_)
+      rw [fderiv_eval_apply (fun y => fderiv ℝ (fderiv ℝ u) y
+            (EuclideanSpace.single i (1 : ℝ))) x (EuclideanSpace.single i (1 : ℝ))
+            (EuclideanSpace.single j (1 : ℝ))
+            (differentiableAt_eval _ x _ hdF2),
+          fderiv_eval_apply (fderiv ℝ (fderiv ℝ u)) x
+            (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single j (1 : ℝ)) hdF2]
+    · exact differentiableAt_eval _ x _ (differentiableAt_eval _ x _ hdF2)
+  -- expand the right side: the Laplacian of the evaluated derivative
+  have hR : InnerProductSpace.laplacian
+      (fun y => fderiv ℝ u y (EuclideanSpace.single j (1 : ℝ))) x
+      = ∑ i : Fin 3, fderiv ℝ (fderiv ℝ (fderiv ℝ u)) x
+          (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ))
+          (EuclideanSpace.single j (1 : ℝ)) := by
+    rw [laplacian_eq_sum_second_partials]
+    refine Finset.sum_congr rfl (fun i _ => ?_)
+    exact fderiv_fderiv_clm_comp
+      (ContinuousLinearMap.apply ℝ W (EuclideanSpace.single j (1 : ℝ)))
+      (fderiv ℝ u) x (EuclideanSpace.single i (1 : ℝ))
+      (EuclideanSpace.single i (1 : ℝ)) hev hdF2
+  rw [hL, hR]
+  exact Finset.sum_congr rfl (fun i _ =>
+    third_deriv_move_past_pair u x hu (EuclideanSpace.single j (1 : ℝ))
+      (EuclideanSpace.single i (1 : ℝ)))
+
+/-- Componentwise form: `∂ⱼ(Δu)ₖ = Δ(∂ⱼuₖ)`. The coordinate projection
+    passes through the Laplacian by mathlib's
+    `ContDiffAt.laplacian_CLM_comp_left`. -/
+theorem laplacian_commutes_with_gradComp (u : V → V) (x : V)
+    (hu : ContDiffAt ℝ 3 u x) (j k : Fin 3) :
+    (fderiv ℝ (fun y => InnerProductSpace.laplacian u y) x
+        (EuclideanSpace.single j (1 : ℝ))) k
+      = InnerProductSpace.laplacian
+          (fun y => (fderiv ℝ u y (EuclideanSpace.single j (1 : ℝ))) k) x := by
+  have hpar : ContDiffAt ℝ 2
+      (fun y => fderiv ℝ u y (EuclideanSpace.single j (1 : ℝ))) x := by
+    have h2 : ContDiffAt ℝ 2 (fderiv ℝ u) x := hu.fderiv_right (by norm_num)
+    exact (ContinuousLinearMap.apply ℝ V
+      (EuclideanSpace.single j (1 : ℝ))).contDiff.comp_contDiffAt x h2
+  have hproj := hpar.laplacian_CLM_comp_left
+    (l := EuclideanSpace.proj (𝕜 := ℝ) k)
+  rw [laplacian_commutes_with_partial u x hu j]
+  exact hproj.symm
+
+/-- `Δ` is additive on `C²` functions, in the form needed below. -/
+theorem laplacian_sub_of_contDiffAt (f g : V → ℝ) (x : V)
+    (hf : ContDiffAt ℝ 2 f x) (hg : ContDiffAt ℝ 2 g x) :
+    InnerProductSpace.laplacian (fun y => f y - g y) x
+      = InnerProductSpace.laplacian f x - InnerProductSpace.laplacian g x := by
+  have hng : ContDiffAt ℝ 2 ((-1 : ℝ) • g) x := hg.const_smul (-1 : ℝ)
+  have h : (fun y => f y - g y) = f + (-1 : ℝ) • g := by
+    funext y; simp [sub_eq_add_neg]
+  rw [h, hf.laplacian_add hng, InnerProductSpace.laplacian_smul (-1 : ℝ) hg]
+  simp [sub_eq_add_neg]
+
+end LaplacianExchange
+
+/-! ## §4 — `curl(Δu) = Δ(curl u)`
+
+Each vorticity component is `∂ⱼuₖ − ∂ₖuⱼ`, so the componentwise
+exchange of §3 plus additivity of `Δ` gives the curl-level exchange
+directly. -/
+
+/-- The `i`-th component of `curl(Δu)`, for a spatial field. -/
+noncomputable def sCurlOfLap (u : V → V) (x : V) (a b : Fin 3) : ℝ :=
+  (fderiv ℝ (fun y => InnerProductSpace.laplacian u y) x
+      (EuclideanSpace.single a (1 : ℝ))) b
+    - (fderiv ℝ (fun y => InnerProductSpace.laplacian u y) x
+      (EuclideanSpace.single b (1 : ℝ))) a
+
+/-- The `i`-th component of `Δ(curl u)`, for a spatial field. -/
+noncomputable def sLapOfCurl (u : V → V) (x : V) (a b : Fin 3) : ℝ :=
+  InnerProductSpace.laplacian
+    (fun y => (fderiv ℝ u y (EuclideanSpace.single a (1 : ℝ))) b
+            - (fderiv ℝ u y (EuclideanSpace.single b (1 : ℝ))) a) x
+
+/-- **★ THE VISCOUS EXCHANGE: `curl(Δu) = Δ(curl u)`**, component by
+    component.
+
+    This was the remaining term in the vorticity transport derivation
+    with no mathlib infrastructure behind it. It rests on third-order
+    symmetry (§2), which mathlib does not provide, and the Laplacian sum
+    formula (§1). -/
+theorem curl_commutes_with_laplacian (u : V → V) (x : V)
+    (hu : ContDiffAt ℝ 3 u x) (a b : Fin 3) :
+    sCurlOfLap u x a b = sLapOfCurl u x a b := by
+  have hA : ContDiffAt ℝ 2
+      (fun y => (fderiv ℝ u y (EuclideanSpace.single a (1 : ℝ))) b) x := by
+    have h2 : ContDiffAt ℝ 2 (fderiv ℝ u) x := hu.fderiv_right (by norm_num)
+    exact ((EuclideanSpace.proj (𝕜 := ℝ) b).contDiff.comp
+      ((ContinuousLinearMap.apply ℝ V
+        (EuclideanSpace.single a (1 : ℝ))).contDiff)).comp_contDiffAt x h2
+  have hB : ContDiffAt ℝ 2
+      (fun y => (fderiv ℝ u y (EuclideanSpace.single b (1 : ℝ))) a) x := by
+    have h2 : ContDiffAt ℝ 2 (fderiv ℝ u) x := hu.fderiv_right (by norm_num)
+    exact ((EuclideanSpace.proj (𝕜 := ℝ) a).contDiff.comp
+      ((ContinuousLinearMap.apply ℝ V
+        (EuclideanSpace.single b (1 : ℝ))).contDiff)).comp_contDiffAt x h2
+  unfold sCurlOfLap sLapOfCurl
+  rw [laplacian_sub_of_contDiffAt _ _ x hA hB,
+      laplacian_commutes_with_gradComp u x hu a b,
+      laplacian_commutes_with_gradComp u x hu b a]
+
 #print axioms laplacian_eq_sum_second_partials
 #print axioms laplacian_apply_eq_sum
 #print axioms third_deriv_swap_12
 #print axioms third_deriv_swap_23
 #print axioms third_deriv_cycle
 #print axioms third_deriv_move_past_pair
+#print axioms fderiv_fderiv_clm_comp
+#print axioms laplacian_commutes_with_partial
 
 end PF.NavierStokes.FeffermanFaithful

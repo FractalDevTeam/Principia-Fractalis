@@ -9,12 +9,17 @@ and `vorticity_L2_norm_nonincreasing` are real theorems with real proofs
 from the structure's own hypotheses (divergence-free transport, PSD
 diffusion, non-negative viscosity).
 
-Three things in that file carry no content:
+Three things in that file carried no content when this one was written:
 
 * `vortex_stretching_2D_term (_ω _u) := 0` — both arguments unused, then
   proved zero by `rfl`. That is `0 = 0`.
 * `BKM_criterion_satisfied_2D : Prop := True`
 * `NavierStokes2DGlobalRegularity : Prop := True`
+
+**Update (later on 2026-11-20).** The latter two were retired: both now
+carry the real Galerkin enstrophy statements, proved from
+`Vorticity2DSystem`'s own hypotheses, and `NS2DGlobalRegularity.lean` has
+no `: Prop := True` left. The first remains as described.
 
 This module supplies the statements those three were meant to carry,
 proved from the existing theorems. Nothing here is asserted and nothing
