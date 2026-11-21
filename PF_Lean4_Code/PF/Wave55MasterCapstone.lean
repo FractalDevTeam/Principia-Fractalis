@@ -68,7 +68,7 @@ RHSpectralSurjectivityConjecture remains Clay-grade open.
 as substrate-only / vacuous. Wave 55A exhibits genuine non-zero
 bilinear value i/4 on a non-trivial divergence-free witness; Wave
 55A-emp anchors to the IBM α_P = √2 empirical cluster.
-VortexStretchingBoundedHypothesis remains Clay-grade open.
+`VortexStretchingBoundedHypothesis` is a THEOREM (CORRECTED 2026-11-21): `vortex_stretching_bounded_all_n` proves it for every `n` at `K = 1`, and the bilinear bound is free at PDE level by the operator-norm inequality. The Clay-grade open content is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3.
 
 **YM frontier**: Wave 53D/54D tautological diagonal H + unproven
 semigroup law flagged. Wave 55C exhibits first non-tautological 2×2

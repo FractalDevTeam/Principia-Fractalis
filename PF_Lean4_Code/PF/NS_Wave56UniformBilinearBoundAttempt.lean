@@ -34,10 +34,20 @@ empirical anchor into the Wave 35 substrate Prop
        Wave 52C `KatoBilinearEstimate`   ↗
        IBM α_P = √2 empirical anchor
 
-## The single remaining gap to Clay
+## CORRECTION (2026-11-21) — READ FIRST
+
+This file's thesis was that the gap between Layer-2 substrate routing and
+`VortexStretchingBoundedHypothesis` is mathlib's missing
+`H^s_σ(𝕋³, ℝ³)` and Leray projection. That target is **not** the Clay bar. As of 2026-11-21 it is a THEOREM: `vortex_stretching_bounded_all_n` proves it for every `n` with `K = 1`, since the Hadamard product is submultiplicative, and the bilinear bound is free at PDE level too by the operator-norm inequality (`norm_vortexStretchingFaithful_le`). The Clay bar is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3.
+So closing the named mathlib gap below would not shorten the Clay
+distance: the bound it leads to is already free. The gap statement is
+retained as a record of the mathlib content, not as a Clay residual.
+
+## The former "single remaining gap to Clay"
 
 After this file, the precise gap between the Layer-2 substrate routing
-and Clay's `VortexStretchingBoundedHypothesis` is mathlib's missing
+and `VortexStretchingBoundedHypothesis` (now a theorem — see the
+correction above) is mathlib's missing
 **divergence-free Sobolev space `H^s_σ(𝕋³, ℝ³)`** together with the
 **Leray projection `P_σ` on vector-valued `L²`**. We name this gap
 explicitly as `Wave56NamedClayGap` and pair it with the Wave 35 Prop 1
@@ -45,7 +55,8 @@ gap `MathlibSobolevDivFreeAvailable`.
 
 ## Honest scope (verbatim from the dispatch directive)
 
-* This file does NOT discharge Clay's `VortexStretchingBoundedHypothesis`.
+* This file does NOT discharge Clay. `VortexStretchingBoundedHypothesis`
+  is itself a theorem as of 2026-11-21 and is not the Clay bar.
 * It IDENTIFIES the shortest gap (mathlib `H^s_σ(𝕋³, ℝ³)` + `P_σ`).
 * The witness pool gets uniform Kato-shape verification axiom-free.
 * Clay distance UNCHANGED.
@@ -346,8 +357,11 @@ possible. We name the gap precisely.
 
 /-- **★ The Wave 56 named Clay gap** — precisely stated.
 
-    The single remaining mathlib content between Layer-2 substrate
-    routing and Clay's `VortexStretchingBoundedHypothesis` is:
+    **CORRECTED 2026-11-21**: `VortexStretchingBoundedHypothesis` is a THEOREM, proved for every `n` with `K = 1` by `vortex_stretching_bounded_all_n` (the Hadamard product is submultiplicative), and the bilinear bound is free at PDE level too by the operator-norm inequality. It is NOT the Clay bar. The Clay bar is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3.
+
+    So this names mathlib content, not a Clay residual. The mathlib
+    content between Layer-2 substrate routing and
+    `VortexStretchingBoundedHypothesis` is:
 
     (i)  `H^s_σ(𝕋³, ℝ³)` available as a `NormedAddCommGroup` /
          `InnerProductSpace` with norm extending Wave 50B's
@@ -431,7 +445,8 @@ structure Wave56UniformBilinearStatus : Prop where
       assembled axiom-free at the substrate.
     * Single remaining gap to Clay: mathlib `H^s_σ(𝕋³, ℝ³)` Sobolev
       type + Leray projection `P_σ` on vector-valued `L²`.
-    * Does NOT discharge Clay `VortexStretchingBoundedHypothesis`.
+    * Does NOT discharge Clay. `VortexStretchingBoundedHypothesis` is a
+      theorem as of 2026-11-21; the Clay bar is slot 3.
     * Clay distance UNCHANGED. -/
 theorem wave56_uniform_bilinear_bound_capstone : Wave56UniformBilinearStatus :=
   { substrate_bilinear_uniform_zero :=

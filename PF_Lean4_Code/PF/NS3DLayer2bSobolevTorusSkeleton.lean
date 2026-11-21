@@ -72,8 +72,8 @@ What this file delivers, axiom-free:
   * **No mathlib torus Sobolev type**. Mathlib still has no
     `SobolevSpace H^s` on `𝕋³`.
   * **No Helmholtz / Leray decomposition on L²(𝕋³, ℝ³)**.
-  * **No discharge of the Clay bound**. The Clay bar
-    `VortexStretchingBoundedHypothesis` is UNCHANGED.
+  * **No discharge of the Clay bound.** CORRECTED 2026-11-21:
+    `VortexStretchingBoundedHypothesis` is **not** the Clay bar. As of 2026-11-21 it is a THEOREM: `vortex_stretching_bounded_all_n` proves it for every `n` with `K = 1`, since the Hadamard product is submultiplicative, and the bilinear bound is free at PDE level too by the operator-norm inequality (`norm_vortexStretchingFaithful_le`). The Clay bar is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3.
   * **No claim that the finite-rank toy IS the PDE-level torus
     content** — the consistency witness is at the structural skeleton
     level, not the PDE substrate.

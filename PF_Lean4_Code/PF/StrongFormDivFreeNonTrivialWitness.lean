@@ -81,8 +81,9 @@ What this file delivers, axiom-free:
     on `𝕋³` together with the Fourier-coefficient projection map. That
     bridge remains OPEN.
 
-  * **No Clay discharge**. `VortexStretchingBoundedHypothesis` from
-    `NS3DVortexStretchingObstruction.lean` is unchanged.
+  * **No Clay discharge.** CORRECTED 2026-11-21:
+    `VortexStretchingBoundedHypothesis` from
+    `NS3DVortexStretchingObstruction.lean` is **not** the Clay bar. As of 2026-11-21 it is a THEOREM: `vortex_stretching_bounded_all_n` proves it for every `n` with `K = 1`, since the Hadamard product is submultiplicative, and the bilinear bound is free at PDE level too by the operator-norm inequality (`norm_vortexStretchingFaithful_le`). The Clay bar is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3.
 
   * **No claim that the constant-mode witness exhausts the
     divergence-free content** — it is a single explicit element of

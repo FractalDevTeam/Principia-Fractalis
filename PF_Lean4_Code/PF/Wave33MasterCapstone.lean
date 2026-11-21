@@ -138,8 +138,8 @@ structure Wave33Additions : Prop where
       `ns_3d_global_K_T_partial`. Honest distance from Clay: 3
       layers (layer 1 likely tractable via mathlib
       `EuclideanSpace.norm_sq_eq` + Cauchy-Schwarz; layers 2-3 are
-      genuine open content). The Clay bar
-      `VortexStretchingBoundedHypothesis` is NOT discharged. -/
+      genuine open content). CORRECTED 2026-11-21:
+      `VortexStretchingBoundedHypothesis` is **not** the Clay bar. As of 2026-11-21 it is a THEOREM: `vortex_stretching_bounded_all_n` proves it for every `n` with `K = 1`, since the Hadamard product is submultiplicative, and the bilinear bound is free at PDE level too by the operator-norm inequality (`norm_vortexStretchingFaithful_le`). The Clay bar is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3. -/
   ns_3d_global_K_T_partial :
     NS3DGlobalKTPartialProven
   /-- **(2) Hodge codim-2 cycle class map PARTIAL POSITIVE** (Wave

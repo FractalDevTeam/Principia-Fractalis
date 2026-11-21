@@ -117,6 +117,7 @@ import PF.Referee.PoincareCapstoneTypedBridge
 import PF.Referee.NavierStokesCapstoneTypedBridgeSubstrate
 import PF.Referee.FermatCapstoneTypedBridge
 import PF.BSDSubstratePositionExtendedPartialDischarge_2026_11_15
+import PF.Referee.NavierStokesCapstoneDisclosure_2026_11_21
 
 namespace PF.PrincipiaFractalisToEMetaCapstone
 
@@ -280,10 +281,30 @@ theorem principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD :
         PF.YangMills.YMContinuumResidualStrengthening.YMContinuumLimit_SubstantiveCore) ∧
      (PF.YangMills.YMContinuumSubstantiveCorePivot.YMContinuumLimit_DeepSubstantiveCore →
         PF.YangMills.YMContinuumViaH3Scaling.YMContinuumLimit_WilsonScalingViaH3)) ∧
-    -- (7) NS — Clay-standard typed contract via substrate uniform
-    --     vortex-stretching bound at K = 1 (reproduces classical NS
-    --     result at Clay-standard form; axiom-free three-axiom bar).
-    Clay_NavierStokes_Standard PF_NSEncodingSubstrate ∧
+    -- (7) NS — **DISCLOSURE, NOT A DISCHARGE** (corrected 2026-11-21).
+    --
+    --     This conjunct previously read
+    --     `Clay_NavierStokes_Standard PF_NSEncodingSubstrate`, described
+    --     as "reproduces classical NS result at Clay-standard form".
+    --     That theorem is true and asserts NOTHING about Navier-Stokes:
+    --     the encoding's carriers are `Unit`, its `isSchwartzDivFree` is
+    --     `True`, and its `hasGlobalSmoothSolution` is pinned to
+    --     `UniformVortexStretchingBoundAllN 1 1` — a FREE algebraic
+    --     bound, since the Hadamard product is submultiplicative
+    --     (`vortex_stretching_bounded_all_n`, every `n`, `K = 1`) and the
+    --     bound is free for the genuine `(ω·∇)u` too by the
+    --     operator-norm inequality (`norm_vortexStretchingFaithful_le`).
+    --
+    --     Structurally the same defect as the P-vs-NP V2 vacuity in
+    --     conjunct (5), and repaired the same way: the vacuity is PROVED,
+    --     the superseded encoding is retained, and the faithful encoding
+    --     — over which this same contract IS Fefferman's statement — is
+    --     stated and **NOT discharged**, because it is the open Clay
+    --     problem.
+    ((Clay_NavierStokes_Standard PF_NSEncodingSubstrate ↔ True) ∧
+     (Clay_NavierStokes_Standard
+        PF.Referee.NavierStokesCapstoneDisclosure.PF_NSEncodingFaithful ↔
+      PF.NavierStokes.FeffermanFaithful.Clay_NavierStokes_ExistenceSmoothness_Fefferman2000_Faithful)) ∧
     -- (8) POINCARÉ — Clay-standard typed contract via W_α cascade
     --     ceiling = 3 at α_Poincare = 1 (reproduces Perelman 2006
     --     result at substrate layer; axiom-free three-axiom bar).
@@ -332,7 +353,8 @@ theorem principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD :
    hodge_substrate_attack_HEAD_bundle_EXTENDED_2026_11_16,
    substrate_P_neq_NP_V4_position_at_HEAD,
    ym_substrate_attack_HEAD_bundle_EXTENDED_2026_11_16,
-   PF_NS_capstone_substrate_yields_Clay_NavierStokes_standard,
+   ⟨PF.Referee.NavierStokesCapstoneDisclosure.clay_standard_substrate_is_vacuous,
+    PF.Referee.NavierStokesCapstoneDisclosure.clay_standard_faithful_iff⟩,
    PF_Poincare_capstone_yields_Clay_Poincare_standard,
    ⟨PF_Fermat_capstone_yields_Standard_FermatLastTheorem_standard,
     fermat_n_four_classically_kernel_verified,
@@ -365,7 +387,17 @@ documented in
 `PF/Analytic/YoungConvolutionL1L2_2026_11_15.lean` §4.
 Taking square roots gives the classical Young statement.
 
-**NS substantive-core status at HEAD 2026-11-16 EOD: FULLY CLOSED.** -/
+**NS substantive-core status — CORRECTED 2026-11-21.** The
+"FULLY CLOSED" claim that stood here was false. What is closed on this
+axis is the Young convolution bound referred to above, and the 2D
+results. What is **open** is Fefferman (A): global existence and
+smoothness for unforced 3D Navier-Stokes. It is reduced, not closed —
+see `PF/NavierStokes/Fefferman2000_Faithful_Slots_2026_11_21.lean` for
+the three-slot reduction (local existence and BKM continuation are
+classical; the uniform-in-`T` vorticity bound is the open estimate) and
+`..._GeometricDepletion_2026_11_21.lean` for the geometric route to that
+estimate. Conjunct (7) above now discloses the vacuity of the former
+substrate route rather than asserting it. -/
 
 /-! ## §3 — Axiom audit. -/
 

@@ -859,10 +859,10 @@ Bundles the repair:
       incompressibility at this layer.
 
 Open, and not touched: the quadratic `Ḣ^{1/2}` bilinear estimate (the
-published Fujita-Kato 1964 analytic content); the existence of a
-nonzero Schwartz witness separating the convective term from zero; and
-the Clay bar itself — `VortexStretchingBoundedHypothesis` /
-`NS3DVortexStretchingObstruction` remain OPEN.
+published Fujita-Kato 1964 analytic content); and the existence of a
+nonzero Schwartz witness separating the convective term from zero.
+
+**CORRECTED 2026-11-21**: `VortexStretchingBoundedHypothesis` is a THEOREM, proved for every `n` with `K = 1` by `vortex_stretching_bounded_all_n` (the Hadamard product is submultiplicative), and the bilinear bound is free at PDE level too by the operator-norm inequality. It is NOT the Clay bar. The Clay bar is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3.
 
 Kernel-only: `[propext, Classical.choice, Quot.sound]`. -/
 theorem convectiveDerivative_connection_capstone :

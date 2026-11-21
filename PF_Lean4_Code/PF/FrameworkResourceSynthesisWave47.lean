@@ -109,8 +109,9 @@ expressed in our `NS3DGlobalKTAttempt.lean` (Wave 33),
 `NS3DLayer2LiftAttempt.lean` (Wave 35), nor
 `NS3DUniformHadamardDischargeAttempt.lean` (Wave 34).
 
-**Open Prop it may help**: NS Layer 3 (`VortexStretchingBoundedHypothesis`,
-the Clay-bar), and NS Layer 2's mathlib gap
+**Open Prop it may help**: NS Layer 2's mathlib gap
+(CORRECTED 2026-11-21: NS Layer 3's `VortexStretchingBoundedHypothesis`
+is **not** the Clay bar. As of 2026-11-21 it is a THEOREM: `vortex_stretching_bounded_all_n` proves it for every `n` with `K = 1`, since the Hadamard product is submultiplicative, and the bilinear bound is free at PDE level too by the operator-norm inequality (`norm_vortexStretchingFaithful_le`). The Clay bar is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3.)
 (`MathlibSobolevDivFreeAvailable`,
 `VortexStretchingPDEBilinearBounded`). The cascade-vs-Crow
 comparison is a "topological-protection" argument that BYPASSES
@@ -278,8 +279,9 @@ A genuine Hausdorff-dimension-dependent exponent that scales
 helicity singularities at NS emergence points — this is content
 the cross-Millennium invariant network ought to absorb.
 
-**Open Prop it may help**: NS Layer 3
-(`VortexStretchingBoundedHypothesis`) via the alternative
+**Open Prop it may help**: CORRECTED 2026-11-21 — NS Layer 3's
+`VortexStretchingBoundedHypothesis` is **not** the Clay bar. As of 2026-11-21 it is a THEOREM: `vortex_stretching_bounded_all_n` proves it for every `n` with `K = 1`, since the Hadamard product is submultiplicative, and the bilinear bound is free at PDE level too by the operator-norm inequality (`norm_vortexStretchingFaithful_le`). The Clay bar is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3.
+The helicity-conservation route below bears on slot 3, via the alternative
 helicity-conservation route; also closes a small surface in the
 cross-Millennium invariant scaffold by adding a Hausdorff-dimension
 dimension to the 28-invariant list.

@@ -484,8 +484,9 @@ theorem ns_realisation_implies_bsd_anchors
         a STRUCTURAL FACT, not a causal claim.
       * The NS K_off = 2 bound is on the Galerkin-shadow
         (Cartesian-cubed `EuclideanSpace`-tuple) operators, NOT on
-        the full PDE-level `(ω·∇)u` bilinear form. The Clay-open
-        content remains `VortexStretchingBoundedHypothesis`.
+        the full PDE-level `(ω·∇)u` bilinear form. CORRECTED
+        2026-11-21: the Clay-open content is NOT
+        `VortexStretchingBoundedHypothesis`, which is **not** the Clay bar. As of 2026-11-21 it is a THEOREM: `vortex_stretching_bounded_all_n` proves it for every `n` with `K = 1`, since the Hadamard product is submultiplicative, and the bilinear bound is free at PDE level too by the operator-norm inequality (`norm_vortexStretchingFaithful_le`). The Clay bar is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3.
 
     **CONTRIBUTION**: this is the FIRST cross-Millennium bridge
     between BSD analytic content (L-function + φ/e eigenvalue) and

@@ -87,10 +87,15 @@ and isolates the ONE PDE Prop that closes the Clay gap.
 This is the cleanest restatement available at the framework's
 finite-dimensional Galerkin level.
 
-ZERO project axioms. ZERO `sorry`s. The hypothesis
-`VortexStretchingBoundedHypothesis` is NOT discharged — that is
-the Clay-grade open content, and this file documents that fact
-honestly.
+ZERO project axioms. ZERO `sorry`s.
+
+**CORRECTED 2026-11-21**: `VortexStretchingBoundedHypothesis` is a THEOREM, proved for every `n` with `K = 1` by `vortex_stretching_bounded_all_n` (the Hadamard product is submultiplicative), and the bilinear bound is free at PDE level too by the operator-norm inequality. It is NOT the Clay bar. The Clay bar is the uniform-in-`T` vorticity bound — `NoBlowup3D`, slot 3.
+
+The file's §4 header and its `n = 0` lemma carried the same error and
+are corrected in place; `vortex_stretching_bounded_all_n` in §4 is the
+discharge. What this file genuinely establishes remains untouched: that
+the stretching operator does not vanish
+(`vortex_stretching_3D_does_not_vanish`) and the 2D/3D dichotomy.
 
 Author: Pablo Cohen (formalization)
 Date: 2026-05-25
