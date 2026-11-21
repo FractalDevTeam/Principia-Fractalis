@@ -198,6 +198,41 @@ theorem shear_has_nonzero_vorticity (t : ℝ) (x : V) :
   rw [vorticity_apply, shear_vorticity_coord_two] at h2
   norm_num at h2
 
+/-! ## §2b — The vortex-stretching term, and why its bilinear bound is free
+
+`(ω·∇)u` is the Fréchet derivative of the velocity field in the
+direction of the vorticity vector. The bilinear bound
+`‖(ω·∇)u‖ ≤ ‖∇u‖‖ω‖` is then just the operator-norm inequality — it
+holds with constant `1`, unconditionally, on the real carrier.
+
+This matters for reading `NS3DVortexStretchingObstruction`, which posits
+a bound of exactly this shape as "the isolated residual obligation" on a
+finite-dimensional diagonal model. It is provable there
+(`vortex_stretching_bounded_all_n`), and the theorem below shows that is
+not an artifact of the diagonal simplification: the bound is free for the
+genuine operator too. What is *not* free, and is the whole difficulty, is
+uniform-in-time control of `‖∇u‖` along the flow. -/
+
+/-- The genuine vortex-stretching term `(ω·∇)u` on the faithful carrier:
+    the velocity gradient applied to the vorticity. -/
+noncomputable def vortexStretchingFaithful (U : V × ℝ → V) (t : ℝ) (x : V) : V :=
+  fderiv ℝ (fun y : V => U (y, t)) x (vorticity U t x)
+
+/-- **The bilinear stretching bound holds with constant 1**, for the
+    genuine `(ω·∇)u`, unconditionally. It is the operator-norm
+    inequality and nothing more. -/
+theorem norm_vortexStretchingFaithful_le (U : V × ℝ → V) (t : ℝ) (x : V) :
+    ‖vortexStretchingFaithful U t x‖
+      ≤ ‖fderiv ℝ (fun y : V => U (y, t)) x‖ * ‖vorticity U t x‖ :=
+  (fderiv ℝ (fun y : V => U (y, t)) x).le_opNorm _
+
+/-- Irrotational flow has no vortex stretching. -/
+@[simp] theorem vortexStretchingFaithful_of_vorticity_zero
+    (U : V × ℝ → V) (t : ℝ) (x : V) (h : vorticity U t x = 0) :
+    vortexStretchingFaithful U t x = 0 := by
+  unfold vortexStretchingFaithful
+  rw [h, map_zero]
+
 /-! ## §3 — Being a faithful solution, on a set of times
 
 The clauses are exactly those of the Clay statement, with the time range
