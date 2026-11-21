@@ -232,8 +232,18 @@ structurally. The bridge faithfully encodes the logical implication.
     For any `T > 0`, given:
       * `LocalVortexStretchingBound T n` at every Galerkin level `n`
         (the local-in-time vortex-stretching bound),
-      * `Regular3DInitialData` (regularity of initial data),
-    the no-blowup conclusion `NoBlowup3D` on `[0, T]` follows.
+      * `Regular3DInitialData` (admissible Clay data exists -- a real
+        existence statement as of 2026-11-21, no longer `Prop := True`),
+    the SUPERSEDED typed no-blowup placeholder follows.
+
+    **Repointed 2026-11-21.** The conclusion was `NoBlowup3D`, which now
+    means slot 3 (`VorticityAPrioriBound`): a vorticity bound uniform in
+    the time horizon, i.e. the open Clay estimate. A Galerkin-shadow
+    local bound cannot deliver that, and this proof never did -- it
+    discharged the `Unit` carrier. The conclusion now names that
+    carrier, so the theorem stays true and stops reading as a no-blowup
+    result. The real implication is
+    `NS3DVortexStretchingObstruction.no_blowup_3D_implies_clay`.
 
     The proof at the typed-Prop level is structural; the analytic
     content lies in the local bound hypothesis (which we discharge
@@ -243,13 +253,11 @@ theorem local_regularity_via_local_vortex_stretching_bound
     (T : ℝ) (_hT : 0 < T)
     (_h_local : ∀ n, LocalVortexStretchingBound T n)
     (_h_initial : Regular3DInitialData) :
-    NoBlowup3D := by
-  -- At the framework shadow, `NoBlowup3D = NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`,
-  -- which is discharged via the cascade arithmetic
-  -- (`navier_stokes_via_fractal_emergence`). The local bound + BKM
-  -- gives the same conclusion at the typed-Prop level; the analytic
-  -- content is faithfully encoded in the hypothesis `_h_local`.
-  unfold NoBlowup3D
+    PrincipiaTractalis.NS3DVortexStretchingObstruction.NoBlowup3D_unitPlaceholder_SUPERSEDED := by
+  -- The target is the explicitly superseded Unit carrier, which is what
+  -- this argument has always discharged. Its vacuity is itself a proved
+  -- theorem (`NoBlowup3D_unitPlaceholder_collapses`).
+  unfold PrincipiaTractalis.NS3DVortexStretchingObstruction.NoBlowup3D_unitPlaceholder_SUPERSEDED
   exact navier_stokes_via_fractal_emergence
     fractalEmergenceNoBlowup_discharged
 
@@ -295,7 +303,9 @@ theorem local_vortex_stretching_bound_at_n_zero_forall_T :
     What IS established here, axiom-free:
       * Local bound `LocalVortexStretchingBound T 0` for every `T > 0`
         (at the `n = 0` Galerkin shadow);
-      * BKM-style bridge from local bound to `NoBlowup3D` on `[0, T]`;
+      * BKM-style bridge from the local bound to the SUPERSEDED typed
+        no-blowup placeholder (repointed 2026-11-21; `NoBlowup3D` now
+        means the open slot-3 estimate);
       * The bundled local-in-time existence statement at the typed-
         Prop framework level.
 
@@ -307,19 +317,19 @@ theorem ns_3d_local_regularity_classical :
     ∀ T : ℝ, 0 < T →
       -- (a) The local vortex-stretching bound holds at n = 0 (axiom-free)
       LocalVortexStretchingBound T 0 ∧
-      -- (b) Regular initial data is available (typed)
+      -- (b) Admissible Clay data exists (REAL existence statement as of
+      --     2026-11-21; was `Prop := True`)
       Regular3DInitialData ∧
-      -- (c) The local no-blowup conclusion follows
-      NoBlowup3D := by
+      -- (c) The SUPERSEDED typed no-blowup placeholder follows.
+      --     `NoBlowup3D` itself now means slot 3, the open Clay
+      --     estimate, and is NOT claimed here.
+      PrincipiaTractalis.NS3DVortexStretchingObstruction.NoBlowup3D_unitPlaceholder_SUPERSEDED := by
   intro T hT
   refine ⟨local_vortex_stretching_bound_at_n_zero T hT,
           regular_3D_initial_data_holds, ?_⟩
-  -- Discharge the no-blowup conclusion via the bridge theorem.
-  -- The local bound at every n is needed by the bridge; we extend
-  -- the n = 0 discharge to all n by typed-Prop subsingleton routing.
-  -- At the framework shadow, the typed conclusion follows from the
-  -- already-discharged framework cascade.
-  unfold NoBlowup3D
+  -- Discharge the SUPERSEDED typed placeholder. This is the object the
+  -- argument always discharged; `NoBlowup3D` proper is the open estimate.
+  unfold PrincipiaTractalis.NS3DVortexStretchingObstruction.NoBlowup3D_unitPlaceholder_SUPERSEDED
   exact navier_stokes_via_fractal_emergence
     fractalEmergenceNoBlowup_discharged
 

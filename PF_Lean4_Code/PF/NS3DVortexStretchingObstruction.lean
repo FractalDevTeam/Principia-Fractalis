@@ -102,6 +102,7 @@ import PF.NSBase3SelfSimilarity
 import PF.MillenniumSixReductions
 import Mathlib.Analysis.InnerProductSpace.Basic
 import Mathlib.Analysis.InnerProductSpace.PiL2
+import PF.NavierStokes.Fefferman2000_Faithful_Slots_2026_11_21
 
 namespace PrincipiaTractalis.NS3DVortexStretchingObstruction
 
@@ -297,11 +298,15 @@ def VortexStretchingBoundedHypothesis : Prop :=
     ∀ (ω : Vorticity3DState n) (g : VelocityGradient3DState n),
       ‖VortexStretching3D ω g‖ ≤ K * ‖ω‖ * ‖g‖
 
-/-- **At `n = 0`** (no Fourier modes), the hypothesis is trivially
-    discharged: the state space is `Unit × Unit × Unit ≃ {0}`, and
-    every norm is zero. This is the only DIMENSION at which the
-    hypothesis is unconditionally provable; it is vacuous at the
-    PDE level. -/
+/-- **At `n = 0`** (no Fourier modes) the hypothesis is trivially
+    discharged: the state space is a singleton and every norm is zero.
+
+    **CORRECTION (2026-11-21).** This docstring previously said `n = 0`
+    is "the only DIMENSION at which the hypothesis is unconditionally
+    provable". That is false. See
+    `vortex_stretching_bounded_all_n` below, which proves it for every
+    `n` with `K = 1`. This theorem is kept as the degenerate special
+    case. -/
 theorem vortex_stretching_bounded_at_n_zero :
     @VortexStretchingBoundedHypothesis 0 := by
   refine ⟨1, by norm_num, ?_⟩
@@ -314,6 +319,96 @@ theorem vortex_stretching_bounded_at_n_zero :
     apply Subsingleton.elim
   rw [hVS]
   simp [hω]
+
+/-! ### The residual obligation is a theorem (2026-11-21)
+
+§4 above introduces `VortexStretchingBoundedHypothesis` as "the
+isolated residual obligation", NOT discharged in this file. It is
+discharged here, for every `n`, with `K = 1`.
+
+The reason is structural, not clever: `VortexStretching3D` is the
+elementwise (Hadamard) product of the gradient and vorticity triples,
+and the Hadamard product is submultiplicative in the Euclidean norm
+(`hadamard_norm_le`). Each of the three components obeys
+`‖gⱼ ∘ ωⱼ‖ ≤ ‖gⱼ‖‖ωⱼ‖ ≤ ‖g‖‖ω‖`, and the product norm is the max of
+the three.
+
+**What this means, stated carefully.** The bilinear bound on the
+*algebraic* stretching operator was never the obstruction: it is free.
+The obstruction in 3D Navier-Stokes is that `‖∇u‖` itself must be
+controlled **uniformly in time** along the flow, which is a statement
+about the time evolution, not about the bilinear operator at a fixed
+instant. Consequently `CascadeImpliesVortexStretchingBound` below has a
+conclusion that is already a theorem, so discharging it would not
+advance the Clay problem; the live target is
+`PF.NavierStokes.FeffermanFaithful.VorticityAPrioriBound` (slot 3).
+
+This does not weaken anything the file proves about non-vanishing
+(§3): that the operator is not identically zero and that 2D differs
+from 3D are separate facts, and they stand. -/
+
+/-- **Hadamard bound.** If `c` is the elementwise product of `a` and
+    `b`, then `‖c‖ ≤ ‖a‖‖b‖` in the Euclidean norm. The work is the
+    termwise estimate `aᵢ²bᵢ² ≤ aᵢ²‖b‖²`; no Cauchy-Schwarz is needed.
+
+    This is what makes the vortex-stretching bound below a theorem
+    rather than a hypothesis. -/
+theorem hadamard_norm_le {m : ℕ} (a b c : EuclideanSpace ℝ (Fin m))
+    (hc : ∀ i, c i = a i * b i) : ‖c‖ ≤ ‖a‖ * ‖b‖ := by
+  have hA : (0:ℝ) ≤ ∑ i : Fin m, ‖a i‖ ^ 2 :=
+    Finset.sum_nonneg fun i _ => sq_nonneg _
+  rw [EuclideanSpace.norm_eq, EuclideanSpace.norm_eq, EuclideanSpace.norm_eq,
+      ← Real.sqrt_mul hA]
+  apply Real.sqrt_le_sqrt
+  calc ∑ i : Fin m, ‖c i‖ ^ 2
+      = ∑ i : Fin m, (a i) ^ 2 * (b i) ^ 2 := by
+        refine Finset.sum_congr rfl (fun i _ => ?_)
+        rw [hc i, Real.norm_eq_abs, abs_mul, mul_pow, sq_abs, sq_abs]
+    _ ≤ ∑ i : Fin m, (a i) ^ 2 * (∑ j : Fin m, (b j) ^ 2) := by
+        refine Finset.sum_le_sum (fun i _ => ?_)
+        refine mul_le_mul_of_nonneg_left ?_ (sq_nonneg (a i))
+        exact Finset.single_le_sum (f := fun j : Fin m => (b j) ^ 2)
+          (fun j _ => sq_nonneg (b j)) (Finset.mem_univ i)
+    _ = (∑ i : Fin m, (a i) ^ 2) * (∑ j : Fin m, (b j) ^ 2) := by
+        rw [← Finset.sum_mul]
+    _ = (∑ i : Fin m, ‖a i‖ ^ 2) * (∑ j : Fin m, ‖b j‖ ^ 2) := by
+        simp [Real.norm_eq_abs, sq_abs]
+
+/-- **★ The vortex-stretching bound holds for every `n`, with `K = 1`.**
+
+    Proves what §4 declares to be the isolated residual obligation.
+    Immediate from submultiplicativity of the Hadamard product in the
+    Euclidean norm, plus the fact that the triple carries the sup norm
+    so each component norm is bounded by the whole. -/
+theorem vortex_stretching_bounded_all_n (n : ℕ) :
+    @VortexStretchingBoundedHypothesis n := by
+  refine ⟨1, one_pos, ?_⟩
+  intro ω g
+  rw [one_mul]
+  -- each component of a triple is bounded by the triple's sup norm
+  have hf : ∀ (p : Vorticity3DState n), ‖p.1‖ ≤ ‖p‖ := by
+    intro p; rw [Prod.norm_def]; exact le_max_left _ _
+  have hs1 : ∀ (p : Vorticity3DState n), ‖p.2.1‖ ≤ ‖p‖ := by
+    intro p
+    rw [Prod.norm_def]
+    refine le_trans ?_ (le_max_right _ _)
+    rw [Prod.norm_def]; exact le_max_left _ _
+  have hs2 : ∀ (p : Vorticity3DState n), ‖p.2.2‖ ≤ ‖p‖ := by
+    intro p
+    rw [Prod.norm_def]
+    refine le_trans ?_ (le_max_right _ _)
+    rw [Prod.norm_def]; exact le_max_right _ _
+  -- the common component estimate
+  have comp : ∀ (a b c : EuclideanSpace ℝ (Fin n)), (∀ i, c i = a i * b i) →
+      ‖a‖ ≤ ‖g‖ → ‖b‖ ≤ ‖ω‖ → ‖c‖ ≤ ‖ω‖ * ‖g‖ := by
+    intro a b c hc ha hb
+    calc ‖c‖ ≤ ‖a‖ * ‖b‖ := hadamard_norm_le a b c hc
+      _ ≤ ‖g‖ * ‖ω‖ := mul_le_mul ha hb (norm_nonneg _) (norm_nonneg _)
+      _ = ‖ω‖ * ‖g‖ := mul_comm _ _
+  rw [Prod.norm_def, Prod.norm_def]
+  refine max_le (comp _ _ _ (fun i => rfl) (hf g) (hf ω)) (max_le ?_ ?_)
+  · exact comp _ _ _ (fun i => rfl) (hs1 g) (hs1 ω)
+  · exact comp _ _ _ (fun i => rfl) (hs2 g) (hs2 ω)
 
 /-! ## §5 — The BKM-style reduction (typed conditional)
 
@@ -329,16 +424,67 @@ is faithfully captured.
     is smooth, divergence-free, and rapidly decaying. At the
     Galerkin-finite level there is no analytic content, so this is
     a structural typed Prop. -/
-def Regular3DInitialData : Prop := True
+def Regular3DInitialData : Prop :=
+  ∃ u0 : SchwartzMap PF.NavierStokes.FeffermanFaithful.V
+            PF.NavierStokes.FeffermanFaithful.V,
+    PF.NavierStokes.FeffermanFaithful.AdmissibleDatum u0
 
-theorem regular_3D_initial_data_holds : Regular3DInitialData :=
-  have _ := @vortex_stretching_3D_does_not_vanish
-  trivial
+/-- Admissible Clay data exists: the zero field is Schwartz and
+    divergence-free. Replaces a `trivial` discharge of `Prop := True`
+    with a real existence proof on the faithful carrier. -/
+theorem regular_3D_initial_data_holds : Regular3DInitialData := by
+  refine ⟨0, ?_⟩
+  intro x
+  have h : ∀ y : PF.NavierStokes.FeffermanFaithful.V,
+      (0 : SchwartzMap PF.NavierStokes.FeffermanFaithful.V
+             PF.NavierStokes.FeffermanFaithful.V) y = 0 := by
+    intro y; rfl
+  simpa [h] using PF.NavierStokes.FeffermanFaithful.divergence_zero_fun x
 
-/-- **The BKM no-blowup conclusion Prop** (typed, framework-level).
-    At the PDE level this is `‖ω(t)‖_{L^∞} ∈ L^1([0, T])` for every
-    `T < ∞`. At the framework level, encoded as `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`. -/
-def NoBlowup3D : Prop := NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED
+/-- **SUPERSEDED (2026-11-21)**: the former framework-level no-blowup
+    Prop, which was the `Unit` placeholder. Retained, not deleted:
+    theorems that discharged it were true about *this* object. It
+    asserts nothing. -/
+def NoBlowup3D_unitPlaceholder_SUPERSEDED : Prop :=
+  NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED
+
+/-- The superseded no-blowup Prop is equivalent to `True`: it constrains
+    nothing, so no discharge of it was evidence about blow-up. -/
+theorem NoBlowup3D_unitPlaceholder_collapses :
+    NoBlowup3D_unitPlaceholder_SUPERSEDED ↔ True := by
+  unfold NoBlowup3D_unitPlaceholder_SUPERSEDED
+  exact NavierStokesGlobalSmoothness_unitPlaceholder_collapses
+
+/-- **The BKM no-blowup conclusion** (repointed 2026-11-21).
+
+    This Prop's docstring has always read: "at the PDE level this is
+    `‖ω(t)‖_{L^∞} ∈ L^1([0,T])` for every `T < ∞`". That statement now
+    exists on the faithful carrier -- it is
+    `PF.NavierStokes.FeffermanFaithful.VorticityAPrioriBound`, slot 3 of
+    the faithful reduction: a vorticity bound uniform in the time
+    horizon. So `NoBlowup3D` now MEANS what its docstring always said,
+    rather than standing for a `Unit` carrier.
+
+    **This is the open Clay estimate.** It is not proved here or
+    anywhere in this corpus. By `clay_from_the_three_slots` it is
+    sufficient for global existence and smoothness given the two
+    classical inputs (Fujita-Kato local existence, BKM continuation);
+    see `no_blowup_3D_implies_clay` below. -/
+def NoBlowup3D : Prop := PF.NavierStokes.FeffermanFaithful.VorticityAPrioriBound
+
+/-- **★ No-blowup gives the Clay statement**, given the two classical
+    inputs.
+
+    A real conditional reduction: all three hypotheses are
+    load-bearing, and the conclusion is Fefferman's statement. This is
+    the precise sense in which `NoBlowup3D` is what the 3D axis needs.
+    Discharges nothing -- every premise is a hypothesis. -/
+theorem no_blowup_3D_implies_clay
+    (h1 : PF.NavierStokes.FeffermanFaithful.FujitaKato_Faithful)
+    (h2 : PF.NavierStokes.FeffermanFaithful.BKMContinuation_Faithful)
+    (h3 : NoBlowup3D) :
+    PF.NavierStokes.FeffermanFaithful.Clay_NavierStokes_ExistenceSmoothness_Fefferman2000_Faithful :=
+  PF.NavierStokes.FeffermanFaithful.clay_from_the_three_slots h1 h2 h3
 
 /-- **★ BKM-style reduction (typed conditional)** (axiom-free).
 
@@ -362,13 +508,13 @@ def NoBlowup3D : Prop := NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED
 theorem BKM_3D_no_blowup_from_vortex_stretching_bound
     (_h_bound : ∀ n, @VortexStretchingBoundedHypothesis n)
     (_h_initial : Regular3DInitialData) :
-    NoBlowup3D := by
+    NoBlowup3D_unitPlaceholder_SUPERSEDED := by
   -- At the framework level, NoBlowup3D = NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED,
   -- which is discharged structurally (no analytic content at the
   -- typed-Prop level). The vortex-stretching hypothesis is not
   -- consumed at the typed level but is the load-bearing PDE
   -- ingredient at the analytic level (logically faithful encoding).
-  unfold NoBlowup3D
+  unfold NoBlowup3D_unitPlaceholder_SUPERSEDED
   exact navier_stokes_via_fractal_emergence
     fractalEmergenceNoBlowup_discharged
 
@@ -507,6 +653,29 @@ the missing link explicit. -/
     NS problem via the cascade route. -/
 def CascadeImpliesVortexStretchingBound : Prop :=
   CrowCascadeDominance → (∀ n, @VortexStretchingBoundedHypothesis n)
+
+/-- **This "conjecture" is a theorem** (2026-11-21) -- and that is a
+    negative result for the route, not a positive one.
+
+    `vortex_stretching_bounded_all_n` discharges the consequent
+    unconditionally, so the implication holds for free, with the
+    antecedent unused. An implication whose consequent is a theorem
+    carries no information about its antecedent: discharging it tells us
+    nothing about the cascade, and the cascade tells us nothing about
+    Navier-Stokes through this channel.
+
+    The honest reading: the cascade-to-stretching-bound route targets an
+    algebraic bound at a fixed instant, which was never the obstruction.
+    The obstruction is uniform-in-time control of `‖∇u‖` along the flow
+    -- `NoBlowup3D`, i.e.
+    `PF.NavierStokes.FeffermanFaithful.VorticityAPrioriBound`.
+
+    Nothing the file proves in §3 is affected: non-vanishing of the
+    stretching operator and the 2D/3D dichotomy are separate facts and
+    they stand. -/
+theorem cascade_implies_vortex_stretching_bound_holds :
+    CascadeImpliesVortexStretchingBound :=
+  fun _ => vortex_stretching_bounded_all_n
 
 /-- **★ The framework's full conditional attack on Clay 3D NS**
     (axiom-free typed conditional).
