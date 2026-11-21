@@ -422,7 +422,7 @@ content of Step 4. -/
     hypothesis bundle is TIGHTENED at the arithmetic level by
     this file. -/
 theorem ns_conditional_reduction_with_dominance_arithmetic :
-    NavierStokesGlobalSmoothness ∧
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED ∧
     CrowCascadeDominance ∧
     Z_lt_S_base_3_cascade := by
   refine ⟨?_, CrowCascadeDominance_holds, Z_lt_S_base_3_cascade_holds⟩

@@ -65,7 +65,7 @@ What this file DOES formalize, AXIOM-FREE:
       bundling (i) the axiom-free L²-vorticity non-increase,
       (ii) the 2D no-vortex-stretching structural fact,
       (iii) the manuscript Step 4 cascade dominance, and
-      (iv) the Clay-level placeholder `NavierStokesGlobalSmoothness`.
+      (iv) the Clay-level placeholder `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`.
 
 ## Connection to the Principia Fractalis framework
 
@@ -80,7 +80,7 @@ At this α-value:
 
 This file formalizes the 2D "easy case" axiom-free. The 3D case is
 the Clay Millennium problem and is encoded in the framework at the
-Unit-typed placeholder level via `NavierStokesGlobalSmoothness`.
+Unit-typed placeholder level via `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`.
 
 ZERO project axioms. ZERO `sorry`s.
 
@@ -280,7 +280,9 @@ structural content). -/
     A finite-time-singular point of a 2D NS solution would require
     `∫ ‖ω‖_{L^∞}` to blow up. In 2D, this never happens.
     We encode the 2D conclusion as a structural Prop. -/
-def BKM_criterion_satisfied_2D : Prop := True
+def BKM_criterion_satisfied_2D : Prop :=
+  ∀ (m : ℕ) (V : Vorticity2DSystem m) (u ω : Vorticity2DState m),
+    inner ℝ ω (V.rhs u ω) ≤ 0 ∧ inner ℝ (V.rhs u ω) ω ≤ 0
 
 /-- **★ BKM is satisfied in 2D** (structural, axiom-free).
 
@@ -290,7 +292,8 @@ def BKM_criterion_satisfied_2D : Prop := True
     principle for advection-diffusion). Hence the BKM criterion is
     satisfied for all `T > 0`, and 2D solutions extend globally. -/
 theorem BKM_criterion_satisfied_2D_holds : BKM_criterion_satisfied_2D :=
-  trivial
+  fun _m V u ω =>
+    ⟨vorticity_L2_norm_nonincreasing V u ω, vorticity_L2_dissipation V u ω⟩
 
 /-! ## §6 — 2D global regularity (typed Prop)
 
@@ -312,10 +315,12 @@ the (algebraic-shadow) discharge. -/
       (ii) vorticity L² is non-increasing along Galerkin truncations
            (axiom-free, this file),
       (iii) BKM criterion is structurally satisfied in 2D,
-      (iv) the Clay-level `NavierStokesGlobalSmoothness` placeholder
+      (iv) the Clay-level `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED` placeholder
            is the framework's canonical level for the 3D OPEN problem;
            the 2D case is the corresponding closed CLASSICAL theorem. -/
-def NavierStokes2DGlobalRegularity : Prop := True
+def NavierStokes2DGlobalRegularity : Prop :=
+  ∀ (m : ℕ) (V : Vorticity2DSystem m) (u ω : Vorticity2DState m),
+    inner ℝ (V.rhs u ω) ω ≤ 0
 
 /-- **★ 2D NS global regularity (typed Prop)** (axiom-free, structural).
 
@@ -325,7 +330,7 @@ def NavierStokes2DGlobalRegularity : Prop := True
     (`vorticity_L2_norm_nonincreasing`, `vortex_stretching_vanishes_2D`)
     plus the structural BKM Prop. -/
 theorem ns_2D_global_regularity_holds : NavierStokes2DGlobalRegularity :=
-  trivial
+  fun _m V u ω => vorticity_L2_dissipation V u ω
 
 /-! ## §7 — Capstone: 2D global regularity bundle
 
@@ -348,7 +353,7 @@ dimension) and the Clay-level placeholder for the 3D OPEN case. -/
       (v) **Manuscript Ch 22 Step 4 cascade dominance** (axiom-free
           arithmetic from `NSCascadeCrowBound`, holds in any dimension).
       (vi) **Manuscript Ch 22 base-3 self-similarity** (axiom-free).
-      (vii) **Clay-level placeholder `NavierStokesGlobalSmoothness`**:
+      (vii) **Clay-level placeholder `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`**:
             the framework's structural-Prop level for the 3D OPEN
             Clay statement.
 
@@ -357,7 +362,7 @@ dimension) and the Clay-level placeholder for the 3D OPEN case. -/
     * 2D NS global regularity is a **classical 1959 theorem**; NOT the
       Clay Millennium problem.
     * The Clay problem is the **3D case**, encoded in the framework at
-      the `Unit`-typed placeholder level via `NavierStokesGlobalSmoothness`.
+      the `Unit`-typed placeholder level via `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`.
     * This capstone formalizes the **algebraic shadow** of the 2D
       result, NOT the full PDE statement.
     * The connection to the framework: at `α = 3π/2` (NS α), 2D is the
@@ -377,7 +382,7 @@ theorem ns_2D_global_regularity_classical (V : Vorticity2DSystem n) :
     -- (vi) Manuscript base-3 self-similarity
     Z_lt_S_base_3_cascade ∧
     -- (vii) Clay-level placeholder (3D OPEN at framework level)
-    NavierStokesGlobalSmoothness := by
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · -- (i) axiom-free vorticity dissipation
     intro u ω
@@ -428,7 +433,7 @@ theorem ns_2D_global_regularity_classical_witnessed :
     NavierStokes2DGlobalRegularity ∧
     CrowCascadeDominance ∧
     Z_lt_S_base_3_cascade ∧
-    NavierStokesGlobalSmoothness :=
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED :=
   ns_2D_global_regularity_classical trivialVorticity2D
 
 /-! ## §9 — Framework connection: 2D is trivial at α = 3π/2; 3D is the open Clay case
@@ -464,7 +469,7 @@ theorem alpha_NS_2D_trivial_vs_3D_Clay :
     -- 3D side: cascade dominance is the proposed mechanism (axiom-free arithmetic)
     CrowCascadeDominance ∧
     -- Clay placeholder for the 3D OPEN case
-    NavierStokesGlobalSmoothness := by
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED := by
   refine ⟨?_, CrowCascadeDominance_holds, ?_⟩
   · intro ω u
     exact vortex_stretching_vanishes_2D ω u
@@ -491,8 +496,16 @@ This is the NS-axis structural residual reduction analogous to:
     (both `True`). -/
 theorem BKM_2D_iff_NS2D_global :
     BKM_criterion_satisfied_2D ↔ NavierStokes2DGlobalRegularity := by
-  unfold BKM_criterion_satisfied_2D NavierStokes2DGlobalRegularity
-  exact Iff.rfl
+  constructor
+  · -- forwards: the BKM statement contains the regularity statement
+    intro h m V u ω
+    exact (h m V u ω).2
+  · -- backwards: recover the first conjunct by symmetry of the real
+    -- inner product
+    intro h m V u ω
+    refine ⟨?_, h m V u ω⟩
+    rw [real_inner_comm]
+    exact h m V u ω
 
 /-- **NS 2D both Props ≡ True**: the two typed-Prop markers for 2D
     BKM satisfaction and 2D global regularity are both
@@ -504,10 +517,14 @@ theorem BKM_2D_iff_NS2D_global :
     theorem, not open). What this commit DOES: the file's chosen
     `True`-body typed-Prop abstraction makes the two Props formally
     equivalent at the kernel level. -/
-theorem NS2D_two_props_all_iff_True :
-    (BKM_criterion_satisfied_2D ↔ True) ∧
-    (NavierStokes2DGlobalRegularity ↔ True) := by
-  unfold BKM_criterion_satisfied_2D NavierStokes2DGlobalRegularity
-  exact ⟨Iff.rfl, Iff.rfl⟩
+theorem NS2D_two_props_equivalent :
+    BKM_criterion_satisfied_2D ↔ NavierStokes2DGlobalRegularity := by
+  constructor
+  · intro h m V u ω
+    exact (h m V u ω).2
+  · intro h m V u ω
+    refine ⟨?_, h m V u ω⟩
+    rw [real_inner_comm]
+    exact h m V u ω
 
 end PrincipiaTractalis.NS2DGlobalRegularity

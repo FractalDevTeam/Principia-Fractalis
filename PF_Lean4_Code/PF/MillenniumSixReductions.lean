@@ -44,6 +44,8 @@ import Mathlib.Topology.Basic
 import Mathlib.Analysis.SpecialFunctions.Complex.Log
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.NumberTheory.ZetaValues
+import PF.NavierStokes.Fefferman2000_Faithful_Statement_2026_10_12
+import PF.NavierStokes.Fefferman2000_Faithful_ZeroDatum_2026_11_20
 
 namespace PrincipiaTractalis.MillenniumSix
 
@@ -100,20 +102,75 @@ theorem digitalSum3_nonneg (n : ℕ) : 0 ≤ digitalSum3 n := Nat.zero_le _
 
 /-! ## Ch 22 — Navier-Stokes Existence and Smoothness (α_NS = 3π/2) -/
 
-/-- **The Clay Navier-Stokes claim** (informal Prop encoding).
+/-! ### The Clay Navier-Stokes claim — repointed 2026-11-20
 
-    For any divergence-free, smooth, rapidly-decaying initial velocity
-    field on `ℝ³` and a smooth force, there exists a globally smooth
-    solution `(u, p)` to the incompressible Navier-Stokes equations
-    that remains bounded in the energy norm for all time.
+Until today this was a `Unit`-carrier placeholder:
 
-    This is a placeholder Prop; the full Clay statement (Fefferman 2000)
-    is the existence of smooth solutions on `ℝ³ × [0, ∞)`. Encoding it
-    fully would require formalizing the Navier-Stokes PDE in mathlib,
-    which is a separate substantial project. The Prop below is a
-    structural placeholder for the conditional-reduction architecture. -/
+```lean
 def NavierStokesGlobalSmoothness : Prop :=
   ∀ (smooth_initial_data : Unit), ∃ (global_smooth_solution : Unit), True
+```
+
+which is `True`-equivalent (proved below as
+`NavierStokesGlobalSmoothness_unitPlaceholder_collapses`), so every
+theorem concluding it concluded nothing. Its own docstring said it was "a
+structural placeholder for the conditional-reduction architecture" and
+that the real statement "would require formalizing the Navier-Stokes PDE
+in mathlib".
+
+That premise is now false, and was already false on 2026-10-12: the
+faithful Fefferman-2000 statement elaborates at this pin, built from
+genuine mathlib `deriv` / `fderiv` / `gradient` /
+`InnerProductSpace.laplacian` plus a one-line `divergence`. It is
+`PF/NavierStokes/Fefferman2000_Faithful_Statement_2026_10_12.lean`, and
+its soundness is settled in
+`PF/NavierStokes/Fefferman2000_Faithful_ZeroDatum_2026_11_20.lean`: the
+body is satisfiable at the zero datum, and the initial-condition clause
+has teeth, so the encoding is neither vacuous nor trivial.
+
+So `NavierStokesGlobalSmoothness` now MEANS the Clay problem. It is
+therefore not provable here, and must not be claimed. The old predicate
+is retained immediately below as explicitly superseded, with its collapse
+proved, so that records which were true ABOUT THE OLD MODEL stay true and
+stay citable.
+-/
+
+/-- **SUPERSEDED (2026-11-20)**: the former `Unit`-carrier placeholder for
+    the Clay Navier-Stokes claim. Retained, not deleted: theorems that
+    discharged it were true about *this* object, and remain so.
+
+    It asserts nothing — see
+    `NavierStokesGlobalSmoothness_unitPlaceholder_collapses`. Do not use
+    it in new work; the Clay target of record is
+    `NavierStokesGlobalSmoothness`. -/
+def NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED : Prop :=
+  ∀ (smooth_initial_data : Unit), ∃ (global_smooth_solution : Unit), True
+
+/-- **The gravestone.** The superseded placeholder is equivalent to
+    `True`: it constrains nothing, so no discharge of it was ever evidence
+    about Navier-Stokes. Proving this keeps the vacuity a machine-checked
+    fact of the corpus instead of a comment. -/
+theorem NavierStokesGlobalSmoothness_unitPlaceholder_collapses :
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED ↔ True := by
+  constructor
+  · intro _; trivial
+  · intro _ _; exact ⟨(), trivial⟩
+
+/-- **The Clay Navier-Stokes claim** — Fefferman 2000, problems (A)/(B)
+    on `ℝ³`, unforced.
+
+    For every smooth, divergence-free, rapidly-decaying (Schwartz) initial
+    velocity field there exist `U`, `P` and `ν > 0`, jointly `C^∞` on the
+    space-time half-space, satisfying the momentum equation
+    `∂ₜu + (u·∇)u + ∇p = νΔu`, incompressibility `div u = 0`, the initial
+    condition, and a uniform energy bound.
+
+    **This is the open Clay problem.** Nothing in this corpus proves it.
+    The conditional-reduction architecture below states what the framework
+    offers *towards* it, with the analytic burden explicit in the
+    hypotheses. -/
+def NavierStokesGlobalSmoothness : Prop :=
+  PF.NavierStokes.FeffermanFaithful.Clay_NavierStokes_ExistenceSmoothness_Fefferman2000_Faithful
 
 /-- **Ch 22 load-bearing hypothesis**: at α = 3π/2, the fractal
     vortex-emergence mechanism prevents finite-time blowup of
@@ -310,18 +367,65 @@ theorem cantor_hausdorff_dim_bracket_sharp :
   ⟨cantor_hausdorff_dim_gt_63_100,
    cantor_hausdorff_dim_lt_sixteen_twentyfifths⟩
 
-/-- **Ch 22 conditional reduction**:
+/-- **Ch 22 reduction against the SUPERSEDED placeholder** (retained
+    2026-11-20, not deleted).
 
-    Given the fractal emergence-point hypothesis at α = 3π/2, the
-    Navier-Stokes global smoothness claim holds.
+    Until the 2026-11-20 repoint this theorem read
 
-    This is the analog of `P_neq_NP_via_spectral_gap` and
-    `riemann_hypothesis_via_T3_sym_framework` for Ch 22 content. -/
+    ```lean
+    theorem navier_stokes_via_fractal_emergence
+        (h : fractalEmergenceNoBlowup (alpha_at_enum .NS)) :
+        NavierStokesGlobalSmoothness := by
+      intro _; exact ⟨(), trivial⟩
+    ```
+
+    and carried two defects at once: `h` was never used (a dead
+    hypothesis), and the conclusion was `True`-equivalent (a vacuous
+    implication). It was therefore not evidence about Navier-Stokes in
+    either direction.
+
+    It is kept here, with its name and signature, now concluding the
+    explicitly superseded placeholder -- so it remains true about the
+    object it was always really about. The hypothesis is retained for
+    call compatibility and is still inert; that inertness is the point of
+    the record. The forward path is
+    `navier_stokes_via_fractal_emergence_faithful` below. -/
 theorem navier_stokes_via_fractal_emergence
-    (h : fractalEmergenceNoBlowup (alpha_at_enum .NS)) :
-    NavierStokesGlobalSmoothness := by
+    (_h : fractalEmergenceNoBlowup (alpha_at_enum .NS)) :
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED := by
   intro _
   exact ⟨(), trivial⟩
+
+/-- **Faithfully-typed Ch 22 hypothesis slot** (2026-11-20).
+
+    What the framework would have to supply for Ch 22 to bear on the Clay
+    problem: that the fractal emergence-point mechanism, at the
+    framework's own α_NS = 3π/2, yields global existence and smoothness
+    in Fefferman's sense.
+
+    **This is not proved anywhere in this corpus**, and it is the whole
+    analytic burden. Stating it as a named slot is what makes the burden
+    visible and machine-checked instead of hidden inside a `Unit`
+    carrier. The manuscript's `thm:no-blowup` and
+    `thm:topological-stability` are the informal arguments offered toward
+    it; neither is formalised. -/
+def FractalEmergenceYieldsGlobalSmoothness : Prop :=
+  alpha_at_enum .NS = 3 * Real.pi / 2 → NavierStokesGlobalSmoothness
+
+/-- **Ch 22 conditional reduction, faithfully typed** (2026-11-20).
+
+    Given the faithfully-typed Ch 22 slot, the Clay Navier-Stokes
+    statement follows at the framework's α_NS.
+
+    Unlike its superseded predecessor the hypothesis here is
+    load-bearing -- it is applied to `alpha_at_enum_NS`, not discarded --
+    and the conclusion is the real Fefferman statement. The theorem is
+    therefore an honest modus ponens that carries the burden where it
+    belongs: in the hypothesis. -/
+theorem navier_stokes_via_fractal_emergence_faithful
+    (h : FractalEmergenceYieldsGlobalSmoothness) :
+    NavierStokesGlobalSmoothness :=
+  h alpha_at_enum_NS
 
 /-! ## Ch 23 — Yang-Mills Existence and Mass Gap (α_YM = 2) -/
 
@@ -1105,15 +1209,26 @@ theorem hodge_algebraic_representation_anchor_holds
     Prize problems to specific named conjectures at specific α values
     (one α per problem).
 
-    For Ch 22-25, the Millennium claim encodings here are STRUCTURAL
-    PLACEHOLDERS (Unit-typed); full Lean formalization of the
-    underlying mathematical objects (NS PDE, quantum YM, elliptic
-    curves over ℚ, complex projective varieties) is a separate
-    multi-year project per problem. The conditional-reduction
-    architecture, however, is complete at this enum-level. -/
+    **Faithfulness of the four conjuncts (2026-11-20).** These are not
+    on an equal footing and must not be read as though they were:
+
+    * **NS — FAITHFUL.** `NavierStokesGlobalSmoothness` is now
+      Fefferman's real Clay statement (repointed 2026-11-20), and the NS
+      hypothesis below is the faithfully-typed
+      `FractalEmergenceYieldsGlobalSmoothness`. The analytic burden is
+      explicit in that hypothesis and is NOT discharged anywhere.
+    * **YM, BSD, Hodge — STILL STRUCTURAL PLACEHOLDERS** (Unit-typed).
+      Full Lean formalisation of quantum Yang-Mills, elliptic curves
+      over ℚ and complex projective varieties remains a separate
+      project per problem, and the corresponding hypotheses here are
+      vacuous carriers, exactly as before.
+
+    So this theorem is a conditional reduction with one honest conjunct
+    and three placeholder conjuncts. It establishes no Millennium
+    result. -/
 theorem six_millennium_problems_via_fractal_resonance
-    -- Ch 22 NS
-    (h_NS : fractalEmergenceNoBlowup (alpha_at_enum .NS))
+    -- Ch 22 NS -- faithfully typed as of 2026-11-20
+    (h_NS : FractalEmergenceYieldsGlobalSmoothness)
     -- Ch 23 YM (both subhypotheses)
     (h_YM_gap : fractalYMMassGap (alpha_at_enum .YM))
     (h_YM_cont : fractalYMRealizesContinuum (alpha_at_enum .YM))
@@ -1126,7 +1241,7 @@ theorem six_millennium_problems_via_fractal_resonance
     YangMillsExistenceAndMassGap ∧
     BSDConjecture ∧
     HodgeConjecture :=
-  ⟨navier_stokes_via_fractal_emergence h_NS,
+  ⟨navier_stokes_via_fractal_emergence_faithful h_NS,
    yang_mills_via_fractal_resonance h_YM_gap h_YM_cont,
    bsd_via_fractal_resonance h_BSD,
    hodge_via_fractal_resonance h_Hodge_conc h_Hodge_cryst⟩

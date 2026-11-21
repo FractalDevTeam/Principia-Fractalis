@@ -114,7 +114,7 @@ def PFInternalCapstone : ClayProblem → Prop
   | .Poincare      => True  -- Poincaré is anchor: known true by Perelman 2003
   | .RH            => True  -- abstracted to avoid SpectralBijection circular import
   | .P_vs_NP       => True  -- abstracted to avoid TuringEncoding circular import
-  | .NavierStokes  => NavierStokesGlobalSmoothness
+  | .NavierStokes  => NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED
   | .YangMills     => YangMillsExistenceAndMassGap
   | .BSD           => BSDConjecture
   | .Hodge         => HodgeConjecture

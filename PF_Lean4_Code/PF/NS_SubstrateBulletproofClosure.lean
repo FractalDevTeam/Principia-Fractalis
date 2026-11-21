@@ -75,7 +75,7 @@ open PrincipiaTractalis.NSBase3SelfSimilarity
           solved 2D case and the Clay-open 3D case.
 
     (NB4) **Framework full 3D Clay chain** axiom-free: substrate
-          discharge of `NavierStokesGlobalSmoothness` via the
+          discharge of `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED` via the
           fractal-emergence pathway + typed cascade attack + BKM
           reduction.
 
@@ -92,7 +92,7 @@ theorem NS_bulletproof_substrate_closure :
     (∀ (ω u : Vorticity2DState 1), vortex_stretching_2D_term ω u = 0) ∧
     -- (NB4) Framework full 3D Clay chain axiom-free (NS smoothness
     --       substrate-discharged via fractal-emergence pathway)
-    NavierStokesGlobalSmoothness ∧
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED ∧
     -- (NB5) Kolmogorov K41 -5/3 bridge: alpha_NS = (5/3) * (9 pi / 10)
     (Capstone.alpha_NS = (5 / 3) * (9 * Real.pi / 10)) :=
   ⟨ns_2D_global_regularity_holds,

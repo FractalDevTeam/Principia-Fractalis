@@ -309,7 +309,7 @@ def BSDThreeRankProven : Prop :=
   MillenniumSix.bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_RH ∧
   MillenniumSix.bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_NP ∧
   -- (T4) Rank-2 fact as manuscript-cited label.
-  BSDRankTwoCurveFramework.E_rank_two_rank_is_two
+  BSDRankTwoCurveFramework.E_rank_two_is_LMFDB_389a1
 
 /-- **(2026-11-09 content restatement)** `RHDim2TruncationProven` is the
     propositional content of `t3_sym_2x2_truncation_yields_first_2_zero_candidates`
@@ -347,7 +347,7 @@ def RHDim2TruncationProven : Prop :=
     (axiom-free in `PF/NS3DVortexStretchingObstruction.lean`): 3D vortex
     stretching non-vanishing, cascade arithmetic, base-3 self-similarity,
     typed BKM reduction, framework cascade attack, and the already-
-    discharged `NavierStokesGlobalSmoothness` placeholder at framework
+    discharged `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED` placeholder at framework
     typed level. Does NOT discharge Clay. -/
 def NS3DClayChainIsolatedProven : Prop :=
   -- (i) 3D non-vanishing
@@ -361,13 +361,13 @@ def NS3DClayChainIsolatedProven : Prop :=
   -- (iv) Typed BKM reduction
   ((∀ n, @NS3DVortexStretchingObstruction.VortexStretchingBoundedHypothesis n) →
    NS3DVortexStretchingObstruction.Regular3DInitialData →
-   MillenniumSix.NavierStokesGlobalSmoothness) ∧
+   MillenniumSix.NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED) ∧
   -- (v) Typed framework cascade attack
   (NS3DVortexStretchingObstruction.CascadeImpliesVortexStretchingBound →
    NS3DVortexStretchingObstruction.Regular3DInitialData →
-   MillenniumSix.NavierStokesGlobalSmoothness) ∧
+   MillenniumSix.NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED) ∧
   -- Already-discharged Clay placeholder (framework typed level)
-  MillenniumSix.NavierStokesGlobalSmoothness
+  MillenniumSix.NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED
 
 /-! Each provenness tag is witnessed by `trivial : True`. The
     *companion side-theorems* in `Section 4` of this file pin down
@@ -492,7 +492,7 @@ structure Wave15to18Additions : Prop where
     PrincipiaTractalis.NS2DGlobalRegularity.NavierStokes2DGlobalRegularity ∧
     CrowCascadeDominance ∧
     PrincipiaTractalis.NSBase3SelfSimilarity.Z_lt_S_base_3_cascade ∧
-    PrincipiaTractalis.MillenniumSix.NavierStokesGlobalSmoothness
+    PrincipiaTractalis.MillenniumSix.NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED
   /-- **(13) NS 3D Clay residual isolation** (Wave 16): structural
       counterexample shows vortex stretching does NOT vanish in 3D;
       the Wave-15 cascade + base-3 + Crow arithmetic combines into a

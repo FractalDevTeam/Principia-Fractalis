@@ -298,12 +298,22 @@ theorem fractalEmergenceNoBlowup_discharged :
   intro _ _
   exact ⟨(), trivial⟩
 
-/-- **★ Joint capstone**: the NS conditional reduction
-    `navier_stokes_via_fractal_emergence` is dischargeable, and the
-    discharge is anchored on the base-3 self-similarity that simultaneously
-    underpins the Wave 9 D_3 algebrization barrier. -/
+/-- **★ Joint capstone** (NS conjunct repointed 2026-11-20).
+
+    The two arithmetic conjuncts are genuinely proved and unchanged: the
+    base-3 cascade bound `Z_lt_S_base_3_cascade`, and the Wave 9 result
+    that no rational polynomial extends the base-3 digital-sum pair
+    (the D_3 algebrization barrier).
+
+    The NS conjunct now names the explicitly SUPERSEDED `Unit`-carrier
+    placeholder rather than `NavierStokesGlobalSmoothness`, which as of
+    2026-11-20 means Fefferman's real Clay statement. The discharge via
+    `navier_stokes_via_fractal_emergence` was only ever a discharge of
+    that placeholder, so this is the conjunct the theorem always actually
+    carried; naming it is what stops this capstone from reading as Clay
+    progress. Nothing proved here is withdrawn. -/
 theorem ns_conditional_reduction_anchored :
-    NavierStokesGlobalSmoothness ∧
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED ∧
     Z_lt_S_base_3_cascade ∧
     -- Wave 9 D_3 rigidity
     (¬ ∃ p : Polynomial ℚ,

@@ -265,8 +265,8 @@ def BSDFourRankConcordanceProven : Prop :=
   MillenniumSix.bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_RH ∧
   MillenniumSix.bsd_distinguished_eigenvalue < IBMPeaksGaloisPair.alpha_NP ∧
   -- (T4) Rank-2 and rank-3 manuscript labels.
-  BSDRankTwoCurveFramework.E_rank_two_rank_is_two ∧
-  BSDRankThreeCurveFramework.E_rank_three_rank_is_three
+  BSDRankTwoCurveFramework.E_rank_two_is_LMFDB_389a1 ∧
+  BSDRankThreeCurveFramework.E_rank_three_is_LMFDB_5077a1
 
 /-- **(2026-11-09 content restatement)** Propositional content of
     `BK_truncation_does_not_reproduce_zeta_zeros` (Wave 19,

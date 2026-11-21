@@ -53,10 +53,11 @@ The Weierstrass coefficients are
    same shared bracket that `E_rank_zero` and `E_rank_one`
    satisfy — making the bracket genuinely rank-blind across all
    three Mordell-Weil rank classes covered by the framework.
-3. A manuscript-cited fact `E_rank_two_rank_is_two` recording
-   `rank(389a1) = 2` as an external input (Cremona tables /
-   Buhler-Gross-Zagier 1985). Encoded as a named `Prop` that holds
-   by `True.intro` — the Lean-side label, NOT a Lean-side proof.
+3. The curve identification `E_rank_two_is_LMFDB_389a1`:
+   `Δ = 389 ≠ 0`, proved by decidable arithmetic, pinning this
+   model to LMFDB `389a1`. The rank value `rank(389a1) = 2`
+   (Cremona tables / Buhler-Gross-Zagier 1985) is an external
+   citation about that identified curve, NOT a Lean-side proof.
 4. The Galois-pair separation extends: `α_RH = 3/2` and
    `α_NP = φ + 1/4 ≈ 1.868` BOTH lie strictly above the BSD
    bracket `(0.595, 0.596)`, so the BSD constant is distinct from
@@ -122,28 +123,54 @@ def E_rank_two : WeierstrassCurve ℚ where
   a₄ := -2
   a₆ := 0
 
-/-! ## §2 — Rank statement as a manuscript-cited label
+/-! ## §2 — Identifying the curve (2026-11-20)
 
-We do NOT prove `rank(389a1) = 2` inside Lean (this would require a
-complete Mordell-Weil theory + descent + a witness of two independent
-infinite-order points + a no-larger-rank argument, none of which are
-in scope). Instead we record the rank-2 fact as a named `Prop` that
-holds by `True.intro`, serving as a **Lean-side label** for the
-external classical result. Cite when downstream code needs to refer
-to "the rank-2 curve" by symbolic name.
+The Mordell-Weil rank is not provable here: it would need a complete
+Mordell-Weil theory, descent, a witness of two independent
+infinite-order points and a no-larger-rank argument, none of which are
+in scope at this mathlib pin. Until 2026-11-20 this section therefore
+recorded the rank-2 fact as `Prop := True`, discharged by `True.intro`
+— a vacuous Prop carrying a rank claim in its name.
+
+What IS provable, by decidable arithmetic, is the discriminant, and the
+discriminant identifies the model: `Δ = 389` pins this Weierstrass
+curve to LMFDB `389a1`, the smallest-conductor rank-2 curve over
+ℚ. That is the same content `BSDGaloisPairConcordance` already proves
+for `E_rank_zero` (`Δ = 64`) and `E_rank_one` (`Δ = 37`), and it
+is proved the same way.
+
+So the label now states the identification it can prove, and the rank
+value `rank(389a1) = 2` remains what it always was: a citation to
+Cremona / Buhler-Gross-Zagier 1985 for a curve Lean has pinned down.
 -/
 
-/-- **Manuscript-cited fact**: `rank E_rank_two = 2` (LMFDB `389a1`,
-    Cremona tables / Buhler-Gross-Zagier 1985). Encoded as a label
-    `Prop`, NOT a Lean-side proof. -/
-def E_rank_two_rank_is_two : Prop := True
+/-- `Δ(E_rank_two) = 389`. Matches the LMFDB conductor of `389a1`
+    (389 is prime and the curve has good reduction away from 389, so
+    the model is minimal and `|Δ| = N_E`). -/
+@[simp] theorem E_rank_two_Δ : E_rank_two.Δ = (389 : ℚ) := by
+  unfold E_rank_two
+  simp [WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+        WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+  ring
 
-/-- The rank-2 label holds (by `True.intro`). This is a NAMED-LABEL
-    theorem — it does not constitute a Lean-side proof of the
-    Mordell-Weil rank; it is the citation handle for the external
-    classical result. -/
-theorem E_rank_two_rank_is_two_holds : E_rank_two_rank_is_two :=
-  trivial
+/-- `Δ(E_rank_two) ≠ 0`: the model is non-singular. -/
+theorem E_rank_two_Δ_ne_zero : E_rank_two.Δ ≠ 0 := by
+  rw [E_rank_two_Δ]; norm_num
+
+/-- **The rank-2 curve, identified**: `Δ = 389 ≠ 0`, which pins the
+    model to LMFDB `389a1`. Replaces the former
+    `E_rank_two_rank_is_two : Prop := True`.
+
+    The rank itself (`rank(389a1) = 2`, Cremona tables /
+    Buhler-Gross-Zagier 1985) is an external citation about this now
+    machine-identified curve, NOT a Lean-side proof. -/
+def E_rank_two_is_LMFDB_389a1 : Prop :=
+  E_rank_two.Δ = 389 ∧ E_rank_two.Δ ≠ 0
+
+/-- The identification holds, by decidable arithmetic on the
+    a-invariants. -/
+theorem E_rank_two_is_LMFDB_389a1_holds : E_rank_two_is_LMFDB_389a1 :=
+  ⟨E_rank_two_Δ, E_rank_two_Δ_ne_zero⟩
 
 /-! ## §3 — Eigenvalue-anchor bracket for the rank-2 curve
 
@@ -162,10 +189,10 @@ in the same shape as `E_rank_zero_eigenvalue_anchor` and
 theorem E_rank_two_eigenvalue_anchor :
     (595 : ℝ)/1000 < bsd_distinguished_eigenvalue ∧
     bsd_distinguished_eigenvalue < (596 : ℝ)/1000 ∧
-    E_rank_two_rank_is_two :=
+    E_rank_two_is_LMFDB_389a1 :=
   ⟨bsd_distinguished_eigenvalue_bracket.1,
    bsd_distinguished_eigenvalue_bracket.2,
-   E_rank_two_rank_is_two_holds⟩
+   E_rank_two_is_LMFDB_389a1_holds⟩
 
 /-! ## §4 — Galois-pair separation for the rank-2 curve
 
@@ -246,7 +273,7 @@ theorem bsd_rank_zero_one_two_concordance :
     bsd_distinguished_eigenvalue < alpha_RH ∧
     bsd_distinguished_eigenvalue < alpha_NP ∧
     -- (T4) Rank-2 fact as manuscript-cited label.
-    E_rank_two_rank_is_two := by
+    E_rank_two_is_LMFDB_389a1 := by
   refine ⟨E_rank_zero_Δ, E_rank_one_Δ,
           E_rank_zero_Δ_ne_zero, E_rank_one_Δ_ne_zero,
           E_rank_zero_ne_E_rank_one_via_Δ,
@@ -254,7 +281,7 @@ theorem bsd_rank_zero_one_two_concordance :
           bsd_distinguished_eigenvalue_bracket.2,
           alpha_RH_above_bsd_eigenvalue,
           alpha_NP_above_bsd_eigenvalue,
-          E_rank_two_rank_is_two_holds⟩
+          E_rank_two_is_LMFDB_389a1_holds⟩
 
 /-- **Convenience export** — uniform 3-rank anchor.
 

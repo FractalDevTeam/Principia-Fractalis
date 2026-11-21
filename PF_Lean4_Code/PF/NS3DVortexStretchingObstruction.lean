@@ -42,7 +42,7 @@ What this file delivers, AXIOM-FREE:
 
   (5) **`ns_3d_clay_residual_via_vortex_stretching`**: the CAPSTONE
       that says: Clay 3D NS (encoded at the framework's
-      `NavierStokesGlobalSmoothness` Unit-typed placeholder level)
+      `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED` Unit-typed placeholder level)
       reduces to `VortexStretchingBoundedHypothesis` plus the
       already-established cascade arithmetic.
 
@@ -337,8 +337,8 @@ theorem regular_3D_initial_data_holds : Regular3DInitialData :=
 
 /-- **The BKM no-blowup conclusion Prop** (typed, framework-level).
     At the PDE level this is `‖ω(t)‖_{L^∞} ∈ L^1([0, T])` for every
-    `T < ∞`. At the framework level, encoded as `NavierStokesGlobalSmoothness`. -/
-def NoBlowup3D : Prop := NavierStokesGlobalSmoothness
+    `T < ∞`. At the framework level, encoded as `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`. -/
+def NoBlowup3D : Prop := NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED
 
 /-- **★ BKM-style reduction (typed conditional)** (axiom-free).
 
@@ -352,7 +352,7 @@ def NoBlowup3D : Prop := NavierStokesGlobalSmoothness
     rules out `∫ ‖ω‖_{L^∞}` blowup.
 
     At the framework's finite-Galerkin shadow, the conclusion is
-    the typed `NoBlowup3D = NavierStokesGlobalSmoothness` Prop,
+    the typed `NoBlowup3D = NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED` Prop,
     which is provably discharged from the cascade arithmetic via
     `navier_stokes_via_fractal_emergence`. The vortex-stretching
     hypothesis is NOT used in the typed proof (since the Clay
@@ -363,7 +363,7 @@ theorem BKM_3D_no_blowup_from_vortex_stretching_bound
     (_h_bound : ∀ n, @VortexStretchingBoundedHypothesis n)
     (_h_initial : Regular3DInitialData) :
     NoBlowup3D := by
-  -- At the framework level, NoBlowup3D = NavierStokesGlobalSmoothness,
+  -- At the framework level, NoBlowup3D = NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED,
   -- which is discharged structurally (no analytic content at the
   -- typed-Prop level). The vortex-stretching hypothesis is not
   -- consumed at the typed level but is the load-bearing PDE
@@ -375,7 +375,7 @@ theorem BKM_3D_no_blowup_from_vortex_stretching_bound
 /-! ## §6 — Capstone: Clay 3D NS reduces to VortexStretchingBoundedHypothesis
 
 The capstone makes the residual obligation explicit: the Clay 3D NS
-problem (at the framework's `NavierStokesGlobalSmoothness` Unit-typed
+problem (at the framework's `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED` Unit-typed
 placeholder) is reduced to:
 
   * `VortexStretchingBoundedHypothesis` at every Galerkin level
@@ -399,8 +399,8 @@ ONLY remaining gap. -/
           (`Z_lt_S_base_3_cascade`),
       (d) the typed-Prop conditional reduction:
             `(∀ n, VortexStretchingBoundedHypothesis) ∧ Regular3DInitialData
-              → NavierStokesGlobalSmoothness`,
-      (e) the Clay-level placeholder `NavierStokesGlobalSmoothness`
+              → NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`,
+      (e) the Clay-level placeholder `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`
           (already discharged at the framework's typed level via
           `navier_stokes_via_fractal_emergence`).
 
@@ -440,9 +440,9 @@ theorem ns_3d_clay_residual_via_vortex_stretching :
     Z_lt_S_base_3_cascade ∧
     -- (d) Typed BKM-style reduction: bound + regularity ⟹ no-blowup
     ((∀ n, @VortexStretchingBoundedHypothesis n) → Regular3DInitialData →
-      NavierStokesGlobalSmoothness) ∧
+      NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED) ∧
     -- (e) Clay-level placeholder (already discharged at framework typed level)
-    NavierStokesGlobalSmoothness := by
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED := by
   refine ⟨?_, CrowCascadeDominance_holds, Z_lt_S_base_3_cascade_holds,
           ?_, ?_⟩
   · -- (a) structural non-vanishing
@@ -528,7 +528,7 @@ def CascadeImpliesVortexStretchingBound : Prop :=
 theorem framework_3D_clay_attack_via_cascade
     (h_bridge : CascadeImpliesVortexStretchingBound)
     (h_init : Regular3DInitialData) :
-    NavierStokesGlobalSmoothness := by
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED := by
   have h_cascade : CrowCascadeDominance := CrowCascadeDominance_holds
   have h_bound : ∀ n, @VortexStretchingBoundedHypothesis n := h_bridge h_cascade
   exact BKM_3D_no_blowup_from_vortex_stretching_bound h_bound h_init
@@ -561,12 +561,12 @@ theorem framework_full_3D_clay_chain_axiom_free :
     Z_lt_S_base_3_cascade ∧
     -- (iv) Typed BKM reduction
     ((∀ n, @VortexStretchingBoundedHypothesis n) → Regular3DInitialData →
-      NavierStokesGlobalSmoothness) ∧
+      NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED) ∧
     -- (v) Typed framework cascade attack
     (CascadeImpliesVortexStretchingBound → Regular3DInitialData →
-      NavierStokesGlobalSmoothness) ∧
+      NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED) ∧
     -- Already-discharged Clay placeholder (framework typed level)
-    NavierStokesGlobalSmoothness := by
+    NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED := by
   refine ⟨exists_nonzero_vortex_stretching_3D,
           CrowCascadeDominance_holds,
           Z_lt_S_base_3_cascade_holds,

@@ -74,143 +74,176 @@ import PF.IBMPeaksGaloisPair
 
 namespace PrincipiaTractalis
 
-/-- **★★★ THE PRINCIPIA FRACTALIS FRAMEWORK HEADLINE STRUCTURE ★★★**
-    (2026-05-25, meta-aggregation).
+/-! ## The framework headline, wired (2026-11-20)
 
-    A single Prop bundling the axiom-free deliverables of
-    Waves 14–21. Each field is supplied by ONE already-existing
-    axiom-free theorem. **This is META-AGGREGATION ONLY.** -/
-structure PrincipiaFractalisFrameworkHeadline : Prop where
-  /-- Wave 14: H₃ unified 5-class algebraic Millennium structure
-      (Poincaré, P, YM, Hodge, NP in Q(√2)+Q(φ) towers anchored in
-      H₃ Coxeter geometry). -/
-  h3_unified_5_alpha_classes : True
-  /-- Wave 15: H₃ transcendental 3-class structure (NS, BSD, QG with
-      π-rational sector + QG fixed-point). -/
-  h3_transcendental_3_alpha_classes : True
-  /-- Wave 18: Polylog resonance theorem (axiom-free B-clean
-      monodromy-phase identity). -/
-  polylog_resonance_theorem : True
-  /-- Wave 17: Polylog literal spectral reading REFUTED via
-      two-vector Rayleigh quotient + Hilbert–Schmidt row-sum
-      obstruction. -/
-  polylog_literal_refuted : True
-  /-- Wave 15: Perelman backward W-entropy monotonicity unified
-      attack capstone. -/
-  perelman_backward_w_entropy_monotonicity : True
-  /-- Wave 18: Hodge dim-1 via concrete Chow group on curves. -/
-  hodge_dim_one_via_chow : True
-  /-- Wave 17: Hodge dim-2 general surface full-discharge
-      substrate. -/
-  hodge_dim_two_general_surface : True
-  /-- Wave 19: Hodge CY3 dim-22 + dim-11 full-discharge (Calabi–Yau
-      3-fold via (1,1) and (2,2) slices). -/
-  hodge_cy3_complete_via_11_and_22 : True
-  /-- Wave 20: Hodge CY4 complete via (1,1)/(2,2)/(3,3) slices. -/
-  hodge_cy4_complete : True
-  /-- Wave 15: NS cascade vs Crow bound — cascade dominates at
-      manuscript Reynolds threshold. -/
-  ns_cascade_dominance : True
-  /-- Wave 17: NS 2D global regularity (classical, witnessed). -/
-  ns_2d_global_regularity : True
-  /-- Wave 19: NS 3D local regularity classical (no-blowup at
-      framework shadow). -/
-  ns_3d_local_regularity : True
-  /-- Waves 15+17+18+20: Yang–Mills levels 1 through 5 structural
-      certificates. -/
-  ym_levels_1_through_5 : True
-  /-- Wave 19: YM uniform-gap five-way routes verdict (3 refuted,
-      1 surviving). -/
-  ym_uniform_gap_routes_verdict : True
-  /-- Wave 20: YM concentration level-1 uniform-gap discharged via
-      spectral concentration ε ≤ 1/4. -/
-  ym_concentration_level_1_discharged : True
-  /-- Wave 20: BSD rank {0,1,2,3} concordance — rank-blind bracket
-      across four genuine elliptic curves. -/
-  bsd_4_rank_concordance : True
-  /-- Waves 15+17+18+20: Five P5 consciousness↔RH bridge witnesses
-      (threePoint, Odlyzko10, Odlyzko100, nonMultiplicativeC, plus
-      a fifth permutation substrate). -/
-  consciousness_p5_5_witnesses : True
-  /-- Existing: 143-problem empirical validation capstone with
-      coherence probability bound `< 10^(-40)`. -/
-  empirical_143_problems_10_minus_40 : True
-  /-- Existing: IBM peaks α_RH = 3/2, α_NP = φ + 1/4 are Galois
-      conjugates in Q(√5), realised as 2×2 Hermitian. -/
-  ibm_galois_pair : True
+Until today this section declared a 19-field structure
+`PrincipiaFractalisFrameworkHeadline : Prop` in which **every field was
+`True`** and every field discharged by `trivial`, while the witness
+theorem below it pulled in 25 real theorems as `have :=` references that
+were never used. The citation chain was load-bearing for *compilation*
+but carried no content into the conclusion: the bundle asserted
+`True ∧ True ∧ …`.
 
-/-- **★★★ THE SINGLE FRAMEWORK HEADLINE THEOREM ★★★**
-    (2026-05-25, Wave 21 capstone).
+The content was therefore already present and only the wiring missing.
+The structure is replaced here by a bundle whose type Lean **infers**
+from the proofs supplied, so the stated conjunction is exactly the
+conjunction of the real theorems' own statements -- no transcription, and
+no second copy that can drift from its source. The structure's NAME is
+kept, below the bundle, as an abbrev for that inferred type via Lean's
+`type_of%`, so no downstream citation is lost. `And.intro` is used
+rather than anonymous-constructor notation because the latter requires a
+known expected type, which is the very thing being inferred.
 
-    Witness for `PrincipiaFractalisFrameworkHeadline`. Each clause is
-    backed by a `have :=` reference to the existing axiom-free
-    theorem. The references make the citation chain machine-checked:
-    deletion of any source theorem would break this file's
-    compilation.
+`#check` prints the full bundled statement; `#print axioms` reports its
+dependencies.
 
-    ★ META-AGGREGATION ONLY ★. Bundling ≠ discharge. -/
-theorem principiaFractalisFrameworkHeadline_holds :
-    PrincipiaFractalisFrameworkHeadline := by
-  -- Pull in each cited theorem so the citation chain is load-bearing.
-  have h01 :=
-    PrincipiaFractalis.H3UnifiedMillenniumStructure.H3_unified_algebraic_Millennium_structure
-  have h02 :=
-    PrincipiaFractalis.H3UnifiedMillenniumStructureTranscendental.transcendental_unified_Millennium_structure
-  have h03 :=
-    PrincipiaTractalis.PolylogReformulated.polylog_resonance_holds
-  have h04 := @PrincipiaTractalis.PolylogHSCompactness.polylog_hs_compactness_capstone
-  have h05 :=
+### The hollow sub-part was retired later the same day
+
+* `ns_2D_global_regularity_classical_witnessed` conjoined
+  `NavierStokesGlobalSmoothness`, which was
+  `∀ (_ : Unit), ∃ (_ : Unit), True` -- a shell. As of 2026-11-20 that
+  name means Fefferman's real Clay statement
+  (`PF/NavierStokes/Fefferman2000_Faithful_Statement_2026_10_12.lean`),
+  and this conjunct names the explicitly superseded placeholder
+  `NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`, whose
+  vacuity is itself now a proved theorem. So the bundle no longer
+  carries an unlabelled shell: it carries a conjunct that says, in its
+  own name, that it asserts nothing.
+
+The BSD conjunct was in this list until later the same day:
+`bsd_rank_zero_one_two_three_concordance` had `E_rank_two_rank_is_two`
+and `E_rank_three_rank_is_three` as `Prop := True` in its (T4). Those are
+now `E_rank_two_is_LMFDB_389a1` and `E_rank_three_is_LMFDB_5077a1`,
+proving `Δ = 389 ≠ 0` and `Δ = 5077 ≠ 0` by decidable
+arithmetic -- the discriminants that pin the two models to LMFDB `389a1`
+and `5077a1`. The rank values themselves remain external citations
+(Cremona / Buhler-Gross-Zagier 1985) about curves Lean has now
+identified; Mordell-Weil rank is not statable at this mathlib pin.
+
+### Unchanged
+
+**★ META-AGGREGATION ONLY. Bundling is not discharge. ★** No
+Millennium problem is settled here. The honest-scope statement at the
+head of this file applies verbatim.
+-/
+
+/-- Field 13 of the retired structure: Yang-Mills levels 1 through 5,
+    five structural certificates. -/
+def ym_levels_1_through_5_wired :=
+  And.intro PrincipiaTractalis.level1_uniform_gap_via_concentration_discharged
+    (And.intro PrincipiaTractalis.fractalYMLevel2_structural_certificate
+      (And.intro PrincipiaTractalis.fractalYM_cross_level_trace_pattern_capstone
+        (And.intro PrincipiaTractalis.fractalYM_cross_level_4_capstone
+          PrincipiaTractalis.fractalYM_cross_level_5_capstone)))
+
+/-- Field 17 of the retired structure: the five P5 consciousness-RH
+    bridge witnesses, each a `CommutatorVanishesAtRHZeros` instance on a
+    different substrate. -/
+def consciousness_p5_5_witnesses_wired :=
+  And.intro PrincipiaTractalis.P5_holds_threePoint
+    (And.intro PrincipiaTractalis.P5_holds_Odlyzko10
+      (And.intro PrincipiaTractalis.P5_holds_Odlyzko100
+        (And.intro PrincipiaTractalis.P5_holds_NonMultiplicativeC
+          PrincipiaTractalis.P5_holds_trivial)))
+
+/-- **★★★ THE SINGLE FRAMEWORK HEADLINE ★★★**
+    (2026-05-25 as a 19-field `True` structure; wired 2026-11-20.)
+
+    One citable term whose type is the conjunction of the framework's
+    axiom-free deliverables, grouped along the manuscript's ten axes.
+    The nineteen items the retired structure specified, in order:
+
+    1.  H3 unified 5-class algebraic Millennium structure
+    2.  H3 transcendental 3-class structure (NS, BSD, QG)
+    3.  Polylog resonance theorem (B-clean monodromy-phase identity)
+    4.  Polylog literal spectral reading refuted (Hilbert-Schmidt)
+    5.  Perelman backward W-entropy monotonicity capstone
+    6.  Hodge dim-1 via concrete Chow group on curves
+    7.  Hodge dim-2 general surface full discharge
+    8.  Hodge CY3 dim-11 + dim-22 full discharge
+    9.  Hodge CY4 complete via (1,1)/(2,2)/(3,3)
+    10. NS cascade dominates the Crow bound at threshold
+    11. NS 2D global regularity, witnessed
+    12. NS 3D local regularity, classical
+    13. Yang-Mills levels 1-5 structural certificates
+    14. Yang-Mills uniform-gap five-way routes verdict
+    15. Yang-Mills concentration level-1 discharged
+    16. BSD rank {0,1,2,3} concordance
+    17. Five P5 consciousness-RH bridge witnesses
+    18. 143-problem empirical validation, bound < 10^(-40)
+    19. IBM peaks are Galois conjugates in Q(root 5)
+
+    Item 15 is the same theorem as the first component of item 13; the
+    retired structure cited it twice and that is preserved here.
+
+    ★ META-AGGREGATION ONLY. Bundling is not discharge. ★ -/
+def principiaFractalisFrameworkHeadline_holds :=
+  -- 1-2: H3 towers, algebraic and transcendental
+  And.intro
+    (And.intro
+      PrincipiaFractalis.H3UnifiedMillenniumStructure.H3_unified_algebraic_Millennium_structure
+      PrincipiaFractalis.H3UnifiedMillenniumStructureTranscendental.transcendental_unified_Millennium_structure)
+  -- 3-4: polylog, positive result and refutation
+  (And.intro
+    (And.intro
+      PrincipiaTractalis.PolylogReformulated.polylog_resonance_holds
+      @PrincipiaTractalis.PolylogHSCompactness.polylog_hs_compactness_capstone)
+  -- 5: Perelman
+  (And.intro
     PrincipiaFractalis.PerelmanBackwardUnifiedAttack.perelman_backward_unified_attack_capstone
-  have h06 := @PrincipiaTractalis.AlgebraicGeometry.hodge_dim_one_via_chow_group_concrete
-  have h07 := @PrincipiaTractalis.HodgeGeneralSurfaceDim2.hodge_general_surface_full_discharge
-  have h08 := @PrincipiaTractalis.HodgeCalabiYau3FoldDim22.hodge_calabi_yau_3fold_dim22_full_discharge
-  have h09 := @PrincipiaTractalis.HodgeDim4CY4.hodge_CY4_complete_via_11_22_33
-  have h10 := @PrincipiaTractalis.NSCascadeCrowBound.cascade_vs_crow_dominates
-  have h11 := PrincipiaTractalis.NS2DGlobalRegularity.ns_2D_global_regularity_classical_witnessed
-  have h12 := PrincipiaTractalis.NS3DLocalRegularityViaBKM.ns_3d_local_regularity_classical
-  -- YM levels 1-5: load-bearing references via the Wave-18 cite pattern.
-  have h13a := PrincipiaTractalis.level1_uniform_gap_via_concentration_discharged
-  have h13b := PrincipiaTractalis.fractalYMLevel2_structural_certificate
-  have h13c := PrincipiaTractalis.fractalYM_cross_level_trace_pattern_capstone
-  have h13d := PrincipiaTractalis.fractalYM_cross_level_4_capstone
-  have h13e := PrincipiaTractalis.fractalYM_cross_level_5_capstone
-  have h14 := PrincipiaTractalis.ym_uniform_gap_routes_verdict
-  have h15 := PrincipiaTractalis.level1_uniform_gap_via_concentration_discharged
-  have h16 := PrincipiaTractalis.BSDRankThreeCurveFramework.bsd_rank_zero_one_two_three_concordance
-  have h17a := PrincipiaTractalis.P5_holds_threePoint
-  have h17b := PrincipiaTractalis.P5_holds_Odlyzko10
-  have h17c := PrincipiaTractalis.P5_holds_Odlyzko100
-  have h17d := PrincipiaTractalis.P5_holds_NonMultiplicativeC
-  have h17e := PrincipiaTractalis.P5_holds_trivial
-  have h18 := PrincipiaTractalis.Empirical.empirical_validation_capstone
-  have h19 := PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5
-  -- All citations land; the headline is met.
-  exact
-    { h3_unified_5_alpha_classes := trivial
-      h3_transcendental_3_alpha_classes := trivial
-      polylog_resonance_theorem := trivial
-      polylog_literal_refuted := trivial
-      perelman_backward_w_entropy_monotonicity := trivial
-      hodge_dim_one_via_chow := trivial
-      hodge_dim_two_general_surface := trivial
-      hodge_cy3_complete_via_11_and_22 := trivial
-      hodge_cy4_complete := trivial
-      ns_cascade_dominance := trivial
-      ns_2d_global_regularity := trivial
-      ns_3d_local_regularity := trivial
-      ym_levels_1_through_5 := trivial
-      ym_uniform_gap_routes_verdict := trivial
-      ym_concentration_level_1_discharged := trivial
-      bsd_4_rank_concordance := trivial
-      consciousness_p5_5_witnesses := trivial
-      empirical_143_problems_10_minus_40 := trivial
-      ibm_galois_pair := trivial }
+  -- 6-9: Hodge, dimensions 1, 2, CY3, CY4
+  (And.intro
+    (And.intro
+      @PrincipiaTractalis.AlgebraicGeometry.hodge_dim_one_via_chow_group_concrete
+      (And.intro
+        @PrincipiaTractalis.HodgeGeneralSurfaceDim2.hodge_general_surface_full_discharge
+        (And.intro
+          @PrincipiaTractalis.HodgeCalabiYau3FoldDim22.hodge_calabi_yau_3fold_dim22_full_discharge
+          @PrincipiaTractalis.HodgeDim4CY4.hodge_CY4_complete_via_11_22_33)))
+  -- 10-12: Navier-Stokes, cascade and the 2D/3D regularity results
+  (And.intro
+    (And.intro
+      @PrincipiaTractalis.NSCascadeCrowBound.cascade_vs_crow_dominates
+      (And.intro
+        PrincipiaTractalis.NS2DGlobalRegularity.ns_2D_global_regularity_classical_witnessed
+        PrincipiaTractalis.NS3DLocalRegularityViaBKM.ns_3d_local_regularity_classical))
+  -- 13-15: Yang-Mills levels, routes verdict, level-1 concentration
+  (And.intro
+    (And.intro
+      ym_levels_1_through_5_wired
+      (And.intro
+        PrincipiaTractalis.ym_uniform_gap_routes_verdict
+        PrincipiaTractalis.level1_uniform_gap_via_concentration_discharged))
+  -- 16: BSD
+  (And.intro
+    PrincipiaTractalis.BSDRankThreeCurveFramework.bsd_rank_zero_one_two_three_concordance
+  -- 17: consciousness-RH bridge
+  (And.intro
+    consciousness_p5_5_witnesses_wired
+  -- 18-19: empirical validation and the IBM Galois pair
+  (And.intro
+    PrincipiaTractalis.Empirical.empirical_validation_capstone
+    PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5))))))))
 
-/-- Witness that the framework headline has only the three core Lean
-    axioms `[propext, Classical.choice, Quot.sound]` in its dependency
-    graph. 2026-11-10 REWIRED to depend on the framework headline. -/
-theorem principiaFractalisFrameworkHeadline_axiom_free : True :=
-  have _ := principiaFractalisFrameworkHeadline_holds
-  trivial
+/-- **The framework headline, as a named Prop.**
+
+    `type_of%` names the bundle's inferred type without restating it, so
+    this is exactly the conjunction proved above -- one statement, one
+    copy, nothing that can drift.
+
+    This is the name the retired 19-field structure carried, kept so
+    every downstream citation (`Wave23MasterCapstone`'s
+    `FrameworkHeadline19FieldProven`, `PF.lean`) keeps resolving. What
+    changed is the content: a record of nineteen `True` fields became the
+    conjunction of twenty-six real theorems.
+
+    ★ META-AGGREGATION ONLY. Bundling is not discharge. ★ -/
+abbrev PrincipiaFractalisFrameworkHeadline : Prop :=
+  type_of% principiaFractalisFrameworkHeadline_holds
+
+#check principiaFractalisFrameworkHeadline_holds
+#print axioms principiaFractalisFrameworkHeadline_holds
+#print axioms ym_levels_1_through_5_wired
+#print axioms consciousness_p5_5_witnesses_wired
 
 end PrincipiaTractalis

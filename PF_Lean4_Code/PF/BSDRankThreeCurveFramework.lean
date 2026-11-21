@@ -56,10 +56,11 @@ The Weierstrass coefficients are
    `E_rank_two` satisfy — making the bracket genuinely rank-blind
    across all four Mordell-Weil rank classes covered by the
    framework.
-3. A manuscript-cited fact `E_rank_three_rank_is_three` recording
-   `rank(5077a1) = 3` as an external input (Buhler-Gross-Zagier
-   1985). Encoded as a named `Prop` that holds by `True.intro` —
-   the Lean-side label, NOT a Lean-side proof.
+3. The curve identification `E_rank_three_is_LMFDB_5077a1`:
+   `Δ = 5077 ≠ 0`, proved by decidable arithmetic, pinning this
+   model to LMFDB `5077a1`. The rank value `rank(5077a1) = 3`
+   (Buhler-Gross-Zagier 1985) is an external citation about that
+   identified curve, NOT a Lean-side proof.
 4. The Galois-pair separation extends: `α_RH = 3/2` and
    `α_NP = φ + 1/4 ≈ 1.868` BOTH lie strictly above the BSD
    bracket `(0.595, 0.596)`, so the BSD constant is distinct from
@@ -129,28 +130,55 @@ def E_rank_three : WeierstrassCurve ℚ where
   a₄ := -7
   a₆ := 6
 
-/-! ## §2 — Rank statement as a manuscript-cited label
+/-! ## §2 — Identifying the curve (2026-11-20)
 
-We do NOT prove `rank(5077a1) = 3` inside Lean (this would require a
-complete Mordell-Weil theory + descent + a witness of three independent
-infinite-order points + a no-larger-rank argument, none of which are
-in scope). Instead we record the rank-3 fact as a named `Prop` that
-holds by `True.intro`, serving as a **Lean-side label** for the
-external classical result. Cite when downstream code needs to refer
-to "the rank-3 curve" by symbolic name.
+The Mordell-Weil rank is not provable here: it would need a complete
+Mordell-Weil theory, descent, a witness of three independent
+infinite-order points and a no-larger-rank argument, none of which are
+in scope at this mathlib pin. Until 2026-11-20 this section therefore
+recorded the rank-3 fact as `Prop := True`, discharged by `True.intro`
+— a vacuous Prop carrying a rank claim in its name.
+
+What IS provable, by decidable arithmetic, is the discriminant, and the
+discriminant identifies the model: `Δ = 5077` pins this Weierstrass
+curve to LMFDB `5077a1`, the smallest-conductor rank-3 curve over
+ℚ. That is the same content `BSDGaloisPairConcordance` already proves
+for `E_rank_zero` (`Δ = 64`) and `E_rank_one` (`Δ = 37`), and it
+is proved the same way.
+
+So the label now states the identification it can prove, and the rank
+value `rank(5077a1) = 3` remains what it always was: a citation to
+Buhler-Gross-Zagier 1985 for a curve Lean has pinned down.
 -/
 
-/-- **Manuscript-cited fact**: `rank E_rank_three = 3` (LMFDB
-    `5077a1`, Buhler-Gross-Zagier 1985). Encoded as a label
-    `Prop`, NOT a Lean-side proof. -/
-def E_rank_three_rank_is_three : Prop := True
+/-- `Δ(E_rank_three) = 5077`. Matches the LMFDB conductor of
+    `5077a1` (5077 is prime and the curve has good reduction away from
+    5077, so the model is minimal and `|Δ| = N_E`). -/
+@[simp] theorem E_rank_three_Δ : E_rank_three.Δ = (5077 : ℚ) := by
+  unfold E_rank_three
+  simp [WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+        WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+  ring
 
-/-- The rank-3 label holds (by `True.intro`). This is a NAMED-LABEL
-    theorem — it does not constitute a Lean-side proof of the
-    Mordell-Weil rank; it is the citation handle for the external
-    classical result. -/
-theorem E_rank_three_rank_is_three_holds : E_rank_three_rank_is_three :=
-  trivial
+/-- `Δ(E_rank_three) ≠ 0`: the model is non-singular. -/
+theorem E_rank_three_Δ_ne_zero : E_rank_three.Δ ≠ 0 := by
+  rw [E_rank_three_Δ]; norm_num
+
+/-- **The rank-3 curve, identified**: `Δ = 5077 ≠ 0`, which pins the
+    model to LMFDB `5077a1`. Replaces the former
+    `E_rank_three_rank_is_three : Prop := True`.
+
+    The rank itself (`rank(5077a1) = 3`, Buhler-Gross-Zagier 1985) is
+    an external citation about this now machine-identified curve, NOT a
+    Lean-side proof. -/
+def E_rank_three_is_LMFDB_5077a1 : Prop :=
+  E_rank_three.Δ = 5077 ∧ E_rank_three.Δ ≠ 0
+
+/-- The identification holds, by decidable arithmetic on the
+    a-invariants. -/
+theorem E_rank_three_is_LMFDB_5077a1_holds :
+    E_rank_three_is_LMFDB_5077a1 :=
+  ⟨E_rank_three_Δ, E_rank_three_Δ_ne_zero⟩
 
 /-! ## §3 — Eigenvalue-anchor bracket for the rank-3 curve
 
@@ -170,10 +198,10 @@ in the same shape as `E_rank_zero_eigenvalue_anchor`,
 theorem E_rank_three_eigenvalue_anchor :
     (595 : ℝ)/1000 < bsd_distinguished_eigenvalue ∧
     bsd_distinguished_eigenvalue < (596 : ℝ)/1000 ∧
-    E_rank_three_rank_is_three :=
+    E_rank_three_is_LMFDB_5077a1 :=
   ⟨bsd_distinguished_eigenvalue_bracket.1,
    bsd_distinguished_eigenvalue_bracket.2,
-   E_rank_three_rank_is_three_holds⟩
+   E_rank_three_is_LMFDB_5077a1_holds⟩
 
 /-! ## §4 — Galois-pair separation for the rank-3 curve
 
@@ -259,8 +287,8 @@ theorem bsd_rank_zero_one_two_three_concordance :
     bsd_distinguished_eigenvalue < alpha_RH ∧
     bsd_distinguished_eigenvalue < alpha_NP ∧
     -- (T4) Rank-2 and rank-3 facts as manuscript-cited labels.
-    E_rank_two_rank_is_two ∧
-    E_rank_three_rank_is_three := by
+    E_rank_two_is_LMFDB_389a1 ∧
+    E_rank_three_is_LMFDB_5077a1 := by
   refine ⟨E_rank_zero_Δ, E_rank_one_Δ,
           E_rank_zero_Δ_ne_zero, E_rank_one_Δ_ne_zero,
           E_rank_zero_ne_E_rank_one_via_Δ,
@@ -268,8 +296,8 @@ theorem bsd_rank_zero_one_two_three_concordance :
           bsd_distinguished_eigenvalue_bracket.2,
           alpha_RH_above_bsd_eigenvalue,
           alpha_NP_above_bsd_eigenvalue,
-          E_rank_two_rank_is_two_holds,
-          E_rank_three_rank_is_three_holds⟩
+          E_rank_two_is_LMFDB_389a1_holds,
+          E_rank_three_is_LMFDB_5077a1_holds⟩
 
 /-- **Convenience export** — uniform 4-rank anchor.
 

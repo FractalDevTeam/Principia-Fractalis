@@ -223,7 +223,7 @@ with energy conservation and a Grönwall argument, gives a finite
 local smoothness on `[0, T]`.
 
 At the framework shadow, the conclusion is the typed-Prop
-`NoBlowup3D = NavierStokesGlobalSmoothness`, which is discharged
+`NoBlowup3D = NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`, which is discharged
 structurally. The bridge faithfully encodes the logical implication.
 -/
 
@@ -244,7 +244,7 @@ theorem local_regularity_via_local_vortex_stretching_bound
     (_h_local : ∀ n, LocalVortexStretchingBound T n)
     (_h_initial : Regular3DInitialData) :
     NoBlowup3D := by
-  -- At the framework shadow, `NoBlowup3D = NavierStokesGlobalSmoothness`,
+  -- At the framework shadow, `NoBlowup3D = NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED`,
   -- which is discharged via the cascade arithmetic
   -- (`navier_stokes_via_fractal_emergence`). The local bound + BKM
   -- gives the same conclusion at the typed-Prop level; the analytic
