@@ -46,6 +46,7 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.NumberTheory.ZetaValues
 import PF.NavierStokes.Fefferman2000_Faithful_Statement_2026_10_12
 import PF.NavierStokes.Fefferman2000_Faithful_ZeroDatum_2026_11_20
+import PF.NavierStokes.Fefferman2000_Faithful_Slots_2026_11_21
 
 namespace PrincipiaTractalis.MillenniumSix
 
@@ -144,7 +145,7 @@ stay citable.
     it in new work; the Clay target of record is
     `NavierStokesGlobalSmoothness`. -/
 def NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED : Prop :=
-  ∀ (smooth_initial_data : Unit), ∃ (global_smooth_solution : Unit), True
+  ∀ (_smooth_initial_data : Unit), ∃ (_global_smooth_solution : Unit), True
 
 /-- **The gravestone.** The superseded placeholder is equivalent to
     `True`: it constrains nothing, so no discharge of it was ever evidence
@@ -426,6 +427,39 @@ theorem navier_stokes_via_fractal_emergence_faithful
     (h : FractalEmergenceYieldsGlobalSmoothness) :
     NavierStokesGlobalSmoothness :=
   h alpha_at_enum_NS
+
+/-- **The Ch 22 slot follows from the three faithful NS slots**
+    (2026-11-21).
+
+    `FractalEmergenceYieldsGlobalSmoothness` is what Ch 22 must supply.
+    This shows it is implied by the standard three-way decomposition of
+    the Clay problem: local existence (Fujita-Kato), the continuation
+    principle (Beale-Kato-Majda), and the a priori vorticity bound. The
+    first two are classical theorems awaiting formalisation; the third is
+    the open estimate.
+
+    So Ch 22's burden is **exactly** the a priori vorticity bound,
+    modulo two literature results. That is the sharpest honest statement
+    of what the manuscript's emergence-point mechanism would have to
+    deliver, and it is now machine-checked rather than asserted.
+
+    See `PF/NavierStokes/Fefferman2000_Faithful_Slots_2026_11_21.lean`.
+    Discharges nothing: all three premises are hypotheses. -/
+theorem fractal_emergence_slot_from_the_three
+    (h1 : PF.NavierStokes.FeffermanFaithful.FujitaKato_Faithful)
+    (h2 : PF.NavierStokes.FeffermanFaithful.BKMContinuation_Faithful)
+    (h3 : PF.NavierStokes.FeffermanFaithful.VorticityAPrioriBound) :
+    FractalEmergenceYieldsGlobalSmoothness :=
+  fun _ => PF.NavierStokes.FeffermanFaithful.clay_from_the_three_slots h1 h2 h3
+
+/-- The Clay statement itself, from the three slots, stated in this
+    namespace for citation alongside the Ch 22 architecture. -/
+theorem navier_stokes_global_smoothness_from_the_three
+    (h1 : PF.NavierStokes.FeffermanFaithful.FujitaKato_Faithful)
+    (h2 : PF.NavierStokes.FeffermanFaithful.BKMContinuation_Faithful)
+    (h3 : PF.NavierStokes.FeffermanFaithful.VorticityAPrioriBound) :
+    NavierStokesGlobalSmoothness :=
+  PF.NavierStokes.FeffermanFaithful.clay_from_the_three_slots h1 h2 h3
 
 /-! ## Ch 23 — Yang-Mills Existence and Mass Gap (α_YM = 2) -/
 
