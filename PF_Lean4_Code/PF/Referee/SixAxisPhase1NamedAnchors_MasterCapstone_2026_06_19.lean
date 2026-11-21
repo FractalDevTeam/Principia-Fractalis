@@ -9,8 +9,14 @@ into a single citable substrate audit trail.
 
 Single citable theorem exhibiting that ALL six Clay axes' Phase 1
 named-anchor audit-trail capstones simultaneously hold at HEAD,
-totalling FORTY-TWO typed substrate anchors across the published-
-mathematics lineage of the six Clay Millennium Problems:
+totalling FIFTY-TWO named anchors across the published-mathematics
+lineage of the six Clay Millennium Problems (8 + 8 + 5 + 7 + 17 + 7 =
+52; the "FORTY-TWO" that stood here was wrong and disagreed with this
+file's own total two paragraphs below).
+
+**Of those 52, thirty-five are `Prop := True` bibliographic markers and
+seventeen (BSD) are genuine typed rank predicates.** See §3, which
+proves both facts in the kernel.
 
   RH:    8 anchors — Riemann 1859, Hadamard 1893, Hardy 1914,
                      Selberg 1942, Levinson 1974, Conrey 1989,
@@ -47,7 +53,11 @@ anchors at substrate tier.
 
 ## Axiom budget
 
-Zero project axioms. Every theorem reports no dependencies.
+Zero project axioms. Note that for `five_axis_..._master_capstone` a
+report of *no* dependencies is not a strength: a statement that reduces
+to `True` needs none. The axiom discipline was built to catch unsound
+proofs, and a vacuous statement is a different failure that the same
+check cannot see. §3 makes that visible in the kernel.
 -/
 
 import PF.Analytic.RH_Substrate_NamedAnchors_2026_06_19
@@ -72,8 +82,11 @@ open PF.AlgebraicGeometry.Hodge_Substrate_NamedAnchors_2026_06_19
     (RH + PNP + NS + YM + Hodge) — unconditional.
 
     The five Wave-56 typed-anchor axes (RH, PNP, NS, YM, Hodge)
-    contribute 8 + 8 + 5 + 7 + 7 = 35 typed substrate anchors,
-    all inhabited unconditionally at the substrate tier. -/
+    contribute 8 + 8 + 5 + 7 + 7 = 35 named anchors, all inhabited
+    unconditionally at the substrate tier **because each is
+    `Prop := True`** — see
+    `five_axis_phase1_named_anchors_master_capstone_statement_iff_true`
+    in §3, which proves this statement is `True`. -/
 theorem five_axis_phase1_named_anchors_master_capstone :
     -- RH (8 anchors)
     (Riemann1859_OriginalConjecture_Anchor ∧
@@ -185,6 +198,79 @@ theorem six_axis_phase1_named_anchors_master_capstone
    ⟨trivial, trivial, trivial, trivial, trivial, trivial, trivial⟩,
    hBSD,
    ⟨trivial, trivial, trivial, trivial, trivial, trivial, trivial⟩⟩
+
+/-! ## §3 — What these two theorems actually prove
+
+**Added 2026-11-21.** `PF.lean`'s import comment for this file has
+carried `[FLAG: theorem-stmt-True x1, trivial...]` since the 2026-08-10
+orphan sweep. A flag is scaffolding with a removal condition, not a
+finished state, so this section removes it by making the content
+kernel-visible rather than describing it in prose a `git clone` does not
+carry.
+
+Nothing above is renamed, weakened or removed. Both capstones are true
+and stay exactly as they were. What follows is what they say.
+
+### The measured situation
+
+Thirty-five of the fifty-two anchors are `def ... : Prop := True` — the
+RH 8, PNP 8, NS 5, YM 7 and Hodge 7. Those are *bibliographic markers*,
+and after the 2026-11-06 cleanup (Hodge `c98e5b90` the model) their own
+files say so and contain no theorems. The seventeen BSD anchors are
+different: `MordellWeilRankIs_E_rank_zero` unfolds to
+`MordellWeilRankIs E_rank_zero 0`, a genuine typed rank predicate, and
+that file has no `Prop := True` at all. They are correctly carried as a
+hypothesis.
+
+So the five-axis capstone is a conjunction of `True`, and the six-axis
+capstone is the identity on its BSD hypothesis. -/
+
+/-- **The five-axis capstone's statement is `True`.**
+
+    Not a complaint — a proof, and the strongest available form of the
+    disclosure. A referee who greps the capstone finds this next to it.
+
+    `type_of%` names the statement without transcribing it, so if the
+    capstone above ever changes this theorem stops compiling. -/
+theorem five_axis_phase1_named_anchors_master_capstone_statement_iff_true :
+    (type_of% five_axis_phase1_named_anchors_master_capstone) ↔ True :=
+  ⟨fun _ => trivial, fun _ => five_axis_phase1_named_anchors_master_capstone⟩
+
+/-- **The thirty-five anchors are not distinct Props.**
+
+    Riemann 1859 and Leray 1934 are unrelated papers in unrelated
+    fields, and these two anchors are the *same Prop* — provably, by
+    `rfl`, because both are `True`.
+
+    This is the reason the conjunction cannot carry a bibliography: it
+    cannot tell the six axes' literatures apart. A citation registry
+    needs distinct inhabitants, and a family of `Prop := True` has
+    exactly one. -/
+theorem named_anchors_are_not_distinct_props :
+    Riemann1859_OriginalConjecture_Anchor = Leray1934_WeakSolutions_Anchor :=
+  rfl
+
+/-- **The six-axis capstone carries exactly its own hypothesis.**
+
+    Its conclusion and its BSD premise are interchangeable: forwards by
+    projecting the BSD component out of the conjunction, backwards by
+    applying the capstone itself. So the theorem is the identity function
+    on `AllSeventeenMordellWeilRanksKnown_namedAnchors`, and the
+    thirty-five `True` anchors contribute nothing to it.
+
+    The seventeen BSD rank predicates remain genuine and genuinely
+    undischarged — that is the one place in this file where there is
+    content, and it is a hypothesis, not a result. -/
+theorem six_axis_phase1_named_anchors_master_capstone_is_its_own_hypothesis
+    (hBSD : AllSeventeenMordellWeilRanksKnown_namedAnchors) :
+    (type_of% (six_axis_phase1_named_anchors_master_capstone hBSD))
+      ↔ AllSeventeenMordellWeilRanksKnown_namedAnchors :=
+  ⟨fun h => h.2.2.2.2.1,
+   fun h => six_axis_phase1_named_anchors_master_capstone h⟩
+
+#print axioms five_axis_phase1_named_anchors_master_capstone_statement_iff_true
+#print axioms named_anchors_are_not_distinct_props
+#print axioms six_axis_phase1_named_anchors_master_capstone_is_its_own_hypothesis
 
 /-! ## §2 — Scope statement -/
 
