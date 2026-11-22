@@ -13,6 +13,8 @@ CRITICAL: These are NOT true axioms - they're lazily axiomatized definitions!
 import Mathlib.Data.Nat.Basic
 import Mathlib.Data.List.Basic
 import Mathlib.Algebra.Order.BigOperators.GroupWithZero.List
+import Mathlib.Data.Nat.GCD.BigOperators
+import Mathlib.Tactic.NormNum.Prime
 import Mathlib.Data.Real.Basic
 import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.Data.Nat.Prime.Nth
@@ -104,54 +106,51 @@ theorem encodeConfig_state_eq (c₁ c₂ : TMConfig) :
   -- Extract state using p-adic valuation base 2
   have extract : ∀ c : TMConfig, padicValNat 2 (encodeConfig c) = c.state := by
     intro c
+    haveI : Fact (Nat.Prime 2) := ⟨by norm_num⟩
+    -- `encodeConfig` uses `nth Prime`, i.e. `_root_.Prime`, not `Nat.Prime`.
+    have hinf : {p : ℕ | Prime p}.Infinite := by
+      simpa [Nat.prime_iff] using Nat.infinite_setOf_prime
+    have hprime : ∀ j : ℕ, Nat.Prime (nth Prime (j + 2)) := fun j =>
+      Nat.prime_iff.mpr (Nat.nth_mem_of_infinite hinf (j + 2))
     unfold encodeConfig
-    have h2_pos : 0 < 2^c.state := Nat.pow_pos (by norm_num)
-    have h3_pos : 0 < 3^c.head := Nat.pow_pos (by norm_num)
+    have h2 : (2 : ℕ) ^ c.state ≠ 0 := pow_ne_zero _ (by norm_num)
+    have h3 : (3 : ℕ) ^ c.head ≠ 0 := pow_ne_zero _ (by norm_num)
     have hprod_pos : 0 < (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod := by
       apply List.prod_pos
-      intros x hx
+      intro x hx
       obtain ⟨j, sym, _, rfl⟩ := List.mem_mapIdx.mp hx
-      exact Nat.pow_pos (Nat.Prime.pos (nth_mem_of_infinite _ infinite_setOf_prime (j + 2)))
-
-    rw [padicValNat.mul Nat.prime_two (Nat.mul_pos h2_pos h3_pos) hprod_pos]
-    rw [padicValNat.mul Nat.prime_two h2_pos h3_pos]
-
-    -- Compute each component
-    have val_2_pow : padicValNat 2 (2^c.state) = c.state := by
-      clear h2_pos h3_pos hprod_pos
-      induction c.state with
-      | zero => simp [padicValNat.one]
-      | succ n ih =>
-        rw [Nat.pow_succ, padicValNat.mul Nat.prime_two (Nat.pow_pos (by norm_num)) (by norm_num)]
-        simp [ih, padicValNat.self Nat.prime_two (by norm_num)]
-
-    have val_3_pow : padicValNat 2 (3^c.head) = 0 := by
-      rw [padicValNat.eq_zero_of_coprime]
-      apply Nat.Coprime.pow_right
-      norm_num
-
-    have val_prod : padicValNat 2 (c.tape.mapIdx (fun j sym =>
-        (nth Prime (j + 2))^(sym.val + 1))).prod = 0 := by
-      rw [padicValNat.eq_zero_of_coprime]
-      apply List.coprime_prod_right
-      intros x hx
-      obtain ⟨j, sym, _, rfl⟩ := List.mem_mapIdx.mp hx
-      apply Nat.Coprime.pow_right
-      have : nth Prime (j + 2) ≠ 2 := by
-        intro heq
-        have : j + 2 = 0 := by
-          have : nth Prime (j + 2) = nth Prime 0 := by simp [heq]
-          exact nth_injective _ _ this
-        omega
-      rw [Nat.Prime.coprime_iff_not_dvd]
-      exact fun hdvd => this (Nat.Prime.eq_of_dvd_of_prime Nat.prime_two
-        (nth_mem_of_infinite _ infinite_setOf_prime (j + 2)) hdvd)
-
-    simp [val_2_pow, val_3_pow, val_prod]
+      exact Nat.pow_pos (hprime j).pos
+    have hP : (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod ≠ 0 := hprod_pos.ne'
+    -- every tape prime is p_{j+2}, hence strictly above the first 0 prime(s),
+    -- so it is coprime to 2
+    have hcop : Nat.Coprime 2 (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod := by
+      rw [Nat.coprime_list_prod_right_iff]
+      intro n hn
+      obtain ⟨j, sym, _, rfl⟩ := List.mem_mapIdx.mp hn
+      refine Nat.Coprime.pow_right _ ?_
+      refine (Nat.coprime_primes (by norm_num) (hprime j)).mpr ?_
+      have hp0 : Nat.Prime (nth Prime 0) := Nat.prime_iff.mpr
+        (Nat.nth_mem_of_infinite hinf 0)
+      have h0 : 2 ≤ nth Prime 0 := hp0.two_le
+      have hmj : nth Prime 0 < nth Prime (j + 2) :=
+        (Nat.nth_lt_nth hinf).mpr (by omega)
+      omega
+    have hnd : ¬ (2 : ℕ) ∣ (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod :=
+      (Nat.Prime.coprime_iff_not_dvd (by norm_num)).mp hcop
+    rw [padicValNat.mul (mul_ne_zero h2 h3) hP, padicValNat.mul h2 h3]
+    have vOther : padicValNat 2 ((3 : ℕ) ^ c.head) = 0 := by
+      refine padicValNat.eq_zero_of_not_dvd ?_
+      intro hdvd
+      have := Nat.Prime.dvd_of_dvd_pow (p := 2) (by norm_num) hdvd
+      omega
+    have vP : padicValNat 2 (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod = 0 :=
+      padicValNat.eq_zero_of_not_dvd hnd
+    rw [padicValNat.prime_pow, vOther, vP]
+    simp
 
   calc c₁.state = padicValNat 2 (encodeConfig c₁) := (extract c₁).symm
-              _ = padicValNat 2 (encodeConfig c₂) := by rw [h_enc]
-              _ = c₂.state := extract c₂
+    _ = padicValNat 2 (encodeConfig c₂) := by rw [h_enc]
+    _ = c₂.state := extract c₂
 
 /-- THEOREM: Encoding preserves head position
     REPLACES: axiom encodeConfig_head_eq
@@ -165,53 +164,53 @@ theorem encodeConfig_head_eq (c₁ c₂ : TMConfig) :
   -- Extract head using p-adic valuation base 3
   have extract : ∀ c : TMConfig, padicValNat 3 (encodeConfig c) = c.head := by
     intro c
+    haveI : Fact (Nat.Prime 3) := ⟨by norm_num⟩
+    -- `encodeConfig` uses `nth Prime`, i.e. `_root_.Prime`, not `Nat.Prime`.
+    have hinf : {p : ℕ | Prime p}.Infinite := by
+      simpa [Nat.prime_iff] using Nat.infinite_setOf_prime
+    have hprime : ∀ j : ℕ, Nat.Prime (nth Prime (j + 2)) := fun j =>
+      Nat.prime_iff.mpr (Nat.nth_mem_of_infinite hinf (j + 2))
     unfold encodeConfig
-    have h2_pos : 0 < 2^c.state := Nat.pow_pos (by norm_num)
-    have h3_pos : 0 < 3^c.head := Nat.pow_pos (by norm_num)
+    have h2 : (2 : ℕ) ^ c.state ≠ 0 := pow_ne_zero _ (by norm_num)
+    have h3 : (3 : ℕ) ^ c.head ≠ 0 := pow_ne_zero _ (by norm_num)
     have hprod_pos : 0 < (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod := by
       apply List.prod_pos
-      intros x hx
+      intro x hx
       obtain ⟨j, sym, _, rfl⟩ := List.mem_mapIdx.mp hx
-      exact Nat.pow_pos (Nat.Prime.pos (nth_mem_of_infinite _ infinite_setOf_prime (j + 2)))
-
-    rw [padicValNat.mul Nat.prime_three (Nat.mul_pos h2_pos h3_pos) hprod_pos]
-    rw [padicValNat.mul Nat.prime_three h2_pos h3_pos]
-
-    have val_2_pow : padicValNat 3 (2^c.state) = 0 := by
-      rw [padicValNat.eq_zero_of_coprime]
-      apply Nat.Coprime.pow_right
-      norm_num
-
-    have val_3_pow : padicValNat 3 (3^c.head) = c.head := by
-      clear h2_pos h3_pos hprod_pos
-      induction c.head with
-      | zero => simp [padicValNat.one]
-      | succ n ih =>
-        rw [Nat.pow_succ, padicValNat.mul Nat.prime_three (Nat.pow_pos (by norm_num)) (by norm_num)]
-        simp [ih, padicValNat.self Nat.prime_three (by norm_num)]
-
-    have val_prod : padicValNat 3 (c.tape.mapIdx (fun j sym =>
-        (nth Prime (j + 2))^(sym.val + 1))).prod = 0 := by
-      rw [padicValNat.eq_zero_of_coprime]
-      apply List.coprime_prod_right
-      intros x hx
-      obtain ⟨j, sym, _, rfl⟩ := List.mem_mapIdx.mp hx
-      apply Nat.Coprime.pow_right
-      have : nth Prime (j + 2) ≠ 3 := by
-        intro heq
-        have : j + 2 = 1 := by
-          have : nth Prime (j + 2) = nth Prime 1 := by simp [heq, nth]
-          exact nth_injective _ _ this
-        omega
-      rw [Nat.Prime.coprime_iff_not_dvd]
-      exact fun hdvd => this (Nat.Prime.eq_of_dvd_of_prime Nat.prime_three
-        (nth_mem_of_infinite _ infinite_setOf_prime (j + 2)) hdvd)
-
-    simp [val_2_pow, val_3_pow, val_prod]
+      exact Nat.pow_pos (hprime j).pos
+    have hP : (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod ≠ 0 := hprod_pos.ne'
+    -- every tape prime is p_{j+2}, hence strictly above the first 1 prime(s),
+    -- so it is coprime to 3
+    have hcop : Nat.Coprime 3 (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod := by
+      rw [Nat.coprime_list_prod_right_iff]
+      intro n hn
+      obtain ⟨j, sym, _, rfl⟩ := List.mem_mapIdx.mp hn
+      refine Nat.Coprime.pow_right _ ?_
+      refine (Nat.coprime_primes (by norm_num) (hprime j)).mpr ?_
+      have hp0 : Nat.Prime (nth Prime 0) := Nat.prime_iff.mpr
+        (Nat.nth_mem_of_infinite hinf 0)
+      have h0 : 2 ≤ nth Prime 0 := hp0.two_le
+      have hm0 : nth Prime 0 < nth Prime 1 :=
+        (Nat.nth_lt_nth hinf).mpr (by omega)
+      have hmj : nth Prime 1 < nth Prime (j + 2) :=
+        (Nat.nth_lt_nth hinf).mpr (by omega)
+      omega
+    have hnd : ¬ (3 : ℕ) ∣ (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod :=
+      (Nat.Prime.coprime_iff_not_dvd (by norm_num)).mp hcop
+    rw [padicValNat.mul (mul_ne_zero h2 h3) hP, padicValNat.mul h2 h3]
+    have vOther : padicValNat 3 ((2 : ℕ) ^ c.state) = 0 := by
+      refine padicValNat.eq_zero_of_not_dvd ?_
+      intro hdvd
+      have := Nat.Prime.dvd_of_dvd_pow (p := 3) (by norm_num) hdvd
+      omega
+    have vP : padicValNat 3 (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod = 0 :=
+      padicValNat.eq_zero_of_not_dvd hnd
+    rw [vOther, padicValNat.prime_pow, vP]
+    simp
 
   calc c₁.head = padicValNat 3 (encodeConfig c₁) := (extract c₁).symm
-             _ = padicValNat 3 (encodeConfig c₂) := by rw [h_enc]
-             _ = c₂.head := extract c₂
+    _ = padicValNat 3 (encodeConfig c₂) := by rw [h_enc]
+    _ = c₂.head := extract c₂
 
 /-- THEOREM: Encoding preserves tape contents
     REPLACES: axiom encodeConfig_tape_eq
