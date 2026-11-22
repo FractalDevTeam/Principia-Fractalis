@@ -101,10 +101,10 @@ import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Analysis.Real.Pi.Bounds
 import Mathlib.Analysis.Complex.ExponentialBounds
-import Mathlib.Data.Nat.Pow
+import Mathlib.Algebra.Order.Group.Nat
 import Mathlib.Data.Real.Basic
 import Mathlib.Algebra.Order.Floor
-import Mathlib.Order.Archimedean.Basic
+import Mathlib.Algebra.Order.Archimedean.Basic
 import Mathlib.Tactic
 import PF.Cosmology.LambdaEffTypedUpgrade
 
@@ -128,7 +128,7 @@ def microscopicScale (k : ℕ) : ℕ := 3^k
 
 theorem microscopicScale_pos (k : ℕ) : 0 < microscopicScale k := by
   unfold microscopicScale
-  exact Nat.pow_pos (by decide : (0:ℕ) < 3) k
+  exact Nat.pow_pos (by decide : (0:ℕ) < 3)
 
 /-! ## §2  Macroscopic scale: bare cosmological reservoir -/
 
@@ -171,7 +171,8 @@ theorem log_three_gt_one : 1 < Real.log 3 := by
     have := Real.exp_one_lt_d9
     linarith
   have : Real.log (Real.exp 1) < Real.log 3 :=
-    (Real.log_lt_log_iff (Real.exp_pos 1)).mpr h_exp_lt_three
+    (Real.log_lt_log_iff (Real.exp_pos 1) (by norm_num : (0:ℝ) < 3)).mpr
+      h_exp_lt_three
   rwa [Real.log_exp] at this
 
 theorem log_three_lt_two : Real.log 3 < 2 := by
@@ -186,7 +187,8 @@ theorem log_three_lt_two : Real.log 3 < 2 := by
     have h_num : (3 : ℝ) < 2.7182818283 * 2.7182818283 := by norm_num
     linarith
   have : Real.log 3 < Real.log (Real.exp 2) :=
-    (Real.log_lt_log_iff (by norm_num : (0:ℝ) < 3)).mpr h_three_lt_exp_two
+    (Real.log_lt_log_iff (by norm_num : (0:ℝ) < 3) (Real.exp_pos 2)).mpr
+      h_three_lt_exp_two
   rwa [Real.log_exp] at this
 
 theorem log_three_pos : 0 < Real.log 3 :=
@@ -205,7 +207,7 @@ theorem k_critical_bound : 1 ≤ k_critical ∧ k_critical ≤ 277 := by
     have h_log_pos : 0 < Real.log 3 := log_three_pos
     have h_div_pos : 0 < framework_suppression_exponent / Real.log 3 :=
       div_pos h_X_pos h_log_pos
-    exact Nat.one_le_iff_ne_zero.mpr (Nat.ceil_ne_zero.mpr (le_of_lt h_div_pos))
+    exact Nat.ceil_pos.mpr h_div_pos
   · unfold k_critical
     have h_X_lt : framework_suppression_exponent < 277 :=
       framework_suppression_exponent_lt_277

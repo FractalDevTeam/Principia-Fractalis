@@ -46,6 +46,22 @@ open PrincipiaTractalis
 open PrincipiaTractalis.AlphaSkeletonExtendedLocusBundle
 open PF.Referee.MinimalSubstrateRigidityUnified
 
+/-! ### Name-collision note (2026-11-22)
+
+The corpus declares `α_P` twice:
+
+* `PrincipiaTractalis.CrossMillenniumSharedInvariants.α_P = Real.sqrt 2`
+* `PrincipiaTractalis.α_P = TuringEncoding.alpha_of_class ClassP`,
+  whose `alpha_of_class` is declared `opaque` and so has no value.
+
+Only `open PrincipiaTractalis` is in scope here, so a bare `α_P` in this
+file denotes the OPAQUE P/NP one, while the bundle cited below opens
+`CrossMillenniumSharedInvariants` and means the CONCRETE one. The two
+statements are character-identical in source and denote different
+propositions. The theorems below therefore take their statements from the
+bundle with `type_of%` instead of restating them, so the statement cannot
+drift from the proof again. -/
+
 /-! ## §1 — 13-clause extended locus forced parametrically -/
 
 /-- **★★★★★ EXTENDED 13-IDENTITY LOCUS IS A SUBSTRATE THEOREM ★★★★★** —
@@ -75,23 +91,20 @@ theorem unified_minimal_forces_alpha_skeleton_extended_locus
     (_h_P_pos : 0 < _u.sector2.a_P)
     (_h_Hodge_pos : 0 < _u.sector2.a_Hodge)
     (_h_QG_pos : 0 < _u.sector2.a_QG) :
-    -- (E1) Inverse identities on the framework's canonical α-values.
-    (1 / α_P = α_P / 2) ∧
-    (1 / α_RH = 2 / 3) ∧
-    (1 / α_YM = 1 / 2) ∧
-    (1 / α_Poincare = 1) ∧
-    -- (E2) Cubed identities.
-    (α_P ^ 3 = 2 * α_P) ∧
-    (α_RH ^ 3 = 27 / 8) ∧
-    (α_YM ^ 3 = 8) ∧
-    (α_Hodge ^ 3 = 2 * α_Hodge + 1) ∧
-    -- (E3) Quartic identities.
-    (α_Hodge ^ 4 = 3 * α_Hodge + 2) ∧
-    (α_QG ^ 4 = 4 * Real.pi ^ 2) ∧
-    -- (E4) Mixed-product identities.
-    (α_P * α_RH = (3/2) * α_P) ∧
-    (α_RH * α_BSD = 9 * Real.pi / 8) ∧
-    (α_YM * α_BSD = α_NS) :=
+    type_of% @alpha_skeleton_extended_locus_bundle :=
+  alpha_skeleton_extended_locus_bundle
+
+/-- **Disclosure (2026-11-22).** Every hypothesis of
+    `unified_minimal_forces_alpha_skeleton_extended_locus`
+    is unused -- each is underscore-prefixed and the conclusion never
+    mentions `_u`. The conclusion is the global-constant bundle
+    `alpha_skeleton_extended_locus_bundle` verbatim, so the
+    "parametric lift / substrate-rigidity propagation" reading of the
+    docstring above is NOT what is proved: no rigidity hypothesis is
+    load-bearing. This hypothesis-free twin makes that fact
+    kernel-checked rather than implicit. -/
+theorem alpha_skeleton_extended_locus_bundle_needs_no_rigidity :
+    type_of% @alpha_skeleton_extended_locus_bundle :=
   alpha_skeleton_extended_locus_bundle
 
 /-! ## §2 — Full 29-identity composite substrate theorem -/
@@ -115,37 +128,20 @@ theorem unified_minimal_forces_alpha_skeleton_full_29_identity_locus
     (_h_P_pos : 0 < _u.sector2.a_P)
     (_h_Hodge_pos : 0 < _u.sector2.a_Hodge)
     (_h_QG_pos : 0 < _u.sector2.a_QG) :
-    -- The 16-clause base bundle (L1-L16).
-    (α_P ^ 2 = α_YM) ∧
-    (α_RH ^ 2 = 9 / 4) ∧
-    (α_QG ^ 2 = 2 * Real.pi) ∧
-    (α_Hodge ^ 2 = α_Hodge + 1) ∧
-    (α_NS = 2 * α_BSD) ∧
-    (α_NS = α_YM * α_BSD) ∧
-    (α_YM = α_Poincare + 1) ∧
-    (α_RH * α_NS = α_NS + α_BSD) ∧
-    (α_RH * α_YM = 3) ∧
-    (α_Poincare * α_YM = α_P ^ 2) ∧
-    (α_NP - α_Hodge = 1/4) ∧
-    (α_NP + α_Hodge = 2 * α_Hodge + 1/4) ∧
-    (α_QG ^ 2 = α_YM * Real.pi) ∧
-    (α_QG ^ 2 = (4 / 3) * α_NS) ∧
-    (α_QG ^ 2 = (8 / 3) * α_BSD) ∧
-    (α_NS / α_YM = α_BSD) ∧
-    -- The 13-clause extended bundle (E1-E13).
-    (1 / α_P = α_P / 2) ∧
-    (1 / α_RH = 2 / 3) ∧
-    (1 / α_YM = 1 / 2) ∧
-    (1 / α_Poincare = 1) ∧
-    (α_P ^ 3 = 2 * α_P) ∧
-    (α_RH ^ 3 = 27 / 8) ∧
-    (α_YM ^ 3 = 8) ∧
-    (α_Hodge ^ 3 = 2 * α_Hodge + 1) ∧
-    (α_Hodge ^ 4 = 3 * α_Hodge + 2) ∧
-    (α_QG ^ 4 = 4 * Real.pi ^ 2) ∧
-    (α_P * α_RH = (3/2) * α_P) ∧
-    (α_RH * α_BSD = 9 * Real.pi / 8) ∧
-    (α_YM * α_BSD = α_NS) :=
+    type_of% @alpha_skeleton_full_29_identity_locus :=
+  alpha_skeleton_full_29_identity_locus
+
+/-- **Disclosure (2026-11-22).** Every hypothesis of
+    `unified_minimal_forces_alpha_skeleton_full_29_identity_locus`
+    is unused -- each is underscore-prefixed and the conclusion never
+    mentions `_u`. The conclusion is the global-constant bundle
+    `alpha_skeleton_full_29_identity_locus` verbatim, so the
+    "parametric lift / substrate-rigidity propagation" reading of the
+    docstring above is NOT what is proved: no rigidity hypothesis is
+    load-bearing. This hypothesis-free twin makes that fact
+    kernel-checked rather than implicit. -/
+theorem alpha_skeleton_full_29_identity_locus_needs_no_rigidity :
+    type_of% @alpha_skeleton_full_29_identity_locus :=
   alpha_skeleton_full_29_identity_locus
 
 end PF.Referee.MinimalRigidityForcesAlphaSkeletonExtendedLocus

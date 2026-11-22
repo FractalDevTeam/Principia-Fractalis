@@ -12,6 +12,7 @@ CRITICAL: These are NOT true axioms - they're lazily axiomatized definitions!
 
 import Mathlib.Data.Nat.Basic
 import Mathlib.Data.List.Basic
+import Mathlib.Algebra.Order.BigOperators.GroupWithZero.List
 import Mathlib.Data.Real.Basic
 import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.Data.Nat.Prime.Nth
@@ -104,13 +105,13 @@ theorem encodeConfig_state_eq (c₁ c₂ : TMConfig) :
   have extract : ∀ c : TMConfig, padicValNat 2 (encodeConfig c) = c.state := by
     intro c
     unfold encodeConfig
-    have h2_pos : 0 < 2^c.state := Nat.pow_pos (by norm_num) c.state
-    have h3_pos : 0 < 3^c.head := Nat.pow_pos (by norm_num) c.head
+    have h2_pos : 0 < 2^c.state := Nat.pow_pos (by norm_num)
+    have h3_pos : 0 < 3^c.head := Nat.pow_pos (by norm_num)
     have hprod_pos : 0 < (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod := by
       apply List.prod_pos
       intros x hx
       obtain ⟨j, sym, _, rfl⟩ := List.mem_mapIdx.mp hx
-      exact Nat.pow_pos (Nat.Prime.pos (nth_mem_of_infinite _ infinite_setOf_prime (j + 2))) _
+      exact Nat.pow_pos (Nat.Prime.pos (nth_mem_of_infinite _ infinite_setOf_prime (j + 2)))
 
     rw [padicValNat.mul Nat.prime_two (Nat.mul_pos h2_pos h3_pos) hprod_pos]
     rw [padicValNat.mul Nat.prime_two h2_pos h3_pos]
@@ -121,7 +122,7 @@ theorem encodeConfig_state_eq (c₁ c₂ : TMConfig) :
       induction c.state with
       | zero => simp [padicValNat.one]
       | succ n ih =>
-        rw [Nat.pow_succ, padicValNat.mul Nat.prime_two (Nat.pow_pos (by norm_num) n) (by norm_num)]
+        rw [Nat.pow_succ, padicValNat.mul Nat.prime_two (Nat.pow_pos (by norm_num)) (by norm_num)]
         simp [ih, padicValNat.self Nat.prime_two (by norm_num)]
 
     have val_3_pow : padicValNat 2 (3^c.head) = 0 := by
@@ -165,13 +166,13 @@ theorem encodeConfig_head_eq (c₁ c₂ : TMConfig) :
   have extract : ∀ c : TMConfig, padicValNat 3 (encodeConfig c) = c.head := by
     intro c
     unfold encodeConfig
-    have h2_pos : 0 < 2^c.state := Nat.pow_pos (by norm_num) c.state
-    have h3_pos : 0 < 3^c.head := Nat.pow_pos (by norm_num) c.head
+    have h2_pos : 0 < 2^c.state := Nat.pow_pos (by norm_num)
+    have h3_pos : 0 < 3^c.head := Nat.pow_pos (by norm_num)
     have hprod_pos : 0 < (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod := by
       apply List.prod_pos
       intros x hx
       obtain ⟨j, sym, _, rfl⟩ := List.mem_mapIdx.mp hx
-      exact Nat.pow_pos (Nat.Prime.pos (nth_mem_of_infinite _ infinite_setOf_prime (j + 2))) _
+      exact Nat.pow_pos (Nat.Prime.pos (nth_mem_of_infinite _ infinite_setOf_prime (j + 2)))
 
     rw [padicValNat.mul Nat.prime_three (Nat.mul_pos h2_pos h3_pos) hprod_pos]
     rw [padicValNat.mul Nat.prime_three h2_pos h3_pos]
@@ -186,7 +187,7 @@ theorem encodeConfig_head_eq (c₁ c₂ : TMConfig) :
       induction c.head with
       | zero => simp [padicValNat.one]
       | succ n ih =>
-        rw [Nat.pow_succ, padicValNat.mul Nat.prime_three (Nat.pow_pos (by norm_num) n) (by norm_num)]
+        rw [Nat.pow_succ, padicValNat.mul Nat.prime_three (Nat.pow_pos (by norm_num)) (by norm_num)]
         simp [ih, padicValNat.self Nat.prime_three (by norm_num)]
 
     have val_prod : padicValNat 3 (c.tape.mapIdx (fun j sym =>
@@ -226,8 +227,8 @@ theorem encodeConfig_tape_eq (c₁ c₂ : TMConfig) :
   rw [h_state, h_head] at h_enc
 
   -- Cancel the common factors 2^state and 3^head
-  have h2_pos : 0 < 2^c₂.state := Nat.pow_pos (by norm_num) _
-  have h3_pos : 0 < 3^c₂.head := Nat.pow_pos (by norm_num) _
+  have h2_pos : 0 < 2^c₂.state := Nat.pow_pos (by norm_num)
+  have h3_pos : 0 < 3^c₂.head := Nat.pow_pos (by norm_num)
 
   -- The products must be equal
   have prod_eq : (c₁.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod =
