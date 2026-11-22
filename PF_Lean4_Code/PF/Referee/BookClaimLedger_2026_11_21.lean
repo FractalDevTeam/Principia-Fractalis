@@ -112,6 +112,16 @@ import PF.Referee.BSDCapstoneTypedBridgeV5
 import PF.Referee.HodgeCapstoneTypedBridge
 import PF.AlgebraicDeRhamD1Leibniz_r356
 import PF.E91a1RankOneCapstone_2026_10_22
+import PF.CantorFunction_r207
+import PF.TernaryNetCompleteness_r354
+import PF.TernaryNetAdditivity_r353
+import PF.H3CoxeterOrigin
+import PF.SubstrateNotCommutative_r217
+import PF.TwoAnchorCascadeCapstone
+import PF.FiveWayFalsifiability
+import PF.Referee.MinimalSubstrateRigidityAnchorNecessity
+import PF.Referee.MinimalSubstrateRigidityIndependence
+import PF.Cosmology.VortexCavitationBridgeChecks
 
 namespace PF.Referee.BookClaimLedger
 
@@ -152,6 +162,11 @@ inductive Register
   | external
   /-- A measurement, not a theorem. -/
   | empirical
+  /-- The chapter makes claims and there is NO Lean counterpart at
+      all -- zero citations in the per-file audit. Distinct from
+      `openStatement` (a faithful statement written and unproved) and
+      from `unstatable` (not expressible at this pin). -/
+  | unformalised
   /-- Proved in the corpus, verified by name on disk, and CITED here
       rather than kernel-linked. Distinct from `proved`, which carries
       the term. Upgrading one of these to `proved` is a matter of adding
@@ -174,6 +189,7 @@ def Obligation : Register → Prop → Type
   | .external,      _ => PUnit
   | .empirical,     _ => PUnit
   | .provedElsewhere, _ => PUnit
+  | .unformalised,    _ => PUnit
 
 /-- One book claim, with its register and the discharged obligation. -/
 structure ClaimEntry where
@@ -247,7 +263,7 @@ Entries verified by reading the Lean on 2026-11-21. -/
     classification at `3^∞`. Inventory Claim 1. -/
 def entry_substrate_rigidity : ClaimEntry where
   id := "substrate-rigidity"
-  source := "ch17 / inventory Claim 1"
+  source := "ch34A + ch17 / inventory Claim 1"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PrincipiaTractalis.SubstrateRigidity.T_infinity_rigidity"
@@ -265,7 +281,7 @@ def entry_substrate_rigidity : ClaimEntry where
     Inventory Claim 3. -/
 def entry_pi_obstruction : ClaimEntry where
   id := "substrate-pi-obstruction"
-  source := "ch17 / inventory Claim 3"
+  source := "ch34A + ch17 / inventory Claim 3"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PrincipiaTractalis.AlphaL5PiScalingObstruction.l5_not_derivable_from_ktheoretic_ratio"
@@ -280,7 +296,7 @@ def entry_pi_obstruction : ClaimEntry where
     derivations**, which the inventory already states. -/
 def entry_alpha_values : ClaimEntry where
   id := "alpha-values"
-  source := "ch18 / inventory Claim 4"
+  source := "ch34A + ch09 / inventory Claim 4"
   register := .posit
   inventoryStatus := "DEFINITIONS, not derivations"
   leanName := "PF/CrossMillenniumSharedInvariants.lean"
@@ -296,7 +312,7 @@ def entry_alpha_values : ClaimEntry where
 /-- Claim: the cross-Millennium identities. Inventory Claim 5. -/
 def entry_alpha_identity : ClaimEntry where
   id := "alpha-identity-RH-YM"
-  source := "ch18 / inventory Claim 5.9"
+  source := "ch34A + ch09 / inventory Claim 5.9"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH_mul_YM_eq_three"
@@ -309,7 +325,7 @@ def entry_alpha_identity : ClaimEntry where
 /-- Claim: the Poincaré conjecture itself. **Not expressible here.** -/
 def entry_poincare_faithful : ClaimEntry where
   id := "poincare-faithful"
-  source := "ch34 / inventory addendum XI"
+  source := "ch34A_substrate_theorem / inventory addendum XI"
   register := .unstatable
   inventoryStatus := "not expressible at this pin"
   leanName := ""
@@ -326,7 +342,7 @@ def entry_poincare_faithful : ClaimEntry where
     entry that the mechanism exists for. -/
 def entry_poincare_encoding : ClaimEntry where
   id := "poincare-pf-encoding"
-  source := "ch34 / inventory XII.A.7"
+  source := "ch34A_substrate_theorem / inventory XII.A.7"
   register := .analogue
   inventoryStatus := "KERNEL-VERIFIED on PF_PoincareEncoding"
   leanName := "PF.Referee.PoincareCapstoneTypedBridge.PF_Poincare_capstone_yields_Clay_Poincare_standard"
@@ -344,7 +360,7 @@ def entry_poincare_encoding : ClaimEntry where
     sharpest case: the predicate is `True`. -/
 def entry_ns_encoding : ClaimEntry where
   id := "ns-pf-substrate-encoding"
-  source := "ch22 / inventory Claim 18"
+  source := "ch22_navier_stokes / inventory Claim 18"
   register := .analogue
   inventoryStatus := "KERNEL-VERIFIED on PF_NSEncodingSubstrate"
   leanName := "PF.Referee.NavierStokesCapstoneDisclosure.clay_standard_substrate_is_vacuous"
@@ -358,7 +374,7 @@ def entry_ns_encoding : ClaimEntry where
 /-- Claim: PF's typed Fermat contract. **`analogue`** — `holds _ := True`. -/
 def entry_fermat_encoding : ClaimEntry where
   id := "fermat-pf-encoding"
-  source := "ch24 / inventory addendum XI"
+  source := "ch24_birch_swinnerton_dyer / inventory addendum XI"
   register := .analogue
   inventoryStatus := "KERNEL-VERIFIED on PF_FermatEncoding"
   leanName := "PF.Referee.FermatCapstoneTypedBridge.PF_Fermat_capstone_yields_Standard_FermatLastTheorem_standard"
@@ -372,7 +388,7 @@ def entry_fermat_encoding : ClaimEntry where
 /-- Claim: Fermat for `n = 4`, difference form — PF's own, and real. -/
 def entry_fermat_n4_diff : ClaimEntry where
   id := "fermat-n4-difference"
-  source := "ch24 / inventory addendum XI"
+  source := "ch24_birch_swinnerton_dyer / inventory addendum XI"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PF.not_fermat_42_sub"
@@ -387,7 +403,7 @@ def entry_fermat_n4_diff : ClaimEntry where
 /-- Claim: the Riemann Hypothesis. **`external`** as of 2026-11-20. -/
 def entry_rh_external : ClaimEntry where
   id := "rh-external-settlement"
-  source := "ch21 / anchor set"
+  source := "ch20_riemann_hypothesis / anchor set"
   register := .external
   inventoryStatus := "external settlement 2026-11-20"
   leanName := ""
@@ -428,7 +444,7 @@ list inside the Lean rather than a note in a markdown file. -/
 /-- Claim 2 — the substrate's trace is unique, and derived not assumed. -/
 def entry_trace_unique : ClaimEntry where
   id := "substrate-trace-unique"
-  source := "ch17 / inventory Claim 2"
+  source := "ch34A + ch17 / inventory Claim 2"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PrincipiaTractalis.SubstrateTraceUniqueness.substrate_UHF_trace_unique"
@@ -444,7 +460,7 @@ def entry_trace_unique : ClaimEntry where
 /-- Claim 6 — the four Hilbert–Pólya formulations, and HP ⇒ RH. -/
 def entry_hp_implies_rh : ClaimEntry where
   id := "rh-hp-implies-rh"
-  source := "ch21 / inventory Claim 6"
+  source := "ch20_riemann_hypothesis / inventory Claim 6"
   register := .proved
   inventoryStatus := "CONDITIONAL REDUCTION"
   leanName := "PrincipiaTractalis.HilbertPolyaIdentificationPrecise.hilbert_polya_implies_RH"
@@ -459,7 +475,7 @@ def entry_hp_implies_rh : ClaimEntry where
     three right-edge sign facts. -/
 def entry_rh_below_15 : ClaimEntry where
   id := "rh-below-15-conditional"
-  source := "ch21 / inventory Claim 7"
+  source := "ch20_riemann_hypothesis / inventory Claim 7"
   register := .provedElsewhere
   inventoryStatus := "CONDITIONAL REDUCTION"
   leanName := "PrincipiaTractalis.RHBelow15Conditional.rh_below_15_conditional"
@@ -484,7 +500,7 @@ def entry_rh_below_15 : ClaimEntry where
 /-- Claim 8 — the unconditional box march. -/
 def entry_rh_box_march : ClaimEntry where
   id := "rh-box-march"
-  source := "ch21 / inventory Claim 8"
+  source := "ch20_riemann_hypothesis / inventory Claim 8"
   register := .provedElsewhere
   inventoryStatus := "KERNEL-VERIFIED, UNCONDITIONAL (per-panel)"
   leanName := "PF/Analytic/FourierPanels/*"
@@ -504,7 +520,7 @@ def entry_rh_box_march : ClaimEntry where
     predicate here is wired to mathlib's real `riemannZeta`. -/
 def entry_rh_clay_capstone : ClaimEntry where
   id := "rh-clay-capstone-v2"
-  source := "ch21 / inventory Claim 9"
+  source := "ch20_riemann_hypothesis / inventory Claim 9"
   register := .proved
   inventoryStatus := "CONDITIONAL REDUCTION of the LITERAL Clay statement"
   leanName := "PF.Referee.RHCapstoneTypedBridgeV2.PF_RH_capstone_yields_Clay_RH_standardV2"
@@ -523,7 +539,7 @@ def entry_rh_clay_capstone : ClaimEntry where
 /-- Claim 10 — the spectral gap is nonzero. Note the theorem's NAME. -/
 def entry_spectral_gap : ClaimEntry where
   id := "pnp-spectral-gap"
-  source := "ch23 / inventory Claim 10"
+  source := "ch21_p_vs_np / inventory Claim 10"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PrincipiaTractalis.P_neq_NP"
@@ -538,7 +554,7 @@ def entry_spectral_gap : ClaimEntry where
 /-- Claim 11 — the class-separation bridge. -/
 def entry_pnp_bridge : ClaimEntry where
   id := "pnp-separation-bridge"
-  source := "ch23 / inventory Claim 11"
+  source := "ch21_p_vs_np / inventory Claim 11"
   register := .proved
   inventoryStatus := "CONDITIONAL REDUCTION"
   leanName := "PrincipiaTractalis.PNPClassSeparationCarrierV2.enum_to_class_separation_bridge_V2_iff_literal_P_neq_NP_V2"
@@ -554,7 +570,7 @@ def entry_pnp_bridge : ClaimEntry where
 /-- Claim 12 — the IBM run. -/
 def entry_ibm_coherence : ClaimEntry where
   id := "pnp-ibm-143"
-  source := "ch23 / inventory Claim 12"
+  source := "ch21_p_vs_np / inventory Claim 12"
   register := .empirical
   inventoryStatus := "EMPIRICAL — single dataset"
   leanName := ""
@@ -571,7 +587,7 @@ def entry_ibm_coherence : ClaimEntry where
     functions. Real gauge theory: `GaugeField L := LatticeLink L → SU2`. -/
 def entry_wilson_rp_cont : ClaimEntry where
   id := "ym-wilson-rp-continuous"
-  source := "ch20 / inventory Claim 13"
+  source := "ch23_yang_mills / inventory Claim 13"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED, UNCONDITIONAL"
   leanName := "PF.YangMills.wilson_reflection_positivity_of_continuous"
@@ -586,7 +602,7 @@ def entry_wilson_rp_cont : ClaimEntry where
 /-- Claim 14 — the same, extended to `L²`. -/
 def entry_wilson_rp_l2 : ClaimEntry where
   id := "ym-wilson-rp-l2"
-  source := "ch20 / inventory Claim 14"
+  source := "ch23_yang_mills / inventory Claim 14"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED, UNCONDITIONAL"
   leanName := "PF.YangMills.wilson_reflection_positivity_of_L2_strong"
@@ -598,7 +614,7 @@ def entry_wilson_rp_l2 : ClaimEntry where
 /-- Claim 15 — the Clay YM capstone. **`analogue`**. -/
 def entry_ym_clay_capstone : ClaimEntry where
   id := "ym-clay-capstone-v4"
-  source := "ch20 / inventory Claim 15"
+  source := "ch23_yang_mills / inventory Claim 15"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED on PF_YMEncodingV4; NOT a Clay discharge"
   leanName := "PrincipiaTractalis.YM_ContinuumWightmanV4.PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4"
@@ -615,7 +631,7 @@ def entry_ym_clay_capstone : ClaimEntry where
 /-- Claim 16 — the chapter's own mass-gap formula, refuted in-chapter. -/
 def entry_ym_massgap_refuted : ClaimEntry where
   id := "ym-massgap-formula-refuted"
-  source := "ch20 / inventory Claim 16"
+  source := "ch23_yang_mills / inventory Claim 16"
   register := .proved
   inventoryStatus := "REFUTED — kernel-verified negative content"
   leanName := "PrincipiaTractalis.Ch20Ch25Numerics.formula_output_ne_printed"
@@ -633,7 +649,7 @@ def entry_ym_massgap_refuted : ClaimEntry where
 /-- Claim 17 — the vortex-stretching hypothesis at every Galerkin cutoff. -/
 def entry_ns_vortex_all_n : ClaimEntry where
   id := "ns-vortex-stretching-all-n"
-  source := "ch22 / inventory Claim 17"
+  source := "ch22_navier_stokes / inventory Claim 17"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED, UNCONDITIONAL per-n"
   leanName := "PrincipiaTractalis.NS3DVortexStretchingObstruction.vortexStretchingBoundedHypothesis_holds"
@@ -647,7 +663,7 @@ def entry_ns_vortex_all_n : ClaimEntry where
 /-- Claim 18 — the Clay NS capstone V4. -/
 def entry_ns_clay_v4 : ClaimEntry where
   id := "ns-clay-capstone-v4"
-  source := "ch22 / inventory Claim 18"
+  source := "ch22_navier_stokes / inventory Claim 18"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED on PF_NS3DEncodingV4; NOT a Clay discharge"
   leanName := "PF.NavierStokes.NS3DRegularitySolutionV4.PF_NS_capstone_yields_Clay_NavierStokes_standardV4"
@@ -662,7 +678,7 @@ def entry_ns_clay_v4 : ClaimEntry where
 /-- Claim 19 — Route A, the remaining classical-analysis bar. -/
 def entry_ns_route_a : ClaimEntry where
   id := "ns-route-a"
-  source := "ch22 / inventory Claim 19"
+  source := "ch22_navier_stokes / inventory Claim 19"
   register := .openStatement
   inventoryStatus := "OPEN"
   leanName := ""
@@ -676,7 +692,7 @@ def entry_ns_route_a : ClaimEntry where
 /-- The steady vorticity transport equation, derived 2026-11-21. -/
 def entry_ns_steady_transport : ClaimEntry where
   id := "ns-steady-vorticity-transport"
-  source := "ch22 / 2026-11-21 landing"
+  source := "ch22_navier_stokes / 2026-11-21 landing"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED (post-dates the inventory)"
   leanName := "PF.NavierStokes.FeffermanFaithful.steady_vorticity_transport_of_contDiff"
@@ -694,7 +710,7 @@ def entry_ns_steady_transport : ClaimEntry where
 /-- Claim 20a — an exact rank-0 curve by Fermat descent. -/
 def entry_bsd_rank0_a : ClaimEntry where
   id := "bsd-rank0-y2x3plusx"
-  source := "ch24 / inventory Claim 20"
+  source := "ch24_birch_swinnerton_dyer / inventory Claim 20"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PrincipiaTractalis.Ch24DescentRatBridge20261017.Ecurve_rank_eq_zero"
@@ -709,7 +725,7 @@ def entry_bsd_rank0_a : ClaimEntry where
     form. -/
 def entry_bsd_rank0_b : ClaimEntry where
   id := "bsd-rank0-y2x3minusx"
-  source := "ch24 / inventory Claim 20"
+  source := "ch24_birch_swinnerton_dyer / inventory Claim 20"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PrincipiaTractalis.Ch24DescentSubRatBridge20261114.Ecurve32a2_rank_eq_zero"
@@ -723,7 +739,7 @@ def entry_bsd_rank0_b : ClaimEntry where
 /-- Claim 21 — rank-≥1 curves by explicit witnesses. -/
 def entry_bsd_rank_ge_one : ClaimEntry where
   id := "bsd-rank-ge-one"
-  source := "ch24 / inventory Claim 21"
+  source := "ch24_birch_swinnerton_dyer / inventory Claim 21"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PrincipiaTractalis.E91a1RankOneCapstone20261022.E91a1_rank_ge_one"
@@ -737,7 +753,7 @@ def entry_bsd_rank_ge_one : ClaimEntry where
 /-- Claim 22 — the Clay BSD capstone V5. -/
 def entry_bsd_clay_v5 : ClaimEntry where
   id := "bsd-clay-capstone-v5"
-  source := "ch24 / inventory Claim 22"
+  source := "ch24_birch_swinnerton_dyer / inventory Claim 22"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED on PF_BSDEncodingV5; NOT a Clay discharge"
   leanName := "PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSD_capstone_yields_Clay_BSD_standardV5"
@@ -753,7 +769,7 @@ def entry_bsd_clay_v5 : ClaimEntry where
 /-- The Heegner split condition, made arithmetic 2026-11-21. -/
 def entry_bsd_heegner : ClaimEntry where
   id := "bsd-heegner-split-condition"
-  source := "ch24 / 2026-11-21 landing"
+  source := "ch24_birch_swinnerton_dyer / 2026-11-21 landing"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED (post-dates the inventory)"
   leanName := "PrincipiaTractalis.BSD_HeegnerHypothesis_Faithful_2026_11_21.heegner_37_neg7"
@@ -772,7 +788,7 @@ def entry_bsd_heegner : ClaimEntry where
 /-- Claim 23 — affine algebraic de Rham. -/
 def entry_hodge_derham : ClaimEntry where
   id := "hodge-affine-de-rham"
-  source := "ch25 / inventory Claim 23"
+  source := "ch25_hodge_conjecture / inventory Claim 23"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PrincipiaTractalis.AlgebraicDeRhamAffine.d1_is_R_linear_Leibniz_with_d_squared_zero"
@@ -785,7 +801,7 @@ def entry_hodge_derham : ClaimEntry where
 /-- Claim 24 — the Clay Hodge capstone. -/
 def entry_hodge_clay : ClaimEntry where
   id := "hodge-clay-capstone"
-  source := "ch25 / inventory Claim 24"
+  source := "ch25_hodge_conjecture / inventory Claim 24"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED on substrate encodings"
   leanName := "PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_capstone_yields_Clay_Hodge_standard"
@@ -800,7 +816,7 @@ def entry_hodge_clay : ClaimEntry where
 /-- Claim 25 — the chapter's worked examples, refuted numerically. -/
 def entry_hodge_numeric_refutation : ClaimEntry where
   id := "hodge-numeric-obstructions"
-  source := "ch25 / inventory Claim 25"
+  source := "ch25_hodge_conjecture / inventory Claim 25"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED negative content"
   leanName := "PrincipiaTractalis.Ch20Ch25Numerics.k3_twentytwo_exceeds_picard_bound"
@@ -816,7 +832,7 @@ def entry_hodge_numeric_refutation : ClaimEntry where
 /-- Claim 26 — ternary-rational occupation. -/
 def entry_ternary_occupation : ClaimEntry where
   id := "map-ternary-occupation"
-  source := "ch26 / inventory Claim 26"
+  source := "ch26-ch27 / inventory Claim 26"
   register := .openStatement
   inventoryStatus := "CONDITIONAL REDUCTION"
   leanName := ""
@@ -830,7 +846,7 @@ def entry_ternary_occupation : ClaimEntry where
 /-- Claims 27–31 — the five cosmology predictions. -/
 def entry_cosmology_five : ClaimEntry where
   id := "cosmology-five-predictions"
-  source := "ch27, ch29, ch34 / inventory Claims 27-31"
+  source := "ch27-ch29 / inventory Claims 27-31"
   register := .empirical
   inventoryStatus := "1/5 soft agreement, 3/5 miss, 1/5 withdrawn"
   leanName := ""
@@ -846,7 +862,7 @@ def entry_cosmology_five : ClaimEntry where
 /-- Claim 32 — the `ch₂ = 0.95` threshold. -/
 def entry_ch2_threshold_empirical : ClaimEntry where
   id := "consciousness-ch2-threshold"
-  source := "ch2, ch30-32 / inventory Claim 32"
+  source := "ch06 + ch30-ch32 / inventory Claim 32"
   register := .empirical
   inventoryStatus := "EMPIRICAL HYPOTHESIS — UNTESTED"
   leanName := ""
@@ -859,7 +875,7 @@ def entry_ch2_threshold_empirical : ClaimEntry where
 /-- The mathematical content behind the threshold, which IS proved. -/
 def entry_ch2_ceiling : ClaimEntry where
   id := "consciousness-ch2-ceiling-iff"
-  source := "ch2 / PF/Ch2ThresholdSelection.lean"
+  source := "ch06_consciousness"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PrincipiaTractalis.Ch2Selection.ceiling_threshold_iff_dimension"
@@ -876,7 +892,7 @@ def entry_ch2_ceiling : ClaimEntry where
 /-- Hardy 1914, faithfully stated 2026-11-21. -/
 def entry_hardy_faithful : ClaimEntry where
   id := "rh-hardy-1914-faithful"
-  source := "ch21 / 2026-11-21 landing"
+  source := "ch20_riemann_hypothesis / 2026-11-21 landing"
   register := .proved
   inventoryStatus := "KERNEL-VERIFIED (post-dates the inventory)"
   leanName := "PrincipiaTractalis.Hardy1914_Faithful_2026_11_21.hardy1914_faithful_yields_nonempty"
@@ -887,6 +903,314 @@ def entry_hardy_faithful : ClaimEntry where
     not state -- those were (_h : Anchor) : Anchor := _h. Hardy 1914 \
     itself remains an undischarged hypothesis."
   obligation := PLift.up @PrincipiaTractalis.Hardy1914_Faithful_2026_11_21.hardy1914_faithful_yields_nonempty
+
+/-! ## §6 — The spine, and the chapters the Clay block left out
+
+**Added 2026-11-21, second pass.** The first pass covered twelve chapter
+files. The book has thirty-seven, and the twelve were the Millennium
+block plus two — because the inventory this ledger lifted is organised by
+Clay axis, and its section labels were taken on trust instead of being
+checked against `main.tex`.
+
+Measured: the book carries **590 Lean citations**; the chapters covered in
+the first pass hold 160 of them. The other **430 sat in 25 files with no
+entry at all** — including `appI_lean_cross_reference` (97 citations, the
+book's own Lean cross-reference appendix) and `ch34A_substrate_theorem`
+(62), which is where the substrate theorem actually lives.
+
+Every module cited below was checked to be **already inside `PF.lean`'s
+transitive closure** (1,638 PF modules), so linking them costs the gate
+nothing. That check is the one that distinguishes a free import from the
+RHBelow15Conditional case, which is outside the closure and is why it
+alone stays cited.
+
+### The register added here
+
+`unformalised` — the chapter makes claims and there is **no Lean
+counterpart at all**, zero citations. Distinct from `openStatement` (a
+faithful statement is written and unproved) and from `unstatable` (it
+cannot be written at this pin). Five chapters are in it, and they are
+spine chapters. That is the honest record of where the theory has no
+formal support, and it was silent before. -/
+
+/-! ### ch01 — the fractal foundation -/
+
+/-- The Hausdorff dimension of the Cantor set. -/
+def entry_cantor_dimension : ClaimEntry where
+  id := "ch01-cantor-hausdorff-dimension"
+  source := "ch01_numbers"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PrincipiaTractalis.CantorFunction.dimH_cantorSet"
+  statement := type_of% @PrincipiaTractalis.CantorFunction.dimH_cantorSet
+  note := "dimH cantorSet = log base 3 of 2, proved by le_antisymm from \
+    an upper bound via bounded covers and a lower bound via a mass \
+    distribution. Real geometric measure theory, and the base-3 reading \
+    is what the substrate's ternary tower rests on. Not in the Clay-shaped \
+    inventory at all."
+  obligation := PLift.up @PrincipiaTractalis.CantorFunction.dimH_cantorSet
+
+/-! ### ch04 — the timeless field, as a local net
+
+This is the chapter I under-credited when first asked what the theory
+proves outside the Millennium problems. I read `TimelessField.lean`,
+found `def`s, and said so. The content is in the net files. -/
+
+/-- **★ The five local-net axioms over the substrate.** -/
+def entry_ternary_net_axioms : ClaimEntry where
+  id := "ch04-ternary-net-five-axioms"
+  source := "ch04_timeless_field"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PrincipiaTractalis.TernaryNetCompleteness.ternary_net_five_axioms"
+  statement := type_of% @PrincipiaTractalis.TernaryNetCompleteness.ternary_net_five_axioms.{0}
+  note := "Five properties of regionAlgebra over SubstrateNet: isotony \
+    (S subset T gives algebra inclusion); LOCALITY (elements of disjoint \
+    regions Commute); additivity (region of a union is the join); the \
+    empty region is bottom; the universal region is top. Those are the \
+    Haag-Kastler axioms for a local net of algebras, proved over a real \
+    tensor-product net -- this is EMERGENT LOCALITY formalised, and it is \
+    the most under-credited result in the corpus."
+  obligation := PLift.up @PrincipiaTractalis.TernaryNetCompleteness.ternary_net_five_axioms.{0}
+
+/-- Additivity over arbitrary unions, not just pairs. -/
+def entry_net_additivity : ClaimEntry where
+  id := "ch04-net-additivity-iUnion"
+  source := "ch04_timeless_field"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PrincipiaTractalis.TernaryNetAdditivity.additivity_iUnion"
+  statement := type_of% @PrincipiaTractalis.TernaryNetAdditivity.additivity_iUnion.{0,0}
+  note := "regionAlgebra of an arbitrary indexed union is the iSup of the \
+    pieces. Strengthens the pairwise additivity axiom to arbitrary index \
+    types."
+  obligation := PLift.up @PrincipiaTractalis.TernaryNetAdditivity.additivity_iUnion.{0,0}
+
+/-- The net is determined by its finite subnets. -/
+def entry_net_finite_approx : ClaimEntry where
+  id := "ch04-net-eq-iSup-finite"
+  source := "ch04_timeless_field"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PrincipiaTractalis.TernaryNetCompleteness.net_eq_iSup_finite"
+  statement := type_of% @PrincipiaTractalis.TernaryNetCompleteness.net_eq_iSup_finite.{0}
+  note := "The algebra of the universal region is the iSup over FINITE \
+    subsets. The net is exhausted by its finite parts, which is what makes \
+    the infinite-volume object tractable from the ternary levels."
+  obligation := PLift.up @PrincipiaTractalis.TernaryNetCompleteness.net_eq_iSup_finite.{0}
+
+/-! ### ch07 — the counter-rotating vortex -/
+
+/-- Two counter-rotating rotors carry positive total rotational energy.
+    Stated with its real scope, which is small. -/
+def entry_counter_rotation : ClaimEntry where
+  id := "ch07-counter-rotation-energy-positive"
+  source := "ch07_constants"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PrincipiaTractalis.Cosmology.VortexCavitationBridge.counter_rotation_energy_pos"
+  statement := type_of% @PrincipiaTractalis.Cosmology.VortexCavitationBridge.counter_rotation_energy_pos
+  note := "0 < I1*w^2/2 + I2*(-w)^2/2 for positive moments of inertia and \
+    nonzero w. TRUE, and SMALL: it is positivity of a sum of two squares, \
+    proved by nlinarith. It does NOT establish zero-point energy \
+    extraction, wave-function collapse, or anything about consciousness -- \
+    it says the total rotational kinetic energy of two counter-rotating \
+    rotors is positive. Recorded at that scope deliberately."
+  obligation := PLift.up @PrincipiaTractalis.Cosmology.VortexCavitationBridge.counter_rotation_energy_pos
+
+/-! ### ch09 — the H₃ icosahedral anchor -/
+
+def entry_h3_origin : ClaimEntry where
+  id := "ch09-h3-icosahedral-origin"
+  source := "ch09_spectral_unity"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PrincipiaFractalis.H3CoxeterOrigin.H3_icosahedral_origin_capstone"
+  statement := type_of% @PrincipiaFractalis.H3CoxeterOrigin.H3_icosahedral_origin_capstone
+  note := "Coxeter number h(H3) = 10, exponent sum 15 from the exponent \
+    list, half-argument 2pi/h/2 = pi/10. Classical facts about the \
+    icosahedral group, proved. The coupling formula that USES them -- \
+    alpha = pi/(10 |lambda|) -- is a framework posit, not proved here."
+  obligation := PLift.up @PrincipiaFractalis.H3CoxeterOrigin.H3_icosahedral_origin_capstone
+
+def entry_sin_pi_ten : ClaimEntry where
+  id := "ch09-sin-pi-over-ten"
+  source := "ch09_spectral_unity"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PrincipiaFractalis.H3CoxeterOrigin.sin_pi_div_ten_eq_inv_two_phi"
+  statement := type_of% @PrincipiaFractalis.H3CoxeterOrigin.sin_pi_div_ten_eq_inv_two_phi
+  note := "sin(pi/10) = 1/(2 phi). A genuine identity tying the H3 \
+    half-argument to the golden ratio -- the one place the golden ratio \
+    enters by computation rather than by posit."
+  obligation := PLift.up @PrincipiaFractalis.H3CoxeterOrigin.sin_pi_div_ten_eq_inv_two_phi
+
+/-! ### ch16 — the substrate as an operator algebra -/
+
+def entry_substrate_noncomm : ClaimEntry where
+  id := "ch16-substrate-not-commutative"
+  source := "ch16_spectral_foundations"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PrincipiaTractalis.SubstrateNotCommutative.substrate_not_commutative"
+  statement := type_of% @PrincipiaTractalis.SubstrateNotCommutative.substrate_not_commutative
+  note := "There exist a b in the completion with a*b != b*a, witnessed at \
+    level 1. Small but load-bearing: it rules out the commutative \
+    (function-algebra) reading of the substrate, which several of the \
+    framework's own arguments would collapse under."
+  obligation := PLift.up @PrincipiaTractalis.SubstrateNotCommutative.substrate_not_commutative
+
+def entry_substrate_closure : ClaimEntry where
+  id := "ch16-substrate-norm-closure"
+  source := "ch16_spectral_foundations"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PrincipiaTractalis.SubstrateNotCommutative.substrate_is_norm_closure_of_finite_matrix_levels"
+  statement := type_of% @PrincipiaTractalis.SubstrateNotCommutative.substrate_is_norm_closure_of_finite_matrix_levels
+  note := "DenseRange of the finite-level embeddings: the substrate IS the \
+    norm closure of the 3^k matrix levels. This is what makes the UHF \
+    description a description and not a label."
+  obligation := PLift.up @PrincipiaTractalis.SubstrateNotCommutative.substrate_is_norm_closure_of_finite_matrix_levels
+
+/-! ### ch34A — the α-cascade and its falsifiability apparatus
+
+The strongest epistemics in the corpus, and absent from the first pass.
+These are counter-models: the framework proving its own hypotheses are
+non-redundant. -/
+
+def entry_two_anchor_zero_dof : ClaimEntry where
+  id := "ch34A-two-anchor-zero-dof"
+  source := "ch34A_substrate_theorem"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PF.TwoAnchorCascade.two_anchor_zero_dof"
+  statement := type_of% @PF.TwoAnchorCascade.two_anchor_zero_dof
+  note := "Given the two external anchors (a_Poincare = 1 from Perelman, \
+    a_NS = 3pi/2 from the 2026 NS chain) plus the structural identities, \
+    any alternative assignment satisfying the same identities coincides -- \
+    zero degrees of freedom. A uniqueness result about the cascade, not \
+    about physics."
+  obligation := PLift.up @PF.TwoAnchorCascade.two_anchor_zero_dof
+
+/-- **★ A counter-model showing the Perelman anchor does real work.** -/
+def entry_anchor_necessary : ClaimEntry where
+  id := "ch34A-perelman-anchor-necessary"
+  source := "ch34A_substrate_theorem"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PF.Referee.MinimalSubstrateRigidityAnchorNecessity.perelman_anchor_is_strictly_necessary"
+  statement := type_of% @PF.Referee.MinimalSubstrateRigidityAnchorNecessity.perelman_anchor_is_strictly_necessary
+  note := "Exhibits an alpha-assignment satisfying ALL the minimal \
+    invariants, with the positivity conditions, and a_Poincare != 1. So \
+    the invariants alone do NOT force the anchor -- the Perelman input is \
+    load-bearing rather than decorative. This is the framework building a \
+    counter-model against itself, which is the discipline that makes its \
+    other labels credible."
+  obligation := PLift.up @PF.Referee.MinimalSubstrateRigidityAnchorNecessity.perelman_anchor_is_strictly_necessary
+
+/-- **★ A counter-model for each invariant: none is redundant.** -/
+def entry_invariants_independent : ClaimEntry where
+  id := "ch34A-invariants-independent"
+  source := "ch34A_substrate_theorem"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PF.Referee.MinimalSubstrateRigidityIndependence.minimal_invariants_are_strictly_independent"
+  statement := type_of% @PF.Referee.MinimalSubstrateRigidityIndependence.minimal_invariants_are_strictly_independent
+  note := "For EACH minimal invariant, an assignment satisfying the others \
+    and violating that one. So the invariant set is strictly independent \
+    and nothing in it is implied by the rest. Same discipline as \
+    entry_anchor_necessary and the same value: it is what distinguishes a \
+    constraint system from a list of coincidences."
+  obligation := PLift.up @PF.Referee.MinimalSubstrateRigidityIndependence.minimal_invariants_are_strictly_independent
+
+def entry_five_way_falsifiability : ClaimEntry where
+  id := "ch34A-five-way-falsifiability"
+  source := "ch34A_substrate_theorem"
+  register := .proved
+  inventoryStatus := "KERNEL-VERIFIED (outside the inventory's scope)"
+  leanName := "PF.TwoAnchorCascade.five_way_falsifiability"
+  statement := type_of% @PF.TwoAnchorCascade.five_way_falsifiability
+  note := "The cascade's exposure: from two anchors plus the identities, \
+    five further alpha-values are forced, so an external result \
+    contradicting any one of them refutes an anchor or an identity. RH was \
+    one of those five points and was settled externally 2026-11-20 -- \
+    consistent with the framework, which asserts RH. Four points remain \
+    live."
+  obligation := PLift.up @PF.TwoAnchorCascade.five_way_falsifiability
+
+/-! ### The chapters with no Lean at all
+
+Measured from the per-file citation audit: these chapter files contain
+**zero** Lean citations. Four of the five are spine chapters, which is the
+substantive version of "this is not about the Millennium problems". -/
+
+def entry_ch08_unformalised : ClaimEntry where
+  id := "ch08-modified-field-equations"
+  source := "ch08_field_equations"
+  register := .unformalised
+  inventoryStatus := "no Lean counterpart — 0 citations"
+  leanName := ""
+  statement := True
+  note := "The modified Einstein field equations. ZERO Lean citations in \
+    the chapter. The corpus has GeneralRelativity.lean and \
+    Ch08Ch14ModifiedRelativity.lean, but the chapter cites neither, so \
+    there is no book-to-Lean binding to audit here."
+  obligation := PUnit.unit
+
+def entry_ch11_unformalised : ClaimEntry where
+  id := "ch11-geometric-unity-weinstein"
+  source := "ch11_geometric_unity + appE_weinstein"
+  register := .unformalised
+  inventoryStatus := "no Lean counterpart — 0 citations in either file"
+  leanName := ""
+  statement := True
+  note := "The Weinstein Geometric Unity rescue. ZERO Lean citations in \
+    the chapter AND zero in its appendix. Thirteen corpus files mention \
+    Weinstein (WeinsteinGUResonantRescue, GravitomagneticRescue), so the \
+    material exists -- it is the BINDING from book to Lean that is absent."
+  obligation := PUnit.unit
+
+def entry_ch12_unformalised : ClaimEntry where
+  id := "ch12-qft-consciousness"
+  source := "ch12_qft_consciousness"
+  register := .unformalised
+  inventoryStatus := "no Lean counterpart — 0 citations"
+  leanName := ""
+  statement := True
+  note := "QFT and consciousness. ZERO Lean citations, though \
+    Consciousness/Ch12QFTLagrangian.lean exists in the corpus. Same \
+    pattern as ch11: content present, binding absent."
+  obligation := PUnit.unit
+
+def entry_clinical_unformalised : ClaimEntry where
+  id := "ch30-32-clinical-consciousness"
+  source := "ch30_clinical + ch31_neuroscience_iit + ch32_quantification"
+  register := .unformalised
+  inventoryStatus := "no Lean counterpart — 0 citations across all three"
+  leanName := ""
+  statement := True
+  note := "The clinical consciousness chapters, including the 97.3%-over- \
+    847-patients figure. ZERO Lean citations across all three, and \
+    appC_clinical also has zero. That is the CORRECT state for a clinical \
+    result -- it is a measurement, not a theorem -- but it needs recording \
+    rather than silence, and the ch2 >= 0.95 threshold it reports is \
+    EMPIRICAL-UNTESTED per entry_ch2_threshold_empirical."
+  obligation := PUnit.unit
+
+def entry_grothendieck_unformalised : ClaimEntry where
+  id := "appendix-grothendieck"
+  source := "appendix_grothendieck"
+  register := .unformalised
+  inventoryStatus := "no Lean counterpart — 0 citations"
+  leanName := ""
+  statement := True
+  note := "The Grothendieck appendix. ZERO Lean citations. The corpus has \
+    375 files touching Grothendieck/descent/sheaf/gluing vocabulary -- \
+    including AlgebraicDeRhamD1Descent_r355 -- so this is the largest \
+    content-to-binding gap in the book: a great deal of Lean, and an \
+    appendix that cites none of it. The Grothendieck-gluing arrow of the \
+    spine has no formal anchor in the manuscript as written."
+  obligation := PUnit.unit
 
 /-- The ledger. -/
 def ledger : List ClaimEntry :=
@@ -914,7 +1238,18 @@ def ledger : List ClaimEntry :=
     entry_fermat_encoding, entry_fermat_n4_diff,
     -- substrate to observable, and consciousness
     entry_ternary_occupation, entry_cosmology_five,
-    entry_ch2_threshold_empirical, entry_ch2_ceiling ]
+    entry_ch2_threshold_empirical, entry_ch2_ceiling,
+    -- the spine and the chapters the Clay block left out (2026-11-21, pass 2)
+    entry_cantor_dimension,
+    entry_ternary_net_axioms, entry_net_additivity, entry_net_finite_approx,
+    entry_counter_rotation,
+    entry_h3_origin, entry_sin_pi_ten,
+    entry_substrate_noncomm, entry_substrate_closure,
+    entry_two_anchor_zero_dof, entry_anchor_necessary,
+    entry_invariants_independent, entry_five_way_falsifiability,
+    entry_ch08_unformalised, entry_ch11_unformalised,
+    entry_ch12_unformalised, entry_clinical_unformalised,
+    entry_grothendieck_unformalised ]
 
 /-! ## §4 — The gates
 
@@ -924,7 +1259,7 @@ asserted. They are deliberately cheap, so they can run in CI. -/
 /-- Coverage gate: the ledger has the expected number of entries. Bump
     this deliberately when an entry is added, so a silent deletion fails
     the build. -/
-theorem ledger_coverage : ledger.length = 39 := rfl
+theorem ledger_coverage : ledger.length = 57 := rfl
 
 /-- **The honesty gate.** Six of these ten entries are *not* in the
     `proved` register, and the type system has already forced each to
