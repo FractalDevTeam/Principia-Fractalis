@@ -1,0 +1,85 @@
+Meta-capstone axiom bars — captured 2026-11-22 14:08:59 MST
+Toolchain: Lake version 5.0.0-src+919e297 (Lean version 4.24.0-rc1)
+Tree: /home/xluxx/pf-legion-20261120/PF_Lean4_Code
+
+These seven modules had NEVER been compiled before 2026-11-22. They are
+not in PF.lean's hand-maintained import list, so 'lake build PF' never
+reached them; adding globs = ["PF.+"] to the lean_lib is what exposed
+them. Each line below is the kernel's own #print axioms output.
+
+==================================================================
+MODULE  PF.PrincipiaFractalisToEMetaCapstone_2026_11_16
+FILE    PrincipiaFractalisToEMetaCapstone_2026_11_16.lean
+NS      PF.PrincipiaFractalisToEMetaCapstone
+OLEAN   present
+------------------------------------------------------------------
+'PF.PrincipiaFractalisToEMetaCapstone.principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+
+==================================================================
+MODULE  PF.Referee.ClayResidualFrontierMetaCapstone_2026_06_18
+FILE    Referee/ClayResidualFrontierMetaCapstone_2026_06_18.lean
+NS      PF.Referee.ClayResidualFrontierMetaCapstone_2026_06_18
+OLEAN   present
+------------------------------------------------------------------
+'PF.Referee.ClayResidualFrontierMetaCapstone_2026_06_18.clay_residual_frontier_2026_06_18' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PF.Referee.ClayResidualFrontierMetaCapstone_2026_06_18.framework_finishes_all_six_from_atomic_facts' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+
+==================================================================
+MODULE  PF.Referee.SubstrateRigidityEndToEndMetaCapstone
+FILE    Referee/SubstrateRigidityEndToEndMetaCapstone.lean
+NS      PF.Referee.SubstrateRigidityEndToEndMetaCapstone
+OLEAN   present
+------------------------------------------------------------------
+'PF.Referee.SubstrateRigidityEndToEndMetaCapstone.substrate_rigidity_end_to_end_meta_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+
+==================================================================
+MODULE  PF.Referee.BulletproofingMetaCapstone_2026_06_17
+FILE    Referee/BulletproofingMetaCapstone_2026_06_17.lean
+NS      PF.Referee.BulletproofingMetaCapstone_2026_06_17
+OLEAN   present
+------------------------------------------------------------------
+'PF.Referee.BulletproofingMetaCapstone_2026_06_17.bulletproofing_2026_06_17_meta_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+
+==================================================================
+MODULE  PF.ClassicalAnchoringMetaCapstone_2026_06_17
+FILE    ClassicalAnchoringMetaCapstone_2026_06_17.lean
+NS      PrincipiaTractalis
+OLEAN   present
+------------------------------------------------------------------
+/home/xluxx/pflogs/_ax_probe.lean:2:14: error(lean.unknownIdentifier): Unknown constant `PrincipiaTractalis.classical_anchoring_meta_capstone_2026_06_17`
+
+==================================================================
+MODULE  PF.AlphaFunPatternsMetaCapstone_2026_06_17
+FILE    AlphaFunPatternsMetaCapstone_2026_06_17.lean
+NS      PrincipiaTractalis
+OLEAN   present
+------------------------------------------------------------------
+
+==================================================================
+MODULE  PF.TuringEncoding.PNeqNPCollapsesToEnumBridge
+FILE    TuringEncoding/PNeqNPCollapsesToEnumBridge.lean
+NS      PrincipiaTractalis
+OLEAN   present
+------------------------------------------------------------------
+/home/xluxx/pflogs/_ax_probe.lean:2:14: error(lean.unknownIdentifier): Unknown constant `PrincipiaTractalis.PvsNP_axis_collapses_to_EnumBridge`
+/home/xluxx/pflogs/_ax_probe.lean:3:14: error(lean.unknownIdentifier): Unknown constant `PrincipiaTractalis.EnumBridge_from_literal_P_neq_NP`
+/home/xluxx/pflogs/_ax_probe.lean:4:14: error(lean.unknownIdentifier): Unknown constant `PrincipiaTractalis.PF_attack_outside_both_historical_barriers`
+/home/xluxx/pflogs/_ax_probe.lean:5:14: error(lean.unknownIdentifier): Unknown constant `PrincipiaTractalis.PvsNP_reduction_biconditional`
+/home/xluxx/pflogs/_ax_probe.lean:6:14: error(lean.unknownIdentifier): Unknown constant `PrincipiaTractalis.Clay_PvsNP_via_EnumBridge_capstone`
+
+==================================================================
+SUMMARY
+  axiom-bar lines total     : 5
+  lines NOT on the 3 axioms : 0
+  sorryAx occurrences       : 0
+  does not depend on any axioms (RED FLAG, all-True): 0
