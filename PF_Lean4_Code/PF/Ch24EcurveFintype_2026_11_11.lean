@@ -72,20 +72,29 @@ theorem point_is_zero_or_P0 (P : Ecurve.toAffine.Point) :
         rw [WeierstrassCurve.Affine.equation_iff] at h1
         simp only [Ecurve] at h1
         linarith
-      have hxy : x = 0 ∧ y = 0 := solutions_are_origin hEq
+      obtain ⟨hx, hy⟩ : x = 0 ∧ y = 0 := solutions_are_origin hEq
       right
-      -- The points at (0, 0) are the same up to proof irrelevance of Nonsingular.
-      subst hxy.1
-      subst hxy.2
+      -- `subst` needs a variable, not a projection, so the
+      -- conjunction is destructured above.
+      subst hx
+      subst hy
       rfl
 
 /-! ## §3 — `Fintype` instance with card = 2 -/
 
-/-- `Ecurve(ℚ) = {0, P0}` as a `Finset`. -/
-def ecurveFinset : Finset Ecurve.toAffine.Point := {0, P0}
+/-- `Ecurve(ℚ) = {0, P0}` as a `Finset`.
+
+    `{0, P0}` is `insert 0 {P0}`, which needs `DecidableEq` on the
+    point type. Equality of rational points is decidable in
+    principle but no instance is available here, so this uses the
+    classical one and is therefore `noncomputable` -- which costs
+    nothing, since only the cardinality is ever used. -/
+noncomputable def ecurveFinset : Finset Ecurve.toAffine.Point :=
+  letI : DecidableEq Ecurve.toAffine.Point := Classical.decEq _
+  {0, P0}
 
 /-- The `Fintype` instance follows from `point_is_zero_or_P0`. -/
-instance : Fintype Ecurve.toAffine.Point where
+noncomputable instance : Fintype Ecurve.toAffine.Point where
   elems := ecurveFinset
   complete P := by
     rcases point_is_zero_or_P0 P with hP | hP
@@ -103,7 +112,11 @@ theorem Ecurve_finite : Finite Ecurve.toAffine.Point := Finite.of_fintype _
 theorem Ecurve_card :
     Fintype.card Ecurve.toAffine.Point = 2 := by
   show (ecurveFinset).card = 2
-  simp [ecurveFinset, Finset.card_insert_of_notMem, P0_ne_zero.symm]
+  letI : DecidableEq Ecurve.toAffine.Point := Classical.decEq _
+  rw [show ecurveFinset
+        = insert 0 ({P0} : Finset Ecurve.toAffine.Point) from rfl,
+      Finset.card_insert_of_notMem (by simpa using P0_ne_zero.symm),
+      Finset.card_singleton]
 
 end Ch24EcurveFintype20261111
 end PrincipiaTractalis

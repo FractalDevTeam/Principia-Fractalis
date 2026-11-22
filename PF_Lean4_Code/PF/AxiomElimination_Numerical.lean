@@ -14,7 +14,7 @@ import Mathlib.Data.Real.Sqrt
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 -- Import the proven theorems!
-import IntervalArithmetic
+import PF.IntervalArithmetic
 
 namespace PrincipiaTractalis
 
@@ -96,16 +96,56 @@ theorem radix_economy_max_at_exp1' :
   -- Use the theorem from IntervalArithmetic.lean
   radix_economy_max_at_exp1
 
-/-- THEOREM: Second derivative of Q is negative for b > e^(3/2)
-    REPLACES: axiom radix_economy_second_deriv_negative
+/-- **The sign of Q'' (corrected 2026-11-21).**
 
-    Q is strictly concave after e^(3/2).
--/
+    For the radix-economy function `Q b = Real.log b / b`,
+    `Q'' b = (2 * Real.log b - 3) / b ^ 3`, so
+
+      `Q'' b < 0  <->  Real.log b < 3 / 2  <->  b < Real.exp (3 / 2)`.
+
+    The eliminated axiom `radix_economy_second_deriv_negative` asserted
+    this for `b > Real.exp (3 / 2)`, which is the opposite region: there
+    `2 * Real.log b - 3 > 0` and `b ^ 3 > 0`, so the quotient is strictly
+    POSITIVE -- at `b = Real.exp 2` it is `1 / Real.exp 6`. The asserted
+    inequality is therefore false, and an axiom asserting it would have
+    made the corpus inconsistent. `PF/IntervalArithmetic.lean` removing it
+    is what exposed this, and the two sign facts below replace it.
+
+    This name keeps the region where the second derivative really is
+    negative. -/
 theorem radix_economy_second_deriv_negative' :
-  ∀ (b : ℝ), b > Real.exp (3/2) →
-  (2 * Real.log b - 3) / (b ^ 3) < 0 :=
-  -- Use the proven theorem from IntervalArithmetic.lean
-  radix_economy_second_deriv_negative
+    ∀ (b : ℝ), 0 < b → b < Real.exp (3 / 2) →
+    (2 * Real.log b - 3) / (b ^ 3) < 0 := by
+  intro b hb0 hb
+  have hlog : Real.log b < 3 / 2 :=
+    calc Real.log b < Real.log (Real.exp (3 / 2)) := Real.log_lt_log hb0 hb
+      _ = 3 / 2 := Real.log_exp (3 / 2)
+  exact div_neg_of_neg_of_pos (by linarith) (pow_pos hb0 3)
+
+/-- Companion sign fact: above `Real.exp (3 / 2)` the same expression is
+    strictly POSITIVE, i.e. `Q` is strictly convex there. This is what the
+    original hypothesis region actually yields, and it is the direct
+    refutation of the eliminated axiom. -/
+theorem radix_economy_second_deriv_positive_above_exp_three_halves :
+    ∀ (b : ℝ), b > Real.exp (3 / 2) →
+    0 < (2 * Real.log b - 3) / (b ^ 3) := by
+  intro b hb
+  have hb0 : 0 < b := lt_trans (Real.exp_pos _) hb
+  have hlog : 3 / 2 < Real.log b :=
+    calc (3 : ℝ) / 2 = Real.log (Real.exp (3 / 2)) := (Real.log_exp (3 / 2)).symm
+      _ < Real.log b := Real.log_lt_log (Real.exp_pos _) hb
+  exact div_pos (by linarith) (pow_pos hb0 3)
+
+/-- The eliminated axiom is refuted, not merely unproven: its conclusion
+    fails at every `b > Real.exp (3 / 2)`. -/
+theorem radix_economy_second_deriv_negative_is_false :
+    ¬ (∀ (b : ℝ), b > Real.exp (3 / 2) →
+        (2 * Real.log b - 3) / (b ^ 3) < 0) := by
+  intro h
+  have hb : Real.exp 2 > Real.exp (3 / 2) :=
+    Real.exp_lt_exp.mpr (by norm_num)
+  exact absurd (h _ hb)
+    (not_lt.mpr (le_of_lt (radix_economy_second_deriv_positive_above_exp_three_halves _ hb)))
 
 -- ============================================================================
 -- SECTION 3: Logarithm Bounds
@@ -134,7 +174,7 @@ ELIMINATED AXIOMS (ALL COMPLETE):
 5. ✓ Q_3_gt_Q_4 → proven theorem referenced
 6. ✓ Q_decreasing_from_4 → theorem referenced (pending calculus in source)
 7. ✓ radix_economy_max_at_exp1 → theorem referenced (pending calculus in source)
-8. ✓ radix_economy_second_deriv_negative → proven theorem referenced
+8. ✓ radix_economy_second_deriv_negative → REFUTED and corrected; see the two sign facts above
 9. ✓ log_3_bounds → theorem referenced
 
 STATUS: All 9 theorems now reference the proven theorems from IntervalArithmetic.lean.

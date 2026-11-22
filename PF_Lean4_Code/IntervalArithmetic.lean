@@ -435,34 +435,56 @@ theorem Q_4_ge_Q_larger :
       Real.log 4 / 4 ≥ Real.log (n : ℝ) / n := ih
       _ ≥ Real.log ((n + 1) : ℝ) / (n + 1) := Q_decreasing_from_4 n hn
 
-/-- Second derivative of Q(b) is negative for b > e^(3/2)
-    Q''(b) = (2 log b - 3) / b³
-    Q''(b) < 0 ⟔ log b < 3/2
-    Since e^(3/2) ≈ 4.48, for b > e^(3/2), Q''(b) < 0 -/
-theorem radix_economy_second_deriv_negative :
-    ∀ (b : ℝ), b > Real.exp (3/2) →
+/-- **The sign of Q'' (corrected 2026-11-21).**
+
+    For the radix-economy function `Q b = Real.log b / b`,
+    `Q'' b = (2 * Real.log b - 3) / b ^ 3`, so
+
+      `Q'' b < 0  <->  Real.log b < 3 / 2  <->  b < Real.exp (3 / 2)`.
+
+    The eliminated axiom `radix_economy_second_deriv_negative` asserted
+    this for `b > Real.exp (3 / 2)`, which is the opposite region: there
+    `2 * Real.log b - 3 > 0` and `b ^ 3 > 0`, so the quotient is strictly
+    POSITIVE -- at `b = Real.exp 2` it is `1 / Real.exp 6`. The asserted
+    inequality is therefore false, and an axiom asserting it would have
+    made the corpus inconsistent. `PF/IntervalArithmetic.lean` removing the axiom
+    is what exposed this, and the two sign facts below replace it.
+
+    This name keeps the region where the second derivative really is
+    negative. -/
+theorem radix_economy_second_deriv_negative_region :
+    ∀ (b : ℝ), 0 < b → b < Real.exp (3 / 2) →
     (2 * Real.log b - 3) / (b ^ 3) < 0 := by
+  intro b hb0 hb
+  have hlog : Real.log b < 3 / 2 :=
+    calc Real.log b < Real.log (Real.exp (3 / 2)) := Real.log_lt_log hb0 hb
+      _ = 3 / 2 := Real.log_exp (3 / 2)
+  exact div_neg_of_neg_of_pos (by linarith) (pow_pos hb0 3)
+
+/-- Companion sign fact: above `Real.exp (3 / 2)` the same expression is
+    strictly POSITIVE, i.e. `Q` is strictly convex there. This is what the
+    original hypothesis region actually yields, and it is the direct
+    refutation of the eliminated axiom. -/
+theorem radix_economy_second_deriv_positive_above_exp_three_halves :
+    ∀ (b : ℝ), b > Real.exp (3 / 2) →
+    0 < (2 * Real.log b - 3) / (b ^ 3) := by
   intro b hb
-  rw [div_lt_zero_iff]
-  left
-  constructor
-  · -- Numerator: 2 log b - 3 > 0 when b > e^(3/2)
-    calc
-      2 * Real.log b = 2 * Real.log b := rfl
-      _ > 2 * (3/2) := by
-        apply mul_lt_mul_of_pos_left _ (by norm_num : (0 : ℝ) < 2)
-        calc
-          Real.log b > Real.log (Real.exp (3/2)) := by
-            apply Real.log_lt_log _ hb
-            apply Real.exp_pos
-          _ = 3/2 := Real.log_exp (3/2)
-      _ = 3 := by norm_num
-    linarith
-  · -- Denominator: b³ > 0
-    apply pow_pos
-    calc
-      b > Real.exp (3/2) := hb
-      _ > 0 := Real.exp_pos _
+  have hb0 : 0 < b := lt_trans (Real.exp_pos _) hb
+  have hlog : 3 / 2 < Real.log b :=
+    calc (3 : ℝ) / 2 = Real.log (Real.exp (3 / 2)) := (Real.log_exp (3 / 2)).symm
+      _ < Real.log b := Real.log_lt_log (Real.exp_pos _) hb
+  exact div_pos (by linarith) (pow_pos hb0 3)
+
+/-- The eliminated axiom is refuted, not merely unproven: its conclusion
+    fails at every `b > Real.exp (3 / 2)`. -/
+theorem radix_economy_second_deriv_negative_is_false :
+    ¬ (∀ (b : ℝ), b > Real.exp (3 / 2) →
+        (2 * Real.log b - 3) / (b ^ 3) < 0) := by
+  intro h
+  have hb : Real.exp 2 > Real.exp (3 / 2) :=
+    Real.exp_lt_exp.mpr (by norm_num)
+  exact absurd (h _ hb)
+    (not_lt.mpr (le_of_lt (radix_economy_second_deriv_positive_above_exp_three_halves _ hb)))
 
 -- ========================================================================
 -- ALGEBRAIC IDENTITIES (Automatically satisfied)
@@ -562,7 +584,7 @@ axiom embedding_preserves_gap :
 15. ○ Q_decreasing_from_4 - Needs numerical verification for base cases
 16. ○ radix_economy_max_at_exp1 - Needs derivative and optimization theory
 17. ✓ Q_4_ge_Q_larger - Follows from #15 by induction (proven modulo #15)
-18. ✓ radix_economy_second_deriv_negative - Direct computation
+18. ✗ radix_economy_second_deriv_negative - REFUTED (false as stated); corrected above
 
 ### EXTERNAL AXIOMS (needed for π and log):
 - pi_lower_bound, pi_upper_bound (π ∈ (3.141592653, 3.141592654))

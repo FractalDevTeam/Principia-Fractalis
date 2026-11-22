@@ -110,7 +110,7 @@ theorem inverseBranch_continuous (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
 /-- The inverse branch $y_k(x) = (x + k)/b$ is Borel measurable on
     $\mathbb{R}$ when $b \ge 1$ (which is the only regime the transfer
     operator framework uses; in particular $b = 3$). -/
-theorem inverseBranch_measurable (b : ℕ) (k : Fin b) (hb : b ≥ 1) :
+theorem inverseBranch_measurable_of_one_le (b : ℕ) (k : Fin b) (hb : b ≥ 1) :
     Measurable (fun x : ℝ => inverseBranch b k x) := by
   have hb_pos : (0 : ℝ) < (b : ℝ) := by exact_mod_cast (Nat.lt_of_lt_of_le Nat.zero_lt_one hb)
   exact (inverseBranch_continuous b k (ne_of_gt hb_pos)).measurable
@@ -163,11 +163,11 @@ theorem weightFunction_bounded (b : ℕ) (k : Fin b) (x : ℝ) :
     exact Real.sqrt_nonneg _
 
 /-- Composition of a measurable function with the inverse branch is
-    measurable. Direct consequence of `inverseBranch_measurable`. -/
+    measurable. Direct consequence of `inverseBranch_measurable_of_one_le`. -/
 theorem Measurable.comp_inverseBranch {α : Type*} [MeasurableSpace α]
     {f : ℝ → α} (hf : Measurable f) (b : ℕ) (k : Fin b) (hb : b ≥ 1) :
     Measurable (fun x : ℝ => f (inverseBranch b k x)) :=
-  hf.comp (inverseBranch_measurable b k hb)
+  hf.comp (inverseBranch_measurable_of_one_le b k hb)
 
 /-- The inverse branch is injective on $\mathbb{R}$ (when $b \ne 0$).
 
@@ -249,7 +249,7 @@ theorem inverseBranch_measurableEmbedding (b : ℕ) (k : Fin b) (hb : (b : ℝ) 
     (hb_ge : b ≥ 1) :
     MeasurableEmbedding (fun x : ℝ => inverseBranch b k x) :=
   MeasurableEmbedding.of_measurable_inverse
-    (inverseBranch_measurable b k hb_ge)
+    (inverseBranch_measurable_of_one_le b k hb_ge)
     (inverseBranch_range_measurable b k hb)
     (inverseBranchInverse_measurable b k)
     (inverseBranchInverse_leftInverse b k hb)
@@ -293,7 +293,7 @@ theorem inverseBranchInverse_measurableEmbedding (b : ℕ) (k : Fin b)
         field_simp
         ring
       rw [this]; exact MeasurableSet.univ)
-    (inverseBranch_measurable b k hb_ge)
+    (inverseBranch_measurable_of_one_le b k hb_ge)
     (inverseBranchInverse_rightInverse b k hb)
 
 /-- The `Equiv` (bijection) between $\mathbb{R}$ and itself given by
@@ -315,7 +315,7 @@ noncomputable def inverseBranch_equiv (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 
 noncomputable def inverseBranch_measurableEquiv (b : ℕ) (k : Fin b)
     (hb : (b : ℝ) ≠ 0) (hb_ge : b ≥ 1) : ℝ ≃ᵐ ℝ where
   toEquiv := inverseBranch_equiv b k hb
-  measurable_toFun := inverseBranch_measurable b k hb_ge
+  measurable_toFun := inverseBranch_measurable_of_one_le b k hb_ge
   measurable_invFun := inverseBranchInverse_measurable b k
 
 /-- The volume pushforward identity for the inverse branch:
@@ -388,7 +388,7 @@ theorem inverseBranch_lintegral_change_of_variables (b : ℕ) (k : Fin b)
 /-- `inverseBranch b k` is a `MeasurePreserving` map from volume to
     the scaled measure `ENNReal.ofReal b • volume`.
 
-    Packages `inverseBranch_measurable` (commit ab98579) and
+    Packages `inverseBranch_measurable_of_one_le` (commit ab98579) and
     `inverseBranch_volume_map` (commit 91d3254) into mathlib's
     `MeasurePreserving` structure. Useful for downstream API that
     expects this packaged form (e.g., for `MeasurePreserving.lintegral_comp`
@@ -398,7 +398,7 @@ theorem inverseBranch_measurePreserving (b : ℕ) (k : Fin b)
     MeasureTheory.MeasurePreserving (fun x : ℝ => inverseBranch b k x)
                                     volume
                                     (ENNReal.ofReal (b : ℝ) • volume) where
-  measurable := inverseBranch_measurable b k hb_ge
+  measurable := inverseBranch_measurable_of_one_le b k hb_ge
   map_eq := inverseBranch_volume_map b k hb
 
 /-- The set-restricted change-of-variables identity for the inverse branch:
@@ -486,7 +486,7 @@ theorem expandingMap_image_in_unit_interval (b : ℕ) (x : ℝ) :
     condition), which is then handled by `Measurable.ite` over the
     measurable predicate $\{x > 0\} \cap \{x + k > 0\}$ with both
     branches measurable. -/
-theorem weightFunction_measurable (b : ℕ) (k : Fin b) :
+theorem weightFunction_measurable_local (b : ℕ) (k : Fin b) :
     Measurable (fun x : ℝ => weightFunction b k x) := by
   -- Convert dite to ite: the body doesn't use the bound proof.
   have heq : (fun x : ℝ => weightFunction b k x)
@@ -694,52 +694,90 @@ theorem transferOperator_pointwise_norm_sq_bound (b : ℕ) (hb : b ≥ 1)
     _ = (1 / (b : ℝ)) * ∑ k, (weightFunction b k x)^2 * ‖vals k‖^2 := by
         field_simp
 
-/-- Pointwise norm-squared bound on `transferOperatorAction`'s output,
-    for any unit-modulus phase family.
+/-- Pointwise norm-squared bound on the transfer operator's explicit
+    formula, for any unit-modulus phase family.
 
     Plumbs `transferOperator_pointwise_norm_sq_bound` (the abstract
-    pointwise estimate) onto the concrete structural `toFun` field
-    of `transferOperatorAction` from `PF/TransferOperator.lean`.
-
-    The structural definition unfolds to exactly the abstract pattern
-    $\frac{1}{b}\sum_k \omega_k \cdot w_k(x) \cdot f(y_k(x))$, with the
-    inverse-branch bounds proof inline; here we extract the abstract
-    pointwise bound at each $x \in [0, 1]$.
+    pointwise estimate) onto `transferOperatorAction_func`
+    (`PF/TransferOperator.lean:1216`), whose body is exactly the abstract
+    pattern $\frac{1}{b}\sum_k \omega_k \cdot w_k(x) \cdot f(y_k(x))$.
 
     Combined with the Radon-Nikodym identity
     `weight_squared_times_inverseBranch` (which gives
     $w_k(x)^2 = x / y_k(x)$ on the active domain), and integration
     against $d\mu_{\log}(x) = dx/x$ plus the change-of-variables
     formula per branch, this yields the Mayer 1991 bound
-    $\|T_b f\|_{L^2(d\mu_{\log})} \le \|f\|_{L^2(d\mu_{\log})}$. -/
-theorem transferOperatorAction_norm_sq_bound (b : ℕ) (hb : b ≥ 1)
+    $\|T_b f\|_{L^2(d\mu_{\log})} \le \|f\|_{L^2(d\mu_{\log})}$.
+
+    Stated on `transferOperatorAction_func` rather than on
+    `transferOperatorAction`: the latter is a `MemLp.toLp` construction
+    (an a.e.-equivalence class), so it has no pointwise values to bound.
+    The Lp-level consequence is
+    `transferOperatorAction_norm_sq_bound` below. No `x ∈ Icc 0 1`
+    hypothesis is needed -- `toFunℝ` is total on `ℝ` and the abstract
+    bound is unconditional in `x`. -/
+theorem transferOperatorAction_func_norm_sq_bound (b : ℕ) (hb : b ≥ 1)
     (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
-    (f : LogWeightedL2) (x : ℝ) (hx : x ∈ Set.Icc (0:ℝ) 1) :
-    ‖(transferOperatorAction b phases f).toFun ⟨x, hx⟩‖^2
+    (f : LogWeightedL2) (x : ℝ) :
+    ‖transferOperatorAction_func b phases f x‖^2
       ≤ (1 / (b : ℝ)) * ∑ k, (weightFunction b k x)^2 *
-          ‖f.toFun ⟨inverseBranch b k x,
-              inverseBranch_image_in_unit_interval b k x hx⟩‖^2 := by
-  -- Unfold transferOperatorAction's toFun: it's the pattern
-  -- (1/b) · Σ ω_k · w_k(x) · f(y_k(x)) that our abstract bound applies to.
-  -- Need to massage left-assoc multiplication to match the abstract bound's
-  -- right-assoc parenthesisation `phases k * (weightFunction k x · vals k)`.
-  unfold transferOperatorAction
-  simp only
-  -- Rewrite the LHS sum to match the abstract bound's parenthesisation
-  -- (phases k * w * f → phases k * (w * f) via mul_assoc inside Σ)
-  have heq : (1 / (b : ℂ)) * ∑ k, phases k * (weightFunction b k x : ℂ) *
-                  f.toFun ⟨inverseBranch b k x,
-                    inverseBranch_image_in_unit_interval b k x hx⟩
-           = (1 / (b : ℂ)) * ∑ k, phases k * ((weightFunction b k x : ℂ) *
-                  f.toFun ⟨inverseBranch b k x,
-                    inverseBranch_image_in_unit_interval b k x hx⟩) := by
+          ‖f.toFunℝ (inverseBranch b k x)‖^2 := by
+  unfold transferOperatorAction_func
+  -- Massage left-assoc multiplication to the abstract bound's right-assoc
+  -- parenthesisation `phases k * (weightFunction k x · vals k)`.
+  have heq : (1 / (b : ℂ)) * ∑ k : Fin b, phases k * (weightFunction b k x : ℂ) *
+                  f.toFunℝ (inverseBranch b k x)
+           = (1 / (b : ℂ)) * ∑ k : Fin b, phases k * ((weightFunction b k x : ℂ) *
+                  f.toFunℝ (inverseBranch b k x)) := by
     congr 1
     apply Finset.sum_congr rfl
     intros k _; ring
   rw [heq]
   exact transferOperator_pointwise_norm_sq_bound b hb phases hphases x
-    (fun k => f.toFun ⟨inverseBranch b k x,
-      inverseBranch_image_in_unit_interval b k x hx⟩)
+    (fun k => f.toFunℝ (inverseBranch b k x))
+
+/-- `(transferOperatorAction b phases f).toFunℝ` AE-equals the explicit
+    pointwise formula on `μ_log↾(Ioo 0 1)`, given MemLp closure for that
+    formula.
+
+    The general-`b` form of the proven `T3_toFunℝ_Ioo`
+    (`PF/TransferOperator.lean:1277`), which is this statement at
+    `b = 3`, `phases = phaseFactorBase3`; same proof. -/
+lemma transferOperatorAction_toFunℝ_ae_eq (b : ℕ) (phases : Fin b → ℂ)
+    (f : LogWeightedL2)
+    (h_MemLp : MeasureTheory.MemLp (transferOperatorAction_func b phases f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    (transferOperatorAction b phases f).toFunℝ
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      transferOperatorAction_func b phases f := by
+  unfold LogWeightedL2.toFunℝ LogWeightedL2.toFun
+  show ⇑((transferOperatorAction b phases f
+      : MeasureTheory.Lp ℂ 2 _).val) =ᵐ[_] _
+  unfold transferOperatorAction
+  rw [dif_pos h_MemLp]
+  exact MeasureTheory.MemLp.coeFn_toLp h_MemLp
+
+/-- The Lp-level form of the bound: it holds a.e. on `Ioo 0 1` for the
+    representative of `transferOperatorAction`'s output.
+
+    This is the sharpest statement available about the Lp element itself.
+    "A.e." is not a weakening introduced here but the actual content of a
+    bound on an `Lp` element: `transferOperatorAction` is a `MemLp.toLp`
+    construction, so it names an a.e.-equivalence class and any two
+    representatives differ on a null set. -/
+theorem transferOperatorAction_norm_sq_bound (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : LogWeightedL2)
+    (h_MemLp : MeasureTheory.MemLp (transferOperatorAction_func b phases f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    ∀ᵐ x ∂(logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)),
+      ‖(transferOperatorAction b phases f).toFunℝ x‖^2
+        ≤ (1 / (b : ℝ)) * ∑ k, (weightFunction b k x)^2 *
+            ‖f.toFunℝ (inverseBranch b k x)‖^2 := by
+  filter_upwards [transferOperatorAction_toFunℝ_ae_eq b phases f h_MemLp]
+    with x hx
+  rw [hx]
+  exact transferOperatorAction_func_norm_sq_bound b hb phases hphases f x
 
 /-! ## Conditional Mayer 1991 Bound (Phase A integration arithmetic)
 
@@ -807,7 +845,7 @@ theorem expandingMap_aestronglyMeasurable (b : ℕ) :
 theorem weightFunction_aestronglyMeasurable (b : ℕ) (k : Fin b) :
     MeasureTheory.AEStronglyMeasurable
       (fun x : ℝ => weightFunction b k x) logWeightedMeasure :=
-  (weightFunction_measurable b k).aestronglyMeasurable
+  (weightFunction_measurable_local b k).aestronglyMeasurable
 
 /-- The unit half-open interval $[0, 1)$ decomposes as the union of the
     per-branch image intervals $[k/b, (k+1)/b)$ for $k \in \mathrm{Fin}\, b$.
@@ -1032,7 +1070,7 @@ theorem sum_branch_lintegral_unitInterval_eq_b_lintegral
       1. `lintegral_finset_sum` (mathlib) — commutes Finset.sum with
          lintegral, given measurability of each summand
          `h ∘ inverseBranch b k` (via `Measurable.comp` on
-         `inverseBranch_measurable`, commit ab98579).
+         `inverseBranch_measurable_of_one_le`, commit ab98579).
       2. `sum_branch_lintegral_unitInterval_eq_b_lintegral` (commit d2c6487)
          — the summed identity in its sum-outside form.
 
@@ -1051,7 +1089,7 @@ theorem lintegral_sum_branch_compose_unitInterval_eq_b_lintegral
              = ∑ k : Fin b,
                   ∫⁻ y in Set.Ico (0:ℝ) 1, h (inverseBranch b k y) ∂volume :=
     lintegral_finset_sum Finset.univ
-      (fun k _ => hh.comp (inverseBranch_measurable b k hb))
+      (fun k _ => hh.comp (inverseBranch_measurable_of_one_le b k hb))
   -- Step 2: Apply the summed identity (sum-outside form).
   rw [step1, sum_branch_lintegral_unitInterval_eq_b_lintegral b hb h]
 
@@ -1310,9 +1348,9 @@ theorem ofReal_one_div_b_sum_mul_ofReal_one_div_eq
          from $b > 0$ via `ENNReal.inv_ne_top`).
       3. `lintegral_finset_sum` commutes Σ with ∫⁻ (needs measurability
          of each summand, established via composition of
-         `weightFunction_measurable`, `ENNReal.continuous_ofReal.measurable`,
+         `weightFunction_measurable_local`, `ENNReal.continuous_ofReal.measurable`,
          `Measurable.norm`, `Measurable.pow_const`, `Measurable.div`,
-         and `inverseBranch_measurable`).
+         and `inverseBranch_measurable_of_one_le`).
 
     The RHS is exactly the LHS of
     `lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv`
@@ -1345,9 +1383,9 @@ theorem lintegral_one_div_b_sum_weight_squared_vals_sq_eq_inv_mul_sum_lintegral
   intro k _
   refine Measurable.mul ?_ ?_
   · exact ENNReal.continuous_ofReal.measurable.comp
-      (((weightFunction_measurable b k).pow_const 2).div measurable_id)
+      (((weightFunction_measurable_local b k).pow_const 2).div measurable_id)
   · exact ENNReal.continuous_ofReal.measurable.comp
-      ((hf.comp (inverseBranch_measurable b k hb)).norm.pow_const 2)
+      ((hf.comp (inverseBranch_measurable_of_one_le b k hb)).norm.pow_const 2)
 
 /-- **Mayer 1991 operator-norm bound** in lintegral form, against the
     log-weighted measure $d\mu_{\log} = (1/x)\, dx$ on $(0, 1)$:
@@ -1414,7 +1452,7 @@ theorem mayer_1991_lintegral_norm_sq_bound_log_weighted
         intro u _
         exact mul_comm _ _
 
-/-- The log-weighted density `logWeightDensity` is Borel measurable.
+/-! The log-weighted density `logWeightDensity` is Borel measurable.
 
     Mathematically: $\mathrm{logWeightDensity}(x) = \mathbf{1}_{x > 0} \cdot \mathrm{ofReal}(1/x)$,
     a measurable function on $\mathbb{R}$ via `Measurable.ite` over the
@@ -1473,8 +1511,8 @@ theorem setLIntegral_Ioo_logWeightedMeasure_eq_setLIntegral_volume_mul_inv
 
     Measurability of the LHS integrand
     `fun x => ofReal(‖(1/b) Σ_k ω_k · w_k(x) · f(y_k(x))‖²)`
-    is established by chaining `weightFunction_measurable`,
-    `inverseBranch_measurable`, `Complex.continuous_ofReal.measurable`,
+    is established by chaining `weightFunction_measurable_local`,
+    `inverseBranch_measurable_of_one_le`, `Complex.continuous_ofReal.measurable`,
     `Measurable.mul` / `Measurable.const_mul`, `Finset.measurable_sum`,
     `Measurable.norm`, `Measurable.pow_const`, and
     `ENNReal.continuous_ofReal.measurable`.
@@ -1508,8 +1546,8 @@ theorem mayer_1991_lintegral_norm_sq_bound_against_logWeightedMeasure
     intro k _
     refine Measurable.const_mul ?_ _
     refine Measurable.mul ?_ ?_
-    · exact Complex.continuous_ofReal.measurable.comp (weightFunction_measurable b k)
-    · exact hf.comp (inverseBranch_measurable b k hb)
+    · exact Complex.continuous_ofReal.measurable.comp (weightFunction_measurable_local b k)
+    · exact hf.comp (inverseBranch_measurable_of_one_le b k hb)
   -- RHS integrand measurability
   have h_rhs_meas : Measurable (fun u : ℝ => ENNReal.ofReal (‖f u‖^2)) :=
     ENNReal.continuous_ofReal.measurable.comp (hf.norm.pow_const 2)
@@ -1553,9 +1591,9 @@ noncomputable def transferOperatorAction_fn (b : ℕ) (phases : Fin b → ℂ)
     when `f` is Borel measurable, so is `T_b^{fn} f`.
 
     Proof composes:
-      * `weightFunction_measurable` (for each branch's weight),
+      * `weightFunction_measurable_local` (for each branch's weight),
       * `Complex.continuous_ofReal.measurable` (the ℝ → ℂ coercion),
-      * `inverseBranch_measurable` + `hf` (for `f ∘ y_k`),
+      * `inverseBranch_measurable_of_one_le` + `hf` (for `f ∘ y_k`),
       * `Measurable.mul`, `Measurable.const_mul` (phase and 1/b factors),
       * `Finset.measurable_sum` (the b-branch sum).
 
@@ -1571,8 +1609,8 @@ theorem transferOperatorAction_fn_measurable (b : ℕ) (hb : b ≥ 1)
   intro k _
   refine Measurable.const_mul ?_ _
   refine Measurable.mul ?_ ?_
-  · exact Complex.continuous_ofReal.measurable.comp (weightFunction_measurable b k)
-  · exact hf.comp (inverseBranch_measurable b k hb)
+  · exact Complex.continuous_ofReal.measurable.comp (weightFunction_measurable_local b k)
+  · exact hf.comp (inverseBranch_measurable_of_one_le b k hb)
 
 /-- The Mayer 1991 bound restated in terms of the named function-level
     operator `transferOperatorAction_fn`:
@@ -1996,7 +2034,7 @@ theorem logWeightedMeasure_restrict_Ioo_map_inverseBranch_absolutelyContinuous
     rwa [Measure.restrict_apply hE] at key
   -- Step B: volume(y_k⁻¹(E ∩ Ioo)) = 0 via inverseBranch_volume_map
   have hY_preimage : volume (inverseBranch b k ⁻¹' (E ∩ Set.Ioo (0:ℝ) 1)) = 0 := by
-    rw [← Measure.map_apply (inverseBranch_measurable b k hb)
+    rw [← Measure.map_apply (inverseBranch_measurable_of_one_le b k hb)
           (hE.inter measurableSet_Ioo)]
     rw [inverseBranch_volume_map b k hb_real]
     rw [Measure.smul_apply, hE_volume, smul_zero]
@@ -2017,13 +2055,13 @@ theorem logWeightedMeasure_restrict_Ioo_map_inverseBranch_absolutelyContinuous
       rw [div_lt_one hb_pos]
       linarith
   -- Step D: μ_log↾(0,1)(y_k⁻¹(E)) = 0 via μ_log↾(0,1) ≪ volume (commit 98b1f7e)
-  rw [Measure.map_apply (inverseBranch_measurable b k hb) hE]
+  rw [Measure.map_apply (inverseBranch_measurable_of_one_le b k hb) hE]
   have h_target : (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
                   (inverseBranch b k ⁻¹' E ∩ Set.Ioo (0:ℝ) 1) = 0 :=
     logWeightedMeasure_restrict_Ioo_absolutelyContinuous_volume hY_inter
-  rw [Measure.restrict_apply (inverseBranch_measurable b k hb hE)]
+  rw [Measure.restrict_apply (inverseBranch_measurable_of_one_le b k hb hE)]
   rwa [Measure.restrict_apply
-        ((inverseBranch_measurable b k hb hE).inter measurableSet_Ioo),
+        ((inverseBranch_measurable_of_one_le b k hb hE).inter measurableSet_Ioo),
        Set.inter_assoc, Set.inter_self] at h_target
 
 /-- Per-branch ae-propagation: `f₁ =ᵐ f₂ ⟹ f₁ ∘ y_k =ᵐ f₂ ∘ y_k`
@@ -2034,7 +2072,7 @@ theorem logWeightedMeasure_restrict_Ioo_map_inverseBranch_absolutelyContinuous
          to `(μ_log↾(0,1).map y_k).ae` via the filter inequality from
          `25e00eb.ae_le : (μ.map y_k).ae ≤ μ.ae`.
       2. `EventuallyEq.comp_tendsto` composes with
-         `Measure.tendsto_ae_map (inverseBranch_measurable b k hb).aemeasurable`
+         `Measure.tendsto_ae_map (inverseBranch_measurable_of_one_le b k hb).aemeasurable`
          (giving `Tendsto y_k μ.ae (μ.map y_k).ae`) to pull back to the
          source filter, yielding `f₁ ∘ y_k =ᵐ[μ.ae] f₂ ∘ y_k`. -/
 theorem inverseBranch_ae_eq_propagation
@@ -2049,7 +2087,7 @@ theorem inverseBranch_ae_eq_propagation
                       (inverseBranch b k)] f₂ :=
     h.filter_mono h_le
   exact h_map.comp_tendsto
-    (Measure.tendsto_ae_map (inverseBranch_measurable b k hb).aemeasurable)
+    (Measure.tendsto_ae_map (inverseBranch_measurable_of_one_le b k hb).aemeasurable)
 
 /-- Full T_b ae-respect: `f₁ =ᵐ f₂ ⟹ T_b f₁ =ᵐ T_b f₂` (under `μ_log↾(0,1)`).
 

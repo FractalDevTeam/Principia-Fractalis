@@ -4,6 +4,7 @@ defaultTargets = ["pf"]
 
 [[lean_lib]]
 name = "PF"
+globs = ["PF.+"]
 
 # The mathlib-upstream candidates live outside the PF namespace and import ONLY
 # mathlib.  Keeping them as a lean_lib means `lake build MathlibCandidates`
