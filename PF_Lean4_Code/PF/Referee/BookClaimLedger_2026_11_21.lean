@@ -106,6 +106,12 @@ import PF.Ch24DescentSub2TorsionRatBridge_2026_11_14
 import PF.BSD_HeegnerHypothesis_Faithful_2026_11_21
 import PF.Analytic.Hardy1914_Faithful_2026_11_21
 import PF.Ch2ThresholdSelection
+import PF.TuringEncoding.PNPClassSeparationCarrierV2
+import PF.NavierStokes.NS3DRegularitySolutionV4
+import PF.Referee.BSDCapstoneTypedBridgeV5
+import PF.Referee.HodgeCapstoneTypedBridge
+import PF.AlgebraicDeRhamD1Leibniz_r356
+import PF.E91a1RankOneCapstone_2026_10_22
 
 namespace PF.Referee.BookClaimLedger
 
@@ -367,16 +373,16 @@ def entry_fermat_encoding : ClaimEntry where
 def entry_fermat_n4_diff : ClaimEntry where
   id := "fermat-n4-difference"
   source := "ch24 / inventory addendum XI"
-  register := .provedElsewhere
+  register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
   leanName := "PF.not_fermat_42_sub"
-  statement := True
+  statement := type_of% @PF.not_fermat_42_sub
   note := "PF.not_fermat_42_sub proves a^4 - b^4 != c^2, which mathlib \
     does not carry (it has only the sum form). Load-bearing: it unlocks \
     the second exact rank-0 curve by Fermat descent. Entered as `proved` \
     with the statement held at the citation level because the theorem \
     lives outside this file's import set."
-  obligation := PUnit.unit
+  obligation := PLift.up @PF.not_fermat_42_sub
 
 /-- Claim: the Riemann Hypothesis. **`external`** as of 2026-11-20. -/
 def entry_rh_external : ClaimEntry where
@@ -467,7 +473,12 @@ def entry_rh_below_15 : ClaimEntry where
     2026-11-02 closure-repair note records as deliberately OUTSIDE the \
     closure because it pulls 4,847 modules of which 4,104 are \
     RiemannXiBox0Panels. Linking it here would silently reverse that \
-    decision."
+    decision. AND THE COST IS NOW MEASURED, not inherited: timed \
+    2026-11-21, a build of that module ran 600 s wall over only 193 \
+    modules and was still actively elaborating, unfinished. So the \
+    2026-11-02 decision is confirmed rather than taken on trust. Every \
+    other provedElsewhere entry was upgraded to kernel-linked `proved` \
+    on 2026-11-21; these two are the deliberate exceptions."
   obligation := PUnit.unit
 
 /-- Claim 8 — the unconditional box march. -/
@@ -482,7 +493,11 @@ def entry_rh_box_march : ClaimEntry where
     {0 <= sigma <= 1, 0 <= t <= 829/64}. UNCONDITIONAL, which the \
     [0,15] result is not. Blocked at the next panel: gate lhs = 1.108 > 1 \
     at D = 1, and NOT r-tunable (checked at r = 1/64 and 1/128). Cited \
-    rather than linked because the content is thousands of panel files."
+    rather than linked for two independent reasons: there is no single \
+    capstone theorem -- the content is per-segment panel files, \
+    Seg*Range_c829_64_* -- and importing that tree costs over 600 s of \
+    elaboration, measured 2026-11-21. Every other provedElsewhere entry \
+    was upgraded to kernel-linked `proved` the same day."
   obligation := PUnit.unit
 
 /-- Claim 9 — Clay RH reduced to one named hypothesis. The Clay
@@ -524,17 +539,17 @@ def entry_spectral_gap : ClaimEntry where
 def entry_pnp_bridge : ClaimEntry where
   id := "pnp-separation-bridge"
   source := "ch23 / inventory Claim 11"
-  register := .provedElsewhere
+  register := .proved
   inventoryStatus := "CONDITIONAL REDUCTION"
-  leanName := "enum_to_class_separation_bridge_V{2,3}_iff_literal_P_neq_NP_V{2,3}"
-  statement := True
+  leanName := "PrincipiaTractalis.PNPClassSeparationCarrierV2.enum_to_class_separation_bridge_V2_iff_literal_P_neq_NP_V2"
+  statement := type_of% @PrincipiaTractalis.PNPClassSeparationCarrierV2.enum_to_class_separation_bridge_V2_iff_literal_P_neq_NP_V2
   note := "Bridges spectral_gap != 0 to literal P != NP conditional on a \
     faithful-separator premise, which the inventory's Route 2 records as \
     EQUIVALENT TO CLAY P vs NP. The PF_ComplexityEncoding itself is \
     genuinely faithful (real Turing machines, certificates, Cook 1971, \
     and Clay_PvsNP_Standard as non-surjectivity of the inclusion) -- \
     this axis is the one whose encoding does NOT substitute its carrier."
-  obligation := PUnit.unit
+  obligation := PLift.up @PrincipiaTractalis.PNPClassSeparationCarrierV2.enum_to_class_separation_bridge_V2_iff_literal_P_neq_NP_V2
 
 /-- Claim 12 — the IBM run. -/
 def entry_ibm_coherence : ClaimEntry where
@@ -584,10 +599,10 @@ def entry_wilson_rp_l2 : ClaimEntry where
 def entry_ym_clay_capstone : ClaimEntry where
   id := "ym-clay-capstone-v4"
   source := "ch20 / inventory Claim 15"
-  register := .provedElsewhere
+  register := .proved
   inventoryStatus := "KERNEL-VERIFIED on PF_YMEncodingV4; NOT a Clay discharge"
   leanName := "PrincipiaTractalis.YM_ContinuumWightmanV4.PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4"
-  statement := True
+  statement := type_of% @PrincipiaTractalis.YM_ContinuumWightmanV4.PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4
   note := "Discharged with mass gap 3/2 on an encoding whose carrier is \
     finite-dimensional Fin 2 -> R, not the infinite-dimensional Clay \
     setting; no continuum limit and no SU(3). The author labels it NOT a \
@@ -595,7 +610,7 @@ def entry_ym_clay_capstone : ClaimEntry where
     GaugeGroup := Unit, QYM := Matrix (Fin 2) (Fin 2) R, and \
     massGap _ := 1/2 as a literal constant. Belongs in `analogue` once \
     its reduction is written; cited here pending that."
-  obligation := PUnit.unit
+  obligation := PLift.up @PrincipiaTractalis.YM_ContinuumWightmanV4.PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4
 
 /-- Claim 16 — the chapter's own mass-gap formula, refuted in-chapter. -/
 def entry_ym_massgap_refuted : ClaimEntry where
@@ -633,16 +648,16 @@ def entry_ns_vortex_all_n : ClaimEntry where
 def entry_ns_clay_v4 : ClaimEntry where
   id := "ns-clay-capstone-v4"
   source := "ch22 / inventory Claim 18"
-  register := .provedElsewhere
+  register := .proved
   inventoryStatus := "KERNEL-VERIFIED on PF_NS3DEncodingV4; NOT a Clay discharge"
   leanName := "PF.NavierStokes.NS3DRegularitySolutionV4.PF_NS_capstone_yields_Clay_NavierStokes_standardV4"
-  statement := True
+  statement := type_of% @PF.NavierStokes.NS3DRegularitySolutionV4.PF_NS_capstone_yields_Clay_NavierStokes_standardV4
   note := "The encoding uses `smoothness := True`, not literal C^infty, \
     and NS_LocalToGlobalBootstrap (Leray 1934 + Hopf 1951, absent from \
     mathlib) remains open. Author labels it NOT a Clay discharge in-file. \
     The substrate sibling is entry_ns_encoding, whose predicate is \
     PROVED equivalent to True."
-  obligation := PUnit.unit
+  obligation := PLift.up @PF.NavierStokes.NS3DRegularitySolutionV4.PF_NS_capstone_yields_Clay_NavierStokes_standardV4
 
 /-- Claim 19 — Route A, the remaining classical-analysis bar. -/
 def entry_ns_route_a : ClaimEntry where
@@ -709,31 +724,31 @@ def entry_bsd_rank0_b : ClaimEntry where
 def entry_bsd_rank_ge_one : ClaimEntry where
   id := "bsd-rank-ge-one"
   source := "ch24 / inventory Claim 21"
-  register := .provedElsewhere
+  register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
-  leanName := "E_{91.a1,102.a1,131.a1,141.a1,80.b}_rank_ge_one_capstone"
-  statement := True
+  leanName := "PrincipiaTractalis.E91a1RankOneCapstone20261022.E91a1_rank_ge_one"
+  statement := type_of% @PrincipiaTractalis.E91a1RankOneCapstone20261022.E91a1_rank_ge_one
   note := "Multi-smul non-torsion points give the lower bound. Fifteen \
     such curves across the corpus by the 2026-11-16 count. Lower bounds, \
     not exact ranks, and no analytic rank -- so the Clay equality is not \
     touched."
-  obligation := PUnit.unit
+  obligation := PLift.up @PrincipiaTractalis.E91a1RankOneCapstone20261022.E91a1_rank_ge_one
 
 /-- Claim 22 — the Clay BSD capstone V5. -/
 def entry_bsd_clay_v5 : ClaimEntry where
   id := "bsd-clay-capstone-v5"
   source := "ch24 / inventory Claim 22"
-  register := .provedElsewhere
+  register := .proved
   inventoryStatus := "KERNEL-VERIFIED on PF_BSDEncodingV5; NOT a Clay discharge"
   leanName := "PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSD_capstone_yields_Clay_BSD_standardV5"
-  statement := True
+  statement := type_of% @PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSD_capstone_yields_Clay_BSD_standardV5
   note := "Discharged by rfl: manuscriptRankV5 is a case split matching \
     known ranks on 20 named curves and 0 everywhere else, so for every \
     curve outside that set the Clay equality is 0 = 0. The analytic rank \
     machinery is absent from the corpus -- confirmed 2026-11-21: mathlib \
     has NO elliptic-curve L-function at this pin. Author labels it NOT a \
     Clay BSD discharge for arbitrary curves."
-  obligation := PUnit.unit
+  obligation := PLift.up @PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSD_capstone_yields_Clay_BSD_standardV5
 
 /-- The Heegner split condition, made arithmetic 2026-11-21. -/
 def entry_bsd_heegner : ClaimEntry where
@@ -758,43 +773,43 @@ def entry_bsd_heegner : ClaimEntry where
 def entry_hodge_derham : ClaimEntry where
   id := "hodge-affine-de-rham"
   source := "ch25 / inventory Claim 23"
-  register := .provedElsewhere
+  register := .proved
   inventoryStatus := "KERNEL-VERIFIED"
-  leanName := "PF/AlgebraicDeRhamD1_r345.lean, PF/AlgebraicDeRhamD1Leibniz_r356.lean"
-  statement := True
+  leanName := "PrincipiaTractalis.AlgebraicDeRhamAffine.d1_is_R_linear_Leibniz_with_d_squared_zero"
+  statement := type_of% @PrincipiaTractalis.AlgebraicDeRhamAffine.d1_is_R_linear_Leibniz_with_d_squared_zero.{0,0}
   note := "Affine algebraic de Rham d^2 = 0, with the d1 descent \
     well-definedness. The inventory states plainly that this does NOT \
     touch the Hodge Conjecture."
-  obligation := PUnit.unit
+  obligation := PLift.up @PrincipiaTractalis.AlgebraicDeRhamAffine.d1_is_R_linear_Leibniz_with_d_squared_zero.{0,0}
 
 /-- Claim 24 — the Clay Hodge capstone. -/
 def entry_hodge_clay : ClaimEntry where
   id := "hodge-clay-capstone"
   source := "ch25 / inventory Claim 24"
-  register := .provedElsewhere
+  register := .proved
   inventoryStatus := "KERNEL-VERIFIED on substrate encodings"
   leanName := "PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_capstone_yields_Clay_Hodge_standard"
-  statement := True
+  statement := type_of% @PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_capstone_yields_Clay_Hodge_standard
   note := "`isAlgebraic` is PF's three-conjunct substrate predicate \
     HodgeAlgebraicRepresentation, NOT literal algebraicity by cycle, and \
     PF_HodgeEncoding sets RationalHodgeClass _ := N -- so the Hodge \
     classes are natural numbers. mathlib has no Kahler manifolds, which \
     the inventory's Route 2 records as the blocker."
-  obligation := PUnit.unit
+  obligation := PLift.up @PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_capstone_yields_Clay_Hodge_standard
 
 /-- Claim 25 — the chapter's worked examples, refuted numerically. -/
 def entry_hodge_numeric_refutation : ClaimEntry where
   id := "hodge-numeric-obstructions"
   source := "ch25 / inventory Claim 25"
-  register := .provedElsewhere
+  register := .proved
   inventoryStatus := "KERNEL-VERIFIED negative content"
-  leanName := "PF/Ch20Ch25NumericObstructions.lean"
-  statement := True
+  leanName := "PrincipiaTractalis.Ch20Ch25Numerics.k3_twentytwo_exceeds_picard_bound"
+  statement := type_of% @PrincipiaTractalis.Ch20Ch25Numerics.k3_twentytwo_exceeds_picard_bound
   note := "Refutes ch25's own K3 Picard count and abelian-fourfold \
     Hodge-class count against LMFDB values. PF refuting PF, in the \
     kernel. These are the entries that make the ledger's other labels \
     believable."
-  obligation := PUnit.unit
+  obligation := PLift.up @PrincipiaTractalis.Ch20Ch25Numerics.k3_twentytwo_exceeds_picard_bound
 
 /-! ### Substrate → observable, and consciousness -/
 
@@ -929,7 +944,7 @@ theorem ledger_registers :
     entry_poincare_encoding.register = .analogue ∧
     entry_ns_encoding.register = .analogue ∧
     entry_fermat_encoding.register = .analogue ∧
-    entry_fermat_n4_diff.register = .provedElsewhere ∧
+    entry_fermat_n4_diff.register = .proved ∧
     entry_rh_external.register = .external :=
   ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
 
