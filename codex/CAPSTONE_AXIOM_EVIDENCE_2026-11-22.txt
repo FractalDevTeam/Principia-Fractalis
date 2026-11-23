@@ -1,4 +1,4 @@
-Meta-capstone axiom bars — captured 2026-11-22 14:08:59 MST
+Meta-capstone axiom bars — captured 2026-11-22 18:54:54 MST
 Toolchain: Lake version 5.0.0-src+919e297 (Lean version 4.24.0-rc1)
 Tree: /home/xluxx/pf-legion-20261120/PF_Lean4_Code
 

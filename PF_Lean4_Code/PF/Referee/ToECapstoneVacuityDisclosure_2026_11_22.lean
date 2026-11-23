@@ -5,14 +5,14 @@ Author: Pablo Cohen
 Date: November 22, 2026
 
 `PF/PrincipiaFractalisToEMetaCapstone_2026_11_16.lean` composes nine conjuncts
-into one kernel-clean theorem on the three-axiom bar. Four of them carry no
+into one kernel-clean theorem on the three-axiom bar. Five of them carry no
 mathematical content, and this file says so IN THE KERNEL rather than leaving a
 referee to discover it.
 
 This follows the precedent already set inside the capstone itself: conjunct (7)
 states `Clay_NavierStokes_Standard PF_NSEncodingSubstrate ↔ True`, disclosing
 the substrate NS encoding's vacuity instead of asserting it as a result. The
-four disclosures below extend that treatment to the remaining cases.
+five disclosures below extend that treatment to every remaining case.
 
 ADDITIVE ONLY. Nothing in the capstone is weakened, renamed, or removed. Every
 conjunct it proves, it still proves; this file states precisely *what* those
@@ -20,7 +20,7 @@ conjuncts say.
 
 ## What is disclosed
 
-1. **Fermat contract (conjunct 9a) is equivalent to `True`.**
+1. **Fermat contract (inside conjunct 9) is equivalent to `True`.**
    `PF_FermatEncoding` sets `holds := fun _ => True`, so
    `Standard_FermatLastTheorem_Standard PF_FermatEncoding` unfolds to
    `∀ n, 3 ≤ n → True`. Its bridge proof in
@@ -38,7 +38,8 @@ conjuncts say.
    cascade sums to 3 at α_Poincare = 1 — a true series identity, and not the
    Poincaré conjecture. The bridge proof discards its closedness hypothesis.
 
-3. **Three substrate "residual" tags close on `Unit`.**
+3. **Three substrate "residual" tags close on `Unit`** (all three now
+   discharged here).
    `YMContinuumLimit_WilsonScalingViaH3`,
    `HodgeHigherDimensionVoisinResidual` and
    `RH_FrontierExtensionViaSigmaResidual` all have the shape
@@ -113,12 +114,22 @@ theorem hodge_tag_closes_on_unit :
     PF.HodgeSubstratePosition.HodgeHigherDimensionVoisinResidual :=
   ⟨Unit, ⟨⟨⟩⟩, α_Hodge_sq_eq_self_plus_one, trivial⟩
 
-/-! ## §4 — The four disclosures as one citable fact -/
+/-- The RH frontier-extension tag is discharged by `Unit`: it constrains no
+    frontier. Its two non-`True` components are
+    `PrincipiaTractalis.SigmaAbscissa.sigma_three_halves`
+    (`PF/SigmaAbscissa_r212.lean:345`) and `α_RH ^ 2 = 9 / 4`, both facts about
+    the framework's own constants rather than about ζ. -/
+theorem rh_tag_closes_on_unit :
+    PF.RHSubstratePositionViaSigma.RH_FrontierExtensionViaSigmaResidual :=
+  ⟨Unit, ⟨⟨⟩⟩, PrincipiaTractalis.SigmaAbscissa.sigma_three_halves,
+   α_RH_sq_eq_nine_fourths, trivial⟩
+
+/-! ## §4 — The five disclosures as one citable fact -/
 
 /-- **Disclosure bundle.** Of the ToE meta-capstone's nine conjuncts, the
     Fermat contract is equivalent to `True`, the Poincaré contract is a series
-    identity over `ℝ` rather than a statement about 3-manifolds, and the YM and
-    Hodge substrate tags are discharged by `Unit`.
+    identity over `ℝ` rather than a statement about 3-manifolds, and the YM,
+    Hodge and RH substrate tags are all discharged by `Unit`.
 
     Stating this in the kernel is what makes the capstone's *substantive*
     conjuncts citable: a referee can see exactly which parts carry content. -/
@@ -126,10 +137,12 @@ theorem toe_capstone_vacuous_conjuncts_disclosed :
     (Standard_FermatLastTheorem_Standard PF_FermatEncoding ↔ True) ∧
     (PF_PoincareEncoding.SmoothThreeManifold = ℝ) ∧
     PF.YangMills.YMContinuumViaH3Scaling.YMContinuumLimit_WilsonScalingViaH3 ∧
-    PF.HodgeSubstratePosition.HodgeHigherDimensionVoisinResidual :=
+    PF.HodgeSubstratePosition.HodgeHigherDimensionVoisinResidual ∧
+    PF.RHSubstratePositionViaSigma.RH_FrontierExtensionViaSigmaResidual :=
   ⟨fermat_contract_is_vacuous,
    poincare_encoding_manifold_type_is_real,
    ym_tag_closes_on_unit,
-   hodge_tag_closes_on_unit⟩
+   hodge_tag_closes_on_unit,
+   rh_tag_closes_on_unit⟩
 
 end PF.Referee.ToECapstoneVacuityDisclosure
