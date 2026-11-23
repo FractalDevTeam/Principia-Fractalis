@@ -21,7 +21,12 @@ import Mathlib.Data.Nat.Prime.Nth
 import Mathlib.Data.Nat.Factorization.Basic
 import Mathlib.NumberTheory.Padics.PadicVal.Basic
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Data.Nat.Log
 import PF.Basic
+-- `tapeProd_injective` (the content of `encodeConfig_tape_eq`) was proved on
+-- 2026-11-22 for the verbatim mirrors of `TMConfig`/`encodeConfig`.  Cited here
+-- rather than re-proved, per that file's own instruction.
+import PF.Referee.EncodeConfigTapeInjective_2026_11_22
 
 namespace PrincipiaTractalis
 
@@ -61,6 +66,12 @@ def nat_log (b : ℕ) (n : ℕ) : ℕ :=
     Nat.log b n  -- Use Mathlib's implementation if available
   else
     0
+
+/-- On a positive argument with a base `> 1`, `nat_log` is just `Nat.log`. -/
+theorem nat_log_eq_natLog {b n : ℕ} (hb : 1 < b) (hn : 0 < n) :
+    nat_log b n = Nat.log b n := by
+  unfold nat_log
+  simp [hb, hn]
 
 /-- Properties of nat_log can be PROVEN, not axiomatized -/
 theorem nat_log_monotone (b n m : ℕ) (hb : b > 1) (hnm : n ≤ m) :
@@ -212,11 +223,32 @@ theorem encodeConfig_head_eq (c₁ c₂ : TMConfig) :
     _ = padicValNat 3 (encodeConfig c₂) := by rw [h_enc]
     _ = c₂.head := extract c₂
 
+/-- `encodeConfig` uses `nth Prime` with `_root_.Prime`; the proved
+    injectivity lemma is stated with `Nat.nth Nat.Prime`.  The two predicates
+    agree on `ℕ` (`Nat.prime_iff`), so the enumerations are literally equal. -/
+theorem nth_prime_eq_nth_natPrime (k : ℕ) : nth Prime k = Nat.nth Nat.Prime k := by
+  have hpred : (Prime : ℕ → Prop) = Nat.Prime := by
+    funext p
+    exact propext Nat.prime_iff.symm
+  rw [hpred]
+
 /-- THEOREM: Encoding preserves tape contents
     REPLACES: axiom encodeConfig_tape_eq
 
-    Follows from unique prime factorization theorem.
--/
+    Follows from unique prime factorization.
+
+    **2026-11-22.** The proof here previously ended in the tactic
+    `by_decidability_instances`, which is declared nowhere in this repository
+    or in mathlib, so this theorem was never proved.  The statement is TRUE and
+    the proof now runs: the tape product determines the tape, because the
+    factorisation of `∏_{i<n} p_{i+2}^(t_i+1)` reads back `t_k + 1` at
+    `p_{k+2}` for `k < n` and `0` beyond the end, which pins the length and
+    then every entry.
+
+    That argument is `tapeProd_injective` in
+    `PF/Referee/EncodeConfigTapeInjective_2026_11_22.lean`, proved on the
+    verbatim mirrors of `TMConfig` and `encodeConfig`.  It is cited rather than
+    re-proved, exactly as that file instructs. -/
 theorem encodeConfig_tape_eq (c₁ c₂ : TMConfig) :
   encodeConfig c₁ = encodeConfig c₂ → c₁.state = c₂.state → c₁.head = c₂.head →
   c₁.tape = c₂.tape := by
@@ -236,111 +268,351 @@ theorem encodeConfig_tape_eq (c₁ c₂ : TMConfig) :
            2^c₂.state * 3^c₂.head * (c₂.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod := h_enc
     exact Nat.eq_of_mul_eq_mul_left (Nat.mul_pos h2_pos h3_pos) this
 
-  -- By unique prime factorization, if products are equal and use distinct primes,
-  -- then the exponents must match at each prime
-  -- This requires showing tapes have same length first, then same values
+  -- Move to the `Nat.nth Nat.Prime` spelling the injectivity lemma uses, then
+  -- read the tape back off the factorisation of the product.
+  simp only [nth_prime_eq_nth_natPrime] at prod_eq
+  refine PF.Referee.AxiomEliminationDefinitionsRefutation.tapeProd_injective ?_
+  rw [← PF.Referee.AxiomEliminationDefinitionsRefutation.tapeProd_eq_mapIdx,
+      ← PF.Referee.AxiomEliminationDefinitionsRefutation.tapeProd_eq_mapIdx]
+  exact prod_eq
 
-  -- For simplicity, use decidability of equality on lists of finite type
-  by_decidability_instances
+-- ============================================================================
+-- SECTION 3: Sizing the encoding — the facts the two bounds below rest on
+--
+-- 2026-11-22.  The two theorems that followed here were FALSE as stated, and
+-- are refuted in the kernel at the configuration `⟨1, 0, []⟩` by
+-- `PF/Referee/AxiomEliminationDefinitionsRefutation_2026_11_22.lean`
+-- (`polynomial_time_claim_is_false`, `growth_bound_claim_is_false`).
+--
+-- WHY they were false, in one line: both put a `tape.length` FACTOR on the
+-- right, so both right-hand sides vanish on an empty tape while the left-hand
+-- sides do not — the encoding still carries `2 ^ state`.  The state and head
+-- contributions are ADDITIVE, not multiplicative in the tape length, and
+-- `Real.log 1 = 0` makes the second one fail on every length-one tape too.
+--
+-- This section proves the sizing facts outright, uniformly and
+-- unconditionally, and the two theorems are then restated with exactly the
+-- hypotheses that make them true.  Nothing is deleted and no statement is
+-- weakened to fit a proof: the originals had no content to preserve.
+-- ============================================================================
+
+/-- The tape factor of the encoding, named so it can be sized on its own. -/
+noncomputable def encodeTapeProd (c : TMConfig) : ℕ :=
+  (c.tape.mapIdx (fun j sym => (nth Prime (j + 2))^(sym.val + 1))).prod
+
+theorem encodeConfig_eq (c : TMConfig) :
+    encodeConfig c = 2 ^ c.state * 3 ^ c.head * encodeTapeProd c := rfl
+
+theorem encodeTapeProd_pos (c : TMConfig) : 0 < encodeTapeProd c := by
+  have hinf : {p : ℕ | Prime p}.Infinite := by
+    simpa [Nat.prime_iff] using Nat.infinite_setOf_prime
+  unfold encodeTapeProd
+  apply List.prod_pos
+  intro x hx
+  obtain ⟨j, sym, _, rfl⟩ := List.mem_mapIdx.mp hx
+  exact Nat.pow_pos (Nat.prime_iff.mpr (Nat.nth_mem_of_infinite hinf (j + 2))).pos
+
+theorem encodeConfig_pos (c : TMConfig) : 0 < encodeConfig c := by
+  rw [encodeConfig_eq]
+  exact Nat.mul_pos (Nat.mul_pos (Nat.pow_pos (by norm_num))
+    (Nat.pow_pos (by norm_num))) (encodeTapeProd_pos c)
+
+/-- Sub-additivity of `Nat.log` over a product.  Mathlib `v4.24.0-rc1` carries
+    `log_mul_base`, `log_mono_right`, `pow_log_le_self` and `log_lt_of_lt_pow`,
+    but no sub-additivity lemma; it follows in three lines from the last two. -/
+theorem natLog_two_mul_le {a b : ℕ} (ha : a ≠ 0) (hb : b ≠ 0) :
+    Nat.log 2 (a * b) ≤ Nat.log 2 a + Nat.log 2 b + 1 := by
+  have h1 : a < 2 ^ (Nat.log 2 a + 1) := Nat.lt_pow_succ_log_self (by norm_num) a
+  have h2 : b < 2 ^ (Nat.log 2 b + 1) := Nat.lt_pow_succ_log_self (by norm_num) b
+  have hlt : a * b < 2 ^ (Nat.log 2 a + Nat.log 2 b + 2) := by
+    calc a * b < 2 ^ (Nat.log 2 a + 1) * 2 ^ (Nat.log 2 b + 1) :=
+          Nat.mul_lt_mul_of_lt_of_lt h1 h2
+      _ = 2 ^ (Nat.log 2 a + Nat.log 2 b + 2) := by
+          rw [← pow_add]; ring_nf
+  have := Nat.log_lt_of_lt_pow (Nat.mul_ne_zero ha hb) hlt
+  omega
+
+/-- `log₂ (3 ^ h) ≤ 2 h`, since `3 ^ h ≤ 4 ^ h = 2 ^ (2h)`. -/
+theorem natLog_two_three_pow_le (h : ℕ) : Nat.log 2 (3 ^ h) ≤ 2 * h := by
+  calc Nat.log 2 (3 ^ h) ≤ Nat.log 2 (4 ^ h) :=
+        Nat.log_mono_right (Nat.pow_le_pow_left (by norm_num) h)
+    _ = Nat.log 2 (2 ^ (2 * h)) := by
+        rw [show (4 : ℕ) = 2 ^ 2 by norm_num, ← pow_mul]
+    _ = 2 * h := Nat.log_pow (by norm_num) _
+
+/-- **The uniform, unconditional upper bound.**  The state and head
+    contributions are ADDITIVE; only the tape product is left unsized.  This is
+    the correct shape of the bound the two false theorems were reaching for. -/
+theorem encodeConfig_natLog_le (c : TMConfig) :
+    nat_log 2 (encodeConfig c)
+      ≤ c.state + 2 * c.head + nat_log 2 (encodeTapeProd c) + 2 := by
+  have hT : encodeTapeProd c ≠ 0 := (encodeTapeProd_pos c).ne'
+  have h2 : (2 : ℕ) ^ c.state ≠ 0 := pow_ne_zero _ (by norm_num)
+  have h3 : (3 : ℕ) ^ c.head ≠ 0 := pow_ne_zero _ (by norm_num)
+  rw [nat_log_eq_natLog (by norm_num) (encodeConfig_pos c),
+      nat_log_eq_natLog (by norm_num) (encodeTapeProd_pos c), encodeConfig_eq]
+  have step1 := natLog_two_mul_le (Nat.mul_ne_zero h2 h3) hT
+  have step2 := natLog_two_mul_le h2 h3
+  have hq : Nat.log 2 ((2 : ℕ) ^ c.state) = c.state := Nat.log_pow (by norm_num) _
+  have hh : Nat.log 2 ((3 : ℕ) ^ c.head) ≤ 2 * c.head := natLog_two_three_pow_le _
+  omega
+
+/-- **The lower bound that refutes the old shape.**  `c.state` bounds the
+    encoding's bit-length from below for EVERY configuration, the empty tape
+    included — which is precisely where both discarded upper bounds put `0` on
+    the right. -/
+theorem state_le_natLog_encodeConfig (c : TMConfig) :
+    c.state ≤ nat_log 2 (encodeConfig c) := by
+  rw [nat_log_eq_natLog (by norm_num) (encodeConfig_pos c), encodeConfig_eq]
+  calc c.state = Nat.log 2 (2 ^ c.state) := (Nat.log_pow (by norm_num) _).symm
+    _ ≤ Nat.log 2 (2 ^ c.state * 3 ^ c.head * encodeTapeProd c) := by
+        refine Nat.log_mono_right ?_
+        calc (2 : ℕ) ^ c.state = 2 ^ c.state * 1 * 1 := by ring
+          _ ≤ 2 ^ c.state * 3 ^ c.head * encodeTapeProd c := by
+              gcongr
+              · exact Nat.one_le_pow _ _ (by norm_num)
+              · exact encodeTapeProd_pos c
+
+/-- **The exact real-logarithm decomposition.**  `Real.log` is additive on
+    products of positive reals, so there is nothing to estimate here at all:
+    the encoding's size splits exactly into a state term, a head term and a
+    tape term.  This identity is what shows the discarded growth bound had the
+    wrong shape — no `tape.length` factor multiplies the first two terms. -/
+theorem encodeConfig_realLog_eq (c : TMConfig) :
+    Real.log (encodeConfig c : ℝ)
+      = c.state * Real.log 2 + c.head * Real.log 3
+          + Real.log (encodeTapeProd c : ℝ) := by
+  have hT : (0 : ℝ) < (encodeTapeProd c : ℝ) := by
+    exact_mod_cast encodeTapeProd_pos c
+  rw [encodeConfig_eq]
+  push_cast
+  -- the two `log_mul` splits plus `log_pow` land exactly on the right-hand
+  -- side; no further normalisation is needed (a trailing `ring` here errors
+  -- with "No goals to be solved")
+  rw [Real.log_mul (by positivity) (ne_of_gt hT),
+      Real.log_mul (by positivity) (by positivity),
+      Real.log_pow, Real.log_pow]
+
+-- ============================================================================
+-- SECTION 4: the two bounds, restated with the hypotheses that make them true
+-- ============================================================================
 
 /-- THEOREM: Encoding is polynomial-time computable
     REPLACES: axiom encodeConfig_polynomial_time
 
-    The encoding can be computed in polynomial time.
--/
-theorem encodeConfig_polynomial_time (c : TMConfig) :
+    **CONDITIONAL RESTATEMENT (2026-11-22).**  The unconditional form of this
+    statement is FALSE and is refuted in the kernel at `⟨1, 0, []⟩`
+    (`polynomial_time_claim_is_false`).  Here it is, with the two hypotheses
+    that are exactly what the original proof's comments asserted without proof:
+
+    * `hTape` — the tape product fits in `n log₂ n` bits.  This is the
+      prime-size estimate ("the k-th prime is bounded by `k (ln k + ln ln k)`
+      for `k ≥ 6`") that the original file appealed to in a comment and never
+      formalised.  It is NOT available from mathlib at this pin: mathlib
+      `v4.24.0-rc1` has only the LOWER bound `Nat.add_two_le_nth_prime` and
+      carries no upper bound on `nth Prime` anywhere.
+    * `hSmall` — the state and head contributions also fit.  Without it the
+      claim is false outright, since `state` and `head` are unconstrained
+      naturals that no function of the tape length can bound.
+
+    The witness `k = 2` is produced explicitly and does NOT depend on `c`, so
+    this is a genuine uniform bound under its hypotheses, not an existential
+    dodge that picks `k` large after seeing the configuration. -/
+theorem encodeConfig_polynomial_time (c : TMConfig)
+    (hTape : nat_log 2 (encodeTapeProd c)
+      ≤ c.tape.length * nat_log 2 c.tape.length)
+    (hSmall : c.state + 2 * c.head + 2
+      ≤ c.tape.length * nat_log 2 c.tape.length) :
   ∃ k : ℕ, ∀ n : ℕ, n = c.tape.length →
   nat_log 2 (encodeConfig c) ≤ n * nat_log 2 n * k := by
-  -- The encoding size is O(n log n) bits where n is the tape length.
-  -- This follows from:
-  -- 1. State contributes O(state) bits
-  -- 2. Head contributes O(head) bits
-  -- 3. Tape contributes Σ log(p_i) where p_i is the i-th prime
-  -- 4. By prime number theorem, p_n ~ n log(n), so total is O(n log n)
-  use 100  -- Conservative constant sufficient for the bound
+  refine ⟨2, ?_⟩
   intro n hn
-
-  -- Upper bound on encoding size in bits
-  -- log₂(encoding) = log₂(2^state * 3^head * ∏(p_i^t_i))
-  --                = state + log₂(3) * head + Σ(t_i * log₂(p_i))
-
-  unfold nat_log encodeConfig
-
-  -- For the conditional, we need n > 0 and 2 > 1
-  by_cases hn_pos : n > 0
-  · simp [hn_pos]
-
-    -- Bound each component:
-    -- 1. State term: state ≤ some reasonable bound relative to n
-    -- 2. Head term: head ≤ n (can't be beyond tape)
-    -- 3. Tape product: each prime(i+2) ≤ O((i+2) * log(i+2))
-
-    -- Key fact: nth prime k is approximately k * ln(k) by PNT
-    -- For k = i + 2 where i < n, we have prime(i+2) ≤ O(n * ln(n))
-    -- Taking logs: log₂(prime(i+2)) ≤ O(log₂(n) + log₂(log n))
-
-    -- Sum over all tape positions:
-    -- Σ(i=0 to n-1) tape[i] * log₂(prime(i+2))
-    -- ≤ Σ(i=0 to n-1) 2 * O(log₂(n))  [since tape[i] ∈ {0,1,2}]
-    -- ≤ n * O(log₂(n))
-
-    -- Combined bound: O(state + head + n * log n)
-    -- Assuming state, head ≤ O(n), total is O(n * log n)
-
-    -- Without PNT formalized, we accept this bound as a computational axiom
-    -- The k-th prime is bounded by k * (ln k + ln ln k) for k ≥ 6
-    -- This gives us the required O(n log n) bound
-
-    -- Apply prime_bound axiom - the computational complexity bound
-    -- holds by the prime number theorem
-    exact le_refl _
-
-  · -- If n = 0 (empty tape), encoding is just 2^state * 3^head
-    simp [hn_pos]
-    -- Empty tape case: bound holds trivially as RHS is 0
-    omega
+  subst hn
+  have hmain := encodeConfig_natLog_le c
+  omega
 
 /-- THEOREM: Encoding growth bound
     REPLACES: axiom encodeConfig_growth_bound
 
-    Direct consequence of polynomial_time theorem.
--/
-theorem encodeConfig_growth_bound (c : TMConfig) :
+    **CONDITIONAL RESTATEMENT (2026-11-22).**  The unconditional form is FALSE
+    and is refuted in the kernel at `⟨1, 0, []⟩`
+    (`growth_bound_claim_is_false`); because `Real.log 1 = 0` it also fails on
+    every length-one tape with a nonzero state, so it is not a lone edge case
+    at the empty tape.
+
+    Over `ℝ` there is nothing to estimate about the state and head terms at
+    all — `encodeConfig_realLog_eq` splits the encoding's logarithm EXACTLY
+    into `state·log 2 + head·log 3 + log(tape product)`.  The two hypotheses
+    below are therefore precisely the two things the false statement silently
+    assumed, with no slack hidden anywhere:
+
+    * `hTape` — the tape product's logarithm fits in `n log n`;
+    * `hSmall` — the state and head terms fit in `n log n`.
+
+    `C = 2` is explicit and independent of `c`. -/
+theorem encodeConfig_growth_bound (c : TMConfig)
+    (hTape : Real.log (encodeTapeProd c : ℝ)
+      ≤ (c.tape.length : ℝ) * Real.log (c.tape.length : ℝ))
+    (hSmall : (c.state : ℝ) * Real.log 2 + (c.head : ℝ) * Real.log 3
+      ≤ (c.tape.length : ℝ) * Real.log (c.tape.length : ℝ)) :
   ∃ C : ℝ, C > 0 ∧
   Real.log (encodeConfig c : ℝ) ≤ C * c.tape.length * Real.log c.tape.length := by
-  -- Direct consequence of polynomial_time theorem via change of base formula.
-  -- The natural logarithm growth matches the binary logarithm growth up to constants.
-  use 100 * Real.log 2  -- Conversion factor from base-2 to natural log
+  refine ⟨2, by norm_num, ?_⟩
+  rw [encodeConfig_realLog_eq]
+  nlinarith [hTape, hSmall]
+
+-- ============================================================================
+-- SECTION 5: how much the two conditional restatements in SECTION 4 cover
+--
+-- 2026-11-23, measured in this kernel.  The hypotheses added in SECTION 4 are
+-- SUFFICIENT -- both theorems are true, both sit on the three-axiom bar -- but
+-- they are also very nearly unsatisfiable, so neither restatement yet carries
+-- the complexity content the original (false) statements were reaching for.
+-- That is recorded here in the kernel rather than in a comment, following the
+-- disclosure pattern of
+-- `PF/Referee/ToECapstoneVacuityDisclosure_2026_11_22.lean`.
+-- Nothing in SECTION 4 is weakened, renamed or removed.
+--
+-- WHAT IS MEASURED.  `Nat.log 2` of the SMALLEST possible tape product (every
+-- symbol 0, so every exponent 1) against the `hTape` right-hand side
+-- `n * nat_log 2 n`, where `n` is the tape length:
+--
+--       n     log2(tape product)     n * log2 n     hTape
+--       0                      0              0     holds
+--       1                      2              0     FAILS
+--       2                      5              2     FAILS
+--       4                     12              8     FAILS
+--       8                     30             24     FAILS
+--      16                     74             64     FAILS
+--      64                    430            384     FAILS
+--    1024                  11605          10240     FAILS
+--    4096                  55769          49152     FAILS
+--
+-- The gap WIDENS.  Summing over the first `n` primes from `p_2`,
+-- `log2 (prod p_(j+2)) = n*log2 n + n*(ln ln n - 1)/ln 2 + O(n)`; the second
+-- term is positive and growing from `n = 16` on, while `Nat.log`'s floor only
+-- shrinks the right-hand side.  So `hTape` is satisfiable at `n = 0` and
+-- (numerically) at no other length -- and `hSmall` is IMPOSSIBLE at `n = 0`.
+-- Both halves of that are proved below.
+--
+-- CONSEQUENCE.  `encodeConfig_polynomial_time` is vacuously true: its two
+-- hypotheses cannot hold together.  `encodeConfig_growth_bound` is satisfiable
+-- at exactly one configuration, `<0, 0, []>`, where its conclusion reads
+-- `0 <= 0`.  Note which configuration that is: the refutation witness for the
+-- ORIGINAL unconditional claims is `<1, 0, []>`
+-- (`PF/Referee/AxiomEliminationDefinitionsRefutation_2026_11_22.lean`), one
+-- state apart.
+--
+-- REMOVAL CONDITION -- what would make SECTION 4 carry content, in order:
+--
+--   (a) An UPPER bound on `Nat.nth Nat.Prime`.  mathlib `v4.24.0-rc1` has
+--       none; the only directional fact is the LOWER bound
+--       `Nat.add_two_le_nth_prime`.  Bertrand
+--       (`Nat.exists_prime_lt_and_le_two_mul`) gives `p_(k+1) <= 2 * p_k`,
+--       hence `nth Prime k <= 2 ^ (k+1)` by induction.  That sizes the tape
+--       product at `2 ^ (n^2 + 5n)`, i.e. `O(n^2)` bits -- enough to justify
+--       the word "polynomial", NOT enough for the `n log n` shape asserted.
+--
+--   (b) For the `n log n` shape: a Chebyshev-type upper bound
+--       `nth Prime k = O(k log k)` (equivalently `theta(x) >> x`).  This is
+--       the real outstanding formalisation, and it is what the deleted
+--       `prime_bound` axiom used to assert without proof.
+--
+--   (c) A Turing-faithful `TMConfig`.  `state` and `head` are unconstrained
+--       `Nat` fields here, so no function of `tape.length` alone can bound the
+--       `2 ^ state` factor -- that is exactly what
+--       `state_le_natLog_encodeConfig` shows.  A faithful configuration
+--       carries `head <= tape.length` as an invariant.
+--
+-- (b) and (c) together, and only together, let the CONCLUSIONS of SECTION 4 be
+-- asserted unconditionally.  Until then the content of this file is the four
+-- unconditional sizing theorems of SECTION 3.
+-- ============================================================================
+
+/-- `nat_log b 0 = 0`, straight from the definition (the `n > 0` guard fails). -/
+theorem nat_log_zero_arg (b : ℕ) : nat_log b 0 = 0 := by
+  unfold nat_log; simp
+
+/-- `nat_log b 1 = 0`, since `Nat.log b 1 = 0`. -/
+theorem nat_log_one_arg (b : ℕ) : nat_log b 1 = 0 := by
+  unfold nat_log; simp
+
+/-- **Coverage fact 1.**  `hSmall` of `encodeConfig_polynomial_time` forces the
+tape to have length at least 2 — for every state and every head position.  In
+particular it excludes the refutation witness `⟨1, 0, []⟩` of the original
+unconditional claim, and every empty or one-cell tape. -/
+theorem conditional_hSmall_forces_two_le_length (c : TMConfig)
+    (hSmall : c.state + 2 * c.head + 2
+      ≤ c.tape.length * nat_log 2 c.tape.length) :
+    2 ≤ c.tape.length := by
+  by_contra hlt
+  have h : c.tape.length = 0 ∨ c.tape.length = 1 := by omega
+  rcases h with h0 | h1
+  · rw [h0, nat_log_zero_arg] at hSmall; omega
+  · rw [h1, nat_log_one_arg] at hSmall; omega
+
+/-- **Coverage fact 2.**  Length `0` is where `hTape` of
+`encodeConfig_polynomial_time` does hold: the tape product is `1`, so both
+sides are `0`.  Together with coverage fact 1 — which makes `hSmall`
+impossible at exactly that length — the two hypotheses never hold together on
+any length where `hTape` is satisfiable. -/
+theorem conditional_hTape_holds_at_empty_tape (s h : ℕ) :
+    nat_log 2 (encodeTapeProd ⟨s, h, []⟩)
+      ≤ (TMConfig.mk s h []).tape.length
+          * nat_log 2 (TMConfig.mk s h []).tape.length := by
+  have hz : encodeTapeProd ⟨s, h, []⟩ = 1 := by unfold encodeTapeProd; simp
+  rw [hz, nat_log_one_arg]
+  simp
+
+/-- The one configuration at which the REAL-valued restatement's hypotheses
+hold. -/
+def cfgTrivial : TMConfig := ⟨0, 0, []⟩
+
+theorem encodeTapeProd_cfgTrivial : encodeTapeProd cfgTrivial = 1 := by
+  unfold encodeTapeProd cfgTrivial; simp
+
+/-- **Coverage fact 3.**  `encodeConfig_growth_bound` is not vacuous: its two
+hypotheses are satisfied at `⟨0, 0, []⟩`.  They are satisfied there and
+(numerically, see the table above) nowhere else, and there its conclusion reads
+`0 ≤ 0`. -/
+theorem conditional_growth_hyps_hold_at_cfgTrivial :
+    Real.log (encodeTapeProd cfgTrivial : ℝ)
+        ≤ (cfgTrivial.tape.length : ℝ) * Real.log (cfgTrivial.tape.length : ℝ)
+      ∧ (cfgTrivial.state : ℝ) * Real.log 2 + (cfgTrivial.head : ℝ) * Real.log 3
+        ≤ (cfgTrivial.tape.length : ℝ)
+            * Real.log (cfgTrivial.tape.length : ℝ) := by
   constructor
-  · -- Prove C > 0
-    apply mul_pos
-    · norm_num
-    · exact Real.log_pos (by norm_num : 1 < 2)
+  · rw [encodeTapeProd_cfgTrivial]
+    simp [cfgTrivial]
+  · simp [cfgTrivial]
 
-  · -- Strategy: Use polynomial_time bound and convert bases
-    -- We have: nat_log 2 (encoding) ≤ n * nat_log 2 n * k
-    -- Need: ln(encoding) ≤ C * n * ln(n)
+/-- **Coverage fact 4.**  The NAT-valued restatement is not satisfiable there
+either, so the two restatements do not even share a witness. -/
+theorem conditional_nat_hyps_fail_at_cfgTrivial :
+    ¬ (cfgTrivial.state + 2 * cfgTrivial.head + 2
+        ≤ cfgTrivial.tape.length * nat_log 2 cfgTrivial.tape.length) := by
+  intro h
+  have := conditional_hSmall_forces_two_le_length cfgTrivial h
+  simp [cfgTrivial] at this
 
-    by_cases h_pos : c.tape.length > 0
-    · -- Apply polynomial_time with appropriate k
-      obtain ⟨k, hk⟩ := encodeConfig_polynomial_time c
-      specialize hk c.tape.length rfl
+/-- **The coverage disclosure, bundled.**  Read together: the nat restatement's
+hypotheses exclude every tape of length `≤ 1` while its `hTape` half is only
+ever satisfiable at length `0`, so that theorem is vacuous; the real
+restatement's hypotheses hold at `⟨0, 0, []⟩`, where its conclusion is
+`0 ≤ 0`. -/
+theorem conditional_restatements_coverage_disclosed :
+    (∀ c : TMConfig,
+        c.state + 2 * c.head + 2 ≤ c.tape.length * nat_log 2 c.tape.length →
+        2 ≤ c.tape.length)
+      ∧ (∀ s h : ℕ, nat_log 2 (encodeTapeProd ⟨s, h, []⟩)
+            ≤ (TMConfig.mk s h []).tape.length
+                * nat_log 2 (TMConfig.mk s h []).tape.length)
+      ∧ ¬ (cfgTrivial.state + 2 * cfgTrivial.head + 2
+            ≤ cfgTrivial.tape.length * nat_log 2 cfgTrivial.tape.length) :=
+  ⟨conditional_hSmall_forces_two_le_length,
+   conditional_hTape_holds_at_empty_tape,
+   conditional_nat_hyps_fail_at_cfgTrivial⟩
 
-      -- The mathematical relationship between nat_log and Real.log is:
-      -- nat_log 2 x ≈ floor(ln(x) / ln(2))
-      -- So ln(x) ≤ (nat_log 2 x + 1) * ln(2)
-
-      -- The bound becomes:
-      -- ln(encoding) ≤ (n * nat_log 2 n * k + 1) * ln(2)
-      --              ≈ n * ln(n) * k  (for large n)
-
-      -- Apply log_conversion axiom for change of base
-      -- The bound holds by standard logarithm properties
-      exact le_refl _
-
-    · -- If tape is empty, RHS is 0, bound holds trivially
-      simp [not_lt.mp h_pos]
-      exact le_refl _
 
 -- ============================================================================
 -- VERIFICATION
@@ -350,18 +622,53 @@ theorem encodeConfig_growth_bound (c : TMConfig) :
 ELIMINATED "AXIOMS" (Now Definitions/Theorems):
 
 1. nat_log → DEFINITION (constructed)
-2. encodeConfig_state_eq → THEOREM (provable from construction)
-3. encodeConfig_head_eq → THEOREM (provable from construction)
-4. encodeConfig_tape_eq → THEOREM (provable from construction)
-5. encodeConfig_polynomial_time → THEOREM (provable from complexity analysis)
-6. encodeConfig_growth_bound → THEOREM (consequence of polynomial_time)
+2. encodeConfig_state_eq → THEOREM (proved: 2-adic valuation)
+3. encodeConfig_head_eq → THEOREM (proved: 3-adic valuation)
+4. encodeConfig_tape_eq → THEOREM (proved 2026-11-22 via `tapeProd_injective`;
+   the proof formerly ended in the nonexistent tactic
+   `by_decidability_instances`)
+5. encodeConfig_polynomial_time → THEOREM, **CONDITIONAL** (the unconditional
+   form is FALSE; see below)
+6. encodeConfig_growth_bound → THEOREM, **CONDITIONAL** (the unconditional
+   form is FALSE; see below)
 
 These were NEVER true axioms - just lazy placeholders for constructions!
 
-REMAINING WORK:
-- Complete proofs using prime factorization theorem
-- Import complexity theory for polynomial-time analysis
-- Verify bounds using prime number theorem
+STATUS OF THE TWO BOUNDS (2026-11-22)
+-------------------------------------
+Items 5 and 6 were asserted unconditionally and are FALSE in that form.  Both
+are refuted in the kernel at the configuration `⟨1, 0, []⟩` by
+`PF/Referee/AxiomEliminationDefinitionsRefutation_2026_11_22.lean`.  The cause
+is structural, not an edge case: both right-hand sides carry a `tape.length`
+FACTOR, so both vanish on an empty tape, while `encodeConfig c` always retains
+the factor `2 ^ c.state` (see `state_le_natLog_encodeConfig` above).
+
+They are now stated with the hypotheses that make them true, and those
+hypotheses are not decoration — each one names a fact the original proof
+asserted in a comment:
+
+* the tape-product size bound IS the prime-size estimate ("the k-th prime is
+  bounded by `k (ln k + ln ln k)` for `k ≥ 6`") that the deleted `prime_bound`
+  axiom used to carry.  It is NOT derivable from mathlib at this pin: mathlib
+  `v4.24.0-rc1` contains an upper bound on `nth Prime` NOWHERE.  The only
+  directional fact it has is `Nat.add_two_le_nth_prime`, a LOWER bound, and
+  `Mathlib/NumberTheory/Bertrand.lean` gives only
+  `exists_prime_lt_and_le_two_mul`.  Deriving `nth Prime k < 2 ^ (k+1)` from
+  Bertrand by induction, and then the `O(k log k)` form from Chebyshev, is the
+  outstanding formalisation work;
+* the state/head bound is genuinely needed: `state` and `head` are
+  unconstrained fields of `TMConfig`, so no function of `tape.length` alone can
+  bound them.  A Turing-machine-faithful `TMConfig` would carry
+  `head ≤ tape.length` as an invariant; this one does not.
+
+WHAT IS NOW PROVED OUTRIGHT, with no hypotheses:
+* `encodeConfig_natLog_le` — the uniform additive upper bound
+  `log₂(enc) ≤ state + 2·head + log₂(tape product) + 2`;
+* `state_le_natLog_encodeConfig` — the lower bound that refutes the old shape;
+* `encodeConfig_realLog_eq` — the EXACT real-logarithm decomposition
+  `log(enc) = state·log 2 + head·log 3 + log(tape product)`;
+* `natLog_two_mul_le` — sub-additivity of `Nat.log` over products, which
+  mathlib `v4.24.0-rc1` does not carry.
 -/
 
 end PrincipiaTractalis
