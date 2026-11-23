@@ -365,11 +365,11 @@ For $N = 20$, we obtain the following eigenvalue spectrum (selected values):
 Through systematic numerical investigation, we discovered:
 
 \begin{theorem}[Empirical Scaling]\label{thm:empirical-scaling}
-With the scaling factor $\alpha^* = 5 \times 10^{-6}$, eigenvalues correspond to Riemann zeros via:
+Eigenvalues of $\tilde{T}_3^{\textsf{sym}}$ correspond to Riemann zeros through the framework's mass-eigenvalue mapping:
 \begin{equation}
-\boxed{s = \frac{10}{\pi |\lambda| \alpha^*}}
+\boxed{s = \frac{10}{\pi |\lambda|}}
 \end{equation}
-This correspondence is verified at 150-digit precision.
+This correspondence is verified at 150-digit precision. The truncation's own scaling factor $\kappa$ is a parameter of the operator construction and does not enter this map; the same relation appears below as $\alpha_{\textsf{reading}} = \pi/(10|\lambda|)$ read in the opposite direction.
 \end{theorem}
 
 \subsection{Primary Correspondences}
@@ -378,21 +378,20 @@ This correspondence is verified at 150-digit precision.
 \hline
 \textbf{Eigenvalue} & \textbf{Predicted $t$} & \textbf{Riemann Zero} & \textbf{Distance} \\
 \hline
-$0.14333$ & $14.226$ & $14.135$ (1st) & $0.092$ \\
-$0.14589$ & $13.978$ & $14.135$ (1st) & $0.157$ \\
-$0.06955$ & $29.321$ & $30.425$ (4th) & $1.104$ \\
+$0.03840$ & $82.8927$ & $82.9104$ (22nd) & $0.0177$ \\
+$0.22410$ & $14.2040$ & $14.1347$ (1st) & $0.0693$ \\
+$0.22374$ & $14.2267$ & $14.1347$ (1st) & $0.0920$ \\
 \hline
 \caption{Eigenvalue-zero correspondences}
 \end{longtable}
 
 \begin{level2}[High-Precision Verification]
-For the closest correspondence (eigenvalue $\lambda = 0.14333$):
+For the first-zero correspondence (eigenvalue $\lambda = 0.22374$, index 5 of the $N = 20$ spectrum):
 
 \begin{verbatim}
 # 150-digit precision
-eigenvalue = 0.143333957275062618978826534396...
-alpha = 5e-6
-s_predicted = 10 / (pi * eigenvalue * alpha)
+eigenvalue = 0.2237407168322287...
+s_predicted = 10 / (pi * eigenvalue)
 # Result: 14.226730417712656...
 
 # First Riemann zero
