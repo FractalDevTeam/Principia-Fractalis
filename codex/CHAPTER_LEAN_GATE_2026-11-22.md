@@ -27,8 +27,8 @@ This gate asks four questions per file: cited / resolves / **compiled** /
 | resolve to mathlib | 41 |
 | resolve to a PF namespace / module | 25 |
 | filenames or data artifacts (not Lean) | 55 |
-| genuinely vacuous (`True`-valued) | **1** |
-| genuinely absent | **1** |
+| vacuous MISUSE (flagged 1, retracted on verification) | **0** |
+| genuinely absent (flagged 1, retracted on verification) | **0** |
 
 **Every Lean name the book cites, in every chapter and appendix, now resolves
 to a module that compiles.** That was not true before 2026-11-22.
@@ -85,30 +85,57 @@ to a module that compiles.** That was not true before 2026-11-22.
 | app | appN_chapter_diagnostic_sheet | 12 | 12 | 11 | 11 | 0 | 0 | 0 | 0 | 1 |
 | app | appendix_grothendieck | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | back | lexicon / author / epilogue / glossary | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| | **TOTAL (56 files)** | **772** | **655** | **428** | **428** | 3→**1** | 41 | 25 | 55 | 106→**1** |
+| | **TOTAL (56 files)** | **772** | **655** | **428** | **428** | 3→**0** | 41 | 25 | 55 | 106→**0** |
 
-## The two real findings
+## The two candidate findings — BOTH RETRACTED on verification
 
-**1. ch04 cites a vacuous declaration.**
-`scope_tensor_carrier_untouched` is `theorem … : True := trivial`
-(`PF/TernaryNetInfiniteCompleteness_r359.lean:128`). Cited in
-`ch04_timeless_field.tex`. It carries no content.
+Both were my instrument, not the book. Verified individually, 2026-11-22.
 
-**2. ch20 cites a mathlib lemma that does not exist, and the near-miss
-matters mathematically.**
-The book cites `riemannZeta_ne_zero_of_one_**le**_re` (twice: in
-`ch20_riemann_hypothesis.tex` and the rev-2 Dirichlet-eta inserts). Mathlib
-`v4.24.0-rc1` has:
+**1. ch04's `scope_tensor_carrier_untouched` — NOT a defect.**
+It is `theorem … : True := trivial`, and the gate flagged the shape. But the
+prose cites it *as a marker*, and says so explicitly
+(`ch04_timeless_field.tex:641`):
 
-* `riemannZeta_ne_zero_of_one_**lt**_re` — `NumberTheory/LSeries/Dirichlet.lean:313`
-* `LFunction_ne_zero_of_one_**le**_re` — `NumberTheory/LSeries/Nonvanishing.lean:394`
-  (Dirichlet L-functions, not ζ)
+> "r359 carries a `scope_tensor_carrier_untouched` marker to record that it does
+> **not** settle the tensor-carrier question, and **it must not be cited as
+> doing so**."
 
-`Re > 1` non-vanishing is elementary from the Euler product. Non-vanishing **on
-the line** `Re = 1` is Hadamard / de la Vallée Poussin. The citation as written
-claims the closed-line result for ζ, which mathlib does not supply under that
-name. Either repoint to `_one_lt_re` and scope the claim, or cite the Dirichlet
-L-function lemma and say so.
+A `True`-valued scope marker cited as a scope marker, with an explicit warning
+against reading content into it, is correct usage. No edit.
+
+**2. ch20's `riemannZeta_ne_zero_of_one_le_re` — EXISTS. NOT a defect.**
+It is declared at `Mathlib/NumberTheory/LSeries/Nonvanishing.lean:407`:
+
+```lean
+lemma _root_.riemannZeta_ne_zero_of_one_le_re ⦃s : ℂ⦄ (hs : 1 ≤ s.re) :
+    riemannZeta s ≠ 0
+```
+
+My resolver's pattern was `^(theorem|lemma) riemannZeta_ne_zero`, which cannot
+match a `lemma _root_.NAME` declaration. Mathlib **does** carry ζ non-vanishing
+on the closed half-plane `Re ≥ 1` — the Hadamard / de la Vallée Poussin result
+is formalised there, and `Nonvanishing.lean:20` notes it "does not require
+`s ≠ 1`, since the junk value at `s = 1`" handles that point.
+
+PF uses it correctly, and the module compiles
+(`PF/DirichletEtaExtExtraFamilyDisjointFromZetaZeros_2026_11_18.lean:44`):
+
+```lean
+theorem extraFamily_not_riemannZeta_zero (k : ℤ) :
+    riemannZeta (extraFamily k) ≠ 0 := by
+  have h_re : (extraFamily k).re = 1 := extraFamily_re k
+  have h_one_le : 1 ≤ (extraFamily k).re := by rw [h_re]
+  exact riemannZeta_ne_zero_of_one_le_re h_one_le
+```
+
+The extra family lies exactly on `Re s = 1`, so the closed-half-plane lemma is
+precisely the right one to invoke. **The chapter is correct as written.**
+
+## Net result
+
+**Zero defects.** 772 citations across 36 chapters, 13 appendices and back
+matter; 428 of 428 PF citations in compiled modules; no vacuous misuse; no
+absent name.
 
 ## Corrections to this gate's own first pass — recorded so the numbers are usable
 
@@ -133,8 +160,11 @@ Nine of fourteen "absent" names were verified present on individual check:
 `Ch24Descent2TorsionRatBridge_2026_10_17.Ecurve_rank_eq_zero`,
 `Fermat42Sub.exists_minimal`, and the mathlib/core names above.
 
-**Do not quote the 229 or the 3.** The usable numbers are 428/428 compiled,
-1 vacuous citation, 1 absent citation.
+**Do not quote the 229, the 3, or the 1-and-1.** The usable numbers are
+**428/428 compiled, 0 vacuous misuse, 0 absent.** Every defect this gate
+flagged dissolved on individual verification. That is four rounds of the same
+lesson in one session: the instrument's blind spots look exactly like the
+book's defects, and only reading the actual declaration tells them apart.
 
 ## Scope — what this gate does NOT check
 
