@@ -10,6 +10,167 @@
 > in one session, including reporting `TRUE_PROP_AUDIT_2026-08-01` as a new
 > discovery. Do not quote this session chat for numbers; quote that file. · **Owner:** Legion session (march ownership, pipeline, research)
 
+## 2026-11-22 ADDENDUM — the ToE capstone had never been compiled, and five of its nine conjuncts were empty
+
+Continues the 2026-11-22 entry below. Commits `3bcd422e`, `a72633c2`,
+`a566c6af`.
+
+### 1. The capstone
+
+`PF/PrincipiaFractalisToEMetaCapstone_2026_11_16.lean` — all seven Clay axes
+plus Fermat in one theorem — **had never been compiled.** It is not in
+`PF.lean`'s hand-maintained 1,301-import list, so `lake build PF` never reached
+it. All eleven of its imports were already built; it was five seconds of
+compute from verification.
+
+```
+rc=0   3714/3714 jobs   0 errors   0 sorryAx   0 native_decide
+'…principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+Six further meta-capstones built clean on first attempt, none ever compiled
+before: `Referee/ClayResidualFrontierMetaCapstone_2026_06_18`,
+`Referee/SubstrateRigidityEndToEndMetaCapstone`,
+`Referee/BulletproofingMetaCapstone_2026_06_17`,
+`ClassicalAnchoringMetaCapstone_2026_06_17`,
+`AlphaFunPatternsMetaCapstone_2026_06_17`,
+`TuringEncoding/PNeqNPCollapsesToEnumBridge`. Verbatim axiom output committed
+at `codex/CAPSTONE_AXIOM_EVIDENCE_2026-11-22.txt` (§1: evidence, not a claim
+about evidence).
+
+### 2. Five empty conjuncts, now disclosed in-kernel
+
+Audited all 35 named Props in the statement, 0 unresolved.
+
+| conjunct | what it says |
+|---|---|
+| 9 Fermat contract | `PF_FermatEncoding` has `holds := fun x => True`; contract unfolds to `∀ n, 3 ≤ n → True`. Bridge proof `Referee/FermatCapstoneTypedBridge.lean:59` is `intro _n _h; trivial`. Sits beside genuinely proved Fermat content. |
+| 8 Poincaré | `SmoothThreeManifold := ℝ`, bridge discards `_hClosed`. A series identity at one real number. |
+| 6 YM, 4 Hodge, 2 RH | all `∃ W, Nonempty W ∧ <α-identity> ∧ True` — Unit-closable |
+
+Repaired **additively** in
+`PF/Referee/ToECapstoneVacuityDisclosure_2026_11_22.lean`: five theorems,
+bundled as `toe_capstone_vacuous_conjuncts_disclosed`, three-axiom bar.
+Pattern taken from the capstone's **own** conjunct (7), which already states
+`Clay_NavierStokes_Standard PF_NSEncodingSubstrate ↔ True`. Nothing weakened,
+renamed, or removed.
+
+`fermat_contract_is_vacuous` reports **"does not depend on any axioms"** —
+normally the all-`True` red flag, here the evidence: proving a `True`-valued
+contract needs no classical axiom, while anything about ℝ needs all three.
+
+Real content in the same capstone, deliberately untouched: ten rank-≥1 LMFDB
+curves, the RH Abel bridge, `dirichletEtaExt (1/2) = (1 − √2)·ζ(1/2)`, Fermat
+n=3 and n=4 both forms, all n divisible by 3 or 4, the YM **deep** core's
+genuine measure convergence, and `¬ Literal_P_neq_NP_V2`.
+
+### 3. Non-panel correctness sweep: complete
+
+Built every remaining non-panel module. 4,941 lines of fresh output:
+**0 errors, 0 sorryAx, 0 native_decide, 0 axiom bars off the three.** Six
+modules remain unbuilt and four of those are `t14p5`/`Box900` blocked on the
+heavy panels; one is `AxiomElimination_Definitions` (9 errors, open); one is
+`TorsionTrivial5077a1_r166`. **No new false theorems beyond the three already
+recorded.**
+
+### 4. Per-chapter gate — all 36 chapters, 13 appendices, back matter
+
+`codex/CHAPTER_LEAN_GATE_2026-11-22.md`, instrument `codex/chapter_lean_gate.py`.
+772 citations, 655 unique, **428 PF citations and 428 of them in COMPILED
+modules — zero uncompiled.** 1 vacuous citation (ch04's
+`scope_tensor_carrier_untouched`), 1 absent.
+
+The absent one is a real overclaim: **ch20 cites
+`riemannZeta_ne_zero_of_one_LE_re` twice.** Mathlib has `_one_LT_re` for ζ and
+`_one_le_re` only for Dirichlet L-functions. `Re > 1` is elementary from the
+Euler product; on the **line** `Re = 1` it is Hadamard / de la Vallée Poussin.
+Book edit, Pablo's call.
+
+### 5. The 478 True-valued declarations are mostly self-disclosed — do not re-litigate
+
+Corpus-wide, comment-stripped: 478 (259 `Prop := True` + 219 `: True :=`); the
+259 matches the earlier vacuity campaign exactly. Read in context they are
+bibliography anchors, placeholders the corpus labels itself
+(`BSD_equality_holds` is declared a "structural placeholder" at
+`MillenniumSixReductions.lean:608/611`, cited as such by 12+ files, keyed to
+the book's `Ch 24 rem:bsd-lean-status`), and files whose docstrings state their
+fields are "provenness tags witnessed by `trivial`". The capstone was the
+genuine gap precisely because it was the one NOT disclosed.
+
+### 6. Producer pipeline repair (§2 LEGION task 1) — steps 1-4 closed
+
+* `/tmp/prod` is **GONE** (WSL restart). Preserved at
+  `/mnt/d/CLAUDE-i9/_tmp/legion-producer-repair-20261021/deployed-prod/`.
+* steps 1-2 were already done: `codex/gen` (2) and `codex/addons` (6) tracked,
+  `march_box.sh:28` reads `PROD="$REPO/codex"` with `/tmp` as commented
+  fallback.
+* **step 3 PASS.** Regenerated landed box c=7 at D=1: **15 of 16 .lean
+  byte-identical.** Both differences explained: `maxHeartbeats` 2000000 →
+  64000000, a forward change from `e9f89ecc` ("split the hybrid assemble above
+  D=8"), with the landed c=829/64 pack carrying 64M in 13 files; and
+  `_buildorder.txt` is per-box scratch currently holding c=829/64 (211 lines,
+  all `_c829_`), last written by `72c0d2c6`.
+* **step 4 EMITTED, criterion PASSES.** c=81/8 at `--density 2`: 12
+  sub-segments × 8 panels, h=1/64, `gate lhs = 0.94901113`,
+  `provable Mc_lb = 0.02549443`, `L0*r < Mc_lb` PASS 4.1×,
+  `1.25·Q*r < Mc_lb` PASS 3.89×. Not landed; held at
+  `/home/xluxx/pflogs/d2box_out.xQDtIO`. Note the printed
+  `[old shape, Mc_lb=1/8] margin = -0.199 FAIL` is the **superseded**
+  convention, same as c=829/64.
+  Headroom is shrinking: c=7 passed at 19.39×, c=81/8 at 3.89× — `7abe0a7b`'s
+  "box geometry is the wall".
+* **§0.7 is now stale.** "The repo producer has the machinery but cannot run
+  from the tree" — it runs, reproduces D=1, and emits D=2.
+* step 5 (axiom exact-set check on gate pilot + assemble logs) NOT started.
+
+### 7. Errors of mine this session, on the record
+
+1. `taskset -c 0,1,2,3` on a 24-core box — that cap is the **Acer** rule.
+2. A scheduled task that ran **11.5 hours and produced zero oleans**: trigger
+   had a 20-minute `RepetitionInterval` and no `RepetitionDuration`, so
+   Scheduler SIGTERM'd every instance (`LastResult 15`, ~35 times).
+3. Wrong cost model: batched 1,188 modules "to amortise replay". Measured, one
+   module builds in **16s with 2,797 jobs replayed** — replay is cheap when
+   warm. Per-module now.
+4. **I destroyed this file** (`83d760fc` overwrote 3,070 lines with 93).
+   Restored at `d09bbbf6`. Board entries are INSERTED above the newest
+   section from here, never whole-file writes.
+5. Edited repo-root `IntervalArithmetic.lean` — outside the glob, unimported,
+   never compiled, not a blocker. Reverted at `dada30ae`.
+6. Said "fabricated" of a broken proof. Measured that the tactic does not
+   exist; measured nothing about intent. Withdrawn.
+7. Quoted stale facts as current: CI ("0 passes in 1,223 runs" — repaired
+   2026-11-16 by `402dd508`, then moved to a GitHub-hosted runner as a
+   2026-11-20 stopgap and now failing at 4h47m), `gh` auth (it is
+   authenticated), and doc dates (`BOOK_RIGOR_LEDGER_SPEC` file-modified
+   2026-09-29; both chapter ledgers 2026-11-15).
+8. Reported **229 missing citations and 3 vacuous** from my own chapter gate;
+   both were instrument blind spots. Real figures: 1 and 1.
+
+### 8. CI, measured
+
+`verify.yml` fires on pushes to **`master` only**; PR triggers deliberately
+disabled (fork-PR + self-hosted runner = arbitrary code execution). My branch
+has **zero** runs. Runner `ubuntu-latest`, `timeout-minutes: 350`. Master's
+last Verify **failed at 4h47m on the 5,382-job target**, so merging the `globs`
+line to master makes Verify fail harder — Pablo's decision, not mine.
+
+### 9. Open
+
+* `AxiomElimination_Definitions` at 9 errors: a real `encodeConfig_tape_eq`
+  proof, and corrected statements for the two FALSE bounds. Not faked.
+* Panels: 1,396 modules, measured **2-4 days** of compute (one timed sample
+  530s, median remaining module ~2× its size). Windows task `PF-PanelGrind`,
+  2h interval / 365d duration / 12h limit, per-module so each success banks.
+* ch04 vacuous citation and ch20's LE-vs-LT citation are **book** edits.
+* Data protection: `/home/xluxx/pf-vault-20261122-0109/` **and** a copy on
+  Windows at `C:\Users\psolo\pf-vault-backup-20261122` (451 MB: 391 MB
+  complete-history bundle, both source snapshots, 76 edit backups) — taken
+  before a WSL `E_UNEXPECTED` crash, after which 9,459 oleans and the vault
+  verified intact.
+
+
 ## 2026-11-22 — THE GLOBS LINE: 1,438 modules had never been compiled
 
 **Board write owed since 2026-11-15.** I did not run the session-start protocol
