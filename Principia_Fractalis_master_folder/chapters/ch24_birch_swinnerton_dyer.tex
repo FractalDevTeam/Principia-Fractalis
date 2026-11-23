@@ -490,7 +490,7 @@ for any $\varepsilon > 0$.
 \item Eigenvalue computation: $O(B \log B) = O(N_E^{1/2} \log^2 N_E)$
 \end{itemize}
 
-Total: $O(N_E^{1/2} \cdot \log^8 N_E + N_E \log^2 N_E) = O(N_E^{1/2+\varepsilon})$ for any $\varepsilon > 0$.
+Total: $O(N_E^{1/2} \cdot \log^8 N_E + N_E \log^2 N_E) = O(N_E \log^2 N_E)$, dominated by the matrix construction. (The bound $O(N_E^{1/2+\varepsilon})$ printed in earlier revisions dropped this dominant term: $N_E \log^2 N_E / N_E^{1/2+\varepsilon} \to \infty$ for every $\varepsilon < 1/2$. Corrected 2026-11-23.)
 \end{proof}
 
 \begin{remark}[Comparison with Classical Methods]

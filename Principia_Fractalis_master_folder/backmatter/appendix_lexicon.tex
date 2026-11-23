@@ -265,15 +265,22 @@ For neural network with connectivity matrix $W$:
 
 \textbf{Derivation:}
 \begin{align}
-N_{\text{eff}} &= \exp(\pi^2/12) \approx 707.1 \\
+N_{\text{eff}} &= \exp(\pi^2/12) = 2.2761 \ldots \\
 \text{Suppression} &= \exp(-5) \approx 1/148.4 \\
 \eta_{\text{quantum}} &= 0.237 \\
-\kappa &= \frac{2\pi}{N_{\text{eff}}^2} \cdot \exp(-5) \cdot \eta = 5.00 \times 10^{-6}
+\kappa &= \frac{2\pi}{N_{\text{eff}}^2} \cdot \exp(-5) \cdot \eta
 \end{align}
 
-\textbf{Physical Meaning:} Couples operator eigenvalues to Riemann zeros via $t_n = 10/(\pi \lambda_n \kappa)$
+\noindent\textbf{This chain does not reproduce $5 \times 10^{-6}$ and is
+withdrawn as a derivation (2026-11-23).} Earlier revisions printed
+$\exp(\pi^2/12) \approx 707.1$; the true value is $2.2761\ldots$. With $707.1$
+the chain gives $2.01 \times 10^{-8}$; with the correct $2.2761$ it gives
+$1.94 \times 10^{-3}$. Neither is $5 \times 10^{-6}$, so the printed
+agreement was not a derivation of $\kappa$.
 
-\textbf{Status:} $\otimes$ COMPUTED (derived from first principles, verified at 150-digit precision)
+\textbf{Physical Meaning:} $\kappa$ is the scaling parameter of the $\tilde{T}_3^{\textsf{sym}}$ truncation, not a factor in the eigenvalue--zero map. That map is $t_n = 10/(\pi |\lambda_n|)$ (Ch.~20), which the 2025 run data satisfies exactly: every one of its ten correspondences has $t \cdot |\lambda| = 10/\pi$ to nine digits.
+
+\textbf{Status:} $\triangle$ MEASURED. $5 \times 10^{-6}$ is the \texttt{best\_scaling} returned by the 2025 universality sweep (\texttt{high\_precision\_verification\_results.json}, \texttt{universality\_test}: $N = 20$, mean distance $8.50$). It is an empirical best fit, not a first-principles result. A first-principles derivation remains open.
 
 \subsection{Consciousness Threshold $\text{ch}_2 = 0.95$}
 
