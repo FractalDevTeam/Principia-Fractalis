@@ -45,6 +45,7 @@ hypothesis. Supplying the corrected bounds, and a real proof of
 `encodeConfig_tape_eq`, is formalisation work and is not done here.
 -/
 
+import Mathlib.Algebra.Order.BigOperators.GroupWithZero.List
 import Mathlib.Data.Nat.Log
 import Mathlib.Data.Nat.Nth
 import Mathlib.Data.Nat.Prime.Basic
@@ -136,6 +137,56 @@ theorem growth_bound_claim_is_false :
   rw [encode_witness, witness_tape_length] at hle
   norm_num at hle
   exact absurd hle (not_le.mpr (Real.log_pos (by norm_num)))
+
+/-! ## §4 — What IS true: the encoding is at least exponential in the state
+
+The two refuted bounds both fail for the same structural reason, and it is
+worth stating positively rather than only negatively. `encodeConfig c` always
+carries the factor `2 ^ c.state`, so its binary logarithm is at least
+`c.state` — **no matter what the tape does**. Both claimed upper bounds put a
+`tape.length` factor on the right, which vanishes on an empty tape while the
+left-hand side does not. That is the whole counterexample, stated as a theorem.
+
+This is also why no unconditional upper bound is proved here. Mathlib
+`v4.24.0-rc1` has no sub-additivity for `Nat.log` over products (only
+`log_mul_base`, `log_mono_right`, `pow_log_le_self`, `log_lt_of_lt_pow`), so
+bounding `encodeConfig` above requires bounding the tape's prime product, which
+needs the prime-size estimate the original file appealed to in comments and
+never formalised. A correct upper bound is therefore a *conditional* statement
+with that estimate as a named hypothesis — not something to assert outright. -/
+
+/-- `2 ^ c.state` divides the encoding. -/
+theorem two_pow_state_dvd_encodeConfig (c : TMConfig) :
+    2 ^ c.state ∣ encodeConfig c := by
+  unfold encodeConfig
+  exact ⟨3 ^ c.head * (c.tape.mapIdx
+    (fun j sym => (Nat.nth Nat.Prime (j + 2)) ^ (sym.val + 1))).prod, by ring⟩
+
+/-- `2 ^ c.state ≤ encodeConfig c`: the encoding is at least exponential in the
+    state, independently of the tape. -/
+theorem two_pow_state_le_encodeConfig (c : TMConfig) :
+    2 ^ c.state ≤ encodeConfig c := by
+  refine Nat.le_of_dvd ?_ (two_pow_state_dvd_encodeConfig c)
+  unfold encodeConfig
+  refine Nat.mul_pos (Nat.mul_pos (Nat.pow_pos (by norm_num)) ?_) ?_
+  · exact Nat.pow_pos (by norm_num)
+  · refine List.prod_pos ?_
+    intro x hx
+    obtain ⟨j, sym, _, rfl⟩ := List.mem_mapIdx.mp hx
+    -- the mirror uses `Nat.Prime` directly, so no `Nat.prime_iff` bridge is
+    -- needed here (unlike the original, which is built on `_root_.Prime`)
+    exact Nat.pow_pos
+      (Nat.Prime.pos (Nat.nth_mem_of_infinite Nat.infinite_setOf_prime (j + 2)))
+
+/-- **The state is a lower bound on the encoding's bit-length.**
+    `c.state ≤ Nat.log 2 (encodeConfig c)`, for every configuration — including
+    those with an empty tape, which is exactly where both refuted upper bounds
+    put zero on the right. -/
+theorem state_le_log_encodeConfig (c : TMConfig) :
+    c.state ≤ Nat.log 2 (encodeConfig c) := by
+  have h := two_pow_state_le_encodeConfig c
+  calc c.state = Nat.log 2 (2 ^ c.state) := (Nat.log_pow (by norm_num) _).symm
+    _ ≤ Nat.log 2 (encodeConfig c) := Nat.log_mono_right h
 
 /-- Both refutations together, as one citable fact. -/
 theorem axiom_elimination_definitions_has_two_false_claims :
