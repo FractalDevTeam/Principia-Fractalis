@@ -192,6 +192,59 @@ predicts in closed form, and precisely the cell ΛCDM cannot fill. It also means
 §5b, which compares `w₀`, is testing the *less* discriminating coordinate; §4's
 crossing comparison is the sharper test, and it is the one still waiting on ρ.
 
+## 5d. Robustness check — DONE, and it passes in all three samples
+
+§5c's open item is **closed**. The w₀wₐCDM rows are confirmed
+(arXiv:2503.14738): Pantheon+ `w₀ = −0.838 ± 0.055, wₐ = −0.62`; DESY5
+`w₀ = −0.752 ± 0.057, wₐ = −0.86`; Union3 `w₀ = −0.667 ± 0.088, wₐ = −1.09`.
+Reproduce with `codex/pf_three_sample.py`.
+
+### A — `w₀` alone (single parameter; marginal σ correct, no covariance)
+
+| sample | measured w₀ | ΛCDM | PF action (−0.93 edge) | **PF ansatz** | DESI's joint |
+|---|---|---|---|---|---|
+| Pantheon+ | −0.838 ± 0.055 | 2.95σ | 1.67σ | **0.53σ** | 2.8σ |
+| DESY5 | −0.752 ± 0.057 | 4.35σ | 3.12σ | **1.00σ** | 4.2σ |
+| Union3 | −0.667 ± 0.088 | 3.78σ | 2.99σ | **1.61σ** | 3.8σ |
+
+**Method validated three times.** The 1-D ΛCDM column — 2.95σ, 4.35σ, 3.78σ —
+reproduces DESI's own *joint* significances of 2.8σ, 4.2σ, 3.8σ, sample by
+sample. The approach recovers the published result by an independent route in
+every case, so it is not inflating the comparison.
+
+**PF's ansatz is under 2σ in all three, and is the closest of the three models
+in all three.**
+
+Note the correction this forces on §5b: the action branch is **1.67σ** against
+Pantheon+, not 3σ+. §5b's claim that crossing-vs-touch "cannot rescue" it holds
+for DESY5 and Union3 (3.12σ, 2.99σ) but **not** for Pantheon+. The honest form
+is: the action branch is disfavoured by two of three samples and survives the
+third at 1.67σ.
+
+### B — the crossing, the coordinate where DESI's signal actually lives
+
+| sample | R = (1+w₀)/\|wₐ\| | z_cross | \|R − R_PF\| | \|z − z*\| |
+|---|---|---|---|---|
+| Pantheon+ | 0.261290 | 0.353712 | 0.047727 | 0.093502 |
+| DESY5 | 0.288372 | 0.405229 | 0.020645 | 0.041985 |
+| **Union3** | **0.305505** | **0.439894** | **0.003512** | **0.007319** |
+| **PF (exact)** | **0.309017** | **0.447214** | — | — |
+| ΛCDM | undefined | **none** | — | — |
+
+The three samples bracket PF from below — 0.354, 0.405, 0.440 against 0.447 —
+and **Union3, the 3.8σ combination, lands 0.0073 from PF's closed form**, an
+agreement of 1.6%. ΛCDM cannot populate this column in principle.
+
+### Still not established
+
+* The published **ρ(w₀,wₐ)** is not in hand, so §B is a point comparison, not
+  yet a significance. §4's scan stands as the bound on what ρ can do to it.
+* Pantheon+ and Union3 **wₐ uncertainties** are not yet read off Table 3; only
+  their central values are used in §B.
+* `−φ/2` remains an **ansatz**, not derived (§5 item 3), and r389 still proves
+  PF's own action derivation excludes it (§5 item 4).
+* Under 2σ is **not excluded**, never confirmed.
+
 ## 6. The fork, and why it is an asset
 
 PF carries two mutually exclusive cosmologies, and the inconsistency is settled
