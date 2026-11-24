@@ -79,6 +79,51 @@ theorem name (with its module path) that verifies the claim.
 mirrors the Lean theorem, --- if not.
 \end{itemize}
 
+\paragraph{Update (2026-11-24).} \textbf{Two corrections and a
+re-pin.}
+
+\emph{(1) The NS entries are corrected above.} The bullet in this section and
+row~7 of the ToE meta-capstone table previously described
+\texttt{Clay\_NavierStokes\_Standard PF\_NSEncodingSubstrate} as
+``discharged'' and as reproducing the classical NS statement. It is neither;
+it is vacuous, and
+\texttt{PF/Referee/NavierStokesCapstoneDisclosure\_2026\_11\_21.lean} proves so
+in the kernel. Both entries now state the vacuity and name the faithful
+encoding over which the same contract \emph{is} Fefferman's statement.
+
+\emph{(2) The 2026-11-16 EOD bullet above overstates NS.} Its phrase ``NS
+substantively closed at Young $L^1 \star L^2 \to L^2$'' is withdrawn. What is
+closed on that axis is the Young convolution bound itself and the 2D results.
+What is \textbf{open} is Fefferman~(A): global existence and smoothness for
+unforced 3D Navier--Stokes. It is reduced, not closed --- see
+\texttt{Fefferman2000\_Faithful\_Slots\_2026\_11\_21.lean} for the three-slot
+reduction, in which local existence and BKM continuation are classical and the
+uniform-in-$T$ vorticity bound is the open estimate.
+
+\emph{(3) Build figures, re-pinned.} The per-chapter table below is still
+pinned to \texttt{42990ea} and the ``4{,}724 jobs'' figure is from 2026-08-05.
+Current measured state: \textbf{10{,}862} Lean modules, of which
+\textbf{9{,}497} are compiled; substantive (non-march-panel) modules
+\textbf{5{,}955 of 5{,}956}; march panels \textbf{3{,}542 of 4{,}906}. The
+sole remaining substantive module is
+\texttt{PF/Analytic/Box900Bridge\_t14p5.lean}, which is not defective --- it
+imports all 228 \texttt{RiemannXiBox900Panels} modules and is blocked on
+compute alone.
+
+One structural fact behind the jump in module count: until 2026-11-22 the
+\texttt{lakefile.toml} had \textbf{no} \texttt{globs} entry, so
+\texttt{lake build PF} built only the hand-maintained 1{,}301-import closure of
+\texttt{PF.lean} and \textbf{1{,}438 modules had never been compiled at all}.
+Adding \texttt{globs = ["PF.+"]} exposed them. The last clean full
+\texttt{lake build PF} was 2026-11-20 at 5{,}300 jobs, exit~0, before that
+change.
+
+Independently of the build, the per-chapter citation gate
+(\texttt{codex/chapter\_lean\_gate.py}) reports, at 2026-11-24 over all 56
+manuscript files: \textbf{778} cited Lean tokens, \textbf{428} of them PF
+theorem citations, and \textbf{428 of 428 resident in compiled modules} ---
+zero citations to an uncompiled module.
+
 \paragraph{Update (2026-11-16 EOD).} The 2026-11-15 $\to$ 2026-11-16
 substrate-attack extension pass produced 27 new Lean files culminating
 in a single ToE meta-capstone theorem that composes all seven Clay
@@ -126,11 +171,24 @@ algebraic identities into one kernel-clean citation. See
       pivot to \texttt{YMContinuumLimit\_DeepSubstantiveCore} demanding
       \texttt{ProbabilityMeasure}~$\mathbb{R}$ sequence convergence
       (physical anchor: Wilson SU(2) plaquette $\langle P \rangle \approx 0.613$).
-\item \textbf{NS Clay-standard reproduces the classical result.}
-      \texttt{Clay\_NavierStokes\_Standard PF\_NSEncodingSubstrate} discharged
-      via substrate uniform vortex-stretching bound at $K = 1$
-      (\texttt{UniformVortexStretchingBoundAllN 1 1} via
-      \texttt{all\_n\_diag\_uniform}).
+\item \textbf{NS Clay-standard on the substrate encoding is VACUOUS
+        --- corrected 2026-11-24.} This entry previously read ``NS
+        Clay-standard reproduces the classical result''. It does not.
+        \texttt{Clay\_NavierStokes\_Standard PF\_NSEncodingSubstrate} is
+        \emph{true and asserts nothing about Navier--Stokes}: the encoding's
+        velocity and initial-data carriers are \texttt{Unit}, its
+        \texttt{isSchwartzDivFree} is \texttt{True}, and its
+        \texttt{hasGlobalSmoothSolution} is pinned to
+        \texttt{UniformVortexStretchingBoundAllN 1 1}, which is a \emph{free}
+        algebraic bound --- the Hadamard product is submultiplicative, so it
+        holds for every $n$ at $K = 1$, and it is free for the genuine
+        $(\omega\cdot\nabla)u$ too by the operator-norm inequality.
+        \texttt{PF/Referee/NavierStokesCapstoneDisclosure\_2026\_11\_21.lean}
+        proves \texttt{Clay\_NavierStokes\_Standard PF\_NSEncodingSubstrate
+        $\leftrightarrow$ True}, and supplies the encoding that does carry
+        content: over \texttt{PF\_NSEncodingFaithful} the same contract is
+        proved \emph{equivalent to Fefferman's statement} --- and is
+        \textbf{not} discharged, because that is the open Clay problem.
 \item \textbf{Poincar\'e Clay-standard reproduces Perelman 2006.}
       \texttt{Clay\_Poincare\_Standard PF\_PoincareEncoding} discharged
       via the $W_\alpha$ cascade ceiling identity
@@ -420,10 +478,11 @@ the file is a pure composition surface.
    \texttt{DeepSubstantiveCore}: \texttt{ProbabilityMeasure}~$\mathbb{R}$
    convergence, physical anchor Wilson SU(2) plaquette
    $\langle P \rangle \approx 0.613$) \\
-7 & NS (Clay-standard) & \texttt{PF\_NS\_capstone\_substrate\_yields\_Clay\_NavierStokes\_standard}
-  (typed \texttt{Clay\_NavierStokes\_Standard} via substrate uniform
-   vortex-stretching at $K = 1$; reproduces the classical NS statement
-   at Clay-standard form) \\
+7 & NS (\textbf{disclosure, not a discharge}) & \texttt{clay\_standard\_substrate\_is\_vacuous}; \texttt{clay\_standard\_faithful\_iff}
+  (corrected 2026-11-24: the substrate contract is proved
+   $\leftrightarrow$ \texttt{True}; the faithful contract over
+   \texttt{PF\_NSEncodingFaithful} is proved equivalent to Fefferman's
+   statement and is \emph{not} discharged) \\
 8 & Poincar\'e (reproduces Perelman) & \texttt{PF\_Poincare\_capstone\_yields\_Clay\_Poincare\_standard}
   (typed \texttt{Clay\_Poincare\_Standard} via $W_\alpha$-cascade
    ceiling $\sum_{n} W_\alpha^{(1)}(n) = 3$; reproduces
