@@ -181,7 +181,10 @@ open PF.YangMills.YMContinuumSubstantiveCorePivot
 the Theory of Everything substrate attack position at 2026-11-16 EOD,
 expressed as a single kernel-clean theorem on the three-axiom bar.
 
-Six conjuncts, one per Clay axis:
+Ten conjuncts. Six are the 2026-11-16 per-axis substrate positions;
+conjuncts (7)-(10) were added 2026-11-21/22 and are enumerated below
+alongside them. NOT one per Clay axis: (9) Fermat is a non-Clay
+auxiliary and (10) is the algebraic alpha-skeleton.
 
 **(1) Morning six-axis substrate positions.**  The 2026-11-15 morning
     meta-capstone composing the YM/PvNP/BSD/Hodge/RH position
@@ -222,6 +225,52 @@ Six conjuncts, one per Clay axis:
     requiring actual measure-sequence convergence on ProbabilityMeasure ℝ
     (physical anchor: SU(2) plaquette ≈ 0.613).  Three-tier ordering
     deep ⟹ substantive ⟹ structural tag all composed.
+
+**(7) NS — DISCLOSURE, NOT A DISCHARGE (corrected 2026-11-21).**
+    Two sub-conjuncts. First, the superseded substrate contract is
+    proved equivalent to `True`: its carriers are `Unit`, its
+    `isSchwartzDivFree` is `True`, and its conclusion is pinned to a
+    FREE algebraic bound. Second, the Clay contract over
+    `PF_NSEncodingFaithful` is proved **equivalent to Fefferman's
+    statement** — stated and **NOT discharged**, because that is the
+    open Clay problem. See
+    `PF/Referee/NavierStokesCapstoneDisclosure_2026_11_21.lean`.
+
+**(8) POINCARÉ — typed Clay-standard contract** via the W_α cascade
+    ceiling `∑' n, W_alpha_level 1 n = 3` at `α_Poincare = 1`.
+    Axiom-free. **Carrier disclosure**: this encoding's
+    `SmoothThreeManifold` is `ℝ`, proved by `rfl` in
+    `PF/Referee/ToECapstoneVacuityDisclosure_2026_11_22.lean`. The
+    conjunct is a statement about that encoding, not about smooth
+    3-manifolds.
+
+**(9) FERMAT — the 8th-axis non-Clay auxiliary.**  Five sub-conjuncts:
+    the typed contract on `PF_FermatEncoding` (which
+    `ToECapstoneVacuityDisclosure_2026_11_22` proves is `↔ True`, since
+    the encoding sets `holds _ := True`); `a⁴ + b⁴ ≠ c²` via mathlib's
+    `not_fermat_42`; the difference form `a⁴ − b⁴ ≠ c²` via this
+    project's own `not_fermat_42_sub`; `n = 3` via mathlib's
+    `fermatLastTheoremThree`; and all `n ≥ 3` with `3 ∣ n ∨ 4 ∣ n`.
+    The second, third, fourth and fifth carry genuine arithmetic; the
+    first does not.
+
+**(10) α-SKELETON algebraic unification** — nine kernel-verified α
+    identities, showing the axes are algebraically coupled rather than
+    independent: `α_P² = α_YM`, `α_RH² = 9/4`,
+    `α_Hodge² = α_Hodge + 1`, `α_QG² = 2π`, `α_NS = 2·α_BSD`,
+    `α_NS = α_YM·α_BSD`, `α_YM = α_Poincare + 1`,
+    `α_RH·α_NS = α_NS + α_BSD`, `α_RH·α_YM = 3`.
+    **Scope**: these are identities among the α *values*; per
+    `INSTRUCTIONS_FOR_EVERY_AI` §0.4 the α-cascade is never cited as
+    corroboration of any axis.
+
+**Where the empty conjuncts are disclosed.**  Several conjuncts above
+are statements about encodings rather than about the classical objects,
+and four of them are proved vacuous in the kernel by
+`PF/Referee/ToECapstoneVacuityDisclosure_2026_11_22.lean`: the Fermat
+contract (`↔ True`), the Poincaré carrier (`= ℝ`), and the YM, Hodge
+and RH structural tags (each closable on `Unit`). A reader citing this
+capstone should read that file alongside it.
 
 This is the ToE citation at HEAD.  No new mathematical content —
 pure composition of 2026-11-15 morning + 2026-11-15 EOD + 2026-11-16
