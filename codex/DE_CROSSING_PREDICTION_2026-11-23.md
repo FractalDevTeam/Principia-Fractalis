@@ -155,6 +155,43 @@ r389 proves the action derivation excludes it (§5 item 4); this is one data
 combination, and Pantheon+ and Union3 give different `w₀`; and agreement at 1σ
 is "not excluded", never "confirmed".
 
+## 5c. Robustness across SNe samples — OPEN, and a trap to avoid
+
+**This is the check that decides whether §5b survives a referee**, and it is not
+finished. Recorded here in its true state.
+
+**What is verified.** DESI+CMB+DESY5 `w₀ = −0.752 ± 0.057`,
+`wₐ = −0.86 (+0.23/−0.20)`, 4.2σ. DESI+CMB `w₀ = −0.42 ± 0.21`,
+`wₐ = −1.75 ± 0.58`, 3.1σ. DESI+CMB+Union3 `wₐ = −1.09 (+0.31/−0.27)`.
+DESI's own ΛCDM-rejection significances: **2.8σ (Pantheon+), 3.8σ (Union3),
+4.2σ (DESY5)**, with Δχ²(MAP) = −10.7, −17.4, −21.0.
+
+**What is NOT verified.** The `w₀` values in the **w₀wₐCDM** model for the
+Pantheon+ and Union3 combinations. Until those are read off Table 3 of
+arXiv:2503.14738, §5b's 1.00σ is a **one-combination result** and must be
+described as such.
+
+**THE TRAP, and it nearly caught this document.** Secondary summaries quote
+`w₀ = −0.986 ± 0.026` (Pantheon+), `−0.983 ± 0.024` (DES-Dovekie),
+`−0.979 ± 0.031` (Union3). **Those are wCDM — constant-`w` — fits, not
+w₀wₐCDM.** They have no `wₐ` column. Substituting them into a `w₀wₐ`
+comparison would be a category error, and it would wrongly make every model
+look consistent with Λ. Any future pass must confirm it is reading the
+**w₀wₐCDM** row.
+
+**And the trap contains a real finding.** In the constant-`w` model, DESI+CMB+SNe
+gives **N_σ ≈ 0 against ΛCDM for every sample** (at most 0.14σ), and DESI+CMB
+alone gives `w = −1.037 ± 0.041`, also N_σ ≈ 0
+([arXiv:2508.10514](https://arxiv.org/abs/2508.10514), Table 4).
+
+So **the entire DESI anomaly lives in the evolution term, not in the value of
+`w` today.** A constant-`w` alternative to Λ gains nothing. That is
+methodologically important for this lane: it means the discriminating variable
+is `wₐ`, or equivalently the crossing — which is precisely what PF's pair
+predicts in closed form, and precisely the cell ΛCDM cannot fill. It also means
+§5b, which compares `w₀`, is testing the *less* discriminating coordinate; §4's
+crossing comparison is the sharper test, and it is the one still waiting on ρ.
+
 ## 6. The fork, and why it is an asset
 
 PF carries two mutually exclusive cosmologies, and the inconsistency is settled
