@@ -107,6 +107,54 @@ consistent with the DESY5 crossing at 0.4052, obtained by a different route.
    branch is non-phantom *by theorem* (`w ≥ −1`, matching r219's
    `wEff_ge_neg_one` and ch27:168), so it forbids any crossing.
 
+## 5b. The covariance-FREE test — `w₀` alone
+
+Reproduce with `codex/pf_w0_test.py`.
+
+A comparison of `w₀` against **its own published marginal uncertainty** is a
+single-parameter test. The marginal σ is the *correct* error for it; no
+correlation coefficient enters, so item 1 of §5 does not apply. This sidesteps
+the exact defect that forced the withdrawal of the earlier 2.23–2.69σ.
+
+Against DESI+CMB+DESY5, `w₀ = −0.752 ± 0.057`:
+
+| model / branch | w₀ | g₀/H₀ = 3(1+w₀) | deviation |
+|---|---|---|---|
+| ΛCDM | −1.0000 | 0.0000 | **4.35σ** |
+| PF action branch, near edge | −0.9300 | 0.2100 | 3.12σ |
+| PF action branch, far edge | −0.9900 | 0.0300 | 4.18σ |
+| **PF golden-ratio ansatz** | **−0.8090** | **0.5729** | **1.00σ** |
+| measured g-inversion, low edge | −0.7530 | 0.7410 | 0.02σ |
+| measured g-inversion, high edge | −0.6500 | 1.0500 | 1.79σ |
+
+**Method check.** The 1-D ΛCDM deviation computed here, 4.35σ, reproduces DESI's
+own quoted **4.2σ** joint significance for this combination. The approach is
+therefore not inflating the comparison — it recovers the published number by an
+independent route.
+
+**Two consequences.**
+
+1. **Ranking against DESY5: ansatz 1.00σ < PF action branch 3.12σ < ΛCDM 4.35σ.**
+   `−φ/2 = −0.809017` sits at almost exactly one marginal σ from the published
+   central value, and φ was fixed in this framework years before DESI DR2
+   existed.
+
+2. **Crossing-vs-touch cannot rescue the action branch.** §6's undecided question
+   concerns how to read the zero at `z ≈ 0.40`. But the action branch misses the
+   measured `w₀` by **3.12σ at its most favourable edge and 4.18σ at its other
+   edge**, and that is a statement about *today's* value, independent of whether
+   the past zero is a crossing or a touch. So resolving §6 in the action
+   branch's favour does not save it; it would still be further from the data
+   than ΛCDM's nearest competitor.
+
+   That narrows the fork: the data disfavours the action branch on `w₀` alone,
+   before any question about the crossing is reached.
+
+**Caveats unchanged by this test**: `−φ/2` is an ansatz, not derived (§5 item 3);
+r389 proves the action derivation excludes it (§5 item 4); this is one data
+combination, and Pantheon+ and Union3 give different `w₀`; and agreement at 1σ
+is "not excluded", never "confirmed".
+
 ## 6. The fork, and why it is an asset
 
 PF carries two mutually exclusive cosmologies, and the inconsistency is settled
