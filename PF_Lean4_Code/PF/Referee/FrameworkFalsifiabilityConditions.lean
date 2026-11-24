@@ -1021,10 +1021,30 @@ theorem ch2_clinical_mapping_iff_ch2_PCI :
     Ch2_Clinical_Mapping_Required ↔ Ch2_PCI_Equivalence_Hypothesis := by
   unfold Ch2_Clinical_Mapping_Required Ch2_PCI_Equivalence_Hypothesis; exact Iff.rfl
 
+/-- **Inventory link, not a mathematical equivalence.**
+
+    Both sides are `True`-bodied markers (`def … : Prop := True`), so this
+    is `Iff.rfl` and establishes nothing about the ch2-PCI equivalence hypothesis and the 144-problem test protocol.
+    What it records is that the two inventory items sit in the same
+    equivalence class at the kernel level; the underlying mathematics
+    remains open, and closing one side does not close the other.
+
+    Docstring added 2026-11-23: the theorem was previously bare, and read
+    without context its name announces a result it does not prove. -/
 theorem ch2_PCI_iff_hundred44_protocol :
     Ch2_PCI_Equivalence_Hypothesis ↔ Hundred44Problem_TestProtocolRequired := by
   unfold Ch2_PCI_Equivalence_Hypothesis Hundred44Problem_TestProtocolRequired; exact Iff.rfl
 
+/-- **Inventory link, not a mathematical equivalence.**
+
+    Both sides are `True`-bodied markers (`def … : Prop := True`), so this
+    is `Iff.rfl` and establishes nothing about the three open protocol requirements.
+    What it records is that the two inventory items sit in the same
+    equivalence class at the kernel level; the underlying mathematics
+    remains open, and closing one side does not close the other.
+
+    Docstring added 2026-11-23: the theorem was previously bare, and read
+    without context its name announces a result it does not prove. -/
 theorem framework_open_protocol_triple_all_iff_True :
     (Ch2_Clinical_Mapping_Required ↔ True) ∧
     (Ch2_PCI_Equivalence_Hypothesis ↔ True) ∧

@@ -807,6 +807,16 @@ theorem cm5fold_canonical_trivial_iff_MumfordVoisinBypass
   unfold CmAbelian5FoldCodim2Substrate.canonical_trivial MumfordVoisinBypass_on_abelian_5fold
   exact Iff.rfl
 
+/-- **Inventory link, not a mathematical equivalence.**
+
+    Both sides are `True`-bodied markers (`def … : Prop := True`), so this
+    is `Iff.rfl` and establishes nothing about the Mumford-Voisin bypass and Mumford algebraicity on abelian 5-folds.
+    What it records is that the two inventory items sit in the same
+    equivalence class at the kernel level; the underlying mathematics
+    remains open, and closing one side does not close the other.
+
+    Docstring added 2026-11-23: the theorem was previously bare, and read
+    without context its name announces a result it does not prove. -/
 theorem cm5fold_MumfordVoisinBypass_iff_Mumford_algebraicity
     (X : CmAbelian5FoldCodim2Substrate) :
     MumfordVoisinBypass_on_abelian_5fold X ↔

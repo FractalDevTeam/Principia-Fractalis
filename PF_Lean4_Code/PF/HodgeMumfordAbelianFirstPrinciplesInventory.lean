@@ -504,24 +504,94 @@ class at kernel-only axioms. -/
 theorem mumford_P1_iff_P2 : P1_AbelianVariety_typeclass ↔ P2_EllipticCurve_to_AbelianVariety := by
   unfold P1_AbelianVariety_typeclass P2_EllipticCurve_to_AbelianVariety; exact Iff.rfl
 
+/-- **Inventory link, not a mathematical equivalence.**
+
+    Both sides are `True`-bodied markers (`def … : Prop := True`), so this
+    is `Iff.rfl` and establishes nothing about the elliptic-curve-to-abelian-variety step and the abelian-variety product.
+    What it records is that the two inventory items sit in the same
+    equivalence class at the kernel level; the underlying mathematics
+    remains open, and closing one side does not close the other.
+
+    Docstring added 2026-11-23: the theorem was previously bare, and read
+    without context its name announces a result it does not prove. -/
 theorem mumford_P2_iff_P3 : P2_EllipticCurve_to_AbelianVariety ↔ P3_AbelianVariety_product := by
   unfold P2_EllipticCurve_to_AbelianVariety P3_AbelianVariety_product; exact Iff.rfl
 
+/-- **Inventory link, not a mathematical equivalence.**
+
+    Both sides are `True`-bodied markers (`def … : Prop := True`), so this
+    is `Iff.rfl` and establishes nothing about the abelian-variety product and the Pontryagin product on Chow groups.
+    What it records is that the two inventory items sit in the same
+    equivalence class at the kernel level; the underlying mathematics
+    remains open, and closing one side does not close the other.
+
+    Docstring added 2026-11-23: the theorem was previously bare, and read
+    without context its name announces a result it does not prove. -/
 theorem mumford_P3_iff_P4 : P3_AbelianVariety_product ↔ P4_PontryaginProduct_on_Chow := by
   unfold P3_AbelianVariety_product P4_PontryaginProduct_on_Chow; exact Iff.rfl
 
+/-- **Inventory link, not a mathematical equivalence.**
+
+    Both sides are `True`-bodied markers (`def … : Prop := True`), so this
+    is `Iff.rfl` and establishes nothing about the Pontryagin product on Chow groups and Kuenneth for abelian varieties.
+    What it records is that the two inventory items sit in the same
+    equivalence class at the kernel level; the underlying mathematics
+    remains open, and closing one side does not close the other.
+
+    Docstring added 2026-11-23: the theorem was previously bare, and read
+    without context its name announces a result it does not prove. -/
 theorem mumford_P4_iff_P5 : P4_PontryaginProduct_on_Chow ↔ P5_Kunneth_for_AbelianVariety := by
   unfold P4_PontryaginProduct_on_Chow P5_Kunneth_for_AbelianVariety; exact Iff.rfl
 
+/-- **Inventory link, not a mathematical equivalence.**
+
+    Both sides are `True`-bodied markers (`def … : Prop := True`), so this
+    is `Iff.rfl` and establishes nothing about Kuenneth for abelian varieties and the cycle-class map in arbitrary codimension.
+    What it records is that the two inventory items sit in the same
+    equivalence class at the kernel level; the underlying mathematics
+    remains open, and closing one side does not close the other.
+
+    Docstring added 2026-11-23: the theorem was previously bare, and read
+    without context its name announces a result it does not prove. -/
 theorem mumford_P5_iff_P6 : P5_Kunneth_for_AbelianVariety ↔ P6_CycleClassMap_in_arbitrary_codim := by
   unfold P5_Kunneth_for_AbelianVariety P6_CycleClassMap_in_arbitrary_codim; exact Iff.rfl
 
+/-- **Inventory link, not a mathematical equivalence.**
+
+    Both sides are `True`-bodied markers (`def … : Prop := True`), so this
+    is `Iff.rfl` and establishes nothing about the cycle-class map and the Hodge-class Pontryagin decomposition.
+    What it records is that the two inventory items sit in the same
+    equivalence class at the kernel level; the underlying mathematics
+    remains open, and closing one side does not close the other.
+
+    Docstring added 2026-11-23: the theorem was previously bare, and read
+    without context its name announces a result it does not prove. -/
 theorem mumford_P6_iff_P7 : P6_CycleClassMap_in_arbitrary_codim ↔ P7_HodgeClasses_Pontryagin_decomposition := by
   unfold P6_CycleClassMap_in_arbitrary_codim P7_HodgeClasses_Pontryagin_decomposition; exact Iff.rfl
 
+/-- **Inventory link, not a mathematical equivalence.**
+
+    Both sides are `True`-bodied markers (`def … : Prop := True`), so this
+    is `Iff.rfl` and establishes nothing about the Hodge-class Pontryagin decomposition and Mumford's 1970 theorem.
+    What it records is that the two inventory items sit in the same
+    equivalence class at the kernel level; the underlying mathematics
+    remains open, and closing one side does not close the other.
+
+    Docstring added 2026-11-23: the theorem was previously bare, and read
+    without context its name announces a result it does not prove. -/
 theorem mumford_P7_iff_P8 : P7_HodgeClasses_Pontryagin_decomposition ↔ P8_Mumford1970_capstone := by
   unfold P7_HodgeClasses_Pontryagin_decomposition P8_Mumford1970_capstone; exact Iff.rfl
 
+/-- **Inventory link, not a mathematical equivalence.**
+
+    Both sides are `True`-bodied markers (`def … : Prop := True`), so this
+    is `Iff.rfl` and establishes nothing about Mumford 1970 and the from-first-principles Mumford theorem on abelian 3-folds.
+    What it records is that the two inventory items sit in the same
+    equivalence class at the kernel level; the underlying mathematics
+    remains open, and closing one side does not close the other.
+
+    Docstring added 2026-11-23: the theorem was previously bare, and read
+    without context its name announces a result it does not prove. -/
 theorem mumford_P8_iff_MumfordTheorem :
     P8_Mumford1970_capstone ↔ MumfordTheoremFirstPrinciplesAbelian3Fold := by
   unfold P8_Mumford1970_capstone MumfordTheoremFirstPrinciplesAbelian3Fold; exact Iff.rfl
