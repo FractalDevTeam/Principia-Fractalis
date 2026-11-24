@@ -290,6 +290,64 @@ untestable on the crossing until the SNe tension is resolved.
 Unchanged: the pair is an **ansatz**, not derived (§5 item 3), and r389 proves
 PF's own action derivation excludes it (§5 item 4).
 
+## 5f. DESI quotes the crossing itself — and it is parametrization-independent
+
+From the DESI collaboration's own extended dark-energy analysis
+(Lodha et al., *Extended Dark Energy analysis using DESI DR2 BAO measurements*,
+`data.desi.lbl.gov/public/papers/y3/Lodha.DE.pdf`), text extracted locally:
+
+> "models exhibit similar low-redshift behavior, including a **phantom crossing
+> near z ∼ 0.5**"
+
+and
+
+> "The data shows a clear p[reference for the] (w₀ > −1, wₐ < 0) quadrant, and
+> in particular **w₀ + wₐ < −1, implying a past phantom-like equation of state
+> transitioning to w(z) > −1 today**."
+
+The second quote is a crossing in the collaboration's own language. The first
+quotes its location.
+
+**This closes the strongest objection to §4 and §5d(B).** Both r389 and
+`COSMOLOGY_DE_ROUTE_MAP` flagged that **CPL is not PF's w(a)**, so a crossing
+inferred from a CPL fit might be a parametrization artifact. DESI tested five
+functional forms on DESI+CMB+Union3 and all five cross at comparable quality:
+
+| form | Δχ² |
+|---|---|
+| LOG | −17.6 |
+| EXP | −17.5 |
+| **CPL** | **−17.4** |
+| BA | −17.3 |
+| JBP | −13.6 |
+
+CPL sits in the middle of that spread, not at its edge. **The crossing is a
+robust feature of the data, not an artifact of the two-parameter form** — so
+comparing PF's closed form against it is legitimate rather than an
+apples-to-oranges fit comparison.
+
+**Comparison at DESI's own stated precision:**
+
+```
+DESI (five forms, DESI+CMB+Union3)   phantom crossing near  z ~ 0.5
+PF, exact, from phi^2 = phi + 1      z* = 1/sqrt(5)       = 0.4472
+per-sample CPL crossings (§5d B)     0.3537 / 0.4052 / 0.4399
+```
+
+**What this does NOT provide.** "near z ∼ 0.5" is approximate language, not a
+posterior with an error bar, so **no σ can be computed from it** and none is
+claimed here. It establishes the *existence* and *approximate location* of the
+crossing on the collaboration's own authority, and it establishes
+parametrization-independence. A quotable significance still needs either the
+published ρ(w₀,wₐ) or a posterior on z_cross directly.
+
+**Also measured and not found**: no correlation coefficient or covariance
+between w₀ and wₐ appears in this paper — searched for `correlat`, `covarian`,
+`degenerac` across 387 kB of extracted text. The `correlat` hits concern the
+compressed-CMB prior and the `w(z)`-bin amplitudes, not the CPL parameters. So
+ρ remains open after three independent attempts (abstract, HTML, this PDF) and
+the next route is the public DESI chains rather than the papers.
+
 ## 6. The fork, and why it is an asset
 
 PF carries two mutually exclusive cosmologies, and the inconsistency is settled
