@@ -1,0 +1,148 @@
+# The dark-energy crossing redshift: PF's one parameter-free cosmological prediction
+
+**Date**: 2026-11-23 (Legion). **Status**: internal instrument. Not a publication,
+not a draft for anyone outside this repository.
+
+Reproduce with `codex/pf_crossing_joint.py` (stdlib only).
+
+---
+
+## 1. The claim, in four lines of cosmology
+
+PF's substrate CPL pair is `(w₀, wₐ) = (−φ/2, −1/φ)`
+(`PF/Priority4SubstrateDischarge.lean`, r78). Under the CPL form
+`w(a) = w₀ + wₐ(1−a)`, the equation of state crosses `w = −1` at
+
+```
+1 − a* = (1 + w₀)/|wₐ| = (φ − 1)/2 = 1/(2φ)      EXACT
+     a* = (3 − φ)/2            = 0.6909830056
+     z* = (φ − 1)/(3 − φ)      = 1/√5 = 0.4472135955
+```
+
+Kernel-proved in `PF/Cosmology/SubstrateCPLCrossing_r388.lean`, axiom-free. The
+derivation consumes only `φ² = φ + 1`. **No parameter is adjusted.**
+
+**ΛCDM predicts no crossing at all** — `w ≡ −1`, so there is no redshift to
+compare. This column cannot be filled by the standard model even in principle.
+
+## 2. The right comparison variable
+
+The crossing depends on `w₀` and `wₐ` **only through the ratio**
+
+```
+R ≡ (1 + w₀)/|wₐ| ,        z* = 1/(1 − R) − 1
+```
+
+and that matters for significance, because
+
+```
+∂R/∂w₀ = 1/|wₐ|        > 0
+∂R/∂wₐ = (1 + w₀)/wₐ²  > 0
+```
+
+**Both partials are positive.** `w₀` and `wₐ` are strongly *anti*-correlated in
+every published fit, so the covariance term `2 (∂R/∂w₀)(∂R/∂wₐ) ρ σ₀ σₐ` is
+**negative** and `Var(R)` *shrinks*.
+
+This is the methodological point. An earlier PF significance (2.23–2.69σ) was
+**withdrawn** because it propagated marginal errors as if `Cov(w₀,wₐ) = 0`
+(`codex/COSMOLOGY_DE_ROUTE_MAP_2026-10-11.md`). In `R`, the same
+anti-correlation that invalidated that number works *for* the comparison: it
+cannot be concealing a failure, because every `ρ < 0` makes the test sharper,
+not looser. So the honest presentation is a **scan over ρ**, below, not a single
+assumed value.
+
+## 3. Published inputs
+
+arXiv:2503.14738 — DESI DR2 Results II.
+
+| combination | w₀ | wₐ | vs ΛCDM |
+|---|---|---|---|
+| DESI+CMB | −0.42 ± 0.21 | −1.75 ± 0.58 | 3.1σ |
+| DESI+CMB+DESY5 | −0.752 ± 0.057 | −0.86 (+0.23/−0.20) | **4.2σ** |
+
+Both lie in the quadrant `w₀ > −1, wₐ < 0` — which the DESI abstract names as
+the favoured one, and which is **the quadrant PF's pair occupies**. Both have
+`w₀ + wₐ < −1`, i.e. both are phantom in the past, i.e. **both cross**.
+
+## 4. Result
+
+| ρ(w₀,wₐ) | DESI+CMB+DESY5 | DESI+CMB |
+|---|---|---|
+| 0.00 *(marginal — invalid here)* | 0.21σ | 0.14σ |
+| −0.50 | 0.30σ | 0.19σ |
+| −0.70 | 0.38σ | 0.25σ |
+| −0.80 | 0.47σ | 0.31σ |
+| **−0.90** | **0.66σ** | **0.43σ** |
+| −0.95 | 0.91σ | 0.59σ |
+| −0.98 | 1.38σ | 0.89σ |
+
+Derived crossing redshifts: DESY5 `z = 0.4052`, DESI+CMB `z = 0.4957`.
+**PF's `1/√5 = 0.4472` is bracketed by the two.**
+
+Independent cross-check from inside the corpus: inverting r219 against SN data
+gives the `g`-zero at `z ≈ 0.40 ± 0.03`
+(`COSMOLOGY_DE_ROUTE_MAP_2026-10-11.md:30`), stable across three SN samples —
+consistent with the DESY5 crossing at 0.4052, obtained by a different route.
+
+**Agreement is under 1σ against both combinations for every ρ down to −0.95.**
+
+## 5. What is NOT established — all four are load-bearing
+
+1. **The published ρ is not in hand.** §4 is a scan, not a result. Table 3 of
+   arXiv:2503.14738 or the DESI chains are required to close it.
+2. **DESY5's `wₐ` error is asymmetric** (+0.23/−0.20); the mean half-width 0.215
+   is used. Redo with the asymmetric likelihood before any external use.
+3. **The golden-ratio pair is an ANSATZ, not derived** — Agent 10, 2026-07-04.
+   `PF/Cosmology/SubstrateCPLExcluded_r389.lean` lists four independent
+   obstructions: the α-values are ASSERTED; there is **no α_DE row** among the
+   nine; the physical dictionary is an untested hypothesis; and the functional
+   form is wrong — the substrate carries `log₃ φ`, a scaling *exponent*, while
+   the pair uses **bare** `φ`. r389 also records two near-misses to be refused
+   rather than rediscovered: `σ(3/4) = −0.80226` vs `−φ/2 = −0.80902` (0.84%),
+   and `σ(1/3) = 0.63093` vs `1/φ = 0.61803` (2.09%); the first would require
+   `3^φ = 3 + 2√2`, i.e. `5.91559 = 5.82843`, which is false.
+4. **PF's own action derivation EXCLUDES this pair.** r389 proves `−φ/2` lies
+   outside the derived window `w₀ ∈ [−0.99, −0.93]`, and the action's `Q = 0`
+   branch is non-phantom *by theorem* (`w ≥ −1`, matching r219's
+   `wEff_ge_neg_one` and ch27:168), so it forbids any crossing.
+
+## 6. The fork, and why it is an asset
+
+PF carries two mutually exclusive cosmologies, and the inconsistency is settled
+by a theorem rather than by data:
+
+| branch | w₀ | g₀/H₀ | crossing? |
+|---|---|---|---|
+| golden-ratio CPL ansatz (r78) | −0.8090 | 0.5729 | yes, at `z = 1/√5` |
+| action derivation, Q=0 (register A) | [−0.99, −0.93] | [0.030, 0.210] | **never** (theorem) |
+| measured `g` inversion | [−0.753, −0.650] | [0.74, 1.05] | zero at `z ≈ 0.40` |
+
+All three pairwise comparisons fail (r389). And r389 names the undecided
+question precisely:
+
+> the route map reads the measured zero at `z ≈ 0.40` as a **crossing**; the
+> derivation says it is a **touch** — a thawing field frozen at `φ̇ = 0`, so `g`
+> reaches zero without changing sign. *"Those are different claims about the
+> same measured number and the corpus has not distinguished them."*
+
+**Crossing or touch decides which half of PF's cosmology is load-bearing.** DESI's
+central values have `w < −1` in the past, which is a crossing — so the data
+currently points at the ansatz branch and against the action branch.
+
+A framework that says *"my two branches disagree, and here is the measurement
+that decides between them"* is doing what a theory should. The failure mode to
+avoid is presenting one branch while the kernel proves the other.
+
+## 7. Delivery note
+
+This result is four lines of cosmology. It mentions no consciousness, no Clay
+problem, and no fractal mathematics. That is deliberate: the one referee-facing
+claim in this lane should arrive on its own, in the discipline of the person
+reading it, and not inside a 1,062-page framework. A cosmologist who says a PF
+submission is "not in my discipline" is making a true statement about surface
+area, not a judgment about content — and §1 above is the part that *is* in their
+discipline.
+
+No external communication of any kind is drafted, staged or sent from this
+document.
