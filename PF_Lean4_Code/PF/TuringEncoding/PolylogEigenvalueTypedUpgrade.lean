@@ -336,7 +336,7 @@ theorem polylog_subprop_quadruple_iff_classes_distinct :
     theorem bundling the entire typed structural upgrade of
     `PolylogEigenvalueConjecture`.
 
-    The five clauses are:
+    **Four conjuncts**, followed by a scope note that is not one of them:
 
     **(1) Conjunction recomposition** (Iff.rfl after unfolding):
         `PolylogEigenvalueConjecture` is the conjunction of the four
@@ -353,7 +353,8 @@ theorem polylog_subprop_quadruple_iff_classes_distinct :
     **(4) Wave 57 typed sharpness certificate**: the existential form
         over an arbitrary `f : Set Language → ℝ` is ↔ `ClassP ≠ ClassNP`.
 
-    **(5) Honest scope**: no unconditional set-level discharge of
+    **Scope note** — NOT a conjunct, because a statement of absence
+        cannot be conjoined: no unconditional set-level discharge of
         `PolylogEigenvalueConjecture` is provided (and per (4), none
         is possible without simultaneously proving P ≠ NP). -/
 theorem polylog_eigenvalue_typed_upgrade_capstone :

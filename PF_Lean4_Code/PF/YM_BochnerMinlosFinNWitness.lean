@@ -183,7 +183,11 @@ theorem bochnerMinlos_FinN_witness_refereeScope_holds :
     Prop from `YM_BochnerMinlosR4Witness` via a parametric standard
     Gaussian product measure on `Fin n → ℝ` for any `n ≥ 1`.
 
-    **Six structural clauses**:
+    **Five conjuncts.** The list below has six entries because (1) and
+    (2) are the same proposition in the kernel: the predicate's only
+    inhabitant is the Gaussian witness, so "the predicate holds for
+    every `n`" and "the Gaussian inhabits it for every `n`" are one
+    conjunct, discharged by `bochnerMinlos_FinN_gaussian_witness`.
 
     (1) Parametric strengthened³ typed predicate
         `BochnerMinlosFinNTypedStatement n` for every `n ≥ 1`.
@@ -192,7 +196,13 @@ theorem bochnerMinlos_FinN_witness_refereeScope_holds :
     (3) `standardGaussianFinN n` is a probability measure for every n.
     (4) `standardGaussianFinN n` has no atoms for every `n ≥ 1`.
     (5) Cascade strengthened³ ⇒ Wave 56 `BochnerMinlosOnNuclearSpaces`
-        parametric in n.
+        parametric in n.  **This conjunct carries no content**: its
+        target is the `True`-shaped Wave 56 marker — as §4's own
+        docstring says — so the implication is discharged by
+        `fun _ _ _ => trivial` and holds for any antecedent whatever.
+        It records that the cascade is *available*, not that anything
+        about nuclear spaces is established. The infinite-dimensional
+        Minlos extension remains the literal-Clay residual, per §5.
     (6) Honest-scope marker holds. -/
 theorem ym_bochnerMinlos_FinN_witness_capstone :
     (∀ n : ℕ, Nonempty (Fin n) → BochnerMinlosFinNTypedStatement n) ∧
