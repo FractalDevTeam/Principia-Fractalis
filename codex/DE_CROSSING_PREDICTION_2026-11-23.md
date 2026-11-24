@@ -348,6 +348,60 @@ compressed-CMB prior and the `w(z)`-bin amplitudes, not the CPL parameters. So
 ρ remains open after three independent attempts (abstract, HTML, this PDF) and
 the next route is the public DESI chains rather than the papers.
 
+## 5g. The ρ hunt is called off, and the reason matters more than ρ
+
+**Four independent attempts**: the arXiv abstract, the HTML rendering, the
+collaboration's extended-DE PDF (downloaded and text-extracted locally, 387 kB
+searched), and the companion SVD repository
+(`github.com/matiaszaldarriaga/desi-w0wa-svd`). **ρ(w₀,wₐ) is not published in
+any of them.** It lives in the DR2 chains, which are ~500 MB.
+
+**Called off deliberately, not abandoned.** Two reasons, both established above:
+
+1. **§5e proved ρ is not the binding constraint.** The three SNe samples disagree
+   with each other on `R` by **12.6×** the amount PF differs from the best of
+   them. A covariance fixes nothing about that. Even a perfect ρ leaves the
+   crossing test dominated by supernova systematics.
+2. **§5f removed the objection ρ was needed to answer.** The worry was that CPL
+   might be misrepresenting the crossing; DESI's five-form test settled that
+   directly, without any covariance.
+
+The SVD repository *does* carry the degeneracy structure, as linear fits of its
+modes onto `(w₀, wₐ)`:
+
+```
+c0 :  -26.9 w0  - 12.7 wa  - 35.7      R^2 = 0.76
+c1 :  +16.0 w0  +  4.6 wa  + 15.3      R^2 = 0.97
+```
+
+ρ could be reconstructed from these. **It should not be.** An R² of 0.76 makes
+the first fit an imperfect proxy, and a reconstructed covariance would put this
+document's own arithmetic between the published data and the verdict — the
+failure mode recorded in `feedback_run_the_authors_own_bytes`. If ρ is wanted
+later, it comes from the chains or not at all.
+
+Consistency check obtained for free: that repository's chain best-fit is
+`w0 = -0.43, wa = -1.69`, against the `-0.42, -1.75` used in §3. Independent
+source, same values.
+
+### A systematic that cuts AGAINST the anomaly
+
+From the same file, external constraints (Sailer 2025):
+
+```
+w0/wa preference at tau = 0.06 :  sigma 2.8   dchi2_MAP -10.75
+w0/wa preference at tau = 0.09 :  sigma 1.4   dchi2_MAP  -3.82
+```
+
+**The ΛCDM-rejection significance halves — 2.8σ down to 1.4σ — on the choice of
+CMB optical-depth prior.** Recorded because it works against the headline, not
+for it: the published 2.8–4.2σ band is already SNe-sample dependent (§5d), and
+this shows it is τ-dependent as well. Any statement of the form "ΛCDM is in
+trouble at N σ" must carry both dependencies or it is overstating the case.
+
+This does not touch §5d(A), which compares `w₀` values rather than model
+preference and needs no significance quotation at all.
+
 ## 6. The fork, and why it is an asset
 
 PF carries two mutually exclusive cosmologies, and the inconsistency is settled
