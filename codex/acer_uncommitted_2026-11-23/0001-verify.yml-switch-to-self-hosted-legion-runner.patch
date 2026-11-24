@@ -1,0 +1,161 @@
+From 21f7bf8b6a65cdb8a8d2691fcfacaa7dc6fdc471 Mon Sep 17 00:00:00 2001
+From: Pablo Cohen <psolorzano@gmail.com>
+Date: Fri, 20 Nov 2026 12:20:08 -0500
+Subject: [PATCH] verify.yml: switch to self-hosted legion runner
+
+ubuntu-latest Verify has never produced a green build in 1,223 attempts:
+every run died with SIGTERM (exit 143) 1h30m-2h50m into lake build PF,
+OOM-killed on 7 GB RAM + 10 GB swap with cold cache. The Legion
+workstation provides 32 GB physical RAM and 24 vCPU under WSL2: 4x the
+virtual-memory ceiling and 2x the cores. The Acer (15 GB RAM) was
+rejected because routine PF builds already push it near its RAM
+ceiling under the maintainer's interactive load; stacking CI on top
+would compete for the same resource.
+
+PR triggers are intentionally removed: a public repository plus a self-
+hosted runner on a maintainer's workstation would let fork PRs execute
+arbitrary code on the host. Verify fires only on push to master, which
+the maintainer controls. The pull_request-conditional cancel in the
+concurrency block is also removed as a no-op: with PR triggers gone,
+github.event_name is always 'push' here, so the conditional would always
+evaluate to false anyway.
+---
+ .github/workflows/verify.yml | 95 +++++++++++++++++++++---------------
+ 1 file changed, 56 insertions(+), 39 deletions(-)
+
+diff --git a/.github/workflows/verify.yml b/.github/workflows/verify.yml
+index 1ba2ad46..17784f85 100644
+--- a/.github/workflows/verify.yml
++++ b/.github/workflows/verify.yml
+@@ -1,72 +1,89 @@
+ name: Verify (Lean 4 kernel-only axiom check)
+ 
+-# Runs the corpus's own verification script on every push to master
+-# and on every pull request. Outcome (PASS / FAIL) gates the green/red
+-# badge displayed in README.md.
++# Runs the corpus's own verification script on every push to master.
++# Outcome (PASS / FAIL) gates the green/red badge displayed in README.md.
++#
++# Runs on the self-hosted `legion` runner (maintainer's Legion workstation
++# under WSL2, 32 GB RAM, 24 vCPU). Pull-request triggers are intentionally
++# DISABLED:
++# with a public repository and a self-hosted runner, fork-PR workflows
++# would allow arbitrary code execution on the host machine. Verification
++# fires only on pushes to master, which the maintainer controls.
+ #
+ # What this workflow checks:
+-#   - The PF target builds clean (4,368+ kernel-elaboration jobs).
+-#   - The four headline theorems' #print axioms output matches the paper's
+-#     claim: [propext, Classical.choice, Quot.sound] plus the four named
+-#     conditional hypotheses (Hardy 1914, two Mayer 1991 conjectures, the
+-#     substrate-pin bundle), with no other project axioms.
++#   - The PF target builds clean.
++#   - Each of the three AxiomCheck_* modules builds — a checker that
++#     fails to build emits no axioms, and an empty log must never read
++#     as a clean bar.
++#   - Every axiom name reported by `#print axioms`, inspected one token
++#     at a time against the contract in verify.sh:
++#       Category A  kernel axioms (propext, Classical.choice, Quot.sound)
++#                   — permitted.
++#       Category B  the named citation axioms — permitted, and every
++#                   occurrence is listed with the theorem carrying it.
++#       Category C  anything else, `sorryAx` and project-level `axiom`
++#                   declarations included — any occurrence FAILS.
++#
++# Exit codes surfaced by verify.sh:
++#   0 PASS · 1 build/environment failure · 2 axiom outside contract
++#   3 INCONCLUSIVE (no axiom output gathered — never reported as pass)
+ #
+ # What this workflow does NOT check:
+ #   - The paper's prose (LaTeX).
+ #   - The Layer 3 numerical correspondences in §4 of the paper.
+ #   - The IBM Quantum forward prediction (§6) — that requires hardware.
+ #   - The Lean4Lean independent kernel re-verification (separate package).
++#
++# 2026-11-16 repair note. Between this workflow's creation and 2026-11-16
++# it ran 1,223 times with zero successes: 1,216 cancelled, 6 failed. The
++# cancellations were caused by `cancel-in-progress: true` on a group keyed
++# only by ref — with a ~16 minute build and pushes minutes apart, every
++# run was killed by the next commit, so master never received a verdict.
++# Cancellation is now limited to pull requests, where a new head commit
++# genuinely supersedes the old one. Pushes to master queue instead, which
++# means a burst of commits produces a backlog of serial runs rather than a
++# row of cancellations; that is the intended trade.
++# The six genuine failures all occurred inside verify.sh's toolchain
++# block (three of them in under 16 seconds, before any Lean ran) and are
++# now reported with explicit environment diagnostics.
+ 
+ on:
+   push:
+     branches: ["master"]
+-  pull_request:
+-    branches: ["master"]
+   workflow_dispatch:
+ 
+ permissions:
+   contents: read
+ 
+ concurrency:
+-  # Only PR iterations supersede each other; master pushes queue instead,
+-  # so a burst of commits produces a serial backlog of verdicts rather
+-  # than a row of cancellations.
++  # Master pushes queue rather than cancelling: a burst of commits
++  # produces a serial backlog of verdicts, not a row of cancellations.
++  # (Pull-request triggers are disabled above, so a
++  # pull_request-conditional cancel would be a no-op anyway.)
+   group: verify-${{ github.ref }}
+-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
++  cancel-in-progress: false
+ 
+ jobs:
+   verify:
+-    runs-on: ubuntu-latest
+-    # 60 minutes was insufficient: `lake build PF` compiles the full
+-    # corpus (10,774+ Lean files), and any commit invalidates
+-    # downstream caches of changed files. Measured run 43922364922 on
+-    # commit 402dd508 hit exactly 60min 18s before timeout. Bumped to
+-    # 180 to accommodate even near-cold rebuilds while staying well
+-    # under GitHub's 360-minute per-job ceiling.
++    runs-on: [self-hosted, linux, X64, legion]
++    # 180-minute cap retained as a sanity bound. The self-hosted Legion
++    # runner has 32 GB physical RAM and 24 vCPU under WSL2, well clear
++    # of the OOM ceiling that killed every ubuntu-latest run (7 GB usable
++    # + 10 GB swap). Expected runtime is well under the cap. The cap just
++    # guarantees no runaway build can monopolise the host machine
++    # indefinitely.
+     timeout-minutes: 180
+ 
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v4
+ 
+-      # 2026-11-16 repair: run 43933701501 on commit f318b58c survived the
+-      # 180-min timeout but died at exit 143 (SIGTERM, OOM killer) ~91 min
+-      # into `lake build PF`. ubuntu-latest has 7 GB RAM; the full corpus
+-      # build (10,774+ files) can peak beyond that. Add 10 GB swap so Lean
+-      # has virtual memory headroom. Swap is on SSD and is slow, but it
+-      # beats OOM-kill before the build can finish.
+-      - name: Add 10 GB swap (OOM defense for lake build PF)
+-        run: |
+-          # ubuntu-latest already has /swapfile active; disable it first,
+-          # then create a larger one at /mnt/swapfile (more disk space).
+-          sudo swapoff -a || true
+-          sudo rm -f /swapfile
+-          sudo fallocate -l 10G /mnt/swapfile
+-          sudo chmod 600 /mnt/swapfile
+-          sudo mkswap /mnt/swapfile
+-          sudo swapon /mnt/swapfile
+-          echo "Swap after setup:"
+-          free -h | grep -E "Swap|Mem"
++      # Runs in about a second, before anything expensive, and proves the
++      # axiom classifier still detects sorryAx and project axioms. If a
++      # later step is cancelled or times out, this one has already
++      # established that the gate is capable of failing.
++      - name: Self-test the axiom gate (proves it can fail)
++        run: PF_VERIFY_SELFTEST=1 bash ./verify.sh
+         shell: bash
+ 
+       - name: Cache elan toolchain
+-- 
+2.43.0
+

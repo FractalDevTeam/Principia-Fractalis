@@ -1,0 +1,22 @@
+# Acer uncommitted state, captured 2026-11-23
+
+## branch
+lean/acer-runner-switch-2026-11-20
+
+## HEAD
+21f7bf8b6a65cdb8a8d2691fcfacaa7dc6fdc471 2026-11-20 12:20:08 -0500 verify.yml: switch to self-hosted legion runner
+
+## unpushed vs upstream
+21f7bf8b verify.yml: switch to self-hosted legion runner
+
+## status --porcelain
+ M PF_Lean4_Code/PF/PNP_Wave56CrossGaloisLockAttempt.lean
+ M PF_Lean4_Code/PF/Referee/SevenMillenniumUnification.lean
+ M Principia_Fractalis_master_folder/chapters/ch07_constants.tex
+ M Principia_Fractalis_master_folder/chapters/ch09_spectral_unity.tex
+?? PF_Coq_Code/Makefile.gen
+?? PF_Coq_Code/Makefile.gen.conf
+?? Principia_Fractalis_master_folder/chapters/ch07_constants.tex.before-ch07-fix
+?? Principia_Fractalis_master_folder/chapters/ch09_spectral_unity.tex.before-ch09-fix
+?? codex/GITHUB_REPO_AUDIT_2026-11-16.md
+?? codex/gravitational_reconnection_2026-11-10/

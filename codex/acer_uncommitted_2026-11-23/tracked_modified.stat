@@ -1,0 +1,5 @@
+ .../PF/PNP_Wave56CrossGaloisLockAttempt.lean       |  2 +-
+ .../PF/Referee/SevenMillenniumUnification.lean     |  2 +-
+ .../chapters/ch07_constants.tex                    | 95 +++++++++++++++++-----
+ .../chapters/ch09_spectral_unity.tex               |  2 +-
+ 4 files changed, 79 insertions(+), 22 deletions(-)
