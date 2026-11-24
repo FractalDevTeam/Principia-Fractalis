@@ -245,6 +245,51 @@ agreement of 1.6%. ΛCDM cannot populate this column in principle.
   PF's own action derivation excludes it (§5 item 4).
 * Under 2σ is **not excluded**, never confirmed.
 
+## 5e. ρ is load-bearing, and the limiting factor is the data, not PF
+
+Reproduce with `codex/pf_rho_bound.py`.
+
+I attempted to bound ρ away. **It cannot be bounded away, and the attempt
+failed against the prediction.** Worst deviation over a ρ scan to the
+degenerate limit:
+
+| sample | ρ = 0 | ρ = −0.9 | ρ = −0.99 | worst |
+|---|---|---|---|---|
+| Union3 | 0.03σ | 0.10σ | 0.31σ | **0.96σ** |
+| DESY5 | 0.21σ | 0.66σ | 1.82σ | **3.14σ** |
+| Pantheon+ | 0.38σ | 1.19σ | 3.72σ | **10.76σ** |
+
+At low \|ρ\| all three agree. At high \|ρ\| they diverge sharply and
+**Pantheon+ strongly excludes** PF's closed form. So the honest statement is
+*not* "ρ cannot hurt us" — it is that the crossing comparison is strongly ρ- and
+sample-dependent, and **the published ρ must be obtained before any σ is
+quoted.** §4's and §5d's crossing numbers are point comparisons until then.
+
+### The deeper point, and it is about the data
+
+**The three SNe samples disagree with each other on R by more than PF differs
+from the best of them:**
+
+```
+sample-to-sample spread in R : 0.044214
+PF offset from closest (U3)  : 0.003512
+ratio                        : 12.6x
+```
+
+PF's exact value sits at the **top** of the data's own range. Until the
+supernova samples agree with one another, **the discriminating test is not
+available at all** — SNe systematics dominate the comparison by more than an
+order of magnitude.
+
+That is the referee-proof reading of this lane: **not a confirmation, not a
+refutation, and the limiting factor is the data's internal scatter rather than
+anything about PF.** It is also the honest answer to "how close are we here" —
+closer than ΛCDM on `w₀` in all three samples (§5d A, which needs no ρ), and
+untestable on the crossing until the SNe tension is resolved.
+
+Unchanged: the pair is an **ansatz**, not derived (§5 item 3), and r389 proves
+PF's own action derivation excludes it (§5 item 4).
+
 ## 6. The fork, and why it is an asset
 
 PF carries two mutually exclusive cosmologies, and the inconsistency is settled
