@@ -153,17 +153,74 @@ def KTheoryOfTimelessField
   -- `K_1(T_∞) ≅ 0` (each level is finite-dimensional, simply connected).
   Nonempty (TimelessFieldType φ)
 
-/-- **Spacetime-from-automorphisms** (ch04 Thm 4.18):
-`M^4 = Aut(T_∞) / Aut_0(T_∞)`. Open content. -/
+/-- **Spacetime-from-automorphisms** (ch04 `thm:spacetime-emergence`,
+`ch04:455-461`): `M^4 = Aut(T_∞) / Aut_0(T_∞)`.
+
+**NOT open content. This construction is machine-checked COLLAPSED.**
+
+Corrected 2026-11-24. This docstring read "Open content" -- the convention this
+file uses for *"the manuscript carries it"*, as it correctly does for
+`KTheoryOfTimelessField` above. For this construction that is false, and false
+in the direction that **understates** what the corpus proves:
+
+* `PF/SubstrateAutomorphismQuotientCollapse.lean` (r333, 2026-09-17): every
+  **continuous** unital ℂ-algebra endomorphism of `T_∞` preserves `UHF_trace`.
+  So the trace-preserving condition defining `Aut_0` at `ch04:460` is satisfied
+  by all of them, the dimension count at `ch04:477-489` subtracts a thing from
+  itself, and the quotient identifies everything with everything.
+* `PF/SubstrateInnerAutomorphismNontrivial.lean` (r334): closes the escape that
+  `Aut` might itself be trivial. `conjBy_uInf_ne_id` exhibits a nontrivial
+  inner automorphism, and `gauge_condition_does_not_separate` shows the gauge
+  condition still cannot see it.
+* `PF/SubstrateGaugeSubgroupsCollapse.lean` (r336): a third, independent kill --
+  conjugation-implemented gauge groups sit inside `Aut_0` whatever the quotient
+  turns out to be.
+
+**r333's own scope limit, carried here so it is not dropped:** continuity is an
+explicit hypothesis, not derived from C*-isometry. Nothing is claimed about
+discontinuous automorphisms. The collapse is of the construction *as written*;
+it is not a proof that spacetime fails to emerge.
+
+The manuscript already records this at `ch04:494-499` (added 2026-10-25):
+*"the quotient Aut/Aut_0 is a single point, and the surviving candidate
+Out(T_∞) waits on a classification the chapter itself lists as open."* This
+docstring was the stale side of that pair, by a month.
+
+What is genuinely open is a **different** question: whether some other
+construction yields spacetime. `PF/KMS/NetCovariance_r375.lean` is the live
+route -- it obtains covariance for the ternary net without `Aut/Aut_0` at all.
+
+The definition below is UNCHANGED and carries no content: it is
+`Nonempty (T → T)`, satisfied by `id`, and is provably equal to
+`ForceUnification`. See
+`PF/Consciousness/SpacetimeEmergenceUpgrade_2026_11_24.lean`. -/
 def SpacetimeEmergence
     (φ : ∀ k k', k ∣ k' → LevelMorphism k k') : Prop :=
   -- The quotient of the full automorphism group by trace-preserving
   -- gauge automorphisms is 4-dimensional spacetime `M^4`.
   Nonempty (TimelessFieldType φ → TimelessFieldType φ)
 
-/-- **Force unification** (ch04 Thm 4.20): the four fundamental forces
-appear as automorphism subgroups (`Diff`, `U(1)`, `SU(2)`, `SU(3)`).
-Open content. -/
+/-- **Force unification** (ch04 `thm:force-emergence`, `ch04:743-751`): the
+four fundamental forces appear as automorphism subgroups (`Diff`, `U(1)`,
+`SU(2)`, `SU(3)`).
+
+Citation corrected 2026-11-24: this said "Thm 4.20", r336 reads the same
+theorem as "Thm 4.19", and both numbers are auto-assigned by LaTeX and shift
+when a theorem is inserted earlier in the chapter. The label is the stable
+reference.
+
+**Conditionally refuted, not open.** `PF/SubstrateGaugeSubgroupsCollapse.lean`
+(r336) proves that to the extent such a subgroup acts by conjugation -- the only
+action the chapter exhibits, at `ch04:768` -- it preserves `UHF_trace` and so
+lies inside the `Aut_0` that `thm:spacetime-emergence` divides out. The forces
+are quotiented away by the construction meant to produce the spacetime they act
+on. r336 is careful about what that does *not* say: it is no claim that `U(1)`,
+`SU(2)` or `SU(3)` embed in `Aut(T_∞)` at all -- the chapter asserts that, and
+it is proved nowhere in the corpus.
+
+The definition below is UNCHANGED, carries no content, and is byte-identical to
+`SpacetimeEmergence` above -- `spacetimeEmergence_eq_forceUnification` proves
+them equal by `rfl`. -/
 def ForceUnification
     (φ : ∀ k k', k ∣ k' → LevelMorphism k k') : Prop :=
   Nonempty (TimelessFieldType φ → TimelessFieldType φ)

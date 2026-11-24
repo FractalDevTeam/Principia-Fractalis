@@ -1,16 +1,18 @@
 /-
-# The claimed gauge subgroups lie inside the kernel of the ch04:461 quotient.
+# The claimed gauge subgroups lie inside the kernel of the ch04:455-461 quotient.
 
 ★ 2026-09-17 r336 — a second, independent internal contradiction in Chapter 4,
 found by reading Thm 4.19 against Thm 4.18.
 
-`ch04:493-500` (Thm 4.19, Fundamental Forces from Subgroups) asserts
-`U(1), SU(2), SU(3) ⊂ Aut(T∞)`, and `ch04:518-524` spells out how they act:
+`ch04:743-751` (`thm:force-emergence`, Fundamental Forces from Subgroups)
+asserts
+`U(1), SU(2), SU(3) ⊂ Aut(T∞)`, and `ch04:765-769` (the worked
+`example[Electromagnetism from U(1)]`) spells out how they act:
 
     α_θ(a) = e^{iθQ} a e^{-iθQ}      (the U(1) / electromagnetism example)
 
 That is conjugation by a unit. By r333 every such map preserves the canonical
-trace, so it lies in `Aut₀(T∞)` — the subgroup `ch04:461` divides OUT.
+trace, so it lies in `Aut₀(T∞)` — the subgroup `ch04:460` divides OUT.
 
 **So the forces are quotiented away by the construction that is supposed to
 produce the spacetime they act on.** Thm 4.18 and Thm 4.19 cannot both do the
@@ -22,10 +24,28 @@ subgroup and the quotient had been large, conjugation-implemented gauge groups
 would still sit inside `Aut₀` and still die in the quotient. The contradiction
 is structural, not a consequence of the trace being unique.
 
+## Citation currency (added 2026-11-24)
+
+Every line reference above was re-resolved against the current chapter. The
+originals (`ch04:493-500`, `ch04:518-524`, `ch04:496`, `ch04:521`) were written
+on 2026-09-17 and ALL FOUR had drifted by roughly +250 lines: the chapter gained
+the `Emergent Locality: The Local Net` subsection at `ch04:492` on 2026-10-25,
+which pushed the forces material down. A reader following the old
+`ch04:493-500` landed on that new subsection -- which is the one that *records
+the collapse* -- so the citation had come to point at the opposite of what this
+header claims about it.
+
+The theorem NUMBERS are unstable for the same reason: `thm` is auto-numbered in
+this manuscript, so "Thm 4.18"/"Thm 4.19" above are whatever LaTeX assigns on
+the current build, and they shift whenever a theorem is inserted earlier in the
+chapter. The stable references are the labels -- `thm:spacetime-emergence` for
+the quotient, `thm:force-emergence` for the forces -- and both are now carried
+alongside the line numbers. Prefer the labels.
+
 ## What is proved below
 
 * `ConjFamily.trace_preserving` — every member of a conjugation-implemented
-  family satisfies the `ch04:461` gauge condition.
+  family satisfies the `ch04:460` gauge condition.
 * `ConjFamily.inducedTrace_const` — the whole family induces one and the same
   trace functional, namely `UHF_trace`. The family is entirely inside `Aut₀`.
 * `gauge_family_collapses_but_is_nontrivial` — and this is not because such
@@ -39,7 +59,7 @@ is structural, not a consequence of the trace being unique.
   proved here. What is proved is conditional in the honest direction: **to the
   extent that such a subgroup acts by conjugation — which is the only action
   the chapter exhibits — it lies in `Aut₀`.**
-* Nothing about `Diff(T∞)` (the gravity line, `ch04:496`), which the chapter
+* Nothing about `Diff(T∞)` (the gravity line, `ch04:746` = `eq:gravity-diff`), which the chapter
   does not define.
 * No topology or continuity in the group parameter is used or needed, so
   nothing here depends on these being Lie groups.
@@ -63,7 +83,7 @@ open SubstrateInnerAutomorphismNontrivial
 /-! ## §1 — Conjugation-implemented families -/
 
 /-- **A gauge family implemented by conjugation**, indexed by any parameter type
-    `G`. This is the shape of `ch04:521`: `α_θ(a) = e^{iθQ} a e^{-iθQ}`, with
+    `G`. This is the shape of `ch04:768`: `α_θ(a) = e^{iθQ} a e^{-iθQ}`, with
     `g θ = e^{iθQ}` and `h θ = e^{-iθQ}`.
 
     No group structure, topology, or continuity in `θ` is imposed: the result

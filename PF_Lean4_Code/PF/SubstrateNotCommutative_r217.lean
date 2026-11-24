@@ -59,8 +59,8 @@ different object is being introduced under the same name.
 
 ## §4 — what the emptiness of the Gelfand spectrum means
 
-`ch16:353-360` defines `Spec(T_∞)` to be the set of **nonzero multiplicative
-linear functionals** `φ : T_∞ → ℂ`, and `ch16:362-369` says the Riemann zeros
+`ch16:380-387` defines `Spec(T_∞)` to be the set of **nonzero multiplicative
+linear functionals** `φ : T_∞ → ℂ`, and `ch16:389-396` says the Riemann zeros
 are *"special points"* in it, at which `φ(ζ(s)) = 0`.
 
 §4 proves, in the kernel, that for the substrate that set is **empty**. Not
@@ -70,12 +70,12 @@ are *"special points"* in it, at which `φ(ζ(s)) = 0`.
 be a scalar multiple of `1`, hence the algebra to be commutative, contradicting
 §2.
 
-So `ch16:363`'s "the Riemann zeros are special points in `Spec(T_∞)`" has no
+So `ch16:390`'s "the Riemann zeros are special points in `Spec(T_∞)`" has no
 referent for the substrate: there are no points at all to be special among.
 This is **not** merely a switch between the Gelfand sense of "spectrum" (the
 character space) and the operator-theoretic sense (`spectrum ℂ a` for a single
 element `a`). The operator-theoretic spectra of substrate elements are perfectly
-non-empty; it is the object `ch16:353` explicitly defines — the character
+non-empty; it is the object `ch16:380` explicitly defines — the character
 space — that is empty.
 
 Note the shape of the last step: the emptiness proof needs an input saying the
@@ -267,9 +267,9 @@ theorem substrate_not_scalar_line :
     _ = algebraMap ℂ TimelessFieldCompletion d * algebraMap ℂ TimelessFieldCompletion c :=
         map_mul _ _ _
 
-/-! ## §4 — `Spec(T_∞)` as `ch16:353` defines it is EMPTY
+/-! ## §4 — `Spec(T_∞)` as `ch16:380` defines it is EMPTY
 
-`ch16:353-357`:
+`ch16:380-384`:
 
   > The **spectrum** `Spec(T_∞)` is the set of all nonzero multiplicative
   > linear functionals `φ : T_∞ → ℂ`, `φ(AB) = φ(A)φ(B)`.
@@ -385,7 +385,7 @@ theorem no_nonzero_multiplicative_functional
     rw [hI, hone] at hmem
     exact one_ne_zero hmem
 
-/-- **The set `ch16:353` calls `Spec(T_∞)`** — the nonzero multiplicative
+/-- **The set `ch16:380` calls `Spec(T_∞)`** — the nonzero multiplicative
     ℂ-linear functionals on the substrate, transcribed literally. -/
 def GelfandSpectrum : Set (TimelessFieldCompletion →ₗ[ℂ] ℂ) :=
   {φ | φ ≠ 0 ∧ ∀ a b : TimelessFieldCompletion, φ (a * b) = φ a * φ b}
@@ -393,14 +393,14 @@ def GelfandSpectrum : Set (TimelessFieldCompletion →ₗ[ℂ] ℂ) :=
 /-- **★★★ r217.6 — `Spec(T_∞) = ∅` ★★★**
 
     For the substrate — the Chapter 4 UHF algebra that the corpus builds —
-    the set `ch16:353` defines as the spectrum has no elements at all.
+    the set `ch16:380` defines as the spectrum has no elements at all.
 
-    Consequence for `ch16:362-369`: *"The Riemann zeros are special points in
+    Consequence for `ch16:389-396`: *"The Riemann zeros are special points in
     `Spec(T_∞)`"* has no referent. There are no points. This is not a switch
     between the Gelfand and operator-theoretic senses of "spectrum": the
     operator-theoretic spectrum `spectrum ℂ a` of a substrate element is a
     different object and is not claimed empty here. It is the character space
-    — the object `ch16:353` explicitly writes down — that is empty. -/
+    — the object `ch16:380` explicitly writes down — that is empty. -/
 theorem gelfandSpectrum_eq_empty : GelfandSpectrum = ∅ := by
   ext φ
   simp only [GelfandSpectrum, Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false,
@@ -456,8 +456,8 @@ theorem substrate_is_norm_closure_of_finite_matrix_levels :
       (N1) `∃ a b, a * b ≠ b * a`      — `ch16:342` step 1 is FALSE here.
       (N2) `¬ ∀ a b, a * b = b * a`    — the same, universally quantified.
       (N3) `∃ x, ∀ c, x ≠ c • 1`       — the algebra is not the scalar line.
-      (N4) `GelfandSpectrum = ∅`       — `ch16:353`'s `Spec(T_∞)` is empty,
-                                         so `ch16:363` has no referent.
+      (N4) `GelfandSpectrum = ∅`       — `ch16:380`'s `Spec(T_∞)` is empty,
+                                         so `ch16:390` has no referent.
       (N5) the AF density witness (r60), re-exported — the input to the
            CORRECT nuclearity route, which is why `ch16`'s nuclearity
            CONCLUSION nonetheless stands.
