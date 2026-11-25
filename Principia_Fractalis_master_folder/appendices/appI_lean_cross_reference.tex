@@ -226,7 +226,9 @@ algebraic identities into one kernel-clean citation. See
       one is vacuous --- annotated 2026-11-24.} \emph{Genuine, and real
       mathlib content:} $n = 4$ sum form (mathlib
       \texttt{not\_fermat\_42}); $n = 4$ difference form (PF's own
-      \texttt{not\_fermat\_42\_sub}, mathlib PR \#46025 in flight);
+      \texttt{not\_fermat\_42\_sub}; mathlib PR \#46025 was
+      \textbf{closed unmerged} on 2026-11-15, so this remains PF-only ---
+      corrected 2026-11-24, the entry previously read ``in flight'');
       $n = 3$ (mathlib \texttt{fermatLastTheoremThree}); and all
       $n \geq 3$ with $3 \mid n \lor 4 \mid n$ via
       \texttt{FermatLastTheoremFor.mono} lifting those two exponents.
@@ -260,6 +262,20 @@ algebraic identities into one kernel-clean citation. See
       \texttt{ubuntu-latest} runner. Both fixed (\texttt{402dd508}
       PR-only cancellation; \texttt{f318b58c} 60$\to$180 minute timeout).
 \end{itemize}
+
+\paragraph{Upstream (mathlib) status, verified live 2026-11-24.}
+No PF contribution has been merged into mathlib. Three are open, all
+\texttt{MERGEABLE} with green CI and an empty \texttt{reviewDecision} (i.e.\
+awaiting a reviewer, not awaiting the author):
+\href{https://github.com/leanprover-community/mathlib4/pull/42093}{\#42093}
+(topological closure of a two-sided ideal),
+\href{https://github.com/leanprover-community/mathlib4/pull/42095}{\#42095}
+(the non-unital CFC maps into closed two-sided ideals), and
+\href{https://github.com/leanprover-community/mathlib4/pull/42100}{\#42100}
+(spectral projections from clopen spectral sets). Two are closed without
+merging: \#42101 (completed-zeta conjugation symmetry, 2026-10-27) and
+\#46025 (Fermat $n=4$ difference form, 2026-11-15). Nothing in this appendix
+depends on an upstream merge; every citation resolves against this corpus.
 
 \textbf{Scoping:} as elsewhere in this manuscript, each Lean
 theorem is axiom-free under
@@ -438,7 +454,8 @@ classical infinite descent.
 \texttt{PrincipiaTractalis.Ch24DescentSubRatBridge20261114.Ecurve32a2\_rank\_eq\_zero}
 (for $y^2 = x^3 - x$, this corpus's \texttt{PF.not\_fermat\_42\_sub}~---
 difference form, staged for mathlib as
-\href{https://github.com/leanprover-community/mathlib4/pull/46025}{PR \#46025}).
+\href{https://github.com/leanprover-community/mathlib4/pull/46025}{PR
+\#46025}, closed unmerged 2026-11-15).
 Supporting: \texttt{fermat42Double\_impossible\_unconditional}
 (2026-11-14 full-day descent for $2a^2 = s^4 + t^4$).
 & --- \\
@@ -537,7 +554,8 @@ the file is a pure composition surface.
   \texttt{fermat\_n\_four\_classically\_kernel\_verified}
   (mathlib \texttt{not\_fermat\_42}, sum form);
   \texttt{fermat\_n\_four\_difference\_form\_kernel\_verified}
-  (\texttt{PF.not\_fermat\_42\_sub}, mathlib PR \#46025);
+  (\texttt{PF.not\_fermat\_42\_sub}; mathlib PR \#46025 closed
+  unmerged 2026-11-15, so the difference form is PF-only);
   \texttt{fermatLastTheoremThree} (mathlib $n = 3$);
   \texttt{bsd\_substantive\_extended\_partial\_discharge} (all $n$
   divisible by $3$ or $4$) \\
