@@ -189,16 +189,55 @@ algebraic identities into one kernel-clean citation. See
         content: over \texttt{PF\_NSEncodingFaithful} the same contract is
         proved \emph{equivalent to Fefferman's statement} --- and is
         \textbf{not} discharged, because that is the open Clay problem.
-\item \textbf{Poincar\'e Clay-standard reproduces Perelman 2006.}
-      \texttt{Clay\_Poincare\_Standard PF\_PoincareEncoding} discharged
-      via the $W_\alpha$ cascade ceiling identity
-      $\sum_{n = 0}^{\infty} W_\alpha^{(1)}(n) = 3$ at $\alpha_{\text{Poincar\'e}} = 1$.
-\item \textbf{Fermat 5 sub-conjuncts}: typed Standard contract + $n = 4$
-      sum form (mathlib \texttt{not\_fermat\_42}) + $n = 4$ difference
-      form (PF's own \texttt{not\_fermat\_42\_sub}, mathlib PR \#46025
-      in flight) + $n = 3$ (mathlib \texttt{fermatLastTheoremThree})
-      + all $n \geq 3$ with $3 \mid n \lor 4 \mid n$ via
-      \texttt{FermatLastTheoremFor.mono}.
+\item \textbf{Poincar\'e Clay-standard on the substrate encoding is
+      VACUOUS --- corrected 2026-11-24.} This entry previously read
+      ``Poincar\'e Clay-standard reproduces Perelman 2006''. It does
+      not, and the attribution was wrong twice over: Perelman's proof
+      is 2002--2003 (three arXiv preprints), as
+      Ch~\ref{ch:substrate-theorem}~(A3) correctly records.
+      \texttt{Clay\_Poincare\_Standard PF\_PoincareEncoding} is
+      \emph{true and asserts nothing about the Poincar\'e conjecture}.
+      The encoding sets \texttt{SmoothThreeManifold} $:= \mathbb{R}$,
+      \texttt{isClosed}~$a := 0 < a$,
+      \texttt{isSimplyConnected}~$a := a = 1$ and
+      \texttt{isDiffeomorphicToS3}~$a := \big(\sum_n W_\alpha^{(1)}(n) = 3\big)$.
+      Substituting all four, the contract reads in full: \emph{for every
+      real $a$, if $0 < a$ and $a = 1$, then $\sum_n (2/3)^n = 3$} ---
+      a single instance, $3 = 3$, with no manifold, no compactness, no
+      simple connectivity and no $3$-sphere anywhere in it. The proof
+      discharges the two hypotheses by \texttt{intro} and closes with
+      the geometric-series lemma. The cascade identity itself is
+      genuine and worth keeping: $Z/S = 2/3$, so
+      $\sum_n (2/3)^n = (1 - 2/3)^{-1} = 3$, kernel-verified as
+      \texttt{cascade\_geometric\_series\_value}. What is false is
+      calling that a Poincar\'e discharge.
+      \texttt{PF/Referee/ToECapstoneVacuityDisclosure\_2026\_11\_22.lean}
+      proves \texttt{poincare\_contract\_unfolds\_to\_series\_identity}
+      and \texttt{PF\_PoincareEncoding.SmoothThreeManifold} $=
+      \mathbb{R}$ by \texttt{rfl}; \texttt{BookClaimLedger\_2026\_11\_21}
+      records the entry as ``TRUE, and NOT the Poincar\'e conjecture''.
+      Perelman remains exactly what this manuscript says elsewhere ---
+      a settled \emph{external} anchor fixing
+      $\alpha_{\text{Poincar\'e}} = 1$, per
+      Ch~\ref{ch:substrate-theorem}~(A3) and~(C7) and the
+      $\alpha$-reference row below reading ``external anchor;
+      Hamilton-Ricci flow''.
+\item \textbf{Fermat 5 sub-conjuncts, of which four are genuine and
+      one is vacuous --- annotated 2026-11-24.} \emph{Genuine, and real
+      mathlib content:} $n = 4$ sum form (mathlib
+      \texttt{not\_fermat\_42}); $n = 4$ difference form (PF's own
+      \texttt{not\_fermat\_42\_sub}, mathlib PR \#46025 in flight);
+      $n = 3$ (mathlib \texttt{fermatLastTheoremThree}); and all
+      $n \geq 3$ with $3 \mid n \lor 4 \mid n$ via
+      \texttt{FermatLastTheoremFor.mono} lifting those two exponents.
+      \emph{Vacuous:} the typed Standard contract, because
+      \texttt{PF\_FermatEncoding} sets \texttt{holds \_ := True} and the
+      capstone's proof is \texttt{intro \_n \_h; trivial}. The
+      disclosure is kernel-explicit in
+      \texttt{standard\_fermat\_at\_pf\_encoding\_iff}, which proves
+      \texttt{Standard\_FermatLastTheorem\_Standard PF\_FermatEncoding}
+      $\leftrightarrow$ \texttt{True}. The four genuine sub-conjuncts
+      are untouched by this correction.
 \item \textbf{$\alpha$-skeleton algebraic unification}: nine
       kernel-verified identities
       $\alpha_P^2 = \alpha_{\text{YM}}$,
@@ -483,12 +522,18 @@ the file is a pure composition surface.
    $\leftrightarrow$ \texttt{True}; the faithful contract over
    \texttt{PF\_NSEncodingFaithful} is proved equivalent to Fefferman's
    statement and is \emph{not} discharged) \\
-8 & Poincar\'e (reproduces Perelman) & \texttt{PF\_Poincare\_capstone\_yields\_Clay\_Poincare\_standard}
-  (typed \texttt{Clay\_Poincare\_Standard} via $W_\alpha$-cascade
-   ceiling $\sum_{n} W_\alpha^{(1)}(n) = 3$; reproduces
-   Perelman 2006 Ricci-flow-with-surgery closure at substrate layer) \\
-9 & Fermat (non-Clay 8th axis) & Five sub-conjuncts:
-  \texttt{PF\_Fermat\_capstone\_yields\_Standard\_FermatLastTheorem\_standard};
+8 & Poincar\'e (\textbf{disclosure, not a discharge}) & \texttt{poincare\_contract\_unfolds\_to\_series\_identity}
+  (corrected 2026-11-24: \texttt{Clay\_Poincare\_Standard
+   PF\_PoincareEncoding} is true but carries no Poincar\'e content ---
+   the encoding sets \texttt{SmoothThreeManifold} $:= \mathbb{R}$ and
+   \texttt{isDiffeomorphicToS3}~$a := \big(\sum_n W_\alpha^{(1)}(n) = 3\big)$,
+   so the contract reduces to $3 = 3$ at the single point $a = 1$.
+   Perelman 2002--2003 is a settled \emph{external} anchor, not a
+   corpus result and not reproduced here) \\
+9 & Fermat (non-Clay 8th axis; four genuine, one vacuous) & Five sub-conjuncts:
+  \texttt{PF\_Fermat\_capstone\_yields\_Standard\_FermatLastTheorem\_standard}
+  (\textbf{vacuous} --- \texttt{PF\_FermatEncoding} sets
+  \texttt{holds \_ := True}; annotated 2026-11-24);
   \texttt{fermat\_n\_four\_classically\_kernel\_verified}
   (mathlib \texttt{not\_fermat\_42}, sum form);
   \texttt{fermat\_n\_four\_difference\_form\_kernel\_verified}
@@ -517,10 +562,19 @@ Clay axes.  It asserts:
 \item The substrate-attack surface for each axis is explicitly
   enumerated in Lean with axiom-free discharges of the parts that
   \emph{are} substantively closed (NS Young L$^1 \star$L$^2 \to$L$^2$
-  bound; RH 4 of 5 Dirichlet-1858 sub-ingredients; BSD 15 rank-$\geq$1
-  LMFDB curves + Fermat $n = 3, 4$ exponents divisible by $3$ or $4$;
-  Hodge Voisin R1/R3 + CY4 all slices + quintic 4-fold; Poincar\'e
-  Clay-standard via $W_\alpha$ cascade).
+  bound; RH 4 of 5 Dirichlet-1858 sub-ingredients; BSD rank-$\geq$1 for
+  the ten LMFDB curves formally bundled in
+  \texttt{bsd\_substantive\_partial\_discharge\_ten\_curve\_bundle},
+  with five further \texttt{\_RankOneCapstone} curves
+  ($E_{80.\text{b}}$, $E_{91}$, $E_{102}$, $E_{131}$, $E_{141}$)
+  proved and imported but not re-bundled --- fifteen rank-$\geq$1
+  discharges in total, ten of them inside the formal conjunction;
+  Fermat $n = 3, 4$ and all exponents divisible by $3$ or $4$;
+  Hodge Voisin R1/R3 + CY4 all slices + quintic 4-fold).
+  \emph{Poincar\'e is deliberately absent from this list as of
+  2026-11-24: the $W_\alpha$-cascade contract is a true series
+  identity carrying no Poincar\'e content, and Perelman 2002--2003 is
+  an external anchor rather than a corpus discharge.}
 \item The parts that remain open are named at sub-ingredient
   granularity (RH abscissa + universal-$s$ construction; Hodge
   Voisin R2 + dim $\geq 5$; P~vs~NP V4 substantive = literal
