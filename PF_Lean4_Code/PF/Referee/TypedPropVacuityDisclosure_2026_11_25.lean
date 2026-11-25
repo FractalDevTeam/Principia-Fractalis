@@ -60,6 +60,18 @@ presentations of the same rank are *equal* in this encoding. So
 ℤ/2 — are the same object here, and `PresentsTrivialGroup` holds of it. That is
 the precise sense in which the hypothesis is not the Andrews–Curtis hypothesis.
 
+**Status of removal condition (1): the hypothesis side is DISCHARGED.**
+`PF/NumberTheory/AndrewsCurtisFaithfulCarrier_2026_11_25.lean` builds the
+faithful carrier — `rels : Fin rank → FreeGroup (Fin rank)` — and defines
+`PresentsTrivialGroupFaithful p := Subsingleton (PresentedGroup (Set.range
+p.rels))`. It proves the trivial presentation presents the trivial group at
+EVERY rank, proves `⟨x | x²⟩` does not, and proves that the old carrier's
+`forget` identifies exactly those two presentations BY `rfl`. So the ⟨x | x⟩ /
+⟨x | x²⟩ sentence above is now a theorem rather than a remark. What remains of
+condition (1) is the conclusion side: the AC-move relation and its invariants.
+Until that lands, no declaration in either file is an Andrews–Curtis conjecture
+of any form, and none is named as one.
+
 ## 2. `PF/Empirical/ProblemClassTriClass_2026_06_22.lean`
 
 Three declarations name published-and-proven results and carry none of their
