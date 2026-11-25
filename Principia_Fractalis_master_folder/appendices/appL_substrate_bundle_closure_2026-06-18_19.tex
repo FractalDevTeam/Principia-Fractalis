@@ -176,11 +176,28 @@ $\sqrt{2\pi}$, $3\pi/4$, $\varphi$, and $1$. Two of the seventeen
 $(I1)$--$(I12)$ catalogue; the remaining fifteen are independent
 algebraic identities forced by the substrate.
 
-\section{Phase 1 Six-Axis Named-Anchor Lattice (52 Anchors)}
+\section{Phase 1 Six-Axis Named-Anchor Lattice (52 Anchors, of which
+17 Carry Content)}
 \label{sec:phase-1-six-axis-named-anchors}
 
 Six per-axis named-anchor files land the framework's published-
 mathematics typed-anchor citation set as substrate-typed Props.
+
+\paragraph{What these anchors are, and are not --- disclosed 2026-11-24.}
+Of the 52, \textbf{thirty-five are \texttt{def \ldots : Prop := True}}
+bibliographic markers: they record \emph{that} the framework cites a
+named published result, and assert nothing about it. The remaining
+\textbf{seventeen carry content} --- the Birch--Swinnerton-Dyer
+Mordell--Weil rank-agreement anchors of \S\ref{subsec:phase-1-bsd}.
+The corpus states the split itself, in
+\texttt{PF/Referee/SixAxisPhase1NamedAnchors\_MasterCapstone\_2026\_06\_19.lean}:
+``\emph{Thirty-five of the fifty-two anchors are} \texttt{def \ldots :
+Prop := True}'' and ``\emph{Total:} $35 + 17 = 52$''. A
+\texttt{Prop := True} marker is trivially axiom-free and trivially
+provable, so neither property is evidence about the mathematics it
+names --- the citation is the content. The per-axis counts below
+($8 + 8 + 5 + 7 + 17 + 7 = 52$) are counts of \emph{citations}, not of
+discharged mathematics.
 
 \subsection{Riemann Hypothesis --- 8 Anchors}
 \label{subsec:phase-1-rh}
@@ -406,8 +423,9 @@ landing under one citable theorem:
   \item The V3 bulletproofed unassailable Clay closure
     (\S\ref{sec:unassailable-clay-closure}).
   \item The six per-axis Phase 1 named-anchor lattice
-    (52 published-mathematics anchors,
-    \S\ref{sec:phase-1-six-axis-named-anchors}).
+(52 published-mathematics anchors --- 35 \texttt{Prop := True}
+bibliographic markers plus 17 content-carrying BSD rank-agreement
+anchors, \S\ref{sec:phase-1-six-axis-named-anchors}).
   \item The 10 refereed-measurement empirical anchors
     (\S\ref{sec:empirical-anchors}).
   \item The 47 Pabs-authored prior-work named anchors
@@ -456,9 +474,15 @@ kernels.
   \item \textbf{Build state}: \verb|lake build| clean at the session
     HEAD across the substrate tree.
   \item \textbf{New theorems}: Phase 1 named-anchor lattice
-    (52) + empirical anchors (10) + Pabs-authored prior-work
-    anchors (47) = 109 substrate-tier named anchors land in the
-    session, each axiom-free at kernel-only axioms.
+(52) + empirical anchors (10) + Pabs-authored prior-work
+anchors (47) = 109 substrate-tier named anchors land in the
+session. \emph{Qualified 2026-11-24:} of the 52 Phase-1 anchors,
+thirty-five are \texttt{Prop := True} bibliographic markers and
+seventeen (the BSD rank-agreement set) carry content ---
+\S\ref{sec:phase-1-six-axis-named-anchors}. All 109 are indeed
+axiom-free at kernel-only axioms, but for a \texttt{Prop := True}
+marker that is trivially so and is \emph{not} evidence about the
+result named. The previous phrasing invited exactly that reading.
   \item \textbf{Bulletproofed citable theorem}: V3 unassailable Clay
     closure absorbing the BSD named-anchors layer.
   \item \textbf{Semantic bridges}: 3 \texttt{Iff.rfl} + 3 literal
