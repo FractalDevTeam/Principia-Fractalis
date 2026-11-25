@@ -89,6 +89,56 @@ where:
 \end{itemize}
 \end{defn}
 
+\paragraph{What this definition commits to, and what it cannot currently
+evaluate (added 2026-11-24).}
+Four facts bear on $C^{\mu\nu}$ and none of them appeared at this definition
+before. They are collected here because a reader meeting the boxed formula has
+no way to find them otherwise.
+
+\begin{enumerate}
+\item \textbf{$\text{ch}_2$ is not a single quantity.} Chapter~\ref{ch:consciousness},
+Remark~\ref{rem:ch2-matrix-range-2026-10-03} catalogues \emph{five} distinct
+forms in this corpus with different ranges, and records that $0.95$ is
+reachable under some and provably unreachable under others. The gate above is
+therefore only as well-defined as the choice of form, which this definition
+does not make.
+
+\item \textbf{Under the matrix formula the gate is identically closed, and this
+is machine-checked.} For every real $W$,
+$\text{ch}_2(W) = (\mathrm{Tr}(W^2) - (\mathrm{Tr}\,W)^2)/(2\|W\|_F^2) \leq
+\tfrac12$, so $\Theta(\text{ch}_2 - 0.95) \equiv 0$ and
+$C^{\mu\nu} \equiv 0$ identically under that reading. Kernel-verified as
+\texttt{ch2Matrix\_le\_half}, \texttt{ch2Matrix\_lt\_threshold} and
+\texttt{thresholdGate\_ch2Matrix\_eq\_zero} in
+\texttt{PF/Cosmology/VortexCavitationBridgeChecks.lean} (three-axiom bar), with
+both ends of the range attained --- \texttt{ch2Matrix\_pureRotation} puts a
+pure rotation at $-\tfrac12$, the far end from the gate. That module also
+states its own premise explicitly: the observable map
+``flow state $\mapsto \text{ch}_2(\nabla\mathbf{u})$'' is assumed, not derived.
+
+\item \textbf{Under the designated form the gate is \emph{not} identically
+closed.} The 2026-10-05 settlement recorded in the same remark assigns the name
+$\text{ch}_2$ to the normalised Chern--Weil density of
+Definition~\ref{def:ch2-hat-rigorous}, whose range is $[0,1]$
+(Remark~\ref{rem:range-rigorous}). So item 2 is a statement about the matrix
+formula, not a refutation of this definition. What follows is only that the
+definition must name its form.
+
+\item \textbf{It cannot be evaluated as written.} Neither $\hat{T}^{\mu\nu}$
+nor the measure $d\mu(\omega)$ on $\mathcal{T}_\infty$ is constructed anywhere
+in this corpus. $C^{\mu\nu}$ is therefore a schema, not a computable object,
+and no number in this book is obtained from it.
+\end{enumerate}
+
+\noindent\textbf{A different tensor shares this name.}
+Chapter~\ref{ch:hydrodynamic} uses a $C_{\mu\nu}$ that is \emph{not} this one:
+it is a local expression in the Timeless-Field scalar $\Phi$ with \textbf{no
+gate at all}, coupling at every value of $\text{ch}_2$. See
+Remark~\ref{rem:two-C-tensors-2026-10-03} there, which establishes the
+difference and notes that the local form is the only one of the two that can
+currently be evaluated. Results in Chapter~\ref{ch:hydrodynamic} follow from
+\emph{that} tensor, not from this definition, and the two must not be
+composed.
 \begin{intuitive}[What This Formula Means]
 Imagine every conscious being as a "source" of curvature, like mass curves spacetime in Einstein's theory. But consciousness curvature is different:
 
