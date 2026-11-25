@@ -356,7 +356,7 @@ LAKE_BIN="${HOME}/.elan/bin/lake"
 ELAN_CMD="${HOME}/.elan/bin/elan"
 
 if [[ ! -x "${LAKE_BIN}" ]]; then
-  echo "[1/4] elan not found at ${LAKE_BIN}; installing..."
+  echo "[1/5] elan not found at ${LAKE_BIN}; installing..."
   ELAN_INIT="$(mktemp)"
   if ! curl -sSf --retry 3 --retry-delay 5 --retry-connrefused --max-time 120 \
          https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
@@ -384,7 +384,7 @@ fi
 
 cd "${LEAN_DIR}"
 
-echo "[1/4] Selecting Lean toolchain pinned in PF_Lean4_Code/lean-toolchain..."
+echo "[1/5] Selecting Lean toolchain pinned in PF_Lean4_Code/lean-toolchain..."
 TOOLCHAIN="$(cat lean-toolchain)"
 # elan exits nonzero on "already installed" — that's a success condition, not failure.
 if "${ELAN_CMD}" toolchain install "${TOOLCHAIN}" 2>&1 | grep -qE "already installed|installed:"; then
@@ -397,11 +397,40 @@ else
   exit 1
 fi
 
-# --- Build PF target ---------------------------------------------------
-echo "[2/4] Building PF target (lake build PF). This takes ~10 minutes on first run."
+# --- Fetch the prebuilt mathlib cache ----------------------------------
+# Without this the runner COMPILES MATHLIB FROM SOURCE, which alone exceeds the
+# job budget; the workflow had no cache step at all before 2026-11-25. This is
+# an optimisation, never a correctness condition: the oleans it downloads are
+# mathlib's own CI artifacts for the revision pinned in lake-manifest.json, and
+# if the fetch fails we fall through and build from source instead. So a cache
+# miss makes the gate SLOW, it can never make the gate WRONG.
+echo "[2/4] Fetching prebuilt mathlib cache (lake exe cache get)..."
+if "${LAKE_BIN}" exe cache get 2>&1 | tail -3; then
+  echo "        mathlib cache ready."
+else
+  echo "        WARNING: cache fetch failed; mathlib will build from source." >&2
+  echo "        This is slow but not a verification failure." >&2
+fi
+
+# --- Build the PF closure ----------------------------------------------
+# PFClosure, not PF. The `PF` lean_lib is declared with globs = ["PF.+"], so it
+# is ALL ~10,870 modules including the ~1,260 standalone leaf panels -- ~400s
+# each, and the AssemblePart c=829/64 ones need about 13.6 GB of live data. That
+# cannot complete inside a 6-hour job, which is why this gate has never
+# reported a verdict on master.
+#
+# PFClosure has `roots = ["PF"]` and no globs, so it is PF.lean and its
+# transitive imports: the 1,641-module closure, measured 2026-11-25 as having
+# ZERO missing modules. That closure is what every book citation and every
+# headline theorem actually lives in, and it is what a referee re-checks.
+#
+# SCOPE, stated plainly: the leaf panels are NOT covered by this gate. They are
+# additional numerical evidence, built on Legion/Acer, and nothing in the book
+# or the closure imports them.
+echo "[3/5] Building the PF closure (lake build PFClosure)..."
 BUILD_LOG="$(mktemp)"
-if ! "${LAKE_BIN}" env lake build PF 2>&1 | tee "${BUILD_LOG}" >/dev/null; then
-  echo "FATAL: lake build PF failed. See ${BUILD_LOG} for output." >&2
+if ! "${LAKE_BIN}" env lake build PFClosure 2>&1 | tee "${BUILD_LOG}" >/dev/null; then
+  echo "FATAL: lake build PFClosure failed. See ${BUILD_LOG} for output." >&2
   tail -40 "${BUILD_LOG}" >&2 || true
   exit 1
 fi
@@ -417,7 +446,7 @@ fi
 # `depends on axioms:` lines, and an empty log must never be mistaken for
 # a clean one — that is how a failed build comes to print a clean axiom
 # bar. So a checker build failure is exit 1, and an empty log is exit 3.
-echo "[3/4] Running #print axioms on the headline theorems..."
+echo "[4/5] Running #print axioms on the headline theorems..."
 AXIOM_LOG="$(mktemp)"
 AXIOM_MODULES=(
   PF.AxiomCheck_2026_06_23
@@ -439,7 +468,7 @@ if [[ "${checker_failed}" != "0" ]]; then
 fi
 
 # --- Verdict -----------------------------------------------------------
-echo "[4/4] Verdict:"
+echo "[5/5] Verdict:"
 echo ""
 EXPECTED="[propext, Classical.choice, Quot.sound]"
 
