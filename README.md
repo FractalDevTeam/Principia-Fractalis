@@ -8,64 +8,112 @@ Repository: <https://github.com/FractalDevTeam/Principia-Fractalis>
 
 ---
 
+## What this is
+
+One book, and the machine-checked proof layer that backs it.
+
+The book is over a thousand pages across 37 chapters and 15 appendices. It
+proposes a single structure and follows it the whole way: from an
+undifferentiated substrate, through distinguishability, to the
+operator-algebraic limit $T_\infty$, then to emergent locality, modified
+relativity, churn, consciousness, and Grothendieck gluing. The claim is not that
+these are separate results that happen to sit in one volume. The claim is that
+they are one chain, and that the chain is checkable.
+
+The companion code is not an illustration of the book. It is the reason the book
+can be audited at all:
+
+| layer | contents |
+|---|---|
+| Lean 4 | 10,870 modules |
+| Coq | 766 files |
+| Lean4Lean | 41 independent-kernel re-verification modules |
+
+Lean 4 carries the mathematics. The Coq layer re-derives selected cores in a
+second system. Lean4Lean re-checks selected results in an independent
+implementation of the Lean kernel, so a bug in one kernel does not silently
+certify the corpus.
+
 ## Headline result (kernel-verified, unconditional)
 
-A machine-checked construction of the uniformly hyperfinite (UHF) C\*-algebra $M_{3^\infty}$ —
-realized as the metric completion $T_\infty$ of the inductive limit of the matrix tower
-$M_{3^k}(\mathbb{C})$ under the unital \*-embeddings $A \mapsto A \otimes I_3$ — together with
-a canonical tracial state $\tau_{\mathsf{UHF}}$ on $T_\infty$ that is verified in the Lean 4 kernel
-to be additive, unital, 1-Lipschitz, tracial, Hermitian, positive, and **faithful**:
+A machine-checked construction of the uniformly hyperfinite (UHF) C\*-algebra
+$M_{3^\infty}$ — realized as the metric completion $T_\infty$ of the inductive
+limit of the matrix tower $M_{3^k}(\mathbb{C})$ under the unital \*-embeddings
+$A \mapsto A \otimes I_3$ — together with a canonical tracial state
+$\tau_{\mathsf{UHF}}$ on $T_\infty$ verified in the Lean 4 kernel to be
+additive, unital, 1-Lipschitz, tracial, Hermitian, positive, and **faithful**:
 
 $$\tau_{\mathsf{UHF}}(x^{*}x)=0 \implies x=0 \quad \text{for every } x \in T_\infty.$$
 
-As a corollary, $T_\infty$ is **algebraically simple** — every two-sided ideal is $\bot$ or $\top$.
-To our knowledge this is the first formalization of Glimm's 1960 simplicity theorem for a UHF
-algebra in any proof assistant, and the first machine-checked construction of a UHF algebra with
-a faithful tracial state in any proof assistant.
+As a corollary, $T_\infty$ is **algebraically simple** — every two-sided ideal is
+$\bot$ or $\top$. To our knowledge this is the first formalization of Glimm's
+1960 simplicity theorem for a UHF algebra in any proof assistant, and the first
+machine-checked construction of a UHF algebra with a faithful tracial state in
+any proof assistant.
 
-**Summit theorem.**
+Summit theorem `r112_substrate_completion_faithful_capstone`, in
+[`PF_Lean4_Code/PF/SubstrateCompletionFaithful.lean`](PF_Lean4_Code/PF/SubstrateCompletionFaithful.lean).
+Kernel axioms `[propext, Classical.choice, Quot.sound]` — zero project axioms,
+zero sorries.
 
-```
-r112_substrate_completion_faithful_capstone
-```
+This is the strongest unconditional result here, and it is one theorem in a
+corpus of ten thousand. It is the summit of the substrate arc, not the extent of
+the work.
 
-in [`PF_Lean4_Code/PF/SubstrateCompletionFaithful.lean`](PF_Lean4_Code/PF/SubstrateCompletionFaithful.lean).
-Reports kernel axioms `[propext, Classical.choice, Quot.sound]` — **zero project axioms, zero sorries**.
-Discharges the previously named `SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture`.
+## What is not claimed
 
-**One-command reproduction.**
+No Millennium Prize problem is claimed as solved. Where the corpus formalizes a
+Clay statement, it says at what tier: a faithful statement of the problem, a
+conditional result under named hypotheses, or an *analogue* — a predicate
+discharged on a substituted carrier. That last case is the one that usually goes
+unmarked in work like this, so it is marked here mechanically rather than in
+prose.
+
+`PF_Lean4_Code/PF/Referee/BookClaimLedger_2026_11_21.lean` lifts those registers
+into the kernel: `Register` names the honest ways a claim can appear, and
+`Obligation : Register → Prop → Type` turns each into a proof obligation the
+kernel checks. An analogue entry cannot be recorded without also exhibiting, in
+the kernel, what the encoded claim is actually equivalent to. Five further
+disclosure modules do the same for individual constructions, including cases
+where a definition turned out to be weaker than its own name suggested.
+
+The empirical chapters are scored the same way. Agreement with data is reported
+where it exists and misses are reported as misses.
+
+## Reproduce it
 
 ```bash
 ./verify.sh
 ```
 
-Replays the load-bearing kernel-only theorems and prints the `#print axioms` output for the
-summit chain (`r107a` → `r108` → `r109` → `r110` → `r111` → `r112`). Exits 0 on success, nonzero
-with a precise diagnostic if any unexpected project axiom is detected. ~10 min on first run
-(`PF_Lean4_Code/` build), ~30 s on subsequent runs.
+Fetches the prebuilt mathlib cache, builds the `PFClosure` target — PF.lean and
+its transitive imports, the 1,641-module closure where every book citation and
+every headline theorem lives — then runs `#print axioms` on the headline
+theorems and classifies every axiom token it finds. Kernel axioms pass; `sorryAx`
+and project-level axioms fail. The gate self-tests first, so a classifier that
+has stopped working cannot report a pass, and an empty log is reported
+INCONCLUSIVE rather than clean.
 
-**Verified build data at HEAD `ff4c50f2` (2026-07-23):**
+Exit codes: `0` pass, `1` build or environment failure, `2` axiom outside
+contract, `3` inconclusive.
+
+**Build state at HEAD `874f7304` (2026-11-25):**
 
 | | |
 |---|---|
-| `lake build PF` | 4,471 jobs clean |
-| `lake build` (full) | 8,928 jobs clean |
+| `lake build PFClosure` | 5,386 jobs clean |
+| closure modules | 1,641, of which 0 unbuilt |
 | Sorries | 0 |
 | Project axioms | 0 |
+| Axiom bar | `[propext, Classical.choice, Quot.sound]` |
 | mathlib pin | `eed770a4` |
 | toolchain | `leanprover/lean4:v4.24.0-rc1` |
 
-**Update (2026-08-04):** HEAD has advanced (see `git log`); `lake build PF` = 4,701 jobs
-clean at r194. The arc list since this block was written: Mordell–Weil ranks r129–r182
-(paper: [`Papers/formal_mordell_weil_rank_2026-07-30.pdf`](Papers/formal_mordell_weil_rank_2026-07-30.pdf)),
-transfer-operator/Lefschetz arc r183–r194, Friedmann r187. Figures elsewhere in this
-README dated 2026-07-23 are historical.
+The closure is what this gate certifies. The corpus also contains roughly 1,200
+standalone numerical panels that nothing in the book or the closure imports;
+those are built on dedicated hardware and are not part of the badge.
 
-**Update (2026-08-05):** `lake build PF` = 4,724 jobs clean at HEAD `13369b35`. Arcs added
-since: the universal rank pipeline (rank lower bounds for any elliptic curve over ℚ from
-its coefficients, r193–r203) and Hausdorff dimension (Moran/Falconer bounds; the Cantor
-function; `dimH cantorSet = log₃2`; certified enclosures for the continued-fraction Cantor
-sets, r205–r209).
+**Build history.** Figures in this README dated 2026-07-23 and 2026-08 are historical and have been superseded; `git log` is authoritative. The arcs recorded in those notes — Mordell–Weil ranks r129–r182, the transfer-operator/Lefschetz arc r183–r194, Friedmann r187, the universal rank pipeline r193–r203, and Hausdorff dimension r205–r209 — are all still in the corpus.
 
 Paper: [`Papers/uhf_faithful_trace_glimm_2026-07-23.pdf`](Papers/uhf_faithful_trace_glimm_2026-07-23.pdf) (14 pp).
 
@@ -175,19 +223,27 @@ the papers.
 ./verify.sh
 ```
 
-Replays the substrate's load-bearing kernel-only theorems (including the r107a–r112 summit
-chain) and prints the `#print axioms` output. Exits 0 on success, nonzero with a diagnostic if
-any unexpected project axiom is detected.
+Fetches the prebuilt mathlib cache, builds the `PFClosure` target, then prints the
+`#print axioms` output for the load-bearing kernel-only theorems (including the r107a–r112
+summit chain) and classifies every axiom token it finds. The gate self-tests its own classifier
+first, so a classifier that has stopped working cannot report a pass. Exit `0` pass, `1` build
+or environment failure, `2` an axiom outside the contract, `3` inconclusive — an empty axiom
+log is never reported as clean.
 
 ### Lean 4 verification (manual)
 
 ```bash
 cd PF_Lean4_Code
-lake build PF
+lake build PFClosure
 ```
 
-Expected: 4,471 jobs clean at HEAD. Every theorem in the summit chain reports kernel-only
-axioms `[propext, Classical.choice, Quot.sound]`.
+Expected: 5,386 jobs clean. Every theorem in the summit chain reports kernel-only axioms
+`[propext, Classical.choice, Quot.sound]`.
+
+`PFClosure` is PF.lean and its transitive imports — the 1,641-module closure. `lake build PF`
+builds that *plus* roughly 1,200 standalone numerical panels that nothing in the book or the
+closure imports; several need upwards of 13 GB of memory each, so that target is for dedicated
+hardware, not for a laptop or a CI runner.
 
 ### Lean4Lean independent re-verification
 
