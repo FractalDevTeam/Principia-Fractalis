@@ -1,6 +1,6 @@
 # LEGION — status
 
-**Updated:** 2026-11-04
+**Updated:** 2026-11-25
 
 > **READ FIRST: `codex/SESSION_RECORD_LEGION_2026-11-04.md`.** The march was
 > DEAD for four days (2026-10-31 01:21 to 2026-11-04 19:00) on a no-op
@@ -9,6 +9,185 @@
 > to **12.75**, c=817/64 building. That record also lists five errors I made
 > in one session, including reporting `TRUE_PROP_AUDIT_2026-08-01` as a new
 > discovery. Do not quote this session chat for numbers; quote that file. · **Owner:** Legion session (march ownership, pipeline, research)
+
+## 2026-11-25 ADDENDUM — Andrews–Curtis repaired end to end; I killed the panel grind with a duplicate build; the PF closure is COMPLETE and the 1,361 panels are outside it
+
+Night shift, Pablo asleep. Commits `f6334ce8`, `d6bd0a1e`, `28d07cdf`.
+**Not pushed** — see §5.
+
+### 1. The last two undisclosed `Prop := True` modules now disclose themselves in-kernel
+
+`f6334ce8` — `PF/Referee/TypedPropVacuityDisclosure_2026_11_25.lean`, 10 theorems.
+Every `Prop := True` in the corpus discloses itself in its own text except in two
+modules. Both now do, proved rather than asserted:
+
+* **`NumberTheory/AndrewsCurtisFrameworkAttack`.** The carrier is
+  `structure BalancedPresentation where rank : ℕ; rank_pos : rank ≥ 1` and that is
+  all of it — **no relator field.** Andrews–Curtis is a statement about relator
+  tuples, so the carrier is blind to the only data the conjecture is about.
+  `balancedPresentation_determined_by_rank` proves two presentations of equal rank
+  are *equal* here. `PresentsTrivialGroup := True` is documented as "the
+  presentation's normal closure equals the whole free group" and states nothing of
+  the kind. `AndrewsCurtisConjecture` is documented as the conjecture in "literal,
+  typed form" and is **PROVABLE**: `andrewsCurtisConjecture_as_encoded_is_provable`
+  is `fun _p _h => ⟨0, Nat.zero_le 0⟩`.
+  **NOTHING WAS WITHDRAWN.** No theorem in that module claims the conjecture — it
+  is defined and never inhabited — and the capstone `structure` has no field of
+  that type. The defect was an overstated *definition*, not a claimed solution.
+* **`Empirical/ProblemClassTriClass_2026_06_22`.** Babai 2016, Schöning 1988 and
+  Goldwasser–Sipser 1986 are named by Props carrying none of their content.
+  `schoning_eq_goldwasserSipser` proves two citations of two *different* papers are
+  the **same Prop by `rfl`** — no bibliographic content survives that. Also pulls
+  that module into `PF.lean`'s closure, which nothing imported before.
+
+Axiom note so a later sweep does not re-flag it: six of the eleven declarations
+print "does not depend on any axioms". That is **expected and correct** here —
+they are theorems *about* `True`, so axiom-freeness is the signature of the
+disclosed vacuity, not a hidden all-`True` anchor.
+
+### 2. Then the Andrews–Curtis removal condition was actually DISCHARGED — both sides
+
+RULE 4: a disclosure is scaffolding with a removal condition, never a finished
+state. Condition (1) was writable at this pin, so it got written.
+
+`d6bd0a1e` — `NumberTheory/AndrewsCurtisFaithfulCarrier_2026_11_25.lean`.
+`FaithfulBalancedPresentation` carries `rels : Fin rank → FreeGroup (Fin rank)`;
+`PresentsTrivialGroupFaithful p := Subsingleton (PresentedGroup (Set.range p.rels))`.
+Teeth, because a predicate holding of everything proves nothing:
+
+* `trivialPres_presentsTrivial` — `⟨x₁ … xₙ | x₁ … xₙ⟩` presents the trivial
+  group **at every rank** (`FreeGroup.closure_range_of` → `closure_le_normalClosure`
+  → `QuotientGroup.subsingleton_quotient_top`).
+* `sqPres_not_presentsTrivial` — `⟨x | x²⟩` does **not**, via the generator ↦
+  `ofAdd 1 : Multiplicative (ZMod 2)`, which the relator kills and the generator
+  does not.
+* `forget_identifies_what_faithful_separates` — **by `rfl`**, the old relator-free
+  carrier maps those two *different* presentations to the *same* object. So the old
+  encoding affirms its hypothesis for `⟨x | x²⟩`, which the line above refutes.
+  That is the cost of the vacuous carrier, now a theorem rather than a remark.
+
+`28d07cdf` — `NumberTheory/AndrewsCurtisMoveRelation_2026_11_25.lean`. The
+conclusion side, which the old encoding wrote as `∃ moveCount : ℕ, moveCount ≥ 0`
+— satisfied by `0`, recording no move sequence at all.
+`ACMove` is the standard generating set (invert `rᵢ`; `rᵢ ↦ rᵢrⱼ` for `j ≠ i`;
+conjugate `rᵢ`); `ACEquiv` is `ReflTransGen` of its symmetrisation.
+**The invariant is the content**: every move preserves
+`normalClosure (Set.range rels)` — `normalClosure_update_eq` handles all three
+uniformly, and the `mul` case is where `j ≠ i` earns its place, being what lets
+`rⱼ` be read off the modified tuple so `rᵢ` can be recovered. Hence
+`acEquiv_preserves_normalClosure`. Then:
+
+> `not_acEquiv_sqPres_trivial` — **`⟨x | x²⟩` is NOT AC-equivalent to `⟨x | x⟩`.**
+
+because `⟨x | x⟩` has normal closure `⊤` and `⟨x | x²⟩` does not. So `ACEquiv` is
+**provably not the total relation**, which the old encoding could never be. Pinned
+from both sides so the negative result is no artifact: reflexivity, a *real* move
+`⟨x | x⟩ → ⟨x | x⁻¹⟩` (`acEquiv_inv_witness`), and a non-pair.
+`conclusion_alone_is_false` proves that dropping the hypothesis makes the statement
+**false**, so the faithful conjecture cannot be proved by ignoring its hypothesis —
+precisely how the old one *is* dischargeable, its hypothesis being `True`.
+
+**`AndrewsCurtisConjectureFaithful` is DEFINED and NOT PROVED, and nothing in the
+corpus inhabits it.** That is the correct state; it is an open problem.
+**NOTHING HERE PROVES OR REFUTES ANDREWS–CURTIS.**
+
+Across the three files: 29 theorems, **0** occurrences of `Prop := True`, **0**
+sorry/admit/native_decide, all on `[propext, Classical.choice, Quot.sound]`.
+Four negative controls pass on disk: relator `x² → x` breaks the build at the
+`testMap` `show` (for the right reason — with relator `x` there is no hom to ℤ/2,
+since `⟨x | x⟩` genuinely *is* trivial); `forget (trivialPres 2 _) = forget sqPres`
+fails to typecheck, so `forget` is rank-sensitive; `fun _p _h =>
+Relation.ReflTransGen.refl` does not prove the faithful conjecture; and the
+`≠ ⊤` fact does not transfer to the trivial presentation.
+
+### 3. MY ERROR: a duplicate `lake build PF` killed the 3-hour panel grind
+
+At 2026-11-25T01:02:15 the **kernel** OOM killer killed pid 25408 (`task=lean`);
+`/var/log/syslog` carries the `oom-kill:` lines, and further kills on
+`user.slice` at 01:05–01:06. The last panel olean was written at **01:01:24**.
+
+In that exact window I ran `lake build PF` in
+`/home/xluxx/pf-legion-20261120/PF_Lean4_Code` **while** pid 20839
+(`taskset -c 0-3 lake build PF.A…`) had been grinding for 3h09m with 3 `lean`
+processes already up. Lake 5.0.0 has no `-j`, so my invocation added up to three
+more `lean` processes. Individual FourierPanels have peaked near 10.5 GB on a
+21 GB box. The timing and the mechanism both fit: **I caused this.**
+
+I had restated the rule — *never run duplicate builds in one tree* — in the same
+message in which I broke it. The guard that would have stopped me is a
+pre-flight `pgrep -f 'lake build'` check, which the new driver now has.
+Note also that `taskset` was never the right control: it caps **CPUs**, not
+process count. `LEAN_NUM_THREADS=1` caps threads *inside* each `lean`; only one
+module per `lake` invocation caps the number of processes.
+
+### 4. THE IMPORTANT FINDING: `lake build PF`'s closure is COMPLETE
+
+Measured, not inferred:
+
+```
+PF sources                                      10,870
+built (olean present)                            9,509
+MISSING                                          1,361   (all under Analytic/)
+PF.lean transitive closure                       1,641 modules
+  → missing modules INSIDE the closure               0
+  → missing modules OUTSIDE the closure          1,361
+```
+
+**Every module `lake build PF` needs is built.** The 1,361 are standalone leaf
+panels — `Analytic/FourierPanels/Seg*Range_*`, `Box900Bridge_*`,
+`RiemannXiBox0Panel*` — that nothing imports. `PF.lean` mentions `FourierPanels`
+zero times.
+
+So the panels are **additional numerical evidence, not a blocker for the
+referee-proof Lean gate**. That gate rests on the closure, and the closure is
+green. This is the "leafs" item: worth finishing, but it does not gate the book.
+
+Cost, honestly: the grind restarted 01:34 and had completed **zero** panels
+25 minutes later, still inside its first module (`RiemannXiBox0Panel…`). The cost
+is the panels themselves, not per-invocation overhead, so batching would not help.
+**1,361 of these is a multi-day job on one box, not an overnight one.** It needs
+more machines, or a decision about which panels are actually wanted.
+(`lake build <mod>:olean` would skip the C/object compile the default `irArts`
+facet also does — the one available speedup, not yet applied, since switching
+would discard the in-flight panel.)
+
+Restarted as `/home/xluxx/panel_grind.sh` (resumable, re-enumerates each pass,
+sequential, `LEAN_NUM_THREADS=1`, 6 GB memory gate, 14 h cap).
+Log `/home/xluxx/panel-grind-20261125.log`, state
+`/home/xluxx/panel-grind-20261125.state`. **Do not run another lake build in that
+tree while it is up.**
+
+### 5. Unpushed — needs Pablo
+
+`origin/lean/ns-faithful-and-vacuity-retirements-2026-11-20` is at `69786927`;
+the local branch is ahead by the three commits above plus the earlier ones, and
+`origin/master` (`bfa02f21`) **is an ancestor**, so master fast-forwards cleanly.
+The push route is `git.exe -C D:/CLAUDE-i9/tmp/pf-r337-clean push origin
+<branch>:refs/heads/<branch>` (this WSL tree is a *worktree* of that Windows
+clone, which is why Windows git cannot read its `.git` file directly but *can*
+push its refs). **The push was declined by the sandbox**, so GitHub does not yet
+match. Nothing is lost — the commits are in the shared object store.
+
+### 6. Two of my own concerns, retracted on measurement
+
+* **Does the book inherit the Andrews–Curtis vacuity?** No. The four downstream
+  files (`Referee/MinimalRigidityForcesNonClayAlphas{,Extended,Final}`,
+  `Referee/FrameworkUniversalReach`) contain **zero** occurrences of
+  `PresentsTrivialGroup`, `ACEquivalentToTrivial` or `AndrewsCurtisConjecture`.
+  ch34A's AC row uses only `alpha_AC = α_Poincaré`. No book correction owed.
+* **Is `alpha_AC := 1` an undisclosed definitional identity?** Already
+  adjudicated — `codex/ALPHA_SUPPLIED_VS_DERIVED_2026-10-01.md`: "every α value in
+  the framework's canonical table is a `def` with a literal right-hand side… **the
+  18 non-Clay α values are likewise all literals**." And the book discloses the
+  general fact: 24 book files carry "ASSERTED (not derived)" ledger entries, and
+  ch34A says in its own text that the cascade is "not literally deductive"
+  (:419, :427) with `not_literal_Clay_discharge_substrate_level_only` (:1732).
+  Per `ALPHA_CHAIN_PER_AXIS_BAR_2026-10-24.md`, α_Poincaré is in fact
+  **non-circularly forced** by `0 < a ∧ a² = 1` (`PoincareAnchorForced_r338.lean:88`,
+  proved, with a witness), so the AC row's bridge points at a forced anchor.
+  RULE 1 earned its keep: without reading codex first I would have "found" a
+  known fact and written a redundant ledger.
+
 
 ## 2026-11-22 ADDENDUM — the ToE capstone had never been compiled, and five of its nine conjuncts were empty
 
