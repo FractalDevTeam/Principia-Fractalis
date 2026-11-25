@@ -14,6 +14,16 @@ name = "MathlibCandidates"
 srcDir = "../mathlib_candidates"
 roots = ["GramLinearIndependent", "TateLimit", "HilbertSchmidt", "TransferOperatorCompact", "TransferOperatorTrace", "NotFermat42Sub"]
 
+# CI TARGET. `PF` above uses globs = ["PF.+"], i.e. ALL ~10,870 modules including
+# the 1,265 standalone leaf panels, which cannot finish inside a GitHub runner's
+# 6-hour job cap. This target has roots and NO globs, so it builds PF.lean and its
+# transitive imports only -- the 1,641-module closure that the referee-proof claim
+# actually rests on, and which is complete. Panels stay on the PF target, built on
+# Legion/Acer, and do not gate CI.
+[[lean_lib]]
+name = "PFClosure"
+roots = ["PF"]
+
 [[lean_exe]]
 name = "pf"
 root = "Main"
