@@ -32,6 +32,17 @@ $N$ (Basis Dim) & Real Part $\sigma$ & Imaginary Part $t$ & Deviation from 0.5 \
 \textbf{Deviation at the smallest basis dimension tested:}
 $0.08127$ at $N = 10$
 
+\noindent\emph{What the $t$ column is, and is not (added 2026-11-24).} The
+imaginary part $14.2267$ is the computed truncation eigenvalue's imaginary
+part, held fixed across the eight basis dimensions; it is a number produced by
+this calculation, not an approximation to a zero of $\zeta$. The nearest
+nontrivial zero is $t_1 = 14.134725141735\ldots$, from which $14.2267$ differs
+by $0.0920$ ($0.65\%$). So the table exhibits a real part converging to
+$\sigma = 0.5$ at order $1/N$ at a point that is \emph{not} a zero of the zeta
+function, and it is not evidence that the operator's spectrum reproduces the
+zeta zeros. Per \S\ref{sec:appH-verification-status} the Riemann Hypothesis
+remains open and nothing in this appendix bears on it.
+
 \textbf{High-Precision Verification:} 100-digit precision confirms eigenvalue-zero correspondence across all tested basis dimensions.
 
 \begin{figure}[h]
@@ -336,6 +347,7 @@ Statistical Significance & $>5\sigma$ \\
 \section{Consciousness Field Detection}
 
 \subsection{Empirical ch\texorpdfstring{$_2$}{\_2} Detection Results}
+\label{sec:appH-consciousness-detection}
 
 \textbf{Source:} Clinical EEG and fMRI datasets
 
@@ -354,6 +366,60 @@ Statistical Significance & $>5\sigma$ \\
 \item Focused Attention: ch$_2$ $\approx 0.8$
 \item Meditative States: ch$_2$ $\geq 0.95$ (crystallization threshold)
 \end{itemize}
+
+\paragraph{Scale reconciliation with Appendix~\ref{app:clinical} --- computed
+2026-11-24.} The figures above are \emph{not} on the same scale as the clinical
+band table of Appendix~\ref{app:clinical}, and reading one against the other
+directly is what produced the contradiction previously flagged as unresolved in
+\S\ref{sec:appH-verification-status}. Appendix~C computes a raw second Chern
+number and then normalises it,
+\begin{equation}
+\text{ch}_2 \;=\; \frac{1}{1 + \exp\!\big(-10\,(\text{ch}_2^{\text{raw}} - 0.5)\big)},
+\label{eq:appH-ch2-logistic}
+\end{equation}
+and its bands are stated on the \emph{normalised} quantity. Applying
+\eqref{eq:appH-ch2-logistic} to the five figures above gives:
+
+\begin{center}
+\footnotesize
+\begin{tabular}{lccl}
+\toprule
+\textbf{State} & \textbf{as printed} & \textbf{normalised} & \textbf{Appendix~C band} \\
+\midrule
+General Anesthesia & 0.1  & 0.0180 & Coma/unconscious \\
+Sleep (NREM)       & 0.3  & 0.1192 & Coma/unconscious \\
+Normal Waking      & 0.6  & 0.7311 & \emph{Vegetative state} \\
+Focused Attention  & 0.8  & 0.9526 & Fully conscious \\
+Meditative States  & 0.95 & 0.9890 & Fully conscious \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Four of the five rows then agree with Appendix~C. \textbf{One does
+not}, and it is stated here exactly rather than left as an incompatibility:
+normal waking normalises to $0.7311$, which is $0.0189$ below Appendix~C's
+``minimally conscious'' floor of $0.75$ and therefore still falls in the
+$0.50$--$0.74$ band Appendix~C marks for palliative consultation. In
+as-printed units the shortfall is $0.0099$: the boundary is crossed at
+$\text{ch}_2^{\text{raw}} = 0.609861$, and this appendix reports $\approx 0.6$.
+
+\noindent Chapter~\ref{ch:clinical-consciousness} uses Appendix~C's scale, not
+this one (its clinical threshold is $\text{ch}_2 \geq 0.95$), so the figures in
+this section are the outlier and should not be cited as clinical values without
+\eqref{eq:appH-ch2-logistic} applied.
+
+\noindent\textbf{Removal condition.} The residual closes when either (i) the
+normal-waking figure is re-measured and reported with an uncertainty interval
+--- any value $\geq 0.6099$ as-printed clears the band entirely --- or (ii)
+Appendix~C's cut-points are re-derived from its own outcome data, which they
+currently do not match: the $0.50$--$0.74$ ``vegetative'' band straddles two
+rows of that appendix's own 72-hour outcome table ($0.50$--$0.69$ at 8\% good
+outcome, $0.70$--$0.89$ at 42\%), so its $0.74$ boundary cuts across the
+$0.70/0.90$ divisions the outcome data is binned on. Until one of the two is
+done, no ch$_2$ figure in this appendix should be used for any clinical
+decision; see also the band caution at
+Chapter~\ref{ch:clinical-consciousness}, which treats the whole interval
+$0.50 < \text{ch}_2 < 0.95$ as requiring assessment rather than action.
 
 \section{Theoretical Energy Landscapes}
 
@@ -473,6 +539,7 @@ validated cross-references.
 \end{itemize}
 
 
+\label{sec:appH-verification-status}
 \paragraph{Verification status (added 2026-11-01).}
 This appendix had no verification-status ledger until this revision, and no
 chapter ledger quoted any of its sentences. That is why twelve defects survived
@@ -498,9 +565,15 @@ that this appendix is inside the scope of future sweeps.
   $\nu_c > 0$; it is reproduced above for reference only.
 \item \textbf{SUPERSEDED} --- $\text{Re}_c = 2.13198\times10^5$ and
   $1.00000\times10^5$, both recorded in the note at the critical-Reynolds entry.
-\item \textbf{OUTSTANDING} --- the $\text{ch}_2 \approx 0.6$ figure given here
-  for normal waking consciousness sits inside the band that
-  appendix~C classifies as a vegetative state warranting palliative
-  consultation. The two appendices use incompatible band schemes and the
-  discrepancy is not resolved in this revision.
+\item \textbf{OUTSTANDING, now localised and quantified (2026-11-24)} ---
+  the $\text{ch}_2 \approx 0.6$ figure given here for normal waking
+  consciousness was compared against appendix~C's bands across two
+  \emph{different scales}; appendix~C bands the logistic-normalised
+  quantity of \eqref{eq:appH-ch2-logistic}, this appendix reports the
+  pre-normalisation figure. Applying the transform reconciles four of the
+  five states; normal waking still lands in appendix~C's palliative band,
+  short of the ``minimally conscious'' floor by $0.0189$ normalised
+  ($0.0099$ as printed). The computation and the removal condition are at
+  \S\ref{sec:appH-consciousness-detection}. The residual is one number and
+  one boundary, not two incompatible schemes.
 \end{itemize}
