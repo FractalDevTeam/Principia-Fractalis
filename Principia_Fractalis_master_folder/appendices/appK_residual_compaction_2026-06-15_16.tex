@@ -11,6 +11,34 @@
 \chapter{Residual Compaction Pass --- 2026-06-15 / 2026-06-16}
 \label{app:residual-compaction-2026-06-15-16}
 
+\paragraph{Verification status (added 2026-11-24).} This appendix was swept in
+full on 2026-11-24 and \textbf{no defect was found} --- the result is recorded
+here so the work is not repeated.
+\begin{itemize}
+\item \textbf{CITATIONS: CLEAN} --- every Lean identifier cited across its
+  1{,}007 lines resolves to a module that compiles. The apparent misses were
+  prose or templates (\texttt{lake build}, \texttt{Prop := True},
+  \texttt{0 < Delta\_target}, \texttt{heegnerDerived\_rankWitnessTyped\_E<n>a1},
+  and a Coq snippet), not citations.
+\item \textbf{CLAUSE COUNTS: CLEAN} --- fourteen claims were checked against a
+  depth-aware top-level conjunct counter and all are correct, including
+  \texttt{alpha\_skeleton\_full\_29\_identity\_locus} at $29$ with its own
+  ``16-clause base bundle'' comment confirming the documented $16 \to 29$
+  extension. The counter is at \texttt{codex/check\_clause\_counts.py}; a naive
+  count of $\wedge$ symbols miscounts bracket bundles and should not be used.
+\item \textbf{NESTED COUNTS ARE DELIBERATE} --- phrases such as ``a 6-bundle,
+  45-clause'' and ``30-clause 4-tower bundle'' state a top-level count and a
+  leaf count together. Both numbers are correct; they are not alternatives.
+\item \textbf{BSD CURVE COUNTS ARE FOUR DIFFERENT POPULATIONS} --- ten in the
+  formal rank bundle, thirteen per-curve Heegner files, fifteen rank-$\geq 1$
+  discharges across two naming patterns, and seventeen Mordell--Weil named
+  anchors. The ``$17$-curve set'' here is the named-anchor set and is used
+  correctly.
+\item \textbf{SCOPE UNCHANGED} --- this appendix is a dated session log. It
+  records compactions of the residual ledger, not new closures, and nothing in
+  it claims a Clay result.
+\end{itemize}
+
 This appendix records the substantive machine-verified refinement
 landed in the session 2026-06-15 / 2026-06-16. The session's
 contribution falls into four categories:

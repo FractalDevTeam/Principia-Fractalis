@@ -1,4 +1,25 @@
 % ============================================================================
+% STATUS, 2026-11-24: SUPERSEDED STAGING FILE. NOT PART OF THE BUILD.
+%
+%   * main.tex does NOT \input this file. Verified: main.tex carries 65 \input
+%     lines, the only one naming ch20 is chapters/ch20_riemann_hypothesis, and
+%     this filename appears in no .tex file anywhere in the manuscript.
+%   * It CANNOT be built as it stands: its environments are unbalanced by
+%     design (itemize begin 5 / end 4), because the blocks below are fragments
+%     meant to be pasted INTO a chapter, not compiled on their own.
+%   * The three insert blocks HAVE ALREADY BEEN APPLIED to
+%     ch20_riemann_hypothesis.tex. Verified by distinctive strings present in
+%     both files: "is RH transposed, not solved" and "closes the Clay
+%     statement".
+%   * DO NOT PASTE THESE AGAIN. Re-applying them would duplicate the
+%     subsection and the scope language in the built chapter.
+%   * Retained rather than deleted so the 2026-11-18 session's intent stays
+%     traceable. This file is a record, not an instruction.
+%
+% Corpus-wide sweeps that count .tex files will report these 238 lines as an
+% unswept chapter. They should not: the in-build unswept total excludes it.
+% ============================================================================
+% ============================================================================
 % Ch.20 rev 2 (2026-11-18): LaTeX inserts integrating the Dirichlet eta
 % extension zero-structure (16 session commits) + FourierPanels preservation
 % (1 session commit).
