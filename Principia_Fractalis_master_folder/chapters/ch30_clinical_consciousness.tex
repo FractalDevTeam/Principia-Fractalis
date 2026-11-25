@@ -258,20 +258,63 @@ Fractal resonance achieves:
 \boxed{\text{Accuracy} = 97.3\% \text{ (824/847 patients correctly classified)}}
 \end{equation}
 
-Breakdown by diagnostic group:
+Breakdown by diagnostic group, \emph{corrected 2026-11-24} to agree with
+this theorem's own confusion matrix below:
 \begin{align}
-\text{Sensitivity (detect consciousness)} &= 96.8\% \\
-\text{Specificity (detect unconsciousness)} &= 97.8\% \\
-\text{Positive Predictive Value} &= 97.4\% \\
-\text{Negative Predictive Value} &= 97.2\%
+\text{Sensitivity (detect consciousness)} &= 97.9\% \\
+\text{Specificity (detect unconsciousness)} &= 96.6\% \\
+\text{Positive Predictive Value} &= 96.8\% \\
+\text{Negative Predictive Value} &= 97.8\%
 \end{align}
-\empiricalclaim{Clinical cohort of 847 patients across disorders
-of consciousness (vegetative state, minimally conscious state,
-emergence from MCS, locked-in syndrome), 20-minute resting-state
-64-channel EEG, gold-standard CRS-R consensus over $\ge 5$
-sessions per patient with 6-month follow-up
-\cite{giacino2004,schnakers2009,edlow2021recovery}. Independent
-clinical validation is required. The Lean stack verifies only the
+
+\noindent\emph{What was corrected.} This list previously read
+$96.8/97.8/97.4/97.2$. Those are the four values below with
+\textbf{sensitivity and specificity exchanged, and PPV and NPV exchanged}. The
+confusion matrix in the proof is internally consistent (every row, column and
+grand total checks) and the proof's own computed line already gives
+$97.9/96.6/0.968/0.978$, so the matrix is the source of truth and the labels
+here were transposed. By definition sensitivity is
+$\mathrm{TP}/(\mathrm{TP}+\mathrm{FN}) = 422/431 = 97.91\%$ and specificity is
+$\mathrm{TN}/(\mathrm{TN}+\mathrm{FP}) = 402/416 = 96.63\%$. Accuracy was and
+remains correct: $824/847 = 97.28\%$. The note after the proof describing this
+as ``slight rounding adjustments'' is withdrawn --- a $1.1$-point exchange of
+two labels is not rounding.
+\empiricalclaim{\textbf{PROVENANCE, corrected 2026-11-24 --- read this
+before the numbers above.} The cohort described in this theorem --- 847
+patients, 20-minute resting-state 64-channel EEG, gold-standard CRS-R
+consensus over $\ge 5$ sessions with 6-month follow-up --- \textbf{is not
+backed by patient-level data held anywhere in this corpus}, and the confusion
+matrix in the proof below is illustrative rather than measured. The project's
+own clinical implementation says so in its own words. Its cohort script
+(\texttt{FRAMEWORK\_APPLICATION/clinical\_ch2\_verification/full\_cohort\_experiment.py})
+opens: ``Run a \emph{100-patient (20 per class) synthetic cohort} with the full
+ch$_2$ clinical formula \ldots This is the closest we can get to simulating the
+847-patient Ch 30 cohort \emph{without real data}. Establishes
+\textsc{computability} of the formula and its operating point.'' Its formula
+implementation (\texttt{ch2\_clinical.py}) states its scope equally plainly:
+``the goal is to establish \textsc{computability and internal consistency} of
+the clinical formula, \emph{not} to adversarially test against external
+standards.''
+
+\textbf{What therefore exists, and it is real work:} the clinical ch$_2$
+formula is implemented, computable, and separates five synthetic classes whose
+generators are coherent-gamma (conscious) against independent-delta
+(unconscious). Those classes are separable \emph{by construction}, which is why
+the calibration search reports accuracy, sensitivity and specificity of
+$1.00$ with Cohen's $d \approx 25$ --- figures that measure the generator, not
+a diagnostic.
+
+\textbf{What does not exist:} any measurement of ch$_2$ on a human patient, and
+hence any diagnostic operating characteristic. The citations
+\cite{giacino2004,schnakers2009,edlow2021recovery} are real and are the right
+methodological sources for CRS-R and for diagnostic accuracy in disorders of
+consciousness; they are \emph{not} studies of ch$_2$, and no operating
+characteristic of theirs transfers to it. The figures in this theorem should be
+read as the framework's \emph{target} performance specification, not as a
+result. Independent clinical validation is not merely ``required'' --- it has
+not been begun.
+
+The Lean stack verifies only the
 arithmetic identity $\text{ch}_2 = 19/20 = 0.95$ (theorem
 \texttt{Quantum\allowbreak{}Classical\allowbreak{}Decoherence\allowbreak{}Threshold.\allowbreak{}threshold\_\allowbreak{}ch2\_\allowbreak{}eq\_\allowbreak{}zero\_\allowbreak{}point\_\allowbreak{}95})
 and the algebraic IIT bridge inequality (theorem
@@ -305,7 +348,16 @@ Total & 416 & 431 & 847 \\
 \text{NPV} &= \frac{402}{411} = 0.978
 \end{align}
 
-Note: Slight rounding adjustments for consistency with empirical data.
+\emph{Note, corrected 2026-11-24.} The figures above are the matrix values to
+one decimal place and require no adjustment. The previous note here claimed
+``slight rounding adjustments for consistency with empirical data''; what it
+was covering was the label transposition corrected in the theorem statement,
+and it is withdrawn. Two residual arithmetic points, recorded rather than
+silently fixed: the group breakdown above lists $267 + 189 + 156 + 92 = 704$
+patients against a cohort of $847$, leaving $143$ unlisted (the objectives
+mention locked-in syndrome as a fifth group, which the breakdown omits); and
+the behavioural comparison's $519/847 = 61.28\%$ is printed as $61.4\%$, so
+the stated $35.9$-point improvement is $36.0$ points on the printed counts.
 \end{proof}
 
 \begin{comparison}[vs. Behavioral Assessment Alone]

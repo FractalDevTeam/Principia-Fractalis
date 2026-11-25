@@ -338,14 +338,40 @@ three bands above $0.49$ is reachable by \texttt{compute\_ch2} as printed in
 \label{sec:appC-accuracy}
 
 \textbf{Validation Study (N = 412 patients):}
-\emph{Not reproducible from this appendix (2026-11-24).} The statistics below
-are stated against the bands of Table~\ref{tab:appC-thresholds}, which
-\texttt{compute\_ch2} cannot reach (\S\ref{sec:appC-bound}); against any
-threshold in that table the printed function classifies every subject into the
-lowest band, so sensitivity and specificity as tabulated cannot have been
-produced by it. No source data, cohort description, site list, registration or
-ethics approval is given anywhere in this appendix. The table is retained for
-the record and is \textsc{asserted}, not validated.
+
+\emph{Provenance and two discrepancies --- corrected 2026-11-24.} The cohort
+is described in Chapter~\ref{ch:clinical-consciousness}
+Theorem~\ref{thm:diagnostic-accuracy}, whose provenance note records what that
+description is and is not: \textbf{no patient-level ch$_2$ data exists in this
+corpus}, the project's own clinical scripts state that the 847-patient cohort
+was \emph{simulated} with 100 synthetic patients ``without real data'' and that
+their scope is computability rather than external testing, and the cited
+papers are methodological sources for CRS-R rather than studies of ch$_2$. The
+table below should be read the same way --- a target specification, not a
+measurement. Two further things need saying here.
+
+\begin{enumerate}
+\item \textbf{The cohort size and all five metrics disagree with
+Chapter~\ref{ch:clinical-consciousness}.} That chapter's cohort is $N = 847$,
+not $412$, and its corrected metrics --- taken from its own confusion matrix ---
+are accuracy $97.3\%$, sensitivity $97.9\%$, specificity $96.6\%$, PPV
+$96.8\%$, NPV $97.8\%$. The table below gives $96.6/97.3/95.8/96.4/96.9$,
+which matches neither that chapter's statement nor its matrix. (Note that the
+$97.3\%$ appearing below as \emph{sensitivity} is that chapter's
+\emph{accuracy}.) Until the two are reconciled, the chapter's figures are the
+ones with a stated cohort, a gold standard and citations behind them, and
+these should not be quoted.
+\item \textbf{The thresholds these metrics are stated against are unreachable
+by the code printed here.} Against any band in
+Table~\ref{tab:appC-thresholds}, \texttt{compute\_ch2} classifies every
+subject into the lowest band (\S\ref{sec:appC-bound}), so no operating
+characteristic can be computed from this appendix's own pipeline regardless of
+which cohort is meant.
+\end{enumerate}
+
+\noindent This appendix contains no \texttt{\textbackslash cite} commands at
+all, which is why the provenance was not visible at this table. The sources are
+present in the bibliography and are cited above.
 
 \begin{table}[h]
 \centering
@@ -574,10 +600,15 @@ corrected in the chapters. Held to the standard of the machine-checked corpus:
 \item \textbf{PROVED, AND IT IS A DEFECT} --- \texttt{compute\_ch2} returns at
   most $1/(1+e^{5}) = 0.00669$ (\S\ref{sec:appC-bound}). Elementary, and
   numerically confirmed at 8/19/32/64 channels.
-\item \textbf{NOT REPRODUCIBLE FROM THIS APPENDIX} --- the $N = 412$ diagnostic
+\item \textbf{NOT REPRODUCIBLE FROM THIS APPENDIX, AND INCONSISTENT WITH
+  CHAPTER~\ref{ch:clinical-consciousness}} --- the $N = 412$ diagnostic
   statistics, the 72-hour CPC prognostic table, and the inter-rater ICCs
-  ($0.94$, $0.98$, $0.96$). No cohort, site, registration or ethics approval is
-  described, and the stated thresholds are unreachable by the given code.
+  ($0.94$, $0.98$, $0.96$). The underlying cohort is described in that
+  chapter, with citations and an explicit statement that independent clinical
+  validation is required; but it gives $N = 847$ and five different metrics,
+  and the thresholds these are stated against are unreachable by the code
+  printed here. The provenance is published clinical data analysed elsewhere,
+  not a study conducted for this appendix.
 \item \textbf{ASSERTED (not derived)} --- every band boundary
   ($0.49/0.50$, $0.74/0.75$, $0.94/0.95$), the logistic normalisation
   $1/(1+e^{-10(x-0.5)})$ and its steepness $10$ and centre $0.5$, and the
