@@ -1,4 +1,5 @@
 \chapter{Millennium Problems: Numerical Validation and Experimental Results}
+\label{app:numerical-validation}
 
 \section{Riemann Hypothesis Validation}
 
@@ -565,15 +566,22 @@ that this appendix is inside the scope of future sweeps.
   $\nu_c > 0$; it is reproduced above for reference only.
 \item \textbf{SUPERSEDED} --- $\text{Re}_c = 2.13198\times10^5$ and
   $1.00000\times10^5$, both recorded in the note at the critical-Reynolds entry.
-\item \textbf{OUTSTANDING, now localised and quantified (2026-11-24)} ---
-  the $\text{ch}_2 \approx 0.6$ figure given here for normal waking
-  consciousness was compared against appendix~C's bands across two
-  \emph{different scales}; appendix~C bands the logistic-normalised
-  quantity of \eqref{eq:appH-ch2-logistic}, this appendix reports the
-  pre-normalisation figure. Applying the transform reconciles four of the
-  five states; normal waking still lands in appendix~C's palliative band,
-  short of the ``minimally conscious'' floor by $0.0189$ normalised
-  ($0.0099$ as printed). The computation and the removal condition are at
-  \S\ref{sec:appH-consciousness-detection}. The residual is one number and
-  one boundary, not two incompatible schemes.
+\item \textbf{SUPERSEDED THE SAME DAY, and the real cause is worse
+  (2026-11-24)} --- an earlier entry today recorded the $\text{ch}_2 \approx
+  0.6$ discrepancy against appendix~\ref{app:clinical} as a scale mismatch
+  whose residual was ``one number and one boundary''. That understated it.
+  Appendix~\ref{app:clinical}'s own \texttt{compute\_ch2} is bounded above by
+  $1/(1+e^{5}) = 0.00669$, because the matrix it builds is antisymmetric and
+  so has $\operatorname{Tr}(F^2) = -\lVert F\rVert^2_{\mathrm{F}} \leq 0$
+  (proved there at \S\ref{sec:appC-bound}). So that appendix cannot reach
+  \emph{any} of its own bands above $0.49$, and it cannot produce
+  $\text{ch}_2^{\text{raw}} = 0.6$ either. The two appendices therefore do not
+  share a scale at all, and the figures in this one
+  ($0.1$, $0.3$, $0.6$, $0.8$, $0.95$) are not outputs of that pipeline. The
+  logistic reconciliation computed earlier today at
+  \S\ref{sec:appH-consciousness-detection} remains arithmetically correct and
+  is retained, but it reconciles this appendix against a \emph{band table},
+  not against a computation that can reach those bands. Both appendices'
+  $\text{ch}_2$ figures are \textsc{asserted}; neither is validated; and no
+  clinical reading of either is supported.
 \end{itemize}

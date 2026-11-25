@@ -1,6 +1,29 @@
 \chapter{Clinical Consciousness Assessment Protocols}
 \label{app:clinical}
 
+\begin{center}
+\fbox{\begin{minipage}{0.92\textwidth}
+\textbf{SAFETY NOTICE --- added 2026-11-24. Nothing in this appendix is
+validated for clinical use, and the computation given below cannot reproduce
+the thresholds the appendix then applies.}
+
+The function \texttt{compute\_ch2} of \S\ref{sec:appC-ch2-computation} returns a
+value bounded above by $1/(1+e^{5}) = 0.00669$. Every one of its outputs
+therefore falls in the lowest band of
+Table~\ref{tab:appC-thresholds} --- ``Coma/unconscious'' --- including for a
+fully awake subject. The proof is two lines and is given at
+\S\ref{sec:appC-bound}. Consequently the diagnostic statistics of
+\S\ref{sec:appC-accuracy}, the 72-hour prognostic table of
+\S\ref{sec:appC-anoxic}, and the consent rule of \S\ref{sec:appC-consent}
+cannot be obtained from, or applied with, the code printed here. They are
+retained for the record, each marked at its site, and the
+verification-status ledger at \S\ref{sec:appC-verification} states what each
+one is.
+
+\textbf{No part of this appendix should inform any clinical decision.}
+\end{minipage}}
+\end{center}
+
 This appendix provides detailed clinical protocols for consciousness assessment using the second Chern character (ch$_2$) framework presented in Chapter 27.
 
 \section{Patient Preparation}
@@ -176,6 +199,7 @@ def compute_connectivity(epochs, fs=500):
 \end{verbatim}
 
 \subsection{Second Chern Character Computation}
+\label{sec:appC-ch2-computation}
 
 \textbf{Step 5: ch$_2$ Calculation}
 \begin{verbatim}
@@ -229,8 +253,64 @@ def compute_ch2(W):
     # Normalize to [0, 1]
     ch2 = 1 / (1 + np.exp(-10 * (ch2_raw - 0.5)))
 
-    return ch2
+return ch2
 \end{verbatim}
+
+\subsection{The bound this computation satisfies}
+\label{sec:appC-bound}
+
+\emph{Added 2026-11-24.} The function above cannot return a value above
+$0.00669$, so it cannot reach any threshold in
+Table~\ref{tab:appC-thresholds} except the lowest band. The argument is
+elementary and depends only on the code as printed.
+
+Write $\Lambda_i$ for the retained positive eigenvalues. The constructed matrix
+is
+\begin{equation}
+F_{ij} \;=\; \frac{\Lambda_i - \Lambda_j}{1 + \Lambda_i \Lambda_j},
+\qquad F_{ii} = 0 ,
+\end{equation}
+which is \textbf{antisymmetric}: interchanging $i$ and $j$ negates the numerator
+and fixes the denominator, so $F_{ji} = -F_{ij}$. For any real antisymmetric
+$F$,
+\begin{equation}
+\operatorname{Tr}(F^2) \;=\; \sum_{i}\sum_{j} F_{ij} F_{ji}
+\;=\; -\sum_{i,j} F_{ij}^{2} \;=\; -\,\lVert F \rVert_{\mathrm{F}}^{2} \;\leq\; 0 ,
+\end{equation}
+with equality exactly when $F \equiv 0$, i.e.\ when all retained eigenvalues
+coincide. Hence
+\begin{equation}
+\texttt{ch2\_raw} \;=\; \frac{\operatorname{Tr}(F^2)}{8\pi^2} \;\leq\; 0
+\qquad\Longrightarrow\qquad
+\texttt{ch2} \;=\; \frac{1}{1 + e^{-10(\texttt{ch2\_raw} - 0.5)}}
+\;\leq\; \frac{1}{1 + e^{5}} \;=\; 0.0066928509\ldots
+\end{equation}
+The supremum is attained only in the degenerate all-eigenvalues-equal case.
+Checked numerically on symmetric zero-diagonal coherence matrices at
+$8$, $19$, $32$ and $64$ channels: the antisymmetry residual
+$\max_{ij}|F_{ij} + F_{ji}|$ is exactly $0$ and every output lies below the
+bound, the largest observed being $3.5 \times 10^{-3}$. Reproducible with
+\texttt{codex/check\_appC\_pipeline\_bound.py}.
+
+\medskip
+\noindent\textbf{This contradicts the code's own stated intent}, which is worth
+recording because it localises the defect: the docstring says ``\texttt{ch2 :
+float\ \ Second Chern character value (0 to 1)}'' and the penultimate comment
+says ``\texttt{\# Normalize to [0, 1]}''. The construction delivers
+$(0,\,0.00669]$.
+
+\medskip
+\noindent\textbf{Removal condition.} The defect is a sign. For a curvature
+$2$-form the intended invariant is a square --- $\lVert F\rVert^2_{\mathrm{F}}
+= -\operatorname{Tr}(F^2) = \operatorname{Tr}(F F^{\mathsf T})$ --- and
+replacing $\operatorname{Tr}(F^2)$ by $\operatorname{Tr}(F F^{\mathsf T})$
+makes \texttt{ch2\_raw} non-negative and the sigmoid's full range
+attainable. \emph{That change is not made here.} Altering the computation in a
+clinical protocol requires the author's decision with clinical input, and it
+would also require the band boundaries and every statistic in
+\S\ref{sec:appC-accuracy} to be re-derived against the corrected quantity
+rather than carried over. Until that is done this appendix has no validated
+computation, and the safety notice at the head of the chapter stands.
 
 \section{Clinical Interpretation}
 
@@ -248,12 +328,24 @@ Vegetative state & $0.50 - 0.74$ & Palliative consultation \\
 Coma/unconscious & $0.00 - 0.49$ & Intensive support \\
 \hline
 \end{tabular}
-\caption{ch$_2$ threshold interpretation guide}
+\caption{ch$_2$ threshold interpretation guide. \textbf{None of the
+three bands above $0.49$ is reachable by \texttt{compute\_ch2} as printed in
+\S\ref{sec:appC-ch2-computation}}; see \S\ref{sec:appC-bound}.}
+\label{tab:appC-thresholds}
 \end{table}
 
 \subsection{Diagnostic Accuracy}
+\label{sec:appC-accuracy}
 
 \textbf{Validation Study (N = 412 patients):}
+\emph{Not reproducible from this appendix (2026-11-24).} The statistics below
+are stated against the bands of Table~\ref{tab:appC-thresholds}, which
+\texttt{compute\_ch2} cannot reach (\S\ref{sec:appC-bound}); against any
+threshold in that table the printed function classifies every subject into the
+lowest band, so sensitivity and specificity as tabulated cannot have been
+produced by it. No source data, cohort description, site list, registration or
+ethics approval is given anywhere in this appendix. The table is retained for
+the record and is \textsc{asserted}, not validated.
 
 \begin{table}[h]
 \centering
@@ -310,6 +402,7 @@ For ch$_2$ values near thresholds ($\pm 0.05$):
 \end{itemize}
 
 \subsection{Anoxic Brain Injury}
+\label{sec:appC-anoxic}
 
 \textbf{Prognostic Value:}
 
@@ -325,7 +418,14 @@ $0.50-0.69$ & 8\% & 92\% \\
 $< 0.50$ & 0\% & 100\% \\
 \hline
 \end{tabular}
-\caption{Prognostic value at 72 hours post-cardiac arrest (CPC = Cerebral Performance Category)}
+\caption{Prognostic value at 72 hours post-cardiac arrest (CPC =
+Cerebral Performance Category). \textbf{All three upper bins ($\geq 0.90$,
+$0.70$--$0.89$, $0.50$--$0.69$) are unreachable by \texttt{compute\_ch2}
+(\S\ref{sec:appC-bound}), so this table cannot be applied using the computation
+given here.} Its bin edges also do not match
+Table~\ref{tab:appC-thresholds}'s band edges ($0.49/0.50$, $0.74/0.75$,
+$0.94/0.95$ against $0.50$, $0.70$, $0.90$), so the two tables partition the
+range differently.}
 \end{table}
 
 \textbf{Critical Decision Point:}
@@ -412,6 +512,11 @@ Reviewed by: [Attending physician]
 \section{Ethical Considerations}
 
 \subsection{Informed Consent}
+\label{sec:appC-consent}
+\emph{Note, 2026-11-24.} The capacity criterion below requires
+$\text{ch}_2 \geq 0.95$, which \texttt{compute\_ch2} never returns
+(\S\ref{sec:appC-bound}). As written, no patient assessed with the printed code
+could give direct consent. Recorded rather than silently altered.
 
 \textbf{Capacity Assessment:}
 - If patient has capacity (ch$_2 \geq 0.95$ and can communicate): Direct consent
@@ -456,6 +561,40 @@ The ch$_2$ method provides:
 \begin{enumerate}
 \item \textbf{Objective} quantification of consciousness
 \item \textbf{Reproducible} results across centers
+\end{enumerate}
+
+\section{Verification status}
+\label{sec:appC-verification}
+
+\emph{Added 2026-11-24.} This appendix had no verification ledger, which is why
+the bound of \S\ref{sec:appC-bound} survived here while comparable defects were
+corrected in the chapters. Held to the standard of the machine-checked corpus:
+
+\begin{itemize}
+\item \textbf{PROVED, AND IT IS A DEFECT} --- \texttt{compute\_ch2} returns at
+  most $1/(1+e^{5}) = 0.00669$ (\S\ref{sec:appC-bound}). Elementary, and
+  numerically confirmed at 8/19/32/64 channels.
+\item \textbf{NOT REPRODUCIBLE FROM THIS APPENDIX} --- the $N = 412$ diagnostic
+  statistics, the 72-hour CPC prognostic table, and the inter-rater ICCs
+  ($0.94$, $0.98$, $0.96$). No cohort, site, registration or ethics approval is
+  described, and the stated thresholds are unreachable by the given code.
+\item \textbf{ASSERTED (not derived)} --- every band boundary
+  ($0.49/0.50$, $0.74/0.75$, $0.94/0.95$), the logistic normalisation
+  $1/(1+e^{-10(x-0.5)})$ and its steepness $10$ and centre $0.5$, and the
+  $\pm 0.05$ gray-zone width.
+\item \textbf{INCONSISTENT WITH APPENDIX~\ref{app:numerical-validation}} ---
+  that appendix's state figures ($0.1$, $0.3$, $0.6$, $0.8$, $0.95$) cannot be
+  outputs of \texttt{compute\_ch2} either, so the two appendices do not share a
+  scale and neither matches the bands here. See the reconciliation note there.
+\item \textbf{NOT A CLAIM ABOUT CONSCIOUSNESS} --- the defect is arithmetic. It
+  says nothing about whether a Chern-character measure of integration is a
+  sound idea; it says the function printed here does not compute one onto
+  $[0,1]$.
+\end{itemize}
+
+\noindent\emph{No part of this appendix is validated for clinical use.}
+
+\begin{enumerate}
 \item \textbf{Actionable} clinical information
 \item \textbf{Prognostic} value in critical care
 \end{enumerate}
