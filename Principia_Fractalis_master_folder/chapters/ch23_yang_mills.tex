@@ -717,6 +717,41 @@ continuous to $L^2$ reduces the work needed for the subsequent steps
 (nuclear GNS, Wightman reconstruction, continuum limit) by providing the
 right test-function class.
 
+\paragraph{Verification status (added 2026-11-24).}
+This chapter has carried its refutations since 2026-08-06 in prose, but not in
+the standard four-label form the other chapters use, so corpus-wide sweeps did
+not register it as ledgered. The content below is a restatement, not a change.
+
+\begin{itemize}
+\item \textbf{KERNEL-VERIFIED} --- lattice reflection positivity, the first
+  Osterwalder--Schrader axiom, on continuous test functions
+  (\texttt{wilson\_reflection\_positivity\_of\_continuous}) and on $L^2$ test
+  functions (\texttt{wilson\_reflection\_positivity\_of\_L2\_strong}), both on
+  the three-axiom bar. This is untouched by every refutation below.
+\item \textbf{REFUTED} --- the mass-gap construction
+  $\Delta = \hbar c\,\omega_c\,\pi/10 = 420.43$~MeV. The resonance zero
+  $\omega_c = 2.13198462$ does not exist: $D(n)\in\mathbb{Z}$ gives
+  $\mathcal{R}_f(2,s) = \zeta(s)$, so $\rho(\omega) = \zeta(1/\omega)$, and
+  $\zeta(1/\omega_c) = -1.3462 \neq 0$. The apparent crossing near $\omega = 1$
+  is $\zeta$'s pole at $s = 1$, not a root. The displayed product is
+  $132.148$~MeV; $420.43$ is $\hbar c\,\omega$ with the $\pi/10$ absent.
+\item \textbf{REFUTED} --- $\sigma = \Delta^2/(4\pi\hbar c)$: non-evaluating and
+  dimensionally inconsistent ($\mathrm{MeV}/\mathrm{fm}$, not
+  $\mathrm{MeV}^2$). $\sqrt{\sigma}\approx 440$~MeV is an independent lattice
+  input.
+\item \textbf{WITHDRAWN} --- the reported agreement with lattice QCD. The
+  quantity compared has no input, and the chapter's own ceiling of $62.3$~MeV
+  sits a factor of $23.7$ below the lattice $0^{++}$ glueball at
+  ${\sim}1475$~MeV.
+\item \textbf{RETAINED AS A PHYSICAL PROPOSAL} --- confinement as destructive
+  interference in the gauge-field vacuum, and the glueball \emph{ratios}
+  $\sqrt{8/3}$ and $\sqrt{3}$. No absolute scale is supplied.
+\item \textbf{OPEN, AND THE CLAY CLAUSE} --- existence of continuum quantum
+  $SU(3)$ Yang--Mills with a mass gap. Untouched by anything above. The
+  remaining lift is the thermodynamic limit $L\to\infty$ and
+  Osterwalder--Schrader reconstruction.
+\end{itemize}
+
 \textbf{Future Work}: The complete analytical construction using Minlos theorem, verification of the remaining Osterwalder--Schrader axioms, and proof of continuum limit convergence remain open problems requiring advanced measure theory and functional analysis.  The $L^2$ reflection positivity landed 2026-11-13 closes one named sub-step of that programme.
 
 \section*{Exercises}
@@ -748,9 +783,34 @@ $62.3$~MeV for any $\alpha$, and that $420.43$~MeV would require
 $\omega = 6.783$. \emph{This exercise replaces one the chapter's own
 Verification update (2026-08-08) records as impossible to complete as set.}
 
-\item \textbf{(String Tension)} Compute the string tension $\sigma = \Delta^2/(4\pi\hbar c)$ and express in units of GeV$^2$.
+\item \textbf{(String Tension --- a corrected exercise)} Do \emph{not}
+compute $\sigma = \Delta^2/(4\pi\hbar c)$: this chapter's Conclusion records
+that relation as non-evaluating and dimensionally inconsistent, and $\Delta$ is
+refuted. Instead, verify both defects. (i) Dimensions: $\Delta^2/(4\pi\hbar c)$
+carries $\mathrm{MeV}^2/(\mathrm{MeV}\!\cdot\!\mathrm{fm}) =
+\mathrm{MeV}/\mathrm{fm}$, which is not an area-law tension in
+$\mathrm{MeV}^2$. (ii) Numerically, even taking the refuted
+$\Delta = 420.43$~MeV and $\hbar c = 197.3$~MeV$\cdot$fm at face value, the
+expression yields $71.29$, whereas the chapter elsewhere prints
+$\sqrt{\sigma} \approx 440.21$~MeV, i.e.\ $\sigma \approx 1.938\times10^{5}$ ---
+the two are unrelated. Conclude that $\sqrt{\sigma}\approx 440$~MeV is an
+\emph{independent lattice input} and is not derived here.
+\emph{This exercise replaces one that asked for a quantity the chapter's own
+Conclusion records as non-evaluating.}
 
-\item \textbf{(Glueball Masses)} Compute $m_{2^{++}} = \sqrt{8/3} \cdot \Delta$ and compare with lattice predictions $m_{2^{++}} \approx 600-700$ MeV.
+\item \textbf{(Glueball Masses --- a corrected exercise)} This chapter
+claims \emph{no} mass-gap value, so $m_{2^{++}} = \sqrt{8/3}\,\Delta$ has no
+input. Verify instead that the ratios are the only content and that the printed
+masses are additionally inconsistent with their own stated $\Delta$: with
+$\Delta = 420.43$~MeV, $\sqrt{8/3}\,\Delta = 686.56$~MeV and
+$\sqrt{3}\,\Delta = 728.21$~MeV, whereas the body prints $686.37$ and
+$728.49$. Then compare the chapter's own ceiling of $62.3$~MeV against the
+lattice $0^{++}$ glueball at ${\sim}1475$~MeV: a factor of $23.7$. Conclude
+that the ratio structure $\sqrt{8/3}$, $\sqrt{3}$ may be retained as a
+prediction \emph{about ratios} while no absolute scale is supplied.
+\emph{This exercise replaces one whose input the chapter withdraws.}
+\item \textbf{(Lattice comparison, retained)} Compare $m_{2^{++}}/\Delta$ and
+$m_{0^{-+}}/\Delta$ against lattice predictions $m_{2^{++}} \approx 600-700$ MeV.
 
 \item \textbf{(Wilson Loop)} For a rectangular loop with area $A = 1 \text{ fm}^2$ and $\sigma = 0.193 \text{ GeV}^2$, compute $\langle W(C) \rangle \approx e^{-\sigma A}$.
 
@@ -772,13 +832,30 @@ refuted (Verification updates 2026-08-06, 2026-08-08), and this chapter
 supplies no replacement; establishing positivity of the limit is the Clay
 mass-gap clause and is open.
 
-\item \textbf{(Higher Zeros)} Compute the second and third zeros of $\rho(\omega)$. Do they correspond to excited glueball states?
+\item \textbf{(Higher Zeros --- superseded, and why)} As set, this asks
+for the second and third zeros of $\rho(\omega) = \zeta(1/\omega)$, which has
+\emph{no} zero for $\omega > 0$ (Exercise~2 above). The replacement problem is
+the one the refutation leaves open: \emph{exhibit a modulation whose spectral
+density has a genuine positive real zero.} Any such mechanism must survive
+$\mathcal{R}_f(2,s) = \zeta(s)$, i.e.\ it cannot come from the integer-$\alpha$
+resonance function at all, since $D(n) \in \mathbb{Z}$ forces
+$e^{2\pi i D(n)} \equiv 1$. Candidates therefore require irrational $\alpha$,
+which this book's ledgers classify as \textsc{asserted} rather than derived.
 
 \item \textbf{(Finite Temperature)} Extend the framework to finite temperature $T > 0$. Is there a deconfinement phase transition at $T_c \sim \Delta$?
 
 \item \textbf{(Other Gauge Groups)} Generalize to $\SU(N)$ for $N \neq 3$. How does the mass gap scale with $N$?
 
-\item \textbf{(Dynamical Quarks)} Include fermions (quarks) in the fractal action. How does $N_f$ affect $\omega_c$ and $\Delta$?
+\item \textbf{(Dynamical Quarks)} Include fermions (quarks) in the
+fractal action. \emph{Reworded 2026-11-24:} the original asked how $N_f$ affects
+$\omega_c$ and $\Delta$; neither quantity survives (no such $\omega_c$ exists
+and $\Delta$ is refuted), so the question is instead how $N_f$ enters the
+modulated action and what, if anything, it changes about the
+reflection-positivity construction that \emph{does} hold.
 
-\item \textbf{(Experimental Test)} Design experiments to measure the resonance structure directly. Can the zeros of $\rho(\omega)$ be observed in high-energy scattering?
+\item \textbf{(Experimental Test)} Design experiments to measure the
+resonance structure directly. \emph{Reworded 2026-11-24:} since
+$\rho(\omega) = \zeta(1/\omega)$ has no positive real zero, there are no such
+zeros to observe; the testable content is whatever the modulated action predicts
+independently of a resonance zero. Can the modulation itself be observed in high-energy scattering?
 \end{enumerate}
