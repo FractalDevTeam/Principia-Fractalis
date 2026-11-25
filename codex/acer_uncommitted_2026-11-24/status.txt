@@ -1,0 +1,10 @@
+ M PF_Lean4_Code/PF/PNP_Wave56CrossGaloisLockAttempt.lean
+ M PF_Lean4_Code/PF/Referee/SevenMillenniumUnification.lean
+ M Principia_Fractalis_master_folder/chapters/ch07_constants.tex
+ M Principia_Fractalis_master_folder/chapters/ch09_spectral_unity.tex
+?? PF_Coq_Code/Makefile.gen
+?? PF_Coq_Code/Makefile.gen.conf
+?? Principia_Fractalis_master_folder/chapters/ch07_constants.tex.before-ch07-fix
+?? Principia_Fractalis_master_folder/chapters/ch09_spectral_unity.tex.before-ch09-fix
+?? codex/GITHUB_REPO_AUDIT_2026-11-16.md
+?? codex/gravitational_reconnection_2026-11-10/

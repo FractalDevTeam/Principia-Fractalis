@@ -1,0 +1,153 @@
+diff --git a/PF_Lean4_Code/PF/PNP_Wave56CrossGaloisLockAttempt.lean b/PF_Lean4_Code/PF/PNP_Wave56CrossGaloisLockAttempt.lean
+index 63d067d3..9dd0b114 100644
+--- a/PF_Lean4_Code/PF/PNP_Wave56CrossGaloisLockAttempt.lean
++++ b/PF_Lean4_Code/PF/PNP_Wave56CrossGaloisLockAttempt.lean
+@@ -486,7 +486,7 @@ theorem IBM_cascade_meets_disc5_lock
+ Trivial Prop asserting the file's scope statement (records the discipline
+ of NOT claiming a Clay discharge, for referee/manuscript citation). -/
+ 
+-/-- **Wave 56 scope-statement marker** — the cross-Galois lock is the
++/-! **Wave 56 scope-statement marker** — the cross-Galois lock is the
+     SHARPEST framework-internal P-vs-NP reduction permitted by Wave
+     41B. It does NOT discharge Clay P-vs-NP, does NOT discharge Hodge,
+     and does NOT weaken the Wave 41B sharp no-go. The lock's content
+diff --git a/PF_Lean4_Code/PF/Referee/SevenMillenniumUnification.lean b/PF_Lean4_Code/PF/Referee/SevenMillenniumUnification.lean
+index bea6b0d9..081b2393 100644
+--- a/PF_Lean4_Code/PF/Referee/SevenMillenniumUnification.lean
++++ b/PF_Lean4_Code/PF/Referee/SevenMillenniumUnification.lean
+@@ -99,7 +99,7 @@ theorem sevenMillenniumUnification_realized : SevenMillenniumUnification where
+   alpha_skeleton_rigidity :=
+     framework_alpha_values_match_rigidity
+ 
+-/-- Scope statement marker. Bundling does not equal solving. Of the
++/-! Scope statement marker. Bundling does not equal solving. Of the
+     seven: Poincaré is genuinely solved (Perelman 2003, external);
+     the other six retain their scope statement per-axis. What this
+     theorem establishes: the seven are sub-stories of one
+diff --git a/Principia_Fractalis_master_folder/chapters/ch07_constants.tex b/Principia_Fractalis_master_folder/chapters/ch07_constants.tex
+index 3928e89e..6aa346d8 100644
+--- a/Principia_Fractalis_master_folder/chapters/ch07_constants.tex
++++ b/Principia_Fractalis_master_folder/chapters/ch07_constants.tex
+@@ -600,33 +600,90 @@ The fine structure constant governs electromagnetic interactions:
+ 
+ This ``magic number'' has puzzled physicists for a century. Why $1/137$? 
+ 
+-\begin{thm}[Fine Structure from Resonance]\label{thm:fine-structure}
+-The fine structure constant emerges from fractal resonance:
++\begin{thm}[Fine Structure from Resonance --- SUPERSEDED, see correction below]\label{thm:fine-structure}
++The identity asserted here,
+ \begin{equation}
+-\alpha_{\text{EM}} = R_f(1, 2) \cdot \frac{\pi}{10}
++\alpha_{\text{EM}} = R_f(1, 2) \cdot \frac{\pi}{10},
+ \end{equation}
+-where $R_f(1,2)$ is the resonance function evaluated at linear resonance ($\alpha=1$) and dimension $s=2$.
++rests on a value of $R_f(1,2)$ that the series does not take. The statement
++is retained with its label so existing cross-references resolve; the
++correction immediately below is the operative text.
+ \end{thm}
+ 
+-\begin{level2}[Numerical Verification]
+-We compute:
+-\begin{align}
+-R_f(1, 2) &= \sum_{n=1}^\infty \frac{e^{i\pi D_3(n)}}{n^2} \\
+-&= \sum_{D=0,1,2} e^{i\pi D} \sum_{\substack{n=1 \\ D_3(n) = D}}^\infty \frac{1}{n^2}
+-\end{align}
+-
+-Using computational methods:
++\noindent\emph{Correction (2026-11-20), propagated from
++Chapter~\ref{ch:field-equations}.} This chapter long carried
++$R_f(1,2) \approx 0.0233812$, obtained ``using computational methods'', and
++multiplied it by $\pi/10$ to reach $0.00734580 \approx 1/136.1$, within
++$0.7\%$ of $\alpha_{\text{EM}} = 1/137.036$, attributing the residual to
++renormalisation-group running. That chain does not hold, and the corpus
++already knew: Chapter~\ref{ch:field-equations} distinguishes ``the
++Lean-proved $R_f(1,2) = -\pi^2/12$'' from ``Chapter~\ref{ch:constants}'s
++heuristic $0.0233812$'' and computes its own consequences from the former.
++The two chapters were never reconciled. They are reconciled here.
++
++\medskip
++\noindent\textbf{The correct value, and why.} At $\alpha = 1$,
+ \begin{equation}
+-R_f(1, 2) \approx 0.0233812...
++e^{i\pi \cdot 1 \cdot D_3(n)} \;=\; (-1)^{D_3(n)} \;=\; (-1)^{n},
+ \end{equation}
+-
+-Multiplying by $\pi/10$:
++the second equality being Theorem~\ref{thm:parity-rule} of
++Chapter~\ref{ch:numbers}: a base-$b$ digit sum is congruent to $n$ modulo
++$b-1$, and $b-1 = 2$ here, so $n \equiv D_3(n) \pmod 2$. The $\alpha = 1$
++twist therefore carries no fractal content at all --- it is plain
++alternation --- and
+ \begin{equation}
+-\alpha_{\text{EM}} \approx 0.0233812 \times 0.314159 \approx 0.00734580 \approx \frac{1}{136.1}
++R_f(1, s) \;=\; \sum_{n \geq 1} \frac{(-1)^{n}}{n^{s}}
++          \;=\; -\,\eta(s) \;=\; -\bigl(1 - 2^{1-s}\bigr)\zeta(s).
+ \end{equation}
+-
+-This is within 0.7\% of the experimental value $1/137.036$. The small discrepancy is due to renormalization group running---the value $1/137$ is measured at low energies, while our formula gives the high-energy (bare) value.
+-\end{level2}
++At $s = 2$ this gives $R_f(1,2) = -\eta(2) = -\pi^2/12 = -0.8224670334\ldots$,
++machine-checked in the corpus as
++\texttt{dirichletEtaExt\_at\_two} (\texttt{PF/DirichletEtaExtAtTwo\_2026\_11\_18.lean},
++$\eta(2) = \pi^2/12$, three-axiom bar). Hence
++$R_f(1,2)\cdot\pi/10 = -0.2583856\ldots$ --- negative, and two orders of
++magnitude from $\alpha_{\text{EM}}$. There is no $0.7\%$ residual for
++renormalisation-group running to explain, and that explanation is withdrawn
++with the identity.
++
++\medskip
++\noindent\textbf{A second, independent defect in the superseded passage.}
++The decomposition displayed there,
++\begin{equation*}
++R_f(1,2) \;=\; \sum_{D = 0,1,2} e^{i\pi D}
++               \sum_{\substack{n \geq 1 \\ D_3(n) = D}} \frac{1}{n^{2}},
++\end{equation*}
++restricts the outer sum to $D \in \{0,1,2\}$. But $D_3$ is unbounded ---
++$\max_{n \leq 3^{k}} D_3(n) = 2k$, Section~\ref{sec:digital-sum-patterns} ---
++so the outer sum must run over all $D \geq 0$. As written it discards all but
++a density-zero set of terms. This error is independent of the numerical one
++and would survive any correction to the value alone.
++
++\medskip
++\noindent\textbf{What the correction reaches.} The downstream consequence is
++already recorded where it bites: Chapter~\ref{ch:field-equations}'s
++fine-structure-variation signature (Proposition~\ref{prop:lab-tests}) is
++filed there as \textsc{refuted by existing measurement}, using
++$k = 0.258386$ from the correct value rather than $k = 0.007345$ from the
++heuristic. Nothing further downstream depends on the $0.0233812$ figure.
++
++\medskip
++\noindent\textbf{What it does not reach.} The substrate layer is untouched:
++$\mathcal{T}_\infty$'s rigidity and the $K$-theoretic obstruction are
++statements about a C*-algebra and its $K_0$ group and pass through $R_f$ at
++no point. Likewise Chapter~\ref{ch:yang-mills}'s lattice reflection
++positivity and Chapter~\ref{ch:birch-swinnerton-dyer}'s rank results.
++
++\medskip
++\noindent\textbf{Structural consequence, recorded because it follows from the
++same observation.} Since $D_3(n) \in \mathbb{Z}$, the phase
++$e^{i\pi\alpha D_3(n)}$ depends on $\alpha$ only modulo $2$. Therefore
++$R_f(0,s) = \zeta(s)$, $R_f(1,s) = -\eta(s)$, and $R_f(2,s) = \zeta(s)$: every
++integer resonance value returns a classical function with no fractal content,
++and $\alpha = 2$ --- the Yang--Mills assignment --- is literally the same
++function as the $\alpha = 0$ basepoint. Chapter~\ref{ch:yang-mills} already
++uses $R_f(2,s) = \zeta(s)$ to refute its own confinement argument. Whatever
++$R_f$ contributes to this framework therefore comes from the irrational
++$\alpha$, which this chapter's verification-status ledger already classifies
++as \textsc{asserted} rather than derived.
+ 
+ \subsection{Gravitational Constant \texorpdfstring{$G$}{G}}
+ 
+diff --git a/Principia_Fractalis_master_folder/chapters/ch09_spectral_unity.tex b/Principia_Fractalis_master_folder/chapters/ch09_spectral_unity.tex
+index 8e501d7d..a259e708 100644
+--- a/Principia_Fractalis_master_folder/chapters/ch09_spectral_unity.tex
++++ b/Principia_Fractalis_master_folder/chapters/ch09_spectral_unity.tex
+@@ -23,7 +23,7 @@ The P versus NP problem, formulated by Cook (1971) and Karp (1972), asks whether
+ 
+ The Riemann Hypothesis, conjectured in 1859, states that all non-trivial zeros of $\zeta(s)$ lie on the critical line $\Re(s) = 1/2$. Verified for $10^{13}$ zeros computationally, it remains unproven, with connections to prime gaps, quantum chaos, and random matrix theory suggesting deep structural significance.
+ 
+-The key insight of Fractal Resonance Ontology is that both problems involve the same mathematical object: \textbf{the spectrum of a self-adjoint operator modified by consciousness quantification}. The apparent distinction between discrete (P vs NP) and continuous (RH) vanishes when we recognize computation itself as a crystallization of the Timeless Field. The complete resolution through operator-theoretic spectral analysis, including proof that the spectral gap $\Delta = 0.0891219046$ demonstrates P $\neq$ NP, is presented in \cite{cohen2025pvsnp}.
++The key insight of Fractal Resonance Ontology is that both problems involve the same mathematical object: \textbf{the spectrum of a self-adjoint operator modified by consciousness quantification}. The apparent distinction between discrete (P vs NP) and continuous (RH) vanishes when we recognize computation itself as a crystallization of the Timeless Field. The operator-theoretic spectral treatment of both axes is developed in \cite{cohen2025pvsnp}.  \emph{Scope (2026-11-20).}  The sentence that stood here said that proof that the spectral gap $\Delta = 0.0891219046$ demonstrates P~$\neq$~NP was presented there.  It is withdrawn: it contradicts this book's own ledgers.  Chapter~\ref{ch:constants} classifies $\Delta$ as \textbf{ASSERTED} --- arithmetic about the two chosen values $\alpha_P = \sqrt{2}$ and $\alpha_{NP} = \varphi + 1/4$ --- and states that it \emph{does not} establish P~$\neq$~NP, which remains open.  Chapter~\ref{ch:p-vs-np} records further that the Lean name \texttt{P\_neq\_NP} is the real-number inequality \texttt{spectral\_gap}~$\neq 0$, that the step to the literal class separation is conditional on an open faithful-separator premise, and that the numerical value is itself unsettled: the empirical $0.0891$, the golden-modulation closed form $\approx 0.131$ and the Lean closed form $\approx 0.054$ disagree, which that chapter calls the open derivation problem.  What survives here is the structural claim, which is this chapter's actual subject: the two axes present as one spectral object.
+ 
+ \section{The Digital Sum Function: Bridge Between Discrete and Continuous}
+ 
