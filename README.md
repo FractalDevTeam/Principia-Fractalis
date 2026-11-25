@@ -34,6 +34,13 @@ second system. Lean4Lean re-checks selected results in an independent
 implementation of the Lean kernel, so a bug in one kernel does not silently
 certify the corpus.
 
+**Where the project is going.** Full three-system re-verification — every
+load-bearing result carried independently in Lean 4, Coq, and an independent
+Lean kernel — is the target, not the present state. Coq and Lean4Lean cover
+selected cores today, and this README says so rather than rounding it up to
+"triple-verified". The claim will be made when the coverage exists to support
+it.
+
 ## Headline result (kernel-verified, unconditional)
 
 A machine-checked construction of the uniformly hyperfinite (UHF) C\*-algebra
