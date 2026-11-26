@@ -748,6 +748,38 @@ The four fundamental forces correspond to automorphism subgroups:
 \text{Weak Force} &\leftrightarrow SU(2) \subset \text{Aut}(\mathcal{T}_\infty) \label{eq:weak-su2}\\
 \text{Strong Force} &\leftrightarrow SU(3) \subset \text{Aut}(\mathcal{T}_\infty) \label{eq:strong-su3}
 \end{align}
+
+\emph{Scope (rev 2) --- what is exhibited and what is not proved.} The four
+correspondences above are stated as a physical proposal; none of the three
+subgroup embeddings is established here or elsewhere in this work. The only
+action this chapter exhibits is the $U(1)$ one below, and it is exhibited as an
+example, by conjugation. The companion formalisation records the same scope in
+the same words: ``no claim that $U(1)$, $SU(2)$ or $SU(3)$ embed in
+$\mathrm{Aut}(\mathcal{T}_\infty)$ at all --- the chapter asserts that; it is
+not proved anywhere in the corpus and is not proved here''
+(\texttt{SubstrateGaugeSubgroupsCollapse.lean}).
+
+There is also a positive obstruction, and it bears on the route this chapter
+takes. Conjugation is exactly the action the $U(1)$ example uses, and a
+conjugation-implemented family can be \emph{trace-invisible while non-trivial}:
+the companion theorem \texttt{gauge\_family\_collapses\_but\_is\_nontrivial}
+exhibits a family whose induced trace is constant in the parameter even though
+the family itself is not. Such families lie in $\mathrm{Aut}_0$, which the
+quotient used in this chapter divides out. So conjugation --- the one mechanism
+offered above --- cannot by itself separate the four forces, and the
+$\mathrm{Diff}(\mathcal{T}_\infty)$ line is not defined in this work at all.
+
+The Lean marker named for this statement is weaker still, and is recorded here
+rather than left to be discovered: it is
+$\texttt{ForceUnification} := \mathrm{Nonempty}(\mathcal{T}_\infty \to
+\mathcal{T}_\infty)$, which the identity map satisfies, and it is
+\emph{byte-identical} to the marker for spacetime emergence
+($\texttt{SpacetimeEmergence} = \texttt{ForceUnification}$ holds by
+\texttt{rfl}). A marker that cannot tell those two statements apart is not
+evidence for either. Gauge-group emergence from a local net is a genuine
+programme --- the Doplicher--Haag--Roberts route, from the superselection
+structure rather than by locating subgroups inside an automorphism group ---
+and it is not attempted in this work.
 \end{thm}
 
 \begin{keyidea}[Forces Are Symmetries]
@@ -947,7 +979,11 @@ The Timeless Field $\mathcal{T}_\infty$ is:
 \item A nuclear C*-algebra (well-defined operator algebra)
 \item A projective limit of ternary Hilbert spaces (self-similar structure)
 \item The substrate from which spacetime emerges (via automorphisms)
-\item The source of all four forces (via subgroup symmetries)
+\item A proposed common origin for all four forces, via subgroup
+  symmetries of $\mathrm{Aut}(\mathcal{T}_\infty)$ --- proposed, not
+  derived: see the scope note on Theorem~\ref{thm:force-emergence}, where
+  no subgroup embedding is established and the conjugation route is shown
+  to be trace-invisible
 \item The medium for consciousness (via second Chern character)
 \item The solution to the Millennium Problems (via resonance sectors)
 \end{itemize}

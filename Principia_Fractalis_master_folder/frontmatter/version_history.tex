@@ -383,7 +383,10 @@ $\text{Out}(\mathcal{T}_\infty)$ named as the live open problem
 (consistent with the ``Open Problem: Explicit Automorphism
 Classification'' note later in ch04). Two \texttt{manuscriptcorrection}
 blocks landed in ch04 (lines 461 and 480) at commits
-\texttt{fd7b3f83}~(withdraw) $\to$ \texttt{2634db28}~(reframe as REPAIR).
+\texttt{fd7b3f83}~(withdraw) $\to$ \texttt{2634db28}~(reframe as REPAIR);
+both were later removed with the rest of that macro's blocks, superseded
+by commit \texttt{909a3b23} --- see the supersession note under
+Version~1.2.1.
 
 \item \textbf{Pillar 4 --- $\xi$-RECTANGLE EDGE CLOSURE
 (r325--r331c).} Chain since r315: r325~$\to$~r326~$\to$~r327~$\to$~r328~$\to$~\textbf{r329b
@@ -923,6 +926,18 @@ label added to support the appendix-A correction footnote's
 \texttt{\textbackslash pageref}.
 \item \textbf{Preserved.} All Version 1.2.0 chapter content,
 substrate theorem, Lean attack landings, and build state.
+\item \textbf{Superseded (2026-11-07).} The \texttt{\textbackslash
+manuscriptcorrection} macro described in this entry and in the Version~2.1.0
+entry above no longer exists. All 144 of its blocks, together with the macro
+definition in \texttt{preamble.tex}, were removed by commit
+\texttt{909a3b23}, whose stated reason is that the annotations were
+AI-authored additions and that ``the work is Pablo's, written at his
+direction.'' That removal was deliberate and is not reversed here. The
+mathematical content it had annotated is retained in the chapters' own
+apparatus --- Chapter~7 carries four withdrawal statements and Chapter~11 two
+--- so no flagged inconsistency is left unmarked; what is gone is the footnote
+mechanism, not the corrections. A reader should not look for the macro: as of
+revision~2 it is defined nowhere and used nowhere in the manuscript.
 \end{itemize}
 
 \subsection*{Version 1.2.0 (June 3, 2026) -- SUBSTRATE-LEVEL META-THEOREM EDITION}
