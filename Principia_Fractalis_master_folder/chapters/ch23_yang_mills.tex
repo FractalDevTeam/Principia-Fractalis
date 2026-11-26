@@ -372,16 +372,32 @@ The Hamiltonian $H$ of fractal Yang-Mills theory satisfies:
 \begin{equation}
 \Spec(H) \subset \{0\} \cup [\Delta, \infty)
 \end{equation}
-with empirically measured mass gap:
+for a gap of the form
 \begin{equation}
-\boxed{\Delta = \hbar c \cdot \omega_c \cdot \frac{\pi}{10} = 420.43 \pm 0.05 \text{ MeV}}
+\Delta = \hbar c \cdot \omega_c \cdot \frac{\pi}{10}
 \end{equation}
-where:
+where
 \begin{align}
 \hbar c &= 197.3 \text{ MeV·fm} && \text{(fundamental constant)} \\
-\omega_c &= 2.13198462 && \text{(resonance zero)} \\
-\pi/10 &= 0.314159... && \text{(universal factor)}
+\pi/10 &= 0.314159\ldots && \text{(universal factor)}
 \end{align}
+and $\omega_c$ is required to be a positive zero of
+$\rho(\omega) = \mathcal{R}_f(2, 1/\omega)$.
+
+\emph{Scope (rev 2) --- the hypothesis has no instance.} No such $\omega_c$
+exists, and the reason is upstream of any arithmetic. The base-3 digital sum
+satisfies $D(n)\in\mathbb{Z}$ for every $n$, so $e^{2\pi i D(n)}\equiv 1$, the
+fractal modulation collapses to unity, and $\mathcal{R}_f(2,s)=\zeta(s)$; hence
+$\rho(\omega)=\zeta(1/\omega)$ has no zero for $\omega>0$ (Exercise~2). The
+statement above therefore has no numerical instance, and \emph{no mass-gap
+value is claimed by this chapter}. The figure $420.43\pm0.05$~MeV that revision
+1 printed here in a boxed display is withdrawn: Exercise~3 identifies it as
+$\hbar c\times 2.1309$, the product with the $\pi/10$ factor absent and
+$\omega$ altered in the fourth decimal, while the stated formula evaluates to
+$132.148$~MeV. The corrected resonance condition caps the formula at
+$62.3$~MeV for every $\alpha$, a factor of $23.7$ below the lattice $0^{++}$
+glueball. What survives is the \emph{form} of the spectral claim and the
+dimensionless glueball ratios $\sqrt{8/3}$ and $\sqrt{3}$; see the Conclusion.
 \end{theorem}
 
 \begin{keyidea}
@@ -393,27 +409,49 @@ The mass gap has three components:
 \item \textbf{$\pi/10$}: Universal factor connecting \textit{all} millennium problems (Riemann, P vs NP, Navier-Stokes, etc.)
 \end{enumerate}
 
-Computing: $197.3 \times 2.13198462 \times 0.314159 = 420.43$ MeV
+Computing: $197.3 \times 2.13198462 \times 0.314159 = 132.148$ MeV
+--- \emph{not} the $420.43$~MeV revision 1 printed here; Exercise~3
+identifies that figure as $\hbar c \times 2.1309$, with the $\pi/10$ factor
+absent. By the scope note on Theorem~\ref{thm:mass-gap-ym}, $\omega_c$ does
+not exist, so neither figure is a mass gap.
 
 \emph{The sentence that stood here --- that this matches lattice QCD for the lightest glueball within experimental uncertainty --- is withdrawn.} It cannot be corroboration: the quantity it compares has no input, and the Verification update (2026-08-08) shows the two-decade agreement with the $400$--$500$~MeV window is coincidental.
 \end{keyidea}
 
-\begin{remark}[Empirical Validation]
+\begin{remark}[Lattice reference values, and what is compared against them]
 Lattice QCD calculations predict\cite{morningstar1999glueball,chen2006glueball}:
 \begin{equation}
 m_{0^{++}} = 1475 \pm 70 \text{ MeV in quenched QCD}
 \end{equation}
 
-However, in pure Yang-Mills (without quarks), the lightest state is expected around 400-500 MeV. Our prediction $\Delta = 420.43$ MeV falls precisely in this range.
+\emph{Scope (rev 2).} This chapter supplies \emph{no} absolute mass scale to set
+beside that number. The sentence immediately above this remark records the
+withdrawal; stated here is the reason, which sits upstream of any arithmetic.
+The base-3 digital sum satisfies $D(n)\in\mathbb{Z}$ for every $n$, so
+$e^{2\pi i D(n)}\equiv 1$, the fractal modulation collapses to unity, and
+$\mathcal{R}_f(2,s)=\zeta(s)$. Hence $\rho(\omega)=\zeta(1/\omega)$ has
+\emph{no} zero for $\omega>0$: the resonance zero $\omega_c = 2.13198462$ does
+not exist, and the gap formula $\Delta = \hbar c\,\omega_c\,\pi/10$ has no
+input. Exercises~2 and~3 carry out both checks, and Exercise~3 identifies what
+the figure $420.43$ actually was --- $\hbar c\times 2.1309$, i.e.\ the product
+with the $\pi/10$ factor absent and $\omega$ altered in the fourth decimal.
+The corrected resonance condition caps the formula at $62.3$~MeV for every
+$\alpha$, a factor of $23.7$ below the lattice $0^{++}$ state above.
 
-The glueball spectrum predicted by our framework:
+What the framework does supply is a \emph{ratio} structure, and the Conclusion
+retains it on exactly that footing:
 \begin{align}
-m_{0^{++}} &= \Delta = 420.43 \text{ MeV} \\
-m_{2^{++}} &= \sqrt{8/3} \cdot \Delta = 686.37 \text{ MeV} \\
-m_{0^{-+}} &= \sqrt{3} \cdot \Delta = 728.49 \text{ MeV}
+m_{2^{++}}/m_{0^{++}} &= \sqrt{8/3} = 1.6330 \\
+m_{0^{-+}}/m_{0^{++}} &= \sqrt{3} = 1.7321
 \end{align}
-
-These ratios match lattice calculations within 5-10\%.
+These are dimensionless and independent of any absolute scale, which is why
+they survive the withdrawal of $\Delta$. Read as ratios they fall inside the
+lattice bands tabulated later in this chapter; read as masses they have no
+input, because multiplying them by a withdrawn $\Delta$ supplies none. That
+distinction is the content of Exercise~5, which also records that the mass
+figures once printed here, $686.37$ and $728.49$~MeV, were inconsistent even
+with the $\Delta$ they were derived from ($\sqrt{8/3}\,\Delta = 686.56$ and
+$\sqrt{3}\,\Delta = 728.21$).
 \end{remark}
 
 \section{Confinement}
@@ -578,24 +616,37 @@ This exponential decay means color charges cannot be asymptotic states—they're
 
 \section{Computational Evidence}
 
-\subsection{Validation Against Lattice QCD}
+\subsection{Comparison against lattice QCD, separated by layer}
 
-Our predictions are validated by comparison with lattice QCD:
+The comparison below is separated into what this chapter supplies and what it
+does not, following the Conclusion's own disposition. The two absolute scales
+are withdrawn there; the three dimensionless ratios are retained there. Nothing
+in this table is offered as validation of an absolute scale, because the
+chapter provides none.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{lccc}
 \toprule
-\textbf{Observable} & \textbf{Fractal} & \textbf{Lattice QCD} & \textbf{Error} \\
+\textbf{Observable} & \textbf{Framework} & \textbf{Lattice QCD} & \textbf{Status} \\
 \midrule
-Mass gap $\Delta$ & 420.43 MeV & 400-500 MeV & $<$5\% \\
-String tension $\sqrt{\sigma}$ & 440.21 MeV & 440 MeV & $<$1\% \\
-$m_{0^{++}}/\Delta$ & 1.00 & 1.00 & — \\
-$m_{2^{++}}/\Delta$ & 1.633 & 1.50-1.70 & $<$10\% \\
-$m_{0^{-+}}/\Delta$ & 1.732 & 1.60-1.80 & $<$10\% \\
+Mass gap $\Delta$ & no input & 400--500 MeV & WITHDRAWN \\
+String tension $\sqrt{\sigma}$ & not derived & 440 MeV & lattice input \\
+$m_{0^{++}}/\Delta$ & 1.000 & 1.00 & retained (normalisation) \\
+$m_{2^{++}}/\Delta$ & 1.633 & 1.50--1.70 & retained, inside band \\
+$m_{0^{-+}}/\Delta$ & 1.732 & 1.60--1.80 & retained, inside band \\
 \bottomrule
 \end{tabular}
-\caption{Comparison with lattice QCD calculations\cite{morningstar1999glueball,chen2006glueball}}
+\caption{Comparison against lattice
+QCD\cite{morningstar1999glueball,chen2006glueball}, by layer. The mass gap
+carries no framework input because $\mathcal{R}_f(2,s)=\zeta(s)$ has no zero
+for $\omega>0$, so the resonance zero the formula requires does not exist
+(Exercise~2). The string tension is an independent lattice input: the printed
+relation $\sigma=\Delta^2/(4\pi\hbar c)$ is dimensionally inconsistent
+($\mathrm{MeV}/\mathrm{fm}$, not $\mathrm{MeV}^2$) and numerically unrelated to
+the value once quoted (Exercise~4). The three ratios are scale-independent and
+are this chapter's retained quantitative prediction; each lies inside its
+lattice band.}
 \end{table}
 
 \subsection{Asymptotic Freedom}
