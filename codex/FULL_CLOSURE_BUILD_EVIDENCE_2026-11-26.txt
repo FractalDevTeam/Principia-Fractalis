@@ -4,7 +4,7 @@ FULL CLOSURE BUILD EVIDENCE — Legion, 2026-11-26
 WHY THIS FILE EXISTS
 --------------------
 The GitHub Actions badge certifies the 501-module AxiomCheck closure,
-because the full 1,653-module closure cannot complete on a free
+because the full 1,685-module closure cannot complete on a free
 GitHub-hosted runner: run 45769782449 built for 2h53m and was then
 terminated with "The runner has received a shutdown signal" (exit 143),
 well inside the declared 350-minute budget. Runner reclamation also
@@ -26,7 +26,7 @@ LEAN_NUM_THREADS: 2
 
 CLOSURE SIZE (transitive import walk from PF.lean)
 --------------------------------------------------
-full closure modules      : 1653
+full closure modules      : 1685
   of which unbuilt        : 0
 AxiomCheck closure modules: 501   (what the badge gates)
 AxiomCheck is a subset    : True
@@ -36,7 +36,7 @@ VERBATIM BUILD OUTPUT  —  lake build +PF:olean
 info: PF/YangMills/WilsonAvgMinusContractionBase_2026_11_12.lean:267:0: 'PF.YangMills.wilsonAvgMinusL2ContractionBase_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
 ℹ [5395/5398] Replayed PF.YangMills.WilsonAvgMinusL2BoundCapstone_2026_11_12
 info: PF/YangMills/WilsonAvgMinusL2BoundCapstone_2026_11_12.lean:56:0: 'PF.YangMills.wilsonAvgMinusL2Bound_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
-Build completed successfully (5398 jobs).
+Build completed successfully (5502 jobs).
 
 AXIOM BAR ON THE THREE CHECKER MODULES (verbatim #print axioms output)
 ----------------------------------------------------------------------
@@ -49,3 +49,27 @@ axiom declarations in PF/        : 4
 native_decide in PF/            : 3990
 NOTE: raw sorry/native_decide greps count PROSE in docstrings and are not
       a defect measure; the kernel verdict is the axiom bar above.
+
+ADDENDUM 2026-11-26 — THE ToE CAPSTONE IS NOW INSIDE THE CLOSURE
+----------------------------------------------------------------
+A transitive import walk (NOT a direct-mention grep, which is unreliable and
+misled me once already) found PF.PrincipiaFractalisToEMetaCapstone_2026_11_16
+OUTSIDE the closure, together with its own vacuity disclosure -- the capstone's
+only importer. Both were built solely because the lakefile globs build every
+module, so `lake build PF` had never verified either, and README.md advertises
+the capstone as the single-citation entry point for the Theory of Everything.
+
+Importing the disclosure pulls the capstone in with it, which is the correct
+direction: the capstone is not reachable from the gate without the file that
+discloses which of its conjuncts are empty.
+
+  closure 1,654 -> 1,685 modules   (+31: capstone, disclosure, transitive deps)
+  unbuilt in the closure: 0
+  lake build +PF:olean -> Build completed successfully (5502 jobs)
+  principia_fractalis_ToE_substrate_attack_at_HEAD_2026_11_16_EOD
+    depends on axioms: [propext, Classical.choice, Quot.sound]
+
+The five empty conjuncts disclosed on 2026-11-22 are unchanged and remain
+disclosed in the kernel: the Fermat contract is `holds := fun _ => True`,
+the Poincare encoding substitutes R for smooth 3-manifolds, and the YM, Hodge
+and RH tags are Unit-closable. NOTHING HERE PROVES ANY CLAY PROBLEM.
