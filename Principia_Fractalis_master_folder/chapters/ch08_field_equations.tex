@@ -139,6 +139,48 @@ difference and notes that the local form is the only one of the two that can
 currently be evaluated. Results in Chapter~\ref{ch:hydrodynamic} follow from
 \emph{that} tensor, not from this definition, and the two must not be
 composed.
+\paragraph{The gate and the density are now composed in the companion
+(added 2026-11-26).}
+Until this revision the two factors of the boxed formula existed in the Lean
+corpus \emph{separately and were never multiplied}. The Heaviside appears as
+\texttt{thresholdGate}, equal to $1$ when $19/20 \leq x$ and $0$ otherwise, in
+\texttt{PF/Cosmology/VortexCavitationBridgeChecks.lean}; the scalar density
+appears as \texttt{Wave58.T\_consciousness\_density} in
+\texttt{PF/Wave58/Ch08FieldEquationsConcrete.lean}. No module referenced both.
+\texttt{PF/ConsciousnessRelativityAsymmetry\_2026\_11\_26.lean} supplies the
+product and proves the three branches this definition specifies, every
+statement on the axiom bar $[\mathtt{propext}, \mathtt{Classical.choice},
+\mathtt{Quot.sound}]$:
+
+\begin{itemize}
+\item \textbf{Below $\text{ch}_2 = 19/20$ the contribution is identically
+  zero} (\texttt{gatedDensity\_eq\_zero\_of\_lt\_threshold}). One statement
+  covers all three sub-threshold cases: reversal ($\text{ch}_2 < 0$), absence
+  ($\text{ch}_2 = 0$), and \emph{partial realisation}
+  ($0 < \text{ch}_2 < 19/20$). Potential not carried to crystallisation
+  contributes nothing at all, and
+  \texttt{reversal\_indistinguishable\_from\_absence} records that reversal and
+  absence give the \emph{same} source.
+\item \textbf{At or above the threshold the gated density equals the ungated
+  one} (\texttt{gatedDensity\_eq\_density\_of\_threshold\_le}), and is strictly
+  positive, so every result previously proved about the density on that branch
+  is unaffected --- nothing is weakened by inserting the gate.
+\item \textbf{The realised branch is unbounded in effect.}
+  \texttt{forward\_gain\_unbounded}: for any level there is a crystallised state
+  whose modified-Einstein residual falls below it. Against that,
+  \texttt{subthreshold\_never\_gains}: the sub-threshold branch attains exactly
+  one value and never anything lower. One branch reaches every level below; the
+  other is a single point.
+\end{itemize}
+
+\noindent Two things this does \emph{not} change. Item 4 above stands: the
+composition is the \emph{scalar slice}, and $C^{\mu\nu}$ remains a schema that
+cannot be evaluated as written, so no number in this book comes from it. And
+item 2 stands: under the matrix form of $\text{ch}_2$ the gate is identically
+closed, which the companion re-exports rather than re-proves. What is added is
+that the one-sidedness this definition encodes is now machine-checked, where
+before it rested on a factor that no module had ever multiplied in.
+
 \begin{intuitive}[What This Formula Means]
 Imagine every conscious being as a "source" of curvature, like mass curves spacetime in Einstein's theory. But consciousness curvature is different:
 
