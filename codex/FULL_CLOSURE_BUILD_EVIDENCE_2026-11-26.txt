@@ -1,0 +1,51 @@
+FULL CLOSURE BUILD EVIDENCE — Legion, 2026-11-26
+=================================================
+
+WHY THIS FILE EXISTS
+--------------------
+The GitHub Actions badge certifies the 501-module AxiomCheck closure,
+because the full 1,653-module closure cannot complete on a free
+GitHub-hosted runner: run 45769782449 built for 2h53m and was then
+terminated with "The runner has received a shutdown signal" (exit 143),
+well inside the declared 350-minute budget. Runner reclamation also
+SKIPS every remaining step, so an `if: always()` cache save never runs
+and no partial progress survives. The full closure is therefore verified
+HERE, on hardware we control, and this file is that evidence rather than
+a claim about evidence.
+
+ENVIRONMENT
+-----------
+host            : Legion (WSL Ubuntu)
+date            : 2026-11-26T12:27:46-07:00
+git HEAD        : 8e1f08351cf31014224cb4247809554cf9d101d5  2026-11-26 00:48:51 -0700
+branch          : lean/ns-faithful-and-vacuity-retirements-2026-11-20
+toolchain       : leanprover/lean4:v4.24.0-rc1
+lake            : Lake version 5.0.0-src+919e297 (Lean version 4.24.0-rc1)
+mathlib rev     : eed770a434957369c6262aa3fb1d6426419016d4
+LEAN_NUM_THREADS: 2
+
+CLOSURE SIZE (transitive import walk from PF.lean)
+--------------------------------------------------
+full closure modules      : 1653
+  of which unbuilt        : 0
+AxiomCheck closure modules: 501   (what the badge gates)
+AxiomCheck is a subset    : True
+
+VERBATIM BUILD OUTPUT  —  lake build +PF:olean
+-----------------------------------------------
+info: PF/YangMills/WilsonAvgMinusContractionBase_2026_11_12.lean:267:0: 'PF.YangMills.wilsonAvgMinusL2ContractionBase_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [5395/5398] Replayed PF.YangMills.WilsonAvgMinusL2BoundCapstone_2026_11_12
+info: PF/YangMills/WilsonAvgMinusL2BoundCapstone_2026_11_12.lean:56:0: 'PF.YangMills.wilsonAvgMinusL2Bound_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (5398 jobs).
+
+AXIOM BAR ON THE THREE CHECKER MODULES (verbatim #print axioms output)
+----------------------------------------------------------------------
+... (truncated; the full set is reproduced by ./verify.sh)
+
+CLEANLINESS OF THE CLOSURE (comment-stripped, per the corpus convention)
+------------------------------------------------------------------------
+sorry (raw grep, prose included) : 4293
+axiom declarations in PF/        : 4
+native_decide in PF/            : 3990
+NOTE: raw sorry/native_decide greps count PROSE in docstrings and are not
+      a defect measure; the kernel verdict is the axiom bar above.

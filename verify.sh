@@ -412,25 +412,33 @@ else
   echo "        This is slow but not a verification failure." >&2
 fi
 
-# --- Build the PF closure ----------------------------------------------
-# PFClosure, not PF. The `PF` lean_lib is declared with globs = ["PF.+"], so it
-# is ALL ~10,870 modules including the ~1,260 standalone leaf panels -- ~400s
-# each, and the AssemblePart c=829/64 ones need about 13.6 GB of live data. That
-# cannot complete inside a 6-hour job, which is why this gate has never
-# reported a verdict on master.
+# --- Build the AXIOMCHECK CLOSURE --------------------------------------
+# 2026-11-26, approved by Pablo. This step previously built the whole
+# 1,653-module closure, which CANNOT complete on a free GitHub-hosted runner:
+# run 45769782449 built for 2h53m and was then terminated with "The runner has
+# received a shutdown signal" (exit 143), well inside the declared 350-minute
+# budget -- not a timeout and not an OOM. Runner reclamation also SKIPS every
+# remaining step, so the `if: always()` cache save never runs and no partial
+# progress survives; incremental caching cannot fix this failure mode.
 #
-# PFClosure has `roots = ["PF"]` and no globs, so it is PF.lean and its
-# transitive imports: the 1,641-module closure, measured 2026-11-25 as having
-# ZERO missing modules. That closure is what every book citation and every
-# headline theorem actually lives in, and it is what a referee re-checks.
+# So the gate now builds the three AxiomCheck modules. Lake pulls their
+# imports, which IS the AxiomCheck closure: 501 modules, measured as a clean
+# SUBSET of the full 1,653 (30% of it; 0.14 GiB of artifacts against 0.45 GiB).
 #
-# SCOPE, stated plainly: the leaf panels are NOT covered by this gate. They are
-# additional numerical evidence, built on Legion/Acer, and nothing in the book
-# or the closure imports them.
-echo "[3/5] Building the PF closure (lake build +PF:olean)..."
+# WHAT THIS BADGE ASSERTS: the modules the headline theorems live in elaborate,
+# and every axiom token `#print axioms` reports on them is inside the contract.
+# WHAT IT NO LONGER ASSERTS: that all 1,653 closure modules build. That claim
+# keeps its evidence at codex/FULL_CLOSURE_BUILD_EVIDENCE_2026-11-26.txt --
+# 1,653 modules, 0 unbuilt, "Build completed successfully (5398 jobs)" on
+# Legion, captured verbatim.
+echo "[3/5] Building the AxiomCheck closure (501 modules)..."
 BUILD_LOG="$(mktemp)"
-if ! "${LAKE_BIN}" env lake build +PF:olean 2>&1 | tee "${BUILD_LOG}" >/dev/null; then
-  echo "FATAL: lake build +PF:olean failed. See ${BUILD_LOG} for output." >&2
+if ! "${LAKE_BIN}" env lake build \
+      PF.AxiomCheck_2026_06_23:olean \
+      PF.AxiomCheck_Lambda_2026_06_24:olean \
+      PF.AxiomCheck_All_2026_06_25:olean 2>&1 \
+      | tee "${BUILD_LOG}" >/dev/null; then
+  echo "FATAL: the AxiomCheck closure failed to build. See ${BUILD_LOG}." >&2
   tail -40 "${BUILD_LOG}" >&2 || true
   exit 1
 fi

@@ -93,13 +93,34 @@ where it exists and misses are reported as misses.
 ./verify.sh
 ```
 
-Fetches the prebuilt mathlib cache, builds the `PFClosure` target — PF.lean and
-its transitive imports, the 1,641-module closure where every book citation and
-every headline theorem lives — then runs `#print axioms` on the headline
-theorems and classifies every axiom token it finds. Kernel axioms pass; `sorryAx`
-and project-level axioms fail. The gate self-tests first, so a classifier that
-has stopped working cannot report a pass, and an empty log is reported
-INCONCLUSIVE rather than clean.
+Fetches the prebuilt mathlib cache, builds the **AxiomCheck closure** — the
+three `AxiomCheck_*` modules and their transitive imports, 501 modules — then
+runs `#print axioms` on the headline theorems and classifies every axiom token
+it finds. Kernel axioms pass; `sorryAx` and project-level axioms fail. The gate
+self-tests its own classifier first, so a classifier that has stopped working
+cannot report a pass, and an empty axiom log is reported INCONCLUSIVE rather
+than clean.
+
+### What the badge certifies, and what it does not
+
+The badge asserts that the modules the headline theorems live in elaborate, and
+that every axiom token reported on them is inside the contract. **It does not
+assert that all 1,653 modules of PF.lean's closure build.**
+
+That larger claim is true and is kept with its evidence, not dropped: the full
+closure is verified on dedicated hardware and the verbatim output is committed
+at [`codex/FULL_CLOSURE_BUILD_EVIDENCE_2026-11-26.txt`](codex/FULL_CLOSURE_BUILD_EVIDENCE_2026-11-26.txt)
+— 1,653 modules, 0 unbuilt, `Build completed successfully (5398 jobs)`.
+
+The reason for the split is measured rather than assumed. A free GitHub-hosted
+runner cannot finish the full closure: the run of 2026-11-26 built for 2 h 53 m
+and was then terminated with `The runner has received a shutdown signal`
+(exit 143), well inside the declared 350-minute budget — so neither a timeout
+nor an out-of-memory. Runner reclamation also skips every remaining step, so an
+`if: always()` cache save never executes and no partial progress carries to the
+next run. A badge that cannot go green is worth less than a smaller badge that
+is honest about its scope, so the gate certifies the 501-module subset and this
+section says so.
 
 Exit codes: `0` pass, `1` build or environment failure, `2` axiom outside
 contract, `3` inconclusive.
@@ -108,8 +129,9 @@ contract, `3` inconclusive.
 
 | | |
 |---|---|
-| `lake build PFClosure` | 5,386 jobs clean |
-| closure modules | 1,641, of which 0 unbuilt |
+| `lake build +PF:olean` (full closure, Legion) | 5,398 jobs clean |
+| full closure modules | 1,653, of which 0 unbuilt |
+| AxiomCheck closure (what CI gates) | 501 modules, 4,027 jobs |
 | Sorries | 0 |
 | Project axioms | 0 |
 | Axiom bar | `[propext, Classical.choice, Quot.sound]` |
