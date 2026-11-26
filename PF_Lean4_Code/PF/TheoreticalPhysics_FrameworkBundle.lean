@@ -14,12 +14,27 @@ formalizes axiom-free or packages as named hypothesis bundles
 
 ## Contents
 
-  (T1) **Modified GR with consciousness bundle is consistent**
-       (`ModifiedGRWithConsciousnessBundle_consistent`): the
-       modified-Einstein + energy-information-equivalence +
-       dark-energy-as-Λ_eff hypothesis bundle is consistent in
-       Lean — i.e. there exists a witness assignment satisfying
-       all three named hypotheses simultaneously.
+  (T1) **Modified GR with consciousness bundle — CONTENTFUL**
+       (`GeneralRelativityContentful.ModifiedGRWithConsciousnessBundle_holds`):
+       the modified-Einstein + energy-information-equivalence +
+       dark-energy-as-Λ_eff bundle, in the version whose conjuncts a
+       counterexample could refute — the Bianchi/divergence implication
+       quantified over every ℝ-linear divergence operator, the
+       budget-conservation equivalence, and the Λ_eff monotonicity and
+       boundary facts.
+
+       Repointed 2026-11-26. This conjunct previously named the
+       same-named PLACEHOLDER bundle from `PF.GeneralRelativity`, whose
+       conjuncts are `∃ L G, L = L ∧ G = G ∧ True`, `∃ c², 0 < c²` and
+       `∃ L₀ Lₑ, 0 < L₀ ∧ 0 ≤ Lₑ ∧ Lₑ ≤ L₀`, discharged by
+       `⟨0, 0, rfl, rfl, trivial⟩`. (T1) carried no information. The
+       contentful definitions had existed since 2026-10-08 under the
+       SAME FOUR NAMES in a child namespace, so the bundle's source text
+       was byte-identical in both files and meant two different things
+       depending on which namespace read it. The reference is now fully
+       qualified so it cannot be re-shadowed. Nothing was renamed or
+       withdrawn; the conjunct keeps its name, number and position, and
+       only got stronger.
 
   (T2) **2D Navier-Stokes global regularity** classical result
        (`NavierStokes2DGlobalRegularity`): axiom-free
@@ -44,6 +59,7 @@ Author: Pablo Cohen + Claude Opus 4.7. 2026-06-13.
 -/
 
 import PF.GeneralRelativity
+import PF.GeneralRelativityContentful_2026_10_08
 import PF.NS2DGlobalRegularity
 import PF.NS3DVortexStretchingObstruction
 import PF.SpectralEmbedding
@@ -86,8 +102,13 @@ open PrincipiaTractalis.MillenniumSix
          (axiom-free, anchors the cosmological-constant suppression
          calculation in chapter 26 of the manuscript). -/
 theorem framework_theoretical_physics_support_bundle :
-    -- (T1) ModifiedGR+consciousness bundle consistent
-    ModifiedGRWithConsciousnessBundle ∧
+    -- (T1) ModifiedGR+consciousness bundle -- the CONTENTFUL version.
+    --      Fully qualified deliberately: the identical name also exists in
+    --      `PrincipiaTractalis` (PF.GeneralRelativity) as a placeholder whose
+    --      three conjuncts are `∃ L G, L = L ∧ G = G ∧ True`, `∃ c², 0 < c²`
+    --      and `∃ L₀ Lₑ, 0 < L₀ ∧ 0 ≤ Lₑ ∧ Lₑ ≤ L₀`. Those carry no
+    --      information, and an unqualified reference resolves to them.
+    PrincipiaTractalis.GeneralRelativityContentful.ModifiedGRWithConsciousnessBundle ∧
     -- (T2) 2D NS global regularity classical
     NavierStokes2DGlobalRegularity ∧
     -- (T3) 3D vortex stretching does not vanish (explicit witness)
@@ -132,7 +153,7 @@ theorem framework_theoretical_physics_support_bundle :
        alpha_value AlphaClass8.Hodge    = qHodge * basis_phi ∧
        PrincipiaTractalis.alpha_QG
          = qQG * basis_sqrt_two * Real.sqrt basis_pi) :=
-  ⟨ModifiedGRWithConsciousnessBundle_consistent,
+  ⟨PrincipiaTractalis.GeneralRelativityContentful.ModifiedGRWithConsciousnessBundle_holds,
    ns_2D_global_regularity_holds,
    exists_nonzero_vortex_stretching_3D,
    PrincipiaTractalis.CrossMillenniumSharedInvariants.α_QG_sq_eq_two_pi,
