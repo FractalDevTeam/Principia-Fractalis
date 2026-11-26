@@ -269,7 +269,7 @@ lake build PFClosure
 Expected: 5,386 jobs clean. Every theorem in the summit chain reports kernel-only axioms
 `[propext, Classical.choice, Quot.sound]`.
 
-`PFClosure` is PF.lean and its transitive imports — the 1,641-module closure. `lake build PF`
+`PFClosure` is PF.lean and its transitive imports — the 1,653-module closure. `lake build PF`
 builds that *plus* roughly 1,200 standalone numerical panels that nothing in the book or the
 closure imports; several need upwards of 13 GB of memory each, so that target is for dedicated
 hardware, not for a laptop or a CI runner.
