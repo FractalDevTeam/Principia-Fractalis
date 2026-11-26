@@ -130,6 +130,84 @@ in this corpus. $C^{\mu\nu}$ is therefore a schema, not a computable object,
 and no number in this book is obtained from it.
 \end{enumerate}
 
+\paragraph{The form this definition uses, named (added 2026-11-26).}
+Item 1 leaves an obligation --- ``the definition must name its form'' --- and
+this paragraph discharges it. By the 2026-10-05 settlement recorded in
+Remark~\ref{rem:ch2-matrix-range-2026-10-03} the decision splits in two: the
+\emph{name} $\text{ch}_2$ belongs to the normalised Chern--Weil density of
+Definition~\ref{def:ch2-hat-rigorous}, but that form cannot carry a number as
+written, its $\mathrm{Tr}(F_\nabla \wedge F_\nabla)$ not being sign-definite and
+its normaliser not shown to be finite; while the \emph{threshold} $0.95$ belongs
+to the entanglement form
+$\text{ch}_2(|\psi\rangle) = 1 - \mathrm{Tr}(\rho_A^2)$ of
+Proposition~\ref{prop:quantum-consciousness}. The gate in the boxed formula
+carries the threshold, so \textbf{the $\text{ch}_2$ inside
+$\Theta(\text{ch}_2 - 0.95)$ is the entanglement form}, and the gate is a
+condition on purity and dimension. Each fact below is machine-checked in
+\texttt{PF/Ch2ThresholdSelection.lean} on the axiom bar
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$:
+
+\begin{itemize}
+\item The gate reads as inverse purity:
+  $\text{ch}_2 \geq 19/20 \iff \mathrm{Tr}(\rho_A^2) \leq 1/20$
+  (\texttt{threshold\_iff\_purity}).
+\item It is attainable --- the maximally mixed state on $27$ dimensions gives
+  $26/27 \geq 19/20$ (\texttt{threshold\_is\_attainable}) --- so unlike under
+  the matrix reading of item 2, the gate is not identically closed.
+\item Dimension is necessary but \emph{not} sufficient. Crossing forces
+  effective dimension $\geq 20$
+  (\texttt{threshold\_implies\_effective\_dimension}), and $d \geq 20$ is
+  exactly the condition for \emph{some} state in dimension $d$ to cross
+  (\texttt{ceiling\_threshold\_iff\_dimension}), namely the maximally mixed
+  one. A pure state gives $\text{ch}_2 = 0$ in every dimension
+  (\texttt{pure\_state\_is\_zero}), so size alone never opens the gate.
+\item For a bipartite pure state both factors must reach $20$, hence
+  $d_A d_B \geq 400$ (\texttt{bipartite\_needs\_both\_factors}); and since
+  $3^5 = 243 < 400 \leq 729 = 3^6$, in the ternary tower the total system sits
+  at level \textbf{six} or above
+  (\texttt{tower\_total\_level\_at\_least\_six}).
+\end{itemize}
+
+\paragraph{Two of the five forms are one quantity (added 2026-11-26).}
+Item 1's count of five is a count of \emph{formulas}, not of independent
+measures. On a symmetric trace-one argument --- the shape of a density matrix
+--- the matrix formula of item 2 collapses to a function of the purity alone,
+$\text{ch}_2^{\mathrm{mat}} = \tfrac{1}{2} - \tfrac{1}{2p}$ with
+$p = \mathrm{Tr}(\rho^2)$, because $\mathrm{Tr}(W^2) = \|W\|_F^2$ for symmetric
+$W$. And that is exactly $-(1-p)/(2p)$, the entanglement form divided by $-2p$.
+The two forms therefore differ by a strictly monotone reparametrisation: they
+share a zero set, both vanishing precisely on the pure state, and they rank
+states identically up to orientation. Kernel-verified in
+\texttt{PF/Ch2FormsAgreeOnDensityShape\_2026\_11\_26.lean} as
+\texttt{matrix\_form\_eq\_entanglement\_form\_scaled},
+\texttt{matrix\_zero\_iff\_purity\_one} and
+\texttt{forms\_are\_order\_reversing}.
+
+The consequence for item 2 is that the matrix form's ceiling of $\tfrac{1}{2}$,
+and its provable inability to reach $0.95$, are facts about \emph{normalisation}
+rather than evidence that it measures something else --- which is what
+Remark~\ref{rem:ch2-matrix-range-2026-10-03} already says in passing, now
+stated as theorems. The sameness stops exactly where the trace condition does:
+for every symmetric \emph{traceless} argument the matrix form is the constant
+$\tfrac{1}{2}$ and distinguishes nothing
+(\texttt{matrix\_form\_const\_on\_symmetric\_traceless}), so the two are not
+interchangeable and are not being merged. None of this revives $0.95$ for the
+matrix form, since a monotone reparametrisation of a threshold is a different
+number.
+
+\paragraph{What this naming costs, stated rather than hidden.}
+The tower does not select $0.95$. Every threshold in $(8/9,\,26/27]$ has the
+same first-crossing level, an interval of width $2/27$ witnessed at $9/10$,
+$19/20$ and $24/25$ alike (\texttt{threshold\_interval\_gives\_same\_level}),
+and $19/20$ is not one of the tower's own values $1 - 3^{-k}$
+(\texttt{nineteen\_twentieths\_not\_a\_tower\_value}). The claim that $0.95$ is
+``not a free parameter'' was withdrawn as overstated in
+Remark~\ref{rem:ch2-matrix-range-2026-10-03} and is not revived here. And
+Chapters~\ref{ch:clinical-consciousness}--\ref{ch:consciousness-quantification}
+compute none of the five forms, so under this naming the clinical programme is
+measuring a different observable, and its $\geq 0.95$ findings are not findings
+about this gate.
+
 \noindent\textbf{A different tensor shares this name.}
 Chapter~\ref{ch:hydrodynamic} uses a $C_{\mu\nu}$ that is \emph{not} this one:
 it is a local expression in the Timeless-Field scalar $\Phi$ with \textbf{no
