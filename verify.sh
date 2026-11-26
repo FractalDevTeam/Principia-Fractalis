@@ -429,7 +429,7 @@ fi
 # or the closure imports them.
 echo "[3/5] Building the PF closure (lake build PFClosure)..."
 BUILD_LOG="$(mktemp)"
-if ! "${LAKE_BIN}" env lake build PFClosure 2>&1 | tee "${BUILD_LOG}" >/dev/null; then
+if ! "${LAKE_BIN}" env lake build PFClosure:olean 2>&1 | tee "${BUILD_LOG}" >/dev/null; then
   echo "FATAL: lake build PFClosure failed. See ${BUILD_LOG} for output." >&2
   tail -40 "${BUILD_LOG}" >&2 || true
   exit 1
@@ -455,7 +455,7 @@ AXIOM_MODULES=(
 )
 checker_failed=0
 for mod in "${AXIOM_MODULES[@]}"; do
-  if ! "${LAKE_BIN}" env lake build "${mod}" 2>&1 | tee -a "${AXIOM_LOG}" >/dev/null; then
+  if ! "${LAKE_BIN}" env lake build "${mod}:olean" 2>&1 | tee -a "${AXIOM_LOG}" >/dev/null; then
     echo "FATAL: axiom-check module ${mod} failed to build." >&2
     checker_failed=1
   fi

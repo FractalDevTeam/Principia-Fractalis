@@ -119,17 +119,44 @@ jobs:
           path: ~/.elan
           key: elan-${{ runner.os }}-${{ hashFiles('PF_Lean4_Code/lean-toolchain') }}
 
-      - name: Cache mathlib + project build
-        uses: actions/cache@v4
+      # 2026-11-25. The single `actions/cache` step this replaces could never
+      # work. `actions/cache` saves ONLY on job success and the key ended in
+      # ${{ github.sha }}, so every commit missed -- the run log reads
+      # "Cache not found for input keys" every time. Success needed the cache and
+      # the cache needed success, so each run rebuilt all 1,651 closure modules
+      # from zero and was killed near 55 minutes (exit 143).
+      #
+      # Split into restore + save, with the save under `if: always()`, so a run
+      # that is killed still publishes the oleans it managed to produce and the
+      # next run resumes from them. The save key carries github.run_id so runs
+      # never collide; restore-keys prefix-match picks up the newest.
+      #
+      # Only build/lib is cached. Measured on Legion: the closure's oleans and
+      # ileans are 0.45 GiB (3,302 artifacts), comfortably inside the 10 GB
+      # per-repo budget, whereas the whole .lake is 26 GB -- 15 GB of build/lib
+      # for all 10,870 modules and 4.8 GB of generated C. mathlib is not cached
+      # here at all: `lake exe cache get` fetches its 4.28 GiB from mathlib's own
+      # CDN in about a minute.
+      - name: Restore PF closure build cache
+        uses: actions/cache/restore@v4
         with:
-          path: |
-            PF_Lean4_Code/.lake
-          key: lake-${{ runner.os }}-${{ hashFiles('PF_Lean4_Code/lean-toolchain', 'PF_Lean4_Code/lake-manifest.json') }}-${{ github.sha }}
+          path: PF_Lean4_Code/.lake/build/lib
+          key: pfclosure-${{ runner.os }}-${{ hashFiles('PF_Lean4_Code/lean-toolchain', 'PF_Lean4_Code/lake-manifest.json') }}-${{ github.run_id }}
           restore-keys: |
-            lake-${{ runner.os }}-${{ hashFiles('PF_Lean4_Code/lean-toolchain', 'PF_Lean4_Code/lake-manifest.json') }}-
-            lake-${{ runner.os }}-
+            pfclosure-${{ runner.os }}-${{ hashFiles('PF_Lean4_Code/lean-toolchain', 'PF_Lean4_Code/lake-manifest.json') }}-
+            pfclosure-${{ runner.os }}-
 
       - name: Run ./verify.sh
         run: |
           bash ./verify.sh
         shell: bash
+      # Publishes partial progress even when the build step is killed. This is
+      # the half that breaks the save-only-on-success deadlock, so it must stay
+      # `if: always()`.
+      - name: Save PF closure build cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: PF_Lean4_Code/.lake/build/lib
+          key: pfclosure-${{ runner.os }}-${{ hashFiles('PF_Lean4_Code/lean-toolchain', 'PF_Lean4_Code/lake-manifest.json') }}-${{ github.run_id }}
+
