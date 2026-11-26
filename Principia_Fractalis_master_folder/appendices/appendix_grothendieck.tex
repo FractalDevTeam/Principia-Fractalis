@@ -121,8 +121,36 @@ R_f(\alpha, s, U) = \sum_i R_f(\alpha, s, U_i) \cdot \Psi_{\text{RQG}}(U_i)
 
 \textbf{Step 3:} This coherent sheaf category is precisely $\text{Sh}(\mathcal{C}_{\text{FRO}}, J_{\text{fractal}})$.
 
-Complete proof in \cite{zalamea2012}, adapted to FRO context.
+The conceptual framing follows \cite{zalamea2012}; what remains to be proved is set out in the scope note below.
 \end{proof}
+
+\emph{Scope (rev 2) --- what this appendix establishes.} The three steps above
+are a \emph{programme}, not a proof: Step~1 says ``show'' and is not carried
+out, and neither $\mathcal{C}_{\text{FRO}}$ nor $J_{\text{fractal}}$ is
+constructed here as a site --- no covering family is exhibited and the
+Grothendieck-topology axioms are not verified for the displayed coherence
+condition. Accordingly this appendix's own Open Questions section says that we
+have \emph{argued} $\mathcal{T}_\infty$ is a topos, and that is the accurate
+description; the theorem above should be read as the proposal that argument
+supports.
+
+The sentence that previously closed this sketch attributed a complete proof to
+\cite{zalamea2012}. That attribution is withdrawn. Zalamea's
+\emph{Synthetic Philosophy of Contemporary Mathematics} is a work of philosophy
+of mathematics and contains no proof of this statement --- it could not, since
+$\mathcal{T}_\infty$ is defined in the present work. It is cited here for the
+conceptual framing of Grothendieck's thought, which is what it supplies.
+
+There is no formalisation: a corpus-wide search of the Lean companion finds
+\emph{zero} modules mentioning a topos, and none relating
+$\mathcal{T}_\infty$ to a sheaf category. This is a \emph{specified task}
+rather than an impossibility --- the pinned mathlib carries 76 files under
+\texttt{CategoryTheory/Sites}, so sites, Grothendieck topologies and sheaves are
+available to state the claim against. What would be required, in order: define
+$\mathcal{C}_{\text{FRO}}$ as a category; verify that $J_{\text{fractal}}$
+satisfies the Grothendieck-topology axioms; prove
+$A_k \cong \text{Sh}(\mathcal{C}_k, J_k)$ at a single finite level; and only
+then address the limit.
 
 \begin{greenbox}[What Does This Mean?]
 \textbf{🟢 Interpretation:} The Timeless Field is not a "place" but a \textbf{logical structure}. It's the category of all possible fractal coherences. When we say "$\Phi$ exists in $\mathcal{T}_\infty$," we mean "$\Phi$ is a sheaf satisfying the fractal gluing conditions."
@@ -280,8 +308,20 @@ where $H^1$ measures the "global minus local" obstruction to gluing.
 \end{theorem}
 
 \begin{proof}[Proof Sketch]
-In IIT, $\Phi$ quantifies information that exists globally but not in any local part. This is precisely the definition of $H^1$: cochains that are globally non-trivial but locally trivial. Complete proof in \cite{tononi2016}, reinterpreted via topos theory.
+In IIT, $\Phi$ quantifies information that exists globally but not in any local part. This is precisely the definition of $H^1$: cochains that are globally non-trivial but locally trivial. \cite{tononi2016} is the source for $\Phi$ itself; it contains no cohomological content, and the identification above is not proved there or here.
 \end{proof}
+
+\emph{Scope (rev 2).} The argument above is an \emph{analogy}, not a
+derivation. An equation between Tononi's $\Phi$ and a cohomology group requires
+both sides to be defined on the same object: a consciousness sheaf on a stated
+site, and a $\Phi$ given as a functional of that sheaf. Neither is constructed
+in this work, so the displayed identity is a proposal about what $\Phi$
+\emph{is}, not a computed equality --- and no formalisation of it exists. The
+structural observation that survives independently of the identity is the one
+the two axioms above state: integration of compatible local data is the
+gluing condition, and failure to integrate is an obstruction. That much is a
+faithful description of a sheaf; the identification of the obstruction group
+with $\Phi$ is not established here.
 
 \textbf{Implication:} Consciousness is not a substance but a \textbf{cohomological obstruction}. It's the "failure" of local data to determine global data. This failure \textit{is} consciousness.
 
@@ -421,6 +461,44 @@ The factor $\pi/10$ is the \textbf{transition rate} between these regimes—it g
 \item \textbf{Cosmology:} The Big Bang is $\mathcal{T}_\infty$ crystallizing into $\mathcal{M}^4$ (Chapter on Ocean)
 \item \textbf{Black holes:} Interior has $\text{ch}_2 < 0.95$, is non-material (information stored in sheaf, not spacetime)
 \end{enumerate}
+
+\subsection{Verification status}
+
+This appendix is the most speculative material in the book, and until revision 2
+it was the only one of the manuscript's \texttt{.tex} files making
+theorem-shaped claims without a verification ledger. The labels below use the
+same scheme as the chapters.
+
+\begin{itemize}
+\item \textbf{ASSERTED (not derived)} --- Theorem~\ref{thm:timeless_topos},
+  $\mathcal{T}_\infty \simeq \text{Sh}(\mathcal{C}_{\text{FRO}},
+  J_{\text{fractal}})$. The accompanying sketch is a three-step programme whose
+  first step is not carried out; the site is not constructed; no Lean module in
+  the companion mentions a topos. Formalisable in principle --- the pinned
+  mathlib provides \texttt{CategoryTheory/Sites} --- and therefore a specified
+  task, not an impossibility.
+\item \textbf{ASSERTED (not derived)} ---
+  Theorem~\ref{thm:consciousness_cohomology}, $\Phi(\mathcal{C}) =
+  H^1(\mathcal{C}, \mathbb{R})$. Supported by analogy; both sides would first
+  have to be defined on a common object. No formalisation.
+\item \textbf{STANDARD MATHEMATICS} --- the expository material on sheaves,
+  toposes and Grothendieck topologies in Sections 2 and 3, which is textbook
+  content and is not claimed as original.
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- the identification of
+  $\text{ch}_2 = 0.95$ as a cognitive phase transition, and the readings of
+  relativity, cosmology and black-hole interiors in sheaf terms. These are
+  interpretations; none is derived here and none is measured.
+\item \textbf{SCOPE} --- the artistic sections (Tarkovsky, Gehry, Kiefer) are
+  offered as analogy and carry no mathematical claim.
+\end{itemize}
+
+One connection the spine asserts is \emph{absent} from this manuscript and is
+recorded here rather than left implicit: no chapter or appendix relates the
+churn observable to the gluing arrow. The Lean companion now proves that the
+Frobenius churn scales by exactly $3$ under the substrate's own connecting map,
+so that the $3^{-k}$-weighted churn is the quantity that descends to
+$\mathcal{T}_\infty$; connecting that to the sheaf picture of this appendix is
+open, and is not claimed anywhere in this book.
 
 \subsection{Open Questions}
 
