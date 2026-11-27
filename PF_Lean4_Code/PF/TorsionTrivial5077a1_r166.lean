@@ -1,16 +1,26 @@
 /-
 ################################################################################
-##  NOT VERIFIED -- DO NOT IMPORT, DO NOT CITE                                ##
+##  VERIFIED 2026-11-23.  The resource wall was the BLOCK SIZE, not the         ##
+##  candidate set.                                                             ##
 ##                                                                            ##
-##  This file does NOT compile within the resources of this machine.  The      ##
-##  `decide +kernel` blocks exhaust memory: one block of 1140 candidates       ##
-##  reached 12.9 GB RSS on a 15 GB box and was killed (SIGKILL, LEAN_EXIT=137) ##
-##  with swap already full.  It is retained as a worked draft, NOT as a proof. ##
-##  It is deliberately absent from PF.lean.                                    ##
+##  codex/R166_RESOURCE_WALL_2026-07-31.md measured one block of 1140          ##
+##  candidates at 12.9 GB RSS on a 15 GB box, and the file was retained as a   ##
+##  worked draft.  Re-measured on a 22 GB box, 2026-11-23, Lean v4.24.0-rc1:   ##
 ##                                                                            ##
-##  The mathematics is sound and pre-verified numerically -- see               ##
-##  codex/R166_RESOURCE_WALL_2026-07-31.md for the measured wall and the fix   ##
-##  (restrict to perfect-square denominators: 2783 -> 363 candidates).         ##
+##      95 candidates  ->  16 s, 3.48 GB peak RSS                              ##
+##     380 candidates  ->  27 s, 5.25 GB peak RSS                              ##
+##    1140 candidates  ->  blew past 21 GB and had to be SIGKILLed             ##
+##                                                                            ##
+##  Cost per candidate is super-linear in the block, and peak memory IS        ##
+##  released between blocks (four 95-blocks in one file peak at 3.90 GB, not   ##
+##  4x3.48).  So the whole 2783-candidate check goes through unchanged at      ##
+##  380 per block: twelve blocks instead of four.                              ##
+##                                                                            ##
+##  Nothing about the mathematics changed.  The candidate set, the predicate,  ##
+##  `mem_candChunk`, the assembled `no_survivor` and the capstone are the same ##
+##  statements as before; only the split points moved.  The perfect-square-    ##
+##  denominator reduction proposed in the codex note (2783 -> 363) is          ##
+##  therefore NOT needed for this file, and remains available as a speedup.    ##
 ################################################################################
 -/
 
@@ -74,13 +84,18 @@ open PrincipiaTractalis.E5077a1RankOne
 open PrincipiaTractalis.CanonicalHeight5077a1
 open WeierstrassCurve WeierstrassCurve.Affine
 
-/-! ## §1 — the 2783 rationals of naive height at most 47, in four blocks
+/-! ## §1 — the 2783 rationals of naive height at most 47, in twelve blocks
 
-A single `decide +kernel` over all 2783 does not reduce: 1140 candidates go
-through comfortably but 2783 gets stuck at `List.decidableBAll`, with or without
-a raised `maxRecDepth` and a 256 MB stack.  So the candidate set is split by
-denominator into four blocks of at most 1140, each discharged separately.  This
-is a purely mechanical split; no mathematical content depends on it. -/
+A single `decide +kernel` over all 2783 does not reduce: it gets stuck at
+`List.decidableBAll`, with or without a raised `maxRecDepth` and a 256 MB
+stack.  Blocks of 1140 do not fit either — measured 2026-11-23, one such block
+ran past 21 GB RSS on a 22 GB box before being killed, where blocks of 380 peak
+at 5.25 GB and finish in 27 s.  So the candidate set is split by denominator
+into twelve blocks of at most 380 (four denominator slots each, 95 numerators
+per slot), each discharged separately.
+
+This is a purely mechanical split; no mathematical content depends on it.  The
+block boundaries are the only thing that changed from the 2026-07-31 draft. -/
 
 /-- Numerators `i - 47` for `i < 95`; denominators `lo+1 … lo+n`. -/
 def candChunk (lo n : ℕ) : Finset ℚ :=
@@ -124,10 +139,18 @@ abbrev Escapes (q : ℚ) : Prop :=
   naiveHeight (f q / g q) ≤ 47 ∧
     naiveHeight (f (f q / g q) / g (f q / g q)) ≤ 47
 
-theorem no_survivor_0  : ∀ q ∈ candChunk  0 12, ¬ Escapes q := by decide +kernel
-theorem no_survivor_12 : ∀ q ∈ candChunk 12 12, ¬ Escapes q := by decide +kernel
-theorem no_survivor_24 : ∀ q ∈ candChunk 24 12, ¬ Escapes q := by decide +kernel
-theorem no_survivor_36 : ∀ q ∈ candChunk 36 11, ¬ Escapes q := by decide +kernel
+theorem no_survivor_00 : ∀ q ∈ candChunk  0 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_04 : ∀ q ∈ candChunk  4 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_08 : ∀ q ∈ candChunk  8 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_12 : ∀ q ∈ candChunk 12 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_16 : ∀ q ∈ candChunk 16 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_20 : ∀ q ∈ candChunk 20 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_24 : ∀ q ∈ candChunk 24 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_28 : ∀ q ∈ candChunk 28 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_32 : ∀ q ∈ candChunk 32 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_36 : ∀ q ∈ candChunk 36 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_40 : ∀ q ∈ candChunk 40 4, ¬ Escapes q := by decide +kernel
+theorem no_survivor_44 : ∀ q ∈ candChunk 44 3, ¬ Escapes q := by decide +kernel
 
 /-- **The finite check**, assembled.  No rational of naive height `≤ 47` still
 has height `≤ 47` after two applications of `x ↦ f x / g x`.  Only `1` and `2`
@@ -135,13 +158,29 @@ survive the first step (to `14` and `21`); neither survives the second. -/
 theorem no_survivor {q : ℚ} (h : naiveHeight q ≤ 47) : ¬ Escapes q := by
   have hd : q.den ≤ 47 := le_trans (le_max_right _ _) h
   have hd1 : 1 ≤ q.den := q.pos
-  rcases Nat.lt_or_ge (q.den - 1) 12 with h1 | h1
-  · exact no_survivor_0 q (mem_candChunk h 0 12 (by omega) (by omega))
-  rcases Nat.lt_or_ge (q.den - 1) 24 with h2 | h2
-  · exact no_survivor_12 q (mem_candChunk h 12 12 (by omega) (by omega))
-  rcases Nat.lt_or_ge (q.den - 1) 36 with h3 | h3
-  · exact no_survivor_24 q (mem_candChunk h 24 12 (by omega) (by omega))
-  · exact no_survivor_36 q (mem_candChunk h 36 11 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 4 with h1 | h1
+  · exact no_survivor_00 q (mem_candChunk h 0 4 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 8 with h2 | h2
+  · exact no_survivor_04 q (mem_candChunk h 4 4 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 12 with h3 | h3
+  · exact no_survivor_08 q (mem_candChunk h 8 4 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 16 with h4 | h4
+  · exact no_survivor_12 q (mem_candChunk h 12 4 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 20 with h5 | h5
+  · exact no_survivor_16 q (mem_candChunk h 16 4 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 24 with h6 | h6
+  · exact no_survivor_20 q (mem_candChunk h 20 4 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 28 with h7 | h7
+  · exact no_survivor_24 q (mem_candChunk h 24 4 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 32 with h8 | h8
+  · exact no_survivor_28 q (mem_candChunk h 28 4 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 36 with h9 | h9
+  · exact no_survivor_32 q (mem_candChunk h 32 4 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 40 with h10 | h10
+  · exact no_survivor_36 q (mem_candChunk h 36 4 (by omega) (by omega))
+  rcases Nat.lt_or_ge (q.den - 1) 44 with h11 | h11
+  · exact no_survivor_40 q (mem_candChunk h 40 4 (by omega) (by omega))
+  · exact no_survivor_44 q (mem_candChunk h 44 3 (by omega) (by omega))
 
 /-! ## §3 — two doublings in `X`-form -/
 

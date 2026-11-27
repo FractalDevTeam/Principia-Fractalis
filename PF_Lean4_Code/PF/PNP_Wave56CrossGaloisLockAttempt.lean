@@ -486,7 +486,7 @@ theorem IBM_cascade_meets_disc5_lock
 Trivial Prop asserting the file's scope statement (records the discipline
 of NOT claiming a Clay discharge, for referee/manuscript citation). -/
 
-/-- **Wave 56 scope-statement marker** — the cross-Galois lock is the
+/-! **Wave 56 scope-statement marker** — the cross-Galois lock is the
     SHARPEST framework-internal P-vs-NP reduction permitted by Wave
     41B. It does NOT discharge Clay P-vs-NP, does NOT discharge Hodge,
     and does NOT weaken the Wave 41B sharp no-go. The lock's content

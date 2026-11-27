@@ -1,20 +1,26 @@
 /-
 # `PolyLogContinuationHankelEquivalence 0` — First Concrete Discharge
 
-**STATUS (2026-05-24): WORK-IN-PROGRESS — does NOT currently build.**
+**STATUS (2026-11-22): BUILDS. Four name/shape errors repaired; no
+statement changed, nothing deleted, no `sorry` and no `axiom`.**
 
-This file is NOT in PF.lean's import chain. Audit found 4 hard errors:
-- Line 173:4 type mismatch
-- Line 181:6 type mismatch
-- Line 213:4 unknown constant `Complex.continuousAt_clog`
-- Line 219:10 invalid field notation
+The 2026-05-24 audit recorded four hard errors. All four were
+*naming* defects in the proof scripts, not defects in the
+mathematics, and all four are now fixed:
 
-The claims of "axiom-free, no `sorry`" below are MISLEADING pending
-fix — the file does not currently compile. The Phase 3 capstone
-compositional structure is sound; the implementation needs the
-correct mathlib lemma names. Capstone axiom guarantees (P_NEQ_NP, RH
-chain, B-clean, H₃, IBM Galois pair) are UNAFFECTED — they do not
-depend on this file.
+- two `Real.pi_pos.ne'` (`π ≠ 0`) where the goal was `0 ≠ π` —
+  `LT.lt.ne` is the right projection, not `LT.lt.ne'`;
+- `Complex.continuousAt_clog` — the lemma EXISTS
+  (`Mathlib/Analysis/SpecialFunctions/Complex/Log.lean:214`) but is
+  declared after `end Complex`, so it lives in the ROOT namespace:
+  `_root_.continuousAt_clog`;
+- `(Metric.ball_mem_nhds …).mp` — `Metric.ball_mem_nhds` states a
+  membership, not an iff; the lemma wanted is
+  `Filter.eventually_of_mem`.
+
+The Phase 3 capstone compositional structure was sound throughout.
+Capstone axiom guarantees (P_NEQ_NP, RH chain, B-clean, H₃, IBM
+Galois pair) are unaffected — they do not depend on this file.
 
 -----------------------------------------------------------------
 
@@ -187,7 +193,8 @@ theorem polyLogContinuationHankelEquivalence_zero_witness_ball_exists :
       have : (1/2 : ℂ) = ((1/2 : ℝ) : ℂ) := by push_cast; ring
       rw [this, Complex.arg_ofReal_of_nonneg (by norm_num : (0 : ℝ) ≤ 1/2)]
     rw [h_arg]
-    exact Real.pi_pos.ne'
+    -- goal is `(0 : ℝ) ≠ π`, i.e. `LT.lt.ne` of `Real.pi_pos`, not `.ne'`
+    exact Real.pi_pos.ne
   have h_log_half : Complex.log (1/2 : ℂ) = -Complex.log 2 := by
     rw [show (1/2 : ℂ) = (2 : ℂ)⁻¹ by norm_num]
     have h_2_arg_ne_pi : (2 : ℂ).arg ≠ Real.pi := by
@@ -195,7 +202,8 @@ theorem polyLogContinuationHankelEquivalence_zero_witness_ball_exists :
         have : (2 : ℂ) = ((2 : ℝ) : ℂ) := by push_cast; ring
         rw [this, Complex.arg_ofReal_of_nonneg (by norm_num : (0 : ℝ) ≤ 2)]
       rw [h_arg2]
-      exact Real.pi_pos.ne'
+      -- goal is `(0 : ℝ) ≠ π`, i.e. `LT.lt.ne` of `Real.pi_pos`, not `.ne'`
+      exact Real.pi_pos.ne
     exact Complex.log_inv 2 h_2_arg_ne_pi
   -- ‖-log 2‖ = log 2.
   have h_norm_log_half : ‖Complex.log (1/2 : ℂ)‖ = Real.log 2 := by
@@ -226,19 +234,26 @@ theorem polyLogContinuationHankelEquivalence_zero_witness_ball_exists :
   -- ‖log z - log (1/2)‖ < ε on ball (1/2) δ.
   have h_half_mem : (1/2 : ℂ) ∈ Complex.slitPlane :=
     Complex.mem_slitPlane_iff_arg.mpr ⟨h_half_arg_ne_pi, h_half_ne⟩
+  -- `continuousAt_clog` is declared AFTER `end Complex` in
+  -- `Mathlib/Analysis/SpecialFunctions/Complex/Log.lean:214`, i.e. in the ROOT
+  -- namespace (section `LogDeriv`, under `open Complex`).  It is therefore
+  -- `_root_.continuousAt_clog`, never `Complex.continuousAt_clog`.
   have h_cont_log : ContinuousAt Complex.log (1/2 : ℂ) :=
-    Complex.continuousAt_clog h_half_mem
+    _root_.continuousAt_clog h_half_mem
   have h_eventually : ∀ᶠ z in nhds (1/2 : ℂ),
       ‖Complex.log z - Complex.log (1/2 : ℂ)‖ < ε := by
     have := (Metric.continuousAt_iff.mp h_cont_log) ε hε_pos
     -- this : ∃ δ > 0, ∀ z, dist z (1/2) < δ → dist (log z) (log (1/2)) < ε
     obtain ⟨δ, hδ_pos, hδ_imp⟩ := this
-    exact (Metric.ball_mem_nhds (1/2 : ℂ) hδ_pos).mp
-      (Filter.eventually_of_forall (fun z hz => by
+    -- `Metric.ball_mem_nhds` is a MEMBERSHIP (`ball x δ ∈ 𝓝 x`), not an iff, so
+    -- it carries no `.mp`.  The filter lemma that consumes a neighbourhood
+    -- together with a pointwise bound on it is `Filter.eventually_of_mem`.
+    exact Filter.eventually_of_mem (Metric.ball_mem_nhds (1/2 : ℂ) hδ_pos)
+      (fun z hz => by
         rw [Metric.mem_ball] at hz
         have h_dist := hδ_imp hz
         rw [Complex.dist_eq] at h_dist
-        exact h_dist))
+        exact h_dist)
   -- Extract a metric ball.
   obtain ⟨δ, hδ_pos, h_δ_subset⟩ := Metric.eventually_nhds_iff.mp h_eventually
   -- Take ρ := min ρ₀ δ.

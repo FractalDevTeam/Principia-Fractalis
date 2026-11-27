@@ -99,7 +99,7 @@ theorem sevenMillenniumUnification_realized : SevenMillenniumUnification where
   alpha_skeleton_rigidity :=
     framework_alpha_values_match_rigidity
 
-/-- Scope statement marker. Bundling does not equal solving. Of the
+/-! Scope statement marker. Bundling does not equal solving. Of the
     seven: Poincaré is genuinely solved (Perelman 2003, external);
     the other six retain their scope statement per-axis. What this
     theorem establishes: the seven are sub-stories of one
