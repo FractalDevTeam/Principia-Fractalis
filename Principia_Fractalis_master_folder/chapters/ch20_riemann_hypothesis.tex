@@ -763,6 +763,85 @@ at the level of $\widetilde{\eta}_{\mathrm{ext}}$ rather than of
 $\xi$ or of $\tilde{T}_3^{\textsf{sym}}$.  None of the three strands
 closes the Clay statement.
 
+\paragraph{Verification status (2026-11-27).}
+The chapter's principal claims, each checked against the Lean declaration it
+names. The chapter states four times that the Clay statement remains open; this
+block says precisely what is delivered instead.
+\begin{itemize}
+
+\item \textbf{PROVEN (kernel-verified), and inside the build gate} --- the
+Dirichlet eta extension and its zero structure: the pointwise zero
+equivalence, the extra family on $\Re s = 1$, non-vanishing on
+$\Re s \ge 1$, and the Euler values, including
+\texttt{dirichletEtaExt\_at\_two} ($\eta(2) = \pi^2/12$). Thirty-one
+\texttt{DirichletEta} modules sit in \texttt{PF.lean}'s import closure. As the
+chapter already says, this \emph{transposes} the Riemann Hypothesis rather
+than closing it.
+
+\item \textbf{PROVEN (kernel-verified), unconditional} ---
+\texttt{xi\_positive\_at\_15\_certified\_direct\_r120}, giving
+$\Xi$-positivity at $t = 15$ with no hypotheses.
+
+\item \textbf{PROVEN per panel, but OUTSIDE the build gate} --- the zero-free
+box march to $c = 829/64 \approx 12.84$. The three hundred
+\texttt{FourierPanels} modules compile individually and are unconditional, but
+\texttt{FourierPanels} appears \textbf{zero} times in \texttt{PF.lean}, so no
+CI target compiles them, and there is no single capstone theorem. The chapter
+states this itself; it is a deliberate, cost-measured exclusion, and it should
+be read as scope rather than as a defect.
+
+\item \textbf{CONDITIONAL REDUCTION --- and the reduction is
+non-informative} --- the Hilbert--P\'olya route to the literal Clay statement.
+\texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} concludes
+\texttt{Clay\_RiemannHypothesis\_Standard}, which unfolds to the literal
+critical-strip statement about mathlib's \texttt{riemannZeta} --- a faithful
+target, not an analogue --- from two premises. The first,
+\texttt{Hardy1914\_published\_theorem\_substrate\_citation}, is the
+nonemptiness of the positive on-line zero ordinates, a faithful encoding of a
+genuine published theorem. The second,
+\texttt{Mayer1991\_Cohen2025\_substrate\_HP\_program\_citation}, unfolds to
+\texttt{HilbertPolyaProgramConjecture\_Positive}, whose own definition site
+labels it \emph{``PUBLISHED CONJECTURE; not a theorem''}.
+
+\emph{And the two do not combine into new information.}
+\texttt{hp\_positive\_iff\_countable\_nonempty} shows
+\texttt{PF\_T3SymIsHilbertPolyaOperator\_Positive} is equivalent to
+countability together with nonemptiness, and
+\texttt{positive\_on\_line\_zeta\_zero\_ordinates\_countable\_discharged}
+discharges countability \emph{unconditionally}. So the operator premise follows
+from the first premise alone, and the second premise is therefore logically
+equivalent to the Riemann Hypothesis itself. The corpus records this in its own
+words: \texttt{HilbertPolyaIdentificationPrecise.lean} states that discharging
+\texttt{PF\_T3SymIsHilbertPolyaOperator} is logically equivalent to
+discharging RH. The discharge is honest, and it transports nothing.
+
+\item \textbf{CONDITIONAL REDUCTION, module outside the gate} ---
+\texttt{rh\_below\_15\_conditional}, which places every $\Xi$-zero in the
+$[-15,15]$ box on the critical line given three right-edge sign facts. Those
+facts are substantive quantified inequalities, each labelled open at its
+definition. The module is imported by no other module and is outside
+\texttt{PF.lean}'s closure.
+
+\item \textbf{ASSERTED (not derived)} --- Theorem~\ref{thm:alpha-three-halves}.
+It is stated in a theorem environment, asserting among other things that
+$\alpha = 3/2$ ``forces all zeros to $\Re(s) = 1/2$'', and it carries
+\emph{no proof} --- the following line gives a motivation, not an argument. No
+Lean declaration proves any of its three parts. Read it as the chapter's
+motivating choice of exponent, which is what it is.
+
+\item \textbf{EMPIRICAL --- numerical, not machine-checked} --- the
+convergence study for $N \in \{10,\dots,100\}$ invoked inside the
+spectral-rigidity proof. Its source is an unpublished computational manuscript
+whose own note disclaims the critical line, no Lean declaration covers
+$N$-convergence, and the $N = 20$ table it rests on shows eigenvalue-to-zero
+distances of $0.018$ to $0.092$. The phrase ``complete rigorous proof'' there
+overstates its own reference and should be read as this entry.
+
+\item \textbf{ASSERTED (not derived)} --- $\alpha_{\textsf{RH}} = 3/2$, an
+empirical reading, as the chapter's opening scope note already states.
+
+\end{itemize}
+
 \section{Conclusion}
 
 \textbf{The Riemann Hypothesis remains open; nothing in this chapter closes the Clay statement.}  What this chapter and its Lean companion do deliver:

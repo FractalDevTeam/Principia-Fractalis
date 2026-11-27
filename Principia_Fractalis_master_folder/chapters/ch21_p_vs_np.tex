@@ -1545,6 +1545,97 @@ This framework extends beyond P vs NP:
 The ambition of this framework reaches past the P vs NP question into a proposed foundation for quantum physics on fractal spaces.  (As the Conclusion below states explicitly: the Clay P vs NP statement remains open; nothing in this chapter closes it.  The ``foundation for quantum physics on fractal spaces'' is a research programme, not an established result.)
 \end{keyidea}
 
+\paragraph{Verification status (2026-11-27).}
+The chapter's principal claims, each checked against the Lean declaration it
+names. The chapter states twice that no Lean theorem in this corpus matches the
+Clay statement; this block says what the Turing-machine work does establish,
+and where the remaining gap is.
+\begin{itemize}
+
+\item \textbf{PROVEN (kernel-verified)} --- the configuration encoding.
+\texttt{TMConfig} carries a state, a tape and a head position, and
+\texttt{encodeConfig} is the genuine prime-power G\"odel encoding of
+Definition~\ref{def:config-encoding}:
+$2^{q} \cdot 3^{i} \cdot \prod_j p_{j+1}^{\,a_j+1}$, built on
+\texttt{nthPrime} and \texttt{primorial}. This is real arithmetic, not a
+placeholder.
+
+\item \textbf{PROVEN (kernel-verified)} --- the V4 class-separation carrier.
+\texttt{DeterministicMachineV4} carries \texttt{decide}, \texttt{runtime}, an
+\texttt{encodeRun} into \texttt{TMConfig}, and \texttt{acceptingStates}, under
+two genuine constraints: \texttt{computability} (the encoded run is positive)
+and \texttt{decide\_via\_encodeRun}, which forces the Boolean decision to be
+\emph{computed by} the trajectory's state component. Measured
+comment-stripped: zero \texttt{Prop := True}, zero \texttt{sorry}, zero
+project axioms, and the carrier is non-trivially inhabited by two distinct
+members. V4 also supersedes the earlier V2 and V3 carriers, whose
+trivial-inhabitation defects are closed and recorded in the kernel.
+
+\item \textbf{PROVEN (kernel-verified) --- of a real-number inequality
+only} --- \texttt{PF.SpectralGap.P\_neq\_NP} is
+$\texttt{spectral\_gap} \neq 0$, where
+$\texttt{spectral\_gap} = \pi/(10\sqrt2) - \pi/(10(\varphi+\frac14))$. It is
+arithmetic about two values this framework \emph{defines}; no operator appears
+in the statement, and it is not a statement about complexity classes. The
+chapter's objectives note and its conclusion both say this, and they are
+accurate.
+
+\item \textbf{The classes in \texttt{Complexity.lean} are not $\mathrm{P}$ and
+$\mathrm{NP}$.} \texttt{Machine} there has exactly two fields --- an
+\texttt{accepts} predicate and a \texttt{steps} count --- which are
+independent arbitrary functions, with the type parameters unused. So the
+polynomial-time bound constrains the chosen \texttt{steps} field rather than
+any computation, and can be met by taking it identically zero. This is why the
+chapter's statement that no Lean theorem here matches the Clay statement is
+correct, and the strong machine work is the \texttt{TMConfig}/V4 line above,
+not this one.
+
+\item \textbf{The remaining gap, named by V4 itself} --- \texttt{runtime} is
+not yet tied to the number of configuration transitions from the initial
+configuration, so ``polynomial time'' is not yet polynomial time \emph{of a
+computation}. There is no step relation on \texttt{TMConfig} in the corpus.
+V4's own scope note names this as the next target. That single addition is what
+would make the time bound mean what its name says.
+
+\item \textbf{ASSERTED (not derived)} --- $\alpha_P = \sqrt 2$ and
+$\alpha_{NP} = \varphi + 1/4$. In Lean \texttt{alpha\_of\_class} is
+\texttt{opaque}, and the pinning Prop asserts only the two algebraic
+conditions; its docstring records the provenance as one observation, two
+conjectures and a heuristic. Note also that the route from the gap to a
+literal class separation is circular: the antecedent pins
+\texttt{alpha\_of\_class} at two different values on the two classes, which
+already forces the classes to differ.
+
+\item \textbf{The gap's numerical value is unsettled, and the chapter says
+so} --- the empirical $0.0891219046$, the golden-modulation closed form
+$\approx 0.131$, and the Lean closed form
+\texttt{spectral\_gap\_value} $\approx 0.0539677$ disagree. The chapter records
+this as its open derivation problem; the figure $0.0891$ repeated elsewhere in
+the chapter should be read against it.
+
+\item \textbf{REFUTED} --- the golden-modulation conjecture
+$H_{NP} = U(\varphi) H_P U^\dagger(\varphi)$. Unitary conjugation preserves
+spectrum, so this forces the gap to vanish, contradicting
+\texttt{spectral\_gap\_positive}; the refutation is in the kernel as
+\texttt{unitary\_conjugation\_incompatible\_with\_spectral\_gap}. Where the
+chapter's closing list still presents it as a live conjecture, this entry
+governs.
+
+\item \textbf{ASSERTED (not derived)} --- the fractal-dimension separation and
+the ``second proof'' reading of it, the three barrier-circumvention theorems,
+and the derived $\mathrm{BQP} \neq \mathrm{NP}$ and
+$\mathrm{PSPACE} \neq \mathrm{EXP}$ statements. None has a Lean declaration.
+The chapter's own conclusion already walks the dimension claim back to an
+exact inequality between two constants the framework assigns; that walk-back
+governs the earlier phrasing.
+
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- the coherence panel across
+$142$ problems. It exhibits a uniform coherent response across several
+scientific fields under one resonance structure, which is what it was built to
+show. It is not a solve rate, and it carries no significance figure.
+
+\end{itemize}
+
 \section{Conclusion}
 
 \textbf{The Clay P versus NP statement remains open; nothing in this chapter closes it.}  The Lean theorem $\mathtt{PF.SpectralGap.P\_neq\_NP}$ is a real-number inequality $\mathtt{spectral\_gap} \ne 0$ on the three-axiom bar $[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$; the step from that fact to the literal class separation $\mathbf{P} \ne \mathbf{NP}$ is \emph{conditional} on the V2/V3 class-separation bridge's faithful-separator premise (still open).  What this chapter and its Lean companion do deliver:
