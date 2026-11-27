@@ -571,9 +571,37 @@ rank $1$, $F = i\theta$ gives $\mathrm{Tr}(F\wedge F) = -\theta\wedge\theta$, an
 $\theta = e_{12} \pm e_{34}$ yields $\pm 2\,e_{1234}$
 --- so $[0,1]$ requires
 $\mathrm{Ch}_2 \ge 0$ as a \emph{hypothesis}, which Remark~\ref{rem:range-rigorous}
-does not supply. This sign fact is standard exterior algebra and is
-\textbf{prose only}: it is \emph{not} formalized, and the scalar inequalities a
-previous draft cited for it ($2 > 0$ and $-2 < 0$) did not establish it.
+does not supply. This sign fact was \textbf{prose only} until 2026-11-26; it is now
+formalized on the very family the argument above uses.
+\texttt{PF/ChernWeilDegree4SignIndefinite\_2026\_11\_26.lean} defines the
+degree-4 invariant $\mathrm{pf}$ on the components of a skew form and
+\emph{pins it to a \textsc{Mathlib} invariant by proof}:
+$(\mathrm{pf}\,\theta)^2 = \det\theta$ on the two-plane family
+$\theta = \lambda e_{12} + \mu e_{34}$, which is exactly where the witnesses
+above live. The sign claim is then exhibited as two skew forms with the
+\emph{same} determinant --- both $1$, by \texttt{Matrix.det} --- and
+\emph{opposite-sign} $\mathrm{pf}$, namely $+1$ and $-1$
+(\texttt{pf\_not\_sign\_definite}); since $\mathrm{pf}^2 = \det$ there, the
+determinant provably cannot distinguish them, so the sign is genuine
+information and it takes both values. \texttt{pf\_surjective} strengthens this
+to \emph{every} real value, and \texttt{nonnegativity\_must\_be\_hypothesised}
+proves that ``$0 \le \mathrm{pf}\,\theta$ for every skew $\theta$'' is
+\emph{false} --- which is the conclusion this remark needs: $\Ch_2 \ge 0$
+cannot be derived and must be supplied as a hypothesis. All eighteen
+declarations sit on $[\mathtt{propext}, \mathtt{Classical.choice},
+\mathtt{Quot.sound}]$.
+
+The earlier draft's scalar inequalities $2 > 0$ and $-2 < 0$ did not establish
+the fact and remain withdrawn; what replaced them is the pinning to $\det$,
+which is what they lacked. Two things are still \emph{not} formalized and are
+not claimed: the identification
+$\theta \wedge \theta = 2\,\mathrm{pf}(\theta)\, e_{1234}$, because \textsc{Mathlib}
+at the pinned version carries no basis or nonvanishing result for exterior
+powers (measured 2026-11-26), so the top form is not known to be nonzero; and
+$(\mathrm{pf}\,\theta)^2 = \det\theta$ for \emph{every} skew $4\times 4$ matrix,
+which is true and was checked on $400$ random rational samples but is beyond
+what the pinned \texttt{simp} set discharges. The removal condition for the
+first is an exterior-power basis upstream.
 \emph{Normalisation}: $\text{ch}_2^{\max}$ is a supremum over a class fixing
 neither the rank $r$ nor the dimension $2n$, and the \emph{estimate}
 $|\mathrm{Tr}(F\wedge F)| \lesssim C r M^2$ is unbounded in $r$. An unbounded

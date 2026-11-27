@@ -342,9 +342,19 @@ theorem tower_values :
     formalized here:
 
     * that `Tr(F_∇ ∧ F_∇)` is not sign-definite, so `Ch₂ ∈ [0,1]` needs
-      `Ch₂ ≥ 0` as a hypothesis. Standard exterior algebra; the first attempt
-      "witnessed" it with the scalar inequalities `2 > 0` and `−2 < 0`, which
-      is decoration and has been removed.
+      `Ch₂ ≥ 0` as a hypothesis. **No longer prose only, as of 2026-11-26:**
+      `PF/ChernWeilDegree4SignIndefinite_2026_11_26.lean` proves it on the
+      two-plane family `λ e₀₁ + μ e₂₃` that the book's own witnesses inhabit,
+      by pinning the degree-4 invariant to `Matrix.det` with a proof
+      (`pf_sq_eq_det_on_twoPlane`) and then exhibiting two skew forms with the
+      SAME determinant and OPPOSITE-SIGN invariant (`pf_not_sign_definite`),
+      plus `nonnegativity_must_be_hypothesised`. The first attempt's scalar
+      inequalities `2 > 0` and `−2 < 0` were decoration and stay removed; the
+      pinning to `det` is what they lacked. Still NOT formalized there, with a
+      measured removal condition: the identification
+      `θ ∧ θ = 2·pf(θ)·e₀₁₂₃`, blocked because mathlib at this pin has no
+      exterior-power basis or nonvanishing result, so the top form is not known
+      to be nonzero.
     * that the normalizing supremum is infinite. The first attempt proved only
       that an *upper estimate* `C·r·M²` is unbounded in the rank, which does
       not establish it. **What is claimed now is only that the normalizer is
