@@ -100,11 +100,28 @@ asserted.
    at the last column the `castSucc` branch is taken, so `succAbove 3 2 = 2`
    while the other two give `3`. Getting that backwards is the obvious trap.
 
-### What is NOT done here
+### SUBMITTED — [#46607](https://github.com/leanprover-community/mathlib4/pull/46607)
 
-**Not submitted.** Opening a PR is external submission and therefore Pablo's,
-as is any PR description or reply. The code is verified and filed; the
-submission is his.
+Pablo authorised submission on 2026-11-26 and chose the **FractalDevTeam**
+identity. Live state at creation: OPEN, not draft, **MERGEABLE**, `+43 −0` in one
+file, label `new-contributor`, head `FractalDevTeam:det-fin-four-sub` → `master`.
+
+The PR body carries the AI disclosure mathlib's policy requires, states the two
+deliberate choices so a reviewer can disagree, and notes that the base is an
+older `master` with an offer to rebase.
+
+**Why the base is older, and why it is fine.** The push had to avoid
+`.github/workflows/` because the `gh` token carries `gist, read:org, repo` and
+**no `workflow` scope**, while FractalDevTeam's fork master was four months
+behind — so a current-master branch would have carried workflow files and
+GitHub refuses that without the scope. Basing on the fork's own master avoids it
+entirely: the `det_fin_*` region is **byte-identical** between the two bases
+(verified by md5), so the PR diff is only the 43 lines and it merges cleanly.
+Correctness was still verified against **current** master `8ec7bd8e`, which is
+what CI effectively tests.
+
+**To remove that constraint permanently**, the token needs the `workflow` scope
+(`gh auth refresh -h github.com -s workflow`). Not required for this PR.
 
 ---
 
@@ -124,3 +141,33 @@ folder:
 Both are larger than `det_fin_four` and so worse bets while the queue is
 reviewer-bound. `det_fin_four` first; if it merges, the contributor history
 makes the larger ones easier to land.
+
+### CI STATUS — red, and the cause is the base, not the mathematics
+
+`ci (fork) / Build` **fails at step 6, "check the cache tool is recent"**, after
+which every downstream step including `build mathlib` is **skipped**. Lean never
+ran, so the lemmas are not implicated. mathlib CI guards against a stale base,
+and the Aug-3 base tripped that guard.
+
+Underlying cause, measured: the submitted branch inherits the Aug-3 base's
+`lean-toolchain` of **v4.33.0-rc2**, while the verification was done against
+**v4.37.0-rc1**; `lakefile.lean` and `lake-manifest.json` also differ between the
+two bases. So routing around the missing `workflow` scope by using a stale base
+bought a configuration that had never been compiled locally. That was a bad
+trade and is recorded as such rather than glossed.
+
+**The fix is a rebase onto current master**, which is what a reviewer would ask
+for anyway. It needs the `workflow` scope on the gh token, because a
+current-master branch carries `.github/workflows/` and GitHub refuses such a push
+without it:
+
+    gh auth refresh -h github.com -s workflow
+
+After that: rebase `det-fin-four-sub` onto `upstream/master` and force-push. No
+proof work is expected — the lemmas already build clean in situ on current
+master with 0 warnings, and on our own pin `v4.24.0-rc1`.
+
+**Lesson for this lane.** A stale base is not a cosmetic "behind master" state on
+mathlib: CI refuses it outright. Either hold the submission until the token has
+the `workflow` scope, or sync the fork first. Do not trade base freshness for a
+push that merely succeeds.
