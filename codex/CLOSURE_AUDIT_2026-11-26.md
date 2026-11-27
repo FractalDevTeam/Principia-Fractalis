@@ -106,10 +106,48 @@ also un-blocks the two Referee files that import it. Deliberately left as a
 focused follow-up rather than bundled into a batch gating — editing a file whose
 line numbers a refutation document cites deserves its own pass.
 
-**Excluded, with cause recorded:** `AxiomElimination_Definitions`, and therefore
-`Referee.EncodeConfigTapeInjective_2026_11_22` and
-`Referee.AxiomEliminationDefinitionsRefutation_2026_11_22`, which import it.
-**63 of 66 gated.**
+**Excluded at first, with cause recorded:** `AxiomElimination_Definitions`,
+and the two `Referee` files alongside it. **63 of 66 gated** at that point.
+
+### RESOLVED 2026-11-27 (`bf4871fe`) — 66 of 66 gated
+
+Repaired by **nesting, not merging**, because the two structures are different
+types and substituting either would have changed what `encodeConfig` encodes.
+`PF.TuringEncoding` is the incumbent and keeps the bare name; the newcomer's
+declarations moved to `namespace PrincipiaTractalis.AxiomElimination`. Nothing
+renamed, line count unchanged, zero importers so no call site moved, and the
+namespace structure was verified to be a single open/close pair before editing.
+
+Kernel check rather than inference — both types now coexist, with distinct
+alphabets:
+
+```lean
+example (c : PrincipiaTractalis.TMConfig) : List (Fin 3) := c.tape
+example (c : PrincipiaTractalis.AxiomElimination.TMConfig) : List (Fin 2) := c.tape
+```
+
+**What gating it brings in, checked first.** The refutation proved two of that
+module's theorems FALSE, so gating both needed to know what they say *now*. They
+were repaired honestly on 2026-11-22/23: both are **conditional restatements**
+with explicit `hTape`/`hSmall` hypotheses whose docstrings state outright that
+the unconditional form is FALSE and refuted at `⟨1,0,[]⟩`; `encodeConfig_tape_eq`
+has a real proof; and **Section 5 discloses the restatements' own near-vacuity
+in the kernel** — "very nearly unsatisfiable, so neither restatement yet carries
+the complexity content the original (false) statements were reaching for", with
+`conditional_restatements_coverage_disclosed` stating the nat version is vacuous
+outright. So the closure holds the restatements *and* their own disclosure. On
+the record here so it is not rediscovered later as a defect.
+
+The refutation's three docstring citations were repointed to the nested path, and
+its removal condition — "when it is repaired, these should be replaced by imports
+of the originals" — is now **MET**. That swap is left as a separate decision,
+since it would make the refutation depend on the module it refutes.
+
+| final state | |
+|---|---|
+| closure | **1,768 modules** |
+| of the 66 audited, still ungated | **0** |
+| aggregate `PFClosure` | **5,593 jobs, rc=0** |
 
 ---
 
