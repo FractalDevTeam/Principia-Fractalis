@@ -613,6 +613,66 @@ the quotient vanishing. \textbf{Two repairs}: fix $r$ in the admissible class,
 and either establish $\mathrm{Ch}_2 \ge 0$ on it or normalise by
 $\sup|\mathrm{Ch}_2|$ over that fixed class.
 
+\paragraph{The missing family, supplied --- and exactly how far it goes
+(2026-11-26).}
+\texttt{PF/ChernWeilDensityInvariantUnbounded\_2026\_11\_26.lean} supplies the
+admissible family this remark says is absent, using the remark's own rank-1
+witness. Let $F$ be the rank-$r$ curvature that is block-diagonal with $r$
+copies of $\theta = e_{12} + e_{34}$. Then
+$\mathrm{Tr}(F\wedge F) = \sum_{i,j} F_{ij}\wedge F_{ji}$ collapses to
+$r\,(\theta\wedge\theta)$, the off-diagonal terms vanishing, so the degree-4
+invariant is exactly $2r$ --- \emph{derived from the sum}, with no growth rate
+assumed (\texttt{trWedgeTop\_blockDiag}). The decisive half is that every
+component of every entry is bounded by $1$ \emph{for every} $r$
+(\texttt{blockDiag\_entries\_bounded}): admissibility is uniform in the rank, so
+the bound does not degrade as the invariant grows
+(\texttt{trWedgeTop\_unbounded\_over\_admissible\_class}). The quantities are
+pinned rather than posited --- \texttt{pfPair\_self} ties the polarised
+invariant to $\mathrm{pf}$, and \texttt{pf\_sq\_eq\_det\_on\_twoPlane} ties
+$\mathrm{pf}$ to \texttt{Matrix.det} --- so there is a proof at every link down
+to a \textsc{Mathlib} invariant.
+
+\emph{What this does and does not settle.} $\mathrm{Ch}_2(C_X)$ is an
+\emph{integral}, and the family above bounds a \emph{pointwise} quantity. So
+this is \textbf{not} a proof that $\text{ch}_2^{\max} = \infty$, and it is not
+claimed as one: the density-to-integral passage is the same unformalized step as
+the identification of the component-level invariant with
+$\mathrm{Tr}(F_\nabla \wedge F_\nabla)$ itself. What improves is the
+\emph{reason}: the status was ``the \emph{estimate} is unbounded, which does not
+show the supremum is infinite''; it is now ``the \emph{invariant} is unbounded
+over the admissible class''. That is strictly more than an unbounded estimate
+and strictly less than an infinite supremum, and the remaining gap is named
+rather than glossed.
+
+\paragraph{The two named repairs, with what is and is not known.}
+\begin{itemize}
+\item \textbf{``Fix $r$'' works, with an explicit constant.} For rank $r$ and a
+  componentwise bound $M$, $|\mathrm{Tr}(F\wedge F)| \le 6 r^2 M^2$
+  (\texttt{trWedgeTop\_bounded\_at\_fixed\_rank}) --- finite, with $6r^2$ in
+  place of the unspecified $C$. The normalisation is well defined once the rank
+  is fixed.
+\item \textbf{But it costs rank-dependence.} Distinct ranks give distinct
+  normalisers, since the family attains $2r$
+  (\texttt{repair\_costs\_rank\_dependence}). So the repaired $ch_2$ is a
+  \emph{family} of normalisations indexed by $r$, not one invariant. This is
+  what the ``independent of the particular choice of $M$ once fixed'' clause
+  conceals: fixing $M$ does not suffice, the rank must be fixed too, and the
+  invariant is then relative to that choice.
+\item \textbf{``Establish $\mathrm{Ch}_2 \ge 0$'' is still open, and is
+  \emph{not} refuted.} The sign result cited above shows the degree-4 integrand
+  takes both signs, which closes the \emph{easy} route --- one cannot obtain
+  $\mathrm{Ch}_2 \ge 0$ from pointwise positivity of the integrand. It does not
+  settle the integral: a sign-indefinite integrand can integrate to a
+  nonnegative number for structural or topological reasons. A search of the Lean
+  corpus, this manuscript and the Acer tree on 2026-11-26 found no material
+  bearing on $\mathrm{Ch}_2 \ge 0$ either way. It remains an open hypothesis,
+  and this book does not assume it.
+\end{itemize}
+
+\noindent The norm constraint $\|F_\nabla\|_{L^\infty} \le M$ is modelled
+componentwise in the formalisation. That is a modelling choice and is stated
+here rather than left implicit.
+
 \textbf{(B) The threshold $0.95$ belongs to the entanglement form}
 $1 - \mathrm{Tr}(\rho_A^2)$ of Proposition~\ref{prop:quantum-consciousness},
 because it is the only one of the five that is simultaneously rigorously
