@@ -12,7 +12,7 @@ globs = ["PF.+"]
 [[lean_lib]]
 name = "MathlibCandidates"
 srcDir = "../mathlib_candidates"
-roots = ["GramLinearIndependent", "TateLimit", "HilbertSchmidt", "TransferOperatorCompact", "TransferOperatorTrace", "NotFermat42Sub"]
+roots = ["GramLinearIndependent", "TateLimit", "HilbertSchmidt", "TransferOperatorCompact", "TransferOperatorTrace", "NotFermat42Sub", "DetFinFour"]
 
 # CI TARGET. `PF` above uses globs = ["PF.+"], i.e. ALL ~10,870 modules including
 # the 1,265 standalone leaf panels, which cannot finish inside a GitHub runner's

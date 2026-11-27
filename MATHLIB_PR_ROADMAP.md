@@ -1,3 +1,11 @@
+> **Status verified live 2026-11-26.** READ `codex/MATHLIB_PR_LANE_2026-11-26.md` FIRST.** Status columns in
+> this file have been stale before and cost a session real time. As of
+> 2026-11-26, verified live via `gh`: #42093, #42095 and #42100 are all
+> OPEN, MERGEABLE and **unreviewed** — blocked on maintainer attention,
+> not on code. A new candidate (`det_fin_three_of`, `det_fin_four`,
+> `det_fin_four_of`) is verified and filed in `mathlib_candidates/`,
+> **not submitted**.
+
 # Mathlib PR Series — C\*-Algebra Ideal & Spectral-Projection Theory
 
 **Goal:** build, upstream-first, the missing mathlib theory identified by the r107a wall map
