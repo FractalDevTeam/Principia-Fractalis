@@ -28,7 +28,7 @@ import PF.Basic
 -- rather than re-proved, per that file's own instruction.
 import PF.Referee.EncodeConfigTapeInjective_2026_11_22
 
-namespace PrincipiaTractalis
+namespace PrincipiaTractalis.AxiomElimination
 
 open Nat (nth)
 
@@ -671,4 +671,4 @@ WHAT IS NOW PROVED OUTRIGHT, with no hypotheses:
   mathlib `v4.24.0-rc1` does not carry.
 -/
 
-end PrincipiaTractalis
+end PrincipiaTractalis.AxiomElimination

@@ -43,6 +43,16 @@ Scope: this refutes the two statements as written. It says nothing against the
 additive term for the state and head contributions, or under a nonempty-tape
 hypothesis. Supplying the corrected bounds, and a real proof of
 `encodeConfig_tape_eq`, is formalisation work and is not done here.
+
+Update 2026-11-27: the module under test now compiles, and its
+declarations were moved into the nested namespace
+`PrincipiaTractalis.AxiomElimination` to resolve a `TMConfig` collision
+with `PF.TuringEncoding` (whose tape alphabet is `Fin 3`, not `Fin 2`).
+The citations above are updated to that path. The header's removal
+condition -- "when it is repaired, these should be replaced by imports of
+the originals" -- is now MET; making that swap is a separate decision,
+since it would make this refutation depend on the module it refutes.
+
 -/
 
 import Mathlib.Algebra.Order.BigOperators.GroupWithZero.List
@@ -55,12 +65,12 @@ namespace PF.Referee.AxiomEliminationDefinitionsRefutation
 
 /-! ## §1 — Mirrors of the three declarations under test -/
 
-/-- Mirror of `PrincipiaTractalis.nat_log`
+/-- Mirror of `PrincipiaTractalis.AxiomElimination.nat_log`
     (`PF/AxiomElimination_Definitions.lean:57`). -/
 def nat_log (b : ℕ) (n : ℕ) : ℕ :=
   if b > 1 ∧ n > 0 then Nat.log b n else 0
 
-/-- Mirror of `PrincipiaTractalis.TMConfig`
+/-- Mirror of `PrincipiaTractalis.AxiomElimination.TMConfig`
     (`PF/AxiomElimination_Definitions.lean:79`). Note that no field carries an
     invariant: `state` and `head` are unconstrained naturals and `tape` is an
     arbitrary list, so a configuration with a nonzero state and an empty tape
@@ -70,7 +80,7 @@ structure TMConfig where
   head : ℕ
   tape : List (Fin 2)
 
-/-- Mirror of `PrincipiaTractalis.encodeConfig`
+/-- Mirror of `PrincipiaTractalis.AxiomElimination.encodeConfig`
     (`PF/AxiomElimination_Definitions.lean:90`). -/
 noncomputable def encodeConfig (c : TMConfig) : ℕ :=
   2 ^ (c.state) * 3 ^ (c.head) *
