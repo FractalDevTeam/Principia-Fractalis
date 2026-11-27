@@ -1003,6 +1003,86 @@ on $\mathcal{H}_k = \mathbb{C}^{3^k}$.
 
 So standard quantum mechanics emerges as the "level-$k$ approximation" to the full Timeless Field dynamics.
 
+\paragraph{Verification status (2026-11-27).}
+The chapter's principal claims, each checked against the Lean declaration it
+names. Two narrower ledgers already sit above and are not repeated here: the
+machine-verification status of Theorem~\ref{thm:existence-uniqueness}, and the
+referee scope of Theorem~\ref{thm:ternary-net-axioms}.
+\begin{itemize}
+
+\item \textbf{PROVEN (kernel-verified)} --- the operator-algebraic core, on
+$\mathcal{T}_\infty$ in its completion form (Remark~\ref{rem:two-carriers}):
+faithfulness of the canonical trace, $C^*$-simplicity, uniqueness of the
+tracial state, and the \texttt{CStarAlgebra} instance. See the Theorem~4.9
+ledger above for the declaration names. This is the chapter's load-bearing
+result.
+
+\item \textbf{PROVEN (kernel-verified)} --- the ternary local net satisfies the
+Haag--Kastler axioms: \texttt{local\_commute}, \texttt{isotony},
+\texttt{region\_locality}, \texttt{additivity}, \texttt{net\_eq\_iSup\_finite}
+and \texttt{completeness}, bundled as
+\texttt{ternary\_net\_five\_axioms}, with covariance supplied separately. The
+referee-scope paragraph of \S\ref{sec:emergent-locality} states the carrier
+qualifications and remains the accurate reading.
+
+\item \textbf{REFUTED / WITHDRAWN as a construction} --- the method of
+Definitions~\ref{def:connecting-morphisms} and~\ref{def:timeless-field}. The
+connecting maps are set to run \emph{downward} ($\varphi_{k,k'} : A_{k'} \to
+A_k$ for $k' > k$) and $\mathcal{T}_\infty$ is then boxed as the
+\emph{projective} limit of that system. Taken literally this yields the
+\textbf{zero object}: on $K_0$ the system is $\mathbb{Z}
+\xleftarrow{\times 3} \mathbb{Z} \xleftarrow{\times 3} \cdots$, a compatible
+family satisfies $a_k = 3a_{k+1}$, hence $a_0 = 3^k a_k$ for every $k$, and an
+integer divisible by every power of $3$ is $0$. Proved 2026-10-05 in
+\texttt{PF/Ch01Ch03Ch04Ch06Foundation\-Defects.lean} ---
+\texttt{inverse\_limit\_gives\_divisibility},
+\texttt{divisible\_by\_all\_powers\_is\_zero},
+\texttt{inverse\_limit\_collapses\_everywhere}.
+
+\emph{The values are not withdrawn.} $K_0(\mathcal{T}_\infty) \cong
+\mathbb{Z}[1/3]$ and $K_1 \cong 0$ are standard for the UHF algebra
+$M_{3^\infty}$ and remain correct. What is withdrawn is the stated method and
+the direction of the limit: $\mathbb{Z}[1/3]$ is the \emph{direct} limit
+$\mathbb{Z} \xrightarrow{\times 3} \mathbb{Z} \xrightarrow{\times 3} \cdots$,
+and that is also what the corpus actually formalizes --- the increasing union
+with monotone inclusions (\texttt{Substrate3Inf}, \texttt{tower\_mono},
+\texttt{tower\_dense}). The repair is to define $\mathcal{T}_\infty$ as the
+norm closure of that union, which is the completion carrier of
+Remark~\ref{rem:two-carriers}.
+
+\item \textbf{ASSERTED (not derived), and inert} --- the fractal-resonance
+tensor factor $F_\alpha$. For each fixed $(\alpha, n)$ the quantity
+$\mathcal{R}_f(\alpha,n)$ is a complex \emph{number}, not an operator, so the
+$C^*$-algebra it generates is a subalgebra of $\mathbb{C}$ of dimension at most
+one (\texttt{scalar\_algebra\_is\_one\_dimensional}). The factor meant to carry
+$\alpha$-dependence into every level, and hence into $\mathcal{T}_\infty$,
+therefore contributes nothing through that route.
+
+\item \textbf{REFUTED / WITHDRAWN} --- $\mathcal{M}^4 =
+\mathrm{Aut}(\mathcal{T}_\infty)/\mathrm{Aut}_0(\mathcal{T}_\infty)$ as a
+formalized claim. In the corpus the spacetime-emergence marker and the
+force-unification marker are the \emph{same proposition}:
+\texttt{spacetimeEmergence\_eq\_forceUnification} proves
+$\texttt{SpacetimeEmergence} = \texttt{ForceUnification}$ by \texttt{rfl}, both
+being $\texttt{Nonempty}\,(\mathcal{T} \to \mathcal{T})$ and witnessed by the
+identity. \S\ref{sec:spacetime-emergence} discloses the collapse in its scope
+note; the summary formula box below carries the same marker.
+
+\item \textbf{ASSERTED (not derived)} --- the $K$-theory statement as a Lean
+object. \texttt{TimelessFieldKTheoryUpgrade} supplies a typed
+\texttt{KTheoryCarrier} with a Pimsner--Voiculescu-shaped connecting map, which
+is a genuine structure; it does \emph{not} prove that the operator-algebraic
+$K_0(\mathcal{T}_\infty)$ equals $\mathbb{Z}[1/3]$, which would need
+operator $K$-theory that mathlib does not yet have.
+
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY
+VALIDATED} --- the crystallisation threshold $\mathrm{ch}_2 > 0.95$ and the
+species table. In Lean the threshold is the chosen numeral
+$\texttt{ch2.value} \ge 19/20$; no measurement in this corpus sets it, and no
+proof assistant can.
+
+\end{itemize}
+
 \section{Summary and Looking Ahead}
 \label{sec:summary}
 
