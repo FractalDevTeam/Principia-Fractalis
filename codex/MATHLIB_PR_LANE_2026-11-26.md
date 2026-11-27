@@ -171,3 +171,19 @@ master with 0 warnings, and on our own pin `v4.24.0-rc1`.
 mathlib: CI refuses it outright. Either hold the submission until the token has
 the `workflow` scope, or sync the fork first. Do not trade base freshness for a
 push that merely succeeds.
+
+### Commit-message provenance note
+
+The commit that first added the CI-status section above, `96fc10f4`, carries the
+**wrong message**: it reads "ci: break the cache deadlock and stop generating C
+the gate never reads", which belongs to CI work from 2026-11-25. The *content* of
+that commit is correct; only the message is mis-attached.
+
+Cause: a PowerShell block aborted on a blocked `Remove-Item` before writing its
+message file, so `git commit -F` silently read a stale scratch file dated
+2026-11-25 21:04. Not amended and not force-pushed, since `96fc10f4` is already
+on origin and rewriting pushed history is a destructive operation — the record is
+corrected here instead, as with ch20's phantom SHA.
+
+Procedure fix: write the message file fresh and verify its first line before
+committing; never reuse a fixed scratch path for commit messages.
