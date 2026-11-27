@@ -54,8 +54,21 @@ into eight categories:
     theorem, three-prover mirrored.
 \end{enumerate}
 
-Every \verb|#print axioms| check below returns
-\texttt{[propext, Classical.choice, Quot.sound]}. The session's
+Every \verb|#print axioms| check below on a declaration carrying
+mathematical content returns
+\texttt{[propext, Classical.choice, Quot.sound]}. The exceptions are
+the \texttt{True}-valued position markers and audit trails, whose
+bars are \emph{empty}: of the three checks carried by the literal
+Clay NS module two are empty, and all four in the P-vs-NP spectral
+anchors module are. An empty bar is not a stronger result than the
+three-axiom bar. For a \texttt{Prop} mentioning $\mathbb{R}$ it is
+unobtainable --- the substrate-to-literal bridge conditional, which
+is the identity function on its own hypothesis, still reports all
+three, because the check traverses the statement as well as the
+proof --- so an empty bar identifies a declaration that states
+\texttt{True}. These are enumerated and proved vacuous in
+\texttt{PF/Referee/ClayAxisSubstratePositionMarker\_\\
+Disclosure\_2026\_11\_27.lean}. The session's
 companion paper is currently
 \texttt{Papers/principia\_fractalis\_clean\_2026-06-23.tex}
 (8 pages, the substrate's exposition paper; the longer
@@ -405,11 +418,30 @@ records the substrate-to-literal direction: under the framework's
 substrate standards on the $\alpha_{\textsf{NS}} = 3\pi/2$
 NS-class instance plus the Fujita--Kato 1964 Gaussian-lift
 substrate construction, the literal Clay NS statement is the
-target end of the substrate-to-literal bridge. A substrate-position
-marker theorem \verb|literal_clay_NS_substrate_bridge_substrate_position|
-records the substrate's position on the literal-Clay-NS
-bridge: the substrate forces the structural contract of the
-literal statement.
+target end of the substrate-to-literal bridge.
+
+The accompanying substrate-position marker
+\verb|literal_clay_NS_substrate_bridge_substrate_position|
+states \texttt{True}. It records a position, not a result: it does
+not force the structural contract of the literal statement, and
+nothing in this appendix should be read as claiming that it does.
+Its \verb|#print axioms| bar is empty rather than
+\texttt{[propext, Classical.choice, Quot.sound]}, and that is the
+signal, since a \texttt{Prop} quantifying over Schwartz initial
+data could not have an empty bar.
+
+The content on this axis is the equivalence proved in
+\texttt{PF/Referee/ClayAxisSubstratePositionMarker\_\\
+Disclosure\_2026\_11\_27.lean}. Each of the five named
+published-mathematics anchors in the bridge's hypothesis list is
+\verb|Prop := True|, so discharging them is free and
+\verb|Substrate_Forces_Literal_Clay_NS_Bridge| is logically
+equivalent to
+\verb|Clay_Literal_NS3D_ExistenceSmoothness_Fefferman2000|
+itself; the conditional bridge theorem, whose body is its own
+hypothesis variable, carries that hypothesis through unchanged.
+The equivalence is proved. Neither side of it is asserted, and the
+same file states that non-verdict explicitly.
 
 \section{Complete Unified Substrate Position}
 \label{sec:complete-unified-substrate-position}
