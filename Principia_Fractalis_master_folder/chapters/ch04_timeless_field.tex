@@ -271,6 +271,40 @@ Explicitly:
 Elements of $\mathcal{T}_\infty$ are \textit{consistent sequences} of operators across all scales.
 \end{defn}
 
+\begin{remark}[Which $\mathcal{T}_\infty$ carries the proofs]
+\label{rem:two-carriers}
+The object boxed above is the \emph{projective} limit: consistent sequences
+$(a_k)$ with $\phi_{k,k'}(a_{k'}) = a_k$. In Lean~4 that is
+\texttt{TimelessFieldElement}, a structure with a \texttt{seq} field and a
+\texttt{compat} field, and it is the carrier over which this chapter's
+open-content propositions are stated.
+
+The kernel-verified $C^*$ results of this chapter --- faithfulness of $\tau$,
+$C^*$-simplicity, uniqueness of the tracial state, the \texttt{CStarAlgebra}
+instance --- are proved on a \emph{different} carrier: the metric completion
+of the \emph{inductive} limit, \texttt{TimelessFieldCompletion}
+$=$ \texttt{Completion}$\,$\texttt{TimelessFieldRing}, discussed in the scope
+passage of \S\ref{sec:emergent-locality} below. The two constructions run
+in opposite directions and the corpus does not identify them by fiat.
+
+What \emph{is} proved, in
+\texttt{PF/Referee/TimelessFieldCarrierBridge\_\\
+2026\_11\_27.lean}, is that they are one identity apart. Each element $x$ of
+the completion already carries a level tower $k \mapsto E_k(x)$ valued in
+$M_{3^k}$ --- the same matrices the projective limit is built from --- and
+\texttt{levelTower\_injective} shows that tower determines $x$. So the
+completion injects into the sequence space underlying the projective limit.
+Landing it in the projective limit itself requires exactly one equation,
+\texttt{CarrierBridgeCompatibility}: that the chapter's connecting morphisms
+$\phi_{k,k'}$, realised as digit-level partial traces, agree with the
+conditional expectations $E_k$, which are built by iterating a single-step
+partial trace. Given that equation the two objects are identified, with the
+projective limit the ambient sequence space and the completion the part of it
+carrying the $C^*$-structure; the implication is proved and the equation is
+not. A reader should therefore take ``$\mathcal{T}_\infty$'' in a
+kernel-verified statement to mean the completion.
+\end{remark}
+
 This is it—the mathematical object from which everything emerges.
 
 \begin{figure}[h]
