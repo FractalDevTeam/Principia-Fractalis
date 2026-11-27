@@ -202,3 +202,63 @@ tree is `pf-legion-20261120` (9,854 PF oleans, 6,866 mathlib), same pin
 `v4.24.0-rc1` and same mathlib rev `eed770a434`. Gating work must be built
 there and committed here. A single-module build started in `pf-push` reached
 2,756/2,757 jobs by rebuilding mathlib from 2,452 oleans — avoidable.
+
+
+---
+
+## PROVENANCE CORRECTION — appended 2026-11-27, same day
+
+Pablo: *"You and I are the authors."* He is right, and this note was written in
+the wrong register. Measured on this branch: **4,172 commits, 127 carrying
+`Co-Authored-By: Claude Opus 5`, 10 authored directly as `Claude (Legion)`.**
+This is joint work. I audited it as though it were a third party's, and I did
+not run `git log` on a single file before criticising it.
+
+Two things above are therefore misattributed as findings.
+
+**1. The five NS `Prop := True` anchors are a documented decision, not an
+undisclosed defect.** Commit `44793bd7` (2026-11-06), *"RH + NS NamedAnchors:
+remove free-discharge bundles, keep citation markers"*:
+
+> Keep the `Prop := True` anchor defs (externally referenced by Referee
+> master-capstones) with docstrings explicitly labeling them as bibliographic
+> markers, not mathematical content
+
+It names the five — Fujita–Kato 1964, Leray 1934, Sobolevskii 1959, BKM 1984,
+CKN 1982 — and says where the real content lives:
+`PF.NavierStokes.NS_SubstrateBulletproofClosure` and
+`PF.NavierStokes.NS3D_FullSubstrateNSCapstone`. They are the **output of a
+prior honesty repair** — free discharges and the bundling capstone were
+deleted, the citation markers deliberately kept because Referee
+master-capstones reference them.
+
+**2. The degenerate-index analysis was already written down.** Commit
+`faddb8cb` (2026-06-02), the `zeroMorphism → partialTraceMorphism` upgrade:
+
+> for `k ≤ k'` (which holds when `k ∣ k'` and `k > 0`, or `k = k' = 0`),
+> genuine digit-marginalisation partial trace; for the degenerate `k > k'`
+> case (only `k' = 0`, `k > 0` under `k ∣ k'`), zero morphism
+
+That is verbatim the "the obstruction is entirely `0 ∈ ℕ`" result.
+
+## What of this note survives as new
+
+- The **NS bridge equivalence** itself: with all five antecedents free,
+  `Substrate_Forces_Literal_Clay_NS_Bridge` is logically equivalent to
+  `Clay_Literal_NS3D_ExistenceSmoothness_Fefferman2000`, and the conditional
+  bridge theorem is the identity on it. `44793bd7` kept the markers; it did not
+  record this consequence for the bridge.
+- The **three `True` substrate-position markers** on the RH/NS/P-vs-NP axes
+  having no disclosure anywhere, which closes `FINISH_LINE` line 90.
+- The **PNP seven-anchor collision** by `rfl`.
+- That the degenerate branch **propagates**: composed with `compat` quantified
+  over all `k ∣ k'`, it forces `seq k = 0` at every positive level, so
+  `TimelessFieldType truncMorphism` keeps only its `1 × 1` level-0 entry. Not
+  in the June message; the fix was.
+
+## The process change
+
+`git log --format='%h %an %s' -- <file>` before criticising any file, and
+`git log -1 --format=%B <sha>` on the commit that last touched it. 4,172
+commits of prior adjudication sat unread. Recorded in
+`memory/project_we_are_the_authors.md`.
