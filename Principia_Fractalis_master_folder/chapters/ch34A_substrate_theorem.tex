@@ -2180,6 +2180,96 @@ the Clay non-acceptance and the full C\'ordoba/Mart\'inez-Zoroa /
 Buckmaster--Alp\"oge / OpenAI citation chain, see
 \texttt{codex/TWO\_ANCHOR\_STRATEGIC\_UPDATE\_2026-09-25.md}.
 
+\paragraph{Verification status (2026-11-27).}
+To hold this chapter to the standard of the machine-checked corpus, here is the
+status of its principal claims. Every entry was checked against the Lean
+declaration it names.
+\begin{itemize}
+
+\item \textbf{PROVEN (kernel-verified)} --- the UHF substrate and its
+operator-algebraic properties, on $\mathcal{T}_\infty$ in its completion form
+(see Remark~\ref{rem:two-carriers}): faithfulness of the canonical trace
+(\texttt{UHF\_trace\_faithful}), $C^*$-simplicity
+(\texttt{substrate\_completion\_simple\_unconditional}, Glimm 1960), uniqueness
+of the tracial state
+(\texttt{substrate\_tracial\_state\_space\_singleton}) and the
+\texttt{CStarAlgebra} instance. Three-axiom bar, no hypotheses. This is the
+chapter's load-bearing result and it is real.
+
+\item \textbf{PROVEN (kernel-verified)} --- \emph{minimal substrate rigidity}:
+\texttt{unified\_alpha\_skeleton\_forced\_by\_minimal\_invariants} really does
+force all ten $\alpha$-values. The carrier is ten genuine real unknowns (six in
+sector~1, four in sector~2), the invariant bundle is nine genuine real
+equations (five plus four), no field is \texttt{True}, and the conclusion is
+proved by algebraic rewriting rather than \texttt{rfl}. Necessity companions
+exist and are proved: \texttt{minimal\_invariants\_are\_strictly\_independent},
+\texttt{positivity\_hypotheses\_are\_strictly\_necessary},
+\texttt{perelman\_anchor\_is\_strictly\_necessary}.
+
+\emph{And the scope of that, stated here because it is the question a referee
+will ask.} Nine invariants plus the Perelman anchor is ten equations in ten
+unknowns, so the system is \emph{exactly determined} --- as
+\S\ref{sec:minimal-substrate-rigidity} already says. There is no redundancy,
+hence no residual constraint that could have failed, hence no predictive test
+that the $\alpha$-table passed. Uniqueness given the invariants is proved;
+that the invariants themselves are not chosen to produce these values is not
+proved, and is not claimed. Three of the nine are direct value assignments
+rather than cross-relations.
+
+\item \textbf{PROVEN-as-arithmetic (only)} --- the cross-Millennium algebraic
+identities, including $120 = 2\,\alpha_{YM}\,\alpha_{RH}\,(4\alpha_{NP}-3)^2$
+and the eleven shared invariants. These are true, and they are arithmetic about
+values this framework \emph{defines} ($\alpha_{RH} := 3/2$, $\alpha_{YM} := 2$,
+$\alpha_{BSD} := 3\pi/4$, \dots). They say nothing about the Millennium
+problems or about physics, as
+\S\ref{subsec:substrate-consequences-invariants} records.
+
+\item \textbf{CONDITIONAL REDUCTION --- documentary only} --- the Substrate
+Theorem \texttt{PrincipiaFractalisSubstrateTheorem} \
+($\texttt{PFSubstrateAntecedents} \to \texttt{PFSubstrateConsequences}$). Its
+proof discards the antecedent, and we recorded why on 2026-08-08 in
+\texttt{PF/SubstrateTheoremContent\_r216.lean}: the consequences hold under
+\emph{any} hypothesis
+(\texttt{consequences\_hold\_under\_any\_hypothesis}), under an unrelated one
+(\texttt{consequences\_hold\_under\_an\_unrelated\_hypothesis}), and the
+implication follows from its own conclusion
+(\texttt{substrate\_implication\_from\_conclusion}). The implication therefore
+carries no information about the antecedents, and the theorem's own docstring
+directs the reader to the unconditional form,
+\texttt{Prin\-cipia\-Fractalis\-Substrate\-Consequences\_holds\_}\allowbreak
+\texttt{unconditionally}, for corpus content. Cite that one. Accepting the
+implication is not accepting that a substrate exists or that it determines
+anything.
+
+\item \textbf{PROVEN-as-Lean-tautology (only)} --- the Voisin 2007 quintic
+sub-proposition, already labelled as such in
+\S\ref{sec:substrate-scoping}; the Dwork-pencil branch beside it is the
+same tautology and carries the same label. Also in this class: $\alpha_{\text{
+Poincar\'e}} = 1$, which is \texttt{rfl} on its own definition, and the BRST
+count $78 = 48+26+4$, which is arithmetic and involves no BRST complex.
+
+\item \textbf{ASSERTED (not derived)} --- the $\alpha$-values themselves,
+$\alpha_P = \sqrt 2$, $\alpha_{NP} = \varphi + 1/4$, $\alpha_{RH} = 3/2$ and
+the rest. They are the inputs the rigidity theorem is stated over, not outputs
+of it; see \texttt{codex/DERIVATION\_ANALYSIS\_alpha\_NP.md} for the four named
+derivation gaps that remain open.
+
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY
+VALIDATED} --- the IBM nine-way joint match, and the coherence panel across
+$142$ problems. The panel exhibits a uniform coherent response across several
+scientific fields under one resonance structure, which is what it was built to
+show; it is not a solve rate, and it carries no significance figure.
+
+\end{itemize}
+
+\noindent\emph{Currency.} The build figures quoted earlier in this chapter
+(``4030 jobs'' at \texttt{42990ea}, ``8516 jobs'' at \texttt{09e6336}) are
+stale. Measured 2026-11-27: the \texttt{PFClosure} target builds at
+\textbf{5{,}596 jobs}, exit $0$, zero errors and zero \texttt{sorryAx}, over an
+import closure of \textbf{1{,}771} modules; the manuscript compiles at
+\textbf{1{,}110} pages with zero \LaTeX{} errors and zero undefined citations
+or references.
+
 \section{Chapter Summary}
 \label{sec:substrate-theorem-summary}
 
