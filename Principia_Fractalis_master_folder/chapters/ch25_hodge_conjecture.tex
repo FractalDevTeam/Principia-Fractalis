@@ -647,6 +647,64 @@ For Hodge, $\varphi$ represents:
 The golden ratio is the "sweet spot" where these two realms communicate optimally. Too rational ($\alpha = p/q$) creates resonances. Too irrational ($\alpha = \pi, e$) loses algebraic structure. $\varphi$ is perfectly balanced.
 \end{level3}
 
+\paragraph{Verification status (2026-11-27).}
+The chapter's principal claims, each checked against the Lean declaration it
+names. The chapter's own assessment --- that this is the weakest Clay axis in
+the corpus and that no positive Hodge content is kernel-verified --- is
+accurate, and this block substantiates it rather than softening it.
+\begin{itemize}
+
+\item \textbf{ASSERTED (bibliographic only)} --- the seven named anchors.
+All seven are \texttt{def ... : Prop := True} and the file containing them
+contains no theorems; it states in its own header that it is bibliographic and
+makes no mathematical claim beyond the existence of the papers it names. Six
+further \texttt{Prop := True} anchors sit in its sibling file. These are
+citation markers, deliberately retained, and they carry no Hodge content.
+
+\item \textbf{ASSERTED (vacuous as stated)} --- the substantive-looking
+encoding. \texttt{HodgeAlgebraicRepresentation} takes a variety and a class
+index and uses \emph{neither}: both binders are underscored, and the three
+conjuncts are an inequality between two framework constants, the existence of a
+natural number $\le 20$, and the existence of a real equal to
+$\pi/(10\varphi)$. Each is satisfiable outright, so the predicate is the same
+proposition for every variety and every Hodge class. The six
+``substrate classes discharged'' downstream of it inherit that, and the
+quintic-algebraicity witness is a record carrying the Hodge class's own
+coefficient together with a string label. No geometry enters.
+
+\item \textbf{PROVEN-as-arithmetic (only)} --- the $\mathrm{ch}_2$ bracket
+$0.9618 < \mathrm{ch}_2(\mathrm{Hodge}) < 0.9619$. A real numerical bracket,
+proved on the three-axiom bar, about a number this framework defines. It says
+nothing about Hodge classes. Relatedly, the critical threshold
+$\sigma_c = 6/\pi^2 + \epsilon_{\text{quantum}} = 0.95$ is tautological: the
+corpus defines $\epsilon_{\text{quantum}} := \sigma_c - 6/\pi^2$, as the
+defining file's docstring states. No arithmetic derives $0.95$.
+
+\item \textbf{PROVEN (kernel-verified), and it is negative content} --- the
+numeric obstructions. \texttt{k3\_betti\_decomposition} ($1 + 20 + 1 = 22$),
+\texttt{k3\_twentytwo\_exceeds\_picard\_bound} and the abelian-fourfold Hodge
+dimension count are genuine and are the reason the test-case table was
+corrected. These are facts \emph{against} the chapter's earlier mechanism, and
+they are the only kernel-verified content on this axis.
+
+\item \textbf{REFUTED / WITHDRAWN} --- the test-case table's
+``$100\%$ of tested Hodge classes have $\sigma \ge 0.95$'', and the Hankel-rank
+$r \le 20$ claim. The chapter withdraws both in its own later remarks, which
+note that $r \le 20$ holds for none of the listed cases; the headline lines
+should be read under those withdrawals.
+
+\item \textbf{ASSERTED (not derived)} --- the concentration-implies-algebraicity
+chain, the self-adjointness proposition whose load-bearing step is an
+``$\approx$'', and the algorithm-correctness probability. The chapter already
+labels the first of these conjectural.
+
+\item \textbf{BLOCKED, measured} --- mathlib has no K\"ahler manifolds, no
+Hodge decomposition and no Chow groups at this pin, so the Clay statement
+cannot be written down here at all. That is the honest reason this axis is
+thin, and it is not a scoping choice.
+
+\end{itemize}
+
 \section{Conclusion}
 
 We have presented computational evidence for the Hodge Conjecture through fractal resonance:

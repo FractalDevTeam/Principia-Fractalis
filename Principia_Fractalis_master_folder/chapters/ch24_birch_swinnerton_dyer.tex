@@ -817,6 +817,78 @@ this corpus produces an \emph{analytic} rank, so BSD's equality
 $\rank E(\mathbb{Q}) = \ord_{s=1} L(E, s)$ remains exactly as open as
 before.
 
+\paragraph{Verification status (2026-11-27).}
+The chapter's principal claims, each checked against the Lean declaration it
+names. This is the Clay axis on which the corpus carries the most genuine
+unconditional arithmetic, and the one place where the gap to the Clay statement
+is a missing mathlib object rather than a scoping question.
+\begin{itemize}
+
+\item \textbf{PROVEN (kernel-verified)} --- two \emph{exact} Mordell--Weil
+ranks, unconditionally and with no hypotheses:
+\texttt{Ecurve\_rank\_eq\_zero} and \texttt{Ecurve32a2\_rank\_eq\_zero}, each
+of the form $\operatorname{rank}_{\mathbb{Z}} E(\mathbb{Q}) = 0$ on mathlib's
+own \texttt{Module.rank}. Supported by
+\texttt{not\_fermat\_42\_sub}: $a^4 - b^4 \neq c^2$ for nonzero integers, a
+result mathlib does not have.
+
+\item \textbf{PROVEN (kernel-verified)} --- rank lower bounds
+$1 \le \operatorname{rank}_{\mathbb{Z}} E(\mathbb{Q})$ for \textbf{sixteen}
+distinct curves: $37a1$, $43a1$, $53a1$, $61a1$, $79a1$, $80b$, $83a1$, $89a1$,
+$91a1$, $101a1$, $102a1$, $106a1$, $131a1$, $141a1$, $389a1$, $5077a1$. These
+are real arguments, not table reads --- e.g.\ \texttt{E91a1\_rank\_ge\_one}
+goes through \texttt{rank\_ge\_one\_of\_doubling\_orbit\_infinite} on an
+explicit point with an infinite doubling orbit.
+
+\emph{Correction to this chapter's own counts.} The text says ``five''
+rank-$\ge 1$ bounds in one place and ``eleven'' in another. Both are wrong; the
+corpus has sixteen.
+
+\item \textbf{PROVEN (kernel-verified)} --- the Heegner split condition, with
+teeth. \texttt{SplitsAt}~$p$~$d$ is genuine arithmetic in $\mathbb{Z}/p$, and
+\texttt{heegner\_split\_condition\_nine\_curves} discharges it for nine curves
+with explicit discriminants. The separation is real:
+\texttt{not\_heegner\_37\_neg8} proves $-8$ is not a square mod $37$, so the
+condition distinguishes $\mathbb{Q}(\sqrt{-7})$ from $\mathbb{Q}(\sqrt{-2})$ at
+$N = 37$ --- whereas the earlier placeholder identified them, as
+\texttt{placeholder\_is\_strictly\_weaker} records in the kernel.
+
+\item \textbf{CONDITIONAL REDUCTION} --- the seventeen-curve rank-agreement
+capstone. The seventeen anchors are \emph{typed hypotheses}, not discharged
+results; \texttt{MordellWeilRank\-Agreement17\_NamedAnchors.lean} says so in
+its own honest-scope block and names the mathlib gap that blocks them.
+\texttt{mordellWeilRankAgreementOn17Curves\_under\_namedAnchors} proves the
+implication from that bundle, and nothing more.
+
+\item \textbf{The analytic rank is not independently formalized.} In the typed
+bridge, \texttt{algebraicRankV4} and \texttt{analyticRankV4} are both
+\texttt{manuscriptRankV4} --- the same projection --- so their equality is
+\texttt{rfl}-trivial, as that file's own docstring states. The BSD bridge
+theorems therefore cannot bear on the Clay equality
+$\operatorname{rank} E(\mathbb{Q}) = \operatorname{ord}_{s=1} L(E,s)$, because
+the two sides of that equality are the same function in the encoding.
+
+\item \textbf{BLOCKED, measured} --- the $L$-function half. At this pin mathlib
+has \emph{no} elliptic-curve $L$-function: zero files mention an elliptic or
+Weierstrass curve anywhere under \texttt{Mathlib/NumberTheory/LSeries/}, and
+\texttt{hasseWeil} occurs nowhere in mathlib. So
+$\operatorname{ord}_{s=1} L(E,s)$ cannot currently be stated, let alone
+computed, and the Clay statement is untouched --- as this chapter's opening
+scope note already says.
+
+\item \textbf{REFUTED / WITHDRAWN} --- the $\varphi/e$ eigenvalue-multiplicity
+mechanism for the rank. The chapter's own warning boxes mark it ``false as
+stated'', with the independent non-reproduction recorded alongside. The
+worked examples retain tick marks for that mechanism and should be read under
+those warnings.
+
+\item \textbf{ASSERTED (not derived)} --- the fractal bound on
+the Tate--Shafarevich group, and $\mathrm{ch}_2(\mathrm{BSD}) = 1.0356$ with its
+``super-crystallisation'' reading. Framework arithmetic; no Lean declaration
+and no measurement.
+
+\end{itemize}
+
 \section{Conclusion}
 
 \textbf{The Clay BSD statement remains open; nothing in this chapter closes it.}  The analytic-rank machinery ($L$-function order of vanishing at $s = 1$) is absent from this corpus, so the equality $\mathrm{rank}\,E(\mathbb{Q}) = \mathrm{ord}_{s=1} L(E, s)$ is not touched.  What this chapter and its Lean companion do deliver:
