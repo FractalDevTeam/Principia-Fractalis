@@ -6,14 +6,68 @@ $\mathrm{ch}_2$ settlement (Rem.~\ref{rem:ch2-matrix-range-2026-10-03}).
 Closed items: \textbf{[closed at \texttt{<hash>}]}. Clean chapters:
 \textbf{[\checkmark]}.
 
-\subsection*{Ch.~1 --- Numbers \hfill [\,\,]}
+\paragraph{Currency of this sheet (2026-11-27).}
+The sheet was first written 2026-11-16 and is re-based here. Two corpus-wide
+closures landed between those dates and each discharges a whole class of items,
+so they are stated once rather than repeated under all 36 chapters.
+
 \begin{itemize}
-\item Verify 6 Lean cites; cross-check $\max D_3$ figures vs \texttt{max\_D3\_bound}.
+\item \textbf{The \texttt{manuscriptcorrection} class is closed, and must not be
+reopened.} Commit \texttt{909a3b23} (2026-11-07) removed all 144
+\texttt{manuscriptcorrection} blocks from the manuscript as AI-authored
+content. Fourteen items on the original sheet read ``Resolve $n$
+\texttt{manuscriptcorrection} markers''; all fourteen are therefore closed by
+deletion of the mechanism, not by resolution. Measured 2026-11-27: zero
+occurrences remain anywhere in \texttt{chapters/}; the surviving mentions are
+the macro definition in \texttt{preamble.tex} and the historical records in
+\texttt{frontmatter/version\_history.tex}, \texttt{backmatter/author.tex} and
+the lexicon. \textbf{Restoring these blocks would re-introduce the content
+\texttt{909a3b23} deliberately stripped.} The per-chapter entries below record
+the closure rather than the task.
+
+\item \textbf{The ``verify $n$ Lean cites'' class is closed.} The per-chapter
+Lean gate of 2026-11-22 (\texttt{codex/CHAPTER\_LEAN\_GATE\_2026-11-22.md})
+asked four questions of every citation in all 36 chapters, 13 appendices and
+the back matter: cited / resolves / \emph{compiles} / \emph{vacuous}. Of 772
+citations (655 unique), 428 resolve to a PF declaration and \textbf{428 of 428
+sit in a module that compiles} --- zero uncompiled. One vacuity flag and one
+absence flag were raised and \emph{both were retracted on verification}. That
+gate supersedes the twelve separate ``verify $n$ Lean cites'' items, which are
+marked closed below with their counts retained for traceability.
 \end{itemize}
 
-\subsection*{Ch.~2 --- Complex \hfill [\,\,]}
+\paragraph{What is actually left.}
+After the two closures above, the residue is dominated by a \emph{single} class:
+twelve chapters use $\mathrm{ch}_2$ without declaring \emph{which} of the five
+forms they mean. Per the 2026-10-05 settlement the Chern--Weil form cannot carry
+the numeric threshold and the entanglement form can, so an undeclared
+$\mathrm{ch}_2$ beside a threshold comparison is ambiguous between a form that
+supports it and one that cannot. Only Ch.~8 and Ch.~10 currently declare the
+form. The remaining non-$\mathrm{ch}_2$ items are four unrecorded closures
+(Ch.~23, 29, 34, 35), one author judgement call (Ch.~10) and one instruction
+that must be re-specified because the theorem it names does not exist (Ch.~1).
+
+\subsection*{Ch.~1 --- Numbers \hfill [\,\,]}
 \begin{itemize}
-\item Resolve 1 \texttt{manuscriptcorrection}.
+\item 6 Lean cites: \textbf{closed} by the 2026-11-22 gate (4 resolve to PF, 4
+compiled, 3 to mathlib, 0 defects).
+\item \textbf{Instruction retired as unexecutable --- re-specification needed.}
+The original item read ``cross-check $\max D_3$ figures vs
+\texttt{max\_D3\_bound}''. Measured 2026-11-27: \textbf{no such declaration
+exists} in the corpus, under any of \texttt{max\_D3\_bound}, \texttt{max\_D3},
+\texttt{maxD3}, \texttt{digitalSum\_bound} or \texttt{max\_digit}. This
+chapter's Lean citations are all Hausdorff-dimension and Cantor-set results
+(\texttt{dimH\_cantorSet}, \texttt{le\_dimH\_of\_massDistribution},
+\texttt{le\_dimH\_of\_holder\_surj}, \texttt{dimH\_le\_of\_bounded\_covers}),
+none of which bounds a digital sum. The cross-check therefore cannot be
+performed as written and \textbf{no substitute target is invented here}; the
+item stays open until it names a declaration that exists.
+\end{itemize}
+
+\subsection*{Ch.~2 --- Complex \hfill [\checkmark]}
+\begin{itemize}
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}} ---
+removed as AI-authored content, not resolved. This was the chapter's only item.
 \end{itemize}
 
 \subsection*{Ch.~3 --- Resonance \hfill [\checkmark]}
@@ -23,8 +77,15 @@ Closed items: \textbf{[closed at \texttt{<hash>}]}. Clean chapters:
 
 \subsection*{Ch.~4 --- Timeless Field \hfill [\,\,]}
 \begin{itemize}
-\item 10 $\mathrm{ch}_2$ use Ch.~4 form $\mathrm{Tr}(\mathcal{C}^2 \rho_\omega)/\mathrm{Tr}(\rho_\omega)$; void per Rem.~\ref{rem:ch2-matrix-range-2026-10-03}(C) pending Haar on $\mathrm{Aut}(\mathcal{T}_\infty)$. Add scope note at first occurrence.
-\item Verify 15 Lean cites.
+\item 10 $\mathrm{ch}_2$ use the Ch.~4 form
+$\mathrm{Tr}(\mathcal{C}^2 \rho_\omega)/\mathrm{Tr}(\rho_\omega)$; void per
+Rem.~\ref{rem:ch2-matrix-range-2026-10-03}(C) pending Haar on
+$\mathrm{Aut}(\mathcal{T}_\infty)$. \textbf{Still open}: no form declaration at
+first occurrence (measured 2026-11-27: 10 occurrences, 0 settlement
+references).
+\item 15 Lean cites: \textbf{closed} by the 2026-11-22 gate (14 resolve, 14
+compiled). The gate's single vacuity flag on this chapter was \emph{retracted
+on verification} --- the chapter cites its \texttt{True}-marker correctly.
 \end{itemize}
 
 \subsection*{Ch.~5 --- Peixoto \hfill [\checkmark]}
@@ -40,127 +101,189 @@ Closed items: \textbf{[closed at \texttt{<hash>}]}. Clean chapters:
 
 \subsection*{Ch.~7 --- Constants \hfill [\,\,]}
 \begin{itemize}
-\item 14 $\mathrm{ch}_2$: name form at first occurrence.
-\item Resolve 1 \texttt{manuscriptcorrection}.
+\item 14 $\mathrm{ch}_2$: \textbf{still open} --- name the form at first
+occurrence (measured: 14 occurrences, 0 settlement references).
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}}.
 \end{itemize}
 
-\subsection*{Ch.~8 --- Field Equations \hfill [\,\,]}
+\subsection*{Ch.~8 --- Field Equations \hfill [\checkmark]}
 \begin{itemize}
-\item 46 $\mathrm{ch}_2$ in $C^{\mu\nu}$ + $J^\nu_{\text{consciousness}}$: name form.
-\item Resolve 1 \texttt{manuscriptcorrection}.
+\item $\mathrm{ch}_2$ in $C^{\mu\nu}$ + $J^\nu_{\text{consciousness}}$:
+\textbf{form is declared} --- measured 2026-11-27, four references to the
+2026-10-05 settlement and five form-naming passages. \emph{Count corrected}:
+the sheet said 46 occurrences; the current figure is \textbf{64}.
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}}.
 \end{itemize}
 
 \subsection*{Ch.~9 --- Spectral Unity \hfill [\,\,]}
 \begin{itemize}
-\item 29 $\mathrm{ch}_2$: name form.
-\item Verify 7 Lean cites.
+\item 29 $\mathrm{ch}_2$: \textbf{still open} --- name the form (measured: 29
+occurrences, 0 settlement references).
+\item 7 Lean cites: \textbf{closed} by the 2026-11-22 gate.
 \end{itemize}
 
 \subsection*{Ch.~10 --- Hydrodynamic \hfill [\,\,]}
 \begin{itemize}
-\item 91 $\mathrm{ch}_2$; $d_f = 3 - \zeta_2/2$ ASSERTED per \texttt{PF/Ch10FractalDimensionRelationAudit.lean}. Decide: keep ASSERTED or migrate the 10 keyed sites to $\beta$-model $D = 5 - 3\zeta_2$.
-\item Name form at first occurrence.
+\item $\mathrm{ch}_2$: \textbf{form is declared} (two settlement references).
+\emph{Count corrected}: the sheet said 91; the current figure is \textbf{95}.
+\item \textbf{AUTHOR JUDGEMENT CALL, not an audit item.} $d_f = 3 - \zeta_2/2$
+is ASSERTED per \texttt{PF/Ch10FractalDimensionRelationAudit.lean}. The choice
+--- keep it ASSERTED, or migrate the 10 keyed sites to the $\beta$-model
+$D = 5 - 3\zeta_2$ --- changes what the chapter claims and is the author's to
+make. This is why the chapter is not at \textbf{[\checkmark]}.
 \end{itemize}
 
 \subsection*{Ch.~11 --- Geometric Unity \hfill [\,\,]}
 \begin{itemize}
-\item 31 $\mathrm{ch}_2$: name form.
+\item $\mathrm{ch}_2$: \textbf{still open} --- name the form (0 settlement
+references). \emph{Count corrected}: 31 $\to$ \textbf{33}.
 \end{itemize}
 
 \subsection*{Ch.~12 --- QFT Consciousness \hfill [\,\,]}
 \begin{itemize}
-\item 3 $\mathrm{ch}_2$: name form if threshold.
+\item 3 $\mathrm{ch}_2$: \textbf{still open} --- name the form if a threshold
+is asserted (0 settlement references).
 \end{itemize}
 
 \subsection*{Ch.~13 --- Solutions \& Dynamics \hfill [\,\,]}
 \begin{itemize}
-\item 19 $\mathrm{ch}_2$: name form.
-\item Resolve 1 \texttt{manuscriptcorrection}.
+\item 19 $\mathrm{ch}_2$: \textbf{still open} --- name the form (0 settlement
+references).
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}}.
 \end{itemize}
 
 \subsection*{Ch.~14 --- Symmetries \& Conservation \hfill [\,\,]}
 \begin{itemize}
-\item 6 $\mathrm{ch}_2$: name form if threshold.
-\item Resolve 1 \texttt{manuscriptcorrection}.
+\item $\mathrm{ch}_2$: \textbf{still open} --- name the form if a threshold is
+asserted (0 settlement references). \emph{Count corrected}: 6 $\to$
+\textbf{11}.
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}}.
 \end{itemize}
 
 \subsection*{Ch.~15 --- Computational Methods \hfill [\,\,]}
 \begin{itemize}
-\item 7 $\mathrm{ch}_2$: name form if threshold.
+\item 7 $\mathrm{ch}_2$: \textbf{still open} --- name the form if a threshold
+is asserted (0 settlement references).
 \end{itemize}
 
-\subsection*{Ch.~16 --- Spectral Foundations \hfill [\,\,]}
+\subsection*{Ch.~16 --- Spectral Foundations \hfill [\checkmark]}
 \begin{itemize}
-\item Verify 6 Lean cites.
+\item 6 Lean cites: \textbf{closed} by the 2026-11-22 gate. This was the
+chapter's only item.
 \end{itemize}
 
-\subsection*{Ch.~17 --- Operator Theory \hfill [\,\,]}
+\subsection*{Ch.~17 --- Operator Theory \hfill [\checkmark]}
 \begin{itemize}
-\item Verify 3 Lean cites.
-\item Resolve 1 \texttt{manuscriptcorrection}.
+\item 3 Lean cites: \textbf{closed} by the 2026-11-22 gate.
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}}.
 \end{itemize}
 
 \subsection*{Ch.~18 --- Spectral Measures \hfill [\,\,]}
 \begin{itemize}
-\item Resolve 3 \texttt{manuscriptcorrection} markers.
-\item 52 $\mathrm{ch}_2$: name form.
+\item 3 \texttt{manuscriptcorrection} markers: \textbf{closed at
+\texttt{909a3b23}}.
+\item $\mathrm{ch}_2$: \textbf{still open} --- name the form (0 settlement
+references). \emph{Count corrected}: 52 $\to$ \textbf{59}.
 \end{itemize}
 
 \subsection*{Ch.~19 --- Physical Applications \hfill [\,\,]}
 \begin{itemize}
-\item 7 $\mathrm{ch}_2$: name form if threshold.
-\item Resolve 1 \texttt{manuscriptcorrection}.
+\item 7 $\mathrm{ch}_2$: \textbf{still open} --- name the form if a threshold
+is asserted (0 settlement references).
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}}.
 \end{itemize}
 
-\subsection*{Ch.~20 --- Riemann Hypothesis \hfill [\,\,]}
+\subsection*{Ch.~20 --- Riemann Hypothesis \hfill [\checkmark]}
 \begin{itemize}
-\item Verify 8 Lean cites (\texttt{HilbertPolyaIdentificationPrecise.*}, \texttt{RHCapstoneTypedBridgeV2.*}, r270/r275/r279, \texttt{substrate\_RH\_position\_via\_sigma\_at\_HEAD}).
-\item Record 4-of-5 Dirichlet-1858 closure: \texttt{50981690}, \texttt{52265b56}, \texttt{5e2b6c61}.
+\item 8 Lean cites (\texttt{HilbertPolyaIdentificationPrecise.*},
+\texttt{RHCapstoneTypedBridgeV2.*}, r270/r275/r279,
+\texttt{substrate\_RH\_position\_via\_sigma\_at\_HEAD}): \textbf{closed} by the
+2026-11-22 gate.
+\item 4-of-5 Dirichlet-1858 closure (\texttt{50981690}, \texttt{52265b56},
+\texttt{5e2b6c61}): \textbf{recorded} in the chapter. A four-label
+verification-status block was added 2026-11-27.
 \end{itemize}
 
-\subsection*{Ch.~21 --- P vs NP \hfill [\,\,]}
+\subsection*{Ch.~21 --- P vs NP \hfill [\checkmark]}
 \begin{itemize}
-\item Record V2 vacuity disclosure + V4 pivot: \texttt{0285a6cb}.
-\item Resolve 1 \texttt{manuscriptcorrection}.
+\item V2 vacuity disclosure + V4 pivot (\texttt{0285a6cb}):
+\textbf{recorded} in the chapter. A verification-status block was added
+2026-11-27.
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}}.
 \end{itemize}
 
-\subsection*{Ch.~22 --- Navier--Stokes \hfill [\,\,]}
+\subsection*{Ch.~22 --- Navier--Stokes \hfill [\checkmark]}
 \begin{itemize}
-\item Record Young $L^1 \star L^2 \to L^2$ triple-residual closure: \texttt{8028e1e3}, \texttt{af609869}, \texttt{f808c3b0}.
-\item Resolve 2 \texttt{manuscriptcorrection} markers.
-\item Verify 7 Lean cites.
+\item Young $L^1 \star L^2 \to L^2$ triple-residual closure
+(\texttt{8028e1e3}, \texttt{af609869}, \texttt{f808c3b0}):
+\textbf{recorded} in the chapter.
+\item 2 \texttt{manuscriptcorrection} markers: \textbf{closed at
+\texttt{909a3b23}}.
+\item 7 Lean cites: \textbf{closed} by the 2026-11-22 gate.
+\item \textbf{Added 2026-11-27}: the \texttt{fractalEmergenceNoBlowup} repoint
+--- the hypothesis now means \texttt{VorticityAPrioriBound} instead of a
+\texttt{Unit} placeholder, with the superseded body's collapse and its
+independence of $\alpha$ proved in the kernel. The Clay bar is unchanged.
 \end{itemize}
 
 \subsection*{Ch.~23 --- Yang--Mills \hfill [\,\,]}
 \begin{itemize}
-\item Record three-tier YM bundle closure: \texttt{3d79fcd3}.
-\item Confirm $\Delta_{\max} = 62.3$~MeV ceiling reads in chapter (per \texttt{frontmatter/revision2\_changes.tex}).
-\item Verify 8 Lean cites.
+\item $\Delta_{\max} = 62.3$~MeV ceiling: \textbf{confirmed present} in the
+chapter (seven occurrences).
+\item 8 Lean cites: \textbf{closed} by the 2026-11-22 gate.
+\item \textbf{Still open}: the three-tier YM bundle closure
+(\texttt{3d79fcd3}) is \emph{not} recorded in the chapter --- measured
+2026-11-27, zero mentions. This is the only item keeping Ch.~23 off
+\textbf{[\checkmark]}.
+\item \textbf{Added 2026-11-27}: both framework Props on this axis
+(\texttt{YangMillsExistenceAndMassGap},
+\texttt{fractalYMLevel1LiftsToContinuum}) are now proved equivalent to
+\texttt{True} in the kernel, with the measured reason no repoint was available
+recorded alongside.
 \end{itemize}
 
-\subsection*{Ch.~24 --- Birch--Swinnerton--Dyer \hfill [\,\,]}
+\subsection*{Ch.~24 --- Birch--Swinnerton--Dyer \hfill [\checkmark]}
 \begin{itemize}
-\item Verify 16 Lean cites (\texttt{Ecurve\_rank\_eq\_zero}, \texttt{Ecurve32a2\_rank\_eq\_zero}, \texttt{bsd\_rank\_one\_E37a1\_via\_heegner\_and\_GZ\_K}, partners).
-\item Record 10-curve rank-$\geq 1$ bundle: \texttt{3750f1da}.
-\item Confirm \texttt{not\_fermat\_42\_sub} + second rank-0 curve (\texttt{28969aa1}) referenced.
+\item 16 Lean cites (\texttt{Ecurve\_rank\_eq\_zero},
+\texttt{Ecurve32a2\_rank\_eq\_zero},
+\texttt{bsd\_rank\_one\_E37a1\_via\_heegner\_and\_GZ\_K}, partners):
+\textbf{closed} by the 2026-11-22 gate.
+\item Rank-$\geq 1$ bundle (\texttt{3750f1da}): \textbf{recorded}. The
+chapter's own count was corrected to sixteen curves in its 2026-11-27
+verification-status block.
+\item \texttt{not\_fermat\_42\_sub} + second rank-0 curve
+(\texttt{28969aa1}): \textbf{confirmed referenced} (eight occurrences).
+\item \textbf{Added 2026-11-27}: \texttt{BSDConjecture} is proved equivalent to
+\texttt{True}, so the Millennium capstone's BSD conjunct is trivial; and the
+V5 rank projection is shown to \emph{separate} two curves that the placeholder
+identifies.
 \end{itemize}
 
-\subsection*{Ch.~25 --- Hodge Conjecture \hfill [\,\,]}
+\subsection*{Ch.~25 --- Hodge Conjecture \hfill [\checkmark]}
 \begin{itemize}
-\item Record CY4 all-three-slices + quintic-4-fold closure: \texttt{45d6765e}.
-\item Resolve 2 \texttt{manuscriptcorrection} markers.
+\item CY4 all-three-slices + quintic-4-fold closure (\texttt{45d6765e}):
+\textbf{recorded} in the chapter.
+\item 2 \texttt{manuscriptcorrection} markers: \textbf{closed at
+\texttt{909a3b23}}.
+\item \textbf{Added 2026-11-27}: \texttt{HodgeAlgebraicRepresentation} is
+proved constant by \texttt{rfl}, and the Betti-dependent strengthening the
+predicate's own docstring asked for is written down --- with the proof that
+folding it into the conjecture would make the universal claim \emph{false}, so
+it can only enter as a side condition.
 \end{itemize}
 
-\subsection*{Ch.~26 --- Cosmological Constant \hfill [\,\,]}
+\subsection*{Ch.~26 --- Cosmological Constant \hfill [\checkmark]}
 \begin{itemize}
-\item Resolve 1 \texttt{manuscriptcorrection}. (Footnote + ``precisely'' softening: \texttt{36e77427}.)
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}}.
+Footnote + ``precisely'' softening: \texttt{36e77427}.
 \end{itemize}
 
 \subsection*{Ch.~27 --- Dark Energy \& Expansion \hfill [\,\,]}
 \begin{itemize}
-\item 23 $\mathrm{ch}_2$: name form.
-\item Verify 8 Lean cites.
-\item Resolve 1 \texttt{manuscriptcorrection}.
+\item 23 $\mathrm{ch}_2$: \textbf{still open} --- name the form (0 settlement
+references).
+\item 8 Lean cites: \textbf{closed} by the 2026-11-22 gate.
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}}.
 \end{itemize}
 
 \subsection*{Ch.~28 --- Early Universe \hfill [\checkmark]}
@@ -170,7 +293,11 @@ Closed items: \textbf{[closed at \texttt{<hash>}]}. Clean chapters:
 
 \subsection*{Ch.~29 --- Observational Tests \hfill [\,\,]}
 \begin{itemize}
-\item Confirm chapter matches 5-prediction verdict in \texttt{frontmatter/revision2\_changes.tex}: 1 soft agreement, 3 misses, 1 withdrawn.
+\item \textbf{Still open}: the chapter does not yet state the five-prediction
+verdict carried in \texttt{frontmatter/revision2\_changes.tex} --- one soft
+agreement ($n_s$, $0.86\sigma$), three misses, one withdrawn. Measured
+2026-11-27: zero occurrences of ``withdrawn''. This is the chapter's only
+item.
 \end{itemize}
 
 \subsection*{Ch.~30 --- Clinical Consciousness \hfill [\checkmark]}
@@ -185,12 +312,17 @@ Closed items: \textbf{[closed at \texttt{<hash>}]}. Clean chapters:
 
 \subsection*{Ch.~32 --- Consciousness Quantification \hfill [\,\,]}
 \begin{itemize}
-\item 39 $\mathrm{ch}_2$, no form declared. Name form at each threshold/comparison.
+\item $\mathrm{ch}_2$, no form declared: \textbf{still open} --- name the form
+at each threshold or comparison (0 settlement references).
+\emph{Count corrected, and this one moved furthest}: the sheet said 39
+occurrences; the current figure is \textbf{11}. The sheet's ``cascade-impact
+apex'' ranking was built on the 39, so that ranking is superseded below.
 \end{itemize}
 
-\subsection*{Ch.~33 --- Numerical Methods \hfill [\,\,]}
+\subsection*{Ch.~33 --- Numerical Methods \hfill [\checkmark]}
 \begin{itemize}
-\item Resolve 1 \texttt{manuscriptcorrection}.
+\item 1 \texttt{manuscriptcorrection}: \textbf{closed at \texttt{909a3b23}}.
+This was the chapter's only item.
 \end{itemize}
 
 \subsection*{Ch.~34A --- Substrate Theorem \hfill [\checkmark]}
@@ -201,25 +333,56 @@ HEAD; 35 of 36 bare-alphanumeric citations resolve as declarations
 (one---\texttt{evV2}---is a local V2-carrier field, cited
 referentially). Zero broken references. Audit file
 \texttt{PF\_Lean4\_Code/PF/Ch34A\_CITATION\_AUDIT\_2026\_11\_17.md}.
-\item Follow-up (not blocking the \texttt{[\checkmark]}): record the
+\item Follow-up (not blocking the \texttt{[\checkmark]}): the
 2026-11-16 ToE Meta-Capstone theorem
 \texttt{principia\_fractalis\_ToE\_substrate\_attack\_at\_HEAD\_2026\_11\_16\_EOD}
 and the 13 $\alpha$-skeleton identities (9 original + 4 added at
-\texttt{9a730282}) in the chapter's substrate-theorem narrative.
+\texttt{9a730282}) are \textbf{present} in the chapter's substrate-theorem
+narrative (measured 2026-11-27). A verification-status block was added
+2026-11-27.
 \end{itemize}
 
 \subsection*{Ch.~34 --- Verification \hfill [\,\,]}
 \begin{itemize}
-\item Verify 59 Lean cites.
-\item Record CI repair: \texttt{402dd508}, \texttt{f318b58c}, \texttt{d25085ce}.
-\item Update corpus file-count to 10{,}774.
+\item 59 Lean cites: \textbf{closed} by the 2026-11-22 gate.
+\item CI repair (\texttt{402dd508}, \texttt{f318b58c}, \texttt{d25085ce}):
+present but thin --- one mention. Worth expanding, not blocking.
+\item \textbf{Still open, and the target has itself moved.} The original item
+said ``update corpus file-count to 10{,}774''. That figure was current at
+2026-11-15; measured 2026-11-27 the corpus holds \textbf{10{,}889}
+\texttt{.lean} modules under \texttt{PF\_Lean4\_Code/PF/} plus the
+\texttt{PF.lean} aggregator. A raw recursive file count returns $18{,}755$ and
+is \emph{wrong} for this purpose: it includes \texttt{.lake} mathlib sources.
+Any figure printed in this chapter must say which definition it uses.
 \end{itemize}
 
 \subsection*{Ch.~35 --- Software \hfill [\,\,]}
 \begin{itemize}
-\item Record \texttt{academia-128468852.pdf} audit (p.21 reproducible, p.20 not).
-\item Verify 7 Lean cites.
+\item 7 Lean cites: \textbf{closed} by the 2026-11-22 gate.
+\item \textbf{Still open}: the \texttt{academia-128468852.pdf} audit
+(p.~21 reproducible, p.~20 not) is not recorded in the chapter --- measured
+2026-11-27, zero mentions. This is the chapter's only remaining item.
 \end{itemize}
 
 \vspace{1em}
-\noindent HEAD: 7 of 36 at \textbf{[\checkmark]} (Ch.~3, 5, 6, 28, 30, 31, 34A). Cascade-impact apex now: Ch.~34 (59 Lean cites + CI repair narrative), Ch.~32 (39 $\mathrm{ch}_2$ mentions), Ch.~24 (BSD closures not recorded), Ch.~22 (Young closure not recorded).
+\noindent \textbf{HEAD 2026-11-27: 18 of 36 at [\checkmark]} --- Ch.~2, 3, 5,
+6, 8, 16, 17, 20, 21, 22, 24, 25, 26, 28, 30, 31, 33, 34A. (Was 7 of 36 at
+2026-11-17; the eleven additions are closures of the two corpus-wide classes
+above plus the 2026-11-27 Clay-axis work, not new prose.)
+
+\noindent \textbf{Remaining work, by class rather than by chapter:}
+\begin{enumerate}
+\item \textbf{Declare which $\mathrm{ch}_2$ form is meant --- 12 chapters}
+(Ch.~4, 7, 9, 11, 12, 13, 14, 15, 18, 19, 27, 32). This is the whole residue
+for eight of them, and it is the single highest-value remaining pass on the
+manuscript: per the 2026-10-05 settlement an undeclared $\mathrm{ch}_2$ beside
+a numeric threshold is ambiguous between a form that can carry it and one that
+cannot. Ch.~8 and Ch.~10 show the pattern to follow.
+\item \textbf{Record four closures that exist but are not in their chapters}
+--- Ch.~23 (three-tier YM bundle), Ch.~29 (five-prediction verdict), Ch.~34
+(corpus count, with its definition), Ch.~35 (\texttt{academia} audit).
+\item \textbf{One author judgement call} --- Ch.~10, $d_f$ ASSERTED versus
+migration to the $\beta$-model.
+\item \textbf{One instruction to re-specify} --- Ch.~1, against a declaration
+that exists.
+\end{enumerate}
