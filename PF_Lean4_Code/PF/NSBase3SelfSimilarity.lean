@@ -294,7 +294,7 @@ theorem ns_no_blowup_inherits_d3_obstruction :
     above: the discharge here is the placeholder consequence of the
     framework's structural encoding, not a claim about full NS PDE. -/
 theorem fractalEmergenceNoBlowup_discharged :
-    fractalEmergenceNoBlowup (alpha_at_enum .NS) := by
+    fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED (alpha_at_enum .NS) := by
   intro _ _
   exact ⟨(), trivial⟩
 

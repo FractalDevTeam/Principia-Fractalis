@@ -73,7 +73,7 @@ open PrincipiaTractalis.NS3DVortexStretchingObstruction
     outright. No discharge of it was ever evidence about finite-time
     singularities of Navier–Stokes. -/
 theorem fractalEmergenceNoBlowup_collapses (α : ℝ) :
-    fractalEmergenceNoBlowup α ↔ True := by
+    fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED α ↔ True := by
   constructor
   · intro _
     trivial
@@ -87,7 +87,8 @@ theorem fractalEmergenceNoBlowup_collapses (α : ℝ) :
     `fractalEmergenceNoBlowup (alpha_at_enum .NS)` should know the NS
     `α`-value is not participating. -/
 theorem fractalEmergenceNoBlowup_independent_of_alpha (α β : ℝ) :
-    fractalEmergenceNoBlowup α ↔ fractalEmergenceNoBlowup β := by
+    fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED α ↔
+      fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED β := by
   rw [fractalEmergenceNoBlowup_collapses, fractalEmergenceNoBlowup_collapses]
 
 /-! ## §2 — It transports nothing -/
@@ -100,7 +101,7 @@ theorem fractalEmergenceNoBlowup_independent_of_alpha (α β : ℝ) :
     the corpus uses on free-antecedent bridges elsewhere, and it is the precise
     sense in which the framework's no-blowup conjunct is not load-bearing. -/
 theorem fractalEmergence_transports_nothing (α : ℝ) :
-    (fractalEmergenceNoBlowup α → NoBlowup3D) ↔ NoBlowup3D := by
+    (fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED α → NoBlowup3D) ↔ NoBlowup3D := by
   constructor
   · intro h
     exact h ((fractalEmergenceNoBlowup_collapses α).mpr trivial)

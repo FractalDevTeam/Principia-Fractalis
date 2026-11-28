@@ -173,18 +173,52 @@ theorem NavierStokesGlobalSmoothness_unitPlaceholder_collapses :
 def NavierStokesGlobalSmoothness : Prop :=
   PF.NavierStokes.FeffermanFaithful.Clay_NavierStokes_ExistenceSmoothness_Fefferman2000_Faithful
 
-/-- **Ch 22 load-bearing hypothesis**: at α = 3π/2, the fractal
-    vortex-emergence mechanism prevents finite-time blowup of
-    Navier-Stokes solutions.
+/-- **SUPERSEDED (2026-11-27)**: the former `Unit`-carrier encoding of the
+    Ch 22 no-blowup hypothesis. Retained, not deleted: the theorems that
+    discharged it were true about *this* object and remain so, and fifteen
+    call sites still name it.
 
-    The manuscript's `thm:no-blowup` and `thm:topological-stability`
-    establish this via the emergence-point structure. The Prop here
-    is the abstract Lean encoding. -/
-def fractalEmergenceNoBlowup (α : ℝ) : Prop :=
+    It asserts nothing — see
+    `fractalEmergenceNoBlowup_unitPlaceholder_collapses`. Do not use it in new
+    work; the hypothesis of record is `fractalEmergenceNoBlowup`, which now
+    means the faithful a-priori vorticity bound. -/
+def fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED (α : ℝ) : Prop :=
   α = 3 * Real.pi / 2 →
-  -- Placeholder for: "the fractal emergence-point mechanism prevents
-  -- finite-time singularities of NS solutions"
-  ∀ (vortex_data : Unit), ∃ (emergence_resolution : Unit), True
+  ∀ (_vortex_data : Unit), ∃ (_emergence_resolution : Unit), True
+
+/-- **The gravestone.** The superseded placeholder is equivalent to `True` at
+    every `α`: its consequent is `∀ _ : Unit, ∃ _ : Unit, True`, so the
+    implication holds outright and the `α = 3π/2` guard selects nothing. No
+    discharge of it was ever evidence about finite-time singularities. -/
+theorem fractalEmergenceNoBlowup_unitPlaceholder_collapses (α : ℝ) :
+    fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED α ↔ True := by
+  constructor
+  · intro _
+    trivial
+  · intro _ _ _
+    exact ⟨(), trivial⟩
+
+/-- **The Ch 22 no-blowup hypothesis** — repointed 2026-11-27.
+
+    The manuscript's `thm:no-blowup` claims that at `α = 3π/2` the fractal
+    emergence-point mechanism prevents finite-time singularities of
+    Navier-Stokes solutions. Until today the Lean encoding of that was a
+    `Unit`-carrier placeholder, retained immediately above as explicitly
+    superseded with its collapse proved.
+
+    The statement the docstring always described now exists on the faithful
+    carrier: it is
+    `PF.NavierStokes.FeffermanFaithful.VorticityAPrioriBound`, slot 3 of the
+    faithful reduction — a vorticity bound uniform in the time horizon, which
+    is precisely "no finite-time blow-up". So this Prop now MEANS what it
+    said.
+
+    **This is the open Clay estimate.** Nothing in this corpus proves it. By
+    `clay_from_the_three_slots` it is sufficient for global existence and
+    smoothness given the two classical inputs; the forward path is
+    `navier_stokes_via_fractal_emergence_faithful`. -/
+def fractalEmergenceNoBlowup (α : ℝ) : Prop :=
+  α = 3 * Real.pi / 2 → PF.NavierStokes.FeffermanFaithful.VorticityAPrioriBound
 
 /-! ## Ch 22 — Emergence-point fractal structure (Cantor-set anchor)
 
@@ -392,7 +426,7 @@ theorem cantor_hausdorff_dim_bracket_sharp :
     the record. The forward path is
     `navier_stokes_via_fractal_emergence_faithful` below. -/
 theorem navier_stokes_via_fractal_emergence
-    (_h : fractalEmergenceNoBlowup (alpha_at_enum .NS)) :
+    (_h : fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED (alpha_at_enum .NS)) :
     NavierStokesGlobalSmoothness_unitPlaceholder_SUPERSEDED := by
   intro _
   exact ⟨(), trivial⟩
@@ -1800,7 +1834,7 @@ def NavierStokesGlobalSmoothness_typed : Prop :=
     hypothesis is consumed on the trivial unit witness to remind the
     reader where the emergence-mechanism conjecture enters. -/
 theorem navier_stokes_via_fractal_emergence_typed
-    (h : fractalEmergenceNoBlowup (alpha_at_enum .NS)) :
+    (h : fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED (alpha_at_enum .NS)) :
     NavierStokesGlobalSmoothness_typed := by
   intro _A
   -- Consume the hypothesis on the trivial witness to document where it enters.

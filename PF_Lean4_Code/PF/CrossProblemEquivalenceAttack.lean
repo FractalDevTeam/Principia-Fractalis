@@ -162,7 +162,7 @@ at the canonical α. The universal placeholder discharges all 4. -/
     Lean-formal level: the prose-level conjecture is open, but the
     Lean encoding is a Unit-existential that proves immediately. -/
 theorem ns_lean_prop_trivial :
-    fractalEmergenceNoBlowup (alpha_at_enum .NS) := by
+    fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED (alpha_at_enum .NS) := by
   intro _h _vortex
   exact ⟨(), trivial⟩
 
@@ -218,7 +218,7 @@ theorem universal_coupling_discharges_four_placeholders
     (_h2 : UniversalPlaceholderProp H_BSD_universal)
     (_h3 : UniversalPlaceholderProp H_Hodge_universal)
     (_h4 : UniversalPlaceholderProp H_YM_universal) :
-    fractalEmergenceNoBlowup (alpha_at_enum .NS) ∧
+    fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED (alpha_at_enum .NS) ∧
     fractalBSDRankEquality (alpha_at_enum .BSD) ∧
     fractalHodgeCrystallization (alpha_at_enum .Hodge) ∧
     fractalYMLevel1LiftsToContinuum :=
@@ -231,7 +231,7 @@ theorem universal_coupling_discharges_four_placeholders
     UNCONDITIONALLY (no `UniversalPlaceholderProp` hypothesis needed).
     They are all theorems of the framework today, axiom-free. -/
 theorem four_placeholder_conjectures_unconditional :
-    fractalEmergenceNoBlowup (alpha_at_enum .NS) ∧
+    fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED (alpha_at_enum .NS) ∧
     fractalBSDRankEquality (alpha_at_enum .BSD) ∧
     fractalHodgeCrystallization (alpha_at_enum .Hodge) ∧
     fractalYMLevel1LiftsToContinuum :=
@@ -337,7 +337,7 @@ theorem rh_surj_requires_extra_parameter (H : HAlphaUniversal) :
     Axiom-free. -/
 theorem honest_cross_problem_partial_collapse :
     -- (a) The 4 trivial Lean conjectures all hold axiom-free.
-    (fractalEmergenceNoBlowup (alpha_at_enum .NS) ∧
+    (fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED (alpha_at_enum .NS) ∧
      fractalBSDRankEquality (alpha_at_enum .BSD) ∧
      fractalHodgeCrystallization (alpha_at_enum .Hodge) ∧
      fractalYMLevel1LiftsToContinuum) ∧
@@ -416,7 +416,7 @@ theorem universalSpectralConvergence_holds_all :
     discharge ready: the meta-statement is a theorem. -/
 theorem universalSpectralConvergence_discharges_four_placeholders :
     (∀ H : HAlphaUniversal, UniversalSpectralConvergence H) →
-    (fractalEmergenceNoBlowup (alpha_at_enum .NS) ∧
+    (fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED (alpha_at_enum .NS) ∧
      fractalBSDRankEquality (alpha_at_enum .BSD) ∧
      fractalHodgeCrystallization (alpha_at_enum .Hodge) ∧
      fractalYMLevel1LiftsToContinuum) := by
@@ -460,7 +460,7 @@ theorem universalSpectralConvergence_discharges_four_placeholders :
 theorem cross_problem_equivalence_attack_final :
     -- (1) 4-collapse: the 4 placeholder Lean Props all hold,
     --     axiom-free, and are discharged by the universal placeholder.
-    ((fractalEmergenceNoBlowup (alpha_at_enum .NS) ∧
+    ((fractalEmergenceNoBlowup_unitPlaceholder_SUPERSEDED (alpha_at_enum .NS) ∧
       fractalBSDRankEquality (alpha_at_enum .BSD) ∧
       fractalHodgeCrystallization (alpha_at_enum .Hodge) ∧
       fractalYMLevel1LiftsToContinuum) ∧
