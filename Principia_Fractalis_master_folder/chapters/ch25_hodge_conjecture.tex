@@ -703,6 +703,38 @@ Hodge decomposition and no Chow groups at this pin, so the Clay statement
 cannot be written down here at all. That is the honest reason this axis is
 thin, and it is not a scoping choice.
 
+\item \textbf{The vacuity is now kernel-checked, and the
+strengthening this chapter asked for is available but is only scoping
+(2026-11-27).} The constancy described above is now a theorem rather than an
+observation: \texttt{hodgeAlgebraicRepresentation\_is\_constant} proves by
+\texttt{rfl} that the predicate is the same proposition for any two varieties
+and any two class indices, and
+\texttt{fractalHodgeCrystallization\_collapses} derives the hypothesis's
+collapse from it
+(\texttt{PF\_Lean4\_Code/PF/Referee/HodgeAmbientDependentBound\_2026\_11\_27.lean}).
+The predicate's own docstring had proposed the repair --- a rank bound
+depending on the ambient's Betti number --- and it is expressible, because the
+framework's ambient is not a \texttt{Unit}: it carries \texttt{dim},
+\texttt{p} and \texttt{betti}. So \texttt{HodgeRankBoundOnAmbient}~$H$ is
+$b_{2p}(H) \le 20$, and it has teeth from this chapter's own obstruction ---
+$1 + 20 + 1 = 22$ for a K3, so the bound holds on a small ambient and
+\emph{fails} on K3. That makes it the first Hodge framework predicate here
+able to tell two varieties apart.
+
+  \emph{But it cannot be folded into the conjecture.} The Clay form quantifies
+  over \emph{every} ambient, K3 included, so a strengthened predicate carrying
+  the bound makes the universal claim \textbf{false}
+  (\texttt{strengthened\_conjecture\_is\_false}) --- the worst available
+  outcome, since a false hypothesis makes every consuming reduction vacuously
+  valid. The bound can therefore enter only as a side condition, where it is
+  load-bearing because it appears in the conclusion, and
+  \texttt{bounded\_route\_is\_scoping\_not\_progress} states in one theorem
+  that the restricted claim is provable only because the representation half
+  remains free. Scoping, not progress on Hodge. The $\sigma$-bound depending on
+  $p$, also proposed in that docstring, was deliberately \emph{not} added:
+  every form of it is satisfied by $\sigma = 19/20$ independently of $p$ and
+  would recreate the defect this repair exists to remove.
+
 \end{itemize}
 
 \section{Conclusion}

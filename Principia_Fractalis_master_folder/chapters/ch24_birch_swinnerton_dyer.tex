@@ -887,6 +887,28 @@ the Tate--Shafarevich group, and $\mathrm{ch}_2(\mathrm{BSD}) = 1.0356$ with its
 ``super-crystallisation'' reading. Framework arithmetic; no Lean declaration
 and no measurement.
 
+\item \textbf{The Millennium capstone's BSD conjunct is \texttt{True},
+now gravestoned (2026-11-27).} \texttt{BSD\_equality\_holds} takes a
+\texttt{WeierstrassCurve}~$\mathbb{Q}$ --- mathlib's real curve type --- and
+uses it nowhere, so \texttt{BSDConjecture} is ``for every $E$, \texttt{True}'',
+and that is the conjunct
+\texttt{six\_millennium\_problems\_via\_fractal\_resonance} delivers. More than
+twenty docstrings across the BSD files said so in prose; no declaration proved
+it. It is now proved, along with the collapse of the Ch.~24 load-bearing
+hypothesis and its independence of $\alpha$
+(\texttt{PF\_Lean4\_Code/PF/Referee/BSDPlaceholderGravestoneAndV5Readings\_2026\_11\_27.lean}).
+The same file supplies the teeth. \texttt{manuscriptRankV5} reads $0$ at
+$32a3$ and $1$ at $37a1$, so the V5 projection \emph{separates} two curves
+that \texttt{BSD\_equality\_holds} identifies by \texttt{Iff.rfl} --- the
+precise sense in which the capstone's conjunct is weaker than the arithmetic
+listed above, and the Millennium-level analogue of
+\texttt{placeholder\_is\_strictly\_weaker} on the Heegner side. One
+documentation defect was repaired in passing: the three
+\texttt{v5\_*\_surfaced} theorems are each described as ``V5 projects to $1$''
+but \emph{state} only that a rank-$1$ certificate exists, never a value of
+\texttt{manuscriptRankV5}. \texttt{rankV5\_E\_rank\_one} is the first theorem
+in this corpus to state such a value at a positive rank.
+
 \end{itemize}
 
 \section{Conclusion}

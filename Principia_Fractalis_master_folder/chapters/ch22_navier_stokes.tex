@@ -711,6 +711,24 @@ The chapter now has two distinct ledger entries on Navier--Stokes:
   This is the Clay bar as originally stated.  Rev 2 does not claim
   otherwise; the discharge above is \emph{necessary but not sufficient}
   for the Clay statement.
+\item \textbf{REPOINTED, with the placeholder gravestoned (2026-11-27).}
+  The framework hypothesis \texttt{fractalEmergenceNoBlowup} previously had the
+  body ``$\alpha = 3\pi/2$ implies that for every \texttt{Unit} there exists a
+  \texttt{Unit} such that \texttt{True}'' --- trivially true, and therefore
+  unable to transport anything to the Clay statement no matter what was proved
+  about it. It now \emph{means} the vorticity \emph{a priori} bound:
+  \texttt{fractalEmergenceNoBlowup}~$\alpha$ is
+  ``$\alpha = 3\pi/2$ implies \texttt{VorticityAPrioriBound}'', the faithful
+  Fefferman-side estimate. The old body is kept under the name
+  \texttt{fractalEmergenceNoBlowup\_unitPlaceholder\_SUPERSEDED} with its
+  collapse proved in the kernel, together with the fact that it was
+  independent of $\alpha$ --- so the resonance value was never a constraint the
+  Lean statement could feel
+  (\texttt{PF\_Lean4\_Code/PF/Referee/FractalEmergenceNoBlowupGravestone\_2026\_11\_27.lean}).
+  Eight reference sites were repointed. \textbf{This does not change the Clay
+  bar}: the vorticity bound is an open estimate, not a theorem. What changed is
+  that the hypothesis now names the open estimate instead of naming nothing.
+
 \end{enumerate}
 
 \section{Conclusion}
