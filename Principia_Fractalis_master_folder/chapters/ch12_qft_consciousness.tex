@@ -527,6 +527,37 @@ $\checkmark$ \textit{Empirically established baseline}; $\triangle$ \textit{corr
 
 \cite{casimir1948attraction,lamoreaux1997demonstration,bressi2002measurement}
 
+\paragraph{The $\text{ch}_2$ form this chapter uses, named (2026-11-28).}
+By the 2026-10-05 settlement (Rem.~\ref{rem:ch2-matrix-range-2026-10-03}) the
+\emph{name} $\text{ch}_2$ belongs to the normalised Chern--Weil density of
+Def.~\ref{def:ch2-hat-rigorous}, whose stated range is $[0,1]$
+(Rem.~\ref{rem:range-rigorous}), while the \emph{threshold} $0.95$ belongs to the
+entanglement form $\text{ch}_2(|\psi\rangle) = 1 - \mathrm{Tr}(\rho_A^2)$ of
+Prop.~\ref{prop:quantum-consciousness}. These are not one quantity, and $0.95$ is
+reachable under some of the five forms and provably unreachable under others, so a
+chapter using $\text{ch}_2$ must say which form it means.
+Measured 2026-11-28: this chapter writes $\text{ch}_2$ 3 times, 2 of them
+beside the threshold $0.95$ or $19/20$. \textbf{The threshold-carrying occurrences
+are the entanglement form}, so each reads as a condition on purity and dimension.
+Machine-checked in \texttt{PF/Ch2ThresholdSelection.lean} on the axiom bar
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$:
+$\text{ch}_2 \geq 19/20 \iff \mathrm{Tr}(\rho_A^2) \leq 1/20$
+(\texttt{threshold\_iff\_purity}); the bound is attainable, the maximally mixed
+state on $27$ dimensions giving $26/27$ (\texttt{threshold\_is\_attainable}); and
+dimension is necessary but \emph{not} sufficient, since a pure state gives
+$\text{ch}_2 = 0$ in every dimension (\texttt{pure\_state\_is\_zero}) while
+$d \geq 20$ is exactly the condition for \emph{some} state in dimension $d$ to
+cross (\texttt{ceiling\_threshold\_iff\_dimension}).
+
+\noindent The normalised Chern--Weil density is \emph{not} what carries these
+numbers, and cannot be: its $\mathrm{Tr}(F_\nabla \wedge F_\nabla)$ is not
+sign-definite, so $\mathrm{Ch}_2 \geq 0$ must be supplied as a \textbf{hypothesis}
+rather than derived --- proved in
+\texttt{PF/ChernWeilDegree4SignIndefinite\_2026\_11\_26.lean}
+(\texttt{nonnegativity\_must\_be\_hypothesised}) --- and its normaliser is not
+shown to be finite.
+
+
 \section{Conclusion}
 
 We have constructed the complete quantum field theory of consciousness:
@@ -574,3 +605,4 @@ All testable. All falsifiable. All physics.
 
 \item \textbf{(Experimental Design)} Design a collider experiment to search for psychon production. What are the backgrounds? How would you distinguish psychons from neutrinos?
 \end{enumerate}
+

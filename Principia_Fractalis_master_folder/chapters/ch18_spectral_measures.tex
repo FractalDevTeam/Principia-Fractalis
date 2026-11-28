@@ -651,6 +651,41 @@ Using Theorem \ref{thm:consciousness-prevents-decoherence}, compute the effectiv
 Design an experimental protocol to measure $\text{ch}_2$ for a simple organism (e.g., C. elegans with 302 neurons). What observables would you measure? What are the practical challenges?
 \end{exercise}
 
+\paragraph{The $\text{ch}_2$ form this chapter uses, named (2026-11-28).}
+By the 2026-10-05 settlement (Rem.~\ref{rem:ch2-matrix-range-2026-10-03}) the
+\emph{name} $\text{ch}_2$ belongs to the normalised Chern--Weil density of
+Def.~\ref{def:ch2-hat-rigorous}, whose stated range is $[0,1]$
+(Rem.~\ref{rem:range-rigorous}), while the \emph{threshold} $0.95$ belongs to the
+entanglement form $\text{ch}_2(|\psi\rangle) = 1 - \mathrm{Tr}(\rho_A^2)$ of
+Prop.~\ref{prop:quantum-consciousness}. These are not one quantity, and $0.95$ is
+reachable under some of the five forms and provably unreachable under others, so a
+chapter using $\text{ch}_2$ must say which form it means.
+Measured 2026-11-28: this chapter writes $\text{ch}_2$ 59 times --- more than any
+other chapter --- and \textbf{both roles are genuinely present}, so both are
+named. Twenty-nine occurrences sit beside wedge or Chern--Weil notation,
+including the spectral integral $C = \int_{\mathrm{Spec}(\mathcal{T}_\infty)}
+\text{ch}_2(s)\,dE_C(s)$ and the decoherence exponent
+$\gamma_0 \exp[-\alpha\,\text{ch}_2(\mathcal{C})]$: these are the \textbf{name
+form}, the normalised Chern--Weil density, and they inherit its two blockers ---
+$\mathrm{Ch}_2 \geq 0$ must be assumed
+(\texttt{nonnegativity\_must\_be\_hypothesised}) and the normaliser is not shown
+finite --- so no number follows from the definition. Five occurrences sit beside
+$0.95$, among them the decoherence-protection condition
+$\text{ch}_2 \gtrsim 0.95$: those carry the threshold and are therefore the
+\textbf{entanglement form}, reading as
+$\mathrm{Tr}(\rho_A^2) \leq 1/20$ (\texttt{threshold\_iff\_purity} in
+\texttt{PF/Ch2ThresholdSelection.lean}), attainable at $26/27$ on $27$ dimensions
+(\texttt{threshold\_is\_attainable}).
+
+\noindent The protection estimate therefore mixes two quantities: the exponent is
+evaluated on the name form, the entry condition on the entanglement form. They
+agree in ranking only after a monotone reparametrisation on density-matrix shape
+(\texttt{PF/Ch2FormsAgreeOnDensityShape\_2026\_11\_26.lean},
+\texttt{matrix\_form\_eq\_entanglement\_form\_scaled}), and a monotone
+reparametrisation of a threshold is a \emph{different number}. Reconciling the
+two is open.
+
+
 \section{Conclusion}
 
 We have established consciousness measurement theory:
@@ -671,3 +706,4 @@ To hold this chapter to the standard of the machine-checked corpus:
 \end{itemize}
 
 The next chapter applies these spectral tools to physical systems, showing how consciousness manifests in cosmology, particle physics, and quantum field theory.
+
