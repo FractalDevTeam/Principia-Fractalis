@@ -173,6 +173,75 @@ theorem constant_predicate_cannot_separate_but_bound_can :
   ⟨hodgeAlgebraicRepresentation_is_constant _ _ _ _,
    strengthened_bound_separates_ambients⟩
 
+/-! ## §4 — Wiring the bound into the reduction -/
+
+/-- **The strengthened representation predicate**: the original conjunction,
+    plus the ambient-dependent rank bound.
+
+    Unlike `HodgeAlgebraicRepresentation`, this one genuinely depends on `H` —
+    by `rankBound_fails_k3Ambient` it fails for K3, so no two ambients are
+    automatically identified. -/
+def HodgeAlgebraicRepresentationStrengthened (H : HodgeAmbient) (i : ℕ) : Prop :=
+  HodgeRankBoundOnAmbient H ∧ HodgeAlgebraicRepresentation H i
+
+/-- **★★ Why the bound cannot be folded into `HodgeConjecture`.**
+
+    `HodgeConjecture` quantifies over *every* `HodgeAmbient`, K3 included.
+    Strengthening the predicate universally therefore yields a **false**
+    statement, not a stronger true one — and a false hypothesis would make
+    every reduction consuming it vacuously valid, which is worse than the free
+    predicate it replaced.
+
+    So the bound has to enter as a side condition. This is the proof that the
+    design of §4 is forced rather than chosen. -/
+theorem strengthened_conjecture_is_false :
+    ¬ (∀ (H : HodgeAmbient) (i : ℕ), HodgeAlgebraicRepresentationStrengthened H i) := by
+  intro h
+  exact rankBound_fails_k3Ambient (h k3Ambient 0).1
+
+/-- **The Hodge claim restricted to ambients within the rank bound.** -/
+def HodgeConjectureOnBoundedAmbients : Prop :=
+  ∀ (H : HodgeAmbient), HodgeRankBoundOnAmbient H →
+    ∀ i : ℕ, HodgeAlgebraicRepresentationStrengthened H i
+
+/-- **★★ The bounded reduction, with its hypothesis load-bearing.**
+
+    Contrast with `hodge_via_fractal_resonance`, whose two hypotheses are both
+    free — `fractalHodgeCrystallization_collapses` shows the second is
+    equivalent to `True`, and the first is consumed by `have _conc := …` and
+    then never used, so it is a dead hypothesis.
+
+    Here `hbound` appears in the conclusion. It is used, and it is not free:
+    for `k3Ambient` it is unavailable, so this reduction genuinely does not
+    apply there. -/
+theorem hodge_via_fractal_resonance_bounded
+    (H : HodgeAmbient) (hbound : HodgeRankBoundOnAmbient H) (i : ℕ) :
+    HodgeAlgebraicRepresentationStrengthened H i :=
+  ⟨hbound, (hodgeAlgebraicRepresentation_collapses H i).mpr trivial⟩
+
+/-- The restricted claim follows, by the bounded reduction. -/
+theorem hodgeConjectureOnBoundedAmbients_holds : HodgeConjectureOnBoundedAmbients :=
+  fun H hbound i => hodge_via_fractal_resonance_bounded H hbound i
+
+/-- **And the honest limit of that.**
+
+    `HodgeConjectureOnBoundedAmbients` is provable precisely because the
+    representation half remains free: all the content of the strengthened
+    predicate sits in the bound. So §4 is a correct scoping of the framework's
+    Hodge route — it applies to ambients with `betti ≤ 20` and demonstrably not
+    to K3 — and it is not progress on the Hodge conjecture, which would require
+    algebraic cycles that cannot be written at this pin.
+
+    Stated as a conjunction so both halves travel together and the second
+    cannot be dropped when the first is quoted. -/
+theorem bounded_route_is_scoping_not_progress :
+    HodgeConjectureOnBoundedAmbients
+      ∧ (∀ (H : HodgeAmbient) (i : ℕ), HodgeAlgebraicRepresentation H i ↔ True)
+      ∧ ¬ (∀ (H : HodgeAmbient) (i : ℕ), HodgeAlgebraicRepresentationStrengthened H i) :=
+  ⟨hodgeConjectureOnBoundedAmbients_holds,
+   fun H i => hodgeAlgebraicRepresentation_collapses H i,
+   strengthened_conjecture_is_false⟩
+
 /-! ## §3 — The non-claim -/
 
 /-- **This settles nothing about the Hodge conjecture.**
